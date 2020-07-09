@@ -13,6 +13,6 @@ entries:
       title: pct
       url: /core
     output: web
-    title: nbdev_template
+    title: pct
   output: web
   title: Sidebar
