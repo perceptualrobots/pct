@@ -3,9 +3,11 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"say_hello": "00_core.ipynb",
-         "HelloSayer": "00_core.ipynb"}
+         "HelloSayer": "00_core.ipynb",
+         "smooth": "01_rmath.ipynb"}
 
-modules = ["core.py"]
+modules = ["core.py",
+           "utilities/rmath.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 

@@ -12,6 +12,9 @@ entries:
     - output: web,pdf
       title: pct
       url: /core
+    - output: web,pdf
+      title: rmath
+      url: /rmath
     output: web
     title: pct
   output: web

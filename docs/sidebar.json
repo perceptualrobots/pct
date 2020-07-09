@@ -1,6 +1,7 @@
 {
   "pct": {
     "Overview": "/",
-    "pct": "/core"
+    "pct": "/core",
+    "rmath": "/rmath"
   }
 }
