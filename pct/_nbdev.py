@@ -5,7 +5,8 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"say_hello": "00_core.ipynb",
          "HelloSayer": "00_core.ipynb",
          "smooth": "01_rmath.ipynb",
-         "BaseFunction": "02_functions.ipynb"}
+         "BaseFunction": "02_functions.ipynb",
+         "Proportional": "02_functions.ipynb"}
 
 modules = ["core.py",
            "utilities/rmath.py",
