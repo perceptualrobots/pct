@@ -13,7 +13,7 @@ entries:
       title: pct
       url: /core
     - output: web,pdf
-      title: rmath
+      title: Math
       url: /rmath
     - output: web,pdf
       title: Functions

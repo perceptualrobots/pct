@@ -2,7 +2,7 @@
   "pct": {
     "Overview": "/",
     "pct": "/core",
-    "rmath": "/rmath",
+    "Math": "/rmath",
     "Functions": "/functions"
   }
 }

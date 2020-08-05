@@ -4,5 +4,5 @@ __all__ = ['smooth']
 
 # Cell
 def smooth( newVal, oldVal, weight) :
-    "An exponential smoothing function"
+    "An exponential smoothing function. The weight is the smoothing factor applied to the old value."
     return newVal * (1 - weight) + oldVal * weight;
