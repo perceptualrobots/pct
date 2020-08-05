@@ -15,6 +15,9 @@ entries:
     - output: web,pdf
       title: rmath
       url: /rmath
+    - output: web,pdf
+      title: Functions
+      url: /functions
     output: web
     title: pct
   output: web

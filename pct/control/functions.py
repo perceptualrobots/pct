@@ -3,6 +3,9 @@
 __all__ = ['BaseFunction', 'Proportional']
 
 # Cell
+from abc import ABC, abstractmethod
+
+# Cell
 class BaseFunction(ABC):
     "Base class of a PCT function."
     def __init__(self):
