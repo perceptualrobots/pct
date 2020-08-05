@@ -12,6 +12,9 @@ class BaseFunction(ABC):
     def __call__(self):
         pass
 
+    def set_output(self, output):
+        self.output= output
+
     def get_output(self):
         return self.output
 
