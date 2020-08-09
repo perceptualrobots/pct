@@ -19,7 +19,10 @@ entries:
       title: Functions
       url: /functions
     - output: web,pdf
-      title: Title
+      title: Nodes
+      url: /nodes
+    - output: web,pdf
+      title: Hierarchy
       url: /hierarchy
     output: web
     title: pct

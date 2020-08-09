@@ -4,6 +4,7 @@
     "pct": "/core",
     "Math": "/rmath",
     "Functions": "/functions",
-    "Title": "/hierarchy"
+    "Nodes": "/nodes",
+    "Hierarchy": "/hierarchy"
   }
 }
