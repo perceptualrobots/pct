@@ -9,7 +9,7 @@ from abc import ABC, abstractmethod
 class BaseFunction(ABC):
     "Base class of a PCT function."
     def __init__(self):
-        self.output = 0
+        self.output = np.zeros(1)
 
     @abstractmethod
     def __call__(self):
