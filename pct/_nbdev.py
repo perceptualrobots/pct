@@ -11,9 +11,9 @@ index = {"say_hello": "00_core.ipynb",
          "PCTNode": "03_nodes.ipynb"}
 
 modules = ["core.py",
-           "utilities/rmath.py",
-           "control/functions.py",
-           "control/nodes.py"]
+           "rmath.py",
+           "functions.py",
+           "nodes.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 
