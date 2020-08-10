@@ -5,9 +5,30 @@ __all__ = ['PCTNode']
 # Cell
 class PCTNode():
     "A single PCT controller."
-    def __init__(self):
-        self.perceptionCollection =
+    def __init__(self, perception):
+        self.perceptionCollection = [perception]
+        reference = Constant(1)
+        self.referenceCollection = [reference]
+        comparator = Subtract()
+        self.comparatorCollection = [comparator]
+        self.outputCollection = [Integrator(75, 100)]
 
     def __call__(self):
-        self.output = input * self.gain
+        for perceptionFunction in perceptionCollection:
+            perceptionFunction()
+
+        for referenceFunction in referenceCollection:
+            referenceFunction()
+
+        comparator.addLink(referenceCollection[-1])
+        comparator.addLink(perceptionCollection[-1])
+
+        for comparatorFunction in comparatorCollection:
+            comparatorFunction()
+
+        outputCollection[0].setLink()
+        for outputFunction in outputCollection:
+            outputFunction()
+
+        self.output = outputCollection[-1]
         return self.output
