@@ -8,13 +8,18 @@ from abc import ABC, abstractmethod
 # Cell
 class BaseFunction(ABC):
     "Base class of a PCT function."
-    def __init__(self):
+    def __init__(self, name):
         self.output = np.zeros(1)
         self.links = []
+        self.name = name
 
     @abstractmethod
     def __call__(self):
         pass
+
+    @abstractmethod
+    def summary(self):
+        print(self.name, type(self).__name__, end = "")
 
     def set_output(self, output):
         self.output= output
@@ -29,39 +34,52 @@ class BaseFunction(ABC):
 # Cell
 class Constant(BaseFunction):
     "A function that returns a constant value."
-    def __init__(self, constant):
-        super().__init__()
+    def __init__(self, constant, name="constant"):
+        super().__init__(name)
         self.output = constant
 
     def __call__(self):
         return self.output
 
+    def summary(self):
+        super().summary()
+        print(self.output)
+
+
 # Cell
 class Subtract(BaseFunction):
     "A function that subtracts one value from another."
-    def __init__(self):
-        super().__init__()
+    def __init__(self, name="subtract"):
+        super().__init__(name)
 
     def __call__(self):
         self.output = self.links[0].get_output()-self.links[1].get_output()
         return self.output
 
+    def summary(self):
+        super().summary()
+
+
 # Cell
 class Proportional(BaseFunction):
     "Proportional function."
-    def __init__(self, gain):
-        super().__init__()
+    def __init__(self, gain, name="proportional"):
+        super().__init__(name)
         self.gain = gain
 
     def __call__(self):
         self.output = input * self.gain
         return self.output
 
+    def summary(self):
+        super().summary()
+
+
 # Cell
 class Integration(BaseFunction):
     "Integration function."
-    def __init__(self, gain, slow):
-        super().__init__()
+    def __init__(self, gain, slow, name="integration"):
+        super().__init__(name)
         self.gain = gain
         self.slow = slow
 
@@ -69,6 +87,11 @@ class Integration(BaseFunction):
         input = self.links[0].get_output()
         self.output = self.output +  ((input * self.gain) - self.output)/self.slow
         return self.output
+
+    def summary(self):
+        super().summary()
+        print(f'gain {self.gain} slow {self.slow} output {self.output}')
+
 
 
 # Cell
@@ -108,4 +131,10 @@ class PCTNode():
 
     def summary(self):
         print(self.name, type(self).__name__)
+        print("----------------------------")
+        for referenceFunction in self.referenceCollection:
+            referenceFunction.summary()
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.summary()
+
         print("----------------------------")
