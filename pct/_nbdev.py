@@ -6,6 +6,8 @@ index = {"say_hello": "00_core.ipynb",
          "HelloSayer": "00_core.ipynb",
          "smooth": "01_rmath.ipynb",
          "BaseFunction": "02_functions.ipynb",
+         "Constant": "02_functions.ipynb",
+         "Subtract": "02_functions.ipynb",
          "Proportional": "02_functions.ipynb",
          "Integration": "02_functions.ipynb",
          "PCTNode": "03_nodes.ipynb"}
