@@ -35,6 +35,8 @@ sidebar: home_sidebar
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -101,7 +103,39 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L35" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>constant</code></strong>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L49" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>variable</code></strong>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+</blockquote>
+<p>A function that returns a variable value.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L63" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>constant</code></strong>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a constant value.</p>
 
@@ -133,7 +167,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L50" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>name</code></strong>=<em><code>'subtract'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L77" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>name</code></strong>=<em><code>'subtract'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that subtracts one value from another.</p>
 
@@ -165,7 +199,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L64" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L92" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>Proportional function.</p>
 
@@ -197,7 +231,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L79" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>, <strong><code>slow</code></strong>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L107" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>, <strong><code>slow</code></strong>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>Integration function.</p>
 
@@ -205,6 +239,25 @@ sidebar: home_sidebar
 
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">velocity_model</span><span class="p">(</span><span class="n">velocity</span><span class="p">,</span>  <span class="n">force</span> <span class="p">,</span> <span class="n">mass</span><span class="p">):</span>
+    <span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">force</span> <span class="o">/</span> <span class="n">mass</span>
+    <span class="k">return</span> <span class="n">velocity</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -263,7 +316,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L98" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>perception</code></strong>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>)</p>
+<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L127" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>perception</code></strong>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>)</p>
 </blockquote>
 <p>A single PCT controller.</p>
 
@@ -284,29 +337,13 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">Integration</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">node</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
-<span class="n">world</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_output_function</span><span class="p">())</span>
-<span class="n">output</span> <span class="o">=</span> <span class="n">node</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="k">assert</span> <span class="nb">abs</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">1.4925</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.000001</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mass</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">force</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">velocity</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;velocity&quot;</span><span class="p">)</span>
+<span class="n">node</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="p">(</span><span class="n">velocity</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1.4925000000000002
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -335,13 +372,211 @@ sidebar: home_sidebar
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>pctnode PCTNode
 ----------------------------
-constant Constant1
-integration Integrationgain 50 slow 100 output [0.]
+REF: constant Constant  | 1 
+PER: velocity Variable  | 0 
+COM: subtract Subtract  | [0.] | links  constant velocity 
+OUT: integration Integration  | gain 75 slow 100  | [0.] | links  subtract 
 ----------------------------
 </pre>
 </div>
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">node</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">force</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">velocity</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">velocity_model</span><span class="p">(</span><span class="n">velocity</span><span class="o">.</span><span class="n">get_value</span><span class="p">(),</span> <span class="n">force</span><span class="p">,</span> <span class="n">mass</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_output_function</span><span class="p">()</span><span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">force</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.75</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1 0 1 [0.75] 
+[0.75]
+0.75
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">node</span><span class="o">.</span><span class="n">set_output</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">velocity</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">#output = node.run(100, True)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">force</span> <span class="o">=</span> <span class="n">node</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#print(force)</span>
+    <span class="n">vel</span> <span class="o">=</span> <span class="n">velocity_model</span><span class="p">(</span><span class="n">velocity</span><span class="o">.</span><span class="n">get_value</span><span class="p">(),</span> <span class="n">force</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+    <span class="c1">#print(vel)</span>
+    <span class="n">velocity</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">vel</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">force</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1 0 1 0.75 
+1 0.015 0.985 1.48125 
+1 0.044625 0.955375 2.1829687499999997 
+1 0.088284375 0.911715625 2.8449257812499997 
+1 0.145182890625 0.854817109375 3.4575893554687496 
+1 0.21433467773437498 0.785665322265625 4.012262453613281 
+1 0.2945799268066406 0.7054200731933594 4.501204883972168 
+1 0.38460402448608394 0.615395975513916 4.917739816767884 
+1 0.4829588208214416 0.5170411791785584 5.256343302984123 
+1 0.5880856868811241 0.41191431311887594 5.512715604793439 
+1 0.6983399989769928 0.30166000102300716 5.68383344951276 
+1 0.812016667967248 0.18798333203275197 5.767982614042197 
+1 0.927376320248092 0.07262367975190798 5.764770547715705 
+1 1.042671731202406 -0.04267173120240608 5.675119043836744 
+1 1.156174112079141 -0.1561741120791409 5.50123726933902 
+1 1.2661988574659213 -0.2661988574659213 5.246575753546189 
+1 1.371130372536845 -0.3711303725368451 4.915762216608093 
+1 1.4694456168690069 -0.4694456168690069 4.514520381790257 
+1 1.559736024504812 -0.559736024504812 4.049573159593746 
+1 1.6407274876966869 -0.6407274876966869 3.5285318122252933 
+1 1.7112981239411926 -0.7112981239411926 2.959772901147146 
+1 1.7704935819641356 -0.7704935819641356 2.3523049856625726 
+1 1.817539681677387 -0.817539681677387 1.7156271745479068 
+1 1.8518522251683451 -0.8518522251683451 1.0595817339261688 
+1 1.8730438598468686 -0.8730438598468686 0.3942030217017557 
+1 1.8809279202809037 -0.8809279202809037 -0.27043494872593976 
+1 1.875519221306385 -0.8755192213063849 -0.9243700152184692 
+1 1.8570318210020156 -0.8570318210020156 -1.5579001808177961 
+1 1.8258738173856597 -0.8258738173856597 -2.161726542048863 
+1 1.7826392865446825 -0.7826392865446825 -2.7270887415368863 
+1 1.7280975117139448 -0.7280975117139448 -3.245890987906976 
+1 1.6631796919558053 -0.6631796919558053 -3.71081684699476 
+1 1.5889633550159101 -0.5889633550159101 -4.115431194786745 
+1 1.5066547311201752 -0.5066547311201752 -4.454267931179009 
+1 1.417569372496595 -0.417569372496595 -4.722902281239666 
+1 1.3231113268718016 -0.32311132687180155 -4.91800675358112 
+1 1.2247511918001792 -0.22475119180017922 -5.037390079895443 
+1 1.1240033902022704 -0.12400339020227036 -5.080018721748192 
+1 1.0224030157673065 -0.022403015767306522 -5.046020796356189 
+1 0.9214825998401828 0.07851740015981723 -4.936672538272765 
+1 0.8227491490747275 0.17725085092527249 -4.754367674696082 
+1 0.7276617955808059 0.2723382044191941 -4.502570344634726 
+1 0.6376103886881114 0.3623896113118886 -4.1857524327044615 
+1 0.5538953400340222 0.4461046599659778 -3.8093164134029336 
+1 0.47770901176596353 0.5222909882340365 -3.379505008093377 
+1 0.41011891160409597 0.589881088395904 -2.9032991417155154 
+1 0.35205292876978567 0.6479470712302143 -2.3883058468756992 
+1 0.3042868118322717 0.6957131881677283 -1.8426378972811461 
+1 0.26743405388664876 0.7325659461133512 -1.2747870587233212 
+1 0.24193831271218233 0.7580616872878176 -0.6934929226702248 
+1 0.22806845425877784 0.7719315457412221 -0.10760933413760587 
+1 0.22591626757602573 0.7740837324239742 0.4740295585217509 
+1 0.23539685874646074 0.7646031412535392 1.0427416188766878 
+1 0.2562516911239945 0.7437483088760055 1.590125434344925 
+1 0.288054199810893 0.711945800189107 2.108183530143306 
+1 0.3302178704137591 0.669782129586241 2.5894382920315535 
+1 0.3820066362543902 0.6179933637456099 3.0270389319204454 
+1 0.4425474148927991 0.557452585107201 3.4148579814316418 
+1 0.510844574521432 0.48915542547856805 3.7475759707262513 
+1 0.585796093935957 0.414203906064043 4.020753140567021 
+1 0.6662111567472975 0.3337888432527025 4.230887241600878 
+1 0.750828901579315 0.24917109842068497 4.375456693000383 
+1 0.8383380354393227 0.16166196456067727 4.452948599490887 
+1 0.9273970074291404 0.07260299257085956 4.462871357924123 
+1 1.016654434587623 -0.016654434587622946 4.405751818404164 
+1 1.1047694709557063 -0.10476947095570632 4.283117197003343 
+1 1.190431814895773 -0.1904318148957731 4.09746216386148 
+1 1.2723810581730026 -0.2723810581730026 3.8522017485931133 
+1 1.3494250931448648 -0.3494250931448648 3.5516109112485337 
+1 1.4204573113698356 -0.42045731136983555 3.200751818608672 
+1 1.484472347742009 -0.484472347742009 2.8053900396160785 
+1 1.5405801485343305 -0.5405801485343305 2.37190102781917 
+1 1.5880181690907138 -0.5880181690907138 1.9071683907229429 
+1 1.6261615369051727 -0.6261615369051727 1.418475554136834 
+1 1.6545310479879094 -0.6545310479879094 0.9133925126045336 
+1 1.6727988982400002 -0.6727988982400002 0.39965941379848813 
+1 1.68079208651597 -0.68079208651597 -0.11493124522647424 
+1 1.6784934616114404 -0.6784934616114404 -0.6226520289827898 
+1 1.6660404210317845 -0.6660404210317845 -1.1159558244668002 
+1 1.6437213045424486 -0.6437213045424486 -1.5875872446289685 
+1 1.6119695596498693 -0.6119695596498693 -2.030688541920081 
+1 1.5713557888114678 -0.5713557888114678 -2.438898498109481 
+1 1.5225778188492782 -0.5225778188492782 -2.8064428772653445 
+1 1.4664489613039713 -0.4664489613039713 -3.1282151694706695 
+1 1.4038846579145579 -0.40388465791455785 -3.399846511211881 
+1 1.3358877276903203 -0.33588772769032027 -3.6177638418675024 
+1 1.2635324508529702 -0.26353245085297017 -3.7792355415885552 
+1 1.187947740021199 -0.18794774002119907 -3.882403991188569 
+1 1.1102996601974278 -0.11029966019742776 -3.9263046964247543 
+1 1.0317735662689327 -0.031773566268932685 -3.9108718241622062 
+1 0.9535561297856886 0.0464438702143114 -3.8369302032598505 
+1 0.8768175257204915 0.12318247427950846 -3.7061740455176206 
+1 0.8026940448101392 0.19730595518986083 -3.5211328386700487 
+1 0.7322713880367382 0.2677286119632618 -3.285125051310902 
+1 0.6665688870105202 0.3334311129894798 -3.002200466055683 
+1 0.6065248776894065 0.39347512231059345 -2.6770721196621814 
+1 0.5529834352961629 0.4470165647038371 -2.3150389749376816 
+1 0.5066826557974092 0.49331734420259077 -1.9219005770363617 
+1 0.468244644256682 0.531755355743318 -1.5038650544585095 
+1 0.4381673431675118 0.5618326568324882 -1.0674519112895582 
+-1.0674519112895582
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>    
+</pre></div>
+
+    </div>
 </div>
 </div>
 
