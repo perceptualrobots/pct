@@ -35,8 +35,6 @@ sidebar: home_sidebar
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -73,7 +71,7 @@ sidebar: home_sidebar
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L9" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>) :: <code>ABC</code></p>
 </blockquote>
-<p>Base class of a PCT function.</p>
+<p>Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
 </div>
 
@@ -103,7 +101,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L52" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>variable</code></strong>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L58" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>variable</code></strong>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a variable value.</p>
 
@@ -135,7 +133,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L66" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>constant</code></strong>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L74" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>constant</code></strong>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a constant value.</p>
 
@@ -167,7 +165,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L80" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>name</code></strong>=<em><code>'subtract'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L91" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>name</code></strong>=<em><code>'subtract'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that subtracts one value from another.</p>
 
@@ -199,9 +197,9 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L96" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L107" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
-<p>Proportional function.</p>
+<p>A proportion of the input value defined by the gain parameter.</p>
 
 </div>
 
@@ -216,31 +214,6 @@ sidebar: home_sidebar
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Integration</span><span class="p">(</span><span class="n">BaseFunction</span><span class="p">):</span>
-    <span class="s2">&quot;Integration function.&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gain</span><span class="p">,</span> <span class="n">slow</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;integration&quot;</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gain</span> <span class="o">=</span> <span class="n">gain</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span>
-    
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">links</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span>  <span class="p">((</span><span class="nb">input</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">gain</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">slow</span>
-        
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
-
- 
-    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;gain </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gain</span><span class="si">}</span><span class="s1"> slow </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">slow</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     {% endraw %}
@@ -256,7 +229,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L112" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>, <strong><code>slow</code></strong>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L123" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>, <strong><code>slow</code></strong>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>Integration function.</p>
 

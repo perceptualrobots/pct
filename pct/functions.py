@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 
 # Cell
 class BaseFunction(ABC):
-    "Base class of a PCT function."
+    "Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all."
     def __init__(self, name):
         self.value = 0
         self.links = []
@@ -32,6 +32,12 @@ class BaseFunction(ABC):
             print(link.get_name(), end= " ")
         print()
 
+    @abstractmethod
+    def get_config(self):
+        config = {"name": self._name}
+        config["value"] = self.value
+        return config
+
     def get_name(self):
         return self.name
 
@@ -51,6 +57,8 @@ class BaseFunction(ABC):
 # Cell
 class Variable(BaseFunction):
     "A function that returns a variable value."
+    "Parameter: The variable value."
+    "Links: None"
     def __init__(self, variable, name="variable"):
         super().__init__(name)
         self.value = variable
@@ -75,6 +83,9 @@ class Constant(BaseFunction):
     def summary(self):
         super().summary("")
 
+    def get_config(self):
+        config = super().get_config()
+
 
 # Cell
 class Subtract(BaseFunction):
@@ -94,7 +105,7 @@ class Subtract(BaseFunction):
 
 # Cell
 class Proportional(BaseFunction):
-    "Proportional function."
+    "A proportion of the input value defined by the gain parameter."
     def __init__(self, gain, name="proportional"):
         super().__init__(name)
         self.gain = gain
@@ -122,6 +133,11 @@ class Integration(BaseFunction):
 
         return super().__call__(verbose)
 
-
     def summary(self):
         super().summary(f'gain {self.gain} slow {self.slow} ')
+
+    def get_config(self):
+        config = super().get_config()
+        config["gain"] = self.gain
+        config["slow"] = self.slow
+        return config
