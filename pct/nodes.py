@@ -35,7 +35,7 @@ class PCTNodeData():
 # Cell
 class PCTNode():
     "A single PCT controller."
-    def __init__(self, perception, name="pctnode", history=False):
+    def __init__(self, perception=Constant(1), name="pctnode", history=False):
         self.links_built = False
         if history:
             self.history = PCTNodeData()
@@ -121,6 +121,16 @@ class PCTNode():
         if collection == "refcoll":
             self.referenceCollection[position].set_name(name)
 
+        if collection == "percoll":
+            self.perceptionCollection[position].set_name(name)
+
+        if collection == "comcoll":
+            self.comparatorCollection[position].set_name(name)
+
+        if collection == "outcoll":
+            self.outputCollection[position].set_name(name)
+
+
     def summary(self):
         if not self.links_built:
             self.build_links()
@@ -144,3 +154,30 @@ class PCTNode():
             outputFunction.summary()
 
         print("----------------------------")
+
+    def get_config(self):
+        config = {"type": type(self).__name__,
+                    "name": self.name}
+
+        coll_name = 'refcoll'
+        collection = self.referenceCollection
+        config[coll_name] = self.get_collection_config(coll_name, collection)
+        coll_name = 'percoll'
+        collection = self.perceptionCollection
+        config[coll_name] = self.get_collection_config(coll_name, collection)
+        coll_name = 'comcoll'
+        collection = self.comparatorCollection
+        config[coll_name] = self.get_collection_config(coll_name, collection)
+        coll_name = 'outcoll'
+        collection = self.outputCollection
+        config[coll_name] = self.get_collection_config(coll_name, collection)
+
+        return config
+
+    def get_collection_config(self, coll_name, collection):
+        coll = {}
+        ctr=0
+        for func in collection:
+            coll[str(ctr)] = func.get_config()
+            ctr+=1
+        return coll
