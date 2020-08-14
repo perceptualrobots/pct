@@ -146,7 +146,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L36" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>perception</code></strong>=<em><code>None</code></em>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>)</p>
+<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L36" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>perception</code></strong>=<em><code>None</code></em>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong>**<code>pargs</code></strong>)</p>
 </blockquote>
 <p>A single PCT controller.</p>
 
@@ -188,7 +188,7 @@ sidebar: home_sidebar
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">node</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
-<span class="c1">#print(node.get_config())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -200,20 +200,89 @@ sidebar: home_sidebar
 
 <div class="output_area">
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;type&#39;: &#39;PCTNode&#39;,
- &#39;name&#39;: &#39;pctnode&#39;,
- &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 1}},
- &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;velocity&#39;, &#39;value&#39;: 0}},
- &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0}},
- &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-   &#39;name&#39;: &#39;proportional&#39;,
-   &#39;value&#39;: 0,
-   &#39;gain&#39;: 10}}}</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;pctnode&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 1, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;velocity&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}}}
+</pre>
+</div>
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">another_node</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="o">.</span><span class="n">from_config</span><span class="p">({</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;mypctnode&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;refcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Proportional&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;proportional&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{},</span> <span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}},</span> 
+    <span class="s1">&#39;percoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Variable&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;velocity&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{}}},</span> 
+    <span class="s1">&#39;comcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Subtract&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;subtract&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;velocity&#39;</span><span class="p">}}},</span> 
+    <span class="s1">&#39;outcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Proportional&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;proportional&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;subtract&#39;</span><span class="p">},</span> <span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
+{&#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
+{&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;velocity&#39;, &#39;value&#39;: 0.2, &#39;links&#39;: {}}
+{&#39;name&#39;: &#39;velocity&#39;, &#39;value&#39;: 0.2, &#39;links&#39;: {}}
+{&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 1, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;velocity&#39;}}
+{&#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 1, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;velocity&#39;}}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 10, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10}
+{&#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 10, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">another_node</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>mypctnode PCTNode
+----------------------------
+REF: proportional Proportional | gain 10 | 0 
+PER: velocity Variable | 0.2 
+COM: subtract Subtract | 1 | links  proportional velocity 
+OUT: proportional Proportional | gain 10 | 10 | links  subtract 
+----------------------------
+</pre>
+</div>
 </div>
 
 </div>

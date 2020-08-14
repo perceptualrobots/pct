@@ -89,9 +89,7 @@ class Proportional(BaseFunction):
 
 # Cell
 class Variable(BaseFunction):
-    "A function that returns a variable value."
-    "Parameter: The variable value."
-    "Links: None"
+    "A function that returns a variable value. Parameter: The variable value. Links: None"
     def __init__(self,  value=0, name="variable", **cargs):
         super().__init__(name, value)
 
@@ -109,10 +107,7 @@ class Variable(BaseFunction):
 
 # Cell
 class Subtract(BaseFunction):
-    "A function that subtracts one value from another."
-    "Parameter: None."
-    "Links: Two links required to each the values to be subtracted."
-
+    "A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted."
     def __init__(self, value=0, name="subtract", **cargs):
         super().__init__(name, value)
 
@@ -131,9 +126,7 @@ class Subtract(BaseFunction):
 
 # Cell
 class Constant(BaseFunction):
-    "A function that returns a constant value."
-    "Parameter: The constant value."
-    "Links: None"
+    "A function that returns a constant value. Parameter: The constant value. Links: None"
     def __init__(self, value=0, name="constant", **cargs):
         super().__init__(name, value)
 
@@ -149,10 +142,7 @@ class Constant(BaseFunction):
 
 # Cell
 class Integration(BaseFunction):
-    "A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input."
-    "Parameter: The gain and slow values."
-    "Links: One."
-
+    "A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameter: The gain and slow values. Links: One."
     def __init__(self, gain=1, slow=2, value=0, name="integration", **cargs):
         super().__init__(name, value)
         self.gain = gain

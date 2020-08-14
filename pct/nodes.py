@@ -35,7 +35,7 @@ class PCTNodeData():
 # Cell
 class PCTNode():
     "A single PCT controller."
-    def __init__(self, perception=None, name="pctnode", history=False):
+    def __init__(self, perception=None, name="pctnode", history=False, **pargs):
         self.links_built = False
         if history:
             self.history = PCTNodeData()
@@ -181,3 +181,39 @@ class PCTNode():
             coll[str(ctr)] = func.get_config()
             ctr+=1
         return coll
+
+    @classmethod
+    def from_config(cls, config):
+        node = PCTNode(name=config['name'])
+
+        node.referenceCollection = []
+        collection = node.referenceCollection
+        coll_dict = config['refcoll']
+        PCTNode.collection_from_config(collection, coll_dict)
+
+        node.perceptionCollection = []
+        collection = node.perceptionCollection
+        coll_dict = config['percoll']
+        PCTNode.collection_from_config(collection, coll_dict)
+
+        node.comparatorCollection = []
+        collection = node.comparatorCollection
+        coll_dict = config['comcoll']
+        PCTNode.collection_from_config(collection, coll_dict)
+
+        node.outputCollection = []
+        collection = node.outputCollection
+        coll_dict = config['outcoll']
+        PCTNode.collection_from_config(collection, coll_dict)
+
+        return node
+
+    @classmethod
+    def collection_from_config(node, collection, coll_dict):
+        for fndict_label in coll_dict:
+            fndict = coll_dict[fndict_label]
+            print(fndict)
+            fnname = fndict.pop('type')
+            print(fndict)
+            func = eval(fnname).from_config(fndict)
+            collection.append(func)
