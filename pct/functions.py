@@ -86,8 +86,8 @@ class Variable(BaseFunction):
     "A function that returns a variable value."
     "Parameter: The variable value."
     "Links: None"
-    def __init__(self, variable, name="variable"):
-        super().__init__(name)
+    def __init__(self, variable, value=0, name="variable"):
+        super().__init__(name, value)
         self.value = variable
 
     def __call__(self, verbose=False):
@@ -105,6 +105,8 @@ class Variable(BaseFunction):
 # Cell
 class Constant(BaseFunction):
     "A function that returns a constant value."
+    "Parameter: The constant value."
+    "Links: None"
     def __init__(self, constant, value=0, name="constant"):
         super().__init__(name, value)
         self.value = constant
@@ -122,6 +124,9 @@ class Constant(BaseFunction):
 # Cell
 class Subtract(BaseFunction):
     "A function that subtracts one value from another."
+    "Parameter: None."
+    "Links: Two links required to each the values to be subtracted."
+
     def __init__(self, name="subtract"):
         super().__init__(name)
 
@@ -138,6 +143,9 @@ class Subtract(BaseFunction):
 # Cell
 class Integration(BaseFunction):
     "Integration function."
+    "Parameter: The gain and slow values."
+    "Links: One."
+
     def __init__(self, gain, slow, value=0, name="integration"):
         super().__init__(name, value)
         self.gain = gain
