@@ -69,8 +69,7 @@ class BaseFunction(ABC):
 
 # Cell
 class Proportional(BaseFunction):
-    "A proportion of the input value as defined by the gain parameter.\nParameters: The gain value.\nLinks: One."
-
+    "A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One."
     def __init__(self, gain=1, value=0, name="proportional", **cargs):
         super().__init__(name, value)
         self.gain = gain
