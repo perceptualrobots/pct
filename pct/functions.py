@@ -37,6 +37,14 @@ class BaseFunction(ABC):
         config = {"type": type(self).__name__,
                     "name": self.name,
                     "value": self.value}
+
+        ctr=0
+        links={}
+        for link in self.links:
+            links[ctr]=link.get_name()
+            ctr+=1
+
+        config['links']=links
         return config
 
     def get_name(self):
@@ -61,7 +69,8 @@ class BaseFunction(ABC):
 
 # Cell
 class Proportional(BaseFunction):
-    "A proportion of the input value as defined by the gain parameter."
+    "A proportion of the input value as defined by the gain parameter.\nParameters: The gain value.\nLinks: One."
+
     def __init__(self, gain=1, value=0, name="proportional", **cargs):
         super().__init__(name, value)
         self.gain = gain
