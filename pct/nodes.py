@@ -35,7 +35,7 @@ class PCTNodeData():
 # Cell
 class PCTNode():
     "A single PCT controller."
-    def __init__(self, perception=Constant(1), name="pctnode", history=False):
+    def __init__(self, perception=None, name="pctnode", history=False):
         self.links_built = False
         if history:
             self.history = PCTNodeData()
