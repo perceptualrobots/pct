@@ -65,7 +65,7 @@ class BaseFunction(ABC):
 class Proportional(BaseFunction):
     "A proportion of the input value as defined by the gain parameter."
     def __init__(self, gain=1, name="proportional", value=0, **cargs):
-        super(Proportional, self).__init__(name, value)
+        super().__init__(name, value)
         self.gain = gain
 
     def __call__(self, verbose=False):
@@ -86,7 +86,7 @@ class Variable(BaseFunction):
     "A function that returns a variable value."
     "Parameter: The variable value."
     "Links: None"
-    def __init__(self, variable, value=0, name="variable"):
+    def __init__(self, variable=0, value=0, name="variable"):
         super().__init__(name, value)
         self.value = variable
 
@@ -107,7 +107,7 @@ class Constant(BaseFunction):
     "A function that returns a constant value."
     "Parameter: The constant value."
     "Links: None"
-    def __init__(self, constant, value=0, name="constant"):
+    def __init__(self, constant=0, value=0, name="constant"):
         super().__init__(name, value)
         self.value = constant
 
@@ -127,8 +127,8 @@ class Subtract(BaseFunction):
     "Parameter: None."
     "Links: Two links required to each the values to be subtracted."
 
-    def __init__(self, name="subtract"):
-        super().__init__(name)
+    def __init__(self, value=0, name="subtract"):
+        super().__init__(name, value)
 
     def __call__(self, verbose=False):
         #print("Sub ", self.links[0].get_value(),self.links[1].get_value() )
@@ -149,7 +149,7 @@ class Integration(BaseFunction):
     "Parameter: The gain and slow values."
     "Links: One."
 
-    def __init__(self, gain, slow, value=0, name="integration"):
+    def __init__(self, gain=1, slow=2, value=0, name="integration"):
         super().__init__(name, value)
         self.gain = gain
         self.slow = slow
