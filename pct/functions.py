@@ -139,6 +139,9 @@ class Subtract(BaseFunction):
     def summary(self):
         super().summary("")
 
+    def get_config(self):
+        return super().get_config()
+
 
 # Cell
 class Integration(BaseFunction):
