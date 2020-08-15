@@ -5,8 +5,8 @@ title: Nodes
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "A node is a single control unit representing a feedback control loop. It comprises four functions, reference, perceptual, comparator and output."
+description: "A node is a single control unit representing a feedback control loop. It comprises four functions, reference, perceptual, comparator and output."
 ---
 <!--
 
@@ -34,26 +34,11 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> autoreload
 <span class="o">%</span><span class="k">autoreload</span> 2
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -80,25 +65,6 @@ sidebar: home_sidebar
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">velocity_model</span><span class="p">(</span><span class="n">velocity</span><span class="p">,</span>  <span class="n">force</span> <span class="p">,</span> <span class="n">mass</span><span class="p">):</span>
-    <span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">force</span> <span class="o">/</span> <span class="n">mass</span>
-    <span class="k">return</span> <span class="n">velocity</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -114,39 +80,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L6" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
-</blockquote>
-<p>Data collected for a PCTNode</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L36" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>perception</code></strong>=<em><code>None</code></em>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong>**<code>pargs</code></strong>)</p>
+<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L6" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>reference</code></strong>=<em><code>None</code></em>, <strong><code>perception</code></strong>=<em><code>None</code></em>, <strong><code>comparator</code></strong>=<em><code>None</code></em>, <strong><code>output</code></strong>=<em><code>None</code></em>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong>**<code>pargs</code></strong>)</p>
 </blockquote>
 <p>A single PCT controller.</p>
 
@@ -163,19 +97,6 @@ sidebar: home_sidebar
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mass</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">force</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">vel</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;velocity&quot;</span><span class="p">)</span>
-<span class="n">node</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="p">(</span><span class="n">vel</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     {% endraw %}
@@ -183,27 +104,20 @@ sidebar: home_sidebar
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">node</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;pctnode&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 1, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;velocity&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}}}
-</pre>
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L210" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
+</blockquote>
+<p>Data collected for a PCTNode</p>
+
 </div>
+
 </div>
 
 </div>
@@ -212,6 +126,13 @@ sidebar: home_sidebar
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Creating-a-Node">Creating a Node<a class="anchor-link" href="#Creating-a-Node"> </a></h2><p>A node can be created simply.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -219,41 +140,110 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">another_node</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="o">.</span><span class="n">from_config</span><span class="p">({</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;mypctnode&#39;</span><span class="p">,</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">node</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That creates a node with default functions. Those are, a constant of 1 for the reference, a variable, with initial value 0, for the perception and a proportional function for the output, with a gain of 10.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A node can also be created by providing a name, and setting the history to True. The latter means that the values of all the functions are recorded during execution, which is useful for plotting the data later, as can be seen below.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">node</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mypctnode&quot;</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Another way of creating a node is by first declaring the functions you want and passing them into the constructor.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;velocity_reference&quot;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;constant_perception&quot;</span><span class="p">)</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">Integration</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;integrator&quot;</span><span class="p">)</span>
+<span class="n">integratingnode</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="p">(</span><span class="n">reference</span><span class="o">=</span><span class="n">r</span><span class="p">,</span> <span class="n">perception</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;integratingnode&quot;</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Yet another way to create a node is from a text configuration.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">config_node</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="o">.</span><span class="n">from_config</span><span class="p">({</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;mypctnode&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;refcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Proportional&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;proportional&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{},</span> <span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}},</span> 
     <span class="s1">&#39;percoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Variable&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;velocity&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{}}},</span> 
     <span class="s1">&#39;comcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Subtract&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;subtract&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;velocity&#39;</span><span class="p">}}},</span> 
     <span class="s1">&#39;outcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Proportional&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;proportional&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;subtract&#39;</span><span class="p">},</span> <span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}})</span>
+<span class="c1">#config_node.get_config()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
-{&#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
-{&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;velocity&#39;, &#39;value&#39;: 0.2, &#39;links&#39;: {}}
-{&#39;name&#39;: &#39;velocity&#39;, &#39;value&#39;: 0.2, &#39;links&#39;: {}}
-{&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 1, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;velocity&#39;}}
-{&#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 1, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;velocity&#39;}}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 10, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10}
-{&#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 10, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Viewing-Node">Viewing Node<a class="anchor-link" href="#Viewing-Node"> </a></h2><p>The details of a node can be viewed in a couple of ways, which is useful for checking the configuration. The summary method prints to the screen. The get_config method returns a string in a JSON format.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -261,7 +251,7 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">another_node</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">integratingnode</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -274,49 +264,12 @@ sidebar: home_sidebar
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>mypctnode PCTNode
+<pre>integratingnode PCTNode
 ----------------------------
-REF: proportional Proportional | gain 10 | 0 
-PER: velocity Variable | 0.2 
-COM: subtract Subtract | 1 | links  proportional velocity 
-OUT: proportional Proportional | gain 10 | 10 | links  subtract 
-----------------------------
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">node</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>pctnode PCTNode
-----------------------------
-REF: constant Constant | 1 
-PER: velocity Variable | 0 
-COM: subtract Subtract | 0 | links  constant velocity 
-OUT: proportional Proportional | gain 10 | 0 | links  subtract 
+REF: velocity_reference Variable | 0 
+PER: constant_perception Constant | 10 
+COM: subtract Subtract | 0 | links  velocity_reference constant_perception 
+OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract 
 ----------------------------
 </pre>
 </div>
@@ -335,11 +288,101 @@ OUT: proportional Proportional | gain 10 | 0 | links  subtract
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">node</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">force</span> <span class="o">=</span> <span class="n">output</span>
-<span class="n">vel</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">velocity_model</span><span class="p">(</span><span class="n">vel</span><span class="o">.</span><span class="n">get_value</span><span class="p">(),</span> <span class="n">force</span><span class="p">,</span> <span class="n">mass</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">integratingnode</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;PCTNode&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;integratingnode&#39;</span><span class="p">,</span> <span class="s1">&#39;refcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Variable&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;velocity_reference&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{}}},</span> <span class="s1">&#39;percoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Constant&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;constant_perception&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{}}},</span> <span class="s1">&#39;comcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Subtract&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;subtract&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;velocity_reference&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;constant_perception&#39;</span><span class="p">}}},</span> <span class="s1">&#39;outcoll&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Integration&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;integrator&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;subtract&#39;</span><span class="p">},</span> <span class="s1">&#39;gain&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;slow&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}}}</span>
+<span class="n">integratingnode</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;type&#39;: &#39;PCTNode&#39;,
+ &#39;name&#39;: &#39;integratingnode&#39;,
+ &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+   &#39;name&#39;: &#39;velocity_reference&#39;,
+   &#39;value&#39;: 0,
+   &#39;links&#39;: {}}},
+ &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+   &#39;name&#39;: &#39;constant_perception&#39;,
+   &#39;value&#39;: 10,
+   &#39;links&#39;: {}}},
+ &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+   &#39;name&#39;: &#39;subtract&#39;,
+   &#39;value&#39;: 0,
+   &#39;links&#39;: {0: &#39;velocity_reference&#39;, 1: &#39;constant_perception&#39;}}},
+ &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Integration&#39;,
+   &#39;name&#39;: &#39;integrator&#39;,
+   &#39;value&#39;: 0,
+   &#39;links&#39;: {0: &#39;subtract&#39;},
+   &#39;gain&#39;: 10,
+   &#39;slow&#39;: 100}}}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Running-a-Node">Running a Node<a class="anchor-link" href="#Running-a-Node"> </a></h2><p>For the purposes of this example we first create a function which is a very basic model of the physical environment. It defines how the world behaves when we pass it the output of the control system.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">velocity_model</span><span class="p">(</span><span class="n">velocity</span><span class="p">,</span>  <span class="n">force</span> <span class="p">,</span> <span class="n">mass</span><span class="p">):</span>
+    <span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity</span> <span class="o">+</span> <span class="n">force</span> <span class="o">/</span> <span class="n">mass</span>
+    <span class="k">return</span> <span class="n">velocity</span>
+
+<span class="n">mass</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">force</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the following cell we start with a velocity of zero. The node is run once (second line), the output of which is the force to apply in the world velocity_model. That returns the updated velocity which we pass back into the node to be used in the next iteration of the loop.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">velocity</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">force</span> <span class="o">=</span> <span class="n">node</span><span class="p">()</span>
+<span class="n">velocity</span> <span class="o">=</span> <span class="n">velocity_model</span><span class="p">(</span><span class="n">velocity</span><span class="p">,</span> <span class="n">force</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+<span class="n">node</span><span class="o">.</span><span class="n">set_perception</span><span class="p">(</span><span class="n">velocity</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">force</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">output</span> <span class="o">==</span> <span class="mi">10</span>
+<span class="k">assert</span> <span class="n">force</span> <span class="o">==</span> <span class="mi">10</span>
 </pre></div>
 
     </div>
@@ -363,6 +406,13 @@ OUT: proportional Proportional | gain 10 | 0 | links  subtract
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The node can be run in a loop as shown below. With verbose set to True the output of each loop will be printed to the screen.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -370,23 +420,86 @@ OUT: proportional Proportional | gain 10 | 0 | links  subtract
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">velocity_input</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;velocity&quot;</span><span class="p">)</span>
-<span class="n">pctnode</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="p">(</span><span class="n">velocity_input</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">pctnode</span><span class="o">.</span><span class="n">set_function_name</span><span class="p">(</span><span class="s2">&quot;refcoll&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;reference&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pctnode</span> <span class="o">=</span> <span class="n">PCTNode</span><span class="p">(</span><span class="n">history</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pctnode</span><span class="o">.</span><span class="n">set_function_name</span><span class="p">(</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="s2">&quot;velocity&quot;</span><span class="p">)</span>
+<span class="n">pctnode</span><span class="o">.</span><span class="n">set_function_name</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="s2">&quot;reference&quot;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
-    <span class="n">force</span> <span class="o">=</span> <span class="n">pctnode</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">vel</span> <span class="o">=</span> <span class="n">velocity_model</span><span class="p">(</span><span class="n">velocity_input</span><span class="o">.</span><span class="n">get_value</span><span class="p">(),</span> <span class="n">force</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
-    <span class="n">velocity_input</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">vel</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">force</span> <span class="o">=</span> <span class="n">pctnode</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">vel</span> <span class="o">=</span> <span class="n">velocity_model</span><span class="p">(</span><span class="n">pctnode</span><span class="o">.</span><span class="n">get_perception</span><span class="p">(),</span> <span class="n">force</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+    <span class="n">pctnode</span><span class="o">.</span><span class="n">set_perception</span><span class="p">(</span><span class="n">vel</span><span class="p">)</span>
+    
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0 1.000 0.000 1.000 10.000 
+1 1.000 0.200 0.800 8.000 
+2 1.000 0.360 0.640 6.400 
+3 1.000 0.488 0.512 5.120 
+4 1.000 0.590 0.410 4.096 
+5 1.000 0.672 0.328 3.277 
+6 1.000 0.738 0.262 2.621 
+7 1.000 0.790 0.210 2.097 
+8 1.000 0.832 0.168 1.678 
+9 1.000 0.866 0.134 1.342 
+10 1.000 0.893 0.107 1.074 
+11 1.000 0.914 0.086 0.859 
+12 1.000 0.931 0.069 0.687 
+13 1.000 0.945 0.055 0.550 
+14 1.000 0.956 0.044 0.440 
+15 1.000 0.965 0.035 0.352 
+16 1.000 0.972 0.028 0.281 
+17 1.000 0.977 0.023 0.225 
+18 1.000 0.982 0.018 0.180 
+19 1.000 0.986 0.014 0.144 
+20 1.000 0.988 0.012 0.115 
+21 1.000 0.991 0.009 0.092 
+22 1.000 0.993 0.007 0.074 
+23 1.000 0.994 0.006 0.059 
+24 1.000 0.995 0.005 0.047 
+25 1.000 0.996 0.004 0.038 
+26 1.000 0.997 0.003 0.030 
+27 1.000 0.998 0.002 0.024 
+28 1.000 0.998 0.002 0.019 
+29 1.000 0.998 0.002 0.015 
+30 1.000 0.999 0.001 0.012 
+31 1.000 0.999 0.001 0.010 
+32 1.000 0.999 0.001 0.008 
+33 1.000 0.999 0.001 0.006 
+34 1.000 0.999 0.001 0.005 
+35 1.000 1.000 0.000 0.004 
+36 1.000 1.000 0.000 0.003 
+37 1.000 1.000 0.000 0.003 
+38 1.000 1.000 0.000 0.002 
+39 1.000 1.000 0.000 0.002 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Plotting-the-Data">Plotting the Data<a class="anchor-link" href="#Plotting-the-Data"> </a></h2><p>As the history of the variable pctnode was set to True the data is available for analysis. It can be plotted with python libraries such as matplotlib or plotly. Here is an example with the latter.</p>
+<p>The graph shows the changing perception values as it is controlled to match the reference value.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">

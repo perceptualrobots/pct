@@ -11,8 +11,8 @@ index = {"say_hello": "00_core.ipynb",
          "Subtract": "02_functions.ipynb",
          "Constant": "02_functions.ipynb",
          "Integration": "02_functions.ipynb",
-         "PCTNodeData": "03_nodes.ipynb",
-         "PCTNode": "03_nodes.ipynb"}
+         "PCTNode": "03_nodes.ipynb",
+         "PCTNodeData": "03_nodes.ipynb"}
 
 modules = ["core.py",
            "rmath.py",

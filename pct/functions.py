@@ -16,7 +16,7 @@ class BaseFunction(ABC):
     @abstractmethod
     def __call__(self, verbose=False):
         if verbose :
-            print(f'{self.value}', end= " ")
+            print(f'{self.value:.3f}', end= " ")
 
         return self.value
 
