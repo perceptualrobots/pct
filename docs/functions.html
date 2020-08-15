@@ -5,8 +5,8 @@ title: Functions
 keywords: fastai
 sidebar: home_sidebar
 
-
-
+summary: "Functions that form the elements of a perceptual control node (system)."
+description: "Functions that form the elements of a perceptual control node (system)."
 ---
 <!--
 
@@ -52,7 +52,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L9" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>, <strong><code>value</code></strong>) :: <code>ABC</code></p>
+<h3 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L9" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>, <strong><code>value</code></strong>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -84,7 +84,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L71" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h3 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L71" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One.</p>
 
@@ -116,7 +116,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L91" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h3 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L91" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>Variable</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a variable value. Parameter: The variable value. Links: None</p>
 
@@ -148,7 +148,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L109" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'subtract'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h3 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L109" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>Subtract</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'subtract'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted.</p>
 
@@ -180,7 +180,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L128" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h3 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L128" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>Constant</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a constant value. Parameter: The constant value. Links: None</p>
 
@@ -212,7 +212,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L144" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h3 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L144" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameter: The gain and slow values. Links: One.</p>
 
@@ -228,7 +228,7 @@ sidebar: home_sidebar
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Creating-Functions">Creating Functions<a class="anchor-link" href="#Creating-Functions"> </a></h1>
+<h2 id="Creating-Functions">Creating Functions<a class="anchor-link" href="#Creating-Functions"> </a></h2>
 </div>
 </div>
 </div>
@@ -440,7 +440,7 @@ sidebar: home_sidebar
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Setting-Links">Setting Links<a class="anchor-link" href="#Setting-Links"> </a></h1><p>The next cell shows how a link is added from one function to another. In this case from an Integration function to a constant function. So, whenever "integrator" runs it will get its input from "cons".</p>
+<h1 id="Setting-Links">Setting Links<a class="anchor-link" href="#Setting-Links"> </a></h1><p>The next cell shows how a link is added to one function from another. In this case from an Integration function to a Constant function. So, whenever "integrator" runs it will get its input from "cons".</p>
 
 </div>
 </div>
@@ -483,7 +483,7 @@ sidebar: home_sidebar
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Running-a-Fucntion">Running a Fucntion<a class="anchor-link" href="#Running-a-Fucntion"> </a></h1><p>A function can simply be run by calling it, without any parameters. It will use whatever input was set by the links. It returns the result of the function. In this example it will be 5 <em> 3 / 10, that is, input </em> gain / slow.</p>
+<h1 id="Running-a-Fucntion">Running a Fucntion<a class="anchor-link" href="#Running-a-Fucntion"> </a></h1><p>A function can simply be run by calling it, without any parameters. It will use whatever input was set by the links. It returns the result of the function. In this example it will be 5 * 3 / 10, that is, input * gain / slow.</p>
 
 </div>
 </div>

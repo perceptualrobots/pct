@@ -1,7 +1,7 @@
-repository: perceptualrobots/nbdev_template
+repository: perceptualrobots/pct
 output: web
-topnav_title: nbdev_template
-site_title: nbdev_template
+topnav_title: pct
+site_title: pct
 company_name: Rupert Young
 description: Perceptual Control Theory with Python
 # Set to false to disable KaTeX math
