@@ -3,6 +3,9 @@
 __all__ = ['PCTNode', 'PCTNodeData']
 
 # Cell
+from .functions import *
+
+# Cell
 class PCTNode():
     "A single PCT controller."
     def __init__(self, reference=None, perception=None, comparator=None, output=None, name="pctnode", history=False, **pargs):
