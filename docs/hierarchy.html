@@ -97,8 +97,8 @@ sidebar: home_sidebar
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x2abffe51088&gt;, &lt;pct.nodes.PCTNode at 0x2abffdb70c8&gt;],
- [&lt;pct.nodes.PCTNode at 0x2abffdb7a88&gt;, &lt;pct.nodes.PCTNode at 0x2abffdb7d88&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x2ab8403bd48&gt;, &lt;pct.nodes.PCTNode at 0x2ab8403b648&gt;],
+ [&lt;pct.nodes.PCTNode at 0x2ab8403be08&gt;, &lt;pct.nodes.PCTNode at 0x2ab84059988&gt;]]</pre>
 </div>
 
 </div>
@@ -116,7 +116,7 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hpct</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -128,47 +128,95 @@ sidebar: home_sidebar
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-21-1282ee915bbe&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>hpct<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-19-e36159b00987&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">     44</span>             <span class="ansi-green-intense-fg ansi-bold">for</span> col <span class="ansi-green-intense-fg ansi-bold">in</span> range<span class="ansi-yellow-intense-fg ansi-bold">(</span>len<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>hierarchy<span class="ansi-yellow-intense-fg ansi-bold">[</span>row<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     45</span>                 column<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-yellow-intense-fg ansi-bold">{</span><span class="ansi-blue-intense-fg ansi-bold">&#39;col&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>col<span class="ansi-yellow-intense-fg ansi-bold">}</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 46</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>nodeconfig <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>hierarchy<span class="ansi-yellow-intense-fg ansi-bold">[</span>row<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span>col<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     47</span>                 <span class="ansi-red-intense-fg ansi-bold">#print(nodeconfig)</span>
-<span class="ansi-green-fg">     48</span>                 column<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#39;node&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">=</span>nodeconfig
 
-<span class="ansi-green-intense-fg ansi-bold">~\Versioning\nbdev\pct\pct\nodes.py</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    167</span>         coll_name <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;percoll&#39;</span>
-<span class="ansi-green-fg">    168</span>         collection <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>perceptionCollection
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 169</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>config<span class="ansi-yellow-intense-fg ansi-bold">[</span>coll_name<span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_collection_config<span class="ansi-yellow-intense-fg ansi-bold">(</span>coll_name<span class="ansi-yellow-intense-fg ansi-bold">,</span> collection<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    170</span>         coll_name <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;comcoll&#39;</span>
-<span class="ansi-green-fg">    171</span>         collection <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>comparatorCollection
-
-<span class="ansi-green-intense-fg ansi-bold">~\Versioning\nbdev\pct\pct\nodes.py</span> in <span class="ansi-cyan-fg">get_collection_config</span><span class="ansi-blue-intense-fg ansi-bold">(self, coll_name, collection)</span>
-<span class="ansi-green-fg">    181</span>         ctr<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">0</span>
-<span class="ansi-green-fg">    182</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> func <span class="ansi-green-intense-fg ansi-bold">in</span> collection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 183</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>coll<span class="ansi-yellow-intense-fg ansi-bold">[</span>str<span class="ansi-yellow-intense-fg ansi-bold">(</span>ctr<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> func<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    184</span>             ctr<span class="ansi-yellow-intense-fg ansi-bold">+=</span><span class="ansi-cyan-intense-fg ansi-bold">1</span>
-<span class="ansi-green-fg">    185</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> coll
-
-<span class="ansi-green-intense-fg ansi-bold">~\Versioning\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    101</span>         config<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;slow&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>slow
-<span class="ansi-green-fg">    102</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> config
-
-<span class="ansi-green-intense-fg ansi-bold">~\Versioning\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">     42</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> config
-<span class="ansi-green-fg">     43</span> 
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 44</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>
-<span class="ansi-green-fg">     45</span> 
-<span class="ansi-green-fg">     46</span> <span class="ansi-red-intense-fg ansi-bold"># Cell</span>
-
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;PCTNode&#39; object has no attribute &#39;get_name&#39;</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;,
+ &#39;name&#39;: &#39;pcthierarchy&#39;,
+ &#39;levels&#39;: {&#39;level0&#39;: {&#39;level&#39;: 0,
+   &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;row0col0&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+        &#39;name&#39;: &#39;constant&#39;,
+        &#39;value&#39;: 1,
+        &#39;links&#39;: {}}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {},
+        &#39;gain&#39;: 10}}}},
+    &#39;col1&#39;: {&#39;col&#39;: 1,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;row0col1&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+        &#39;name&#39;: &#39;constant&#39;,
+        &#39;value&#39;: 1,
+        &#39;links&#39;: {}}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {},
+        &#39;gain&#39;: 10}}}}}},
+  &#39;level1&#39;: {&#39;level&#39;: 1,
+   &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;row1col0&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+        &#39;name&#39;: &#39;constant&#39;,
+        &#39;value&#39;: 1,
+        &#39;links&#39;: {}}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {},
+        &#39;gain&#39;: 10}}}},
+    &#39;col1&#39;: {&#39;col&#39;: 1,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;row1col1&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+        &#39;name&#39;: &#39;constant&#39;,
+        &#39;value&#39;: 1,
+        &#39;links&#39;: {}}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {},
+        &#39;gain&#39;: 10}}}}}}}}</pre>
 </div>
+
 </div>
 
 </div>

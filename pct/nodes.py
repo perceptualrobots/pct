@@ -12,7 +12,7 @@ class PCTNode():
         self.links_built = False
         if history:
             self.history = PCTNodeData()
-        self.name=name
+        self.name = UniqueNamer.getInstance().get_name(name)
         if perception==None:
             perception =  Variable(0)
         self.perceptionCollection = [perception]
@@ -56,11 +56,29 @@ class PCTNode():
 
         return self.output
 
-    def get_perception(self):
-        return self.perceptionCollection[-1].get_value()
+    def get_name(self):
+        return self.name
 
-    def set_perception(self, value):
-        self.perceptionCollection[-1].set_value(value)
+    def get_function(self, collection, position=-1):
+        if collection == "reference":
+            func = self.referenceCollection[position]
+
+        if collection == "perception":
+            func = self.perceptionCollection[position]
+
+        if collection == "comparator":
+            func = self.comparatorCollection[position]
+
+        if collection == "output":
+            func = self.outputCollection[position]
+
+        return func
+
+    def get_perception_value(self, position=-1):
+        return self.perceptionCollection[position].get_value()
+
+    def set_perception_value(self, value, position=-1):
+        self.perceptionCollection[position].set_value(value)
 
     def add_link(self, collection, link):
         if collection == "reference":

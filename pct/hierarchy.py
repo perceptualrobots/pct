@@ -25,22 +25,17 @@ class PCTHierarchy():
 
             self.hierarchy.append(col_list)
 
-#        if history:
-#            self.history = PCTNodeData()
 
     def handle_links(self, node, row, col, links_type):
         if row == 0 or links_type == None:
             return
 
         if links_type == "sparse":
-            node.add_link("perception", self.hierarchy[row-1][col])
+            node.add_link("perception", self.hierarchy[row-1][col].get_function("perception"))
 
         if links_type == "dense":
             for column in range(len(self.hierarchy[row])):
-                node.add_link("perception", self.hierarchy[row-1][column])
-
-
-
+                node.add_link("perception", self.hierarchy[row-1][column].get_function("perception"))
 
     def get_config(self):
         config = {"type": type(self).__name__,
