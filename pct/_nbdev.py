@@ -12,6 +12,7 @@ index = {"say_hello": "00_core.ipynb",
          "Subtract": "02_functions.ipynb",
          "Constant": "02_functions.ipynb",
          "Integration": "02_functions.ipynb",
+         "WeightedSum": "02_functions.ipynb",
          "PCTNode": "03_nodes.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
          "PCTHierarchy": "04_hierarchy.ipynb"}

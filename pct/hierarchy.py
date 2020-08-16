@@ -6,20 +6,26 @@ __all__ = ['PCTHierarchy']
 import numpy as np
 from .nodes import PCTNode
 from .functions import Variable
+from .functions import UniqueNamer
 
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
-    def __init__(self, rows=1, cols=1, name="pcthierarchy", links="sparse", history=False, **pargs):
+    def __init__(self, rows=1, cols=1, name="pcthierarchy", links="single", history=False, **pargs):
         self.links_built = False
-        self.name=name
+        UniqueNamer.getInstance().clear()
+        self.name=UniqueNamer.getInstance().get_name(name)
 
         self.hierarchy = []
         print(self.hierarchy)
         for r in range(rows):
             col_list=[]
             for c in range(cols):
-                node = PCTNode(name=f'row{r}col{c}')
+                if links == "dense":
+                    perc = WeightedSum(weights=np.ones(cols))
+                    node = PCTNode(perception=perc, name=f'row{r}col{c}')
+                else:
+                    node = PCTNode(name=f'row{r}col{c}')
                 self.handle_links(node, r, c, links)
                 col_list.append(node)
 
@@ -30,11 +36,11 @@ class PCTHierarchy():
         if row == 0 or links_type == None:
             return
 
-        if links_type == "sparse":
+        if links_type == "single":
             node.add_link("perception", self.hierarchy[row-1][col].get_function("perception"))
 
         if links_type == "dense":
-            for column in range(len(self.hierarchy[row])):
+            for column in range(len(self.hierarchy[row-1])):
                 node.add_link("perception", self.hierarchy[row-1][column].get_function("perception"))
 
     def get_config(self):
