@@ -62,6 +62,19 @@ class PCTNode():
     def set_perception(self, value):
         self.perceptionCollection[-1].set_value(value)
 
+    def add_link(self, collection, link):
+        if collection == "reference":
+            self.referenceCollection[0].add_link(link)
+
+        if collection == "perception":
+            self.perceptionCollection[0].add_link(link)
+
+        if collection == "comparator":
+            self.comparatorCollection[-1].add_link(link)
+
+        if collection == "output":
+            self.outputCollection[-1].add_link(link)
+
     def build_links(self):
         if len(self.referenceCollection)>0:
             link = self.referenceCollection[0]
