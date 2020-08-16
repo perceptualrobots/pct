@@ -5,8 +5,7 @@ __all__ = ['PCTHierarchy']
 # Cell
 import numpy as np
 from .nodes import PCTNode
-from .functions import Variable
-from .functions import UniqueNamer
+from .functions import *
 
 # Cell
 class PCTHierarchy():
