@@ -5,8 +5,8 @@ title: Nodes
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "A node is a single control unit representing a feedback control loop. It comprises four functions, reference, perceptual, comparator and output."
-description: "A node is a single control unit representing a feedback control loop. It comprises four functions, reference, perceptual, comparator and output."
+summary: "A node is a single control unit representing a feedback control loop. "
+description: "A node is a single control unit representing a feedback control loop. "
 ---
 <!--
 
@@ -27,6 +27,14 @@ description: "A node is a single control unit representing a feedback control lo
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Overview">Overview<a class="anchor-link" href="#Overview"> </a></h2><p>A node comprises four functions, reference, perceptual, comparator and output. Executing the node will run each of the functions in the order indicated above and return the output value.</p>
+<p>The functions can actually be a collection of functions, each executed in the order they are added. This allows a chain of functions in case pre-processing is required, or post-processing in the case of the output.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -84,7 +92,7 @@ description: "A node is a single control unit representing a feedback control lo
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L213" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
+<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L226" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
 </blockquote>
 <p>Data collected for a PCTNode</p>
 
@@ -230,26 +238,6 @@ description: "A node is a single control unit representing a feedback control lo
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>integratingnode PCTNode
-----------------------------
-REF: velocity_reference Variable | 0 
-PER: constant_perception Constant | 10 
-COM: subtract Subtract | 0 | links  velocity_reference constant_perception 
-OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract 
-----------------------------
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -265,41 +253,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;type&#39;: &#39;PCTNode&#39;,
- &#39;name&#39;: &#39;integratingnode&#39;,
- &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
-   &#39;name&#39;: &#39;velocity_reference&#39;,
-   &#39;value&#39;: 0,
-   &#39;links&#39;: {}}},
- &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-   &#39;name&#39;: &#39;constant_perception&#39;,
-   &#39;value&#39;: 10,
-   &#39;links&#39;: {}}},
- &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-   &#39;name&#39;: &#39;subtract&#39;,
-   &#39;value&#39;: 0,
-   &#39;links&#39;: {0: &#39;velocity_reference&#39;, 1: &#39;constant_perception&#39;}}},
- &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Integration&#39;,
-   &#39;name&#39;: &#39;integrator&#39;,
-   &#39;value&#39;: 0,
-   &#39;links&#39;: {0: &#39;subtract&#39;},
-   &#39;gain&#39;: 10,
-   &#39;slow&#39;: 100}}}</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -361,20 +314,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>10
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -405,59 +344,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0 1.000 0.000 1.000 10.000 
-1 1.000 0.200 0.800 8.000 
-2 1.000 0.360 0.640 6.400 
-3 1.000 0.488 0.512 5.120 
-4 1.000 0.590 0.410 4.096 
-5 1.000 0.672 0.328 3.277 
-6 1.000 0.738 0.262 2.621 
-7 1.000 0.790 0.210 2.097 
-8 1.000 0.832 0.168 1.678 
-9 1.000 0.866 0.134 1.342 
-10 1.000 0.893 0.107 1.074 
-11 1.000 0.914 0.086 0.859 
-12 1.000 0.931 0.069 0.687 
-13 1.000 0.945 0.055 0.550 
-14 1.000 0.956 0.044 0.440 
-15 1.000 0.965 0.035 0.352 
-16 1.000 0.972 0.028 0.281 
-17 1.000 0.977 0.023 0.225 
-18 1.000 0.982 0.018 0.180 
-19 1.000 0.986 0.014 0.144 
-20 1.000 0.988 0.012 0.115 
-21 1.000 0.991 0.009 0.092 
-22 1.000 0.993 0.007 0.074 
-23 1.000 0.994 0.006 0.059 
-24 1.000 0.995 0.005 0.047 
-25 1.000 0.996 0.004 0.038 
-26 1.000 0.997 0.003 0.030 
-27 1.000 0.998 0.002 0.024 
-28 1.000 0.998 0.002 0.019 
-29 1.000 0.998 0.002 0.015 
-30 1.000 0.999 0.001 0.012 
-31 1.000 0.999 0.001 0.010 
-32 1.000 0.999 0.001 0.008 
-33 1.000 0.999 0.001 0.006 
-34 1.000 0.999 0.001 0.005 
-35 1.000 1.000 0.000 0.004 
-36 1.000 1.000 0.000 0.003 
-37 1.000 1.000 0.000 0.003 
-38 1.000 1.000 0.000 0.002 
-39 1.000 1.000 0.000 0.002 
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
