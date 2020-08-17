@@ -74,7 +74,9 @@ class BaseFunction(ABC):
     def __init__(self, name, value):
         self.value = value
         self.links = []
+        print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
         self.name = UniqueNamer.getInstance().get_name(name)
+        print(self.name)
         FunctionsList.getInstance().add_function(self)
 
     @abstractmethod

@@ -27,13 +27,14 @@ class PCTHierarchy():
                         ref = WeightedSum(weights=np.ones(cols))
                     if r == 0:
                         node = PCTNode(reference=ref, name=f'row{r}col{c}', history=history)
-                    if r == rows-1:
+                    if r > 0 and r == rows-1:
                         node = PCTNode(perception=perc, name=f'row{r}col{c}', history=history)
                     if r > 0 and r < rows-1:
                         node = PCTNode(perception=perc, reference=ref, history=history, name=f'row{r}col{c}')
 
                 else:
                     node = PCTNode(name=f'row{r}col{c}', history=history)
+                    node.build_links()
 
                 self.handle_perception_links(node, r, c, links)
                 self.handle_reference_links(node, r, c, links)
@@ -157,6 +158,7 @@ class PCTHierarchy():
             cols = []
             for nodes_key in config['levels'][level_key]['nodes'].keys():
                 print(nodes_key)
+                print(config['levels'][level_key]['nodes'][nodes_key]['node'])
                 node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'])
                 cols.append(node)
             hpct.hierarchy.append(cols)
