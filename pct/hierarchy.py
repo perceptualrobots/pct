@@ -156,15 +156,14 @@ class PCTHierarchy():
         hpct.pre=preCollection
         hpct.post=postCollection
 
-
         hpct.hierarchy=[]
         for level_key in config['levels'].keys():
             cols = []
             for nodes_key in config['levels'][level_key]['nodes'].keys():
-                print(nodes_key)
-                print(config['levels'][level_key]['nodes'][nodes_key]['node'])
+                print("PCTHierarchy from_config", nodes_key)
+                print("PCTHierarchy from_config", config['levels'][level_key]['nodes'][nodes_key]['node'])
                 node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'])
-                print(node.get_config())
+                print("PCTHierarchy from_config", node.get_config())
                 cols.append(node)
             hpct.hierarchy.append(cols)
 
