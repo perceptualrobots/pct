@@ -206,8 +206,8 @@ class WeightedSum(BaseFunction):
         if len(self.links) != self.weights.size:
             raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} must be the same.')
 
-        inputs = np.array([link() for link in self.links])
-        self.value = np.dot(inputs, weights)
+        inputs = np.array([link.get_value() for link in self.links])
+        self.value = np.dot(inputs, self.weights)
 
         return super().__call__(verbose)
 
@@ -215,4 +215,6 @@ class WeightedSum(BaseFunction):
         super().summary("")
 
     def get_config(self):
-        return super().get_config()
+        config = super().get_config()
+        config["weights"] = self.weights
+        return config

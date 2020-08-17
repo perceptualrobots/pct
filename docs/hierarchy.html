@@ -52,7 +52,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTHierarchy" class="doc_header"><code>class</code> <code>PCTHierarchy</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/hierarchy.py#L11" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTHierarchy</code>(<strong><code>rows</code></strong>=<em><code>1</code></em>, <strong><code>cols</code></strong>=<em><code>1</code></em>, <strong><code>name</code></strong>=<em><code>'pcthierarchy'</code></em>, <strong><code>links</code></strong>=<em><code>'single'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong>**<code>pargs</code></strong>)</p>
+<h2 id="PCTHierarchy" class="doc_header"><code>class</code> <code>PCTHierarchy</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/hierarchy.py#L11" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTHierarchy</code>(<strong><code>rows</code></strong>=<em><code>1</code></em>, <strong><code>cols</code></strong>=<em><code>1</code></em>, <strong><code>pre</code></strong>=<em><code>[]</code></em>, <strong><code>post</code></strong>=<em><code>[]</code></em>, <strong><code>name</code></strong>=<em><code>'pcthierarchy'</code></em>, <strong><code>links</code></strong>=<em><code>'single'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong>**<code>pargs</code></strong>)</p>
 </blockquote>
 <p>A hierarchical perceptual control system, of PCTNodes.</p>
 
@@ -73,7 +73,9 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hpct</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pre</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;precon&#39;</span><span class="p">)</span>
+<span class="n">post</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;postcon&#39;</span><span class="p">)</span>
+<span class="n">hpct</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">pre</span><span class="p">],</span> <span class="n">post</span><span class="o">=</span><span class="p">[</span><span class="n">post</span><span class="p">],</span><span class="n">links</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">)</span>
 <span class="n">hpct</span><span class="o">.</span><span class="n">hierarchy</span>
 </pre></div>
 
@@ -86,26 +88,18 @@ sidebar: home_sidebar
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[]
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x215f106aa08&gt;,
-  &lt;pct.nodes.PCTNode at 0x215f106a908&gt;,
-  &lt;pct.nodes.PCTNode at 0x215f0baa648&gt;],
- [&lt;pct.nodes.PCTNode at 0x215f1094108&gt;,
-  &lt;pct.nodes.PCTNode at 0x215f1094b08&gt;,
-  &lt;pct.nodes.PCTNode at 0x215f10a7608&gt;],
- [&lt;pct.nodes.PCTNode at 0x215f10a7948&gt;,
-  &lt;pct.nodes.PCTNode at 0x215f10aef88&gt;,
-  &lt;pct.nodes.PCTNode at 0x215f0f2b7c8&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x12e50207488&gt;,
+  &lt;pct.nodes.PCTNode at 0x12e502023c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x12e50200b88&gt;],
+ [&lt;pct.nodes.PCTNode at 0x12e5021e048&gt;,
+  &lt;pct.nodes.PCTNode at 0x12e50217108&gt;,
+  &lt;pct.nodes.PCTNode at 0x12e502176c8&gt;],
+ [&lt;pct.nodes.PCTNode at 0x12e502170c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x12e5021d448&gt;,
+  &lt;pct.nodes.PCTNode at 0x12e5031c6c8&gt;]]</pre>
 </div>
 
 </div>
@@ -140,16 +134,21 @@ sidebar: home_sidebar
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;,
  &#39;name&#39;: &#39;pcthierarchy&#39;,
+ &#39;pre&#39;: {&#39;pre0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+   &#39;name&#39;: &#39;precon&#39;,
+   &#39;value&#39;: 5,
+   &#39;links&#39;: {}}},
  &#39;levels&#39;: {&#39;level0&#39;: {&#39;level&#39;: 0,
    &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row0col0&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant&#39;,
-        &#39;value&#39;: 1,
-        &#39;links&#39;: {}}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {}}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
@@ -164,12 +163,13 @@ sidebar: home_sidebar
     &#39;col1&#39;: {&#39;col&#39;: 1,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row0col1&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant1&#39;,
-        &#39;value&#39;: 1,
-        &#39;links&#39;: {}}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable1&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {}}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
@@ -184,12 +184,13 @@ sidebar: home_sidebar
     &#39;col2&#39;: {&#39;col&#39;: 2,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row0col2&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant2&#39;,
-        &#39;value&#39;: 1,
-        &#39;links&#39;: {}}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum2&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable2&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {}}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
@@ -205,14 +206,16 @@ sidebar: home_sidebar
    &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row1col0&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant3&#39;,
-        &#39;value&#39;: 1,
-        &#39;links&#39;: {}}},
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum4&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum3&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;weighted_sum1&#39;, 2: &#39;weighted_sum2&#39;}}},
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
         &#39;name&#39;: &#39;subtract3&#39;,
         &#39;value&#39;: 0,
@@ -225,14 +228,16 @@ sidebar: home_sidebar
     &#39;col1&#39;: {&#39;col&#39;: 1,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row1col1&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant4&#39;,
-        &#39;value&#39;: 1,
-        &#39;links&#39;: {}}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum4&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum6&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;weighted_sum1&#39;, 2: &#39;weighted_sum2&#39;}}},
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum5&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
         &#39;name&#39;: &#39;subtract4&#39;,
         &#39;value&#39;: 0,
@@ -245,14 +250,16 @@ sidebar: home_sidebar
     &#39;col2&#39;: {&#39;col&#39;: 2,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row1col2&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant5&#39;,
-        &#39;value&#39;: 1,
-        &#39;links&#39;: {}}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum5&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum8&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;weighted_sum1&#39;, 2: &#39;weighted_sum2&#39;}}},
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum7&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
         &#39;name&#39;: &#39;subtract5&#39;,
         &#39;value&#39;: 0,
@@ -267,15 +274,14 @@ sidebar: home_sidebar
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row2col0&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant6&#39;,
+        &#39;name&#39;: &#39;constant&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum6&#39;,
+        &#39;name&#39;: &#39;weighted_sum9&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum3&#39;,
-         1: &#39;weighted_sum4&#39;,
-         2: &#39;weighted_sum5&#39;}}},
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
         &#39;name&#39;: &#39;subtract6&#39;,
         &#39;value&#39;: 0,
@@ -289,15 +295,14 @@ sidebar: home_sidebar
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row2col1&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant7&#39;,
+        &#39;name&#39;: &#39;constant1&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum7&#39;,
+        &#39;name&#39;: &#39;weighted_sum10&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum3&#39;,
-         1: &#39;weighted_sum4&#39;,
-         2: &#39;weighted_sum5&#39;}}},
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
         &#39;name&#39;: &#39;subtract7&#39;,
         &#39;value&#39;: 0,
@@ -311,15 +316,14 @@ sidebar: home_sidebar
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;row2col2&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant8&#39;,
+        &#39;name&#39;: &#39;constant2&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum8&#39;,
+        &#39;name&#39;: &#39;weighted_sum11&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum3&#39;,
-         1: &#39;weighted_sum4&#39;,
-         2: &#39;weighted_sum5&#39;}}},
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
         &#39;name&#39;: &#39;subtract8&#39;,
         &#39;value&#39;: 0,
@@ -328,9 +332,79 @@ sidebar: home_sidebar
         &#39;name&#39;: &#39;proportional8&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {},
-        &#39;gain&#39;: 10}}}}}}}}</pre>
+        &#39;gain&#39;: 10}}}}}}},
+ &#39;post&#39;: {&#39;post0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+   &#39;name&#39;: &#39;postcon&#39;,
+   &#39;value&#39;: 10,
+   &#39;links&#39;: {}}}}</pre>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hpct</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0 0
+row0col0
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-16-d653331fe1dc&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>hpct<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-13-8560b1187ad3&gt;</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">     43</span>                 node  <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>hierarchy<span class="ansi-yellow-intense-fg ansi-bold">[</span>row<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span>col<span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">     44</span>                 print<span class="ansi-yellow-intense-fg ansi-bold">(</span>node<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_name<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 45</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>node<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     46</span> 
+<span class="ansi-green-fg">     47</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> func <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>postCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Versioning\nbdev\pct\pct\nodes.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">     36</span> 
+<span class="ansi-green-fg">     37</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> referenceFunction <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>referenceCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 38</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>referenceFunction<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     39</span> 
+<span class="ansi-green-fg">     40</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> perceptionFunction <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>perceptionCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Versioning\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">    208</span> 
+<span class="ansi-green-fg">    209</span>         inputs <span class="ansi-yellow-intense-fg ansi-bold">=</span> np<span class="ansi-yellow-intense-fg ansi-bold">.</span>array<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">[</span>link<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_value<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">for</span> link <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 210</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> np<span class="ansi-yellow-intense-fg ansi-bold">.</span>dot<span class="ansi-yellow-intense-fg ansi-bold">(</span>inputs<span class="ansi-yellow-intense-fg ansi-bold">,</span> weights<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    211</span> 
+<span class="ansi-green-fg">    212</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> super<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>__call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;weights&#39; is not defined</pre>
+</div>
 </div>
 
 </div>

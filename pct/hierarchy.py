@@ -10,28 +10,60 @@ from .functions import *
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
-    def __init__(self, rows=1, cols=1, name="pcthierarchy", links="single", history=False, **pargs):
+    def __init__(self, rows=1, cols=1, pre=[], post=[], name="pcthierarchy", links="single", history=False, **pargs):
         self.links_built = False
         UniqueNamer.getInstance().clear()
         self.name=UniqueNamer.getInstance().get_name(name)
-
+        self.preCollection=pre
+        self.postCollection=post
         self.hierarchy = []
-        print(self.hierarchy)
         for r in range(rows):
             col_list=[]
             for c in range(cols):
                 if links == "dense":
-                    perc = WeightedSum(weights=np.ones(cols))
-                    node = PCTNode(perception=perc, name=f'row{r}col{c}')
+                    if r > 0:
+                        perc = WeightedSum(weights=np.ones(cols))
+                    if r < rows-1:
+                        ref = WeightedSum(weights=np.ones(cols))
+                    if r == 0:
+                        node = PCTNode(reference=ref, name=f'row{r}col{c}')
+                    if r == rows-1:
+                        node = PCTNode(perception=perc, name=f'row{r}col{c}')
+                    if r > 0 and r < rows-1:
+                        node = PCTNode(perception=perc, reference=ref, name=f'row{r}col{c}')
+
                 else:
                     node = PCTNode(name=f'row{r}col{c}')
-                self.handle_links(node, r, c, links)
+                self.handle_perception_links(node, r, c, links)
+                self.handle_reference_links(node, r, c, links)
                 col_list.append(node)
 
             self.hierarchy.append(col_list)
 
 
-    def handle_links(self, node, row, col, links_type):
+    def __call__(self, verbose=False):
+
+        for func in self.preCollection:
+            func(verbose)
+
+        for row in range(len(self.hierarchy)):
+            for col in range(len(self.hierarchy[row])):
+                print(row, col)
+                node  = self.hierarchy[row][col]
+                print(node.get_name())
+                node(verbose)
+
+        for func in self.postCollection:
+            func(verbose)
+
+        output = self.postCollection[-1].get_value()
+
+        if verbose:
+            print()
+
+        return output
+
+    def handle_perception_links(self, node, row, col, links_type):
         if row == 0 or links_type == None:
             return
 
@@ -42,9 +74,29 @@ class PCTHierarchy():
             for column in range(len(self.hierarchy[row-1])):
                 node.add_link("perception", self.hierarchy[row-1][column].get_function("perception"))
 
+    def handle_reference_links(self, thisnode, row, col, links_type):
+        if row == 0 or links_type == None:
+            return
+
+        if links_type == "single":
+            thatnode = self.hierarchy[row-1][col]
+            thatnode.add_link("reference", thisnode.get_function("output"))
+
+        if links_type == "dense":
+            for column in range(len(self.hierarchy[row-1])):
+                thatnode = self.hierarchy[row-1][column]
+                thatnode.add_link("reference", thisnode.get_function("output"))
+
+
     def get_config(self):
         config = {"type": type(self).__name__,
                     "name": self.name}
+
+        pre = {}
+        for i in range(len(self.preCollection)):
+            pre[f'pre{i}']=self.preCollection[0].get_config()
+        config['pre']=pre
+
 
         levels = {}
         for row in range(len(self.hierarchy)):
@@ -60,4 +112,9 @@ class PCTHierarchy():
             level['nodes']=columns
             levels[f'level{row}']=level
         config['levels']=levels
+
+        post = {}
+        for i in range(len(self.postCollection)):
+            post[f'post{i}']=self.postCollection[0].get_config()
+        config['post']=post
         return config
