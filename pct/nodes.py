@@ -234,14 +234,14 @@ class PCTNode():
 
     @classmethod
     def collection_from_config(node, collection, coll_dict):
-        print("collection_from_config", coll_dict)
+        #print("collection_from_config", coll_dict)
         for fndict_label in coll_dict:
-            print("fndict_label",fndict_label)
+            #print("fndict_label",fndict_label)
 
             fndict = coll_dict[fndict_label]
             #print(fndict)
             fnname = fndict.pop('type')
-            print(fndict)
+            #print(fndict)
             func = eval(fnname).from_config(fndict)
             collection.append(func)
 

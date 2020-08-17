@@ -74,9 +74,9 @@ class BaseFunction(ABC):
     def __init__(self, name, value):
         self.value = value
         self.links = []
-        print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
+        #print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
         self.name = UniqueNamer.getInstance().get_name(name)
-        print(self.name)
+        #print(self.name)
         FunctionsList.getInstance().add_function(self)
 
     @abstractmethod
@@ -130,14 +130,14 @@ class BaseFunction(ABC):
 
     @classmethod
     def from_config(cls, config):
-        print("a:",config)
+        #print("a:",config)
         func = cls(**config)
         key  = 'links'
         if key in config:
             for key in config['links'].keys():
                 func.links.append(FunctionsList.getInstance().get_function(config['links'][key]))
 
-        print("b:",func.get_config())
+        #print("b:",func.get_config())
         return func
 
 
