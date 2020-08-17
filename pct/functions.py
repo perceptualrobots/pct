@@ -130,13 +130,14 @@ class BaseFunction(ABC):
 
     @classmethod
     def from_config(cls, config):
+        print("a:",config)
         func = cls(**config)
         key  = 'links'
         if key in config:
             for key in config['links'].keys():
                 func.links.append(FunctionsList.getInstance().get_function(config['links'][key]))
 
-        print(func.get_config())
+        print("b:",func.get_config())
         return func
 
 
