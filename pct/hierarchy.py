@@ -26,14 +26,15 @@ class PCTHierarchy():
                     if r < rows-1:
                         ref = WeightedSum(weights=np.ones(cols))
                     if r == 0:
-                        node = PCTNode(reference=ref, name=f'row{r}col{c}')
+                        node = PCTNode(reference=ref, name=f'row{r}col{c}', history=history)
                     if r == rows-1:
-                        node = PCTNode(perception=perc, name=f'row{r}col{c}')
+                        node = PCTNode(perception=perc, name=f'row{r}col{c}', history=history)
                     if r > 0 and r < rows-1:
-                        node = PCTNode(perception=perc, reference=ref, name=f'row{r}col{c}')
+                        node = PCTNode(perception=perc, reference=ref, history=history, name=f'row{r}col{c}')
 
                 else:
-                    node = PCTNode(name=f'row{r}col{c}')
+                    node = PCTNode(name=f'row{r}col{c}', history=history)
+
                 self.handle_perception_links(node, r, c, links)
                 self.handle_reference_links(node, r, c, links)
                 col_list.append(node)
@@ -44,17 +45,27 @@ class PCTHierarchy():
     def __call__(self, verbose=False):
 
         for func in self.preCollection:
+            if verbose:
+                print(func.get_name(), end =" ")
             func(verbose)
+
+        if verbose:
+            print()
 
         for row in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[row])):
-                print(row, col)
                 node  = self.hierarchy[row][col]
-                print(node.get_name())
+                if verbose:
+                    print(node.get_name(), end =" ")
                 node(verbose)
 
         for func in self.postCollection:
+            if verbose:
+                print(func.get_name(), end =" ")
             func(verbose)
+
+        if verbose:
+            print()
 
         output = self.postCollection[-1].get_value()
 
@@ -62,6 +73,14 @@ class PCTHierarchy():
             print()
 
         return output
+
+    def run(self, steps=None, verbose=False):
+        for i in range(steps):
+            out = self(verbose)
+        return out
+
+    def get_node(self, row, col):
+        return self.hierarchy[row][col]
 
     def handle_perception_links(self, node, row, col, links_type):
         if row == 0 or links_type == None:
