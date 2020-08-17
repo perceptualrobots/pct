@@ -8,28 +8,30 @@ from .functions import *
 # Cell
 class PCTNode():
     "A single PCT controller."
-    def __init__(self, reference=None, perception=None, comparator=None, output=None, name="pctnode", history=False, **pargs):
+    def __init__(self, reference=None, perception=None, comparator=None, output=None, default=True, name="pctnode", history=False, **pargs):
         self.links_built = False
         self.history = None
         if history:
             self.history = PCTNodeData()
         self.name = UniqueNamer.getInstance().get_name(name)
-        if perception==None:
-            perception =  Variable(0)
-        self.perceptionCollection = [perception]
 
-        if reference==None:
-            reference = Constant(1)
-        self.referenceCollection = [reference]
+        if default:
+            if perception==None:
+                perception =  Variable(0)
+            self.perceptionCollection = [perception]
 
-        if comparator==None:
-            comparator = Subtract()
-        self.comparatorCollection = [comparator]
+            if reference==None:
+                reference = Constant(1)
+            self.referenceCollection = [reference]
 
-        if output==None:
-            output = Proportional(10)
+            if comparator==None:
+                comparator = Subtract()
+            self.comparatorCollection = [comparator]
 
-        self.outputCollection = [output]
+            if output==None:
+                output = Proportional(10)
+
+            self.outputCollection = [output]
 
     def __call__(self, verbose=False):
         if not self.links_built:
@@ -205,7 +207,7 @@ class PCTNode():
 
     @classmethod
     def from_config(cls, config):
-        node = PCTNode(name=config['name'])
+        node = PCTNode(default=False, name=config['name'])
 
         node.referenceCollection = []
         collection = node.referenceCollection
