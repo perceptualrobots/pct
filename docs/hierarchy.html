@@ -91,15 +91,15 @@ sidebar: home_sidebar
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x12e50207488&gt;,
-  &lt;pct.nodes.PCTNode at 0x12e502023c8&gt;,
-  &lt;pct.nodes.PCTNode at 0x12e50200b88&gt;],
- [&lt;pct.nodes.PCTNode at 0x12e5021e048&gt;,
-  &lt;pct.nodes.PCTNode at 0x12e50217108&gt;,
-  &lt;pct.nodes.PCTNode at 0x12e502176c8&gt;],
- [&lt;pct.nodes.PCTNode at 0x12e502170c8&gt;,
-  &lt;pct.nodes.PCTNode at 0x12e5021d448&gt;,
-  &lt;pct.nodes.PCTNode at 0x12e5031c6c8&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x1a7a14b5288&gt;,
+  &lt;pct.nodes.PCTNode at 0x1a7a14b51c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1a7a14b5e48&gt;],
+ [&lt;pct.nodes.PCTNode at 0x1a7a14b5608&gt;,
+  &lt;pct.nodes.PCTNode at 0x1a7a14b5ac8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1a7a14b5fc8&gt;],
+ [&lt;pct.nodes.PCTNode at 0x1a7a13bb848&gt;,
+  &lt;pct.nodes.PCTNode at 0x1a7a13b0f88&gt;,
+  &lt;pct.nodes.PCTNode at 0x1a7a139ccc8&gt;]]</pre>
 </div>
 
 </div>
@@ -378,7 +378,7 @@ row0col0
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
 <span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-16-d653331fe1dc&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>hpct<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
@@ -390,20 +390,13 @@ row0col0
 <span class="ansi-green-fg">     47</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> func <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>postCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
 
 <span class="ansi-green-intense-fg ansi-bold">~\Versioning\nbdev\pct\pct\nodes.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">     36</span> 
-<span class="ansi-green-fg">     37</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> referenceFunction <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>referenceCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 38</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>referenceFunction<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     39</span> 
-<span class="ansi-green-fg">     40</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> perceptionFunction <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>perceptionCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     52</span>             print<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     53</span> 
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 54</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>history <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     55</span>             self<span class="ansi-yellow-intense-fg ansi-bold">.</span>history<span class="ansi-yellow-intense-fg ansi-bold">.</span>add_data<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     56</span> 
 
-<span class="ansi-green-intense-fg ansi-bold">~\Versioning\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">    208</span> 
-<span class="ansi-green-fg">    209</span>         inputs <span class="ansi-yellow-intense-fg ansi-bold">=</span> np<span class="ansi-yellow-intense-fg ansi-bold">.</span>array<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">[</span>link<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_value<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">for</span> link <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 210</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> np<span class="ansi-yellow-intense-fg ansi-bold">.</span>dot<span class="ansi-yellow-intense-fg ansi-bold">(</span>inputs<span class="ansi-yellow-intense-fg ansi-bold">,</span> weights<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    211</span> 
-<span class="ansi-green-fg">    212</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> super<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>__call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;weights&#39; is not defined</pre>
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;PCTNode&#39; object has no attribute &#39;history&#39;</pre>
 </div>
 </div>
 

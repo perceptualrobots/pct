@@ -10,6 +10,7 @@ class PCTNode():
     "A single PCT controller."
     def __init__(self, reference=None, perception=None, comparator=None, output=None, name="pctnode", history=False, **pargs):
         self.links_built = False
+        self.history = None
         if history:
             self.history = PCTNodeData()
         self.name = UniqueNamer.getInstance().get_name(name)
