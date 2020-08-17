@@ -35,7 +35,8 @@ class PCTHierarchy():
 
                 else:
                     node = PCTNode(name=f'row{r}col{c}', history=history)
-                    node.build_links()
+
+                node.build_links()
 
                 self.handle_perception_links(node, r, c, links)
                 self.handle_reference_links(node, r, c, links)
@@ -160,10 +161,10 @@ class PCTHierarchy():
         for level_key in config['levels'].keys():
             cols = []
             for nodes_key in config['levels'][level_key]['nodes'].keys():
-                print("PCTHierarchy from_config", nodes_key)
-                print("PCTHierarchy from_config", config['levels'][level_key]['nodes'][nodes_key]['node'])
+                #print("PCTHierarchy from_config", nodes_key)
+                #print("PCTHierarchy from_config", config['levels'][level_key]['nodes'][nodes_key]['node'])
                 node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'])
-                print("PCTHierarchy from_config", node.get_config())
+                #print("PCTHierarchy from_config", node.get_config())
                 cols.append(node)
             hpct.hierarchy.append(cols)
 
