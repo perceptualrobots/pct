@@ -10,9 +10,10 @@ from .functions import *
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
-    def __init__(self, rows=0, cols=0, pre=[], post=[], name="pcthierarchy", links="single", history=False, **pargs):
+    def __init__(self, rows=0, cols=0, pre=[], post=[], name="pcthierarchy", clear_names=True, links="single", history=False, **pargs):
         self.links_built = False
-        UniqueNamer.getInstance().clear()
+        if clear_names:
+            UniqueNamer.getInstance().clear()
         self.name=UniqueNamer.getInstance().get_name(name)
         self.preCollection=pre
         self.postCollection=post
@@ -142,7 +143,8 @@ class PCTHierarchy():
 
     @classmethod
     def from_config(cls, config):
-
+        #lookup
+        hpct = PCTHierarchy(name=config['name'])
         preCollection = []
         coll_dict = config['pre']
         PCTNode.collection_from_config(preCollection, coll_dict)
@@ -151,7 +153,9 @@ class PCTHierarchy():
         coll_dict = config['post']
         PCTNode.collection_from_config(postCollection, coll_dict)
 
-        hpct = PCTHierarchy(pre=preCollection, post=postCollection, name=config['name'])
+        hpct.pre=preCollection
+        hpct.post=postCollection
+
 
         hpct.hierarchy=[]
         for level_key in config['levels'].keys():
@@ -160,6 +164,7 @@ class PCTHierarchy():
                 print(nodes_key)
                 print(config['levels'][level_key]['nodes'][nodes_key]['node'])
                 node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'])
+                print(node.get_config())
                 cols.append(node)
             hpct.hierarchy.append(cols)
 
