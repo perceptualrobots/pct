@@ -10,7 +10,7 @@ from .functions import *
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
-    def __init__(self, rows=1, cols=1, pre=[], post=[], name="pcthierarchy", links="single", history=False, **pargs):
+    def __init__(self, rows=0, cols=0, pre=[], post=[], name="pcthierarchy", links="single", history=False, **pargs):
         self.links_built = False
         UniqueNamer.getInstance().clear()
         self.name=UniqueNamer.getInstance().get_name(name)
@@ -137,3 +137,53 @@ class PCTHierarchy():
             post[f'post{i}']=self.postCollection[0].get_config()
         config['post']=post
         return config
+
+
+    @classmethod
+    def from_config(cls, config):
+
+        preCollection = []
+        coll_dict = config['pre']
+        PCTNode.collection_from_config(preCollection, coll_dict)
+
+        postCollection = []
+        coll_dict = config['post']
+        PCTNode.collection_from_config(postCollection, coll_dict)
+
+        hpct = PCTHierarchy(pre=preCollection, post=postCollection, name=config['name'])
+
+        hpct.hierarchy=[]
+        for level_key in config['levels'].keys():
+            cols = []
+            for nodes_key in config['levels'][level_key]['nodes'].keys():
+                print(nodes_key)
+                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'])
+                cols.append(node)
+            hpct.hierarchy.append(cols)
+
+
+        """
+        node.referenceCollection = []
+        collection = node.referenceCollection
+        coll_dict = config['refcoll']
+        PCTNode.collection_from_config(collection, coll_dict)
+
+        node.perceptionCollection = []
+        collection = node.perceptionCollection
+        coll_dict = config['percoll']
+        PCTNode.collection_from_config(collection, coll_dict)
+
+        node.comparatorCollection = []
+        collection = node.comparatorCollection
+        coll_dict = config['comcoll']
+        PCTNode.collection_from_config(collection, coll_dict)
+
+        node.outputCollection = []
+        collection = node.outputCollection
+        coll_dict = config['outcoll']
+        PCTNode.collection_from_config(collection, coll_dict)
+
+        node.build_links()
+        """
+        return hpct
+
