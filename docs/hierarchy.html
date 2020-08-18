@@ -92,15 +92,15 @@ sidebar: home_sidebar
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x28ea82b7988&gt;,
-  &lt;pct.nodes.PCTNode at 0x28ea7f557c8&gt;,
-  &lt;pct.nodes.PCTNode at 0x28ea8225808&gt;],
- [&lt;pct.nodes.PCTNode at 0x28ea81b6308&gt;,
-  &lt;pct.nodes.PCTNode at 0x28ea81c2b48&gt;,
-  &lt;pct.nodes.PCTNode at 0x28ea81c2448&gt;],
- [&lt;pct.nodes.PCTNode at 0x28ea80c30c8&gt;,
-  &lt;pct.nodes.PCTNode at 0x28ea80f65c8&gt;,
-  &lt;pct.nodes.PCTNode at 0x28ea81b85c8&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x1e8bd55d408&gt;,
+  &lt;pct.nodes.PCTNode at 0x1e8bd55d2c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1e8bd55db08&gt;],
+ [&lt;pct.nodes.PCTNode at 0x1e8bd524088&gt;,
+  &lt;pct.nodes.PCTNode at 0x1e8bd524288&gt;,
+  &lt;pct.nodes.PCTNode at 0x1e8bd5247c8&gt;],
+ [&lt;pct.nodes.PCTNode at 0x1e8bd524e88&gt;,
+  &lt;pct.nodes.PCTNode at 0x1e89baacdc8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1e8bd540148&gt;]]</pre>
 </div>
 
 </div>
@@ -491,7 +491,10 @@ postcon 10.000
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;,
  &#39;name&#39;: &#39;pcthierarchy&#39;,
- &#39;pre&#39;: {},
+ &#39;pre&#39;: {&#39;pre0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+   &#39;name&#39;: &#39;precon&#39;,
+   &#39;value&#39;: 5,
+   &#39;links&#39;: {}}},
  &#39;levels&#39;: {&#39;level0&#39;: {&#39;level&#39;: 0,
    &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
@@ -687,7 +690,10 @@ postcon 10.000
         &#39;value&#39;: 10.0,
         &#39;links&#39;: {0: &#39;subtract8&#39;},
         &#39;gain&#39;: 10}}}}}}},
- &#39;post&#39;: {}}</pre>
+ &#39;post&#39;: {&#39;post0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+   &#39;name&#39;: &#39;postcon&#39;,
+   &#39;value&#39;: 10,
+   &#39;links&#39;: {}}}}</pre>
 </div>
 
 </div>
@@ -709,25 +715,6 @@ postcon 10.000
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">AssertionError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-175-4d731aa2234b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">assert</span> h<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">==</span> hpct<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">AssertionError</span>: </pre>
-</div>
-</div>
-
 </div>
 </div>
 

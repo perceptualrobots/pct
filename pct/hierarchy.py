@@ -154,8 +154,8 @@ class PCTHierarchy():
         coll_dict = config['post']
         PCTNode.collection_from_config(postCollection, coll_dict)
 
-        hpct.pre=preCollection
-        hpct.post=postCollection
+        hpct.preCollection=preCollection
+        hpct.postCollection=postCollection
 
         hpct.hierarchy=[]
         for level_key in config['levels'].keys():
