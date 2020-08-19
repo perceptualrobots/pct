@@ -10,9 +10,6 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Math
-      url: /rmath
-    - output: web,pdf
       title: Functions
       url: /functions
     - output: web,pdf
