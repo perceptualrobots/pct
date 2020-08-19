@@ -2,9 +2,7 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"say_hello": "00_core.ipynb",
-         "HelloSayer": "00_core.ipynb",
-         "smooth": "01_rmath.ipynb",
+index = {"smooth": "01_rmath.ipynb",
          "UniqueNamer": "02_functions.ipynb",
          "FunctionsList": "02_functions.ipynb",
          "BaseFunction": "02_functions.ipynb",
@@ -18,8 +16,7 @@ index = {"say_hello": "00_core.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
          "PCTHierarchy": "04_hierarchy.ipynb"}
 
-modules = ["core.py",
-           "rmath.py",
+modules = ["rmath.py",
            "functions.py",
            "nodes.py",
            "hierarchy.py"]
