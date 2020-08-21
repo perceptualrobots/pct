@@ -1,6 +1,7 @@
 {
   "pct": {
     "Overview": "/",
+    "Examples": "/core",
     "Functions": "/functions",
     "Nodes": "/nodes",
     "Hierarchy": "/hierarchy"
