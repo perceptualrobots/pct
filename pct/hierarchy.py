@@ -109,6 +109,25 @@ class PCTHierarchy():
                 thatnode = self.hierarchy[row-1][column]
                 thatnode.add_link("reference", thisnode.get_function("output"))
 
+    def summary(self):
+        print(self.name, type(self).__name__)
+
+        print("**************************")
+        print("PRE:", end=" ")
+        for func in self.preCollection:
+            func.summary()
+
+        for row in range(len(self.hierarchy)):
+            print(f'Level {row}')
+            for col in range(len(self.hierarchy[row])):
+                  self.hierarchy[row][col].summary()
+
+        for func in self.postCollection:
+            func.summary()
+
+        print("**************************")
+
+
 
     def get_config(self):
         config = {"type": type(self).__name__,
@@ -144,7 +163,6 @@ class PCTHierarchy():
 
     @classmethod
     def from_config(cls, config):
-        #lookup
         hpct = PCTHierarchy(name=config['name'])
         preCollection = []
         coll_dict = config['pre']
@@ -161,36 +179,10 @@ class PCTHierarchy():
         for level_key in config['levels'].keys():
             cols = []
             for nodes_key in config['levels'][level_key]['nodes'].keys():
-                #print("PCTHierarchy from_config", nodes_key)
-                #print("PCTHierarchy from_config", config['levels'][level_key]['nodes'][nodes_key]['node'])
                 node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'])
-                #print("PCTHierarchy from_config", node.get_config())
                 cols.append(node)
             hpct.hierarchy.append(cols)
 
 
-        """
-        node.referenceCollection = []
-        collection = node.referenceCollection
-        coll_dict = config['refcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
-
-        node.perceptionCollection = []
-        collection = node.perceptionCollection
-        coll_dict = config['percoll']
-        PCTNode.collection_from_config(collection, coll_dict)
-
-        node.comparatorCollection = []
-        collection = node.comparatorCollection
-        coll_dict = config['comcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
-
-        node.outputCollection = []
-        collection = node.outputCollection
-        coll_dict = config['outcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
-
-        node.build_links()
-        """
         return hpct
 
