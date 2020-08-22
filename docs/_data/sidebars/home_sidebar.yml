@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Title
+      title: Examples
       url: /core
     - output: web,pdf
       title: Functions

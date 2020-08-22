@@ -44,6 +44,8 @@ class PCTHierarchy():
 
             self.hierarchy.append(col_list)
 
+    def get_output_function(self):
+        self.hierarchy[-1][-1].get_output_function()
 
     def __call__(self, verbose=False):
 
@@ -122,6 +124,7 @@ class PCTHierarchy():
             for col in range(len(self.hierarchy[row])):
                   self.hierarchy[row][col].summary()
 
+        print("PRE:", end=" ")
         for func in self.postCollection:
             func.summary()
 

@@ -98,15 +98,15 @@ sidebar: home_sidebar
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x1e8bd551988&gt;,
-  &lt;pct.nodes.PCTNode at 0x1e8bd551148&gt;,
-  &lt;pct.nodes.PCTNode at 0x1e8bd701ec8&gt;],
- [&lt;pct.nodes.PCTNode at 0x1e8bd701908&gt;,
-  &lt;pct.nodes.PCTNode at 0x1e8bd701f88&gt;,
-  &lt;pct.nodes.PCTNode at 0x1e8bd701f08&gt;],
- [&lt;pct.nodes.PCTNode at 0x1e8bd52ddc8&gt;,
-  &lt;pct.nodes.PCTNode at 0x1e8bd553a88&gt;,
-  &lt;pct.nodes.PCTNode at 0x1e8bd553948&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x1bc9f3d78c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1bc9f3d7148&gt;,
+  &lt;pct.nodes.PCTNode at 0x1bc9f3d7ac8&gt;],
+ [&lt;pct.nodes.PCTNode at 0x1bc9f3d7f08&gt;,
+  &lt;pct.nodes.PCTNode at 0x1bcffc8d4c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1bc9f38b188&gt;],
+ [&lt;pct.nodes.PCTNode at 0x1bc9f38b3c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1bc9f38ba48&gt;,
+  &lt;pct.nodes.PCTNode at 0x1bc9f38ba08&gt;]]</pre>
 </div>
 
 </div>
@@ -254,7 +254,7 @@ PER: weighted_sum11 WeightedSum | 0 | links  weighted_sum3 weighted_sum5 weighte
 COM: subtract8 Subtract | 0 | links  constant2 weighted_sum11 
 OUT: proportional8 Proportional | gain 10 | 0 | links  subtract8 
 ----------------------------
-postcon Constant | 10 
+PRE: postcon Constant | 10 
 **************************
 </pre>
 </div>
@@ -537,17 +537,17 @@ postcon Constant | 10
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>precon 5.000 
-row0col0 0.000 0.000 0.000 0.000 
-row0col1 0.000 0.000 0.000 0.000 
-row0col2 0.000 0.000 0.000 0.000 
-row1col0 0.000 0.000 0.000 0.000 
-row1col1 0.000 0.000 0.000 0.000 
-row1col2 0.000 0.000 0.000 0.000 
-row2col0 1.000 0.000 1.000 10.000 
-row2col1 1.000 0.000 1.000 10.000 
-row2col2 1.000 0.000 1.000 10.000 
-postcon 10.000 
+<pre>precon &lt;bound method BaseFunction.output_string of &lt;pct.functions.Constant object at 0x000001BC9F3D7388&gt;&gt; 
+row0col0 &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F3D7E48&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Variable object at 0x000001BC9F3D70C8&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BC9F3D7088&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BC9F3D7108&gt;&gt; 
+row0col1 &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F3D7208&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Variable object at 0x000001BC9F3D72C8&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BC9F3D7248&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BC9F3D7A08&gt;&gt; 
+row0col2 &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F3D7B88&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Variable object at 0x000001BC9F3D7E88&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BC9F3D7D48&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BC9F3D7688&gt;&gt; 
+row1col0 &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F3D7C88&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F3D7E08&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BC9F3D7F88&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BCFF7B91C8&gt;&gt; 
+row1col1 &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BCFFC8D508&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BCFFB30448&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BCFFC8D388&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BCFFB17EC8&gt;&gt; 
+row1col2 &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F38B288&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BCFFB17D08&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BC9F38B0C8&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BC9F38B2C8&gt;&gt; 
+row2col0 &lt;bound method BaseFunction.output_string of &lt;pct.functions.Constant object at 0x000001BC9F38B508&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F38B308&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BC9F38B608&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BC9F38B548&gt;&gt; 
+row2col1 &lt;bound method BaseFunction.output_string of &lt;pct.functions.Constant object at 0x000001BC9F38BEC8&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F38B808&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BC9F38BDC8&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BC9F38BC08&gt;&gt; 
+row2col2 &lt;bound method BaseFunction.output_string of &lt;pct.functions.Constant object at 0x000001BC9F38BAC8&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.WeightedSum object at 0x000001BC9F38B248&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Subtract object at 0x000001BC9F38B8C8&gt;&gt; &lt;bound method BaseFunction.output_string of &lt;pct.functions.Proportional object at 0x000001BC9F38B688&gt;&gt; 
+postcon &lt;bound method BaseFunction.output_string of &lt;pct.functions.Constant object at 0x000001BC9F3D7588&gt;&gt; 
 
 </pre>
 </div>

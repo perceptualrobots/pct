@@ -84,7 +84,7 @@ class BaseFunction(ABC):
     @abstractmethod
     def __call__(self, verbose=False):
         if verbose :
-            print(self.output_string, end= " ")
+            print(self.output_string(), end= " ")
 
         return self.value
 
