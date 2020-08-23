@@ -44,8 +44,6 @@ class PCTHierarchy():
 
             self.hierarchy.append(col_list)
 
-    def get_output_function(self):
-        self.hierarchy[-1][-1].get_output_function()
 
     def __call__(self, verbose=False):
 
@@ -72,12 +70,24 @@ class PCTHierarchy():
         if verbose:
             print()
 
-        output = self.postCollection[-1].get_value()
+        output = self.get_output_function().get_value()
 
         if verbose:
             print()
 
         return output
+
+    def get_output_function(self):
+        if len(self.postCollection) > 0:
+            return self.postCollection[-1]
+
+        return self.hierarchy[-1][-1].get_output_function()
+
+    def add_preprocessor(self, func):
+        self.preCollection.append(func)
+
+    def add_postprocessor(self, func):
+        self.postCollection.append(func)
 
     def run(self, steps=None, verbose=False):
         for i in range(steps):
@@ -116,8 +126,11 @@ class PCTHierarchy():
 
         print("**************************")
         print("PRE:", end=" ")
+        if len(self.preCollection) == 0:
+            print("None")
         for func in self.preCollection:
             func.summary()
+
 
         for row in range(len(self.hierarchy)):
             print(f'Level {row}')
@@ -125,8 +138,11 @@ class PCTHierarchy():
                   self.hierarchy[row][col].summary()
 
         print("PRE:", end=" ")
+        if len(self.postCollection) == 0:
+            print("None")
         for func in self.postCollection:
             func.summary()
+
 
         print("**************************")
 

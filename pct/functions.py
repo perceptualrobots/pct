@@ -320,8 +320,10 @@ class OpenAIGym(BaseFunction):
     def __call__(self, verbose=False):
         super().check_links(1)
         input = self.links[0].get_value()
-
-        obs = self.env.step(input)
+        if input == 1 or input == -1 or input == 0:
+            obs = self.env.step(input)
+        else:
+            raise Exception(f'OpenAIGym: Input value of {input} is not valid, must be 1,0 or -1.')
 
         self.value = obs[0]
 
