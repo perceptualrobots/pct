@@ -18,8 +18,7 @@ index = {"UniqueNamer": "02_functions.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
          "PCTHierarchy": "04_hierarchy.ipynb"}
 
-modules = ["None.py",
-           "functions.py",
+modules = ["functions.py",
            "nodes.py",
            "hierarchy.py"]
 
