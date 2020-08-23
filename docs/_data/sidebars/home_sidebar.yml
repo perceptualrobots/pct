@@ -11,7 +11,7 @@ entries:
       url: /
     - output: web,pdf
       title: Examples
-      url: /core
+      url: /examples
     - output: web,pdf
       title: Functions
       url: /functions

@@ -5,6 +5,7 @@ __all__ = ['UniqueNamer', 'FunctionsList', 'BaseFunction', 'Proportional', 'Vari
 
 # Cell
 import numpy as np
+import gym
 from abc import ABC, abstractmethod
 
 # Cell
