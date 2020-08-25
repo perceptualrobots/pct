@@ -14,7 +14,7 @@ class PCTNode():
         if history:
             self.history = PCTNodeData()
         self.name = UniqueNamer.getInstance().get_name(name)
-
+        FunctionsList.getInstance().add_function(self)
         if default:
             if perception==None:
                 perception =  Variable(0)
@@ -152,6 +152,20 @@ class PCTNode():
 
         if collection == "output":
             self.outputCollection[position].set_name(name)
+
+
+    def insert_function(self, collection, function, position=-1):
+        if collection == "reference":
+            self.referenceCollection[position] = function
+
+        if collection == "perception":
+            self.perceptionCollection[position]  = function
+
+        if collection == "comparator":
+            self.comparatorCollection[position] = function
+
+        if collection == "output":
+            self.outputCollection[position] = function
 
 
     def summary(self):

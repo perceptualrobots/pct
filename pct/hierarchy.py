@@ -12,6 +12,7 @@ class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
     def __init__(self, rows=0, cols=0, pre=[], post=[], name="pcthierarchy", clear_names=True, links="single", history=False, **pargs):
         self.links_built = False
+        self.order=None
         if clear_names:
             UniqueNamer.getInstance().clear()
         self.name=UniqueNamer.getInstance().get_name(name)
@@ -48,23 +49,29 @@ class PCTHierarchy():
     def __call__(self, verbose=False):
 
         for func in self.preCollection:
-            if verbose:
-                print(func.get_name(), end =" ")
+            #if verbose:
+            #    print(func.get_name(), end =" ")
             func(verbose)
 
         if verbose:
             print()
 
-        for row in range(len(self.hierarchy)):
-            for col in range(len(self.hierarchy[row])):
-                node  = self.hierarchy[row][col]
+        if self.order==None:
+            for row in range(len(self.hierarchy)):
+                for col in range(len(self.hierarchy[row])):
+                    node  = self.hierarchy[row][col]
+                    if verbose:
+                        print(node.get_name(), end =" ")
+                    node(verbose)
+        else:
+            for node_name in self.order:
                 if verbose:
-                    print(node.get_name(), end =" ")
-                node(verbose)
+                    print(node_name, end =" ")
+                FunctionsList.getInstance().get_function(node_name)(verbose)
 
         for func in self.postCollection:
-            if verbose:
-                print(func.get_name(), end =" ")
+            #if verbose:
+            #    print(func.get_name(), end =" ")
             func(verbose)
 
         if verbose:
@@ -76,6 +83,10 @@ class PCTHierarchy():
             print()
 
         return output
+
+
+    def set_order(self, order):
+        self.order=order
 
     def get_output_function(self):
         if len(self.postCollection) > 0:
@@ -137,7 +148,7 @@ class PCTHierarchy():
             for col in range(len(self.hierarchy[row])):
                   self.hierarchy[row][col].summary()
 
-        print("PRE:", end=" ")
+        print("POST:", end=" ")
         if len(self.postCollection) == 0:
             print("None")
         for func in self.postCollection:
@@ -205,3 +216,23 @@ class PCTHierarchy():
 
         return hpct
 
+
+    def add_node(self, node, level=-1, col=-1):
+
+        if len(self.hierarchy)==0:
+            self.hierarchy.append([])
+
+        if level<0 and col<0:
+            self.hierarchy[0].append(node)
+        else:
+            levels = len(self.hierarchy)
+            if level == levels:
+                self.hierarchy.append([])
+            self.hierarchy[level].insert(col, node)
+
+    def insert_function(self, level=None, col=None, collection=None, function=None, position=-1):
+        self.hierarchy[level][col].insert_function(collection, function, position)
+
+    def set_links(self, func_name, *link_names):
+        for link_name in link_names:
+            FunctionsList.getInstance().get_function(func_name).add_link(FunctionsList.getInstance().get_function(link_name))
