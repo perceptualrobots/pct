@@ -4,7 +4,8 @@ __all__ = ['PCTNode', 'PCTNodeData']
 
 # Cell
 from .functions import *
-from .utilities import *
+from .utilities import UniqueNamer
+from .utilities import FunctionsList
 
 # Cell
 class PCTNode():

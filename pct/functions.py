@@ -8,6 +8,7 @@ import numpy as np
 import gym
 from abc import ABC, abstractmethod
 from .utilities import UniqueNamer
+from .utilities import FunctionsList
 
 # Cell
 class BaseFunction(ABC):
