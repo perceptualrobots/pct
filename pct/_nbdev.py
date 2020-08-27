@@ -2,8 +2,8 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"UniqueNamer": "02_functions.ipynb",
-         "FunctionsList": "02_functions.ipynb",
+index = {"UniqueNamer": "01_utilities.ipynb",
+         "FunctionsList": "01_utilities.ipynb",
          "BaseFunction": "02_functions.ipynb",
          "Proportional": "02_functions.ipynb",
          "Variable": "02_functions.ipynb",
@@ -18,7 +18,8 @@ index = {"UniqueNamer": "02_functions.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
          "PCTHierarchy": "04_hierarchy.ipynb"}
 
-modules = ["functions.py",
+modules = ["utilities.py",
+           "functions.py",
            "nodes.py",
            "hierarchy.py"]
 

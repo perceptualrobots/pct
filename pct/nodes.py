@@ -4,6 +4,7 @@ __all__ = ['PCTNode', 'PCTNodeData']
 
 # Cell
 from .functions import *
+from .utilities import *
 
 # Cell
 class PCTNode():
@@ -168,9 +169,10 @@ class PCTNode():
             self.outputCollection[position] = function
 
 
-    def summary(self):
-        if not self.links_built:
-            self.build_links()
+    def summary(self, build=True):
+        if build:
+            if not self.links_built:
+                self.build_links()
 
         print(self.name, type(self).__name__)
         print("----------------------------")

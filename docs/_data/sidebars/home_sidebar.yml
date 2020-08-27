@@ -13,6 +13,9 @@ entries:
       title: Examples
       url: /examples
     - output: web,pdf
+      title: Utilities
+      url: /utilities
+    - output: web,pdf
       title: Functions
       url: /functions
     - output: web,pdf

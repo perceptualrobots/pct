@@ -132,7 +132,7 @@ class PCTHierarchy():
                 thatnode = self.hierarchy[row-1][column]
                 thatnode.add_link("reference", thisnode.get_function("output"))
 
-    def summary(self):
+    def summary(self, build=True):
         print(self.name, type(self).__name__)
 
         print("**************************")
@@ -146,7 +146,7 @@ class PCTHierarchy():
         for row in range(len(self.hierarchy)):
             print(f'Level {row}')
             for col in range(len(self.hierarchy[row])):
-                  self.hierarchy[row][col].summary()
+                  self.hierarchy[row][col].summary(build=build)
 
         print("POST:", end=" ")
         if len(self.postCollection) == 0:
