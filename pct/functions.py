@@ -7,6 +7,7 @@ __all__ = ['BaseFunction', 'Proportional', 'Variable', 'DigitalBanded', 'Subtrac
 import numpy as np
 import gym
 from abc import ABC, abstractmethod
+from .utilities import UniqueNamer
 
 # Cell
 class BaseFunction(ABC):
