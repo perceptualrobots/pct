@@ -28,7 +28,6 @@ Import modules from the PCT library.
 
 ```
 from pct.nodes import PCTNode
-from pct.utilities import UniqueNamer
 ```
 
 For the purposes of this example define a world model. This would not be required if the real world is used, or a simulation such as OpenAI Gym.
