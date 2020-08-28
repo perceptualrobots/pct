@@ -64,20 +64,10 @@ description: "Examples of the PCT library in use."
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Acrobot">Acrobot<a class="anchor-link" href="#Acrobot"> </a></h2><p>The goal is for the end effector to be one link length above the horizontal.</p>
-<p>The observations of the Acrobat system are the sin and cos values of the two joint angles and also the angular velocities of the two joints.</p>
-<p>That is,</p>
-<p>0 - cos of the angle of link 1</p>
-<p>1 - sin of the angle of link 1</p>
-<p>2 - cos of the angle of link 2</p>
-<p>3 - sin of the angle of link 2</p>
-<p>4 - velocity of link 1</p>
-<p>5 - velocity of link 2</p>
-<p>An angle of 0 for the first link means it is pointing downwards.</p>
-<p>An angle of 0 for the second link means it is in line with the first link (I think).</p>
-<p>So, the starting position of pointing downwards has both angles as 0. Therefore, the initial state is 
-[1, 0, 1, 0, 0, 0]</p>
-<p>The ideal goal state, then, would be, [-1,0, 1, 0, 0, 0], which is pointing upwards.</p>
+<h2 id="Cartpole">Cartpole<a class="anchor-link" href="#Cartpole"> </a></h2><p>0       Cart Position<br>
+1       Cart Velocity<br>
+2       Pole Angle<br>
+3       Pole Angular Velocity</p>
 
 </div>
 </div>
@@ -91,6 +81,7 @@ description: "Examples of the PCT library in use."
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pct.hierarchy</span> <span class="kn">import</span> <span class="n">PCTHierarchy</span>
 <span class="kn">from</span> <span class="nn">pct.functions</span> <span class="kn">import</span> <span class="n">OpenAIGym</span>
+<span class="kn">from</span> <span class="nn">pct.functions</span> <span class="kn">import</span> <span class="n">IndexedParameter</span>
 </pre></div>
 
     </div>
@@ -124,11 +115,18 @@ description: "Examples of the PCT library in use."
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">acrobot_hierarchy</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;acrobot_hierarchy&quot;</span><span class="p">)</span>
-<span class="n">acrobot</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;Acrobot-v1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Acrobot-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">link</span> <span class="o">=</span> <span class="n">acrobot_hierarchy</span><span class="o">.</span><span class="n">get_output_function</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cartpoleh&quot;</span><span class="p">)</span>
+<span class="n">cartpole</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_velocity&quot;</span><span class="p">))</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_position&quot;</span><span class="p">))</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity&quot;</span><span class="p">))</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity&quot;</span><span class="p">))</span>
+
+<span class="n">link</span> <span class="o">=</span> <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_output_function</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">link</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
-<span class="n">acrobot</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+<span class="n">cartpole</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">build</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -141,7 +139,44 @@ description: "Examples of the PCT library in use."
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract3&#39;}, &#39;gain&#39;: 10}
+cartpoleh PCTHierarchy
+**************************
+PRE: CartPole-v1 OpenAIGym | 0 | links  proportional3 
+Level 0
+level0col0 PCTNode
+----------------------------
+REF: constant Constant | 1 | links  proportional1 
+PER: cart_velocity IndexedParameter | 0 
+COM: subtract Subtract | 0 | links  constant variable 
+OUT: proportional Proportional | gain 10 | 0 | links  subtract 
+----------------------------
+Level 1
+level1col0 PCTNode
+----------------------------
+REF: constant1 Constant | 1 | links  proportional2 
+PER: cart_position IndexedParameter | 0 
+COM: subtract1 Subtract | 0 | links  constant1 variable1 
+OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
+----------------------------
+Level 2
+level2col0 PCTNode
+----------------------------
+REF: constant2 Constant | 1 | links  proportional3 
+PER: pole_velocity IndexedParameter | 0 
+COM: subtract2 Subtract | 0 | links  constant2 variable2 
+OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
+----------------------------
+Level 3
+level3col0 PCTNode
+----------------------------
+REF: constant3 Constant | 1 
+PER: pole_velocity1 IndexedParameter | 0 
+COM: subtract3 Subtract | 0 | links  constant3 variable3 
+OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
+----------------------------
+POST: None
+**************************
 </pre>
 </div>
 </div>
@@ -159,8 +194,8 @@ description: "Examples of the PCT library in use."
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">acrobot_hierarchy</span><span class="o">.</span><span class="n">add_preprocessor</span><span class="p">(</span><span class="n">acrobot</span><span class="p">)</span>
-<span class="n">acrobot_hierarchy</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">add_preprocessor</span><span class="p">(</span><span class="n">cartpole</span><span class="p">)</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -173,18 +208,42 @@ description: "Examples of the PCT library in use."
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>acrobot_hierarchy PCTHierarchy
+<pre>cartpoleh PCTHierarchy
 **************************
-PRE: Acrobot-v1 OpenAIGym | 0 | links  proportional 
+PRE: CartPole-v1 OpenAIGym | 0 | links  proportional3 
 Level 0
-row0col0 PCTNode
+level0col0 PCTNode
 ----------------------------
-REF: constant Constant | 1 
-PER: variable Variable | 0 
+REF: constant Constant | 1 | links  proportional1 
+PER: pole_velocity1 IndexedParameter | 0 
 COM: subtract Subtract | 0 | links  constant variable 
 OUT: proportional Proportional | gain 10 | 0 | links  subtract 
 ----------------------------
-PRE: None
+Level 1
+level1col0 PCTNode
+----------------------------
+REF: constant1 Constant | 1 | links  proportional2 
+PER: variable1 Variable | 0 | links  variable 
+COM: subtract1 Subtract | 0 | links  constant1 variable1 
+OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
+----------------------------
+Level 2
+level2col0 PCTNode
+----------------------------
+REF: constant2 Constant | 1 | links  proportional3 
+PER: variable2 Variable | 0 | links  variable1 
+COM: subtract2 Subtract | 0 | links  constant2 variable2 
+OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
+----------------------------
+Level 3
+level3col0 PCTNode
+----------------------------
+REF: constant3 Constant | 1 
+PER: variable3 Variable | 0 | links  variable2 
+COM: subtract3 Subtract | 0 | links  constant3 variable3 
+OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
+----------------------------
+POST: None
 **************************
 </pre>
 </div>
@@ -215,12 +274,15 @@ PRE: None
 
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-35-b66638ed9669&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>acrobot_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>10</pre>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;acrobot_hierarchy&#39; is not defined</pre>
 </div>
-
 </div>
 
 </div>
@@ -244,22 +306,6 @@ PRE: None
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;\nenv = gym.make(&#34;Acrobot-v1&#34;)\nenv.reset()\nobs = env.step(1)\n&#39;</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -293,22 +339,6 @@ PRE: None
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;\nenv.reset()\nalt=3\n\nfor i in range(10):\n    alt+=1\n    for j in range(alt):\n        obs = env.step(1)\n        if os==&#34;nt&#34;:\n            env.render()\n        print(f\&#39;{obs[0][0]:0.2f} {obs[0][1]:0.2f} {obs[0][2]:0.2f} {obs[0][3]:0.2f} {obs[0][4]:0.2f} {obs[0][5]:0.2f}\&#39;)\n    for k in range(alt):\n        obs = env.step(-1)\n        if os==&#34;nt&#34;:\n            env.render()\n        print(f\&#39;{obs[0][0]:0.2f} {obs[0][1]:0.2f} {obs[0][2]:0.2f} {obs[0][3]:0.2f} {obs[0][4]:0.2f} {obs[0][5]:0.2f}\&#39;)\n&#39;</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 

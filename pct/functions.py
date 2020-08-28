@@ -13,9 +13,16 @@ from .utilities import FunctionsList
 # Cell
 class BaseFunction(ABC):
     "Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all."
-    def __init__(self, name, value):
+    def __init__(self, name, value, links=None):
         self.value = value
-        self.links = []
+        if links==None:
+            self.links = []
+        else:
+            if isinstance(links, list):
+                self.links=links
+            else:
+                self.links = [links]
+
         #print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
         self.name = UniqueNamer.getInstance().get_name(name)
         #print(self.name)
@@ -105,8 +112,8 @@ class BaseFunction(ABC):
 # Cell
 class Proportional(BaseFunction):
     "A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One."
-    def __init__(self, gain=1, value=0, name="proportional", **cargs):
-        super().__init__(name, value)
+    def __init__(self, gain=1, value=0, name="proportional", links=None, **cargs):
+        super().__init__(name, value, links)
         self.gain = gain
 
     def __call__(self, verbose=False):
@@ -125,8 +132,8 @@ class Proportional(BaseFunction):
 # Cell
 class Variable(BaseFunction):
     "A function that returns a variable value. Parameter: The variable value. Links: None"
-    def __init__(self,  value=0, name="variable", **cargs):
-        super().__init__(name, value)
+    def __init__(self,  value=0, name="variable", links=None, **cargs):
+        super().__init__(name, value, links)
 
     def __call__(self, verbose=False):
         return super().__call__(verbose)
@@ -143,8 +150,8 @@ class Variable(BaseFunction):
 # Cell
 class DigitalBanded(BaseFunction):
     "A function that returns a variable value. Parameter: The variable value. Links: None"
-    def __init__(self,  value=0, name="variable", **cargs):
-        super().__init__(name, value)
+    def __init__(self,  value=0, name="variable", links=None, **cargs):
+        super().__init__(name, value, links)
 
     def __call__(self, verbose=False):
         return super().__call__(verbose)
@@ -161,8 +168,8 @@ class DigitalBanded(BaseFunction):
 # Cell
 class Subtract(BaseFunction):
     "A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted."
-    def __init__(self, value=0, name="subtract", **cargs):
-        super().__init__(name, value)
+    def __init__(self, value=0, name="subtract", links=None, **cargs):
+        super().__init__(name, value, links)
 
     def __call__(self, verbose=False):
         #print("Sub ", self.links[0].get_value(),self.links[1].get_value() )
@@ -196,8 +203,8 @@ class Constant(BaseFunction):
 # Cell
 class Integration(BaseFunction):
     "A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameter: The gain and slow values. Links: One."
-    def __init__(self, gain=1, slow=2, value=0, name="integration", **cargs):
-        super().__init__(name, value)
+    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, **cargs):
+        super().__init__(name, value, links)
         self.gain = gain
         self.slow = slow
 
@@ -220,8 +227,8 @@ class Integration(BaseFunction):
 # Cell
 class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", **cargs):
-        super().__init__(name, value)
+    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, **cargs):
+        super().__init__(name, value, links)
         self.weights = weights
 
     def __call__(self, verbose=False):
@@ -244,8 +251,8 @@ class WeightedSum(BaseFunction):
 # Cell
 class IndexedParameter(BaseFunction):
     "A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One."
-    def __init__(self, index=None, value=0, name="indexed_parameter", **cargs):
-        super().__init__(name, value)
+    def __init__(self, index=None, value=0, name="indexed_parameter", links=None, **cargs):
+        super().__init__(name, value, links)
         self.index = index
 
     def __call__(self, verbose=False):
@@ -255,7 +262,8 @@ class IndexedParameter(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self):
-        super().summary("")
+        super().summary(f'index {self.index}')
+
 
     def get_config(self):
         config = super().get_config()
@@ -265,7 +273,7 @@ class IndexedParameter(BaseFunction):
 # Cell
 class OpenAIGym(BaseFunction):
     "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
-    def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym", **cargs):
+    def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym", links=None, **cargs):
         super().__init__(name, value)
 
         self.video_wrap = video_wrap
