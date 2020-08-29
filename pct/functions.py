@@ -34,6 +34,7 @@ class BaseFunction(ABC):
             print(self.output_string(), end= " ")
 
         return self.value
+
     def handle_links(self, links):
         if links!=None:
             if isinstance(links, dict):
@@ -44,16 +45,17 @@ class BaseFunction(ABC):
 
             if isinstance(links, list):
                 for link in links:
-                    self.links.append(link)
-                    #if isinstance(link, dic):
-                    #    self.links.append(FunctionsList.getInstance().get_function(link))
-                    #else:
-            #else:
+                    if isinstance(link, str):
+                        self.links.append(FunctionsList.getInstance().get_function(link))
+                    else:
+                        self.links.append(link)
+                return
 
-                #if isinstance(links, str):
-                 #   self.links.append(FunctionsList.getInstance().get_function(links))
-                #else:
-                 #   self.links.append(links)
+            if isinstance(links, str):
+                self.links.append(FunctionsList.getInstance().get_function(links))
+                return
+
+            self.links.append(links)
 
 
 
