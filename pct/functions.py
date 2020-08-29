@@ -23,9 +23,9 @@ class BaseFunction(ABC):
             else:
                 self.links = [links]
 
-        #print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
+        print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
         self.name = UniqueNamer.getInstance().get_name(name)
-        #print(self.name)
+        print(self.name)
         FunctionsList.getInstance().add_function(self)
         self.decimal_places = 3
 
