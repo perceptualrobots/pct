@@ -16,19 +16,7 @@ class BaseFunction(ABC):
     def __init__(self, name, value, links=None, new_name=True):
         self.value = value
         self.links = []
-        if links!=None:
-            if len(links)>0:
-                if isinstance(links, list):
-                    for link in links:
-                        if isinstance(link, str):
-                            self.links.append(FunctionsList.getInstance().get_function(link))
-                        else:
-                            self.links.append(link)
-                else:
-                    if isinstance(links, str):
-                        self.links.append(FunctionsList.getInstance().get_function(links))
-                    else:
-                        self.links.append(links)
+        self.handle_links(links)
 
 
         #print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
@@ -46,6 +34,29 @@ class BaseFunction(ABC):
             print(self.output_string(), end= " ")
 
         return self.value
+    def handle_links(self, links):
+        if links!=None:
+            if isinstance(links, dict):
+                if len(links)>0:
+                    for key in links.keys():
+                        self.links.append(FunctionsList.getInstance().get_function(links[key]))
+                    return
+
+            if isinstance(links, list):
+                for link in links:
+                    self.links.append(link)
+                    #if isinstance(link, dic):
+                    #    self.links.append(FunctionsList.getInstance().get_function(link))
+                    #else:
+            #else:
+
+                #if isinstance(links, str):
+                 #   self.links.append(FunctionsList.getInstance().get_function(links))
+                #else:
+                 #   self.links.append(links)
+
+
+
 
     def output_string(self):
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
