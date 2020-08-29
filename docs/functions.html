@@ -441,7 +441,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop1&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
 </pre>
 </div>
 </div>
@@ -566,7 +566,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
  &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;},
+ &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
  &#39;weights&#39;: array([1., 1., 1.])}</pre>
 </div>
 
@@ -604,7 +604,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
  &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;},
+ &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
  &#39;weights&#39;: array([1., 1., 1.])}</pre>
 </div>
 
@@ -807,7 +807,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>integration1 Integration | gain 3 slow 10  | 0 | links  constant5 
+<pre>integration Integration | gain 3 slow 10  | 0 | links  constant3 
 </pre>
 </div>
 </div>
@@ -955,7 +955,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration1&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant5&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant3&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
 </pre>
 </div>
 </div>
@@ -1127,19 +1127,10 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39;0.999 &#39;, &#39;-0.043 &#39;, &#39;0.998 &#39;, &#39;-0.060 &#39;, &#39;0.099 &#39;, &#39;-0.024 &#39;]
-[&#39;0.999 &#39;, &#39;-0.043 &#39;, &#39;0.998 &#39;, &#39;-0.060 &#39;, &#39;0.099 &#39;, &#39;-0.024 &#39;, &#39;-1.0&#39;, &#39;False&#39;, &#39;{}&#39;]
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.999 -0.043 0.998 -0.060 0.099 -0.024 -1.0False{}&#39;</pre>
+<pre>&#39;1.000 0.008 0.999 0.041 -0.064 0.052 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -1172,7 +1163,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9990962760577714</pre>
+<pre>0.9999717624911144</pre>
 </div>
 
 </div>
@@ -1207,7 +1198,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;value&#39;: 0, &#39;links&#39;: [&lt;__main__.OpenAIGym object at 0x000001329F5B99C8&gt;], &#39;name&#39;: &#39;cos_angle1&#39;, &#39;decimal_places&#39;: 3, &#39;index&#39;: 0}
+<pre>{&#39;value&#39;: 0, &#39;links&#39;: [&lt;__main__.OpenAIGym object at 0x00000132A0825688&gt;], &#39;name&#39;: &#39;cos_angle1&#39;, &#39;decimal_places&#39;: 3, &#39;index&#39;: 0}
 {&#39;type&#39;: &#39;IndexedParameter&#39;, &#39;name&#39;: &#39;cos_angle1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;gym&#39;}, &#39;index&#39;: 0}
 </pre>
 </div>
@@ -1218,7 +1209,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9990962760577714</pre>
+<pre>0.9999717624911144</pre>
 </div>
 
 </div>

@@ -356,18 +356,9 @@ class OpenAIGym(BaseFunction):
             list.append(str(self.done))
             list.append(" ")
             list.append(str(self.info))
-            print(list)
 
             rtn = ''.join(list)
-            """
-            str = ""
-            for val in self.value:
-                str+= f'{round(val, self.decimal_places):.{self.decimal_places}f} '
 
-            str+= str(self.reward) + " "
-            str+= self.done + " "
-            str+= self.info
-        """
         return rtn
 
 
