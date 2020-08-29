@@ -118,7 +118,7 @@ description: "Examples of the PCT library in use."
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cartpoleh&quot;</span><span class="p">)</span>
 <span class="n">cartpole</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_velocity&quot;</span><span class="p">))</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_velocity&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="n">cartpole</span><span class="p">]))</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_position&quot;</span><span class="p">))</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity&quot;</span><span class="p">))</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity&quot;</span><span class="p">))</span>
@@ -142,12 +142,12 @@ description: "Examples of the PCT library in use."
 <pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract3&#39;}, &#39;gain&#39;: 10}
 cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | 0 | links  proportional3 
+PRE: CartPole-v1 OpenAIGym | [ 0.00839784 -0.15014329 -0.01285935  0.23936932] | links  proportional3 
 Level 0
 level0col0 PCTNode
 ----------------------------
 REF: constant Constant | 1 | links  proportional1 
-PER: cart_velocity IndexedParameter | 0 
+PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 
 COM: subtract Subtract | 0 | links  constant variable 
 OUT: proportional Proportional | gain 10 | 0 | links  subtract 
 ----------------------------
@@ -155,7 +155,7 @@ Level 1
 level1col0 PCTNode
 ----------------------------
 REF: constant1 Constant | 1 | links  proportional2 
-PER: cart_position IndexedParameter | 0 
+PER: cart_position IndexedParameter | index 0 | 0 
 COM: subtract1 Subtract | 0 | links  constant1 variable1 
 OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
 ----------------------------
@@ -163,7 +163,7 @@ Level 2
 level2col0 PCTNode
 ----------------------------
 REF: constant2 Constant | 1 | links  proportional3 
-PER: pole_velocity IndexedParameter | 0 
+PER: pole_velocity IndexedParameter | index 3 | 0 
 COM: subtract2 Subtract | 0 | links  constant2 variable2 
 OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
 ----------------------------
@@ -171,7 +171,7 @@ Level 3
 level3col0 PCTNode
 ----------------------------
 REF: constant3 Constant | 1 
-PER: pole_velocity1 IndexedParameter | 0 
+PER: pole_velocity1 IndexedParameter | index 2 | 0 
 COM: subtract3 Subtract | 0 | links  constant3 variable3 
 OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
 ----------------------------
@@ -210,12 +210,13 @@ POST: None
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | 0 | links  proportional3 
+PRE: CartPole-v1 OpenAIGym | [ 0.00839784 -0.15014329 -0.01285935  0.23936932] | links  proportional3 
+CartPole-v1 OpenAIGym | 0 | links  proportional3 
 Level 0
 level0col0 PCTNode
 ----------------------------
 REF: constant Constant | 1 | links  proportional1 
-PER: pole_velocity1 IndexedParameter | 0 
+PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 
 COM: subtract Subtract | 0 | links  constant variable 
 OUT: proportional Proportional | gain 10 | 0 | links  subtract 
 ----------------------------
@@ -223,7 +224,7 @@ Level 1
 level1col0 PCTNode
 ----------------------------
 REF: constant1 Constant | 1 | links  proportional2 
-PER: variable1 Variable | 0 | links  variable 
+PER: cart_position IndexedParameter | index 0 | 0 
 COM: subtract1 Subtract | 0 | links  constant1 variable1 
 OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
 ----------------------------
@@ -231,7 +232,7 @@ Level 2
 level2col0 PCTNode
 ----------------------------
 REF: constant2 Constant | 1 | links  proportional3 
-PER: variable2 Variable | 0 | links  variable1 
+PER: pole_velocity IndexedParameter | index 3 | 0 
 COM: subtract2 Subtract | 0 | links  constant2 variable2 
 OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
 ----------------------------
@@ -239,7 +240,7 @@ Level 3
 level3col0 PCTNode
 ----------------------------
 REF: constant3 Constant | 1 
-PER: variable3 Variable | 0 | links  variable2 
+PER: pole_velocity1 IndexedParameter | index 2 | 0 
 COM: subtract3 Subtract | 0 | links  constant3 variable3 
 OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
 ----------------------------
@@ -262,7 +263,7 @@ POST: None
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">acrobot_hierarchy</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -277,11 +278,39 @@ POST: None
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-35-b66638ed9669&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>acrobot_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-red-intense-fg ansi-bold">Exception</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-21-59512344c8a4&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>cartpole_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;acrobot_hierarchy&#39; is not defined</pre>
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">     65</span>                     <span class="ansi-green-intense-fg ansi-bold">if</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     66</span>                         print<span class="ansi-yellow-intense-fg ansi-bold">(</span>node<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_name<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> end <span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34; &#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 67</span><span class="ansi-yellow-intense-fg ansi-bold">                     </span>node<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     68</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     69</span>             <span class="ansi-green-intense-fg ansi-bold">for</span> node_name <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>order<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\nodes.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">     44</span> 
+<span class="ansi-green-fg">     45</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> perceptionFunction <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>perceptionCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 46</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>perceptionFunction<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     47</span> 
+<span class="ansi-green-fg">     48</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> comparatorFunction <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>comparatorCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">    257</span> 
+<span class="ansi-green-fg">    258</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 259</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>super<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>check_links<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    260</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_indexed_value<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>index<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    261</span> 
+
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">check_links</span><span class="ansi-blue-intense-fg ansi-bold">(self, num)</span>
+<span class="ansi-green-fg">     42</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> check_links<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> num<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     43</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> len<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">!=</span> num<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 44</span><span class="ansi-yellow-intense-fg ansi-bold">             </span><span class="ansi-green-intense-fg ansi-bold">raise</span> Exception<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">f&#39;Incorrect number of links {len(self.links)} for function {self.name}. {num} expected.&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     45</span> 
+<span class="ansi-green-fg">     46</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> set_decimal_places<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> dp<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-red-intense-fg ansi-bold">Exception</span>: Incorrect number of links 0 for function cart_position. 1 expected.</pre>
 </div>
 </div>
 
