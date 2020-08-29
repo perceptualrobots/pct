@@ -400,9 +400,9 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional5&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
 </pre>
 </div>
 </div>
@@ -441,7 +441,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop2&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
 </pre>
 </div>
 </div>
@@ -481,7 +481,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop1&#39;, &#39;value&#39;: -0.5, &#39;links&#39;: {}, &#39;gain&#39;: 21}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop3&#39;, &#39;value&#39;: -0.5, &#39;links&#39;: {}, &#39;gain&#39;: 21}
 </pre>
 </div>
 </div>
@@ -528,9 +528,9 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
- &#39;name&#39;: &#39;weighted_sum&#39;,
+ &#39;name&#39;: &#39;weighted_sum2&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
+ &#39;links&#39;: {0: &#39;constant3&#39;, 1: &#39;constant4&#39;, 2: &#39;constant5&#39;},
  &#39;weights&#39;: array([1., 1., 1.])}</pre>
 </div>
 
@@ -566,18 +566,18 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>
 <span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
 <span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-90-adffda43cf33&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-38-adffda43cf33&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-fg">      1</span> ws1 <span class="ansi-yellow-intense-fg ansi-bold">=</span> WeightedSum<span class="ansi-yellow-intense-fg ansi-bold">.</span>from_config<span class="ansi-yellow-intense-fg ansi-bold">(</span>ws<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 <span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>ws1<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-83-584673ad8b3b&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-31-584673ad8b3b&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
 <span class="ansi-green-fg">     19</span> 
 <span class="ansi-green-fg">     20</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
 <span class="ansi-green-intense-fg ansi-bold">---&gt; 21</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>config <span class="ansi-yellow-intense-fg ansi-bold">=</span> super<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 <span class="ansi-green-fg">     22</span>         config<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;weights&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>weights
 <span class="ansi-green-fg">     23</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> config
 
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-76-f2180ae0de21&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-24-02172b187b44&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
 <span class="ansi-green-fg">     56</span>         links<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-yellow-intense-fg ansi-bold">{</span><span class="ansi-yellow-intense-fg ansi-bold">}</span>
 <span class="ansi-green-fg">     57</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> link <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">:</span>
 <span class="ansi-green-intense-fg ansi-bold">---&gt; 58</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>links<span class="ansi-yellow-intense-fg ansi-bold">[</span>ctr<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">=</span>link<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_name<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>

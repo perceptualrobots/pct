@@ -30,7 +30,10 @@ class PCTHierarchy():
                     if r < levels-1:
                         ref = WeightedSum(weights=np.ones(cols))
                     if r == 0:
-                        node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history)
+                        if levels > 1:
+                            node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history)
+                        else:
+                            node = PCTNode(name=f'level{r}col{c}', history=history)
                     if r > 0 and r == levels-1:
                         node = PCTNode(perception=perc, name=f'level{r}col{c}', history=history)
                     if r > 0 and r < levels-1:
@@ -183,7 +186,7 @@ class PCTHierarchy():
                 #print(column)
                 columns[f'col{col}']=column
             level['nodes']=columns
-            levels[f'level{level}']=level
+            levels[f'level{lvl}']=level
         config['levels']=levels
 
         post = {}

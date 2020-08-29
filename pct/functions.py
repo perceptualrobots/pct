@@ -15,7 +15,7 @@ class BaseFunction(ABC):
     "Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all."
     def __init__(self, name, value, links=None):
         self.value = value
-        if links==None:
+        if links==None or len(links)==0:
             self.links = []
         else:
             if isinstance(links, list):
@@ -53,7 +53,7 @@ class BaseFunction(ABC):
             print(f'| {str}', end= " ")
         print(f'| {self.value}', end = " ")
         if len(self.links)>0:
-            print(f'| links ', end=" ")
+            print('| links ', end=" ")
         for link in self.links:
             print(link.get_name(), end= " ")
         print()
