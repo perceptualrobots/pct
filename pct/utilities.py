@@ -28,8 +28,8 @@ class UniqueNamer:
             num = self.names[name]+1
             self.names[name]=num
             name = f'{name}{num}'
-        else:
-            self.names[name]=0
+        #else:
+        self.names[name]=0
         return name
 
 # Cell
