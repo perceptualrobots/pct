@@ -441,7 +441,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop1&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
 </pre>
 </div>
 </div>
@@ -517,37 +517,8 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-125-c4f182f9a942&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">      2</span> print<span class="ansi-yellow-intense-fg ansi-bold">(</span>prop<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      3</span> prop1 <span class="ansi-yellow-intense-fg ansi-bold">=</span> Proportional<span class="ansi-yellow-intense-fg ansi-bold">.</span>from_config<span class="ansi-yellow-intense-fg ansi-bold">(</span>prop<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 4</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>print<span class="ansi-yellow-intense-fg ansi-bold">(</span>prop1<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      5</span> <span class="ansi-green-intense-fg ansi-bold">assert</span> prop<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">==</span> prop1<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-112-eff93ae6f304&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">     15</span> 
-<span class="ansi-green-fg">     16</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 17</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>config <span class="ansi-yellow-intense-fg ansi-bold">=</span> super<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     18</span>         config<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;gain&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>gain
-<span class="ansi-green-fg">     19</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> config
-
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-111-487cc859a662&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">     80</span>         links<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-yellow-intense-fg ansi-bold">{</span><span class="ansi-yellow-intense-fg ansi-bold">}</span>
-<span class="ansi-green-fg">     81</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> link <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 82</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>links<span class="ansi-yellow-intense-fg ansi-bold">[</span>ctr<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">=</span>link<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_name<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     83</span>             ctr<span class="ansi-yellow-intense-fg ansi-bold">+=</span><span class="ansi-cyan-intense-fg ansi-bold">1</span>
-<span class="ansi-green-fg">     84</span> 
-
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;dict&#39; object has no attribute &#39;get_name&#39;</pre>
 </div>
 </div>
 
@@ -584,6 +555,26 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
+ &#39;name&#39;: &#39;weighted_sum&#39;,
+ &#39;value&#39;: 35.0,
+ &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
+ &#39;weights&#39;: array([1., 1., 1.])}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -599,6 +590,26 @@ description: "Functions that form the elements of a perceptual control node (sys
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
+ &#39;name&#39;: &#39;weighted_sum&#39;,
+ &#39;value&#39;: 35.0,
+ &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
+ &#39;weights&#39;: array([1., 1., 1.])}</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -632,6 +643,20 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>proportional3 Proportional | gain 1 | 0 
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -653,6 +678,20 @@ description: "Functions that form the elements of a perceptual control node (sys
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -680,6 +719,20 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -703,6 +756,21 @@ description: "Functions that form the elements of a perceptual control node (sys
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.000
+0.00
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -739,7 +807,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>integration Integration | gain 3 slow 10  | 0 | links  constant 
+<pre>integration Integration | gain 3 slow 10  | 0 | links  constant3 
 </pre>
 </div>
 </div>
@@ -803,7 +871,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">const</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;const&#39;</span><span class="p">)</span>
 <span class="n">pr</span> <span class="o">=</span> <span class="n">Proportional</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;pr&#39;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="n">const</span><span class="p">)</span>
 <span class="n">pr</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="n">pr</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">pr</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
 </pre></div>
 
     </div>
@@ -821,22 +889,19 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
 </div>
 
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>1</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It can be the name of the linked function.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -844,25 +909,9 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pr</span> <span class="o">=</span> <span class="n">Proportional</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;pr&#39;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="s1">&#39;const&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pr</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="n">pr</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pr</span> <span class="o">=</span> <span class="n">Proportional</span><span class="p">(</span><span class="n">gain</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;pr&#39;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="s1">&#39;const&#39;</span><span class="p">)</span>
+<span class="n">pr</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">pr</span><span class="p">()</span> <span class="o">==</span> <span class="mi">10</span>
 </pre></div>
 
     </div>
@@ -875,19 +924,9 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>pr1 Proportional | gain 1 | 0 | links  const 
+<pre>pr1 Proportional | gain 10 | 0 | links  const 
 </pre>
 </div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>1</pre>
-</div>
-
 </div>
 
 </div>
@@ -896,6 +935,13 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Or it can be a list of names.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -904,24 +950,8 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sub</span> <span class="o">=</span> <span class="n">Subtract</span><span class="p">(</span><span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;const&#39;</span><span class="p">,</span> <span class="s1">&#39;pr&#39;</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sub</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="n">sub</span><span class="p">()</span>
+<span class="n">sub</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">sub</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span>
 </pre></div>
 
     </div>
@@ -937,16 +967,6 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>subtract Subtract | 0 | links  const pr 
 </pre>
 </div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0</pre>
-</div>
-
 </div>
 
 </div>
@@ -978,6 +998,20 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1.5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -1005,6 +1039,20 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[2.4 3.3 5.1 4.2]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -1019,6 +1067,20 @@ description: "Functions that form the elements of a perceptual control node (sys
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant3&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1058,6 +1120,22 @@ description: "Functions that form the elements of a perceptual control node (sys
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1.5
+{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: 1.5, &#39;links&#39;: {0: &#39;constant&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
+{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: 1.5, &#39;links&#39;: {0: &#39;constant&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1133,6 +1211,21 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-1.0
+-1.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -1150,6 +1243,22 @@ description: "Functions that form the elements of a perceptual control node (sys
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;0.997 -0.079 0.999 -0.042 0.138 -0.115 -1.0 False {}&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -1164,6 +1273,22 @@ description: "Functions that form the elements of a perceptual control node (sys
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9968700635678447</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -1185,6 +1310,31 @@ description: "Functions that form the elements of a perceptual control node (sys
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;value&#39;: 0, &#39;links&#39;: [&lt;__main__.OpenAIGym object at 0x0000013AF9BEB6C8&gt;], &#39;name&#39;: &#39;cos_angle1&#39;, &#39;decimal_places&#39;: 3, &#39;index&#39;: 0}
+{&#39;type&#39;: &#39;IndexedParameter&#39;, &#39;name&#39;: &#39;cos_angle1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;gym&#39;}, &#39;index&#39;: 0}
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9968700635678447</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 

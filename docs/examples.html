@@ -273,15 +273,14 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | [ 0.0325852  -0.21307609 -0.00284926  0.25654289] | links  greaterthan 
-CartPole-v1 OpenAIGym | 0 | links  greaterthan 
+PRE: CartPole-v1 OpenAIGym | 0 | links  greaterthan 
 Level 0
 level0col0 PCTNode
 ----------------------------
 REF: constant Constant | 1 | links  proportional1 
 PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 
 COM: subtract Subtract | 0 | links  constant variable 
-OUT: force Integration | gain 2 slow 10  | 0 
+OUT: force Integration | gain 2 slow 10  | 0 | links  subtract 
 ----------------------------
 Level 1
 level1col0 PCTNode
@@ -308,7 +307,6 @@ COM: subtract3 Subtract | 0 | links  constant3 variable3
 OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
 ----------------------------
 POST: greaterthan GreaterThan | 0 
-greaterthan GreaterThan | 0 
 **************************
 </pre>
 </div>
@@ -349,15 +347,14 @@ greaterthan GreaterThan | 0
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | [ 0.0325852  -0.21307609 -0.00284926  0.25654289] | links  greaterthan 
-CartPole-v1 OpenAIGym | 0 | links  greaterthan 
+PRE: CartPole-v1 OpenAIGym | 0 | links  greaterthan 
 Level 0
 level0col0 PCTNode
 ----------------------------
 REF: constant Constant | 1 | links  proportional1 
 PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 
 COM: subtract Subtract | 0 | links  constant variable 
-OUT: force Integration | gain 2 slow 10  | 0 
+OUT: force Integration | gain 2 slow 10  | 0 | links  subtract 
 ----------------------------
 Level 1
 level1col0 PCTNode
@@ -384,7 +381,6 @@ COM: subtract3 Subtract | 0 | links  constant3 variable3
 OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
 ----------------------------
 POST: greaterthan GreaterThan | 0 
-greaterthan GreaterThan | 0 
 **************************
 </pre>
 </div>
@@ -416,8 +412,12 @@ greaterthan GreaterThan | 0
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.028 -0.408 0.002 0.548 1.0 False {} 0.028 -0.156 0.027 0.284 1.0 False {} 
-level0col0 1.000 -0.156 1.000 </pre>
+<pre>-0.021 -0.230 0.036 0.286 1.0 False {} 
+level0col0 1.000 -0.230 1.000 0.200 
+level1col0 1.000 -0.021 1.000 10.000 
+level2col0 1.000 0.286 1.000 10.000 
+level3col0 1.000 0.036 1.000 10.000 
+</pre>
 </div>
 </div>
 
@@ -427,29 +427,22 @@ level0col0 1.000 -0.156 1.000 </pre>
 <pre>
 <span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
 <span class="ansi-red-intense-fg ansi-bold">IndexError</span>                                Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-33-671a0572fdab&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-16-671a0572fdab&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>cartpole_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
 <span class="ansi-green-intense-fg ansi-bold">c:\users\ruper\google drive\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">     68</span>                     <span class="ansi-green-intense-fg ansi-bold">if</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     69</span>                         print<span class="ansi-yellow-intense-fg ansi-bold">(</span>node<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_name<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> end <span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34; &#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 70</span><span class="ansi-yellow-intense-fg ansi-bold">                     </span>node<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     71</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     72</span>             <span class="ansi-green-intense-fg ansi-bold">for</span> node_name <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>order<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">c:\users\ruper\google drive\nbdev\pct\pct\nodes.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">     50</span> 
-<span class="ansi-green-fg">     51</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> outputFunction <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>outputCollection<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 52</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>outputFunction<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     53</span> 
-<span class="ansi-green-fg">     54</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>output <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>outputCollection<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">-</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_value<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     78</span>             <span class="ansi-red-intense-fg ansi-bold">#if verbose:</span>
+<span class="ansi-green-fg">     79</span>             <span class="ansi-red-intense-fg ansi-bold">#    print(func.get_name(), end =&#34; &#34;)</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 80</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     81</span> 
+<span class="ansi-green-fg">     82</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">:</span>
 
 <span class="ansi-green-intense-fg ansi-bold">c:\users\ruper\google drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">    241</span> 
-<span class="ansi-green-fg">    242</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 243</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>input <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_value<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    244</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">+</span>  <span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">(</span>input <span class="ansi-yellow-intense-fg ansi-bold">*</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>gain<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">-</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">/</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>slow
-<span class="ansi-green-fg">    245</span> 
+<span class="ansi-green-fg">    182</span> 
+<span class="ansi-green-fg">    183</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 184</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>input <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_value<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    185</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> input <span class="ansi-yellow-intense-fg ansi-bold">&gt;=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>threshold<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    186</span>             self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>upper
 
 <span class="ansi-red-intense-fg ansi-bold">IndexError</span>: list index out of range</pre>
 </div>

@@ -41,7 +41,7 @@ class BaseFunction(ABC):
                 if len(links)>0:
                     for key in links.keys():
                         self.links.append(FunctionsList.getInstance().get_function(links[key]))
-                    return
+                return
 
             if isinstance(links, list):
                 for link in links:
