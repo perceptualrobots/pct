@@ -345,6 +345,32 @@ class OpenAIGym(BaseFunction):
 
         return config
 
+    def output_string(self):
+
+        if isinstance(self.value, int):
+            rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
+        else:
+            list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
+            list.append(str(self.reward))
+            list.append(" ")
+            list.append(str(self.done))
+            list.append(" ")
+            list.append(str(self.info))
+            print(list)
+
+            rtn = ''.join(list)
+            """
+            str = ""
+            for val in self.value:
+                str+= f'{round(val, self.decimal_places):.{self.decimal_places}f} '
+
+            str+= str(self.reward) + " "
+            str+= self.done + " "
+            str+= self.info
+        """
+        return rtn
+
+
     def create_env(self, env_name, max_episode_steps):
         genv = gym.make(env_name)
         genv._max_episode_steps = max_episode_steps
