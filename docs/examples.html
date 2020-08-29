@@ -206,7 +206,7 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | [ 0.01487812 -0.20692388 -0.04756795  0.22858843] | links  proportional3 
+PRE: None
 Level 0
 level0col0 PCTNode
 ----------------------------
@@ -277,7 +277,7 @@ POST: None
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Sit back and watch the brilliance of your efforts.</p>
+<p>Sit back and observe the brilliance of your efforts.</p>
 
 </div>
 </div>
@@ -304,8 +304,7 @@ POST: None
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | [ 0.01487812 -0.20692388 -0.04756795  0.22858843] | links  proportional3 
-CartPole-v1 OpenAIGym | 0 | links  proportional3 
+PRE: CartPole-v1 OpenAIGym | 0 | links  proportional3 
 Level 0
 level0col0 PCTNode
 ----------------------------
@@ -373,22 +372,22 @@ POST: None
 <pre>
 <span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
 <span class="ansi-red-intense-fg ansi-bold">Exception</span>                                 Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-49-59512344c8a4&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-65-59512344c8a4&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>cartpole_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
 <span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">     54</span>             <span class="ansi-red-intense-fg ansi-bold">#if verbose:</span>
-<span class="ansi-green-fg">     55</span>             <span class="ansi-red-intense-fg ansi-bold">#    print(func.get_name(), end =&#34; &#34;)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 56</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     57</span> 
-<span class="ansi-green-fg">     58</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     57</span>             <span class="ansi-red-intense-fg ansi-bold">#if verbose:</span>
+<span class="ansi-green-fg">     58</span>             <span class="ansi-red-intense-fg ansi-bold">#    print(func.get_name(), end =&#34; &#34;)</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 59</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     60</span> 
+<span class="ansi-green-fg">     61</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">:</span>
 
 <span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">    290</span>             obs <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>env<span class="ansi-yellow-intense-fg ansi-bold">.</span>step<span class="ansi-yellow-intense-fg ansi-bold">(</span>input<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    291</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 292</span><span class="ansi-yellow-intense-fg ansi-bold">             </span><span class="ansi-green-intense-fg ansi-bold">raise</span> Exception<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">f&#39;OpenAIGym: Input value of {input} is not valid, must be 1,0 or -1.&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    293</span> 
-<span class="ansi-green-fg">    294</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> obs<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">    312</span>             obs <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>env<span class="ansi-yellow-intense-fg ansi-bold">.</span>step<span class="ansi-yellow-intense-fg ansi-bold">(</span>input<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    313</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 314</span><span class="ansi-yellow-intense-fg ansi-bold">             </span><span class="ansi-green-intense-fg ansi-bold">raise</span> Exception<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">f&#39;OpenAIGym: Input value of {input} is not valid, must be 1,0 or -1.&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    315</span> 
+<span class="ansi-green-fg">    316</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> obs<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
 
 <span class="ansi-red-intense-fg ansi-bold">Exception</span>: OpenAIGym: Input value of 10 is not valid, must be 1,0 or -1.</pre>
 </div>
