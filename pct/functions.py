@@ -13,7 +13,7 @@ from .utilities import FunctionsList
 # Cell
 class BaseFunction(ABC):
     "Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all."
-    def __init__(self, name, value, links=None):
+    def __init__(self, name, value, links=None, new_name=True):
         self.value = value
         if links==None or len(links)==0:
             self.links = []
@@ -24,7 +24,10 @@ class BaseFunction(ABC):
                 self.links = [links]
 
         print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
-        self.name = UniqueNamer.getInstance().get_name(name)
+        if new_name:
+            self.name = UniqueNamer.getInstance().get_name(name)
+        else:
+            self.name = name
         print(self.name)
         FunctionsList.getInstance().add_function(self)
         self.decimal_places = 3
@@ -95,9 +98,9 @@ class BaseFunction(ABC):
         pass
 
     @classmethod
-    def from_config(cls, config):
+    def from_config(cls,  config):
         #print("a:",config)
-        func = cls(**config)
+        func = cls(new_name=False, **config)
         key  = 'links'
         if key in config:
             for key in config['links'].keys():
@@ -112,8 +115,8 @@ class BaseFunction(ABC):
 # Cell
 class Proportional(BaseFunction):
     "A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One."
-    def __init__(self, gain=1, value=0, name="proportional", links=None, **cargs):
-        super().__init__(name, value, links)
+    def __init__(self, gain=1, value=0, name="proportional", links=None, new_name=True, **cargs):
+        super().__init__(name, value, links, new_name)
         self.gain = gain
 
     def __call__(self, verbose=False):
