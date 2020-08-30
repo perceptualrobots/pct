@@ -4,6 +4,7 @@ __all__ = ['UniqueNamer', 'FunctionsList']
 
 # Cell
 class UniqueNamer:
+    "A utility for ensuring the names of functions are unique."
     __instance = None
     @staticmethod
     def getInstance():
@@ -34,6 +35,7 @@ class UniqueNamer:
 
 # Cell
 class FunctionsList:
+    "A utility for storing functions created, keyed on the function name."
     __instance = None
     @staticmethod
     def getInstance():
