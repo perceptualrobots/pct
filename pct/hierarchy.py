@@ -238,6 +238,9 @@ class PCTHierarchy():
     def insert_function(self, level=None, col=None, collection=None, function=None, position=-1):
         self.hierarchy[level][col].insert_function(collection, function, position)
 
+    def get_function(self, level=None, col=None, collection=None, position=-1):
+        return self.hierarchy[level][col].get_function(collection, position)
+
     def set_links(self, func_name, *link_names):
         for link_name in link_names:
             FunctionsList.getInstance().get_function(func_name).add_link(FunctionsList.getInstance().get_function(link_name))

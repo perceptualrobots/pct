@@ -59,6 +59,9 @@ class FunctionsList:
 
         return name
 
+    def remove_function(self, name):
+        self.functions.pop(name)
+
     def get_function(self, name):
         func = self.functions[name]
 
