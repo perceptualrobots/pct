@@ -217,7 +217,7 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Set the names and gains of the output functions.</p>
+<p>Set the names and gains of the output functions. This also shows another way of getting a function, by name.</p>
 
 </div>
 </div>
@@ -231,29 +231,17 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;proportional3&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="s2">&quot;pole_angle_output&quot;</span><span class="p">)</span>
 <span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;pole_angle_output&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;proportional2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="s2">&quot;pole_velocity_output&quot;</span><span class="p">)</span>
+<span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;pole_velocity_output&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;proportional1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="s2">&quot;cart_position_output&quot;</span><span class="p">)</span>
+<span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;cart_position_output&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;force&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-129-283df60d4701&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">      1</span> FunctionsList<span class="ansi-yellow-intense-fg ansi-bold">.</span>getInstance<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_function<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;proportional3&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>set_name<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;pole_angle_output&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>FunctionsList<span class="ansi-yellow-intense-fg ansi-bold">.</span>getInstance<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_function<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;pole_angle_output&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>set_property<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;gain&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-cyan-intense-fg ansi-bold">3</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;Proportional&#39; object has no attribute &#39;set_property&#39;</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -364,6 +352,58 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>cartpoleh PCTHierarchy
+**************************
+PRE: CartPole-v1 OpenAIGym | [-0.04577709 -0.22375051 -0.01795037  0.28072621] | links  greaterthan 
+CartPole-v1 OpenAIGym | 0 | links  greaterthan 
+Level 0
+level0col0 PCTNode
+----------------------------
+REF: cart_velocity_reference PassOn | 0 | links  cart_position_output 
+PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 
+COM: subtract Subtract | 0 | links  constant variable 
+OUT: force Integration | gain 2 slow 10  | 0 | links  subtract 
+----------------------------
+Level 1
+level1col0 PCTNode
+----------------------------
+REF: cart_position_reference PassOn | 0 | links  pole_velocity_output 
+PER: cart_position IndexedParameter | index 0 | 0 | links  CartPole-v1 
+COM: subtract1 Subtract | 0 | links  constant1 variable1 
+OUT: cart_position_output Proportional | gain 1 | 0 | links  subtract1 
+----------------------------
+Level 2
+level2col0 PCTNode
+----------------------------
+REF: pole_velocity_reference PassOn | 0 | links  pole_angle_output 
+PER: pole_velocity IndexedParameter | index 3 | 0 | links  CartPole-v1 
+COM: subtract2 Subtract | 0 | links  constant2 variable2 
+OUT: pole_velocity_output Proportional | gain 2 | 0 | links  subtract2 
+----------------------------
+Level 3
+level3col0 PCTNode
+----------------------------
+REF: pole_angle_reference Constant | 0 
+PER: pole_angle IndexedParameter | index 2 | 0 | links  CartPole-v1 
+COM: subtract3 Subtract | 0 | links  pole_angle_reference variable3 
+OUT: pole_angle_output Proportional | gain 3 | 0 | links  subtract3 
+----------------------------
+POST: greaterthan GreaterThan | 0 | links  force 
+greaterthan GreaterThan | 0 | links  force 
+**************************
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -388,6 +428,58 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>cartpoleh PCTHierarchy
+**************************
+PRE: CartPole-v1 OpenAIGym | [-0.04577709 -0.22375051 -0.01795037  0.28072621] | links  greaterthan 
+CartPole-v1 OpenAIGym | 0 | links  greaterthan 
+Level 0
+level0col0 PCTNode
+----------------------------
+REF: cart_velocity_reference PassOn | 0 | links  cart_position_output 
+PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 
+COM: subtract Subtract | 0 | links  constant variable 
+OUT: force Integration | gain 2 slow 10  | 0 | links  subtract 
+----------------------------
+Level 1
+level1col0 PCTNode
+----------------------------
+REF: cart_position_reference PassOn | 0 | links  pole_velocity_output 
+PER: cart_position IndexedParameter | index 0 | 0 | links  CartPole-v1 
+COM: subtract1 Subtract | 0 | links  constant1 variable1 
+OUT: cart_position_output Proportional | gain 1 | 0 | links  subtract1 
+----------------------------
+Level 2
+level2col0 PCTNode
+----------------------------
+REF: pole_velocity_reference PassOn | 0 | links  pole_angle_output 
+PER: pole_velocity IndexedParameter | index 3 | 0 | links  CartPole-v1 
+COM: subtract2 Subtract | 0 | links  constant2 variable2 
+OUT: pole_velocity_output Proportional | gain 2 | 0 | links  subtract2 
+----------------------------
+Level 3
+level3col0 PCTNode
+----------------------------
+REF: pole_angle_reference Constant | 0 
+PER: pole_angle IndexedParameter | index 2 | 0 | links  CartPole-v1 
+COM: subtract3 Subtract | 0 | links  pole_angle_reference variable3 
+OUT: pole_angle_output Proportional | gain 3 | 0 | links  subtract3 
+----------------------------
+POST: greaterthan GreaterThan | 0 | links  force 
+greaterthan GreaterThan | 0 | links  force 
+**************************
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -402,6 +494,36 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-0.050 -0.419 -0.012 0.568 1.0 False {} -0.006 -0.210 -0.035 0.309 1.0 False {} 
+level0col0 0.000 -0.210 1.000 0.200 
+level1col0 0.000 -0.006 1.000 1.000 
+level2col0 0.000 0.309 1.000 2.000 
+level3col0 0.000 -0.035 0.000 0.000 
+0.000 0.000 
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 

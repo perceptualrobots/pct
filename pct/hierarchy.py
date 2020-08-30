@@ -68,6 +68,13 @@ class PCTHierarchy():
                     if verbose:
                         print(node.get_name(), end =" ")
                     node(verbose)
+        elif self.order=="Down":
+            for level in range(len(self.hierarchy)-1, -1, -1):
+                for col in range(len(self.hierarchy[level])-1, -1, -1):
+                    node  = self.hierarchy[level][col]
+                    if verbose:
+                        print(node.get_name(), end =" ")
+                    node(verbose)
         else:
             for node_name in self.order:
                 if verbose:
@@ -75,8 +82,6 @@ class PCTHierarchy():
                 FunctionsList.getInstance().get_function(node_name)(verbose)
 
         for func in self.postCollection:
-            #if verbose:
-            #    print(func.get_name(), end =" ")
             func(verbose)
 
         if verbose:
