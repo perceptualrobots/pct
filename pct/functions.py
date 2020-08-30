@@ -105,6 +105,9 @@ class BaseFunction(ABC):
         self.name=name
         FunctionsList.getInstance().add_function(self)
 
+    def set_property(self, property_name, property_value):
+        #self[property_name]= property_value
+        exec(f'self.{property_name}= {property_value}')
 
     def set_value(self, value):
         self.value= value
