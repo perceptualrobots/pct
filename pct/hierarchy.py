@@ -44,9 +44,8 @@ class PCTHierarchy():
 
                 if build:
                     node.build_links()
-
-                self.handle_perception_links(node, r, c, links)
-                self.handle_reference_links(node, r, c, links)
+                    self.handle_perception_links(node, r, c, links)
+                    self.handle_reference_links(node, r, c, links)
                 col_list.append(node)
 
             self.hierarchy.append(col_list)

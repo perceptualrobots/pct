@@ -147,32 +147,32 @@ level0col0 PCTNode
 ----------------------------
 REF: constant Constant | 1 | links  proportional1 
 PER: variable Variable | 0 
-COM: subtract Subtract | 0 | links  constant variable 
-OUT: proportional Proportional | gain 10 | 0 | links  subtract 
+COM: subtract Subtract | 0 
+OUT: proportional Proportional | gain 10 | 0 
 ----------------------------
 Level 1
 level1col0 PCTNode
 ----------------------------
 REF: constant1 Constant | 1 | links  proportional2 
 PER: variable1 Variable | 0 | links  variable 
-COM: subtract1 Subtract | 0 | links  constant1 variable1 
-OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
+COM: subtract1 Subtract | 0 
+OUT: proportional1 Proportional | gain 10 | 0 
 ----------------------------
 Level 2
 level2col0 PCTNode
 ----------------------------
 REF: constant2 Constant | 1 | links  proportional3 
 PER: variable2 Variable | 0 | links  variable1 
-COM: subtract2 Subtract | 0 | links  constant2 variable2 
-OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
+COM: subtract2 Subtract | 0 
+OUT: proportional2 Proportional | gain 10 | 0 
 ----------------------------
 Level 3
 level3col0 PCTNode
 ----------------------------
 REF: constant3 Constant | 1 
 PER: variable3 Variable | 0 | links  variable2 
-COM: subtract3 Subtract | 0 | links  constant3 variable3 
-OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
+COM: subtract3 Subtract | 0 
+OUT: proportional3 Proportional | gain 10 | 0 
 ----------------------------
 POST: None
 **************************
