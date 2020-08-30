@@ -179,7 +179,7 @@ class Variable(BaseFunction):
 
 # Cell
 class PassOn(BaseFunction):
-    "A function that returns a variable value. Parameter: The variable value. Links: None"
+    "A function that passes on a variable value from a linked function. Parameter: None. Links: One"
     def __init__(self,  value=0, name="variable", links=None, new_name=True, **cargs):
         super().__init__(name, value, links, new_name)
 
