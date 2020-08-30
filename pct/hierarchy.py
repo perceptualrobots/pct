@@ -12,7 +12,7 @@ from .utilities import FunctionsList
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
-    def __init__(self, levels=0, cols=0, pre=[], post=[], name="pcthierarchy", clear_names=True, links="single", history=False, **pargs):
+    def __init__(self, levels=0, cols=0, pre=[], post=[], name="pcthierarchy", clear_names=True, links="single", history=False, build=True, **pargs):
         self.links_built = False
         self.order=None
         if clear_names:
@@ -42,7 +42,8 @@ class PCTHierarchy():
                 else:
                     node = PCTNode(name=f'level{r}col{c}', history=history)
 
-                node.build_links()
+                if build:
+                    node.build_links()
 
                 self.handle_perception_links(node, r, c, links)
                 self.handle_reference_links(node, r, c, links)
