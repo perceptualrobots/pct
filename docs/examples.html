@@ -52,7 +52,10 @@ description: "Examples of the PCT library in use."
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span><span class="o">==</span><span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+    <span class="n">render</span><span class="o">=</span><span class="kc">True</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">render</span><span class="o">=</span><span class="kc">False</span>  
 </pre></div>
 
     </div>
@@ -124,6 +127,13 @@ description: "Examples of the PCT library in use."
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create the Cartpole gym environment function. This will apply the "action" output from the hierarchy and provide the new observations.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -131,24 +141,7 @@ description: "Examples of the PCT library in use."
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-Create the Cartpole gym environment function. This will apply the "action" output from the hierarchy and provide the new observations.
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="n">render</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -202,23 +195,6 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">PassOn</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_velocity_reference&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;proportional1&#39;</span><span class="p">]))</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">PassOn</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_position_reference&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;proportional2&#39;</span><span class="p">]))</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">PassOn</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity_reference&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;proportional3&#39;</span><span class="p">]))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -300,8 +276,6 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 
 <span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;proportional1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="s2">&quot;cart_position_output&quot;</span><span class="p">)</span>
 <span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;cart_position_output&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-
-<span class="c1">#FunctionsList.getInstance().get_function(&quot;force&quot;).set_property(&#39;gain&#39;, -0.05)</span>
 </pre></div>
 
     </div>
@@ -359,6 +333,13 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Set the output of the hierachy as the action input to the Cartpole environment.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -368,23 +349,6 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">link</span> <span class="o">=</span> <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_output_function</span><span class="p">()</span>
 <span class="n">cartpole</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -423,8 +387,7 @@ Create the Cartpole gym environment function. This will apply the "action" outpu
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | [-0.00441797  0.34617215  0.00519017 -0.52779488] | links  greaterthan 
-CartPole-v1 OpenAIGym | 0 | links  greaterthan 
+PRE: CartPole-v1 OpenAIGym | 0 | links  greaterthan 
 Level 0
 level0col0 PCTNode
 ----------------------------
@@ -458,7 +421,6 @@ COM: subtract3 Subtract | 0 | links  pole_angle_reference pole_angle
 OUT: pole_angle_output Proportional | gain 3.5 | 0 | links  subtract3 
 ----------------------------
 POST: greaterthan GreaterThan | 0 | links  force 
-greaterthan GreaterThan | 0 | links  force 
 **************************
 </pre>
 </div>
@@ -478,7 +440,6 @@ greaterthan GreaterThan | 0 | links  force
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">set_order</span><span class="p">(</span><span class="s2">&quot;Down&quot;</span><span class="p">)</span>
-<span class="c1">#cartpole_hierarchy.run(100,verbose=False)</span>
 </pre></div>
 
     </div>
@@ -488,23 +449,13 @@ greaterthan GreaterThan | 0 | links  force
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Run the hierarchy for 500 steps.</p>
 
 </div>
-    {% endraw %}
-
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -521,15 +472,6 @@ greaterthan GreaterThan | 0 | links  force
 
 <div class="output_wrapper">
 <div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>C:\Users\ruper\.conda\envs\pctdev\lib\site-packages\gym\logger.py:30: UserWarning: <span class="ansi-yellow-fg">WARN: You are calling &#39;step()&#39; even though this environment has already returned done = True. You should always call &#39;reset()&#39; once you receive &#39;done = True&#39; -- any further steps are undefined behavior.</span>
-  warnings.warn(colorize(&#39;%s: %s&#39;%(&#39;WARN&#39;, msg % args), &#39;yellow&#39;))
-</pre>
-</div>
-</div>
 
 <div class="output_area">
 
