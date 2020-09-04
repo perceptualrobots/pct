@@ -432,9 +432,9 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
 </pre>
 </div>
 </div>
@@ -473,7 +473,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop1&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
 </pre>
 </div>
 </div>
@@ -548,8 +548,8 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -598,7 +598,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
  &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;},
+ &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
  &#39;weights&#39;: array([1., 1., 1.])}</pre>
 </div>
 
@@ -636,7 +636,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
  &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;},
+ &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
  &#39;weights&#39;: array([1., 1., 1.])}</pre>
 </div>
 
@@ -681,7 +681,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>proportional4 Proportional | gain 1 | 0 
+<pre>proportional3 Proportional | gain 1 | 0 
 </pre>
 </div>
 </div>
@@ -719,7 +719,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -757,7 +757,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;name&#39;: &#39;proportional4&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -839,7 +839,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>integration1 Integration | gain 3 slow 10  | 0 | links  constant5 
+<pre>integration Integration | gain 3 slow 10  | 0 | links  constant3 
 </pre>
 </div>
 </div>
@@ -1108,7 +1108,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration1&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant5&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant3&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
 </pre>
 </div>
 </div>
@@ -1283,7 +1283,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.999 0.037 1.000 0.022 0.061 -0.097 -1.0 False {}&#39;</pre>
+<pre>&#39;0.999 0.037 1.000 -0.008 -0.076 0.053 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -1316,7 +1316,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9993158959367092</pre>
+<pre>0.9993272561152647</pre>
 </div>
 
 </div>
@@ -1367,7 +1367,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9993158959367092</pre>
+<pre>0.9993272561152647</pre>
 </div>
 
 </div>
