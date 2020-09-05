@@ -3,6 +3,7 @@
 __all__ = ['PCTNode', 'PCTNodeData']
 
 # Cell
+import networkx as nx
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .functions import *

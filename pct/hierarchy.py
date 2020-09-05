@@ -3,6 +3,7 @@
 __all__ = ['PCTHierarchy']
 
 # Cell
+import networkx as nx
 import numpy as np
 from .nodes import PCTNode
 from .functions import *
@@ -141,6 +142,27 @@ class PCTHierarchy():
             for column in range(len(self.hierarchy[level-1])):
                 thatnode = self.hierarchy[level-1][column]
                 thatnode.add_link("reference", thisnode.get_function("output"))
+
+
+    def graph(self):
+        graph = nx.DiGraph()
+
+        self.set_graph_data(graph)
+
+        return graph
+
+    def set_graph_data(self, graph):
+
+        for func in self.preCollection:
+            func.set_graph_data(graph)
+
+        for level in range(len(self.hierarchy)):
+            for col in range(len(self.hierarchy[level])):
+                  self.hierarchy[level][col].set_graph_data(graph)
+
+        for func in self.postCollection:
+            func.set_graph_data(graph)
+
 
     def summary(self, build=True):
         print(self.name, type(self).__name__)
