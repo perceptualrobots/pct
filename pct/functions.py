@@ -7,7 +7,7 @@ __all__ = ['BaseFunction', 'Proportional', 'Variable', 'PassOn', 'GreaterThan', 
 import numpy as np
 import gym
 from abc import ABC, abstractmethod
-from .putils import UniqueNamer
+from .utilities import UniqueNamer
 from .putils import FunctionsList
 
 # Cell
