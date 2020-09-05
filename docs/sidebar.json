@@ -2,7 +2,7 @@
   "pct": {
     "Overview": "/",
     "Examples": "/examples",
-    "Utilities": "/utilities",
+    "Utilities": "/putils",
     "Functions": "/functions",
     "Nodes": "/nodes",
     "Hierarchy": "/hierarchy",

@@ -14,7 +14,7 @@ entries:
       url: /examples
     - output: web,pdf
       title: Utilities
-      url: /utilities
+      url: /putils
     - output: web,pdf
       title: Functions
       url: /functions
