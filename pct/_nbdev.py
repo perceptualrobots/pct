@@ -17,12 +17,14 @@ index = {"UniqueNamer": "01_utilities.ipynb",
          "OpenAIGym": "02_functions.ipynb",
          "PCTNode": "03_nodes.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
-         "PCTHierarchy": "04_hierarchy.ipynb"}
+         "PCTHierarchy": "04_hierarchy.ipynb",
+         "MyNamer": "06_mymod.ipynb"}
 
 modules = ["utilities.py",
            "functions.py",
            "nodes.py",
-           "hierarchy.py"]
+           "hierarchy.py",
+           "mymod.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 
