@@ -2,8 +2,8 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"UniqueNamer": "01_utils.ipynb",
-         "FunctionsList": "01_utils.ipynb",
+index = {"UniqueNamer": "01_putils.ipynb",
+         "FunctionsList": "01_putils.ipynb",
          "BaseFunction": "02_functions.ipynb",
          "Proportional": "02_functions.ipynb",
          "Variable": "02_functions.ipynb",
