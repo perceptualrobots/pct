@@ -60,7 +60,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L14" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>, <strong><code>value</code></strong>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>) :: <code>ABC</code></p>
+<h2 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>, <strong><code>value</code></strong>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -92,7 +92,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L143" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L144" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One.</p>
 
@@ -124,7 +124,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L163" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L164" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a variable value. Parameter: The variable value. Links: None</p>
 
@@ -156,7 +156,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PassOn" class="doc_header"><code>class</code> <code>PassOn</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L181" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PassOn</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="PassOn" class="doc_header"><code>class</code> <code>PassOn</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L182" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PassOn</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that passes on a variable value from a linked function. Parameter: None. Links: One</p>
 
@@ -188,7 +188,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="GreaterThan" class="doc_header"><code>class</code> <code>GreaterThan</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L200" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GreaterThan</code>(<strong><code>threshold</code></strong>=<em><code>0</code></em>, <strong><code>upper</code></strong>=<em><code>1</code></em>, <strong><code>lower</code></strong>=<em><code>0</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'greaterthan'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="GreaterThan" class="doc_header"><code>class</code> <code>GreaterThan</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L201" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GreaterThan</code>(<strong><code>threshold</code></strong>=<em><code>0</code></em>, <strong><code>upper</code></strong>=<em><code>1</code></em>, <strong><code>lower</code></strong>=<em><code>0</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'greaterthan'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>One of two supplied values is returned if the input is greater than supplied threshold.&lt;/br&gt; Parameters: The threshold and upper and lower value. Links: One</p>
 
@@ -220,7 +220,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L227" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'subtract'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L228" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'subtract'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted.</p>
 
@@ -252,7 +252,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L246" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L247" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a constant value. Parameter: The constant value. Links: None</p>
 
@@ -284,7 +284,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L262" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L263" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameter: The gain and slow values. Links: One.</p>
 
@@ -316,7 +316,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L286" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L287" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions.</p>
 
@@ -348,7 +348,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L310" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L311" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One.</p>
 
@@ -380,7 +380,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L332" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L333" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -432,9 +432,9 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
 </pre>
 </div>
 </div>
@@ -473,7 +473,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop1&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
 </pre>
 </div>
 </div>
@@ -548,8 +548,8 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -598,7 +598,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
  &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
+ &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;},
  &#39;weights&#39;: array([1., 1., 1.])}</pre>
 </div>
 
@@ -636,7 +636,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
  &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
+ &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;},
  &#39;weights&#39;: array([1., 1., 1.])}</pre>
 </div>
 
@@ -681,7 +681,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>proportional3 Proportional | gain 1 | 0 
+<pre>proportional4 Proportional | gain 1 | 0 
 </pre>
 </div>
 </div>
@@ -719,7 +719,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -757,7 +757,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;name&#39;: &#39;proportional4&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -839,7 +839,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>integration Integration | gain 3 slow 10  | 0 | links  constant3 
+<pre>integration1 Integration | gain 3 slow 10  | 0 | links  constant5 
 </pre>
 </div>
 </div>
@@ -1108,7 +1108,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant3&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration1&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant5&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
 </pre>
 </div>
 </div>
@@ -1283,7 +1283,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.999 0.037 1.000 -0.008 -0.076 0.053 -1.0 False {}&#39;</pre>
+<pre>&#39;0.999 0.035 0.998 0.063 -0.093 -0.055 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -1316,7 +1316,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9993272561152647</pre>
+<pre>0.9993783400857595</pre>
 </div>
 
 </div>
@@ -1367,7 +1367,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9993272561152647</pre>
+<pre>0.9993783400857595</pre>
 </div>
 
 </div>
