@@ -3,8 +3,8 @@
 __all__ = ['PCTNode', 'PCTNodeData']
 
 # Cell
-from .utilities import UniqueNamer
-from .utilities import FunctionsList
+from .utils import UniqueNamer
+from .utils import FunctionsList
 from .functions import *
 
 # Cell
