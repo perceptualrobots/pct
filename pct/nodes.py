@@ -195,6 +195,30 @@ class PCTNode():
 
         print("----------------------------")
 
+
+    def graph(self):
+        graph = nx.DiGraph()
+
+        self.set_graph_data(graph)
+
+        return graph
+
+    def set_graph_data(self, graph):
+
+        for referenceFunction in self.referenceCollection:
+            referenceFunction.set_graph_data(graph)
+
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.set_graph_data(graph)
+
+        for comparatorFunction in self.comparatorCollection:
+            comparatorFunction.set_graph_data(graph)
+
+        for outputFunction in self.outputCollection:
+            outputFunction.set_graph_data(graph)
+
+
+
     def get_config(self):
         config = {"type": type(self).__name__,
                     "name": self.name}

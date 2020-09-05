@@ -5,11 +5,11 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"UniqueNamer": "01_putils.ipynb",
          "FunctionsList": "01_putils.ipynb",
          "BaseFunction": "02_functions.ipynb",
+         "Subtract": "02_functions.ipynb",
          "Proportional": "02_functions.ipynb",
          "Variable": "02_functions.ipynb",
          "PassOn": "02_functions.ipynb",
          "GreaterThan": "02_functions.ipynb",
-         "Subtract": "02_functions.ipynb",
          "Constant": "02_functions.ipynb",
          "Integration": "02_functions.ipynb",
          "WeightedSum": "02_functions.ipynb",
@@ -17,14 +17,12 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "OpenAIGym": "02_functions.ipynb",
          "PCTNode": "03_nodes.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
-         "PCTHierarchy": "04_hierarchy.ipynb",
-         "MyNamer": "06_mymod.ipynb"}
+         "PCTHierarchy": "04_hierarchy.ipynb"}
 
 modules = ["putils.py",
            "functions.py",
            "nodes.py",
-           "hierarchy.py",
-           "mymod.py"]
+           "hierarchy.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 

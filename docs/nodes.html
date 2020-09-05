@@ -110,7 +110,7 @@ description: "A node is a single control unit representing a feedback control lo
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L267" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
+<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L291" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
 </blockquote>
 <p>Data collected for a PCTNode</p>
 
@@ -237,7 +237,7 @@ description: "A node is a single control unit representing a feedback control lo
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Viewing-Nodes">Viewing Nodes<a class="anchor-link" href="#Viewing-Nodes"> </a></h2><p>The details of a node can be viewed in a couple of ways, which is useful for checking the configuration. The summary method prints to the screen. The get_config method returns a string in a JSON format.</p>
+<h2 id="Viewing-Nodes">Viewing Nodes<a class="anchor-link" href="#Viewing-Nodes"> </a></h2><p>The details of a node can be viewed in a number of ways, which is useful for checking the configuration. The summary method prints to the screen. The get_config method returns a string in a JSON format.</p>
 
 </div>
 </div>
@@ -332,6 +332,13 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A node can also be viewed graphically as a network of connected nodes.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Running-a-Node">Running a Node<a class="anchor-link" href="#Running-a-Node"> </a></h2><p>For the purposes of this example we first create a function which is a very basic model of the physical environment. It defines how the world behaves when we pass it the output of the control system.</p>
