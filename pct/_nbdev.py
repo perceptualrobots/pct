@@ -20,7 +20,7 @@ index = {"UniqueNamer": "01_utilities.ipynb",
          "PCTHierarchy": "04_hierarchy.ipynb",
          "MyNamer": "06_mymod.ipynb"}
 
-modules = ["utilities.py",
+modules = ["utils.py",
            "functions.py",
            "nodes.py",
            "hierarchy.py",
