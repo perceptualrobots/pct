@@ -5,6 +5,7 @@ __all__ = ['PCTHierarchy']
 # Cell
 import networkx as nx
 from networkx.drawing.nx_agraph import graphviz_layout
+import matplotlib.pyplot as plt
 import numpy as np
 from .nodes import PCTNode
 from .functions import *
@@ -151,11 +152,15 @@ class PCTHierarchy():
                 thatnode.add_link("reference", thisnode.get_function("output"))
 
 
-    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',  node_size=500, prog='dot'):
+    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',  node_size=500, prog='dot',file=None):
         graph = self.graph()
         pos=graphviz_layout(graph, prog=prog)
         nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size)
+
+        if file != None:
+            plt.title(self.name)
+            plt.savefig(file)
 
     def graph(self):
         graph = nx.DiGraph()
