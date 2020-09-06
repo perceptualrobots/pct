@@ -4,6 +4,7 @@ __all__ = ['PCTHierarchy']
 
 # Cell
 import networkx as nx
+from networkx.drawing.nx_agraph import graphviz_layout
 import numpy as np
 from .nodes import PCTNode
 from .functions import *
@@ -152,8 +153,8 @@ class PCTHierarchy():
 
     def draw(self, with_labels=True, font_weight='bold', node_color='red',  node_size=500, layout='dot'):
         graph = self.graph()
-        pos=graphviz_layout(g, prog=layout)
-        nx.draw(g, pos=pos, with_labels=with_labels, font_weight=font_weight, node_color=node_color,  node_size=node_size)
+        pos=graphviz_layout(graph, prog=layout)
+        nx.draw(graph, pos=pos, with_labels=with_labels, font_weight=font_weight, node_color=node_color,  node_size=node_size)
 
     def graph(self):
         graph = nx.DiGraph()
