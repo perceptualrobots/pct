@@ -151,10 +151,11 @@ class PCTHierarchy():
                 thatnode.add_link("reference", thisnode.get_function("output"))
 
 
-    def draw(self, with_labels=True, font_weight='bold', node_color='red',  node_size=500, layout='dot'):
+    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',  node_size=500, prog='dot'):
         graph = self.graph()
-        pos=graphviz_layout(graph, prog=layout)
-        nx.draw(graph, pos=pos, with_labels=with_labels, font_weight=font_weight, node_color=node_color,  node_size=node_size)
+        pos=graphviz_layout(graph, prog=prog)
+        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+                node_color=node_color,  node_size=node_size)
 
     def graph(self):
         graph = nx.DiGraph()
