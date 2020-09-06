@@ -13,14 +13,20 @@ from .putils import FunctionsList
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
-    def __init__(self, levels=0, cols=0, pre=[], post=[], name="pcthierarchy", clear_names=True, links="single", history=False, build=True, **pargs):
+    def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", history=False, build=True, **pargs):
         self.links_built = False
         self.order=None
         if clear_names:
             UniqueNamer.getInstance().clear()
         self.name=UniqueNamer.getInstance().get_name(name)
-        self.preCollection=pre
-        self.postCollection=post
+        if pre==None:
+            self.preCollection=[]
+        else:
+            self.preCollection=pre
+        if post==None:
+            self.postCollection=[]
+        else:
+            self.postCollection=post
         self.hierarchy = []
         for r in range(levels):
             col_list=[]
@@ -143,6 +149,11 @@ class PCTHierarchy():
                 thatnode = self.hierarchy[level-1][column]
                 thatnode.add_link("reference", thisnode.get_function("output"))
 
+
+    def draw(self, with_labels=True, font_weight='bold', node_color='red',  node_size=500, layout='dot'):
+        graph = self.graph()
+        pos=graphviz_layout(g, prog=layout)
+        nx.draw(g, pos=pos, with_labels=with_labels, font_weight=font_weight, node_color=node_color,  node_size=node_size)
 
     def graph(self):
         graph = nx.DiGraph()
