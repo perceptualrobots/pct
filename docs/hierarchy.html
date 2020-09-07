@@ -98,15 +98,15 @@ sidebar: home_sidebar
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x287d05da288&gt;,
-  &lt;pct.nodes.PCTNode at 0x287d05da488&gt;,
-  &lt;pct.nodes.PCTNode at 0x287d1ce0148&gt;],
- [&lt;pct.nodes.PCTNode at 0x287d1adcd08&gt;,
-  &lt;pct.nodes.PCTNode at 0x287d1adca08&gt;,
-  &lt;pct.nodes.PCTNode at 0x287d1adc948&gt;],
- [&lt;pct.nodes.PCTNode at 0x287d1d397c8&gt;,
-  &lt;pct.nodes.PCTNode at 0x287d0679bc8&gt;,
-  &lt;pct.nodes.PCTNode at 0x287d0679248&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x1ed725f2f48&gt;,
+  &lt;pct.nodes.PCTNode at 0x1ed725f2bc8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1ed725f2848&gt;],
+ [&lt;pct.nodes.PCTNode at 0x1ed727278c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x1ed7273a788&gt;,
+  &lt;pct.nodes.PCTNode at 0x1ed7273a288&gt;],
+ [&lt;pct.nodes.PCTNode at 0x1ed72741208&gt;,
+  &lt;pct.nodes.PCTNode at 0x1ed72741988&gt;,
+  &lt;pct.nodes.PCTNode at 0x1ed72730ac8&gt;]]</pre>
 </div>
 
 </div>
@@ -185,74 +185,74 @@ sidebar: home_sidebar
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>pcthierarchy1 PCTHierarchy
+<pre>pcthierarchy PCTHierarchy
 **************************
 PRE: precon Constant | 5 
 Level 0
-level0col01 PCTNode
+level0col0 PCTNode
 ----------------------------
-REF: weighted_sum4 WeightedSum | 0 | links  proportional7 proportional8 proportional9 
-PER: variable2 Variable | 0 
-COM: subtract4 Subtract | 0 | links  weighted_sum4 variable2 
-OUT: proportional4 Proportional | gain 10 | 0 | links  subtract4 
+REF: weighted_sum WeightedSum | 0 | links  proportional3 proportional4 proportional5 
+PER: variable Variable | 0 
+COM: subtract Subtract | 0 | links  weighted_sum variable 
+OUT: proportional Proportional | gain 10 | 0 | links  subtract 
 ----------------------------
-level0col11 PCTNode
+level0col1 PCTNode
 ----------------------------
-REF: weighted_sum5 WeightedSum | 0 | links  proportional7 proportional8 proportional9 
-PER: variable3 Variable | 0 
-COM: subtract5 Subtract | 0 | links  weighted_sum5 variable3 
-OUT: proportional5 Proportional | gain 10 | 0 | links  subtract5 
+REF: weighted_sum1 WeightedSum | 0 | links  proportional3 proportional4 proportional5 
+PER: variable1 Variable | 0 
+COM: subtract1 Subtract | 0 | links  weighted_sum1 variable1 
+OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
 ----------------------------
 level0col2 PCTNode
 ----------------------------
-REF: weighted_sum6 WeightedSum | 0 | links  proportional7 proportional8 proportional9 
-PER: variable4 Variable | 0 
-COM: subtract6 Subtract | 0 | links  weighted_sum6 variable4 
-OUT: proportional6 Proportional | gain 10 | 0 | links  subtract6 
+REF: weighted_sum2 WeightedSum | 0 | links  proportional3 proportional4 proportional5 
+PER: variable2 Variable | 0 
+COM: subtract2 Subtract | 0 | links  weighted_sum2 variable2 
+OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
 ----------------------------
 Level 1
-level1col01 PCTNode
+level1col0 PCTNode
 ----------------------------
-REF: weighted_sum8 WeightedSum | 0 | links  proportional10 proportional11 proportional12 
-PER: weighted_sum7 WeightedSum | 0 | links  variable2 variable3 variable4 
-COM: subtract7 Subtract | 0 | links  weighted_sum8 weighted_sum7 
-OUT: proportional7 Proportional | gain 10 | 0 | links  subtract7 
+REF: weighted_sum4 WeightedSum | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum3 WeightedSum | 0 | links  variable variable1 variable2 
+COM: subtract3 Subtract | 0 | links  weighted_sum4 weighted_sum3 
+OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
 ----------------------------
-level1col11 PCTNode
+level1col1 PCTNode
 ----------------------------
-REF: weighted_sum10 WeightedSum | 0 | links  proportional10 proportional11 proportional12 
-PER: weighted_sum9 WeightedSum | 0 | links  variable2 variable3 variable4 
-COM: subtract8 Subtract | 0 | links  weighted_sum10 weighted_sum9 
-OUT: proportional8 Proportional | gain 10 | 0 | links  subtract8 
+REF: weighted_sum6 WeightedSum | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum5 WeightedSum | 0 | links  variable variable1 variable2 
+COM: subtract4 Subtract | 0 | links  weighted_sum6 weighted_sum5 
+OUT: proportional4 Proportional | gain 10 | 0 | links  subtract4 
 ----------------------------
 level1col2 PCTNode
 ----------------------------
-REF: weighted_sum12 WeightedSum | 0 | links  proportional10 proportional11 proportional12 
-PER: weighted_sum11 WeightedSum | 0 | links  variable2 variable3 variable4 
-COM: subtract9 Subtract | 0 | links  weighted_sum12 weighted_sum11 
-OUT: proportional9 Proportional | gain 10 | 0 | links  subtract9 
+REF: weighted_sum8 WeightedSum | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum7 WeightedSum | 0 | links  variable variable1 variable2 
+COM: subtract5 Subtract | 0 | links  weighted_sum8 weighted_sum7 
+OUT: proportional5 Proportional | gain 10 | 0 | links  subtract5 
 ----------------------------
 Level 2
 level2col0 PCTNode
 ----------------------------
-REF: constant2 Constant | 1 
-PER: weighted_sum13 WeightedSum | 0 | links  weighted_sum7 weighted_sum9 weighted_sum11 
-COM: subtract10 Subtract | 0 | links  constant2 weighted_sum13 
-OUT: proportional10 Proportional | gain 10 | 0 | links  subtract10 
+REF: constant Constant | 1 
+PER: weighted_sum9 WeightedSum | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract6 Subtract | 0 | links  constant weighted_sum9 
+OUT: proportional6 Proportional | gain 10 | 0 | links  subtract6 
 ----------------------------
 level2col1 PCTNode
 ----------------------------
-REF: constant3 Constant | 1 
-PER: weighted_sum14 WeightedSum | 0 | links  weighted_sum7 weighted_sum9 weighted_sum11 
-COM: subtract11 Subtract | 0 | links  constant3 weighted_sum14 
-OUT: proportional11 Proportional | gain 10 | 0 | links  subtract11 
+REF: constant1 Constant | 1 
+PER: weighted_sum10 WeightedSum | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract7 Subtract | 0 | links  constant1 weighted_sum10 
+OUT: proportional7 Proportional | gain 10 | 0 | links  subtract7 
 ----------------------------
 level2col2 PCTNode
 ----------------------------
-REF: constant4 Constant | 1 
-PER: weighted_sum15 WeightedSum | 0 | links  weighted_sum7 weighted_sum9 weighted_sum11 
-COM: subtract12 Subtract | 0 | links  constant4 weighted_sum15 
-OUT: proportional12 Proportional | gain 10 | 0 | links  subtract12 
+REF: constant2 Constant | 1 
+PER: weighted_sum11 WeightedSum | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract8 Subtract | 0 | links  constant2 weighted_sum11 
+OUT: proportional8 Proportional | gain 10 | 0 | links  subtract8 
 ----------------------------
 POST: postcon Constant | 10 
 **************************
@@ -296,7 +296,7 @@ POST: postcon Constant | 10
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;,
- &#39;name&#39;: &#39;pcthierarchy1&#39;,
+ &#39;name&#39;: &#39;pcthierarchy&#39;,
  &#39;pre&#39;: {&#39;pre0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
    &#39;name&#39;: &#39;precon&#39;,
    &#39;value&#39;: 5,
@@ -304,203 +304,197 @@ POST: postcon Constant | 10
  &#39;levels&#39;: {&#39;level0&#39;: {&#39;level&#39;: 0,
    &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
-      &#39;name&#39;: &#39;level0col01&#39;,
+      &#39;name&#39;: &#39;level0col0&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum4&#39;,
+        &#39;name&#39;: &#39;weighted_sum&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional7&#39;, 1: &#39;proportional8&#39;, 2: &#39;proportional9&#39;},
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;variable&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col1&#39;: {&#39;col&#39;: 1,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level0col1&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum1&#39;, 1: &#39;variable1&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract1&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col2&#39;: {&#39;col&#39;: 2,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level0col2&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum2&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
         &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
         &#39;name&#39;: &#39;variable2&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {}}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract2&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum2&#39;, 1: &#39;variable2&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional2&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract2&#39;},
+        &#39;gain&#39;: 10}}}}}},
+  &#39;level1&#39;: {&#39;level&#39;: 1,
+   &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level1col0&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum4&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum3&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract3&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum4&#39;, 1: &#39;weighted_sum3&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional3&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract3&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col1&#39;: {&#39;col&#39;: 1,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level1col1&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum6&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum5&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
+        &#39;weights&#39;: array([1., 1., 1.])}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
         &#39;name&#39;: &#39;subtract4&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum4&#39;, 1: &#39;variable2&#39;}}},
+        &#39;links&#39;: {0: &#39;weighted_sum6&#39;, 1: &#39;weighted_sum5&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
         &#39;name&#39;: &#39;proportional4&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {0: &#39;subtract4&#39;},
         &#39;gain&#39;: 10}}}},
-    &#39;col1&#39;: {&#39;col&#39;: 1,
-     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
-      &#39;name&#39;: &#39;level0col11&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum5&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional7&#39;, 1: &#39;proportional8&#39;, 2: &#39;proportional9&#39;},
-        &#39;weights&#39;: array([1., 1., 1.])}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
-        &#39;name&#39;: &#39;variable3&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {}}},
-      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract5&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum5&#39;, 1: &#39;variable3&#39;}}},
-      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional5&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract5&#39;},
-        &#39;gain&#39;: 10}}}},
-    &#39;col2&#39;: {&#39;col&#39;: 2,
-     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
-      &#39;name&#39;: &#39;level0col2&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum6&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional7&#39;, 1: &#39;proportional8&#39;, 2: &#39;proportional9&#39;},
-        &#39;weights&#39;: array([1., 1., 1.])}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
-        &#39;name&#39;: &#39;variable4&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {}}},
-      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract6&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum6&#39;, 1: &#39;variable4&#39;}}},
-      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional6&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract6&#39;},
-        &#39;gain&#39;: 10}}}}}},
-  &#39;level1&#39;: {&#39;level&#39;: 1,
-   &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
-     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
-      &#39;name&#39;: &#39;level1col01&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum8&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional10&#39;,
-         1: &#39;proportional11&#39;,
-         2: &#39;proportional12&#39;},
-        &#39;weights&#39;: array([1., 1., 1.])}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum7&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;variable2&#39;, 1: &#39;variable3&#39;, 2: &#39;variable4&#39;},
-        &#39;weights&#39;: array([1., 1., 1.])}},
-      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract7&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum8&#39;, 1: &#39;weighted_sum7&#39;}}},
-      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional7&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract7&#39;},
-        &#39;gain&#39;: 10}}}},
-    &#39;col1&#39;: {&#39;col&#39;: 1,
-     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
-      &#39;name&#39;: &#39;level1col11&#39;,
-      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum10&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional10&#39;,
-         1: &#39;proportional11&#39;,
-         2: &#39;proportional12&#39;},
-        &#39;weights&#39;: array([1., 1., 1.])}},
-      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum9&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;variable2&#39;, 1: &#39;variable3&#39;, 2: &#39;variable4&#39;},
-        &#39;weights&#39;: array([1., 1., 1.])}},
-      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract8&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum10&#39;, 1: &#39;weighted_sum9&#39;}}},
-      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional8&#39;,
-        &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract8&#39;},
-        &#39;gain&#39;: 10}}}},
     &#39;col2&#39;: {&#39;col&#39;: 2,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;level1col2&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum12&#39;,
+        &#39;name&#39;: &#39;weighted_sum8&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional10&#39;,
-         1: &#39;proportional11&#39;,
-         2: &#39;proportional12&#39;},
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
         &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum11&#39;,
+        &#39;name&#39;: &#39;weighted_sum7&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;variable2&#39;, 1: &#39;variable3&#39;, 2: &#39;variable4&#39;},
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
         &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract9&#39;,
+        &#39;name&#39;: &#39;subtract5&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum12&#39;, 1: &#39;weighted_sum11&#39;}}},
+        &#39;links&#39;: {0: &#39;weighted_sum8&#39;, 1: &#39;weighted_sum7&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional9&#39;,
+        &#39;name&#39;: &#39;proportional5&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract9&#39;},
+        &#39;links&#39;: {0: &#39;subtract5&#39;},
         &#39;gain&#39;: 10}}}}}},
   &#39;level2&#39;: {&#39;level&#39;: 2,
    &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;level2col0&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant2&#39;,
+        &#39;name&#39;: &#39;constant&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum13&#39;,
+        &#39;name&#39;: &#39;weighted_sum9&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum7&#39;, 1: &#39;weighted_sum9&#39;, 2: &#39;weighted_sum11&#39;},
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
         &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract10&#39;,
+        &#39;name&#39;: &#39;subtract6&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;weighted_sum13&#39;}}},
+        &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum9&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional10&#39;,
+        &#39;name&#39;: &#39;proportional6&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract10&#39;},
+        &#39;links&#39;: {0: &#39;subtract6&#39;},
         &#39;gain&#39;: 10}}}},
     &#39;col1&#39;: {&#39;col&#39;: 1,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;level2col1&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant3&#39;,
+        &#39;name&#39;: &#39;constant1&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum14&#39;,
+        &#39;name&#39;: &#39;weighted_sum10&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum7&#39;, 1: &#39;weighted_sum9&#39;, 2: &#39;weighted_sum11&#39;},
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
         &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract11&#39;,
+        &#39;name&#39;: &#39;subtract7&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;constant3&#39;, 1: &#39;weighted_sum14&#39;}}},
+        &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;weighted_sum10&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional11&#39;,
+        &#39;name&#39;: &#39;proportional7&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract11&#39;},
+        &#39;links&#39;: {0: &#39;subtract7&#39;},
         &#39;gain&#39;: 10}}}},
     &#39;col2&#39;: {&#39;col&#39;: 2,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;level2col2&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant4&#39;,
+        &#39;name&#39;: &#39;constant2&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
-        &#39;name&#39;: &#39;weighted_sum15&#39;,
+        &#39;name&#39;: &#39;weighted_sum11&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum7&#39;, 1: &#39;weighted_sum9&#39;, 2: &#39;weighted_sum11&#39;},
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
         &#39;weights&#39;: array([1., 1., 1.])}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract12&#39;,
+        &#39;name&#39;: &#39;subtract8&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;constant4&#39;, 1: &#39;weighted_sum15&#39;}}},
+        &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;weighted_sum11&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional12&#39;,
+        &#39;name&#39;: &#39;proportional8&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract12&#39;},
+        &#39;links&#39;: {0: &#39;subtract8&#39;},
         &#39;gain&#39;: 10}}}}}}},
  &#39;post&#39;: {&#39;post0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
    &#39;name&#39;: &#39;postcon&#39;,
@@ -571,7 +565,7 @@ POST: postcon Constant | 10
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ahpct</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">)</span>
 
-<span class="n">test</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">test</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="k">if</span> <span class="n">test</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">ahpct</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span>
     <span class="n">pos</span><span class="o">=</span><span class="n">graphviz_layout</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s1">&#39;dot&#39;</span><span class="p">)</span>
@@ -595,14 +589,36 @@ POST: postcon Constant | 10
 
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">KeyError</span>                                  Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">~\.conda\envs\pctdev\lib\site-packages\networkx\drawing\layout.py</span> in <span class="ansi-cyan-fg">multipartite_layout</span><span class="ansi-blue-intense-fg ansi-bold">(G, subset_key, align, scale, center)</span>
+<span class="ansi-green-fg">   1089</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">-&gt; 1090</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>layer <span class="ansi-yellow-intense-fg ansi-bold">=</span> data<span class="ansi-yellow-intense-fg ansi-bold">[</span>subset_key<span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">   1091</span>         <span class="ansi-green-intense-fg ansi-bold">except</span> KeyError<span class="ansi-yellow-intense-fg ansi-bold">:</span>
 
+<span class="ansi-red-intense-fg ansi-bold">KeyError</span>: &#39;subset&#39;
 
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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4AH+/v789ddful+DeWGpI7srOmr/lggiwrFjx1i+fDkrVqzA3t6e3r1707t370xDmOXIQvexeQU+KPa5n2JjY1m1ahVLly7l9OnTvPTSS/Tr149mzZqV7NmSjezLL79k586drF69On8rWuBcXkoGav+aJRHh5MmThmCXlpZmCHZ169bN3zRaFriPzS/wgclm+7106RI//fQTS5cu5cGDB/Tp04e+ffs+/leRhUtLSyMwMJClS5fStGnT/CdgYbM3K1mo/Ws2zp49y/Lly1m+fDkPHz6kV69e9O7dmwYNGhRuzkhL28cmOcGaF0lJuvPLTk6P71nk4qJbbuJEkeTkQm9aq9XKsWPH5O233xYvLy958skn5bPPPpPLly8b4YOVPCtXrpSmTZsWLhET7k+lGKj9azIRERHy8ccfS926dcXT01NGjRol+/btMwz5ZTQZ9nGSnV2J3sfmG/jSxcbquk7XrKkb3NTVVaR0ad1fBwfd69OmFdkcT6mpqbJ9+3YZPHiwlC1bVtq0aSPz5s0zzPZg6bRarTRu3Nh4Mw/o92dyUJAk29gU+/5UilgO9TXV1VUS7e3V/jWiqKgo+eyzz6RBgwZSoUIFGT58uOzatcv4wS4nsbGyqkkTia1c2SRtsjGY56nO3KSmQlSUrnutk5Pu7n+74ptSMDExkY0bN7J06VK2bt1K27Zt6du3L506dTLbIasKa+/evQwYMIBz587la0igx/njjz94///+jz9++MFk+1MpYvr6evzAASb/73/8cuSI2r+FcOXKFVauXMny5cu5cOECPXr0oHfv3jzzzDOG4d2KS9++fenYsSN9e/c2aZtcUOafw4zs7CAgwGSbd3JyokePHvTo0YM7d+6wevVqvvzyS1577TV69OhB3759eeaZZyyqU8yMGTMYM2aMUYMe6MaI9PL1Nen+VIqYvr6WtrPj0N27JaJBNDc3btxg1apVLF++nNOnT9OtWzemTJnCs88+i70Je0feu3eP0qVLm7xNLijLaaGLWdmyZRkyZAg7duzg77//JigoiNGjR+Pr68uECRNynpW8hAkPD2f37t0MHDjQ6GlHR0cbxgRULFvFihW5efMmJenkkindunWLb7/9lmeffZbg4GD279/PO++8w/Xr11mwYAHt2rUzadAD3YDRpUuXNmkeCkMFPiOoUqUKb7/9NseOHWPTpk3Y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
-"
->
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-intense-fg ansi-bold">ValueError</span>                                Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-25-a18186add19d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">      9</span> <span class="ansi-green-intense-fg ansi-bold">if</span> test <span class="ansi-yellow-intense-fg ansi-bold">==</span><span class="ansi-cyan-intense-fg ansi-bold">2</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     10</span>     g <span class="ansi-yellow-intense-fg ansi-bold">=</span> ahpct<span class="ansi-yellow-intense-fg ansi-bold">.</span>graph<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 11</span><span class="ansi-yellow-intense-fg ansi-bold">     </span>pos <span class="ansi-yellow-intense-fg ansi-bold">=</span> nx<span class="ansi-yellow-intense-fg ansi-bold">.</span>multipartite_layout<span class="ansi-yellow-intense-fg ansi-bold">(</span>g<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     12</span>     nx<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>g<span class="ansi-yellow-intense-fg ansi-bold">,</span> pos<span class="ansi-yellow-intense-fg ansi-bold">=</span>pos<span class="ansi-yellow-intense-fg ansi-bold">,</span> with_labels<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> font_weight<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#39;bold&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> node_color<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#39;red&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>  node_size<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">500</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     13</span> 
+
+<span class="ansi-green-intense-fg ansi-bold">~\.conda\envs\pctdev\lib\site-packages\networkx\drawing\layout.py</span> in <span class="ansi-cyan-fg">multipartite_layout</span><span class="ansi-blue-intense-fg ansi-bold">(G, subset_key, align, scale, center)</span>
+<span class="ansi-green-fg">   1091</span>         <span class="ansi-green-intense-fg ansi-bold">except</span> KeyError<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">   1092</span>             msg <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;all nodes must have subset_key (default=&#39;subset&#39;) as data&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">-&gt; 1093</span><span class="ansi-yellow-intense-fg ansi-bold">             </span><span class="ansi-green-intense-fg ansi-bold">raise</span> ValueError<span class="ansi-yellow-intense-fg ansi-bold">(</span>msg<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">   1094</span>         layers<span class="ansi-yellow-intense-fg ansi-bold">[</span>layer<span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span>v<span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">+</span> layers<span class="ansi-yellow-intense-fg ansi-bold">.</span>get<span class="ansi-yellow-intense-fg ansi-bold">(</span>layer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">   1095</span> 
+
+<span class="ansi-red-intense-fg ansi-bold">ValueError</span>: all nodes must have subset_key (default=&#39;subset&#39;) as data</pre>
 </div>
-
 </div>
 
 </div>
@@ -639,11 +655,11 @@ POST: postcon Constant | 10
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>5.000 
-level0col01 0.000 0.000 0.000 0.000 
-level0col11 0.000 0.000 0.000 0.000 
+level0col0 0.000 0.000 0.000 0.000 
+level0col1 0.000 0.000 0.000 0.000 
 level0col2 0.000 0.000 0.000 0.000 
-level1col01 0.000 0.000 0.000 0.000 
-level1col11 0.000 0.000 0.000 0.000 
+level1col0 0.000 0.000 0.000 0.000 
+level1col1 0.000 0.000 0.000 0.000 
 level1col2 0.000 0.000 0.000 0.000 
 level2col0 1.000 0.000 1.000 10.000 
 level2col1 1.000 0.000 1.000 10.000 

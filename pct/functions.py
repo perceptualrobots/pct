@@ -62,20 +62,20 @@ class BaseFunction(ABC):
         self.gr = self.graph()
         nx.draw(self.gr, with_labels=with_labels, font_weight=font_weight, node_color=node_color, node_size=node_size)
 
-    def graph(self):
+    def graph(self, layer=None):
         graph = nx.DiGraph()
 
-        self.set_graph_data(graph)
+        self.set_graph_data(graph, layer=layer)
 
         return graph
 
-    def set_graph_data(self, graph):
+    def set_graph_data(self, graph, layer=None):
         node_name = self.name
         edges = []
         for link in self.links:
             edges.append(( link.get_name(),self.name))
 
-        graph.add_node(node_name)
+        graph.add_node(node_name, layer=layer)
         graph.add_edges_from( edges)
 
 
