@@ -152,11 +152,15 @@ class PCTHierarchy():
                 thatnode.add_link("reference", thisnode.get_function("output"))
 
 
-    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',  node_size=500, prog='dot',file=None):
+
+
+    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
+             node_size=500, prog='dot',arrowsize=25, align='horizontal', file=None):
         graph = self.graph()
-        pos=graphviz_layout(graph, prog=prog)
+        #pos=graphviz_layout(graph, prog=prog)
+        pos = nx.multipartite_layout(g, subset_key="layer", align=align)
         nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
-                node_color=node_color,  node_size=node_size)
+                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
         if file != None:
             plt.title(self.name)
@@ -170,16 +174,20 @@ class PCTHierarchy():
         return graph
 
     def set_graph_data(self, graph):
-
+        layer=0
+        if len(self.preCollection)>0 or len(self.postCollection)>0:
+            layer=1
         for func in self.preCollection:
-            func.set_graph_data(graph)
+            func.set_graph_data(graph, layer=0)
 
         for level in range(len(self.hierarchy)):
-            for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].set_graph_data(graph)
+            for col in range(len(self.hierarchy[level])-1, -1, -1):
+            #for col in range(len(self.hierarchy[level])):
+                  self.hierarchy[level][col].set_graph_data(graph, layer=layer)
+            layer+=3
 
         for func in self.postCollection:
-            func.set_graph_data(graph)
+            func.set_graph_data(graph, layer=0)
 
 
     def summary(self, build=True):
