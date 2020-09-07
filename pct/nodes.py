@@ -197,26 +197,26 @@ class PCTNode():
         print("----------------------------")
 
 
-    def graph(self):
+    def graph(self, layer=0):
         graph = nx.DiGraph()
 
-        self.set_graph_data(graph)
+        self.set_graph_data(graph, layer=layer)
 
         return graph
 
-    def set_graph_data(self, graph):
+    def set_graph_data(self, graph, layer=0):
 
         for referenceFunction in self.referenceCollection:
-            referenceFunction.set_graph_data(graph)
-
-        for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.set_graph_data(graph)
+            referenceFunction.set_graph_data(graph, layer+2)
 
         for comparatorFunction in self.comparatorCollection:
-            comparatorFunction.set_graph_data(graph)
+            comparatorFunction.set_graph_data(graph, layer+1)
+
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.set_graph_data(graph, layer+1)
 
         for outputFunction in self.outputCollection:
-            outputFunction.set_graph_data(graph)
+            outputFunction.set_graph_data(graph, layer)
 
 
 
