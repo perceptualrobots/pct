@@ -155,7 +155,7 @@ class PCTHierarchy():
 
 
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
-             node_size=500, prog='dot',arrowsize=25, align='horizontal', file=None):
+             node_size=500, arrowsize=25, align='horizontal', file=None):
         graph = self.graph()
         #pos=graphviz_layout(graph, prog=prog)
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)

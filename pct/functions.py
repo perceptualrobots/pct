@@ -58,9 +58,12 @@ class BaseFunction(ABC):
 
             self.links.append(links)
 
-    def draw(self, with_labels=True, font_weight='bold', node_color='red',  node_size=1000):
-        self.gr = self.graph()
-        nx.draw(self.gr, with_labels=with_labels, font_weight=font_weight, node_color=node_color, node_size=node_size)
+    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
+             node_size=500, arrowsize=25, align='horizontal', file=None):
+        graph = self.graph()
+        #pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
+        nx.draw(graph,  with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
     def graph(self, layer=None):
         graph = nx.DiGraph()
