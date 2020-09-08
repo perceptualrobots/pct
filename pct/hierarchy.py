@@ -179,6 +179,9 @@ class PCTHierarchy():
         if len(self.preCollection)>0 or len(self.postCollection)>0:
             layer=1
 
+        for func in self.postCollection:
+            func.set_graph_data(graph, layer=0)
+
         for func in self.preCollection:
             func.set_graph_data(graph, layer=0)
 
@@ -188,8 +191,6 @@ class PCTHierarchy():
                   self.hierarchy[level][col].set_graph_data(graph, layer=layer)
             layer+=3
 
-        for func in self.postCollection:
-            func.set_graph_data(graph, layer=0)
 
 
     def summary(self, build=True):
