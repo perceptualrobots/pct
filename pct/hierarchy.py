@@ -178,6 +178,7 @@ class PCTHierarchy():
         layer=0
         if len(self.preCollection)>0 or len(self.postCollection)>0:
             layer=1
+
         for func in self.preCollection:
             func.set_graph_data(graph, layer=0)
 

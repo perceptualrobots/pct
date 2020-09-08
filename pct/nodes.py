@@ -213,7 +213,7 @@ class PCTNode():
             comparatorFunction.set_graph_data(graph, layer+1)
 
         for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.set_graph_data(graph, layer+1)
+            perceptionFunction.set_graph_data(graph, layer+2)
 
         for outputFunction in self.outputCollection:
             outputFunction.set_graph_data(graph, layer)
