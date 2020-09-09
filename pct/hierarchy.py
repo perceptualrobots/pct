@@ -4,6 +4,7 @@ __all__ = ['PCTHierarchy']
 
 # Cell
 import networkx as nx
+import json
 from networkx.drawing.nx_agraph import graphviz_layout
 import matplotlib.pyplot as plt
 import numpy as np
@@ -227,6 +228,22 @@ class PCTHierarchy():
 
         print("**************************")
 
+    def save(self, file=None):
+        #jsondict = json.dumps(self.get_config())
+        f = open(file, "w")
+        f.write(str(self.get_config()))
+        f.close()
+
+    @classmethod
+    def load(cls, file):
+
+        infile = open(file)
+        if infile.mode =='r':
+            config = infile.read()
+            infile.close
+
+        #config = json.load(file)
+        return cls.from_config(json.loads(config))
 
 
     def get_config(self):
