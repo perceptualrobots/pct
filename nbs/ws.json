@@ -1,0 +1,15 @@
+{
+    "type": "WeightedSum",
+    "name": "weighted_sum",
+    "value": 35.0,
+    "links": {
+        "0": "constant1",
+        "1": "constant2",
+        "2": "constant3"
+    },
+    "weights": [
+        1.0,
+        1.0,
+        1.0
+    ]
+}

@@ -1,0 +1,43 @@
+{
+    "type": "PCTNode",
+    "name": "integratingnode",
+    "refcoll": {
+        "0": {
+            "type": "Variable",
+            "name": "velocity_reference",
+            "value": 0,
+            "links": {}
+        }
+    },
+    "percoll": {
+        "0": {
+            "type": "Constant",
+            "name": "constant_perception",
+            "value": 10,
+            "links": {}
+        }
+    },
+    "comcoll": {
+        "0": {
+            "type": "Subtract",
+            "name": "subtract",
+            "value": 0,
+            "links": {
+                "0": "velocity_reference",
+                "1": "constant_perception"
+            }
+        }
+    },
+    "outcoll": {
+        "0": {
+            "type": "Integration",
+            "name": "integrator",
+            "value": 0,
+            "links": {
+                "0": "subtract"
+            },
+            "gain": 10,
+            "slow": 100
+        }
+    }
+}

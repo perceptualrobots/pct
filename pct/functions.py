@@ -6,6 +6,7 @@ __all__ = ['BaseFunction', 'Subtract', 'Proportional', 'Variable', 'PassOn', 'Gr
 # Cell
 import numpy as np
 import gym
+import json
 import networkx as nx
 from abc import ABC, abstractmethod
 from .putils import UniqueNamer
@@ -146,6 +147,18 @@ class BaseFunction(ABC):
 
     def close(self):
         pass
+
+    def save(self, file=None, indent=4):
+        jsondict = json.dumps(self.get_config(), indent=indent)
+        f = open(file, "w")
+        f.write(jsondict)
+        f.close()
+
+    @classmethod
+    def load(cls, file):
+        with open(file) as f:
+            config = json.load(f)
+        return cls.from_config(config)
 
     @classmethod
     def from_config(cls,  config):
@@ -303,7 +316,10 @@ class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, **cargs):
         super().__init__(name, value, links, new_name)
-        self.weights = weights
+        if isinstance(weights, list):
+            self.weights = np.array(weights)
+        else:
+            self.weights = weights
 
     def __call__(self, verbose=False):
         if len(self.links) != self.weights.size:
@@ -315,11 +331,11 @@ class WeightedSum(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self):
-        super().summary("")
+        super().summary(f'weights {self.weights}')
 
     def get_config(self):
         config = super().get_config()
-        config["weights"] = self.weights
+        config["weights"] = self.weights.tolist()
         return config
 
 # Cell

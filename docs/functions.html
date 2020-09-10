@@ -60,7 +60,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>, <strong><code>value</code></strong>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>) :: <code>ABC</code></p>
+<h2 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>, <strong><code>value</code></strong>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -92,7 +92,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L159" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'subtract'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L172" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'subtract'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted.</p>
 
@@ -124,7 +124,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L178" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L191" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One.</p>
 
@@ -156,7 +156,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L198" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L211" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a variable value. Parameter: The variable value. Links: None</p>
 
@@ -188,7 +188,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PassOn" class="doc_header"><code>class</code> <code>PassOn</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L216" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PassOn</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="PassOn" class="doc_header"><code>class</code> <code>PassOn</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L229" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PassOn</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that passes on a variable value from a linked function. Parameter: None. Links: One</p>
 
@@ -220,7 +220,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="GreaterThan" class="doc_header"><code>class</code> <code>GreaterThan</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L235" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GreaterThan</code>(<strong><code>threshold</code></strong>=<em><code>0</code></em>, <strong><code>upper</code></strong>=<em><code>1</code></em>, <strong><code>lower</code></strong>=<em><code>0</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'greaterthan'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="GreaterThan" class="doc_header"><code>class</code> <code>GreaterThan</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L248" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GreaterThan</code>(<strong><code>threshold</code></strong>=<em><code>0</code></em>, <strong><code>upper</code></strong>=<em><code>1</code></em>, <strong><code>lower</code></strong>=<em><code>0</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'greaterthan'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>One of two supplied values is returned if the input is greater than supplied threshold.&lt;/br&gt; Parameters: The threshold and upper and lower value. Links: One</p>
 
@@ -252,12 +252,48 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L262" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L275" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a constant value. Parameter: The constant value. Links: None</p>
 
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ct</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
+<span class="n">ct</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;ct.json&quot;</span><span class="p">)</span>
+<span class="n">ctt</span> <span class="o">=</span> <span class="n">Constant</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;ct.json&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ctt</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 20, &#39;links&#39;: {}}
+{&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 20, &#39;links&#39;: {}}
+</pre>
+</div>
 </div>
 
 </div>
@@ -284,7 +320,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L278" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L291" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameter: The gain and slow values. Links: One.</p>
 
@@ -316,7 +352,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L302" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L315" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions.</p>
 
@@ -348,7 +384,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L326" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L342" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One.</p>
 
@@ -380,7 +416,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L348" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L364" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -432,9 +468,9 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional5&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional6&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
 </pre>
 </div>
 </div>
@@ -473,7 +509,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop1&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
 </pre>
 </div>
 </div>
@@ -548,8 +584,8 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -596,10 +632,10 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
- &#39;name&#39;: &#39;weighted_sum1&#39;,
+ &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant3&#39;, 1: &#39;constant4&#39;, 2: &#39;constant5&#39;},
- &#39;weights&#39;: array([1., 1., 1.])}</pre>
+ &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;constant2&#39;, 2: &#39;constant3&#39;},
+ &#39;weights&#39;: [1.0, 1.0, 1.0]}</pre>
 </div>
 
 </div>
@@ -634,10 +670,10 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
- &#39;name&#39;: &#39;weighted_sum1&#39;,
+ &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant3&#39;, 1: &#39;constant4&#39;, 2: &#39;constant5&#39;},
- &#39;weights&#39;: array([1., 1., 1.])}</pre>
+ &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;constant2&#39;, 2: &#39;constant3&#39;},
+ &#39;weights&#39;: [1.0, 1.0, 1.0]}</pre>
 </div>
 
 </div>
@@ -681,7 +717,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>proportional7 Proportional | gain 1 | 0 
+<pre>proportional3 Proportional | gain 1 | 0 
 </pre>
 </div>
 </div>
@@ -719,7 +755,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -757,7 +793,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;name&#39;: &#39;proportional7&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -843,11 +879,96 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Save-and-Load">Save and Load<a class="anchor-link" href="#Save-and-Load"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Save a function to file.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
+<span class="n">ws</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;ws.json&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;constant2&#39;, 2: &#39;constant3&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Create a function from file.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wss</span> <span class="o">=</span> <span class="n">WeightedSum</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;ws.json&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="o">==</span> <span class="n">wss</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">wss</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;constant2&#39;, 2: &#39;constant3&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
+</pre>
+</div>
 </div>
 
 </div>
@@ -886,7 +1007,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>integration Integration | gain 3 slow 10  | 0 | links  constant6 
+<pre>integration Integration | gain 3 slow 10  | 0 | links  constant4 
 </pre>
 </div>
 </div>
@@ -1155,7 +1276,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant6&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant4&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
 </pre>
 </div>
 </div>
@@ -1330,7 +1451,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.996 -0.085 0.999 0.042 0.043 -0.168 -1.0 False {}&#39;</pre>
+<pre>&#39;1.000 0.009 0.999 -0.054 -0.070 0.152 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -1363,7 +1484,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9964055881860394</pre>
+<pre>0.9999595355211849</pre>
 </div>
 
 </div>
@@ -1414,7 +1535,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9964055881860394</pre>
+<pre>0.9999595355211849</pre>
 </div>
 
 </div>

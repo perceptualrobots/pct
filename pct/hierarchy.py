@@ -228,23 +228,17 @@ class PCTHierarchy():
 
         print("**************************")
 
-    def save(self, file=None):
-        #jsondict = json.dumps(self.get_config())
+    def save(self, file=None, indent=4):
+        jsondict = json.dumps(self.get_config(), indent=indent)
         f = open(file, "w")
-        f.write(str(self.get_config()))
+        f.write(jsondict)
         f.close()
 
     @classmethod
     def load(cls, file):
-
-        infile = open(file)
-        if infile.mode =='r':
-            config = infile.read()
-            infile.close
-
-        #config = json.load(file)
-        return cls.from_config(json.loads(config))
-
+        with open(file) as f:
+            config = json.load(f)
+        return cls.from_config(config)
 
     def get_config(self):
         config = {"type": type(self).__name__,

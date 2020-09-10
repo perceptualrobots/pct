@@ -4,6 +4,7 @@ __all__ = ['PCTNode', 'PCTNodeData']
 
 # Cell
 import networkx as nx
+import json
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .functions import *
@@ -246,6 +247,18 @@ class PCTNode():
             coll[str(ctr)] = func.get_config()
             ctr+=1
         return coll
+
+    def save(self, file=None, indent=4):
+        jsondict = json.dumps(self.get_config(), indent=indent)
+        f = open(file, "w")
+        f.write(jsondict)
+        f.close()
+
+    @classmethod
+    def load(cls, file):
+        with open(file) as f:
+            config = json.load(f)
+        return cls.from_config(config)
 
     @classmethod
     def from_config(cls, config):
