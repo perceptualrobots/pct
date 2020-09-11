@@ -62,7 +62,6 @@ class BaseFunction(ABC):
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
              node_size=500, arrowsize=25, align='horizontal', file=None):
         graph = self.graph()
-        #pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
         nx.draw(graph,  with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
@@ -94,8 +93,14 @@ class BaseFunction(ABC):
     def set_decimal_places(self, dp):
         self.decimal_places = dp
 
+
+    def summary(self):
+        "Print the summary of the function configuration."
+        pass
+
     @abstractmethod
     def summary(self, str):
+        "Print the summary of the function configuration."
         print(f'{self.name} {type(self).__name__}', end = " ")
         if len(str)>0:
             print(f'| {str}', end= " ")
@@ -108,6 +113,7 @@ class BaseFunction(ABC):
 
     @abstractmethod
     def get_config(self):
+        "Return the JSON  configuration of the function."
         config = {"type": type(self).__name__,
                     "name": self.name,
                     "value": self.value}
