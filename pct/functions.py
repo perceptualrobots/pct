@@ -94,13 +94,9 @@ class BaseFunction(ABC):
         self.decimal_places = dp
 
 
-    def summary(self):
-        "Print the summary of the function configuration."
-        pass
-
     @abstractmethod
     def summary(self, str):
-        "Print the summary of the function configuration."
+        "Print the summary of the function configuration. No argument required."
         print(f'{self.name} {type(self).__name__}', end = " ")
         if len(str)>0:
             print(f'| {str}', end= " ")
