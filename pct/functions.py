@@ -37,6 +37,11 @@ class BaseFunction(ABC):
 
         return self.value
 
+    def run(self, steps=None, verbose=False):
+        for i in range(steps):
+            out = self(verbose)
+        return out
+
     def handle_links(self, links):
         if links!=None:
             if isinstance(links, dict):
