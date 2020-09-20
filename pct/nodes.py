@@ -224,8 +224,9 @@ class PCTNode():
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):
 
         graph = self.graph()
-        pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
-        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+        #pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
+        #pos=pos,
+        nx.draw(graph,  with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
     def get_config(self):
