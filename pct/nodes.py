@@ -222,7 +222,7 @@ class PCTNode():
 
 
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
-             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):
+             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(5,5), move={}):
 
         graph = self.graph()
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
