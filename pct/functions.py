@@ -66,21 +66,25 @@ class BaseFunction(ABC):
 
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
              node_size=500, arrowsize=25, align='horizontal', file=None):
-        graph = self.graph()
-        nx.draw(graph,  with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+        graph = self.graph(layer=0, layer_edges=True)
+        pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
+        nx.draw(graph,  pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
-    def graph(self, layer=None):
+    def graph(self, layer=None, layer_edges=False):
         graph = nx.DiGraph()
 
-        self.set_graph_data(graph, layer=layer)
+        self.set_graph_data(graph, layer=layer, layer_edges=layer_edges)
 
         return graph
 
-    def set_graph_data(self, graph, layer=None):
+    def set_graph_data(self, graph, layer=None, layer_edges=False):
         node_name = self.name
         edges = []
         for link in self.links:
+            if layer_edges:
+                graph.add_node(link.get_name(), layer=layer+1)
+
             edges.append(( link.get_name(),self.name))
 
         graph.add_node(node_name, layer=layer)
