@@ -305,7 +305,7 @@ class PCTNode():
             fndict = coll_dict[fndict_label]
             #print(fndict)
             fnname = fndict.pop('type')
-            #print(fndict)
+            print(fndict)
             func = eval(fnname).from_config(fndict)
             collection.append(func)
 
