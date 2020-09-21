@@ -5,6 +5,7 @@ __all__ = ['PCTNode', 'PCTNodeData']
 # Cell
 import networkx as nx
 import json
+import matplotlib.pyplot as plt
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .functions import *
@@ -225,6 +226,7 @@ class PCTNode():
 
         graph = self.graph()
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
+        plt.figure(figsize=figsize)
         nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
