@@ -378,7 +378,7 @@ class OpenAIGym(BaseFunction):
         super().__init__(name, value, links, new_name)
 
         self.video_wrap = video_wrap
-        slef.env_name=env_name
+        self.env_name=env_name
         self.create_env(env_name, 4000)
         self.render = render
         self.reward = 0
