@@ -82,13 +82,16 @@ class BaseFunction(ABC):
         node_name = self.name
         edges = []
         for link in self.links:
-            if layer_edges:
-                graph.add_node(link.get_name(), layer=layer+1)
+            func = FunctionsList.getInstance().get_function(link)
 
-            edges.append(( link.get_name(),self.name))
+            if layer_edges:
+                graph.add_node(func.get_name(), layer=layer+1)
+
+            edges.append((func.get_name(),self.name))
 
         graph.add_node(node_name, layer=layer)
         graph.add_edges_from( edges)
+
 
 
 

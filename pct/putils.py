@@ -65,7 +65,7 @@ class FunctionsList:
         self.functions.pop(name)
 
     def get_function(self, name):
-        if name in self.functions:
+        if isinstance(name, str) and name in self.functions:
             func = self.functions[name]
         else:
             func = name
