@@ -125,7 +125,8 @@ class BaseFunction(ABC):
         if len(self.links)>0:
             print('| links ', end=" ")
         for link in self.links:
-            print(link.get_name(), end= " ")
+            func = FunctionsList.getInstance().get_function(link)
+            print(func.get_name(), end= " ")
         print()
 
     @abstractmethod
