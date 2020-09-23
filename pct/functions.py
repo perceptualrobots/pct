@@ -19,7 +19,7 @@ class BaseFunction(ABC):
         self.value = value
         self.links = []
         self.handle_links(links)
-
+        self.checklinks=True
 
         #print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
         if new_name:
@@ -99,14 +99,17 @@ class BaseFunction(ABC):
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
 
     def check_links(self, num):
-        ctr=0
-        for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
-            self.links[ctr]=func
-            ctr+=1
+        if self.checklinks:
+            ctr=0
+            for link in self.links:
+                func = FunctionsList.getInstance().get_function(link)
+                self.links[ctr]=func
+                ctr+=1
 
-        if len(self.links) != num:
-            raise Exception(f'Incorrect number of links {len(self.links)} for function {self.name}. {num} expected.')
+            if len(self.links) != num:
+                raise Exception(f'Incorrect number of links {len(self.links)} for function {self.name}. {num} expected.')
+
+            self.checklinks = False
 
     def set_decimal_places(self, dp):
         self.decimal_places = dp
