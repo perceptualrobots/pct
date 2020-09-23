@@ -282,7 +282,7 @@ class GreaterThan(BaseFunction):
         self.lower=lower
 
     def __call__(self, verbose=False):
-        super().check_links(1)
+        super().check_links(2)
         input = self.links[0].get_value()
         if input >= self.threshold:
             self.value = self.upper
