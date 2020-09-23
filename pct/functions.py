@@ -129,7 +129,8 @@ class BaseFunction(ABC):
         ctr=0
         links={}
         for link in self.links:
-            links[ctr]=link.get_name()
+            func = FunctionsList.getInstance().get_function(link)
+            links[ctr]=func.get_name()
             ctr+=1
 
         config['links']=links
