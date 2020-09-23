@@ -99,6 +99,12 @@ class BaseFunction(ABC):
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
 
     def check_links(self, num):
+        ctr=0
+        for link in self.links:
+            func = FunctionsList.getInstance().get_function(link)
+            self.links[ctr]=func
+            ctr+=1
+
         if len(self.links) != num:
             raise Exception(f'Incorrect number of links {len(self.links)} for function {self.name}. {num} expected.')
 
@@ -190,6 +196,7 @@ class Subtract(BaseFunction):
         super().__init__(name, value, links, new_name)
 
     def __call__(self, verbose=False):
+        super().check_links(2)
         #print("Sub ", self.links[0].get_value(),self.links[1].get_value() )
         self.value = self.links[0].get_value()-self.links[1].get_value()
 
@@ -210,6 +217,7 @@ class Proportional(BaseFunction):
         self.gain = gain
 
     def __call__(self, verbose=False):
+        super().check_links(1)
         input = self.links[0].get_value()
         self.value = input * self.gain
         return super().__call__(verbose)
@@ -247,6 +255,7 @@ class PassOn(BaseFunction):
         super().__init__(name, value, links, new_name)
 
     def __call__(self, verbose=False):
+        super().check_links(1)
         self.value = self.links[0].get_value()
         return super().__call__(verbose)
 
@@ -269,6 +278,7 @@ class GreaterThan(BaseFunction):
         self.lower=lower
 
     def __call__(self, verbose=False):
+        super().check_links(1)
         input = self.links[0].get_value()
         if input >= self.threshold:
             self.value = self.upper
@@ -311,6 +321,7 @@ class Integration(BaseFunction):
         self.slow = slow
 
     def __call__(self, verbose=False):
+        super().check_links(1)
         input = self.links[0].get_value()
         self.value = self.value +  ((input * self.gain) - self.value)/self.slow
 
@@ -340,6 +351,7 @@ class WeightedSum(BaseFunction):
         if len(self.links) != self.weights.size:
             raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} must be the same.')
 
+        super().check_links(len(self.links))
         inputs = np.array([link.get_value() for link in self.links])
         self.value = np.dot(inputs, self.weights)
 
