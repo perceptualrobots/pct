@@ -408,6 +408,7 @@ class OpenAIGym(BaseFunction):
 
     def get_config(self):
         config = super().get_config()
+        config["env_name"] = self.env_name
         config["values"] = self.value
         config["reward"] = self.reward
         config["done"] = self.done
