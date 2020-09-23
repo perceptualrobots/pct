@@ -293,7 +293,7 @@ class PCTNode():
         coll_dict = config['outcoll']
         PCTNode.collection_from_config(collection, coll_dict)
 
-        #node.build_links()
+        node.links_built = True
         return node
 
     @classmethod

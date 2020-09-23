@@ -844,7 +844,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -1045,7 +1045,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2.850 </pre>
+<pre>6.176 </pre>
 </div>
 </div>
 
@@ -1054,7 +1054,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>2.85</pre>
+<pre>6.17570463519</pre>
 </div>
 
 </div>
@@ -1124,7 +1124,8 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wss</span> <span class="o">=</span> <span class="n">WeightedSum</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;ws.json&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">wss</span> <span class="o">=</span> <span class="n">WeightedSum</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;ws.json&quot;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">ws</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="o">==</span> <span class="n">wss</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> 
 <span class="nb">print</span><span class="p">(</span><span class="n">wss</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
 </pre></div>
@@ -1138,9 +1139,31 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;constant2&#39;, 2: &#39;constant3&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-104-e87d30afc39c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">      1</span> FunctionsList<span class="ansi-yellow-intense-fg ansi-bold">.</span>getInstance<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>clear<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      2</span> wss <span class="ansi-yellow-intense-fg ansi-bold">=</span> WeightedSum<span class="ansi-yellow-intense-fg ansi-bold">.</span>load<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;ws.json&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 3</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">assert</span> ws<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">==</span> wss<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      4</span> print<span class="ansi-yellow-intense-fg ansi-bold">(</span>wss<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-67-e325a1944762&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
+<span class="ansi-green-fg">     23</span> 
+<span class="ansi-green-fg">     24</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 25</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>config <span class="ansi-yellow-intense-fg ansi-bold">=</span> super<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_config<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     26</span>         config<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;weights&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>weights<span class="ansi-yellow-intense-fg ansi-bold">.</span>tolist<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     27</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> config
+
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-56-431d3bbde9e6&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
+<span class="ansi-green-fg">    127</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> link <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>links<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    128</span>             func <span class="ansi-yellow-intense-fg ansi-bold">=</span> FunctionsList<span class="ansi-yellow-intense-fg ansi-bold">.</span>getInstance<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_function<span class="ansi-yellow-intense-fg ansi-bold">(</span>link<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 129</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>links<span class="ansi-yellow-intense-fg ansi-bold">[</span>ctr<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">=</span>func<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_name<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    130</span>             ctr<span class="ansi-yellow-intense-fg ansi-bold">+=</span><span class="ansi-cyan-intense-fg ansi-bold">1</span>
+<span class="ansi-green-fg">    131</span> 
+
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;str&#39; object has no attribute &#39;get_name&#39;</pre>
 </div>
 </div>
 
@@ -1625,7 +1648,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.999 0.037 0.998 0.064 -0.038 0.037 -1.0 False {}&#39;</pre>
+<pre>&#39;0.999 0.033 1.000 -0.015 -0.103 -0.042 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -1658,7 +1681,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9993108126742636</pre>
+<pre>0.9994677936425267</pre>
 </div>
 
 </div>
@@ -1709,7 +1732,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9993108126742636</pre>
+<pre>0.9994677936425267</pre>
 </div>
 
 </div>
