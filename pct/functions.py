@@ -99,6 +99,9 @@ class BaseFunction(ABC):
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
 
     def check_links(self, num):
+        for link in self.links:
+            link = FunctionsList.getInstance().get_function(link)
+
         if len(self.links) != num:
             raise Exception(f'Incorrect number of links {len(self.links)} for function {self.name}. {num} expected.')
 
