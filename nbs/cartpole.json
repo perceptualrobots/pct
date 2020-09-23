@@ -63,8 +63,7 @@
                                 "name": "force",
                                 "value": 0,
                                 "links": {
-                                    "0": "subtract",
-                                    "1": "subtract"
+                                    "0": "subtract"
                                 },
                                 "gain": -0.05,
                                 "slow": 4
