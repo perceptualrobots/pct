@@ -303,10 +303,14 @@ class GreaterThan(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self):
-        super().summary("")
+        super().summary(f'threshold {self.threshold} upper {self.upper} lower {self.lower} ')
 
     def get_config(self):
         config = super().get_config()
+
+        config["threshold"] = self.threshold
+        config["upper"] = self.upper
+        config["lower"] = self.lower
         return config
 
 

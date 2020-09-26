@@ -244,7 +244,10 @@
             "value": 0,
             "links": {
                 "0": "force"
-            }
+            },
+            "threshold": 0,
+            "upper": 1,
+            "lower": 0
         }
     }
 }
