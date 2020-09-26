@@ -365,7 +365,7 @@ class Sigmoid(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self):
-        super().summary(f'gain {self.gain} slow {self.slow} ')
+        super().summary(f'range {self.range} scale {self.scale} ')
 
     def get_config(self):
         config = super().get_config()

@@ -214,10 +214,16 @@ class PCTHierarchy():
             func.summary()
 
 
-        for level in range(len(self.hierarchy)):
-            print(f'Level {level}')
-            for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].summary(build=build)
+        if self.order==None:
+            for level in range(len(self.hierarchy)):
+                print(f'Level {level}')
+                for col in range(len(self.hierarchy[level])):
+                      self.hierarchy[level][col].summary(build=build)
+        elif self.order=="Down":
+            for level in range(len(self.hierarchy)-1, -1, -1):
+                print(f'Level {level}')
+                for col in range(len(self.hierarchy[level])-1, -1, -1):
+                      self.hierarchy[level][col].summary(build=build)
 
         print("POST:", end=" ")
         if len(self.postCollection) == 0:
