@@ -54,7 +54,6 @@ class FunctionsList:
     def clear(self):
       self.functions = {}
 
-
     def add_function(self, func):
         name = func.get_name()
         self.functions[name]=func
