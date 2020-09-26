@@ -98,15 +98,15 @@ sidebar: home_sidebar
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x246de128dc8&gt;,
-  &lt;pct.nodes.PCTNode at 0x246de128e08&gt;,
-  &lt;pct.nodes.PCTNode at 0x246de128f88&gt;],
- [&lt;pct.nodes.PCTNode at 0x246de1400c8&gt;,
-  &lt;pct.nodes.PCTNode at 0x246de140448&gt;,
-  &lt;pct.nodes.PCTNode at 0x246de140688&gt;],
- [&lt;pct.nodes.PCTNode at 0x246de140c08&gt;,
-  &lt;pct.nodes.PCTNode at 0x246de140508&gt;,
-  &lt;pct.nodes.PCTNode at 0x246de132048&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x2159f8edc08&gt;,
+  &lt;pct.nodes.PCTNode at 0x2159f8ff408&gt;,
+  &lt;pct.nodes.PCTNode at 0x2159f8ff0c8&gt;],
+ [&lt;pct.nodes.PCTNode at 0x2159f8c0488&gt;,
+  &lt;pct.nodes.PCTNode at 0x2159f8fb088&gt;,
+  &lt;pct.nodes.PCTNode at 0x2159f8fb408&gt;],
+ [&lt;pct.nodes.PCTNode at 0x2159f8fb3c8&gt;,
+  &lt;pct.nodes.PCTNode at 0x2159f8cee88&gt;,
+  &lt;pct.nodes.PCTNode at 0x2159f8d5448&gt;]]</pre>
 </div>
 
 </div>
@@ -815,66 +815,66 @@ level0col0 PCTNode
 ----------------------------
 REF: weighted_sum WeightedSum | weights [1. 1. 1.] | 900.0 | links  proportional3 proportional4 proportional5 
 PER: variable Variable | 0 
-COM: subtract Subtract | 900.0 | links  weighted_sum variable weighted_sum variable 
-OUT: proportional Proportional | gain 10 | 9000.0 | links  subtract subtract 
+COM: subtract Subtract | 900.0 | links  weighted_sum variable 
+OUT: proportional Proportional | gain 10 | 9000.0 | links  subtract 
 ----------------------------
 level0col1 PCTNode
 ----------------------------
 REF: weighted_sum1 WeightedSum | weights [1. 1. 1.] | 900.0 | links  proportional3 proportional4 proportional5 
 PER: variable1 Variable | 0 
-COM: subtract1 Subtract | 900.0 | links  weighted_sum1 variable1 weighted_sum1 variable1 
-OUT: proportional1 Proportional | gain 10 | 9000.0 | links  subtract1 subtract1 
+COM: subtract1 Subtract | 900.0 | links  weighted_sum1 variable1 
+OUT: proportional1 Proportional | gain 10 | 9000.0 | links  subtract1 
 ----------------------------
 level0col2 PCTNode
 ----------------------------
 REF: weighted_sum2 WeightedSum | weights [1. 1. 1.] | 900.0 | links  proportional3 proportional4 proportional5 
 PER: variable2 Variable | 0 
-COM: subtract2 Subtract | 900.0 | links  weighted_sum2 variable2 weighted_sum2 variable2 
-OUT: proportional2 Proportional | gain 10 | 9000.0 | links  subtract2 subtract2 
+COM: subtract2 Subtract | 900.0 | links  weighted_sum2 variable2 
+OUT: proportional2 Proportional | gain 10 | 9000.0 | links  subtract2 
 ----------------------------
 Level 1
 level1col0 PCTNode
 ----------------------------
 REF: weighted_sum4 WeightedSum | weights [1. 1. 1.] | 30.0 | links  proportional6 proportional7 proportional8 
 PER: weighted_sum3 WeightedSum | weights [1. 1. 1.] | 0.0 | links  variable variable1 variable2 
-COM: subtract3 Subtract | 30.0 | links  weighted_sum4 weighted_sum3 weighted_sum4 weighted_sum3 
-OUT: proportional3 Proportional | gain 10 | 300.0 | links  subtract3 subtract3 
+COM: subtract3 Subtract | 30.0 | links  weighted_sum4 weighted_sum3 
+OUT: proportional3 Proportional | gain 10 | 300.0 | links  subtract3 
 ----------------------------
 level1col1 PCTNode
 ----------------------------
 REF: weighted_sum6 WeightedSum | weights [1. 1. 1.] | 30.0 | links  proportional6 proportional7 proportional8 
 PER: weighted_sum5 WeightedSum | weights [1. 1. 1.] | 0.0 | links  variable variable1 variable2 
-COM: subtract4 Subtract | 30.0 | links  weighted_sum6 weighted_sum5 weighted_sum6 weighted_sum5 
-OUT: proportional4 Proportional | gain 10 | 300.0 | links  subtract4 subtract4 
+COM: subtract4 Subtract | 30.0 | links  weighted_sum6 weighted_sum5 
+OUT: proportional4 Proportional | gain 10 | 300.0 | links  subtract4 
 ----------------------------
 level1col2 PCTNode
 ----------------------------
 REF: weighted_sum8 WeightedSum | weights [1. 1. 1.] | 30.0 | links  proportional6 proportional7 proportional8 
 PER: weighted_sum7 WeightedSum | weights [1. 1. 1.] | 0.0 | links  variable variable1 variable2 
-COM: subtract5 Subtract | 30.0 | links  weighted_sum8 weighted_sum7 weighted_sum8 weighted_sum7 
-OUT: proportional5 Proportional | gain 10 | 300.0 | links  subtract5 subtract5 
+COM: subtract5 Subtract | 30.0 | links  weighted_sum8 weighted_sum7 
+OUT: proportional5 Proportional | gain 10 | 300.0 | links  subtract5 
 ----------------------------
 Level 2
 level2col0 PCTNode
 ----------------------------
 REF: constant Constant | 1 
 PER: weighted_sum9 WeightedSum | weights [1. 1. 1.] | 0.0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
-COM: subtract6 Subtract | 1.0 | links  constant weighted_sum9 constant weighted_sum9 
-OUT: proportional6 Proportional | gain 10 | 10.0 | links  subtract6 subtract6 
+COM: subtract6 Subtract | 1.0 | links  constant weighted_sum9 
+OUT: proportional6 Proportional | gain 10 | 10.0 | links  subtract6 
 ----------------------------
 level2col1 PCTNode
 ----------------------------
 REF: constant1 Constant | 1 
 PER: weighted_sum10 WeightedSum | weights [1. 1. 1.] | 0.0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
-COM: subtract7 Subtract | 1.0 | links  constant1 weighted_sum10 constant1 weighted_sum10 
-OUT: proportional7 Proportional | gain 10 | 10.0 | links  subtract7 subtract7 
+COM: subtract7 Subtract | 1.0 | links  constant1 weighted_sum10 
+OUT: proportional7 Proportional | gain 10 | 10.0 | links  subtract7 
 ----------------------------
 level2col2 PCTNode
 ----------------------------
 REF: constant2 Constant | 1 
 PER: weighted_sum11 WeightedSum | weights [1. 1. 1.] | 0.0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
-COM: subtract8 Subtract | 1.0 | links  constant2 weighted_sum11 constant2 weighted_sum11 
-OUT: proportional8 Proportional | gain 10 | 10.0 | links  subtract8 subtract8 
+COM: subtract8 Subtract | 1.0 | links  constant2 weighted_sum11 
+OUT: proportional8 Proportional | gain 10 | 10.0 | links  subtract8 
 ----------------------------
 POST: postcon Constant | 10 
 **************************
@@ -1120,6 +1120,36 @@ POST: None
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-23-b7db5879ad14&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>myhpct<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_links<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;prop1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;cons1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      2</span> myhpct<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_links<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;prop2&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;prop1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      3</span> myhpct<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_links<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;wsum&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;prop2&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;variable&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      4</span> myhpct<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_links<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;passthru&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;proportional1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      5</span> myhpct<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_links<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;postprop1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;proportional&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-5-337fae809b89&gt;</span> in <span class="ansi-cyan-fg">set_links</span><span class="ansi-blue-intense-fg ansi-bold">(self, func_name, *link_names)</span>
+<span class="ansi-green-fg">    311</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> set_links<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> func_name<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>link_names<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    312</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> link_name <span class="ansi-green-intense-fg ansi-bold">in</span> link_names<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 313</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>FunctionsList<span class="ansi-yellow-intense-fg ansi-bold">.</span>getInstance<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_function<span class="ansi-yellow-intense-fg ansi-bold">(</span>func_name<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>set_link<span class="ansi-yellow-intense-fg ansi-bold">(</span>FunctionsList<span class="ansi-yellow-intense-fg ansi-bold">.</span>getInstance<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_function<span class="ansi-yellow-intense-fg ansi-bold">(</span>link_name<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    314</span> 
+<span class="ansi-green-fg">    315</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> add_links<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> func_name<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>link_names<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;Proportional&#39; object has no attribute &#39;set_link&#39;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -1134,49 +1164,6 @@ POST: None
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>pcthierarchy PCTHierarchy
-**************************
-PRE: cons1 Constant | 1 
-prop1 Proportional | gain 5 | 0 | links  cons1 
-Level 0
-pctnode2 PCTNode
-----------------------------
-REF: constant2 Constant | 1 
-PER: prop2 Proportional | gain 3 | 0 | links  prop1 
-COM: subtract2 Subtract | 0 | links  constant2 prop2 
-OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
-----------------------------
-pctnode PCTNode
-----------------------------
-REF: passthru Proportional | gain 1 | 0 | links  proportional1 
-PER: variable Variable | 0 
-COM: subtract Subtract | 0 | links  passthru variable 
-OUT: proportional Proportional | gain 10 | 0 | links  subtract 
-----------------------------
-Level 1
-pctnode1 PCTNode
-----------------------------
-REF: constant1 Constant | 1 
-PER: wsum WeightedSum | weights [1. 1.] | 0 | links  prop2 variable 
-COM: subtract1 Subtract | 0 | links  constant1 wsum 
-OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
-----------------------------
-POST: postprop1 Proportional | gain 5 | 0 | links  proportional 
-postprop2 Proportional | gain 5 | 0 | links  postprop1 
-**************************
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -1227,26 +1214,6 @@ postprop2 Proportional | gain 5 | 0 | links  postprop1
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1.000 5.000 
-pctnode2 1.000 15.000 -14.000 -140.000 
-pctnode1 1.000 15.000 -14.000 -140.000 
-pctnode -140.000 0.000 -140.000 -1400.000 
--7000.000 -35000.000 
-
--35000.0
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 

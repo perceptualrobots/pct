@@ -24,7 +24,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "level0col0",
+                        "name": "cart_velocity",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
@@ -80,7 +80,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "level1col0",
+                        "name": "cart_position",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
@@ -135,7 +135,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "level2col0",
+                        "name": "pole_velocity",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
@@ -190,7 +190,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "level3col0",
+                        "name": "pole_angle",
                         "refcoll": {
                             "0": {
                                 "type": "Constant",

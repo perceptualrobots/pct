@@ -325,4 +325,8 @@ class PCTHierarchy():
 
     def set_links(self, func_name, *link_names):
         for link_name in link_names:
+            FunctionsList.getInstance().get_function(func_name).set_link(FunctionsList.getInstance().get_function(link_name))
+
+    def add_links(self, func_name, *link_names):
+        for link_name in link_names:
             FunctionsList.getInstance().get_function(func_name).add_link(FunctionsList.getInstance().get_function(link_name))
