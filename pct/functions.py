@@ -140,7 +140,10 @@ class BaseFunction(ABC):
         links={}
         for link in self.links:
             func = FunctionsList.getInstance().get_function(link)
-            links[ctr]=func.get_name()
+            try:
+                links[ctr]=func.get_name()
+            except:
+                raise Exception(f' there is no function called {link}, ensure it exists first.')
             ctr+=1
 
         config['links']=links
