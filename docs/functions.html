@@ -373,7 +373,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L323" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
-<p>A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameter: The gain and slow values. Links: One.</p>
+<p>A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: One.</p>
 
 </div>
 
@@ -403,7 +403,39 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L348" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Sigmoid" class="doc_header"><code>class</code> <code>Sigmoid</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L348" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Sigmoid</code>(<strong><code>range</code></strong>=<em><code>2</code></em>, <strong><code>scale</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'sigmoid'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+</blockquote>
+<p>A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and scale (slope) values. Links: One.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L372" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions.</p>
 
@@ -435,7 +467,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L376" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L400" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One.</p>
 
@@ -467,7 +499,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L398" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L422" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -1625,7 +1657,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.999 0.035 0.999 -0.037 -0.050 0.018 -1.0 False {}&#39;</pre>
+<pre>&#39;1.000 -0.014 1.000 0.013 0.068 -0.123 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -1658,7 +1690,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9994009022020869</pre>
+<pre>0.9998962416565272</pre>
 </div>
 
 </div>
@@ -1709,7 +1741,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9994009022020869</pre>
+<pre>0.9998962416565272</pre>
 </div>
 
 </div>
