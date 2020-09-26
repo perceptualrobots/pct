@@ -142,7 +142,7 @@ class BaseFunction(ABC):
             func = FunctionsList.getInstance().get_function(link)
             try:
                 links[ctr]=func.get_name()
-            except:
+            except AttributeError:
                 raise Exception(f' there is no function called {link}, ensure it exists first.')
             ctr+=1
 
