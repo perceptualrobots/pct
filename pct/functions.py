@@ -178,6 +178,9 @@ class BaseFunction(ABC):
     def add_link(self, linkfn):
         self.links.append(linkfn)
 
+    def set_link(self, linkfn):
+        self.links = [linkfn]
+
     def close(self):
         pass
 
