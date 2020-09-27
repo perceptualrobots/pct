@@ -121,22 +121,22 @@ class BaseFunction(ABC):
 
 
     @abstractmethod
-    def summary(self, str):
+    def summary(self, sstr):
         "Print the summary of the function configuration. No argument required."
         print(f'{self.name} {type(self).__name__}', end = " ")
-        if len(str)>0:
-            print(f'| {str}', end= " ")
+        if len(sstr)>0:
+            print(f'| {sstr}', end= " ")
         print(f'| {self.value}', end = " ")
         if len(self.links)>0:
             print('| links ', end=" ")
         for link in self.links:
             func = FunctionsList.getInstance().get_function(link)
-            if isinstance(func, str):
-                name=func
+            if isinstance(func, type(str)):
+                fname = func
             else:
-                name = func.get_name()
+                fname = func.get_name()
 
-            print(name, end= " ")
+            print(fname, end= " ")
         print()
 
     @abstractmethod
