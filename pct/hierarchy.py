@@ -320,6 +320,9 @@ class PCTHierarchy():
     def insert_function(self, level=None, col=None, collection=None, function=None, position=-1):
         self.hierarchy[level][col].insert_function(collection, function, position)
 
+    def replace_function(self, level=None, col=None, collection=None, function=None, position=-1):
+        self.hierarchy[level][col].replace_function(collection, function, position)
+
     def get_function(self, level=None, col=None, collection=None, position=-1):
         return self.hierarchy[level][col].get_function(collection, position)
 
