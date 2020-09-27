@@ -131,7 +131,12 @@ class BaseFunction(ABC):
             print('| links ', end=" ")
         for link in self.links:
             func = FunctionsList.getInstance().get_function(link)
-            print(func.get_name(), end= " ")
+            if isinstance(func, str):
+                name=func
+            else:
+                name = func.get_name()
+
+            print(name, end= " ")
         print()
 
     @abstractmethod
