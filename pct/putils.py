@@ -70,6 +70,12 @@ class FunctionsList:
             func = name
         return func
 
+    def report(self, name=None):
+        print(len(self.functions))
+        for key in self.functions.keys():
+            print(key, self.functions[key])
+
+
 # Cell
 import numpy as np
 def sigmoid(x, range, scale) :
