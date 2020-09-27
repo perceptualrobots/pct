@@ -159,6 +159,26 @@ class PCTNode():
             self.outputCollection[position].set_name(name)
 
 
+    def replace_function(self, collection, function, position=-1):
+        if collection == "reference":
+            func = self.referenceCollection[position].pop(position)
+            self.referenceCollection[position] = function
+
+        if collection == "perception":
+            func = self.perceptionCollection[position].pop(position)
+            self.perceptionCollection[position]  = function
+
+        if collection == "comparator":
+            func = self.comparatorCollection[position].pop(position)
+            self.comparatorCollection[position] = function
+
+        if collection == "output":
+            func = self.outputCollection[position].pop(position)
+            self.outputCollection[position] = function
+
+        FunctionsList.getInstance().remove(func.get_name())
+
+
     def insert_function(self, collection, function, position=-1):
         if collection == "reference":
             self.referenceCollection[position] = function
