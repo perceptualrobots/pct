@@ -176,7 +176,7 @@ class PCTNode():
             func = self.outputCollection[position]
             self.outputCollection[position] = function
 
-        FunctionsList.getInstance().remove(func.get_name())
+        FunctionsList.getInstance().remove_function(func.get_name())
 
 
     def insert_function(self, collection, function, position=-1):
