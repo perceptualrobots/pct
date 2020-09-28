@@ -101,6 +101,9 @@ class BaseFunction(ABC):
 
 
     def output_string(self):
+        if isinstance (self.value, list):
+            return [f'{round(item, self.decimal_places):.{self.decimal_places}f}' for item in self.value]
+
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
 
     def check_links(self, num):
