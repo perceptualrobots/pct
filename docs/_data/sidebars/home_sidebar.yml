@@ -24,6 +24,9 @@ entries:
     - output: web,pdf
       title: Hierarchy
       url: /hierarchy
+    - output: web,pdf
+      title: Title
+      url: /test-import
     output: web
     title: pct
   output: web
