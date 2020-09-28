@@ -7,6 +7,7 @@ __all__ = ['BaseFunction', 'Subtract', 'Proportional', 'Variable', 'PassOn', 'Gr
 import numpy as np
 import gym
 import json
+import math
 import networkx as nx
 from abc import ABC, abstractmethod
 from .putils import UniqueNamer
@@ -101,7 +102,7 @@ class BaseFunction(ABC):
 
 
     def output_string(self):
-        if isinstance (self.value, list):
+        if isinstance (self.value, type(list)):
             return [f'{round(item, self.decimal_places):.{self.decimal_places}f}' for item in self.value]
 
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
@@ -460,8 +461,14 @@ class OpenAIGym(BaseFunction):
         else:
             raise Exception(f'OpenAIGym: Input value of {input} is not valid, must be 1,0 or -1.')
 
-        self.value = obs[0]
+        # from obs[0], indices
+        # 1 cart_velocity
+        # 0 cart_position
+        # 3 pole_velocity
+        # 2 pole_angle
 
+        self.value = obs[0]
+        self.value.append(obs[0]+math.sin(pole_angle))
         self.reward = obs[1]
         self.done = obs[2]
         self.info = obs[3]
