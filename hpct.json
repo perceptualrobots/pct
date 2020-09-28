@@ -1,0 +1,550 @@
+{
+    "type": "PCTHierarchy",
+    "name": "pcthierarchy",
+    "pre": {
+        "pre0": {
+            "type": "Constant",
+            "name": "precon",
+            "value": 5,
+            "links": {}
+        }
+    },
+    "levels": {
+        "level0": {
+            "level": 0,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level0col0",
+                        "refcoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum",
+                                "value": 900.0,
+                                "links": {
+                                    "0": "proportional3",
+                                    "1": "proportional4",
+                                    "2": "proportional5"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "Variable",
+                                "name": "variable",
+                                "value": 0,
+                                "links": {}
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract",
+                                "value": 900.0,
+                                "links": {
+                                    "0": "weighted_sum",
+                                    "1": "variable"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional",
+                                "value": 9000.0,
+                                "links": {
+                                    "0": "subtract"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                },
+                "col1": {
+                    "col": 1,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level0col1",
+                        "refcoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum1",
+                                "value": 900.0,
+                                "links": {
+                                    "0": "proportional3",
+                                    "1": "proportional4",
+                                    "2": "proportional5"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "Variable",
+                                "name": "variable1",
+                                "value": 0,
+                                "links": {}
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract1",
+                                "value": 900.0,
+                                "links": {
+                                    "0": "weighted_sum1",
+                                    "1": "variable1"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional1",
+                                "value": 9000.0,
+                                "links": {
+                                    "0": "subtract1"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                },
+                "col2": {
+                    "col": 2,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level0col2",
+                        "refcoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum2",
+                                "value": 900.0,
+                                "links": {
+                                    "0": "proportional3",
+                                    "1": "proportional4",
+                                    "2": "proportional5"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "Variable",
+                                "name": "variable2",
+                                "value": 0,
+                                "links": {}
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract2",
+                                "value": 900.0,
+                                "links": {
+                                    "0": "weighted_sum2",
+                                    "1": "variable2"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional2",
+                                "value": 9000.0,
+                                "links": {
+                                    "0": "subtract2"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "level1": {
+            "level": 1,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level1col0",
+                        "refcoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum4",
+                                "value": 30.0,
+                                "links": {
+                                    "0": "proportional6",
+                                    "1": "proportional7",
+                                    "2": "proportional8"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum3",
+                                "value": 0.0,
+                                "links": {
+                                    "0": "variable",
+                                    "1": "variable1",
+                                    "2": "variable2"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract3",
+                                "value": 30.0,
+                                "links": {
+                                    "0": "weighted_sum4",
+                                    "1": "weighted_sum3"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional3",
+                                "value": 300.0,
+                                "links": {
+                                    "0": "subtract3"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                },
+                "col1": {
+                    "col": 1,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level1col1",
+                        "refcoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum6",
+                                "value": 30.0,
+                                "links": {
+                                    "0": "proportional6",
+                                    "1": "proportional7",
+                                    "2": "proportional8"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum5",
+                                "value": 0.0,
+                                "links": {
+                                    "0": "variable",
+                                    "1": "variable1",
+                                    "2": "variable2"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract4",
+                                "value": 30.0,
+                                "links": {
+                                    "0": "weighted_sum6",
+                                    "1": "weighted_sum5"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional4",
+                                "value": 300.0,
+                                "links": {
+                                    "0": "subtract4"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                },
+                "col2": {
+                    "col": 2,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level1col2",
+                        "refcoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum8",
+                                "value": 30.0,
+                                "links": {
+                                    "0": "proportional6",
+                                    "1": "proportional7",
+                                    "2": "proportional8"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum7",
+                                "value": 0.0,
+                                "links": {
+                                    "0": "variable",
+                                    "1": "variable1",
+                                    "2": "variable2"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract5",
+                                "value": 30.0,
+                                "links": {
+                                    "0": "weighted_sum8",
+                                    "1": "weighted_sum7"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional5",
+                                "value": 300.0,
+                                "links": {
+                                    "0": "subtract5"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "level2": {
+            "level": 2,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level2col0",
+                        "refcoll": {
+                            "0": {
+                                "type": "Constant",
+                                "name": "constant",
+                                "value": 1,
+                                "links": {}
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum9",
+                                "value": 0.0,
+                                "links": {
+                                    "0": "weighted_sum3",
+                                    "1": "weighted_sum5",
+                                    "2": "weighted_sum7"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract6",
+                                "value": 1.0,
+                                "links": {
+                                    "0": "constant",
+                                    "1": "weighted_sum9"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional6",
+                                "value": 10.0,
+                                "links": {
+                                    "0": "subtract6"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                },
+                "col1": {
+                    "col": 1,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level2col1",
+                        "refcoll": {
+                            "0": {
+                                "type": "Constant",
+                                "name": "constant1",
+                                "value": 1,
+                                "links": {}
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum10",
+                                "value": 0.0,
+                                "links": {
+                                    "0": "weighted_sum3",
+                                    "1": "weighted_sum5",
+                                    "2": "weighted_sum7"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract7",
+                                "value": 1.0,
+                                "links": {
+                                    "0": "constant1",
+                                    "1": "weighted_sum10"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional7",
+                                "value": 10.0,
+                                "links": {
+                                    "0": "subtract7"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                },
+                "col2": {
+                    "col": 2,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "level2col2",
+                        "refcoll": {
+                            "0": {
+                                "type": "Constant",
+                                "name": "constant2",
+                                "value": 1,
+                                "links": {}
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "WeightedSum",
+                                "name": "weighted_sum11",
+                                "value": 0.0,
+                                "links": {
+                                    "0": "weighted_sum3",
+                                    "1": "weighted_sum5",
+                                    "2": "weighted_sum7"
+                                },
+                                "weights": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract8",
+                                "value": 1.0,
+                                "links": {
+                                    "0": "constant2",
+                                    "1": "weighted_sum11"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "proportional8",
+                                "value": 10.0,
+                                "links": {
+                                    "0": "subtract8"
+                                },
+                                "gain": 10
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "post": {
+        "post0": {
+            "type": "Constant",
+            "name": "postcon",
+            "value": 10,
+            "links": {}
+        }
+    }
+}
