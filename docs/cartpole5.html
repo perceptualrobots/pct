@@ -36,6 +36,7 @@ sidebar: home_sidebar
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">from</span> <span class="nn">pct.hierarchy</span> <span class="kn">import</span> <span class="n">PCTHierarchy</span>
 <span class="kn">from</span> <span class="nn">pct.functions</span> <span class="kn">import</span> <span class="n">Subtract</span>
@@ -75,8 +76,8 @@ sidebar: home_sidebar
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_angle&#39;</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_position&#39;</span>
 
-<span class="c1">#cartpole = OpenAIGym(&quot;CartPole-v1&quot;, name=&quot;CartPole-v1&quot;, render=True)</span>
-<span class="n">cartpole</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
+<span class="n">cartpole</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#cartpole = Constant([0.2,0.2,0.2,0.2,0.2+math.sin(0.2)], name=&quot;CartPole-v1&quot;)</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">set_order</span><span class="p">(</span><span class="s2">&quot;Down&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -98,7 +99,7 @@ sidebar: home_sidebar
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_position&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="n">cartpole</span><span class="p">]))</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="n">cartpole</span><span class="p">]))</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_angle&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="n">cartpole</span><span class="p">]))</span>
-<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_position&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="n">cartpole</span><span class="p">]))</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_position&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="n">cartpole</span><span class="p">]))</span>
 
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">PassOn</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_velocity_reference&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;proportional1&#39;</span><span class="p">]))</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">PassOn</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cart_position_reference&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;proportional2&#39;</span><span class="p">]))</span>
@@ -110,7 +111,8 @@ sidebar: home_sidebar
 <span class="c1">#cartpole_hierarchy.summary(build=False)</span>
 
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">replace_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">PassOn</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_angle_reference&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pole_position_output&#39;</span><span class="p">]),</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">replace_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">Integration</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity_output&quot;</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">slow</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">replace_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">Integration</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity_output&quot;</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">slow</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">#cartpole_hierarchy.replace_function(level=2, col=0, collection=&quot;output&quot;, function=Proportional(name=&quot;pole_velocity_output&quot;, gain=3), position=0)</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">set_links</span><span class="p">(</span> <span class="s1">&#39;cart_position_reference&#39;</span><span class="p">,</span> <span class="s1">&#39;pole_velocity_output&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -175,12 +177,12 @@ sidebar: home_sidebar
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 Constant | [0.2, 0.2, 0.2, 0.2, 0.2] | links  greaterthan 
+PRE: CartPole-v1 OpenAIGym | 0 | links  greaterthan 
 Level 4
 pole_position PCTNode
 ----------------------------
 REF: pole_position_reference Constant | 0 
-PER: pole_position IndexedParameter | index 0 | 0 | links  CartPole-v1 
+PER: pole_position IndexedParameter | index 4 | 0 | links  CartPole-v1 
 COM: subtract4 Subtract | 0 | links  pole_position_reference pole_position 
 OUT: pole_position_output Sigmoid | range 0.45 scale 2  | 0 | links  subtract4 
 ----------------------------
@@ -198,7 +200,7 @@ pole_velocity PCTNode
 REF: pole_velocity_reference PassOn | 0 | links  pole_angle_output 
 PER: pole_velocity IndexedParameter | index 3 | 0 | links  CartPole-v1 
 COM: subtract2 Subtract | 0 | links  pole_velocity_reference pole_velocity 
-OUT: pole_velocity_output Integration | gain 90 slow 100  | 0 | links  subtract2 
+OUT: pole_velocity_output Integration | gain 10 slow 100  | 0 | links  subtract2 
 ----------------------------
 Level 1
 cart_position PCTNode
@@ -252,8 +254,7 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="c1">#cartpole_hierarchy.run(100)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -262,313 +263,6 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 
 <div class="output_wrapper">
 <div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -0.5767614512053821
--0.577 
-cart_position -0.5767614512053821
--0.577 0.2
-0.200 -0.7767614512053822
--0.777 -1.5535229024107644
--1.554 
-cart_velocity -1.5535229024107644
--1.554 0.2
-0.200 -1.7535229024107644
--1.754 0.043838072560269115
-0.044 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -1.1477552878987103
--1.148 
-cart_position -1.1477552878987103
--1.148 0.2
-0.200 -1.3477552878987102
--1.348 -2.6955105757974205
--2.696 
-cart_velocity -2.6955105757974205
--2.696 0.2
-0.200 -2.8955105757974207
--2.896 0.10526631881513736
-0.105 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -1.7130391862251053
--1.713 
-cart_position -1.7130391862251053
--1.713 0.2
-0.200 -1.9130391862251053
--1.913 -3.8260783724502105
--3.826 
-cart_velocity -3.8260783724502105
--3.826 0.2
-0.200 -4.02607837245021
--4.026 0.17960169842260826
-0.180 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -2.2726702455682366
--2.273 
-cart_position -2.2726702455682366
--2.273 0.2
-0.200 -2.472670245568237
--2.473 -4.945340491136474
--4.945 
-cart_velocity -4.945340491136474
--4.945 0.2
-0.200 -5.145340491136474
--5.145 0.26333478609536803
-0.263 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -2.8267049943179363
--2.827 
-cart_position -2.8267049943179363
--2.827 0.2
-0.200 -3.0267049943179365
--3.027 -6.053409988635873
--6.053 
-cart_velocity -6.053409988635873
--6.053 0.2
-0.200 -6.253409988635873
--6.253 0.35383633928742286
-0.354 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -3.375199395580139
--3.375 
-cart_position -3.375199395580139
--3.375 0.2
-0.200 -3.5751993955801393
--3.575 -7.150398791160279
--7.150 
-cart_velocity -7.150398791160279
--7.150 0.2
-0.200 -7.350398791160279
--7.350 0.44913722424457414
-0.449 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -3.9182088528297196
--3.918 
-cart_position -3.9182088528297196
--3.918 0.2
-0.200 -4.11820885282972
--4.118 -8.23641770565944
--8.236 
-cart_velocity -8.23641770565944
--8.236 0.2
-0.200 -8.436417705659439
--8.436 0.5477633608249166
-0.548 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -4.4557882155068045
--4.456 
-cart_position -4.4557882155068045
--4.456 0.2
-0.200 -4.655788215506805
--4.656 -9.31157643101361
--9.312 
-cart_velocity -9.31157643101361
--9.312 0.2
-0.200 -9.511576431013609
--9.512 0.6486119313940277
-0.649 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -4.987991784557119
--4.988 
-cart_position -4.987991784557119
--4.988 0.2
-0.200 -5.187991784557119
--5.188 -10.375983569114238
--10.376 
-cart_velocity -10.375983569114238
--10.376 0.2
-0.200 -10.575983569114237
--10.576 0.7508585377733767
-0.751 
-1
-1.000 
-
-[0.2, 0.2, 0.2, 0.2, 0.2]
-[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
-pole_position 0
-0.000 0.2
-0.200 -0.2
--0.200 -0.09389737126324602
--0.094 
-pole_angle -0.09389737126324602
--0.094 0.2
-0.200 -0.293897371263246
--0.294 -0.440846056894869
--0.441 
-pole_velocity -0.440846056894869
--0.441 0.2
-0.200 -0.6408460568948691
--0.641 -5.51487331791693
--5.515 
-cart_position -5.51487331791693
--5.515 0.2
-0.200 -5.71487331791693
--5.715 -11.42974663583386
--11.430 
-cart_velocity -11.42974663583386
--11.430 0.2
-0.200 -11.62974663583386
--11.630 0.853887569225879
-0.854 
-1
-1.000 
-
-</pre>
-</div>
-</div>
 
 <div class="output_area">
 
