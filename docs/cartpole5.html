@@ -75,8 +75,8 @@ sidebar: home_sidebar
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_angle&#39;</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_position&#39;</span>
 
-<span class="n">cartpole</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="c1">#cartpole = Constant([0,0,0,0,0], name=&quot;CartPole-v1&quot;)</span>
+<span class="c1">#cartpole = OpenAIGym(&quot;CartPole-v1&quot;, name=&quot;CartPole-v1&quot;, render=True)</span>
+<span class="n">cartpole</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">set_order</span><span class="p">(</span><span class="s2">&quot;Down&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -167,6 +167,64 @@ sidebar: home_sidebar
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>cartpoleh PCTHierarchy
+**************************
+PRE: CartPole-v1 Constant | [0, 0, 0, 0, 0] | links  greaterthan 
+Level 4
+pole_position PCTNode
+----------------------------
+REF: pole_position_reference Constant | 0 
+PER: pole_position IndexedParameter | index 0 | 0 | links  CartPole-v1 
+COM: subtract4 Subtract | 0 | links  pole_position_reference pole_position 
+OUT: pole_position_output Sigmoid | range 0.45 scale 2  | 0 | links  subtract4 
+----------------------------
+Level 3
+pole_angle PCTNode
+----------------------------
+REF: pole_angle_reference PassOn | 0 | links  pole_position_output 
+PER: pole_angle IndexedParameter | index 2 | 0 | links  CartPole-v1 
+COM: subtract3 Subtract | 0 | links  pole_angle_reference pole_angle 
+OUT: pole_angle_output Proportional | gain 1.5 | 0 | links  subtract3 
+----------------------------
+Level 2
+pole_velocity PCTNode
+----------------------------
+REF: pole_velocity_reference PassOn | 0 | links  pole_angle_output 
+PER: pole_velocity IndexedParameter | index 3 | 0 | links  CartPole-v1 
+COM: subtract2 Subtract | 0 | links  pole_velocity_reference pole_velocity 
+OUT: pole_velocity_output Integration | gain 90 slow 100  | 0 | links  subtract2 
+----------------------------
+Level 1
+cart_position PCTNode
+----------------------------
+REF: cart_position_reference PassOn | 0 | links  pole_velocity_output 
+PER: cart_position IndexedParameter | index 0 | 0 | links  CartPole-v1 
+COM: subtract1 Subtract | 0 | links  cart_position_reference cart_position 
+OUT: cart_position_output Proportional | gain 2 | 0 | links  subtract1 
+----------------------------
+Level 0
+cart_velocity PCTNode
+----------------------------
+REF: cart_velocity_reference PassOn | 0 | links  cart_position_output 
+PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 
+COM: subtract Subtract | 0 | links  cart_velocity_reference cart_velocity 
+OUT: force Integration | gain -0.1 slow 4  | 0 | links  subtract 
+----------------------------
+POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force 
+**************************
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -194,10 +252,66 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#cartpole_hierarchy.run(100)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-23-34bd6de7c6a9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>cartpole_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">.</span>run<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">10</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      2</span> <span class="ansi-red-intense-fg ansi-bold">#cartpole_hierarchy.run(100)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">run</span><span class="ansi-blue-intense-fg ansi-bold">(self, steps, verbose)</span>
+<span class="ansi-green-fg">    123</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> run<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> steps<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    124</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> i <span class="ansi-green-intense-fg ansi-bold">in</span> range<span class="ansi-yellow-intense-fg ansi-bold">(</span>steps<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 125</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>out <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    126</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> out
+<span class="ansi-green-fg">    127</span> 
+
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">     67</span>             <span class="ansi-red-intense-fg ansi-bold">#if verbose:</span>
+<span class="ansi-green-fg">     68</span>             <span class="ansi-red-intense-fg ansi-bold">#    print(func.get_name(), end =&#34; &#34;)</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 69</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     70</span> 
+<span class="ansi-green-fg">     71</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">    332</span> 
+<span class="ansi-green-fg">    333</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 334</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">return</span> super<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>__call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    335</span> 
+<span class="ansi-green-fg">    336</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> summary<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">     36</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     37</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose <span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 38</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>print<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>output_string<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> end<span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#34; &#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     39</span> 
+<span class="ansi-green-fg">     40</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value
+
+<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">output_string</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
+<span class="ansi-green-fg">    106</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">f&#39;{round(item, self.decimal_places):.{self.decimal_places}f}&#39;</span> <span class="ansi-green-intense-fg ansi-bold">for</span> item <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value<span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">    107</span> 
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 108</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">return</span> <span class="ansi-blue-intense-fg ansi-bold">f&#39;{round(self.value, self.decimal_places):.{self.decimal_places}f}&#39;</span>
+<span class="ansi-green-fg">    109</span> 
+<span class="ansi-green-fg">    110</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> check_links<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> num<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>: type list doesn&#39;t define __round__ method</pre>
+</div>
+</div>
+
 </div>
 </div>
 

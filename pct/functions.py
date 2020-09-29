@@ -102,6 +102,7 @@ class BaseFunction(ABC):
 
 
     def output_string(self):
+        print(self.value)
         if isinstance (self.value, type(list)):
             return [f'{round(item, self.decimal_places):.{self.decimal_places}f}' for item in self.value]
 
