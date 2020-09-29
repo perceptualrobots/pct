@@ -377,7 +377,7 @@ class IntegrationDual(BaseFunction):
         super().check_links(2)
         input = self.links[0].get_value()
         output = self.links[1].get_value()
-        print(input, output)
+        #print(input, output)
         self.value = output +  ((input * self.gain) - output)/self.slow
 
         return super().__call__(verbose)
