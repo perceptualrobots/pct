@@ -76,45 +76,11 @@ sidebar: home_sidebar
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_position&#39;</span>
 
 <span class="c1">#cartpole = OpenAIGym(&quot;CartPole-v1&quot;, name=&quot;CartPole-v1&quot;, render=True)</span>
-<span class="n">cartpole</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
+<span class="n">cartpole</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">)</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">set_order</span><span class="p">(</span><span class="s2">&quot;Down&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cartpole</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>y
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -209,7 +175,7 @@ sidebar: home_sidebar
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 Constant | [0, 0, 0, 0, 0] | links  greaterthan 
+PRE: CartPole-v1 Constant | [0.2, 0.2, 0.2, 0.2, 0.2] | links  greaterthan 
 Level 4
 pole_position PCTNode
 ----------------------------
@@ -300,58 +266,318 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[0, 0, 0, 0, 0]
+<pre>[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -0.5767614512053821
+-0.577 
+cart_position -0.5767614512053821
+-0.577 0.2
+0.200 -0.7767614512053822
+-0.777 -1.5535229024107644
+-1.554 
+cart_velocity -1.5535229024107644
+-1.554 0.2
+0.200 -1.7535229024107644
+-1.754 0.043838072560269115
+0.044 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -1.1477552878987103
+-1.148 
+cart_position -1.1477552878987103
+-1.148 0.2
+0.200 -1.3477552878987102
+-1.348 -2.6955105757974205
+-2.696 
+cart_velocity -2.6955105757974205
+-2.696 0.2
+0.200 -2.8955105757974207
+-2.896 0.10526631881513736
+0.105 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -1.7130391862251053
+-1.713 
+cart_position -1.7130391862251053
+-1.713 0.2
+0.200 -1.9130391862251053
+-1.913 -3.8260783724502105
+-3.826 
+cart_velocity -3.8260783724502105
+-3.826 0.2
+0.200 -4.02607837245021
+-4.026 0.17960169842260826
+0.180 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -2.2726702455682366
+-2.273 
+cart_position -2.2726702455682366
+-2.273 0.2
+0.200 -2.472670245568237
+-2.473 -4.945340491136474
+-4.945 
+cart_velocity -4.945340491136474
+-4.945 0.2
+0.200 -5.145340491136474
+-5.145 0.26333478609536803
+0.263 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -2.8267049943179363
+-2.827 
+cart_position -2.8267049943179363
+-2.827 0.2
+0.200 -3.0267049943179365
+-3.027 -6.053409988635873
+-6.053 
+cart_velocity -6.053409988635873
+-6.053 0.2
+0.200 -6.253409988635873
+-6.253 0.35383633928742286
+0.354 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -3.375199395580139
+-3.375 
+cart_position -3.375199395580139
+-3.375 0.2
+0.200 -3.5751993955801393
+-3.575 -7.150398791160279
+-7.150 
+cart_velocity -7.150398791160279
+-7.150 0.2
+0.200 -7.350398791160279
+-7.350 0.44913722424457414
+0.449 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -3.9182088528297196
+-3.918 
+cart_position -3.9182088528297196
+-3.918 0.2
+0.200 -4.11820885282972
+-4.118 -8.23641770565944
+-8.236 
+cart_velocity -8.23641770565944
+-8.236 0.2
+0.200 -8.436417705659439
+-8.436 0.5477633608249166
+0.548 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -4.4557882155068045
+-4.456 
+cart_position -4.4557882155068045
+-4.456 0.2
+0.200 -4.655788215506805
+-4.656 -9.31157643101361
+-9.312 
+cart_velocity -9.31157643101361
+-9.312 0.2
+0.200 -9.511576431013609
+-9.512 0.6486119313940277
+0.649 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -4.987991784557119
+-4.988 
+cart_position -4.987991784557119
+-4.988 0.2
+0.200 -5.187991784557119
+-5.188 -10.375983569114238
+-10.376 
+cart_velocity -10.375983569114238
+-10.376 0.2
+0.200 -10.575983569114237
+-10.576 0.7508585377733767
+0.751 
+1
+1.000 
+
+[0.2, 0.2, 0.2, 0.2, 0.2]
+[&#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;, &#39;0.200&#39;] 
+pole_position 0
+0.000 0.2
+0.200 -0.2
+-0.200 -0.09389737126324602
+-0.094 
+pole_angle -0.09389737126324602
+-0.094 0.2
+0.200 -0.293897371263246
+-0.294 -0.440846056894869
+-0.441 
+pole_velocity -0.440846056894869
+-0.441 0.2
+0.200 -0.6408460568948691
+-0.641 -5.51487331791693
+-5.515 
+cart_position -5.51487331791693
+-5.515 0.2
+0.200 -5.71487331791693
+-5.715 -11.42974663583386
+-11.430 
+cart_velocity -11.42974663583386
+-11.430 0.2
+0.200 -11.62974663583386
+-11.630 0.853887569225879
+0.854 
+1
+1.000 
+
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-7-34bd6de7c6a9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>cartpole_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">.</span>run<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">10</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      2</span> <span class="ansi-red-intense-fg ansi-bold">#cartpole_hierarchy.run(100)</span>
 
-<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">run</span><span class="ansi-blue-intense-fg ansi-bold">(self, steps, verbose)</span>
-<span class="ansi-green-fg">    123</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> run<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> steps<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    124</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> i <span class="ansi-green-intense-fg ansi-bold">in</span> range<span class="ansi-yellow-intense-fg ansi-bold">(</span>steps<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 125</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>out <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    126</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> out
-<span class="ansi-green-fg">    127</span> 
 
-<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">     67</span>             <span class="ansi-red-intense-fg ansi-bold">#if verbose:</span>
-<span class="ansi-green-fg">     68</span>             <span class="ansi-red-intense-fg ansi-bold">#    print(func.get_name(), end =&#34; &#34;)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 69</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     70</span> 
-<span class="ansi-green-fg">     71</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">    333</span> 
-<span class="ansi-green-fg">    334</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 335</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">return</span> super<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>__call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    336</span> 
-<span class="ansi-green-fg">    337</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> summary<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
-<span class="ansi-green-fg">     36</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> __call__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     37</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose <span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 38</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>print<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>output_string<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> end<span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#34; &#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     39</span> 
-<span class="ansi-green-fg">     40</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value
-
-<span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\functions.py</span> in <span class="ansi-cyan-fg">output_string</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    107</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">f&#39;{round(item, self.decimal_places):.{self.decimal_places}f}&#39;</span> <span class="ansi-green-intense-fg ansi-bold">for</span> item <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value<span class="ansi-yellow-intense-fg ansi-bold">]</span>
-<span class="ansi-green-fg">    108</span> 
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 109</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">return</span> <span class="ansi-blue-intense-fg ansi-bold">f&#39;{round(self.value, self.decimal_places):.{self.decimal_places}f}&#39;</span>
-<span class="ansi-green-fg">    110</span> 
-<span class="ansi-green-fg">    111</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> check_links<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> num<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-red-intense-fg ansi-bold">TypeError</span>: type list doesn&#39;t define __round__ method</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
 </div>
+
 </div>
 
 </div>
