@@ -6,6 +6,7 @@
     "Functions": "/functions",
     "Nodes": "/nodes",
     "Hierarchy": "/hierarchy",
+    "Cartpole": "/cartpole5",
     "Title": "/pct-example"
   }
 }
