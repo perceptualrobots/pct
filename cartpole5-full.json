@@ -1,0 +1,311 @@
+{
+    "type": "PCTHierarchy",
+    "name": "cartpoleh",
+    "pre": {
+        "pre0": {
+            "type": "OpenAIGym",
+            "name": "CartPole-v1",
+            "value": 0,
+            "links": {
+                "0": "greaterthan"
+            },
+            "env_name": "CartPole-v1",
+            "values": 0,
+            "reward": 0,
+            "done": false,
+            "info": {}
+        }
+    },
+    "levels": {
+        "level0": {
+            "level": 0,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "cart_velocity",
+                        "refcoll": {
+                            "0": {
+                                "type": "PassOn",
+                                "name": "cart_velocity_reference",
+                                "value": 0,
+                                "links": {
+                                    "0": "cart_position_output"
+                                }
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "IndexedParameter",
+                                "name": "cart_velocity",
+                                "value": 0,
+                                "links": {
+                                    "0": "CartPole-v1"
+                                },
+                                "index": 1
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract",
+                                "value": 0,
+                                "links": {
+                                    "0": "cart_velocity_reference",
+                                    "1": "cart_velocity"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Integration",
+                                "name": "force",
+                                "value": 0,
+                                "links": {
+                                    "0": "subtract"
+                                },
+                                "gain": -0.1,
+                                "slow": 4
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "level1": {
+            "level": 1,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "cart_position",
+                        "refcoll": {
+                            "0": {
+                                "type": "IntegrationDual",
+                                "name": "cart_position_reference",
+                                "value": 0,
+                                "links": {
+                                    "0": "pole_velocity_output",
+                                    "1": "cart_position"
+                                },
+                                "gain": 90,
+                                "slow": 100
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "IndexedParameter",
+                                "name": "cart_position",
+                                "value": 0,
+                                "links": {
+                                    "0": "CartPole-v1"
+                                },
+                                "index": 0
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract1",
+                                "value": 0,
+                                "links": {
+                                    "0": "cart_position_reference",
+                                    "1": "cart_position"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "cart_position_output",
+                                "value": 0,
+                                "links": {
+                                    "0": "subtract1"
+                                },
+                                "gain": 2
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "level2": {
+            "level": 2,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "pole_velocity",
+                        "refcoll": {
+                            "0": {
+                                "type": "PassOn",
+                                "name": "pole_velocity_reference",
+                                "value": 0,
+                                "links": {
+                                    "0": "pole_angle_output"
+                                }
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "IndexedParameter",
+                                "name": "pole_velocity",
+                                "value": 0,
+                                "links": {
+                                    "0": "CartPole-v1"
+                                },
+                                "index": 3
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract2",
+                                "value": 0,
+                                "links": {
+                                    "0": "pole_velocity_reference",
+                                    "1": "pole_velocity"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "PassOn",
+                                "name": "pole_velocity_output",
+                                "value": 0,
+                                "links": {
+                                    "0": "subtract2"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "level3": {
+            "level": 3,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "pole_angle",
+                        "refcoll": {
+                            "0": {
+                                "type": "PassOn",
+                                "name": "pole_angle_reference",
+                                "value": 0,
+                                "links": {
+                                    "0": "pole_position_output"
+                                }
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "IndexedParameter",
+                                "name": "pole_angle",
+                                "value": 0,
+                                "links": {
+                                    "0": "CartPole-v1"
+                                },
+                                "index": 2
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract3",
+                                "value": 0,
+                                "links": {
+                                    "0": "pole_angle_reference",
+                                    "1": "pole_angle"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Proportional",
+                                "name": "pole_angle_output",
+                                "value": 0,
+                                "links": {
+                                    "0": "subtract3"
+                                },
+                                "gain": 1.5
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "level4": {
+            "level": 4,
+            "nodes": {
+                "col0": {
+                    "col": 0,
+                    "node": {
+                        "type": "PCTNode",
+                        "name": "pole_position",
+                        "refcoll": {
+                            "0": {
+                                "type": "Constant",
+                                "name": "pole_position_reference",
+                                "value": 0,
+                                "links": {}
+                            }
+                        },
+                        "percoll": {
+                            "0": {
+                                "type": "IndexedParameter",
+                                "name": "pole_position",
+                                "value": 0,
+                                "links": {
+                                    "0": "CartPole-v1"
+                                },
+                                "index": 4
+                            }
+                        },
+                        "comcoll": {
+                            "0": {
+                                "type": "Subtract",
+                                "name": "subtract4",
+                                "value": 0,
+                                "links": {
+                                    "0": "pole_position_reference",
+                                    "1": "pole_position"
+                                }
+                            }
+                        },
+                        "outcoll": {
+                            "0": {
+                                "type": "Sigmoid",
+                                "name": "pole_position_output",
+                                "value": 0,
+                                "links": {
+                                    "0": "subtract4"
+                                },
+                                "range": 0.45,
+                                "scale": 2
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "post": {
+        "post0": {
+            "type": "GreaterThan",
+            "name": "greaterthan",
+            "value": 0,
+            "links": {
+                "0": "force"
+            },
+            "threshold": 0,
+            "upper": 1,
+            "lower": 0
+        }
+    }
+}

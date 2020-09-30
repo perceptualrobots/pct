@@ -147,8 +147,13 @@ class BaseFunction(ABC):
     def get_config(self):
         "Return the JSON  configuration of the function."
         config = {"type": type(self).__name__,
-                    "name": self.name,
-                    "value": self.value}
+                    "name": self.name}
+
+        if isinstance(self.value, np.ndarray):
+            config["value"] = self.value.tolist()
+        else:
+            config["value"] = self.value
+
 
         ctr=0
         links={}
