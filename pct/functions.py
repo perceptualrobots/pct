@@ -150,9 +150,11 @@ class BaseFunction(ABC):
                     "name": self.name}
 
         if isinstance(self.value, np.ndarray):
+            print("ARRAY", self.name, self.value)
             config["value"] = self.value.tolist()
         else:
             config["value"] = self.value
+            print("value", self.name, self.value)
 
 
         ctr=0

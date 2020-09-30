@@ -877,7 +877,7 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>1</pre>
+<pre>0</pre>
 </div>
 
 </div>
@@ -910,41 +910,41 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | [-0.00133708  0.01810539  0.00456156 -0.03908987 -0.00133708  0.01810539
-  0.00456156 -0.03908987] | links  greaterthan 
+PRE: CartPole-v1 OpenAIGym | [ 0.00406262 -0.01673093 -0.00376337  0.02602233  0.00406262 -0.01673093
+ -0.00376337  0.02602233] | links  greaterthan 
 Level 3
 pole_angle PCTNode
 ----------------------------
 REF: pole_angle_reference Constant | 0 
-PER: pole_angle IndexedParameter | index 2 | 0.004561558883883116 | links  CartPole-v1 
-COM: subtract3 Subtract | -0.004561558883883116 | links  pole_angle_reference pole_angle 
-OUT: pole_angle_output Proportional | gain 3.5 | -0.01596545609359091 | links  subtract3 
+PER: pole_angle IndexedParameter | index 2 | -0.003763368623683283 | links  CartPole-v1 
+COM: subtract3 Subtract | 0.003763368623683283 | links  pole_angle_reference pole_angle 
+OUT: pole_angle_output Proportional | gain 3.5 | 0.013171790182891491 | links  subtract3 
 ----------------------------
 Level 2
 pole_velocity PCTNode
 ----------------------------
-REF: pole_velocity_reference PassOn | -0.01596545609359091 | links  pole_angle_output 
-PER: pole_velocity IndexedParameter | index 3 | -0.03908986605172843 | links  CartPole-v1 
-COM: subtract2 Subtract | 0.02312440995813752 | links  pole_velocity_reference pole_velocity 
-OUT: pole_velocity_output Proportional | gain 0.5 | 0.01156220497906876 | links  subtract2 
+REF: pole_velocity_reference PassOn | 0.013171790182891491 | links  pole_angle_output 
+PER: pole_velocity IndexedParameter | index 3 | 0.026022331040939983 | links  CartPole-v1 
+COM: subtract2 Subtract | -0.012850540858048492 | links  pole_velocity_reference pole_velocity 
+OUT: pole_velocity_output Proportional | gain 0.5 | -0.006425270429024246 | links  subtract2 
 ----------------------------
 Level 1
 cart_position PCTNode
 ----------------------------
-REF: cart_position_reference PassOn | 0.01156220497906876 | links  pole_velocity_output 
-PER: cart_position IndexedParameter | index 0 | -0.0013370849837305225 | links  CartPole-v1 
-COM: subtract1 Subtract | 0.012899289962799283 | links  cart_position_reference cart_position 
-OUT: cart_position_output Proportional | gain 2 | 0.025798579925598565 | links  subtract1 
+REF: cart_position_reference PassOn | -0.006425270429024246 | links  pole_velocity_output 
+PER: cart_position IndexedParameter | index 0 | 0.004062624465729803 | links  CartPole-v1 
+COM: subtract1 Subtract | -0.01048789489475405 | links  cart_position_reference cart_position 
+OUT: cart_position_output Proportional | gain 2 | -0.0209757897895081 | links  subtract1 
 ----------------------------
 Level 0
 cart_velocity PCTNode
 ----------------------------
-REF: cart_velocity_reference PassOn | 0.025798579925598565 | links  cart_position_output 
-PER: cart_velocity IndexedParameter | index 1 | 0.01810538543394427 | links  CartPole-v1 
-COM: subtract Subtract | 0.007693194491654294 | links  cart_velocity_reference cart_velocity 
-OUT: force Integration | gain -0.05 slow 4  | 0.000618114074562038 | links  subtract 
+REF: cart_velocity_reference PassOn | -0.0209757897895081 | links  cart_position_output 
+PER: cart_velocity IndexedParameter | index 1 | -0.01673093399624001 | links  CartPole-v1 
+COM: subtract Subtract | -0.004244855793268089 | links  cart_velocity_reference cart_velocity 
+OUT: force Integration | gain -0.05 slow 4  | -0.0006342029002706134 | links  subtract 
 ----------------------------
-POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 1 | links  force 
+POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force 
 **************************
 </pre>
 </div>
@@ -1052,8 +1052,8 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 1 | links  force
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>cartpoleh PCTHierarchy
 **************************
-PRE: CartPole-v1 OpenAIGym | [-0.00133708  0.01810539  0.00456156 -0.03908987 -0.00133708  0.01810539
-  0.00456156 -0.03908987] | links  greaterthan 
+PRE: CartPole-v1 OpenAIGym | [ 0.00406262 -0.01673093 -0.00376337  0.02602233  0.00406262 -0.01673093
+ -0.00376337  0.02602233] | links  greaterthan 
 Level 4
 pole_position PCTNode
 ----------------------------
@@ -1066,35 +1066,35 @@ Level 3
 pole_angle PCTNode
 ----------------------------
 REF: pole_angle_reference PassOn | 0 | links  pole_position_output 
-PER: pole_angle IndexedParameter | index 2 | 0.004561558883883116 | links  CartPole-v1 
-COM: subtract3 Subtract | -0.004561558883883116 | links  pole_angle_reference pole_angle 
-OUT: pole_angle_output Proportional | gain 3.5 | -0.01596545609359091 | links  subtract3 
+PER: pole_angle IndexedParameter | index 2 | -0.003763368623683283 | links  CartPole-v1 
+COM: subtract3 Subtract | 0.003763368623683283 | links  pole_angle_reference pole_angle 
+OUT: pole_angle_output Proportional | gain 3.5 | 0.013171790182891491 | links  subtract3 
 ----------------------------
 Level 2
 pole_velocity PCTNode
 ----------------------------
-REF: pole_velocity_reference PassOn | -0.01596545609359091 | links  pole_angle_output 
-PER: pole_velocity IndexedParameter | index 3 | -0.03908986605172843 | links  CartPole-v1 
-COM: subtract2 Subtract | 0.02312440995813752 | links  pole_velocity_reference pole_velocity 
+REF: pole_velocity_reference PassOn | 0.013171790182891491 | links  pole_angle_output 
+PER: pole_velocity IndexedParameter | index 3 | 0.026022331040939983 | links  CartPole-v1 
+COM: subtract2 Subtract | -0.012850540858048492 | links  pole_velocity_reference pole_velocity 
 OUT: pole_velocity_output Integration | gain 90 slow 100  | 0 | links  subtract2 
 ----------------------------
 Level 1
 cart_position PCTNode
 ----------------------------
-REF: cart_position_reference PassOn | 0.01156220497906876 | links  pole_velocity_output 
-PER: cart_position IndexedParameter | index 0 | -0.0013370849837305225 | links  CartPole-v1 
-COM: subtract1 Subtract | 0.012899289962799283 | links  cart_position_reference cart_position 
-OUT: cart_position_output Proportional | gain 2 | 0.025798579925598565 | links  subtract1 
+REF: cart_position_reference PassOn | -0.006425270429024246 | links  pole_velocity_output 
+PER: cart_position IndexedParameter | index 0 | 0.004062624465729803 | links  CartPole-v1 
+COM: subtract1 Subtract | -0.01048789489475405 | links  cart_position_reference cart_position 
+OUT: cart_position_output Proportional | gain 2 | -0.0209757897895081 | links  subtract1 
 ----------------------------
 Level 0
 cart_velocity PCTNode
 ----------------------------
-REF: cart_velocity_reference PassOn | 0.025798579925598565 | links  cart_position_output 
-PER: cart_velocity IndexedParameter | index 1 | 0.01810538543394427 | links  CartPole-v1 
-COM: subtract Subtract | 0.007693194491654294 | links  cart_velocity_reference cart_velocity 
-OUT: force Integration | gain -0.05 slow 4  | 0.000618114074562038 | links  subtract 
+REF: cart_velocity_reference PassOn | -0.0209757897895081 | links  cart_position_output 
+PER: cart_velocity IndexedParameter | index 1 | -0.01673093399624001 | links  CartPole-v1 
+COM: subtract Subtract | -0.004244855793268089 | links  cart_velocity_reference cart_velocity 
+OUT: force Integration | gain -0.05 slow 4  | -0.0006342029002706134 | links  subtract 
 ----------------------------
-POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 1 | links  force 
+POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force 
 **************************
 </pre>
 </div>
@@ -1148,7 +1148,7 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 1 | links  force
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;cartpole5-added.json&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1164,7 +1164,7 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 1 | links  force
 <pre>
 <span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
 <span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-35-7653474ef2d6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-38-7653474ef2d6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>cartpole_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">.</span>save<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;cartpole5-added.json&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
 <span class="ansi-green-intense-fg ansi-bold">~\Google Drive\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">save</span><span class="ansi-blue-intense-fg ansi-bold">(self, file, indent)</span>
@@ -1251,6 +1251,845 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 1 | links  force
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.004 -0.212 -0.003 0.318 0.004 -0.212 -0.003 0.318 1.0 False {} 
+pole_position 1.000 0.004 0.996 0.125 
+pole_angle 0.125 -0.003 0.003 0.011 
+pole_velocity 0.011 0.318 -0.306 -0.276 
+cart_position -0.276 0.004 -0.279 -0.559 
+cart_velocity -0.559 -0.212 -0.347 0.004 
+1.000 
+
+-0.001 -0.017 0.003 0.024 -0.001 -0.017 0.003 0.024 1.0 False {} 
+pole_position 1.000 0.004 0.996 0.125 
+pole_angle 0.125 0.003 -0.003 -0.011 
+pole_velocity -0.011 0.024 -0.035 -0.304 
+cart_position -0.304 -0.001 -0.304 -0.607 
+cart_velocity -0.607 -0.017 -0.590 0.010 
+1.000 
+
+-0.001 0.178 0.004 -0.268 -0.001 0.178 0.004 -0.268 1.0 False {} 
+pole_position 1.000 -0.001 1.001 0.125 
+pole_angle 0.125 0.004 -0.004 -0.013 
+pole_velocity -0.013 -0.268 0.255 -0.071 
+cart_position -0.071 -0.001 -0.070 -0.141 
+cart_velocity -0.141 0.178 -0.319 0.012 
+1.000 
+
+0.003 0.374 -0.002 -0.559 0.003 0.374 -0.002 -0.559 1.0 False {} 
+pole_position 1.000 -0.001 1.001 0.125 
+pole_angle 0.125 -0.002 0.002 0.006 
+pole_velocity 0.006 -0.559 0.566 0.439 
+cart_position 0.439 0.003 0.436 0.872 
+cart_velocity 0.872 0.374 0.498 0.003 
+1.000 
+
+0.010 0.569 -0.013 -0.853 0.010 0.569 -0.013 -0.853 1.0 False {} 
+pole_position 1.000 0.003 0.997 0.125 
+pole_angle 0.125 -0.013 0.013 0.045 
+pole_velocity 0.045 -0.853 0.898 1.242 
+cart_position 1.242 0.010 1.232 2.465 
+cart_velocity 2.465 0.569 1.896 -0.022 
+0.000 
+
+0.022 0.374 -0.030 -0.564 0.022 0.374 -0.030 -0.564 1.0 False {} 
+pole_position 1.000 0.010 0.990 0.125 
+pole_angle 0.125 -0.030 0.030 0.105 
+pole_velocity 0.105 -0.564 0.669 1.832 
+cart_position 1.832 0.022 1.811 3.621 
+cart_velocity 3.621 0.374 3.248 -0.057 
+0.000 
+
+0.029 0.179 -0.041 -0.281 0.029 0.179 -0.041 -0.281 1.0 False {} 
+pole_position 1.000 0.022 0.978 0.125 
+pole_angle 0.125 -0.041 0.041 0.145 
+pole_velocity 0.145 -0.281 0.426 2.197 
+cart_position 2.197 0.029 2.168 4.336 
+cart_velocity 4.336 0.179 4.157 -0.095 
+0.000 
+
+0.033 -0.015 -0.047 -0.002 0.033 -0.015 -0.047 -0.002 1.0 False {} 
+pole_position 1.000 0.029 0.971 0.125 
+pole_angle 0.125 -0.047 0.047 0.164 
+pole_velocity 0.164 -0.002 0.166 2.324 
+cart_position 2.324 0.033 2.292 4.583 
+cart_velocity 4.583 -0.015 4.599 -0.128 
+0.000 
+
+0.032 -0.210 -0.047 0.276 0.032 -0.210 -0.047 0.276 1.0 False {} 
+pole_position 1.000 0.033 0.967 0.125 
+pole_angle 0.125 -0.047 0.047 0.164 
+pole_velocity 0.164 0.276 -0.112 2.201 
+cart_position 2.201 0.032 2.168 4.337 
+cart_velocity 4.337 -0.210 4.547 -0.153 
+0.000 
+
+0.028 -0.404 -0.041 0.553 0.028 -0.404 -0.041 0.553 1.0 False {} 
+pole_position 1.000 0.032 0.968 0.125 
+pole_angle 0.125 -0.041 0.041 0.145 
+pole_velocity 0.145 0.553 -0.408 1.811 
+cart_position 1.811 0.028 1.783 3.566 
+cart_velocity 3.566 -0.404 3.970 -0.165 
+0.000 
+
+0.020 -0.599 -0.030 0.833 0.020 -0.599 -0.030 0.833 1.0 False {} 
+pole_position 1.000 0.028 0.972 0.125 
+pole_angle 0.125 -0.030 0.030 0.106 
+pole_velocity 0.106 0.833 -0.726 1.139 
+cart_position 1.139 0.020 1.119 2.238 
+cart_velocity 2.238 -0.599 2.837 -0.159 
+0.000 
+
+0.008 -0.794 -0.014 1.116 0.008 -0.794 -0.014 1.116 1.0 False {} 
+pole_position 1.000 0.020 0.980 0.125 
+pole_angle 0.125 -0.014 0.014 0.048 
+pole_velocity 0.048 1.116 -1.068 0.167 
+cart_position 0.167 0.008 0.159 0.318 
+cart_velocity 0.318 -0.794 1.111 -0.133 
+0.000 
+
+-0.008 -0.988 0.009 1.404 -0.008 -0.988 0.009 1.404 1.0 False {} 
+pole_position 1.000 0.008 0.992 0.125 
+pole_angle 0.125 0.009 -0.009 -0.030 
+pole_velocity -0.030 1.404 -1.434 -1.126 
+cart_position -1.126 -0.008 -1.118 -2.235 
+cart_velocity -2.235 -0.988 -1.247 -0.084 
+0.000 
+
+-0.028 -1.184 0.037 1.699 -0.028 -1.184 0.037 1.699 1.0 False {} 
+pole_position 1.000 -0.008 1.008 0.125 
+pole_angle 0.125 0.037 -0.037 -0.128 
+pole_velocity -0.128 1.699 -1.828 -2.759 
+cart_position -2.759 -0.028 -2.732 -5.463 
+cart_velocity -5.463 -1.184 -4.280 -0.010 
+0.000 
+
+-0.051 -1.379 0.071 2.003 -0.051 -1.379 0.071 2.003 1.0 False {} 
+pole_position 1.000 -0.028 1.028 0.125 
+pole_angle 0.125 0.071 -0.071 -0.247 
+pole_velocity -0.247 2.003 -2.251 -4.757 
+cart_position -4.757 -0.051 -4.706 -9.412 
+cart_velocity -9.412 -1.379 -8.033 0.093 
+1.000 
+
+-0.079 -1.185 0.111 1.733 -0.079 -1.185 0.111 1.733 1.0 False {} 
+pole_position 1.000 -0.051 1.051 0.125 
+pole_angle 0.125 0.111 -0.111 -0.388 
+pole_velocity -0.388 1.733 -2.121 -6.618 
+cart_position -6.618 -0.079 -6.540 -13.079 
+cart_velocity -13.079 -1.185 -11.894 0.219 
+1.000 
+
+-0.103 -0.991 0.145 1.477 -0.103 -0.991 0.145 1.477 1.0 False {} 
+pole_position 1.000 -0.079 1.079 0.125 
+pole_angle 0.125 0.145 -0.145 -0.509 
+pole_velocity -0.509 1.477 -1.986 -8.340 
+cart_position -8.340 -0.103 -8.237 -16.474 
+cart_velocity -16.474 -0.991 -15.483 0.357 
+1.000 
+
+-0.122 -0.798 0.175 1.233 -0.122 -0.798 0.175 1.233 1.0 False {} 
+pole_position 1.000 -0.103 1.103 0.125 
+pole_angle 0.125 0.175 -0.175 -0.612 
+pole_velocity -0.612 1.233 -1.845 -9.917 
+cart_position -9.917 -0.122 -9.795 -19.589 
+cart_velocity -19.589 -0.798 -18.791 0.503 
+1.000 
+
+-0.138 -0.606 0.200 1.000 -0.138 -0.606 0.200 1.000 1.0 False {} 
+pole_position 1.000 -0.122 1.122 0.125 
+pole_angle 0.125 0.200 -0.200 -0.699 
+pole_velocity -0.699 1.000 -1.699 -11.347 
+cart_position -11.347 -0.138 -11.208 -22.416 
+cart_velocity -22.416 -0.606 -21.811 0.650 
+1.000 
+
+-0.150 -0.414 0.220 0.776 0.691 0.428 1.061 1.617 1.0 True {} 
+pole_position 1.000 -0.138 1.138 0.125 
+pole_angle 0.125 0.220 -0.220 -0.769 
+pole_velocity -0.769 0.776 -1.545 -12.623 
+cart_position -12.623 -0.150 -12.473 -24.946 
+cart_velocity -24.946 -0.414 -24.532 0.794 
+1.000 
+
+-0.159 -0.222 0.235 0.560 0.683 0.619 1.077 1.401 0.0 True {} 
+pole_position 1.000 -0.150 1.150 0.125 
+pole_angle 0.125 0.235 -0.235 -0.823 
+pole_velocity -0.823 0.560 -1.383 -13.741 
+cart_position -13.741 -0.159 -13.583 -27.165 
+cart_velocity -27.165 -0.222 -26.943 0.932 
+1.000 
+
+-0.163 -0.031 0.246 0.349 0.678 0.811 1.088 1.191 0.0 True {} 
+pole_position 1.000 -0.159 1.159 0.125 
+pole_angle 0.125 0.246 -0.246 -0.862 
+pole_velocity -0.862 0.349 -1.211 -14.694 
+cart_position -14.694 -0.163 -14.531 -29.062 
+cart_velocity -29.062 -0.031 -29.031 1.062 
+1.000 
+
+-0.164 0.160 0.253 0.143 0.678 1.001 1.095 0.985 0.0 True {} 
+pole_position 1.000 -0.163 1.163 0.125 
+pole_angle 0.125 0.253 -0.253 -0.887 
+pole_velocity -0.887 0.143 -1.030 -15.474 
+cart_position -15.474 -0.164 -15.310 -30.620 
+cart_velocity -30.620 0.160 -30.780 1.181 
+1.000 
+
+-0.161 0.351 0.256 -0.060 0.681 1.192 1.098 0.781 0.0 True {} 
+pole_position 1.000 -0.164 1.164 0.125 
+pole_angle 0.125 0.256 -0.256 -0.897 
+pole_velocity -0.897 -0.060 -0.836 -16.072 
+cart_position -16.072 -0.161 -15.911 -31.822 
+cart_velocity -31.822 0.351 -32.173 1.288</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Users\ryoung\.conda\envs\pctdev\lib\site-packages\gym\logger.py:30: UserWarning: <span class="ansi-yellow-fg">WARN: You are calling &#39;step()&#39; even though this environment has already returned done = True. You should always call &#39;reset()&#39; once you receive &#39;done = True&#39; -- any further steps are undefined behavior.</span>
+  warnings.warn(colorize(&#39;%s: %s&#39;%(&#39;WARN&#39;, msg % args), &#39;yellow&#39;))
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> 
+1.000 
+
+-0.154 0.541 0.255 -0.262 0.688 1.383 1.096 0.579 0.0 True {} 
+pole_position 1.000 -0.161 1.161 0.125 
+pole_angle 0.125 0.255 -0.255 -0.892 
+pole_velocity -0.892 -0.262 -0.630 -16.478 
+cart_position -16.478 -0.154 -16.324 -32.649 
+cart_velocity -32.649 0.541 -33.190 1.381 
+1.000 
+
+-0.143 0.732 0.250 -0.465 0.699 1.574 1.091 0.376 0.0 True {} 
+pole_position 1.000 -0.154 1.154 0.125 
+pole_angle 0.125 0.250 -0.250 -0.874 
+pole_velocity -0.874 -0.465 -0.409 -16.681 
+cart_position -16.681 -0.143 -16.538 -33.077 
+cart_velocity -33.077 0.732 -33.809 1.458 
+1.000 
+
+-0.128 0.923 0.240 -0.670 0.713 1.765 1.082 0.171 0.0 True {} 
+pole_position 1.000 -0.143 1.143 0.125 
+pole_angle 0.125 0.240 -0.240 -0.841 
+pole_velocity -0.841 -0.670 -0.171 -16.668 
+cart_position -16.668 -0.128 -16.540 -33.081 
+cart_velocity -33.081 0.923 -34.004 1.519 
+1.000 
+
+-0.110 1.114 0.227 -0.878 0.732 1.956 1.068 -0.037 0.0 True {} 
+pole_position 1.000 -0.128 1.128 0.125 
+pole_angle 0.125 0.227 -0.227 -0.795 
+pole_velocity -0.795 -0.878 0.084 -16.426 
+cart_position -16.426 -0.110 -16.317 -32.633 
+cart_velocity -32.633 1.114 -33.747 1.561 
+1.000 
+
+-0.087 1.306 0.209 -1.092 -0.087 1.306 0.209 -1.092 1.0 False {} 
+pole_position 1.000 -0.110 1.110 0.125 
+pole_angle 0.125 0.209 -0.209 -0.733 
+pole_velocity -0.733 -1.092 0.359 -15.939 
+cart_position -15.939 -0.087 -15.852 -31.703 
+cart_velocity -31.703 1.306 -33.009 1.583 
+1.000 
+
+-0.061 1.498 0.188 -1.312 -0.061 1.498 0.188 -1.312 1.0 False {} 
+pole_position 1.000 -0.087 1.087 0.125 
+pole_angle 0.125 0.188 -0.188 -0.657 
+pole_velocity -0.657 -1.312 0.656 -15.189 
+cart_position -15.189 -0.061 -15.128 -30.256 
+cart_velocity -30.256 1.498 -31.754 1.584 
+1.000 
+
+-0.031 1.690 0.161 -1.541 -0.031 1.690 0.161 -1.541 1.0 False {} 
+pole_position 1.000 -0.061 1.061 0.125 
+pole_angle 0.125 0.161 -0.161 -0.565 
+pole_velocity -0.565 -1.541 0.976 -14.159 
+cart_position -14.159 -0.031 -14.127 -28.255 
+cart_velocity -28.255 1.690 -29.945 1.563 
+1.000 
+
+0.003 1.883 0.131 -1.779 0.003 1.883 0.131 -1.779 1.0 False {} 
+pole_position 1.000 -0.031 1.031 0.125 
+pole_angle 0.125 0.131 -0.131 -0.457 
+pole_velocity -0.457 -1.779 1.322 -12.827 
+cart_position -12.827 0.003 -12.829 -25.659 
+cart_velocity -25.659 1.883 -27.542 1.516 
+1.000 
+
+0.040 2.076 0.095 -2.029 0.040 2.076 0.095 -2.029 1.0 False {} 
+pole_position 1.000 0.003 0.997 0.125 
+pole_angle 0.125 0.095 -0.095 -0.332 
+pole_velocity -0.332 -2.029 1.696 -11.172 
+cart_position -11.172 0.040 -11.212 -22.424 
+cart_velocity -22.424 2.076 -24.500 1.443 
+1.000 
+
+0.082 2.270 0.054 -2.291 0.082 2.270 0.054 -2.291 1.0 False {} 
+pole_position 1.000 0.040 0.960 0.125 
+pole_angle 0.125 0.054 -0.054 -0.190 
+pole_velocity -0.190 -2.291 2.100 -9.170 
+cart_position -9.170 0.082 -9.252 -18.503 
+cart_velocity -18.503 2.270 -20.773 1.342 
+1.000 
+
+0.127 2.465 0.009 -2.566 0.127 2.465 0.009 -2.566 1.0 False {} 
+pole_position 1.000 0.082 0.918 0.125 
+pole_angle 0.125 0.009 -0.009 -0.030 
+pole_velocity -0.030 -2.566 2.536 -6.796 
+cart_position -6.796 0.127 -6.923 -13.846 
+cart_velocity -13.846 2.465 -16.310 1.211 
+1.000 
+
+0.176 2.660 -0.043 -2.856 0.176 2.660 -0.043 -2.856 1.0 False {} 
+pole_position 1.000 0.127 0.873 0.125 
+pole_angle 0.125 -0.043 0.043 0.150 
+pole_velocity 0.150 -2.856 3.006 -4.023 
+cart_position -4.023 0.176 -4.199 -8.398 
+cart_velocity -8.398 2.660 -11.058 1.046 
+1.000 
+
+0.230 2.855 -0.100 -3.161 0.230 2.855 -0.100 -3.161 1.0 False {} 
+pole_position 1.000 0.176 0.824 0.125 
+pole_angle 0.125 -0.100 0.100 0.350 
+pole_velocity 0.350 -3.161 3.511 -0.823 
+cart_position -0.823 0.230 -1.052 -2.104 
+cart_velocity -2.104 2.855 -4.959 0.847 
+1.000 
+
+0.287 3.051 -0.163 -3.482 0.287 3.051 -0.163 -3.482 1.0 False {} 
+pole_position 1.000 0.230 0.770 0.124 
+pole_angle 0.124 -0.163 0.163 0.571 
+pole_velocity 0.571 -3.482 4.053 2.834 
+cart_position 2.834 0.287 2.547 5.094 
+cart_velocity 5.094 3.051 2.043 0.609 
+1.000 
+
+0.348 3.246 -0.233 -3.819 1.189 4.087 0.609 -2.977 0.0 True {} 
+pole_position 1.000 0.287 0.713 0.124 
+pole_angle 0.124 -0.233 0.233 0.815 
+pole_velocity 0.815 -3.819 4.634 6.976 
+cart_position 6.976 0.348 6.628 13.256 
+cart_velocity 13.256 3.246 10.010 0.332 
+1.000 
+
+0.413 3.440 -0.309 -4.170 1.254 4.281 0.532 -3.329 0.0 True {} 
+pole_position 1.000 0.348 0.652 0.124 
+pole_angle 0.124 -0.309 0.309 1.082 
+pole_velocity 1.082 -4.170 5.252 11.633 
+cart_position 11.633 0.413 11.220 22.441 
+cart_velocity 22.441 3.440 19.001 0.011 
+1.000 
+
+0.481 3.633 -0.393 -4.535 1.323 4.474 0.449 -3.694 0.0 True {} 
+pole_position 1.000 0.413 0.587 0.123 
+pole_angle 0.123 -0.393 0.393 1.374 
+pole_velocity 1.374 -4.535 5.909 16.835 
+cart_position 16.835 0.481 16.354 32.707 
+cart_velocity 32.707 3.633 29.074 -0.355 
+0.000 
+
+0.554 3.437 -0.483 -4.377 1.396 4.279 0.358 -3.535 0.0 True {} 
+pole_position 1.000 0.481 0.519 0.121 
+pole_angle 0.121 -0.483 0.483 1.691 
+pole_velocity 1.691 -4.377 6.068 22.128 
+cart_position 22.128 0.554 21.574 43.148 
+cart_velocity 43.148 3.437 39.710 -0.763 
+0.000 
+
+0.623 3.242 -0.571 -4.254 1.464 4.084 0.271 -3.413 0.0 True {} 
+pole_position 1.000 0.554 0.446 0.118 
+pole_angle 0.118 -0.571 0.571 1.998 
+pole_velocity 1.998 -4.254 6.252 27.534 
+cart_position 27.534 0.623 26.911 53.822 
+cart_velocity 53.822 3.242 50.579 -1.204 
+0.000 
+
+0.688 3.048 -0.656 -4.168 1.529 3.890 0.186 -3.327 0.0 True {} 
+pole_position 1.000 0.623 0.377 0.113 
+pole_angle 0.113 -0.656 0.656 2.296 
+pole_velocity 2.296 -4.168 6.464 33.076 
+cart_position 33.076 0.688 32.388 64.777 
+cart_velocity 64.777 3.048 61.728 -1.675 
+0.000 
+
+0.749 2.855 -0.739 -4.118 1.590 3.697 0.102 -3.277 0.0 True {} 
+pole_position 1.000 0.688 0.312 0.106 
+pole_angle 0.106 -0.739 0.739 2.587 
+pole_velocity 2.587 -4.118 6.705 38.780 
+cart_position 38.780 0.749 38.031 76.063 
+cart_velocity 76.063 2.855 73.208 -2.171 
+0.000 
+
+0.806 2.662 -0.822 -4.102 1.647 3.504 0.020 -3.261 0.0 True {} 
+pole_position 1.000 0.749 0.251 0.095 
+pole_angle 0.095 -0.822 0.822 2.876 
+pole_velocity 2.876 -4.102 6.978 44.673 
+cart_position 44.673 0.806 43.867 87.734 
+cart_velocity 87.734 2.662 85.071 -2.692 
+0.000 
+
+0.859 2.470 -0.904 -4.121 1.700 3.311 -0.062 -3.280 0.0 True {} 
+pole_position 1.000 0.806 0.194 0.081 
+pole_angle 0.081 -0.904 0.904 3.163 
+pole_velocity 3.163 -4.121 7.284 50.781 
+cart_position 50.781 0.859 49.922 99.845 
+cart_velocity 99.845 2.470 97.375 -3.236 
+0.000 
+
+0.908 2.277 -0.986 -4.173 1.750 3.119 -0.145 -3.332 0.0 True {} 
+pole_position 1.000 0.859 0.141 0.064 
+pole_angle 0.064 -0.986 0.986 3.451 
+pole_velocity 3.451 -4.173 7.625 57.136 
+cart_position 57.136 0.908 56.227 112.455 
+cart_velocity 112.455 2.277 110.178 -3.804 
+0.000 
+
+0.954 2.085 -1.070 -4.259 1.795 2.926 -0.228 -3.417 0.0 True {} 
+pole_position 1.000 0.908 0.092 0.044 
+pole_angle 0.044 -1.070 1.070 3.743 
+pole_velocity 3.743 -4.259 8.002 63.767 
+cart_position 63.767 0.954 62.813 125.625 
+cart_velocity 125.625 2.085 123.541 -4.397 
+0.000 
+
+0.996 1.891 -1.155 -4.377 1.837 2.732 -0.313 -3.536 0.0 True {} 
+pole_position 1.000 0.954 0.046 0.023 
+pole_angle 0.023 -1.155 1.155 4.042 
+pole_velocity 4.042 -4.377 8.419 70.706 
+cart_position 70.706 0.996 69.710 139.420 
+cart_velocity 139.420 1.891 137.530 -5.017 
+0.000 
+
+1.033 1.696 -1.242 -4.528 1.875 2.537 -0.401 -3.686 0.0 True {} 
+pole_position 1.000 0.996 0.004 0.002 
+pole_angle 0.002 -1.242 1.242 4.348 
+pole_velocity 4.348 -4.528 8.876 77.987 
+cart_position 77.987 1.033 76.954 153.907 
+cart_velocity 153.907 1.696 152.211 -5.666 
+0.000 
+
+1.067 1.499 -1.333 -4.711 1.909 2.341 -0.491 -3.869 0.0 True {} 
+pole_position 1.000 1.033 -0.033 -0.017 
+pole_angle -0.017 -1.333 1.333 4.665 
+pole_velocity 4.665 -4.711 9.376 85.645 
+cart_position 85.645 1.067 84.578 169.156 
+cart_velocity 169.156 1.499 167.657 -6.345 
+0.000 
+
+1.097 1.300 -1.427 -4.926 1.939 2.141 -0.586 -4.085 0.0 True {} 
+pole_position 1.000 1.067 -0.067 -0.033 
+pole_angle -0.033 -1.427 1.427 4.995 
+pole_velocity 4.995 -4.926 9.921 93.718 
+cart_position 93.718 1.097 92.620 185.241 
+cart_velocity 185.241 1.300 183.941 -7.058 
+0.000 
+
+1.123 1.098 -1.526 -5.174 1.965 1.939 -0.684 -4.332 0.0 True {} 
+pole_position 1.000 1.097 -0.097 -0.046 
+pole_angle -0.046 -1.526 1.526 5.340 
+pole_velocity 5.340 -5.174 10.513 102.243 
+cart_position 102.243 1.123 101.119 202.238 
+cart_velocity 202.238 1.098 201.140 -7.808 
+0.000 
+
+1.145 0.892 -1.629 -5.454 1.987 1.734 -0.788 -4.612 0.0 True {} 
+pole_position 1.000 1.123 -0.123 -0.057 
+pole_angle -0.057 -1.629 1.629 5.702 
+pole_velocity 5.702 -5.454 11.155 111.260 
+cart_position 111.260 1.145 110.114 220.229 
+cart_velocity 220.229 0.892 219.337 -8.597 
+0.000 
+
+1.163 0.683 -1.738 -5.765 2.005 1.524 -0.897 -4.924 0.0 True {} 
+pole_position 1.000 1.145 -0.145 -0.065 
+pole_angle -0.065 -1.738 1.738 6.083 
+pole_velocity 6.083 -5.765 11.849 120.811 
+cart_position 120.811 1.163 119.648 239.296 
+cart_velocity 239.296 0.683 238.613 -9.431 
+0.000 
+
+1.177 0.469 -1.853 -6.109 2.018 1.310 -1.012 -5.267 0.0 True {} 
+pole_position 1.000 1.163 -0.163 -0.072 
+pole_angle -0.072 -1.853 1.853 6.487 
+pole_velocity 6.487 -6.109 12.596 130.939 
+cart_position 130.939 1.177 129.762 259.525 
+cart_velocity 259.525 0.469 259.056 -10.311 
+0.000 
+
+1.186 0.249 -1.976 -6.483 2.028 1.091 -1.134 -5.641 0.0 True {} 
+pole_position 1.000 1.177 -0.177 -0.076 
+pole_angle -0.076 -1.976 1.976 6.915 
+pole_velocity 6.915 -6.483 13.397 141.687 
+cart_position 141.687 1.186 140.501 281.002 
+cart_velocity 281.002 0.249 280.753 -11.243 
+0.000 
+
+1.191 0.025 -2.105 -6.885 2.033 0.867 -1.264 -6.044 0.0 True {} 
+pole_position 1.000 1.186 -0.186 -0.079 
+pole_angle -0.079 -2.105 2.105 7.368 
+pole_velocity 7.368 -6.885 14.254 153.099 
+cart_position 153.099 1.191 151.908 303.816 
+cart_velocity 303.816 0.025 303.790 -12.230 
+0.000 
+
+1.192 -0.204 -2.243 -7.313 2.033 0.638 -1.401 -6.472 0.0 True {} 
+pole_position 1.000 1.191 -0.191 -0.080 
+pole_angle -0.080 -2.243 2.243 7.850 
+pole_velocity 7.850 -7.313 15.164 165.215 
+cart_position 165.215 1.192 164.024 328.047 
+cart_velocity 328.047 -0.204 328.251 -13.275 
+0.000 
+
+1.188 -0.436 -2.389 -7.760 2.029 0.405 -1.548 -6.919 0.0 True {} 
+pole_position 1.000 1.192 -0.192 -0.081 
+pole_angle -0.081 -2.389 2.389 8.362 
+pole_velocity 8.362 -7.760 16.123 178.074 
+cart_position 178.074 1.188 176.886 353.772 
+cart_velocity 353.772 -0.436 354.208 -14.384 
+0.000 
+
+1.179 -0.670 -2.544 -8.218 2.020 0.171 -1.703 -7.377 0.0 True {} 
+pole_position 1.000 1.188 -0.188 -0.079 
+pole_angle -0.079 -2.544 2.544 8.906 
+pole_velocity 8.906 -8.218 17.124 191.704 
+cart_position 191.704 1.179 190.525 381.051 
+cart_velocity 381.051 -0.670 381.721 -15.560 
+0.000 
+
+1.165 -0.904 -2.709 -8.673 2.007 -0.062 -1.867 -7.832 0.0 True {} 
+pole_position 1.000 1.179 -0.179 -0.077 
+pole_angle -0.077 -2.709 2.709 9.481 
+pole_velocity 9.481 -8.673 18.154 206.125 
+cart_position 206.125 1.165 204.960 409.920 
+cart_velocity 409.920 -0.904 410.824 -16.805 
+0.000 
+
+1.147 -1.132 -2.882 -9.107 1.989 -0.291 -2.041 -8.266 0.0 True {} 
+pole_position 1.000 1.165 -0.165 -0.072 
+pole_angle -0.072 -2.882 2.882 10.088 
+pole_velocity 10.088 -9.107 19.195 221.340 
+cart_position 221.340 1.147 220.193 440.385 
+cart_velocity 440.385 -1.132 441.517 -18.123 
+0.000 
+
+1.125 -1.351 -3.064 -9.499 1.966 -0.509 -2.223 -8.658 0.0 True {} 
+pole_position 1.000 1.147 -0.147 -0.066 
+pole_angle -0.066 -3.064 3.064 10.725 
+pole_velocity 10.725 -9.499 20.225 237.329 
+cart_position 237.329 1.125 236.204 472.408 
+cart_velocity 472.408 -1.351 473.759 -19.514 
+0.000 
+
+1.098 -1.554 -3.254 -9.825 1.939 -0.712 -2.413 -8.984 0.0 True {} 
+pole_position 1.000 1.125 -0.125 -0.058 
+pole_angle -0.058 -3.254 3.254 11.390 
+pole_velocity 11.390 -9.825 21.216 254.050 
+cart_position 254.050 1.098 252.952 505.904 
+cart_velocity 505.904 -1.554 507.458 -20.979 
+0.000 
+
+1.067 -1.736 -3.451 -10.065 1.908 -0.895 -2.609 -9.223 0.0 True {} 
+pole_position 1.000 1.098 -0.098 -0.047 
+pole_angle -0.047 -3.451 3.451 12.078 
+pole_velocity 12.078 -10.065 22.143 271.438 
+cart_position 271.438 1.067 270.371 540.743 
+cart_velocity 540.743 -1.736 542.479 -22.515 
+0.000 
+
+1.032 -1.896 -3.652 -10.204 1.873 -1.055 -2.811 -9.362 0.0 True {} 
+pole_position 1.000 1.067 -0.067 -0.033 
+pole_angle -0.033 -3.652 3.652 12.783 
+pole_velocity 12.783 -10.204 22.986 289.411 
+cart_position 289.411 1.032 288.379 576.759 
+cart_velocity 576.759 -1.896 578.655 -24.119 
+0.000 
+
+0.994 -2.033 -3.856 -10.239 1.835 -1.192 -3.015 -9.398 0.0 True {} 
+pole_position 1.000 1.032 -0.032 -0.016 
+pole_angle -0.016 -3.856 3.856 13.497 
+pole_velocity 13.497 -10.239 23.736 307.880 
+cart_position 307.880 0.994 306.886 613.771 
+cart_velocity 613.771 -2.033 615.804 -25.787 
+0.000 
+
+0.953 -2.150 -4.061 -10.179 1.795 -1.309 -3.220 -9.338 0.0 True {} 
+pole_position 1.000 0.994 0.006 0.003 
+pole_angle 0.003 -4.061 4.061 14.214 
+pole_velocity 14.214 -10.179 24.393 326.755 
+cart_position 326.755 0.953 325.801 651.602 
+cart_velocity 651.602 -2.150 653.753 -27.512 
+0.000 
+
+0.910 -2.254 -4.265 -10.039 1.752 -1.412 -3.423 -9.198 0.0 True {} 
+pole_position 1.000 0.953 0.047 0.023 
+pole_angle 0.023 -4.265 4.265 14.926 
+pole_velocity 14.926 -10.039 24.966 345.956 
+cart_position 345.956 0.910 345.046 690.091 
+cart_velocity 690.091 -2.254 692.345 -29.289 
+0.000 
+
+0.865 -2.349 -4.465 -9.836 1.707 -1.507 -3.624 -8.995 0.0 True {} 
+pole_position 1.000 0.910 0.090 0.043 
+pole_angle 0.043 -4.465 4.465 15.629 
+pole_velocity 15.629 -9.836 25.465 365.415 
+cart_position 365.415 0.865 364.550 729.099 
+cart_velocity 729.099 -2.349 731.448 -31.109 
+0.000 
+
+0.818 -2.442 -4.662 -9.585 1.660 -1.601 -3.821 -8.744 0.0 True {} 
+pole_position 1.000 0.865 0.135 0.062 
+pole_angle 0.062 -4.662 4.662 16.318 
+pole_velocity 16.318 -9.585 25.903 385.073 
+cart_position 385.073 0.818 384.255 768.510 
+cart_velocity 768.510 -2.442 770.953 -32.969 
+0.000 
+
+0.769 -2.540 -4.854 -9.299 1.611 -1.699 -4.012 -8.458 0.0 True {} 
+pole_position 1.000 0.818 0.182 0.078 
+pole_angle 0.078 -4.854 4.854 16.988 
+pole_velocity 16.988 -9.299 26.288 404.882 
+cart_position 404.882 0.769 404.112 808.224 
+cart_velocity 808.224 -2.540 810.765 -34.861 
+0.000 
+
+0.719 -2.646 -5.040 -8.986 1.560 -1.805 -4.198 -8.144 0.0 True {} 
+pole_position 1.000 0.769 0.231 0.091 
+pole_angle 0.091 -5.040 5.040 17.639 
+pole_velocity 17.639 -8.986 26.625 424.795 
+cart_position 424.795 0.719 424.077 848.153 
+cart_velocity 848.153 -2.646 850.800 -36.781 
+0.000 
+
+0.666 -2.763 -5.220 -8.651 1.507 -1.922 -4.378 -7.809 0.0 True {} 
+pole_position 1.000 0.719 0.281 0.101 
+pole_angle 0.101 -5.220 5.220 18.268 
+pole_velocity 18.268 -8.651 26.919 444.775 
+cart_position 444.775 0.666 444.109 888.218 
+cart_velocity 888.218 -2.763 890.981 -38.723 
+0.000 
+
+0.610 -2.894 -5.393 -8.299 1.452 -2.052 -4.551 -7.457 0.0 True {} 
+pole_position 1.000 0.666 0.334 0.109 
+pole_angle 0.109 -5.393 5.393 18.874 
+pole_velocity 18.874 -8.299 27.173 464.782 
+cart_position 464.782 0.610 464.172 928.344 
+cart_velocity 928.344 -2.894 931.238 -40.683 
+0.000 
+
+0.553 -3.037 -5.559 -7.935 1.394 -2.196 -4.717 -7.093 0.0 True {} 
+pole_position 1.000 0.610 0.390 0.114 
+pole_angle 0.114 -5.559 5.559 19.455 
+pole_velocity 19.455 -7.935 27.390 484.785 
+cart_position 484.785 0.553 484.233 968.466 
+cart_velocity 968.466 -3.037 971.503 -42.656 
+0.000 
+
+0.492 -3.194 -5.717 -7.564 1.333 -2.352 -4.876 -6.723 0.0 True {} 
+pole_position 1.000 0.553 0.447 0.118 
+pole_angle 0.118 -5.717 5.717 20.010 
+pole_velocity 20.010 -7.564 27.575 504.755 
+cart_position 504.755 0.492 504.263 1008.526 
+cart_velocity 1008.526 -3.194 1011.720 -44.638 
+0.000 
+
+0.428 -3.362 -5.869 -7.194 1.269 -2.520 -5.027 -6.352 0.0 True {} 
+pole_position 1.000 0.492 0.508 0.121 
+pole_angle 0.121 -5.869 5.869 20.540 
+pole_velocity 20.540 -7.194 27.734 524.668 
+cart_position 524.668 0.428 524.240 1048.479 
+cart_velocity 1048.479 -3.362 1051.841 -46.627 
+0.000 
+
+0.361 -3.540 -6.012 -6.831 1.202 -2.698 -5.171 -5.990 0.0 True {} 
+pole_position 1.000 0.428 0.572 0.122 
+pole_angle 0.122 -6.012 6.012 21.043 
+pole_velocity 21.043 -6.831 27.874 544.508 
+cart_position 544.508 0.361 544.147 1088.294 
+cart_velocity 1088.294 -3.540 1091.834 -48.618 
+0.000 
+
+0.290 -3.725 -6.149 -6.484 1.131 -2.884 -5.308 -5.643 0.0 True {} 
+pole_position 1.000 0.361 0.639 0.124 
+pole_angle 0.124 -6.149 6.149 21.522 
+pole_velocity 21.522 -6.484 28.006 564.268 
+cart_position 564.268 0.290 563.978 1127.956 
+cart_velocity 1127.956 -3.725 1131.681 -50.610 
+0.000 
+
+0.215 -3.917 -6.279 -6.160 1.057 -3.075 -5.437 -5.319 0.0 True {} 
+pole_position 1.000 0.290 0.710 0.124 
+pole_angle 0.124 -6.279 6.279 21.975 
+pole_velocity 21.975 -6.160 28.136 583.947 
+cart_position 583.947 0.215 583.732 1167.464 
+cart_velocity 1167.464 -3.917 1171.380 -52.599 
+0.000 
+
+0.137 -4.112 -6.402 -5.866 0.979 -3.270 -5.560 -5.025 0.0 True {} 
+pole_position 1.000 0.215 0.785 0.125 
+pole_angle 0.125 -6.402 6.402 22.407 
+pole_velocity 22.407 -5.866 28.273 603.554 
+cart_position 603.554 0.137 603.417 1206.833 
+cart_velocity 1206.833 -4.112 1210.945 -54.586 
+0.000 
+
+0.055 -4.309 -6.519 -5.608 0.896 -3.467 -5.678 -4.766 0.0 True {} 
+pole_position 1.000 0.137 0.863 0.125 
+pole_angle 0.125 -6.519 6.519 22.817 
+pole_velocity 22.817 -5.608 28.425 623.101 
+cart_position 623.101 0.055 623.046 1246.091 
+cart_velocity 1246.091 -4.309 1250.400 -56.570 
+0.000 
+
+-0.031 -4.507 -6.631 -5.387 0.810 -3.666 -5.790 -4.546 0.0 True {} 
+pole_position 1.000 0.055 0.945 0.125 
+pole_angle 0.125 -6.631 6.631 23.210 
+pole_velocity 23.210 -5.387 28.597 642.607 
+cart_position 642.607 -0.031 642.638 1285.276 
+cart_velocity 1285.276 -4.507 1289.784 -58.550 
+0.000 
+
+-0.121 -4.706 -6.739 -5.208 0.720 -3.864 -5.898 -4.366 0.0 True {} 
+pole_position 1.000 -0.031 1.031 0.125 
+pole_angle 0.125 -6.739 6.739 23.587 
+pole_velocity 23.587 -5.208 28.795 662.096 
+cart_position 662.096 -0.121 662.217 1324.435 
+cart_velocity 1324.435 -4.706 1329.141 -60.526 
+0.000 
+
+-0.216 -4.904 -6.843 -5.070 0.626 -4.062 -6.002 -4.229 0.0 True {} 
+pole_position 1.000 -0.121 1.121 0.125 
+pole_angle 0.125 -6.843 6.843 23.952 
+pole_velocity 23.952 -5.070 29.022 681.594 
+cart_position 681.594 -0.216 681.810 1363.620 
+cart_velocity 1363.620 -4.904 1368.524 -62.501 
+0.000 
+
+-0.314 -5.102 -6.945 -4.975 0.528 -4.260 -6.103 -4.133 0.0 True {} 
+pole_position 1.000 -0.216 1.216 0.125 
+pole_angle 0.125 -6.945 6.945 24.306 
+pole_velocity 24.306 -4.975 29.281 701.132 
+cart_position 701.132 -0.314 701.445 1402.890 
+cart_velocity 1402.890 -5.102 1407.992 -64.476 
+0.000 
+
+-0.416 -5.299 -7.044 -4.922 0.426 -4.458 -6.203 -4.080 0.0 True {} 
+pole_position 1.000 -0.314 1.314 0.125 
+pole_angle 0.125 -7.044 7.044 24.655 
+pole_velocity 24.655 -4.922 29.576 720.739 
+cart_position 720.739 -0.416 721.155 1442.309 
+cart_velocity 1442.309 -5.299 1447.608 -66.452 
+0.000 
+
+-0.522 -5.497 -7.143 -4.910 0.320 -4.655 -6.301 -4.068 0.0 True {} 
+pole_position 1.000 -0.416 1.416 0.125 
+pole_angle 0.125 -7.143 7.143 24.999 
+pole_velocity 24.999 -4.910 29.909 740.450 
+cart_position 740.450 -0.522 740.971 1481.943 
+cart_velocity 1481.943 -5.497 1487.439 -68.432 
+0.000 
+
+-0.632 -5.694 -7.241 -4.939 0.210 -4.853 -6.399 -4.098 0.0 True {} 
+pole_position 1.000 -0.522 1.522 0.125 
+pole_angle 0.125 -7.241 7.241 25.343 
+pole_velocity 25.343 -4.939 30.282 760.299 
+cart_position 760.299 -0.632 760.930 1521.861 
+cart_velocity 1521.861 -5.694 1527.555 -70.418 
+0.000 
+
+-0.746 -5.892 -7.340 -5.009 0.096 -5.051 -6.498 -4.167 0.0 True {} 
+pole_position 1.000 -0.632 1.632 0.125 
+pole_angle 0.125 -7.340 7.340 25.689 
+pole_velocity 25.689 -5.009 30.697 780.323 
+cart_position 780.323 -0.746 781.069 1562.138 
+cart_velocity 1562.138 -5.892 1568.030 -72.414 
+0.000 
+
+-0.863 -6.092 -7.440 -5.117 -0.022 -5.250 -6.598 -4.276 0.0 True {} 
+pole_position 1.000 -0.746 1.746 0.125 
+pole_angle 0.125 -7.440 7.440 26.039 
+pole_velocity 26.039 -5.117 31.157 800.561 
+cart_position 800.561 -0.863 801.424 1602.849 
+cart_velocity 1602.849 -6.092 1608.940 -74.422 
+0.000 
+
+-0.985 -6.293 -7.542 -5.265 -0.144 -5.451 -6.701 -4.424 0.0 True {} 
+pole_position 1.000 -0.863 1.863 0.125 
+pole_angle 0.125 -7.542 7.542 26.397 
+pole_velocity 26.397 -5.265 31.663 821.052 
+cart_position 821.052 -0.985 822.037 1644.074 
+cart_velocity 1644.074 -6.293 1650.367 -76.446 
+0.000 
+
+-1.111 -6.496 -7.647 -5.452 -0.270 -5.654 -6.806 -4.610 0.0 True {} 
+pole_position 1.000 -0.985 1.985 0.125 
+pole_angle 0.125 -7.647 7.647 26.766 
+pole_velocity 26.766 -5.452 32.218 841.837 
+cart_position 841.837 -1.111 842.948 1685.896 
+cart_velocity 1685.896 -6.496 1692.392 -78.490 
+0.000 
+
+-1.241 -6.702 -7.756 -5.676 -0.399 -5.860 -6.915 -4.834 0.0 True {} 
+pole_position 1.000 -1.111 2.111 0.125 
+pole_angle 0.125 -7.756 7.756 27.148 
+pole_velocity 27.148 -5.676 32.824 862.960 
+cart_position 862.960 -1.241 864.201 1728.402 
+cart_velocity 1728.402 -6.702 1735.104 -80.556 
+0.000 
+
+-1.375 -6.912 -7.870 -5.938 -0.534 -6.070 -7.029 -5.096 0.0 True {} 
+pole_position 1.000 -1.241 2.241 0.125 
+pole_angle 0.125 -7.870 7.870 27.545 
+pole_velocity 27.545 -5.938 33.483 884.465 
+cart_position 884.465 -1.375 885.840 1771.680 
+cart_velocity 1771.680 -6.912 1778.591 -82.649 
+0.000 
+
+-1.513 -7.126 -7.989 -6.237 -0.672 -6.284 -7.147 -5.396 0.0 True {} 
+pole_position 1.000 -1.375 2.375 0.125 
+pole_angle 0.125 -7.989 7.989 27.961 
+pole_velocity 27.961 -6.237 34.198 906.398 
+cart_position 906.398 -1.513 907.911 1815.822 
+cart_velocity 1815.822 -7.126 1822.948 -84.774 
+0.000 
+
+-1.656 -7.345 -8.113 -6.572 -0.814 -6.503 -7.272 -5.731 0.0 True {} 
+pole_position 1.000 -1.513 2.513 0.125 
+pole_angle 0.125 -8.113 8.113 28.397 
+pole_velocity 28.397 -6.572 34.970 928.807 
+cart_position 928.807 -1.656 930.462 1860.925 
+cart_velocity 1860.925 -7.345 1868.269 -86.934 
+0.000 
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
