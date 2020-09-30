@@ -588,7 +588,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop1&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
 </pre>
 </div>
 </div>
@@ -713,7 +713,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
  &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;},
+ &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
  &#39;weights&#39;: [1.0, 1.0, 1.0]}</pre>
 </div>
 
@@ -751,7 +751,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
  &#39;name&#39;: &#39;weighted_sum&#39;,
  &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;},
+ &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
  &#39;weights&#39;: [1.0, 1.0, 1.0]}</pre>
 </div>
 
@@ -1163,7 +1163,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
+<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
 </pre>
 </div>
 </div>
@@ -1203,7 +1203,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;constant3&#39;, 2: &#39;constant4&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
+<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
 </pre>
 </div>
 </div>
@@ -1244,7 +1244,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>integration2 Integration | gain 3 slow 10  | 0 | links  constant5 
+<pre>integration1 Integration | gain 3 slow 10  | 0 | links  constant3 
 </pre>
 </div>
 </div>
@@ -1513,7 +1513,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration2&#39;, &#39;value&#39;: array([2.4, 3.3, 5.1, 4.2]), &#39;links&#39;: {0: &#39;constant5&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration1&#39;, &#39;value&#39;: [2.4, 3.3, 5.1, 4.2], &#39;links&#39;: {0: &#39;constant3&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
 </pre>
 </div>
 </div>
@@ -1689,7 +1689,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.999 -0.042 1.000 0.005 -0.049 0.027 0.999 -0.042 1.000 0.005 -0.049 0.027 -1.0 False {}&#39;</pre>
+<pre>&#39;0.997 -0.076 0.997 0.081 0.124 -0.100 0.997 -0.076 0.997 0.081 0.124 -0.100 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -1722,7 +1722,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9991251135792568</pre>
+<pre>0.9971095191510009</pre>
 </div>
 
 </div>
@@ -1773,7 +1773,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9991251135792568</pre>
+<pre>0.9971095191510009</pre>
 </div>
 
 </div>
