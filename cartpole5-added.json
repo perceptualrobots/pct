@@ -6,14 +6,14 @@
             "type": "OpenAIGym",
             "name": "CartPole-v1",
             "value": [
-                -0.002715249325837269,
-                -0.01730806398897916,
-                0.004508997769626393,
-                0.039411770715272854,
-                -0.002715249325837269,
-                -0.01730806398897916,
-                0.004508997769626393,
-                0.039411770715272854
+                -0.002269994553604898,
+                0.014812952279020686,
+                0.004155319021011186,
+                -0.034467628549626594,
+                -0.002269994553604898,
+                0.014812952279020686,
+                0.004155319021011186,
+                -0.034467628549626594
             ],
             "links": {
                 "0": "greaterthan"
@@ -37,7 +37,7 @@
                             "0": {
                                 "type": "PassOn",
                                 "name": "cart_velocity_reference",
-                                "value": -0.04976276425729069,
+                                "value": 0.024464001083297243,
                                 "links": {
                                     "0": "cart_position_output"
                                 }
@@ -47,7 +47,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "cart_velocity",
-                                "value": -0.01730806398897916,
+                                "value": 0.014812952279020686,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -58,7 +58,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract",
-                                "value": -0.03245470026831153,
+                                "value": 0.009651048804276557,
                                 "links": {
                                     "0": "cart_velocity_reference",
                                     "1": "cart_velocity"
@@ -69,7 +69,7 @@
                             "0": {
                                 "type": "Integration",
                                 "name": "force",
-                                "value": 0.0010632003327802032,
+                                "value": 0.0005114282162383193,
                                 "links": {
                                     "0": "subtract"
                                 },
@@ -91,19 +91,22 @@
                         "name": "cart_position",
                         "refcoll": {
                             "0": {
-                                "type": "PassOn",
+                                "type": "IntegrationDual",
                                 "name": "cart_position_reference",
-                                "value": -0.027596631454482615,
+                                "value": 0,
                                 "links": {
-                                    "0": "pole_velocity_output"
-                                }
+                                    "0": "pole_velocity_output",
+                                    "1": "cart_position"
+                                },
+                                "gain": 90,
+                                "slow": 100
                             }
                         },
                         "percoll": {
                             "0": {
                                 "type": "IndexedParameter",
-                                "name": "cart_position",
-                                "value": -0.002715249325837269,
+                                "name": "cart_position1",
+                                "value": 0,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -114,7 +117,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract1",
-                                "value": -0.024881382128645345,
+                                "value": 0.012232000541648622,
                                 "links": {
                                     "0": "cart_position_reference",
                                     "1": "cart_position"
@@ -125,7 +128,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "cart_position_output",
-                                "value": -0.04976276425729069,
+                                "value": 0.024464001083297243,
                                 "links": {
                                     "0": "subtract1"
                                 },
@@ -148,7 +151,7 @@
                             "0": {
                                 "type": "PassOn",
                                 "name": "pole_velocity_reference",
-                                "value": -0.015781492193692376,
+                                "value": -0.01454361657353915,
                                 "links": {
                                     "0": "pole_angle_output"
                                 }
@@ -158,7 +161,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "pole_velocity",
-                                "value": 0.039411770715272854,
+                                "value": -0.034467628549626594,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -169,7 +172,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract2",
-                                "value": -0.05519326290896523,
+                                "value": 0.019924011976087445,
                                 "links": {
                                     "0": "pole_velocity_reference",
                                     "1": "pole_velocity"
@@ -178,14 +181,10 @@
                         },
                         "outcoll": {
                             "0": {
-                                "type": "Integration",
-                                "name": "pole_velocity_output",
+                                "type": "PassOn",
+                                "name": "pole_velocity_output1",
                                 "value": 0,
-                                "links": {
-                                    "0": "subtract2"
-                                },
-                                "gain": 90,
-                                "slow": 100
+                                "links": {}
                             }
                         }
                     }
@@ -214,7 +213,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "pole_angle",
-                                "value": 0.004508997769626393,
+                                "value": 0.004155319021011186,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -225,7 +224,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract3",
-                                "value": -0.004508997769626393,
+                                "value": -0.004155319021011186,
                                 "links": {
                                     "0": "pole_angle_reference",
                                     "1": "pole_angle"
@@ -236,7 +235,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "pole_angle_output",
-                                "value": -0.015781492193692376,
+                                "value": -0.01454361657353915,
                                 "links": {
                                     "0": "subtract3"
                                 },
@@ -258,28 +257,29 @@
                         "refcoll": {
                             "0": {
                                 "type": "Constant",
-                                "name": "pole_position_ref",
-                                "value": 1,
+                                "name": "pole_position_reference",
+                                "value": 0,
                                 "links": {}
                             }
                         },
                         "percoll": {
                             "0": {
-                                "type": "PassOn",
+                                "type": "IndexedParameter",
                                 "name": "pole_position",
                                 "value": 0,
                                 "links": {
                                     "0": "cart_position"
-                                }
+                                },
+                                "index": 4
                             }
                         },
                         "comcoll": {
                             "0": {
                                 "type": "Subtract",
-                                "name": "subtractpp",
+                                "name": "subtract4",
                                 "value": 0,
                                 "links": {
-                                    "0": "pole_position_ref",
+                                    "0": "pole_position_reference",
                                     "1": "pole_position"
                                 }
                             }
@@ -290,7 +290,7 @@
                                 "name": "pole_position_output",
                                 "value": 0,
                                 "links": {
-                                    "0": "subtractpp"
+                                    "0": "subtract4"
                                 },
                                 "range": 0.25,
                                 "scale": 2
