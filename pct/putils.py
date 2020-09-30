@@ -72,11 +72,11 @@ class FunctionsList:
 
     def report(self, name=None):
         if name == None:
-            print(name, type(self.functions[name]), self.functions[name])
-        else:
             print(len(self.functions))
             for key in self.functions.keys():
                 print(key, type(self.functions[key]), self.functions[key])
+        else:
+            print(name, type(self.functions[name]), self.functions[name])
 
 
 # Cell

@@ -162,6 +162,7 @@ class PCTNode():
     def replace_function(self, collection, function, position=-1):
         if collection == "reference":
             func = self.referenceCollection[position]
+            #FunctionsList.getInstance().remove_function(func.get_name())
             self.referenceCollection[position] = function
 
         if collection == "perception":
@@ -176,7 +177,6 @@ class PCTNode():
             func = self.outputCollection[position]
             self.outputCollection[position] = function
 
-        #FunctionsList.getInstance().remove_function(func.get_name())
 
 
     def insert_function(self, collection, function, position=-1):
