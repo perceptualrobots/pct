@@ -10,7 +10,6 @@
                 "0": "greaterthan"
             },
             "env_name": "CartPole-v1",
-            "values": 0,
             "reward": 0,
             "done": false,
             "info": {}
