@@ -71,11 +71,11 @@ sidebar: home_sidebar
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cartpole_hierarchy</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cartpoleh&quot;</span><span class="p">,</span> <span class="n">build</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cart_velocity&#39;</span>
-<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cart_position&#39;</span>
-<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_velocity&#39;</span>
-<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_angle&#39;</span>
-<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_position&#39;</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cart_velocity_node&#39;</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;cart_position_node&#39;</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_velocity_node&#39;</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_angle_node&#39;</span>
+<span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;pole_position_node&#39;</span>
 
 <span class="n">cartpole</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1">#cartpole = Constant([0.2,0.2,0.2,0.2,0.2+math.sin(0.2)], name=&quot;CartPole-v1&quot;)</span>
@@ -188,7 +188,7 @@ sidebar: home_sidebar
 **************************
 PRE: CartPole-v1 OpenAIGym | 0 | links  greaterthan 
 Level 4
-pole_position PCTNode
+pole_position_node PCTNode
 ----------------------------
 REF: pole_position_reference Constant | 0 
 PER: pole_position IndexedParameter | index 4 | 0 | links  CartPole-v1 
@@ -196,7 +196,7 @@ COM: subtract4 Subtract | 0 | links  pole_position_reference pole_position
 OUT: pole_position_output Sigmoid | range 0.45 scale 2  | 0 | links  subtract4 
 ----------------------------
 Level 3
-pole_angle PCTNode
+pole_angle_node PCTNode
 ----------------------------
 REF: pole_angle_reference PassOn | 0 | links  pole_position_output 
 PER: pole_angle IndexedParameter | index 2 | 0 | links  CartPole-v1 
@@ -204,7 +204,7 @@ COM: subtract3 Subtract | 0 | links  pole_angle_reference pole_angle
 OUT: pole_angle_output Proportional | gain 1.5 | 0 | links  subtract3 
 ----------------------------
 Level 2
-pole_velocity PCTNode
+pole_velocity_node PCTNode
 ----------------------------
 REF: pole_velocity_reference PassOn | 0 | links  pole_angle_output 
 PER: pole_velocity IndexedParameter | index 3 | 0 | links  CartPole-v1 
@@ -212,7 +212,7 @@ COM: subtract2 Subtract | 0 | links  pole_velocity_reference pole_velocity
 OUT: pole_velocity_output PassOn | 0 | links  subtract2 
 ----------------------------
 Level 1
-cart_position PCTNode
+cart_position_node PCTNode
 ----------------------------
 REF: cart_position_reference IntegrationDual | gain 90 slow 100  | 0 | links  pole_velocity_output 
 PER: cart_position IndexedParameter | index 0 | 0 | links  CartPole-v1 
@@ -220,7 +220,7 @@ COM: subtract1 Subtract | 0 | links  cart_position_reference cart_position
 OUT: cart_position_output Proportional | gain 2 | 0 | links  subtract1 
 ----------------------------
 Level 0
-cart_velocity PCTNode
+cart_velocity_node PCTNode
 ----------------------------
 REF: cart_velocity_reference PassOn | 0 | links  cart_position_output 
 PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 
@@ -233,7 +233,7 @@ cartpoleh PCTHierarchy
 **************************
 PRE: CartPole-v1 OpenAIGym | 0 | links  greaterthan 
 Level 4
-pole_position PCTNode
+pole_position_node PCTNode
 ----------------------------
 REF: pole_position_reference Constant | 0 
 PER: pole_position IndexedParameter | index 4 | 0 | links  CartPole-v1 
@@ -241,7 +241,7 @@ COM: subtract4 Subtract | 0 | links  pole_position_reference pole_position
 OUT: pole_position_output Sigmoid | range 0.45 scale 2  | 0 | links  subtract4 
 ----------------------------
 Level 3
-pole_angle PCTNode
+pole_angle_node PCTNode
 ----------------------------
 REF: pole_angle_reference PassOn | 0 | links  pole_position_output 
 PER: pole_angle IndexedParameter | index 2 | 0 | links  CartPole-v1 
@@ -249,7 +249,7 @@ COM: subtract3 Subtract | 0 | links  pole_angle_reference pole_angle
 OUT: pole_angle_output Proportional | gain 1.5 | 0 | links  subtract3 
 ----------------------------
 Level 2
-pole_velocity PCTNode
+pole_velocity_node PCTNode
 ----------------------------
 REF: pole_velocity_reference PassOn | 0 | links  pole_angle_output 
 PER: pole_velocity IndexedParameter | index 3 | 0 | links  CartPole-v1 
@@ -257,7 +257,7 @@ COM: subtract2 Subtract | 0 | links  pole_velocity_reference pole_velocity
 OUT: pole_velocity_output PassOn | 0 | links  subtract2 
 ----------------------------
 Level 1
-cart_position PCTNode
+cart_position_node PCTNode
 ----------------------------
 REF: cart_position_reference IntegrationDual | gain 90 slow 100  | 0 | links  pole_velocity_output cart_position 
 PER: cart_position IndexedParameter | index 0 | 0 | links  CartPole-v1 
@@ -265,7 +265,7 @@ COM: subtract1 Subtract | 0 | links  cart_position_reference cart_position
 OUT: cart_position_output Proportional | gain 2 | 0 | links  subtract1 
 ----------------------------
 Level 0
-cart_velocity PCTNode
+cart_velocity_node PCTNode
 ----------------------------
 REF: cart_velocity_reference PassOn | 0 | links  cart_position_output 
 PER: cart_velocity IndexedParameter | index 1 | 0 | links  CartPole-v1 

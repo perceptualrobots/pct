@@ -25,11 +25,11 @@ entries:
       title: Hierarchy
       url: /hierarchy
     - output: web,pdf
-      title: Cartpole
-      url: /cartpole5
-    - output: web,pdf
       title: Title
       url: /pct-example
+    - output: web,pdf
+      title: Cartpole
+      url: /cartpole5
     output: web
     title: pct
   output: web

@@ -202,6 +202,23 @@ class PCTHierarchy():
             layer+=3
 
 
+    def build_links(self):
+        for level in range(len(self.hierarchy)):
+            for col in range(len(self.hierarchy[level])):
+                  self.hierarchy[level][col].build_links()
+
+
+    def clear_values(self):
+        for func in self.postCollection:
+            func.value = 0
+
+        for func in self.preCollection:
+            func.value = 0
+
+        for level in range(len(self.hierarchy)):
+            for col in range(len(self.hierarchy[level])):
+                  self.hierarchy[level][col].clear_values()
+
 
     def summary(self, build=True):
         print(self.name, type(self).__name__)

@@ -245,6 +245,21 @@ class PCTNode():
 
         return graph
 
+
+    def clear_values(self):
+        for referenceFunction in self.referenceCollection:
+            referenceFunction.clear_values()
+
+        for comparatorFunction in self.comparatorCollection:
+            comparatorFunction.clear_values()
+
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.clear_values()
+
+        for outputFunction in self.outputCollection:
+            outputFunction.clear_values()
+
+
     def set_graph_data(self, graph, layer=0):
 
         for referenceFunction in self.referenceCollection:

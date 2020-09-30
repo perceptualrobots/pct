@@ -6,14 +6,14 @@
             "type": "OpenAIGym",
             "name": "CartPole-v1",
             "value": [
-                0.0005854071196091581,
-                -0.03393847084122076,
-                -6.270404625279523e-06,
-                0.059940280042854455,
-                0.0005854071196091581,
-                -0.03393847084122076,
-                -6.270404625279523e-06,
-                0.059940280042854455
+                0.011951334411434908,
+                -0.4401237073104226,
+                -0.01637255194281202,
+                0.6512349233810188,
+                0.011951334411434908,
+                -0.4401237073104226,
+                -0.01637255194281202,
+                0.6512349233810188
             ],
             "links": {
                 "0": "greaterthan"
@@ -32,12 +32,12 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "cart_velocity",
+                        "name": "cart_velocity_node",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
                                 "name": "cart_velocity_reference",
-                                "value": -0.06108914786588429,
+                                "value": -0.6178336604040466,
                                 "links": {
                                     "0": "cart_position_output"
                                 }
@@ -47,7 +47,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "cart_velocity",
-                                "value": -0.03393847084122076,
+                                "value": -0.4401237073104226,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -58,7 +58,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract",
-                                "value": -0.027150677024663533,
+                                "value": -0.17770995309362403,
                                 "links": {
                                     "0": "cart_velocity_reference",
                                     "1": "cart_velocity"
@@ -69,11 +69,11 @@
                             "0": {
                                 "type": "Integration",
                                 "name": "force",
-                                "value": 0.0003281450298517707,
+                                "value": 0.0007908139714326774,
                                 "links": {
                                     "0": "subtract"
                                 },
-                                "gain": -0.05,
+                                "gain": -0.1,
                                 "slow": 4
                             }
                         }
@@ -88,7 +88,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "cart_position",
+                        "name": "cart_position_node",
                         "refcoll": {
                             "0": {
                                 "type": "IntegrationDual",
@@ -105,8 +105,8 @@
                         "percoll": {
                             "0": {
                                 "type": "IndexedParameter",
-                                "name": "cart_position1",
-                                "value": 0,
+                                "name": "cart_position",
+                                "value": 0.011951334411434908,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -117,7 +117,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract1",
-                                "value": -0.030544573932942146,
+                                "value": -0.3089168302020233,
                                 "links": {
                                     "0": "cart_position_reference",
                                     "1": "cart_position"
@@ -128,7 +128,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "cart_position_output",
-                                "value": -0.06108914786588429,
+                                "value": -0.6178336604040466,
                                 "links": {
                                     "0": "subtract1"
                                 },
@@ -146,12 +146,12 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "pole_velocity",
+                        "name": "pole_velocity_node",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
                                 "name": "pole_velocity_reference",
-                                "value": 2.194641618847833e-05,
+                                "value": 0.05730393179984206,
                                 "links": {
                                     "0": "pole_angle_output"
                                 }
@@ -161,7 +161,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "pole_velocity",
-                                "value": 0.059940280042854455,
+                                "value": 0.6512349233810188,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -172,7 +172,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract2",
-                                "value": -0.05991833362666597,
+                                "value": -0.5939309915811768,
                                 "links": {
                                     "0": "pole_velocity_reference",
                                     "1": "pole_velocity"
@@ -200,7 +200,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "pole_angle",
+                        "name": "pole_angle_node",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
@@ -215,7 +215,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "pole_angle",
-                                "value": -6.270404625279523e-06,
+                                "value": -0.01637255194281202,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -226,7 +226,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract3",
-                                "value": 6.270404625279523e-06,
+                                "value": 0.01637255194281202,
                                 "links": {
                                     "0": "pole_angle_reference",
                                     "1": "pole_angle"
@@ -237,7 +237,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "pole_angle_output",
-                                "value": 2.194641618847833e-05,
+                                "value": 0.05730393179984206,
                                 "links": {
                                     "0": "subtract3"
                                 },
@@ -255,7 +255,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "pole_position",
+                        "name": "pole_position_node",
                         "refcoll": {
                             "0": {
                                 "type": "Constant",
