@@ -74,9 +74,9 @@ class FunctionsList:
         if name == None:
             print(len(self.functions))
             for key in self.functions.keys():
-                print(key, type(self.functions[key]), self.functions[key])
+                print("*** ", key, type(self.functions[key]), self.functions[key])
         else:
-            print(name, type(self.functions[name]), self.functions[name])
+            print("*** ", name, type(self.functions[name]), self.functions[name])
 
 
 # Cell
