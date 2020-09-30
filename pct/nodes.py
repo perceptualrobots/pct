@@ -163,21 +163,29 @@ class PCTNode():
         if collection == "reference":
             func = self.referenceCollection[position]
             FunctionsList.getInstance().remove_function(func.get_name())
+            if len(self.referenceCollection) == 0:
+                position=-1
             self.referenceCollection[position] = function
 
         if collection == "perception":
             func = self.perceptionCollection[position]
             FunctionsList.getInstance().remove_function(func.get_name())
+            if len(self.perceptionCollection) == 0:
+                position=-1
             self.perceptionCollection[position]  = function
 
         if collection == "comparator":
             func = self.comparatorCollection[position]
             FunctionsList.getInstance().remove_function(func.get_name())
+            if len(self.comparatorCollection) == 0:
+                position=-1
             self.comparatorCollection[position] = function
 
         if collection == "output":
             func = self.outputCollection[position]
             FunctionsList.getInstance().remove_function(func.get_name())
+            if len(self.outputCollection) == 0:
+                position=-1
             self.outputCollection[position] = function
 
 
