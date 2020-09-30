@@ -74,10 +74,10 @@ class FunctionsList:
         if name == None:
             print(len(self.functions))
             for key in self.functions.keys():
-                print("*** ", key, [self.functions[key]]))
+                print("*** ", key, [self.functions[key]])
                 print(self.functions[key])
         else:
-            print("*** ", key, [self.functions[key]]))
+            print("*** ", key, [self.functions[key]])
             print(self.functions[key])
 
 
