@@ -194,6 +194,9 @@ class BaseFunction(ABC):
     def set_link(self, linkfn):
         self.links = [linkfn]
 
+    def clear_links(self):
+        self.links = []
+
     def close(self):
         pass
 
