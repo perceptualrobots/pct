@@ -367,7 +367,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L387" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L385" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: One.</p>
 
@@ -399,7 +399,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IntegrationDual" class="doc_header"><code>class</code> <code>IntegrationDual</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L412" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IntegrationDual</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="IntegrationDual" class="doc_header"><code>class</code> <code>IntegrationDual</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L410" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IntegrationDual</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A leaky integrating function, applying one signal to another. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: Two.</p>
 
@@ -431,7 +431,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Sigmoid" class="doc_header"><code>class</code> <code>Sigmoid</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L438" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Sigmoid</code>(<strong><code>range</code></strong>=<em><code>2</code></em>, <strong><code>scale</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'sigmoid'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Sigmoid" class="doc_header"><code>class</code> <code>Sigmoid</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L436" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Sigmoid</code>(<strong><code>range</code></strong>=<em><code>2</code></em>, <strong><code>scale</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'sigmoid'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and scale (slope) values. Links: One.</p>
 
@@ -463,7 +463,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L462" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L460" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions.</p>
 
@@ -495,7 +495,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L490" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L488" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One.</p>
 
@@ -527,7 +527,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L512" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L510" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
