@@ -501,7 +501,7 @@ class OpenAIGym(BaseFunction):
         # 2 pole_angle
 
         self.value = obs[0]
-        if self.name == 'Cartpole-v1':
+        if self.name == 'CartPole-v1':
             self.value = np.append(self.value, obs[0]+math.sin(obs[2]))
         self.reward = obs[1]
         self.done = obs[2]
