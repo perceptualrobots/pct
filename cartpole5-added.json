@@ -38,7 +38,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "cart_velocity",
-                                "value": 0.42508960879741,
+                                "value": -0.00890260212433236,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -49,7 +49,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract",
-                                "value": 0.18968997906551777,
+                                "value": -0.0034892931082801115,
                                 "links": {
                                     "0": "cart_velocity_reference",
                                     "1": "cart_velocity"
@@ -60,7 +60,7 @@
                             "0": {
                                 "type": "Integration",
                                 "name": "force",
-                                "value": -0.0019028871068981178,
+                                "value": 0.00046793629348432415,
                                 "links": {
                                     "0": "subtract"
                                 },
@@ -97,7 +97,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "cart_position",
-                                "value": -0.007448720900772093,
+                                "value": -0.007885528496653579,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -108,7 +108,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract1",
-                                "value": 0.3073897939314639,
+                                "value": -0.0061959476163062355,
                                 "links": {
                                     "0": "cart_position_reference",
                                     "1": "cart_position"
@@ -119,7 +119,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "cart_position_output",
-                                "value": 0.6147795878629277,
+                                "value": -0.012391895232612471,
                                 "links": {
                                     "0": "subtract1"
                                 },
@@ -152,7 +152,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "pole_velocity",
-                                "value": -0.6310696533941349,
+                                "value": 0.0014545728823710524,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -163,7 +163,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract2",
-                                "value": 0.5998821460613836,
+                                "value": -0.02816295222591963,
                                 "links": {
                                     "0": "pole_velocity_reference",
                                     "1": "pole_velocity"
@@ -206,7 +206,7 @@
                             "0": {
                                 "type": "IndexedParameter",
                                 "name": "pole_angle",
-                                "value": 0.008910716380786107,
+                                "value": 0.0076309655267281645,
                                 "links": {
                                     "0": "CartPole-v1"
                                 },
@@ -217,7 +217,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract3",
-                                "value": -0.008910716380786107,
+                                "value": -0.0076309655267281645,
                                 "links": {
                                     "0": "pole_angle_reference",
                                     "1": "pole_angle"
@@ -228,7 +228,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "pole_angle_output",
-                                "value": -0.03118750733275137,
+                                "value": -0.026708379343548576,
                                 "links": {
                                     "0": "subtract3"
                                 },

@@ -89,7 +89,7 @@
                                     "0": "pole_velocity_output",
                                     "1": "cart_position"
                                 },
-                                "gain": 80,
+                                "gain": 90,
                                 "slow": 100
                             }
                         },
@@ -123,7 +123,7 @@
                                 "links": {
                                     "0": "subtract1"
                                 },
-                                "gain": 1.5
+                                "gain": 2
                             }
                         }
                     }
@@ -232,7 +232,7 @@
                                 "links": {
                                     "0": "subtract3"
                                 },
-                                "gain": 2.5
+                                "gain": 1.5
                             }
                         }
                     }
@@ -255,8 +255,8 @@
                                 "links": {},
                                 "upper": 2,
                                 "lower": -2,
-                                "delay": 100,
-                                "period": 200
+                                "delay": 0,
+                                "period": 500
                             }
                         },
                         "percoll": {

@@ -356,11 +356,17 @@ class Step(BaseFunction):
         self.lower=lower
         self.delay=delay
         self.period=period
+        self.delay_finished=False
 
         super().__init__(name, value, None, new_name)
 
     def __call__(self, verbose=False):
         if self.ctr>self.delay-1:
+            if not self.delay_finished:
+                self.value = self.upper
+                self.delay_finished=True
+                self.ctr = self.period/2
+
             if self.ctr % self.period ==0 :
                 if self.value != self.lower:
                     self.value = self.lower
