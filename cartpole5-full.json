@@ -249,7 +249,7 @@
                         "name": "pole_position_node",
                         "refcoll": {
                             "0": {
-                                "type": "Constant",
+                                "type": "Step",
                                 "name": "pole_position_reference",
                                 "value": 0,
                                 "links": {}
@@ -273,7 +273,9 @@
                                 "value": 0,
                                 "links": {
                                     "0": "pole_position_reference",
-                                    "1": "pole_position"
+                                    "1": "pole_position",
+                                    "2": "pole_position_reference",
+                                    "3": "pole_position"
                                 }
                             }
                         },

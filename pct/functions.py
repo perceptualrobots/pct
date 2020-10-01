@@ -356,10 +356,10 @@ class Step(BaseFunction):
 
     def __call__(self, verbose=False):
         if self.ctr>self.delay:
-            if self.value = self.lower:
+            if self.value == self.lower:
                 self.value = self.upper
 
-            if self.value = self.upper:
+            if self.value == self.upper:
                 self.value = self.lower
 
         self.ctr += 1
