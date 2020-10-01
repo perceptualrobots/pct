@@ -1595,7 +1595,7 @@ description: "Functions that form the elements of a perceptual control node (sys
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="n">render</span><span class="o">=</span><span class="kc">False</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span><span class="o">==</span><span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">IN_NOTEBOOK</span><span class="p">:</span> <span class="c1"># os.name==&#39;nt&#39;:</span>
     <span class="n">render</span><span class="o">=</span><span class="kc">True</span>
 <span class="n">acrobot</span> <span class="o">=</span> <span class="n">OpenAIGym</span><span class="p">(</span><span class="s2">&quot;Acrobot-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="n">render</span><span class="p">)</span>
 <span class="n">acrobot</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">Constant</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
@@ -1611,19 +1611,19 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-19-94dbc0a7e1bc&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-green-intense-fg ansi-bold">import</span> os
+<span class="ansi-green-fg">      2</span> render<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 3</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">if</span> IN_NOTEBOOK<span class="ansi-yellow-intense-fg ansi-bold">:</span> <span class="ansi-red-intense-fg ansi-bold"># os.name==&#39;nt&#39;:</span>
+<span class="ansi-green-fg">      4</span>     render<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span>
+<span class="ansi-green-fg">      5</span> acrobot <span class="ansi-yellow-intense-fg ansi-bold">=</span> OpenAIGym<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Acrobot-v1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> render<span class="ansi-yellow-intense-fg ansi-bold">=</span>render<span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;type&#39;: &#39;OpenAIGym&#39;,
- &#39;name&#39;: &#39;gym&#39;,
- &#39;value&#39;: 0,
- &#39;links&#39;: {0: &#39;constant&#39;},
- &#39;env_name&#39;: &#39;Acrobot-v1&#39;,
- &#39;reward&#39;: 0,
- &#39;done&#39;: False,
- &#39;info&#39;: {}}</pre>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;IN_NOTEBOOK&#39; is not defined</pre>
 </div>
-
 </div>
 
 </div>
@@ -1688,7 +1688,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.997 -0.076 0.997 0.081 0.124 -0.100 0.997 -0.076 0.997 0.081 0.124 -0.100 -1.0 False {}&#39;</pre>
+<pre>&#39;0.999 0.046 1.000 -0.008 -0.132 0.045 0.999 0.046 1.000 -0.008 -0.132 0.045 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -1721,7 +1721,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9971095191510009</pre>
+<pre>0.9989273855317138</pre>
 </div>
 
 </div>
@@ -1772,7 +1772,7 @@ description: "Functions that form the elements of a perceptual control node (sys
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9971095191510009</pre>
+<pre>0.9989273855317138</pre>
 </div>
 
 </div>
