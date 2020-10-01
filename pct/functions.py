@@ -372,7 +372,7 @@ class Step(BaseFunction):
                     self.value = self.lower
                 elif self.value != self.upper:
                     self.value = self.upper
-                print(self.ctr, self.value)
+                #print(self.ctr, self.value)
 
         self.ctr += 1
         return super().__call__(verbose)

@@ -255,7 +255,7 @@
                                 "links": {},
                                 "upper": 2,
                                 "lower": -2,
-                                "delay": 0,
+                                "delay": 100,
                                 "period": 500
                             }
                         },
