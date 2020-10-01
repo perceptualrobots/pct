@@ -273,9 +273,7 @@
                                 "value": 0,
                                 "links": {
                                     "0": "pole_position_reference",
-                                    "1": "pole_position",
-                                    "2": "pole_position_reference",
-                                    "3": "pole_position"
+                                    "1": "pole_position"
                                 }
                             }
                         },

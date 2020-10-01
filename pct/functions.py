@@ -350,8 +350,8 @@ class Constant(BaseFunction):
 # Cell
 class Step(BaseFunction):
     "A function that returns an alternating signal. Parameter: The upper and lower values, and a delay value. Links: None"
-    def __init__(self, value=0, upper=None, lower=None, delay=None, name="step", new_name=True, **cargs):
-        self.ctr=0
+    def __init__(self, upper=None, lower=None, delay=None, period=None, value=0, name="step", new_name=True, **cargs):
+        self.ctr=1
         self.upper=upper
         self.lower=lower
         self.delay=delay
@@ -359,12 +359,14 @@ class Step(BaseFunction):
         super().__init__(name, value, None, new_name)
 
     def __call__(self, verbose=False):
-        if self.ctr>self.delay:
-            if self.value == self.lower:
-                self.value = self.upper
-
-            if self.value == self.upper:
-                self.value = self.lower
+        if self.ctr>self.delay-1:
+            self.ctr=1
+            self.delay=0
+            if self.ctr % self.period ==0 :
+                if self.value != self.lower:
+                    self.value = self.lower
+                elif self.value != self.upper:
+                    self.value = self.upper
 
         self.ctr += 1
         return super().__call__(verbose)
@@ -373,8 +375,12 @@ class Step(BaseFunction):
         super().summary("")
 
     def get_config(self):
-        return super().get_config()
-
+        config = super().get_config()
+        config["upper"] = self.upper
+        config["lower"] = self.lower
+        config["delay"] = self.delay
+        config["period"] = self.period
+        return config
 
 # Cell
 class Integration(BaseFunction):
