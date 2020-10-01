@@ -105,7 +105,7 @@ sidebar: home_sidebar
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">replace_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">PassOn</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_angle_reference&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pole_position_output&#39;</span><span class="p">]),</span> <span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;perception&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">IndexedParameter</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_angle&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="n">cartpole</span><span class="p">]))</span>
 <span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;proportional3&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="s2">&quot;pole_angle_output&quot;</span><span class="p">)</span>
-<span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;pole_angle_output&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s2">&quot;pole_angle_output&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># pole_velocity</span>
 <span class="n">cartpole_hierarchy</span><span class="o">.</span><span class="n">insert_function</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">PassOn</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pole_velocity_reference&quot;</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pole_angle_output&#39;</span><span class="p">]))</span>
@@ -201,7 +201,7 @@ pole_angle_node PCTNode
 REF: pole_angle_reference PassOn | 0 | links  pole_position_output 
 PER: pole_angle IndexedParameter | index 2 | 0 | links  CartPole-v1 
 COM: subtract3 Subtract | 0 | links  pole_angle_reference pole_angle 
-OUT: pole_angle_output Proportional | gain 1.5 | 0 | links  subtract3 
+OUT: pole_angle_output Proportional | gain 2 | 0 | links  subtract3 
 ----------------------------
 Level 2
 pole_velocity_node PCTNode
@@ -246,7 +246,7 @@ pole_angle_node PCTNode
 REF: pole_angle_reference PassOn | 0 | links  pole_position_output 
 PER: pole_angle IndexedParameter | index 2 | 0 | links  CartPole-v1 
 COM: subtract3 Subtract | 0 | links  pole_angle_reference pole_angle 
-OUT: pole_angle_output Proportional | gain 1.5 | 0 | links  subtract3 
+OUT: pole_angle_output Proportional | gain 2 | 0 | links  subtract3 
 ----------------------------
 Level 2
 pole_velocity_node PCTNode

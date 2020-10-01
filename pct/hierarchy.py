@@ -258,7 +258,10 @@ class PCTHierarchy():
         f.close()
 
     @classmethod
-    def load(cls, file):
+    def load(cls, file, clear=True):
+        if clear:
+            FunctionsList.getInstance().clear()
+
         with open(file) as f:
             config = json.load(f)
         return cls.from_config(config)
