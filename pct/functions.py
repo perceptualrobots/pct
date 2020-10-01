@@ -352,6 +352,10 @@ class Step(BaseFunction):
     "A function that returns an alternating signal. Parameter: The upper and lower values, and a delay value. Links: None"
     def __init__(self, value=0, upper=None, lower=None, delay=None, name="step", new_name=True, **cargs):
         self.ctr=0
+        self.upper=upper
+        self.lower=lower
+        self.delay=delay
+
         super().__init__(name, value, None, new_name)
 
     def __call__(self, verbose=False):
