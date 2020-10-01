@@ -355,6 +355,7 @@ class Step(BaseFunction):
         self.upper=upper
         self.lower=lower
         self.delay=delay
+        self.period=period
 
         super().__init__(name, value, None, new_name)
 
