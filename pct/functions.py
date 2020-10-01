@@ -373,7 +373,7 @@ class Step(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self):
-        super().summary("")
+        super().summary(f'upper {self.upper} lower {self.lower} delay {self.delay} period {self.period}')
 
     def get_config(self):
         config = super().get_config()
