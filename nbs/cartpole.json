@@ -10,7 +10,6 @@
                 "0": "greaterthan"
             },
             "env_name": "CartPole-v1",
-            "values": 0,
             "reward": 0,
             "done": false,
             "info": {}
@@ -24,7 +23,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "cart_velocity",
+                        "name": "cart_velocity_node",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
@@ -80,7 +79,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "cart_position",
+                        "name": "cart_position_node",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
@@ -135,7 +134,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "pole_velocity",
+                        "name": "pole_velocity_node",
                         "refcoll": {
                             "0": {
                                 "type": "PassOn",
@@ -190,7 +189,7 @@
                     "col": 0,
                     "node": {
                         "type": "PCTNode",
-                        "name": "pole_angle",
+                        "name": "pole_angle_node",
                         "refcoll": {
                             "0": {
                                 "type": "Constant",
