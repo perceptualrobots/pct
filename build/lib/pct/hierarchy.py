@@ -3,10 +3,6 @@
 __all__ = ['PCTHierarchy']
 
 # Cell
-import networkx as nx
-import json
-from networkx.drawing.nx_agraph import graphviz_layout
-import matplotlib.pyplot as plt
 import numpy as np
 from .nodes import PCTNode
 from .functions import *
@@ -16,20 +12,14 @@ from .putils import FunctionsList
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
-    def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", history=False, build=True, **pargs):
+    def __init__(self, levels=0, cols=0, pre=[], post=[], name="pcthierarchy", clear_names=True, links="single", history=False, build=True, **pargs):
         self.links_built = False
         self.order=None
         if clear_names:
             UniqueNamer.getInstance().clear()
         self.name=UniqueNamer.getInstance().get_name(name)
-        if pre==None:
-            self.preCollection=[]
-        else:
-            self.preCollection=pre
-        if post==None:
-            self.postCollection=[]
-        else:
-            self.postCollection=post
+        self.preCollection=pre
+        self.postCollection=post
         self.hierarchy = []
         for r in range(levels):
             col_list=[]
@@ -152,74 +142,6 @@ class PCTHierarchy():
                 thatnode = self.hierarchy[level-1][column]
                 thatnode.add_link("reference", thisnode.get_function("output"))
 
-
-    def get_node_positions(self, align='horizontal'):
-        graph = self.graph()
-        pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
-        return pos
-
-
-    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
-             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):
-        graph = self.graph()
-        pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
-
-        for key in move.keys():
-            pos[key][0]+=move[key][0]
-            pos[key][1]+=move[key][1]
-
-        plt.figure(figsize=figsize)
-        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
-                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
-        #plt.show()
-
-        if file != None:
-            plt.title(self.name)
-            plt.savefig(file)
-
-    def graph(self):
-        graph = nx.DiGraph()
-
-        self.set_graph_data(graph)
-
-        return graph
-
-    def set_graph_data(self, graph):
-        layer=0
-        if len(self.preCollection)>0 or len(self.postCollection)>0:
-            layer=1
-
-        for func in self.postCollection:
-            func.set_graph_data(graph, layer=0)
-
-        for func in self.preCollection:
-            func.set_graph_data(graph, layer=0)
-
-        for level in range(len(self.hierarchy)):
-            for col in range(len(self.hierarchy[level])-1, -1, -1):
-            #for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].set_graph_data(graph, layer=layer)
-            layer+=3
-
-
-    def build_links(self):
-        for level in range(len(self.hierarchy)):
-            for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].build_links()
-
-
-    def clear_values(self):
-        for func in self.postCollection:
-            func.value = 0
-
-        for func in self.preCollection:
-            func.value = 0
-
-        for level in range(len(self.hierarchy)):
-            for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].clear_values()
-
-
     def summary(self, build=True):
         print(self.name, type(self).__name__)
 
@@ -231,16 +153,10 @@ class PCTHierarchy():
             func.summary()
 
 
-        if self.order==None:
-            for level in range(len(self.hierarchy)):
-                print(f'Level {level}')
-                for col in range(len(self.hierarchy[level])):
-                      self.hierarchy[level][col].summary(build=build)
-        elif self.order=="Down":
-            for level in range(len(self.hierarchy)-1, -1, -1):
-                print(f'Level {level}')
-                for col in range(len(self.hierarchy[level])-1, -1, -1):
-                      self.hierarchy[level][col].summary(build=build)
+        for level in range(len(self.hierarchy)):
+            print(f'Level {level}')
+            for col in range(len(self.hierarchy[level])):
+                  self.hierarchy[level][col].summary(build=build)
 
         print("POST:", end=" ")
         if len(self.postCollection) == 0:
@@ -251,20 +167,7 @@ class PCTHierarchy():
 
         print("**************************")
 
-    def save(self, file=None, indent=4):
-        jsondict = json.dumps(self.get_config(), indent=indent)
-        f = open(file, "w")
-        f.write(jsondict)
-        f.close()
 
-    @classmethod
-    def load(cls, file, clear=True):
-        if clear:
-            FunctionsList.getInstance().clear()
-
-        with open(file) as f:
-            config = json.load(f)
-        return cls.from_config(config)
 
     def get_config(self):
         config = {"type": type(self).__name__,
@@ -340,18 +243,9 @@ class PCTHierarchy():
     def insert_function(self, level=None, col=None, collection=None, function=None, position=-1):
         self.hierarchy[level][col].insert_function(collection, function, position)
 
-    def replace_function(self, level=None, col=None, collection=None, function=None, position=-1):
-        self.hierarchy[level][col].replace_function(collection, function, position)
-
     def get_function(self, level=None, col=None, collection=None, position=-1):
         return self.hierarchy[level][col].get_function(collection, position)
 
     def set_links(self, func_name, *link_names):
-        func = FunctionsList.getInstance().get_function(func_name)
-        func.clear_links()
-        for link_name in link_names:
-            func.add_link(FunctionsList.getInstance().get_function(link_name))
-
-    def add_links(self, func_name, *link_names):
         for link_name in link_names:
             FunctionsList.getInstance().get_function(func_name).add_link(FunctionsList.getInstance().get_function(link_name))

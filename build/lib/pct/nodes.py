@@ -3,9 +3,6 @@
 __all__ = ['PCTNode', 'PCTNodeData']
 
 # Cell
-import networkx as nx
-import json
-import matplotlib.pyplot as plt
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .functions import *
@@ -159,45 +156,6 @@ class PCTNode():
             self.outputCollection[position].set_name(name)
 
 
-    def replace_function(self, collection, function, position=-1):
-        if collection == "reference":
-            """
-            func = self.referenceCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.referenceCollection) == 0:
-                position=-1
-            """
-            self.referenceCollection[position] = function
-
-        if collection == "perception":
-            """
-            func = self.perceptionCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.perceptionCollection) == 0:
-                position=-1
-            """
-            self.perceptionCollection[position]  = function
-
-        if collection == "comparator":
-            """
-            func = self.comparatorCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.comparatorCollection) == 0:
-                position=-1
-            """
-            self.comparatorCollection[position] = function
-
-        if collection == "output":
-            """
-            func = self.outputCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.outputCollection) == 0:
-                position=-1
-            """
-            self.outputCollection[position] = function
-
-
-
     def insert_function(self, collection, function, position=-1):
         if collection == "reference":
             self.referenceCollection[position] = function
@@ -237,53 +195,6 @@ class PCTNode():
 
         print("----------------------------")
 
-
-    def graph(self, layer=0):
-        graph = nx.DiGraph()
-
-        self.set_graph_data(graph, layer=layer)
-
-        return graph
-
-
-    def clear_values(self):
-        for referenceFunction in self.referenceCollection:
-            referenceFunction.value = 0
-
-        for comparatorFunction in self.comparatorCollection:
-            comparatorFunction = 0
-
-        for perceptionFunction in self.perceptionCollection:
-            perceptionFunction = 0
-
-        for outputFunction in self.outputCollection:
-            outputFunction  = 0
-
-
-    def set_graph_data(self, graph, layer=0):
-
-        for referenceFunction in self.referenceCollection:
-            referenceFunction.set_graph_data(graph, layer+2)
-
-        for comparatorFunction in self.comparatorCollection:
-            comparatorFunction.set_graph_data(graph, layer+1)
-
-        for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.set_graph_data(graph, layer+2)
-
-        for outputFunction in self.outputCollection:
-            outputFunction.set_graph_data(graph, layer)
-
-
-    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
-             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(5,5), move={}):
-
-        graph = self.graph()
-        pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
-        plt.figure(figsize=figsize)
-        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
-                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
-
     def get_config(self):
         config = {"type": type(self).__name__,
                     "name": self.name}
@@ -311,18 +222,6 @@ class PCTNode():
             ctr+=1
         return coll
 
-    def save(self, file=None, indent=4):
-        jsondict = json.dumps(self.get_config(), indent=indent)
-        f = open(file, "w")
-        f.write(jsondict)
-        f.close()
-
-    @classmethod
-    def load(cls, file):
-        with open(file) as f:
-            config = json.load(f)
-        return cls.from_config(config)
-
     @classmethod
     def from_config(cls, config):
         node = PCTNode(default=False, name=config['name'])
@@ -347,7 +246,7 @@ class PCTNode():
         coll_dict = config['outcoll']
         PCTNode.collection_from_config(collection, coll_dict)
 
-        node.links_built = True
+        #node.build_links()
         return node
 
     @classmethod
