@@ -1,10 +1,13 @@
-SRC = $(wildcard ./*.ipynb)
+SRC = $(wildcard nbs/*.ipynb)
 
-all: nbdev_template docs
+all: pct docs
 
-nbdev_template: $(SRC)
+pct: $(SRC)
 	nbdev_build_lib
-	touch nbdev_template
+	touch pct
+
+sync:
+	nbdev_update_lib
 
 docs_serve: docs
 	cd docs && bundle exec jekyll serve

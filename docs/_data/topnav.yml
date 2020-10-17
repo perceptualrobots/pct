@@ -2,7 +2,7 @@ topnav:
 - title: Topnav
   items:
     - title: github
-      external_url: https://github.com/perceptualrobots/nbdev_template/tree/master/
+      external_url: https://github.com/perceptualrobots/pct/tree/master/
 
 #Topnav dropdowns
 topnav_dropdowns:
