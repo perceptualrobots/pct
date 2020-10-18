@@ -91,16 +91,8 @@ import os
 from pathlib import Path
 
 def is_in_notebooks():
-    home = Path.home()
-    print(home)
-    cwd = os.getcwd()
-    print(cwd)
-
-    nbs = str(home) + '\Google Drive\\nbdev\pct\\nbs'
-
-    print(nbs)
-
-    if nbs==cwd:
+    term = os.getenv('TERM')
+    if term == 'xterm-color':
         return True
 
     return False
