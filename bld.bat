@@ -1,7 +1,8 @@
 
-nbdev_diff_nbs
+
 nbdev_clean_nbs
 nbdev_build_lib
+nbdev_diff_nbs
 nbdev_test_nbs
 nbdev_build_docs 
 ::--fname=[0]*.ipynb
