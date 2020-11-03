@@ -1,10 +1,10 @@
 {
   "pct": {
     "Overview": "/",
-    "Examples": "/examples",
-    "Utilities": "/putils",
-    "Functions": "/functions",
-    "Nodes": "/nodes",
-    "Hierarchy": "/hierarchy"
+    "Examples": "examples.html",
+    "Utilities": "putils.html",
+    "Functions": "functions.html",
+    "Nodes": "nodes.html",
+    "Hierarchy": "hierarchy.html"
   }
 }
