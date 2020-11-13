@@ -13,7 +13,8 @@ from .functions import *
 # Cell
 class PCTNode():
     "A single PCT controller."
-    def __init__(self, reference=None, perception=None, comparator=None, output=None, default=True, name="pctnode", history=False, **pargs):
+    def __init__(self, reference=None, perception=None, comparator=None, output=None, default=True,
+                 name="pctnode", history=False, build_links=False, mode=0, **pargs):
         self.links_built = False
         self.history = None
         if history:
@@ -22,11 +23,17 @@ class PCTNode():
         FunctionsList.getInstance().add_function(self)
         if default:
             if perception==None:
-                perception =  Variable(0)
+                if mode == 1:
+                     perception =  WeightedSum()
+                else:
+                     perception =  Variable(0)
             self.perceptionCollection = [perception]
 
             if reference==None:
-                reference = Constant(1)
+                if mode == 1:
+                    reference =  WeightedSum()
+                else:
+                    reference = Constant(1)
             self.referenceCollection = [reference]
 
             if comparator==None:
@@ -37,6 +44,9 @@ class PCTNode():
                 output = Proportional(10)
 
             self.outputCollection = [output]
+
+            if build_links:
+                self.build_links()
 
     def __call__(self, verbose=False):
         if not self.links_built:
