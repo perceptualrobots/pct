@@ -120,6 +120,12 @@ class PCTHierarchy():
     def add_postprocessor(self, func):
         self.postCollection.append(func)
 
+    def get_preprocessor(self):
+        return self.preCollection
+
+    def get_postprocessor(self):
+        return self.postCollection
+
     def run(self, steps=None, verbose=False):
         for i in range(steps):
             out = self(verbose)
