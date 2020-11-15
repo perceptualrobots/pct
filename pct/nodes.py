@@ -23,7 +23,7 @@ class PCTNode():
         FunctionsList.getInstance().add_function(self)
         if default:
             if perception==None:
-                if mode == 1:
+                if mode == 1 or mode == 2:
                      perception =  WeightedSum()
                 else:
                      perception =  Variable(0)
@@ -32,7 +32,7 @@ class PCTNode():
             if reference==None:
                 if mode == 1:
                     reference =  WeightedSum()
-                else:
+                elif mode ==0 or mode == 2:
                     reference = Constant(1)
             self.referenceCollection = [reference]
 
