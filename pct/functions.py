@@ -543,9 +543,7 @@ class OpenAIGym(BaseFunction):
 
         self.value = obs[0]
         if self.name == 'CartPole-v1':
-            print('OpenAIGym', obs[0], obs[0][0]+math.sin(obs[0][2]))
             self.value = np.append(self.value, obs[0][0]+math.sin(obs[0][2]))
-            print('OpenAIGym', self.value)
 
         self.reward = obs[1]
         self.done = obs[2]
