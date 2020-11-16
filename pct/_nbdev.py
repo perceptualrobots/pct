@@ -20,6 +20,7 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "WeightedSum": "02_functions.ipynb",
          "IndexedParameter": "02_functions.ipynb",
          "OpenAIGym": "02_functions.ipynb",
+         "PendulumV0": "02_functions.ipynb",
          "PCTNode": "03_nodes.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
          "PCTHierarchy": "04_hierarchy.ipynb"}
