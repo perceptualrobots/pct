@@ -4,6 +4,7 @@ __all__ = ['OpenAIGym', 'PendulumV0']
 
 # Cell
 import gym
+import math
 import numpy as np
 from .functions import BaseFunction
 
