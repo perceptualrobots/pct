@@ -25,6 +25,9 @@ entries:
       title: Hierarchy
       url: /hierarchy
     - output: web,pdf
+      title: Environments
+      url: /environments
+    - output: web,pdf
       title: Configurations
       url: /configurations
     output: web

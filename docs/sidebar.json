@@ -6,6 +6,7 @@
     "Functions": "/functions",
     "Nodes": "/nodes",
     "Hierarchy": "/hierarchy",
+    "Environments": "/environments",
     "Configurations": "/configurations"
   }
 }
