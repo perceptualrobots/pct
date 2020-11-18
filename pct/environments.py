@@ -3,6 +3,9 @@
 __all__ = ['OpenAIGym', 'PendulumV0']
 
 # Cell
+from .functions import BaseFunction
+
+# Cell
 class OpenAIGym(BaseFunction):
     "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
