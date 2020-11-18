@@ -5,6 +5,7 @@
     "Utilities": "/putils",
     "Functions": "/functions",
     "Nodes": "/nodes",
-    "Hierarchy": "/hierarchy"
+    "Hierarchy": "/hierarchy",
+    "Configurations": "/configurations"
   }
 }
