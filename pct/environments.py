@@ -3,6 +3,7 @@
 __all__ = ['OpenAIGym', 'PendulumV0']
 
 # Cell
+import gym
 from .functions import BaseFunction
 
 # Cell

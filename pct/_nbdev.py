@@ -19,11 +19,11 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "Sigmoid": "02_functions.ipynb",
          "WeightedSum": "02_functions.ipynb",
          "IndexedParameter": "02_functions.ipynb",
-         "OpenAIGym": "05_environments.ipynb",
-         "PendulumV0": "05_environments.ipynb",
          "PCTNode": "03_nodes.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
-         "PCTHierarchy": "04_hierarchy.ipynb"}
+         "PCTHierarchy": "04_hierarchy.ipynb",
+         "OpenAIGym": "05_environments.ipynb",
+         "PendulumV0": "05_environments.ipynb"}
 
 modules = ["putils.py",
            "functions.py",
