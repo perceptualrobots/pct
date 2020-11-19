@@ -25,7 +25,8 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "OpenAIGym": "05_environments.ipynb",
          "CartPoleV1": "05_environments.ipynb",
          "PendulumV0": "05_environments.ipynb",
-         "BaseConfiguration": "06_configurations.ipynb"}
+         "BaseArchitecture": "06_architectures.ipynb",
+         "ProportionalArchitecture": "06_architectures.ipynb"}
 
 modules = ["None.py",
            "putils.py",
