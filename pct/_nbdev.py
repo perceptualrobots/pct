@@ -28,8 +28,7 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "BaseArchitecture": "06_architectures.ipynb",
          "ProportionalArchitecture": "06_architectures.ipynb"}
 
-modules = ["None.py",
-           "putils.py",
+modules = ["putils.py",
            "functions.py",
            "nodes.py",
            "hierarchy.py",
