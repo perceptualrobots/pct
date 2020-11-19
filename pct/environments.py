@@ -94,10 +94,10 @@ class CartPoleV1(OpenAIGym):
     def __call__(self, verbose=False):
         super().__call__(verbose)
 
-        if input == 1 or input == -1 or input == 0:
+        if self.input == 1 or self.input == -1 or self.input == 0:
             pass
         else:
-            raise Exception(f'OpenAIGym: Input value of {input} is not valid, must be 1,0 or -1.')
+            raise Exception(f'OpenAIGym: Input value of {self.input} is not valid, must be 1,0 or -1.')
 
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
 
