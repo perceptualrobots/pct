@@ -605,36 +605,12 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-22-50381282bb5e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>cartpole_hierarchy<span class="ansi-blue-fg">.</span>run<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">500</span><span class="ansi-blue-fg">,</span>verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">run</span><span class="ansi-blue-fg">(self, steps, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">    129</span>     <span class="ansi-green-fg">def</span> run<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> steps<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span>         <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>steps<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 131</span><span class="ansi-red-fg">             </span>out <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    132</span>         <span class="ansi-green-fg">return</span> out
-<span class="ansi-green-intense-fg ansi-bold">    133</span> 
 
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">     67</span>             <span class="ansi-red-fg">#if verbose:</span>
-<span class="ansi-green-intense-fg ansi-bold">     68</span>             <span class="ansi-red-fg">#    print(func.get_name(), end =&#34; &#34;)</span>
-<span class="ansi-green-fg">---&gt; 69</span><span class="ansi-red-fg">             </span>func<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     70</span> 
-<span class="ansi-green-intense-fg ansi-bold">     71</span>         <span class="ansi-green-fg">if</span> verbose<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/environments.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">     98</span>             <span class="ansi-green-fg">pass</span>
-<span class="ansi-green-intense-fg ansi-bold">     99</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 100</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;OpenAIGym: Input value of {input} is not valid, must be 1,0 or -1.&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    101</span> 
-<span class="ansi-green-intense-fg ansi-bold">    102</span>         self<span class="ansi-blue-fg">.</span>value <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>value<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>obs<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">+</span>math<span class="ansi-blue-fg">.</span>sin<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>obs<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">Exception</span>: OpenAIGym: Input value of &lt;bound method Kernel.raw_input of &lt;ipykernel.ipkernel.IPythonKernel object at 0x7f64dc4da790&gt;&gt; is not valid, must be 1,0 or -1.</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
 </div>
+
 </div>
 
 </div>

@@ -3,7 +3,7 @@
     "name": "cartpoleh",
     "pre": {
         "pre0": {
-            "type": "OpenAIGym",
+            "type": "CartPoleV1",
             "name": "CartPole-v1",
             "value": 0,
             "links": {

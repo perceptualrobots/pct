@@ -87,8 +87,7 @@ class CartPoleV1(OpenAIGym):
     # 0 cart_position
     # 3 pole_velocity
     # 2 pole_angle
-    def __init__(self, render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
-        env_name= 'CartPole-v1'
+    def __init__(self, env_name='CartPole-v1', render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
         super().__init__(env_name, render, video_wrap, value, name, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
@@ -116,8 +115,8 @@ class PendulumV0(OpenAIGym):
     # 3 theta +pi/-pi (added here)
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
-    def __init__(self, render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
-        env_name= 'Pendulum-v0'
+    def __init__(self, env_name='Pendulum-v0', render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
+
         super().__init__(env_name, render, video_wrap, value, name, links, new_name, **cargs)
 
 
