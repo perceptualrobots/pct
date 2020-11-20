@@ -50,10 +50,13 @@ class BaseArchitecture(ABC):
 # Cell
 class ProportionalArchitecture(BaseArchitecture):
     "Proportional Architecture"
-    def __init__(self, name="proportional", config=None, env=None, inputs=None, **cargs):
+    def __init__(self, name="proportional", config=None, env=None, input_indexes=None, **cargs):
+        inputs=[]
+        for ctr in range(len(input_indexes)):
+            ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}')
+            inputs.append(ip)
+
         super().__init__(name, config, env, inputs)
-
-
 
     def configure_zerothlevel(self):
         inputsIndex=0
@@ -97,5 +100,99 @@ class ProportionalArchitecture(BaseArchitecture):
                 action.add_link(f'pOL{level}C{column}')
             self.hpct.add_postprocessor(action)
             self.env.add_link(action)
+
+
+    def configure_level(self, numInputs, level):
+        inputsIndex=0
+        outputsIndex=1
+        referencesIndex=2
+
+        numColumnsPreviousLevel=len(config[referencesIndex])
+        numColumnsThisLevel = len(config[outputsIndex])
+        #print(config[0])
+        #print(numColumnsThisLevel)
+
+        # create nodes
+        for column in range(numColumnsThisLevel):
+            node = PCTNode(build_links=True, mode=1)
+            # change names
+            node.get_function("perception").set_name(f'wsPL{level}C{column}')
+            node.get_function("reference").set_name(f'wsRL{level}C{column}')
+            node.get_function("comparator").set_name(f'CL{level}C{column}')
+            node.get_function("output").set_name(f'pOL{level}C{column}')
+
+            weights=[]
+            # configure perceptions
+            for inputIndex in range(numColumnsPreviousLevel):
+                node.get_function("perception").add_link(f'wsPL{level-1}C{inputIndex}')
+                weights.append(config[inputsIndex][column][inputIndex])
+
+            node.get_function("perception").weights=np.array(weights)
+
+            # configure outputs
+            node.get_function("output").set_property('gain', config[outputsIndex][column])
+
+            hierarchy.add_node(node, level, column)
+
+        # configure lower references
+        for referenceIndex in range(numColumnsPreviousLevel):
+            reference = hierarchy.get_function(level-1, referenceIndex, "reference")
+            weights=[]
+
+            for output_column in range(numColumnsThisLevel):
+                reference.add_link(f'pOL{level}C{output_column}')
+                weights.append(config[referencesIndex][referenceIndex][output_column])
+
+            reference.weights=np.array(weights)
+
+
+
+    def configure_top_level(hierarchy, config, level):
+        inputsIndex=0
+        outputsIndex=1
+        lowerReferencesIndex=2
+        topReferencesIndex=3
+
+        numColumnsThisLevel = len(config[topReferencesIndex])
+        numColumnsPreviousLevel=len(config[lowerReferencesIndex])
+
+        # create nodes
+        for column in range(numColumnsThisLevel):
+            node = PCTNode(build_links=True, mode=2, name=f'nodeL{level}C{column}')
+            # change names
+            #reference = Constant(config[topReferencesIndex][column], name=f'wsRL{level}C{column}')
+            #node.replace_function("reference", reference, 0)
+            node.get_function("perception").set_name(f'wsPL{level}C{column}')
+            node.get_function("reference").set_name(f'wsRL{level}C{column}')
+            node.get_function("comparator").set_name(f'CL{level}C{column}')
+            node.get_function("output").set_name(f'pOL{level}C{column}')
+
+            # set reference value
+            node.get_function("reference").set_property('value', config[topReferencesIndex][column])
+
+
+            weights=[]
+            # configure perceptions
+            for inputIndex in range(numColumnsPreviousLevel):
+                node.get_function("perception").add_link(f'wsPL{level-1}C{inputIndex}')
+                weights.append(config[inputsIndex][column][inputIndex])
+                #weights.append(config[inputsIndex][inputIndex][column])
+            node.get_function("perception").weights=np.array(weights)
+
+            # configure outputs
+            node.get_function("output").set_property('gain', config[outputsIndex][column])
+
+            hierarchy.add_node(node, level, column)
+
+        # configure lower references
+        for referenceIndex in range(numColumnsPreviousLevel):
+            reference = hierarchy.get_function(level-1, referenceIndex, "reference")
+            weights=[]
+
+            for output_column in range(numColumnsThisLevel):
+                reference.add_link(f'pOL{level}C{output_column}')
+                weights.append(config[lowerReferencesIndex][referenceIndex][output_column])
+
+            reference.weights=np.array(weights)
 
 
