@@ -30,20 +30,17 @@ class BaseArchitecture(ABC):
         print(level0config)
         level0=self.configure_zerothlevel()
 
+        """
         previous_columns=len(level0config[0])
         print('previous_columns',previous_columns)
         intermediate_levels = len(self.config)-2
         for level in range(intermediate_levels):
-            if level+1==1:
-                levelcolumns=level1columns
-            if level+1==2:
-                levelcolumns=level2columns
-            leveln = levelnconfig(levelcolumns, previous_columns)
             if printn:
                 print(f'Level{level+1}:')
                 print(leveln)
             configure_level(hpct, leveln, previous_columns, level+1)
             previous_columns=levelcolumns
+        """
 
     def get_hierarchy(self):
         return self.hpct
