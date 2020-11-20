@@ -52,7 +52,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/configurations.py#L13" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>inputs</code></strong>) :: <code>ABC</code></p>
+<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L13" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>inputs</code></strong>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -84,7 +84,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/configurations.py#L29" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>inputs</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
+<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L29" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>inputs</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
 </blockquote>
 <p>Proportional Architecture</p>
 
@@ -144,37 +144,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>2 2
-[[[0, 0], [1, 1]], [10.066259538916434, 5.611669389189277], [[1, 1]]]
 </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyError</span>                                  Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-60-553a9ad7d813&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span> config <span class="ansi-blue-fg">=</span> pc<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      7</span> pa <span class="ansi-blue-fg">=</span> ProportionalArchitecture<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">=</span>config<span class="ansi-blue-fg">,</span> env<span class="ansi-blue-fg">=</span>pen<span class="ansi-blue-fg">,</span> inputs<span class="ansi-blue-fg">=</span>inputs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 8</span><span class="ansi-red-fg"> </span>pa<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-57-09c1aacd8636&gt;</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     10</span>         level0config <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;level0&#39;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     11</span>         print<span class="ansi-blue-fg">(</span>level0config<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 12</span><span class="ansi-red-fg">         </span>level0<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>configure_zerothlevel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span> 
-<span class="ansi-green-intense-fg ansi-bold">     14</span> 
-
-<span class="ansi-green-fg">&lt;ipython-input-58-0601f63f0e11&gt;</span> in <span class="ansi-cyan-fg">configure_zerothlevel</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     14</span>         level<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span>
-<span class="ansi-green-intense-fg ansi-bold">     15</span>         numInputs<span class="ansi-blue-fg">=</span> len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>inputs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 16</span><span class="ansi-red-fg">         </span>columns <span class="ansi-blue-fg">=</span> len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>config<span class="ansi-blue-fg">[</span>inputsIndex<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span>         <span class="ansi-red-fg">#print(config[0][0])</span>
-<span class="ansi-green-intense-fg ansi-bold">     18</span>         <span class="ansi-red-fg">#print(columns)</span>
-
-<span class="ansi-red-fg">KeyError</span>: 0</pre>
 </div>
 </div>
 
@@ -212,6 +182,27 @@ description: "Classes to create hierachy architectures from array configurations
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Converted 00_examples.ipynb.
+Converted 01_putils.ipynb.
+Converted 02_functions.ipynb.
+Converted 03_nodes.ipynb.
+Converted 04_hierarchy.ipynb.
+Converted 05_environments.ipynb.
+Converted 06_architectures.ipynb.
+Converted index.ipynb.
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

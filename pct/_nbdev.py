@@ -33,7 +33,7 @@ modules = ["putils.py",
            "nodes.py",
            "hierarchy.py",
            "environments.py",
-           "configurations.py"]
+           "architectures.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 
