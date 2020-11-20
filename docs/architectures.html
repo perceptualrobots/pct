@@ -123,18 +123,20 @@ description: "Classes to create hierachy architectures from array configurations
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pen</span> <span class="o">=</span> <span class="n">PendulumV0</span><span class="p">(</span><span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="n">num_actions</span><span class="o">=</span><span class="mi">1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">pen = PendulumV0(render=True, verbose=True)</span>
+<span class="sd">inputs=[2, 3]</span>
+<span class="sd">num_actions=1</span>
 
-<span class="n">pc</span> <span class="o">=</span> <span class="n">ProportionalConfiguration</span><span class="p">(</span><span class="n">num_inputs</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">),</span> <span class="n">num_actions</span><span class="o">=</span><span class="n">num_actions</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">references</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">config</span> <span class="o">=</span> <span class="n">pc</span><span class="p">()</span>
-<span class="n">pa</span> <span class="o">=</span> <span class="n">ProportionalArchitecture</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">pen</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">pa</span><span class="p">()</span>
+<span class="sd">pc = ProportionalConfiguration(num_inputs=len(inputs), num_actions=num_actions, grid=[2, 2], references=[1])</span>
+<span class="sd">config = pc()</span>
+<span class="sd">pa = ProportionalArchitecture(config=config, env=pen, inputs=inputs)</span>
+<span class="sd">pa()</span>
 
-<span class="n">hpct</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">get_hierarchy</span><span class="p">()</span>
-<span class="n">hpct</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">hpct</span><span class="o">.</span><span class="n">get_config</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="sd">hpct = pa.get_hierarchy()</span>
+<span class="sd">hpct.summary()</span>
+<span class="sd">print(json.dumps(hpct.get_config(), indent=1))</span>
+<span class="sd">&quot;&quot;&quot;</span>
 </pre></div>
 
     </div>
@@ -146,63 +148,12 @@ description: "Classes to create hierachy architectures from array configurations
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2 2
-[[[1, 1], [1, 1]], [62.964989144042704, 58.73258054599337], [[0, 0]]]
-pcthierarchy PCTHierarchy
-**************************
-PRE: None
-Level 0
-pctnode PCTNode
-----------------------------
-REF: wsRL0C0 WeightedSum | weights [1. 1. 1.] | 0 
-PER: wsPL0C0 WeightedSum | weights [1 1] | 0 | links  </pre>
-</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;\npen = PendulumV0(render=True, verbose=True)\ninputs=[2, 3]\nnum_actions=1\n\npc = ProportionalConfiguration(num_inputs=len(inputs), num_actions=num_actions, grid=[2, 2], references=[1])\nconfig = pc()\npa = ProportionalArchitecture(config=config, env=pen, inputs=inputs)\npa()\n\nhpct = pa.get_hierarchy()\nhpct.summary()\nprint(json.dumps(hpct.get_config(), indent=1))\n&#39;</pre>
 </div>
 
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-124-375fd61bf596&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span> 
-<span class="ansi-green-intense-fg ansi-bold">     10</span> hpct <span class="ansi-blue-fg">=</span> pa<span class="ansi-blue-fg">.</span>get_hierarchy<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 11</span><span class="ansi-red-fg"> </span>hpct<span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     12</span> print<span class="ansi-blue-fg">(</span>json<span class="ansi-blue-fg">.</span>dumps<span class="ansi-blue-fg">(</span>hpct<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> indent<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span> 
-
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">summary</span><span class="ansi-blue-fg">(self, build)</span>
-<span class="ansi-green-intense-fg ansi-bold">    242</span>                 print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;Level {level}&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    243</span>                 <span class="ansi-green-fg">for</span> col <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">[</span>level<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 244</span><span class="ansi-red-fg">                       </span>self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">[</span>level<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>col<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span>build<span class="ansi-blue-fg">=</span>build<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    245</span>         <span class="ansi-green-fg">elif</span> self<span class="ansi-blue-fg">.</span>order<span class="ansi-blue-fg">==</span><span class="ansi-blue-fg">&#34;Down&#34;</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    246</span>             <span class="ansi-green-fg">for</span> level <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">summary</span><span class="ansi-blue-fg">(self, build)</span>
-<span class="ansi-green-intense-fg ansi-bold">    237</span>         print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;PER:&#34;</span><span class="ansi-blue-fg">,</span> end<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    238</span>         <span class="ansi-green-fg">for</span> perceptionFunction <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>perceptionCollection<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 239</span><span class="ansi-red-fg">             </span>perceptionFunction<span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    240</span> 
-<span class="ansi-green-intense-fg ansi-bold">    241</span>         print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;COM:&#34;</span><span class="ansi-blue-fg">,</span> end<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">summary</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    485</span> 
-<span class="ansi-green-intense-fg ansi-bold">    486</span>     <span class="ansi-green-fg">def</span> summary<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 487</span><span class="ansi-red-fg">         </span>super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;weights {self.weights}&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    488</span> 
-<span class="ansi-green-intense-fg ansi-bold">    489</span>     <span class="ansi-green-fg">def</span> get_config<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">summary</span><span class="ansi-blue-fg">(self, sstr)</span>
-<span class="ansi-green-intense-fg ansi-bold">    139</span>                 fname <span class="ansi-blue-fg">=</span> func
-<span class="ansi-green-intense-fg ansi-bold">    140</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 141</span><span class="ansi-red-fg">                 </span>fname <span class="ansi-blue-fg">=</span> func<span class="ansi-blue-fg">.</span>get_name<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    142</span> 
-<span class="ansi-green-intense-fg ansi-bold">    143</span>             print<span class="ansi-blue-fg">(</span>fname<span class="ansi-blue-fg">,</span> end<span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">AttributeError</span>: &#39;int&#39; object has no attribute &#39;get_name&#39;</pre>
-</div>
 </div>
 
 </div>
@@ -239,6 +190,27 @@ PER: wsPL0C0 WeightedSum | weights [1 1] | 0 | links  </pre>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Converted 00_examples.ipynb.
+Converted 01_putils.ipynb.
+Converted 02_functions.ipynb.
+Converted 03_nodes.ipynb.
+Converted 04_hierarchy.ipynb.
+Converted 05_environments.ipynb.
+Converted 06_architectures.ipynb.
+Converted index.ipynb.
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
