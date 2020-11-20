@@ -52,7 +52,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>env</code></strong>, <strong><code>inputs</code></strong>) :: <code>ABC</code></p>
+<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L18" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>env</code></strong>, <strong><code>inputs</code></strong>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -84,7 +84,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L35" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>inputs</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
+<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L39" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>inputs</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
 </blockquote>
 <p>Proportional Architecture</p>
 
@@ -131,6 +131,10 @@ description: "Classes to create hierachy architectures from array configurations
 <span class="n">config</span> <span class="o">=</span> <span class="n">pc</span><span class="p">()</span>
 <span class="n">pa</span> <span class="o">=</span> <span class="n">ProportionalArchitecture</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">pen</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
 <span class="n">pa</span><span class="p">()</span>
+
+<span class="n">hpct</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">get_hierarchy</span><span class="p">()</span>
+<span class="n">hpct</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">hpct</span><span class="o">.</span><span class="n">get_config</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -144,8 +148,60 @@ description: "Classes to create hierachy architectures from array configurations
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>2 2
-[[[0, 1], [1, 1]], [42.1360677380765, 24.70302927784811], [[0, 0]]]
-</pre>
+[[[1, 1], [1, 1]], [62.964989144042704, 58.73258054599337], [[0, 0]]]
+pcthierarchy PCTHierarchy
+**************************
+PRE: None
+Level 0
+pctnode PCTNode
+----------------------------
+REF: wsRL0C0 WeightedSum | weights [1. 1. 1.] | 0 
+PER: wsPL0C0 WeightedSum | weights [1 1] | 0 | links  </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-124-375fd61bf596&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span> 
+<span class="ansi-green-intense-fg ansi-bold">     10</span> hpct <span class="ansi-blue-fg">=</span> pa<span class="ansi-blue-fg">.</span>get_hierarchy<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 11</span><span class="ansi-red-fg"> </span>hpct<span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     12</span> print<span class="ansi-blue-fg">(</span>json<span class="ansi-blue-fg">.</span>dumps<span class="ansi-blue-fg">(</span>hpct<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> indent<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     13</span> 
+
+<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">summary</span><span class="ansi-blue-fg">(self, build)</span>
+<span class="ansi-green-intense-fg ansi-bold">    242</span>                 print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;Level {level}&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    243</span>                 <span class="ansi-green-fg">for</span> col <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">[</span>level<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 244</span><span class="ansi-red-fg">                       </span>self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">[</span>level<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>col<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span>build<span class="ansi-blue-fg">=</span>build<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    245</span>         <span class="ansi-green-fg">elif</span> self<span class="ansi-blue-fg">.</span>order<span class="ansi-blue-fg">==</span><span class="ansi-blue-fg">&#34;Down&#34;</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    246</span>             <span class="ansi-green-fg">for</span> level <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">summary</span><span class="ansi-blue-fg">(self, build)</span>
+<span class="ansi-green-intense-fg ansi-bold">    237</span>         print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;PER:&#34;</span><span class="ansi-blue-fg">,</span> end<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    238</span>         <span class="ansi-green-fg">for</span> perceptionFunction <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>perceptionCollection<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 239</span><span class="ansi-red-fg">             </span>perceptionFunction<span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    240</span> 
+<span class="ansi-green-intense-fg ansi-bold">    241</span>         print<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;COM:&#34;</span><span class="ansi-blue-fg">,</span> end<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">summary</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    485</span> 
+<span class="ansi-green-intense-fg ansi-bold">    486</span>     <span class="ansi-green-fg">def</span> summary<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 487</span><span class="ansi-red-fg">         </span>super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;weights {self.weights}&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    488</span> 
+<span class="ansi-green-intense-fg ansi-bold">    489</span>     <span class="ansi-green-fg">def</span> get_config<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">summary</span><span class="ansi-blue-fg">(self, sstr)</span>
+<span class="ansi-green-intense-fg ansi-bold">    139</span>                 fname <span class="ansi-blue-fg">=</span> func
+<span class="ansi-green-intense-fg ansi-bold">    140</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 141</span><span class="ansi-red-fg">                 </span>fname <span class="ansi-blue-fg">=</span> func<span class="ansi-blue-fg">.</span>get_name<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    142</span> 
+<span class="ansi-green-intense-fg ansi-bold">    143</span>             print<span class="ansi-blue-fg">(</span>fname<span class="ansi-blue-fg">,</span> end<span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;int&#39; object has no attribute &#39;get_name&#39;</pre>
 </div>
 </div>
 
@@ -183,27 +239,6 @@ description: "Classes to create hierachy architectures from array configurations
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Converted 00_examples.ipynb.
-Converted 01_putils.ipynb.
-Converted 02_functions.ipynb.
-Converted 03_nodes.ipynb.
-Converted 04_hierarchy.ipynb.
-Converted 05_environments.ipynb.
-Converted 06_architectures.ipynb.
-Converted index.ipynb.
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 

@@ -6,6 +6,8 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture']
 import gym
 import random
 import numpy as np
+
+import json
 import os
 from abc import ABC, abstractmethod
 from .hierarchy import PCTHierarchy
@@ -20,6 +22,8 @@ class BaseArchitecture(ABC):
         self.env = env
         self.inputs=inputs
         self.hpct = PCTHierarchy()
+        for input in inputs:
+            self.hpct.add_preprocessor(input)
 
     def __call__(self):
         level0config = self.config['level0']
