@@ -52,7 +52,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L13" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>inputs</code></strong>) :: <code>ABC</code></p>
+<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>env</code></strong>, <strong><code>inputs</code></strong>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -84,7 +84,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L29" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>inputs</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
+<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L33" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>inputs</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
 </blockquote>
 <p>Proportional Architecture</p>
 
@@ -130,7 +130,7 @@ description: "Classes to create hierachy architectures from array configurations
 <span class="n">pc</span> <span class="o">=</span> <span class="n">ProportionalConfiguration</span><span class="p">(</span><span class="n">num_inputs</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">),</span> <span class="n">num_actions</span><span class="o">=</span><span class="n">num_actions</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">references</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">config</span> <span class="o">=</span> <span class="n">pc</span><span class="p">()</span>
 <span class="n">pa</span> <span class="o">=</span> <span class="n">ProportionalArchitecture</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">pen</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
-<span class="c1">#pa()</span>
+<span class="n">pa</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -144,6 +144,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>2 2
+[[[0, 1], [1, 1]], [42.1360677380765, 24.70302927784811], [[0, 0]]]
 </pre>
 </div>
 </div>

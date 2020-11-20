@@ -5,15 +5,19 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture']
 # Cell
 import gym
 import random
+import numpy as np
 import os
 from abc import ABC, abstractmethod
 from .hierarchy import PCTHierarchy
+from .nodes import PCTNode
+from .functions import WeightedSum
 
 # Cell
 class BaseArchitecture(ABC):
     "Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all."
-    def __init__(self, name, config, inputs):
+    def __init__(self, name, config, env, inputs):
         self.config = config
+        self.env = env
         self.inputs=inputs
         self.hpct = PCTHierarchy()
 
@@ -29,7 +33,7 @@ class BaseArchitecture(ABC):
 class ProportionalArchitecture(BaseArchitecture):
     "Proportional Architecture"
     def __init__(self, name="proportional", config=None, env=None, inputs=None, **cargs):
-        super().__init__(name, config, inputs)
+        super().__init__(name, config, env, inputs)
 
 
 
@@ -38,9 +42,10 @@ class ProportionalArchitecture(BaseArchitecture):
         outputsIndex=1
         actionsIndex=2
 
+        config=self.config['level0']
         level=0
         numInputs= len(self.inputs)
-        columns = len(self.config[inputsIndex][0])
+        columns = len(config[inputsIndex][0])
         #print(config[0][0])
         #print(columns)
 
@@ -56,14 +61,14 @@ class ProportionalArchitecture(BaseArchitecture):
             weights=[]
             # configure perceptions
             for inputIndex in range(numInputs):
-                node.get_function("perception").add_link(inputs[inputIndex])
+                node.get_function("perception").add_link(self.inputs[inputIndex])
                 weights.append(config[inputsIndex][inputIndex][column])
             node.get_function("perception").weights=np.array(weights)
 
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
 
-            hierarchy.add_node(node, level, column)
+            self.hpct.add_node(node, level, column)
 
         # configure actions
         numActions = len(config[actionsIndex])
@@ -72,92 +77,7 @@ class ProportionalArchitecture(BaseArchitecture):
             action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'action{actionIndex+1}')
             for column in range(numColumnsThisLevel):
                 action.add_link(f'pOL{level}C{column}')
-            hierarchy.add_postprocessor(action)
+            self.hpct.add_postprocessor(action)
             self.env.add_link(action)
 
-    def level0config(self):
-        numColumnsThisLevel = self.grid[0]
-        num_inputs = len(self.inputs)
-        num_actions = len(self.actions)
-
-        # inputs
-        iwts=[]
-        for i in range(num_inputs):
-            iwt = [random.randint(0, 1) for iter in range(numColumnsThisLevel)]
-            iwts.append(iwt)
-
-        # outputs
-        owts=[]
-        for i in range(numColumnsThisLevel):
-            owts.append(random.uniform(0,100))
-
-        # actions
-        actwts = []
-        for i in range(num_actions):
-            awt = [random.randint(0, 1) for iter in range(numColumnsThisLevel)]
-            actwts.append(awt)
-
-        lwts=[]
-        lwts.append(iwts)
-        lwts.append(owts)
-        lwts.append(actwts)
-
-        return lwts
-
-    def levelnconfig(self, numColumnsThisLevel, numColumnsPreviousLevel):
-        print(numColumnsThisLevel,    numColumnsPreviousLevel)
-        # inputs
-        iwts=[]
-        for i in range(numColumnsThisLevel):
-            iwt = [random.randint(0, 1) for iter in range(numColumnsPreviousLevel)]
-            iwts.append(iwt)
-
-        # outputs
-        owts=[]
-        for i in range(numColumnsThisLevel):
-            owts.append(random.uniform(0,1))
-
-
-        # lower refs
-        rwts = []
-        for i in range(numColumnsPreviousLevel):
-            rwt = [random.uniform(-100, 100) for iter in range(numColumnsThisLevel)]
-            rwts.append(rwt)
-
-        lwts=[]
-        lwts.append(iwts)
-        lwts.append(owts)
-        lwts.append(rwts)
-
-        return lwts
-
-
-    def leveltopconfig(self, top_references, numColumnsPreviousLevel):
-
-        numColumnsThisLevel=len(top_references)
-        # inputs
-        iwts=[]
-        for i in range(numColumnsThisLevel):
-            iwt = [random.randint(0, 1) for iter in range(numColumnsPreviousLevel)]
-            iwts.append(iwt)
-
-        # outputs
-        owts=[]
-        for i in range(numColumnsThisLevel):
-            owts.append(random.uniform(0,1))
-
-
-        # lower refs
-        rwts = []
-        for i in range(numColumnsPreviousLevel):
-            rwt = [random.uniform(-100, 100) for iter in range(numColumnsThisLevel)]
-            rwts.append(rwt)
-
-        lwts=[]
-        lwts.append(iwts)
-        lwts.append(owts)
-        lwts.append(rwts)
-        lwts.append(top_references)
-
-        return lwts
 
