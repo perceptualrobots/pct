@@ -26,6 +26,8 @@ class BaseArchitecture(ABC):
         print(level0config)
         level0=self.configure_zerothlevel()
 
+    def get_hierarchy(self):
+        return self.hpct
 
 
 
