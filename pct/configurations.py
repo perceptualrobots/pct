@@ -12,28 +12,77 @@ from .hierarchy import PCTHierarchy
 # Cell
 class BaseArchitecture(ABC):
     "Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all."
-    def __init__(self, name, config):
+    def __init__(self, name, config, inputs):
         self.config = config
+        self.inputs=inputs
         self.hpct = PCTHierarchy()
 
     def __call__(self):
-        level0 = self.config['level0']
-        print(level0)
+        level0config = self.config['level0']
+        print(level0config)
+        level0=self.configure_zerothlevel()
+
 
 
 
 # Cell
 class ProportionalArchitecture(BaseArchitecture):
     "Proportional Architecture"
-    def __init__(self, name="proportional", config=None, **cargs):
-        super().__init__(name, config)
+    def __init__(self, name="proportional", config=None, env=None, inputs=None, **cargs):
+        super().__init__(name, config, inputs)
 
+
+
+    def configure_zerothlevel(self):
+        inputsIndex=0
+        outputsIndex=1
+        actionsIndex=2
+
+        level=0
+        numInputs= len(self.inputs)
+        columns = len(self.config[inputsIndex][0])
+        #print(config[0][0])
+        #print(columns)
+
+        # create nodes
+        for column in range(columns):
+            node = PCTNode(build_links=True, mode=1)
+            # change names
+            node.get_function("perception").set_name(f'wsPL{level}C{column}')
+            node.get_function("reference").set_name(f'wsRL{level}C{column}')
+            node.get_function("comparator").set_name(f'CL{level}C{column}')
+            node.get_function("output").set_name(f'pOL{level}C{column}')
+
+            weights=[]
+            # configure perceptions
+            for inputIndex in range(numInputs):
+                node.get_function("perception").add_link(inputs[inputIndex])
+                weights.append(config[inputsIndex][inputIndex][column])
+            node.get_function("perception").weights=np.array(weights)
+
+            # configure outputs
+            node.get_function("output").set_property('gain', config[outputsIndex][column])
+
+            hierarchy.add_node(node, level, column)
+
+        # configure actions
+        numActions = len(config[actionsIndex])
+        numColumnsThisLevel = len(config[outputsIndex])
+        for actionIndex in range(numActions):
+            action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'action{actionIndex+1}')
+            for column in range(numColumnsThisLevel):
+                action.add_link(f'pOL{level}C{column}')
+            hierarchy.add_postprocessor(action)
+            self.env.add_link(action)
 
     def level0config(self):
         numColumnsThisLevel = self.grid[0]
+        num_inputs = len(self.inputs)
+        num_actions = len(self.actions)
+
         # inputs
         iwts=[]
-        for i in range(self.num_inputs):
+        for i in range(num_inputs):
             iwt = [random.randint(0, 1) for iter in range(numColumnsThisLevel)]
             iwts.append(iwt)
 
@@ -44,7 +93,7 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # actions
         actwts = []
-        for i in range(self.num_actions):
+        for i in range(num_actions):
             awt = [random.randint(0, 1) for iter in range(numColumnsThisLevel)]
             actwts.append(awt)
 

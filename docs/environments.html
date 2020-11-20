@@ -250,7 +250,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.998 0.059 1.000 -0.031 -0.183 0.166 -1.0 False {}&#39;</pre>
+<pre>&#39;0.997 -0.083 1.000 -0.004 0.072 -0.041 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -283,7 +283,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9982872890471749</pre>
+<pre>0.9965881135941491</pre>
 </div>
 
 </div>
@@ -334,7 +334,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9982872890471749</pre>
+<pre>0.9965881135941491</pre>
 </div>
 
 </div>
@@ -369,10 +369,10 @@ description: "Classes to create simulated environment functions."
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pen</span> <span class="o">=</span> <span class="n">PendulumV0</span><span class="p">(</span><span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pen</span> <span class="o">=</span> <span class="n">PendulumV0</span><span class="p">(</span><span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">pen</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">Constant</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
-<span class="n">pen</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pen</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -385,8 +385,8 @@ description: "Classes to create simulated environment functions."
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;PendulumV0&#39;, &#39;name&#39;: &#39;gym2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant2&#39;}, &#39;env_name&#39;: &#39;Pendulum-v0&#39;, &#39;reward&#39;: 0, &#39;done&#39;: False, &#39;info&#39;: {}}
-</pre>
+<pre>{&#39;type&#39;: &#39;PendulumV0&#39;, &#39;name&#39;: &#39;gym1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant1&#39;}, &#39;env_name&#39;: &#39;Pendulum-v0&#39;, &#39;reward&#39;: 0, &#39;done&#39;: False, &#39;info&#39;: {}}
+-0.865 -0.502 0.739 -7.123358052111961 False {} -0.851 -0.524 0.513 -6.894543250472319 False {} -0.844 -0.536 0.269 -6.732749905239168 False {} -0.844 -0.537 0.017 -6.64418982715233 False {} -0.850 -0.527 -0.235 -6.63251384186536 False {} -0.862 -0.506 -0.480 -6.698708869079416 False {} -0.880 -0.475 -0.710 -6.841021958380259 False {} -0.901 -0.434 -0.916 -7.054903988963358 False {} -0.923 -0.385 -1.092 -7.333001171968104 False {} -0.945 -0.327 -1.230 -7.665250851704046 False {} </pre>
 </div>
 </div>
 
