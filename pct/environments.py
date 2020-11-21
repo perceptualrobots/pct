@@ -100,6 +100,7 @@ class CartPoleV1(OpenAIGym):
 
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
 
+        return self.value
 
 
 
@@ -116,14 +117,26 @@ class PendulumV0(OpenAIGym):
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
     def __init__(self, env_name='Pendulum-v0', render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
-
         super().__init__(env_name, render, video_wrap, value, name, links, new_name, **cargs)
 
-
-
     def __call__(self, verbose=False):
-        super().__call__(verbose)
+        super().check_links(1)
+        self.input = self.links[0].get_value()
+        self.obs = self.env.step([self.input])
+
+        self.value = self.obs[0]
+        self.reward = self.obs[1]
+        self.done = self.obs[2]
+        self.info = self.obs[3]
 
         pi = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])
         self.value = np.append(self.value, pi)
+
+        if self.render:
+            self.env.render()
+
+        if verbose :
+            print(self.output_string(), end= " ")
+
+        return self.value
 

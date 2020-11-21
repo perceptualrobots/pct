@@ -623,12 +623,36 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-72-50381282bb5e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>cartpole_hierarchy<span class="ansi-yellow-intense-fg ansi-bold">.</span>run<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">500</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
+<span class="ansi-green-intense-fg ansi-bold">c:\users\ruper\versioning\python\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">run</span><span class="ansi-blue-intense-fg ansi-bold">(self, steps, verbose)</span>
+<span class="ansi-green-fg">    129</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> run<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> steps<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">False</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    130</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> i <span class="ansi-green-intense-fg ansi-bold">in</span> range<span class="ansi-yellow-intense-fg ansi-bold">(</span>steps<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 131</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>out <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    132</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> out
+<span class="ansi-green-fg">    133</span> 
 
-<div class="output_text output_subarea output_execute_result">
-<pre>0</pre>
+<span class="ansi-green-intense-fg ansi-bold">c:\users\ruper\versioning\python\nbdev\pct\pct\hierarchy.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">     67</span>             <span class="ansi-red-intense-fg ansi-bold">#if verbose:</span>
+<span class="ansi-green-fg">     68</span>             <span class="ansi-red-intense-fg ansi-bold">#    print(func.get_name(), end =&#34; &#34;)</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 69</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     70</span> 
+<span class="ansi-green-fg">     71</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> verbose<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+
+<span class="ansi-green-intense-fg ansi-bold">c:\users\ruper\versioning\python\nbdev\pct\pct\environments.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, verbose)</span>
+<span class="ansi-green-fg">     37</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> obs<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">     38</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>name <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;CartPole-v1&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 39</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value <span class="ansi-yellow-intense-fg ansi-bold">=</span> np<span class="ansi-yellow-intense-fg ansi-bold">.</span>append<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>value<span class="ansi-yellow-intense-fg ansi-bold">,</span> obs<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">+</span>math<span class="ansi-yellow-intense-fg ansi-bold">.</span>sin<span class="ansi-yellow-intense-fg ansi-bold">(</span>obs<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">2</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     40</span> 
+<span class="ansi-green-fg">     41</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>reward <span class="ansi-yellow-intense-fg ansi-bold">=</span> obs<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;np&#39; is not defined</pre>
 </div>
-
 </div>
 
 </div>
