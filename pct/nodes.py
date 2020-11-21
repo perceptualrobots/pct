@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .functions import *
+from .environments import *
 
 # Cell
 class PCTNode():

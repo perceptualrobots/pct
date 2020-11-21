@@ -28,8 +28,8 @@ entries:
       title: Environments
       url: /environments
     - output: web,pdf
-      title: Configurations
-      url: /configurations
+      title: Architectures
+      url: /architectures
     output: web
     title: pct
   output: web

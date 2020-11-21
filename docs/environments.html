@@ -84,9 +84,41 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PendulumV0" class="doc_header"><code>class</code> <code>PendulumV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L95" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PendulumV0</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="CartPoleV1" class="doc_header"><code>class</code> <code>CartPoleV1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L83" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CartPoleV1</code>(<strong><code>env_name</code></strong>=<em><code>'CartPole-v1'</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
-<p>A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
+<p>A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="PendulumV0" class="doc_header"><code>class</code> <code>PendulumV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L109" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PendulumV0</code>(<strong><code>env_name</code></strong>=<em><code>'Pendulum-v0'</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
+</blockquote>
+<p>A function that creates an runs the Pendulum-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
 </div>
 
@@ -218,7 +250,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;1.000 -0.009 1.000 -0.023 0.067 0.092 -1.0 False {}&#39;</pre>
+<pre>&#39;0.997 -0.083 1.000 -0.004 0.072 -0.041 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -251,7 +283,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9999617163632288</pre>
+<pre>0.9965881135941491</pre>
 </div>
 
 </div>
@@ -302,7 +334,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9999617163632288</pre>
+<pre>0.9965881135941491</pre>
 </div>
 
 </div>
@@ -321,6 +353,57 @@ description: "Classes to create simulated environment functions."
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acrobot</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pen</span> <span class="o">=</span> <span class="n">PendulumV0</span><span class="p">(</span><span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pen</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">Constant</span><span class="p">([</span><span class="mi">1</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pen</span><span class="o">.</span><span class="n">get_config</span><span class="p">())</span>
+<span class="n">pen</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;PendulumV0&#39;, &#39;name&#39;: &#39;gym1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant1&#39;}, &#39;env_name&#39;: &#39;Pendulum-v0&#39;, &#39;reward&#39;: 0, &#39;done&#39;: False, &#39;info&#39;: {}}
+-0.865 -0.502 0.739 -7.123358052111961 False {} -0.851 -0.524 0.513 -6.894543250472319 False {} -0.844 -0.536 0.269 -6.732749905239168 False {} -0.844 -0.537 0.017 -6.64418982715233 False {} -0.850 -0.527 -0.235 -6.63251384186536 False {} -0.862 -0.506 -0.480 -6.698708869079416 False {} -0.880 -0.475 -0.710 -6.841021958380259 False {} -0.901 -0.434 -0.916 -7.054903988963358 False {} -0.923 -0.385 -1.092 -7.333001171968104 False {} -0.945 -0.327 -1.230 -7.665250851704046 False {} </pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pen</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
     </div>

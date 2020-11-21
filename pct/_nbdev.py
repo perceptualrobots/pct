@@ -23,14 +23,17 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "PCTNodeData": "03_nodes.ipynb",
          "PCTHierarchy": "04_hierarchy.ipynb",
          "OpenAIGym": "05_environments.ipynb",
-         "PendulumV0": "05_environments.ipynb"}
+         "CartPoleV1": "05_environments.ipynb",
+         "PendulumV0": "05_environments.ipynb",
+         "BaseArchitecture": "06_architectures.ipynb",
+         "ProportionalArchitecture": "06_architectures.ipynb"}
 
-modules = ["None.py",
-           "putils.py",
+modules = ["putils.py",
            "functions.py",
            "nodes.py",
            "hierarchy.py",
-           "environments.py"]
+           "environments.py",
+           "architectures.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 
