@@ -103,9 +103,6 @@ class CartPoleV1(OpenAIGym):
         return self.value
 
 
-
-
-
 # Cell
 class PendulumV0(OpenAIGym):
     "A function that creates an runs the Pendulum-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."

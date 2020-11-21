@@ -22,29 +22,31 @@ class BaseArchitecture(ABC):
         self.env = env
         self.inputs=inputs
         self.hpct = PCTHierarchy()
+        self.hpct.add_preprocessor(env)
+
         for input in inputs:
             self.hpct.add_preprocessor(input)
 
     def __call__(self):
         level0config = self.config['level0']
-        print(level0config)
-        level0=self.configure_zerothlevel()
+        print('level0config',level0config)
+        previous_columns=self.configure_zerothlevel()
 
-        """
-        previous_columns=len(level0config[0])
         print('previous_columns',previous_columns)
         intermediate_levels = len(self.config)-2
+        level=-1
         for level in range(intermediate_levels):
-            if printn:
-                print(f'Level{level+1}:')
-                print(leveln)
-            configure_level(hpct, leveln, previous_columns, level+1)
+            print('level', level+1)
+            leveln = self.config[f'level{level+1}']
+            levelcolumns = self.configure_level(leveln, previous_columns, level+1)
             previous_columns=levelcolumns
-        """
+
+        level+=1
+        print('level', level+1)
+        self.configure_top_level(self.config[f'level{level+1}'], level+1)
 
     def get_hierarchy(self):
         return self.hpct
-
 
 
 # Cell
@@ -53,7 +55,7 @@ class ProportionalArchitecture(BaseArchitecture):
     def __init__(self, name="proportional", config=None, env=None, input_indexes=None, **cargs):
         inputs=[]
         for ctr in range(len(input_indexes)):
-            ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}')
+            ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
             inputs.append(ip)
 
         super().__init__(name, config, env, inputs)
@@ -72,12 +74,12 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=1)
+            node = PCTNode(build_links=True, mode=1, name=f'nodeL{level}C{column}')
             # change names
-            node.get_function("perception").set_name(f'wsPL{level}C{column}')
-            node.get_function("reference").set_name(f'wsRL{level}C{column}')
+            node.get_function("perception").set_name(f'PL{level}C{column}ws')
+            node.get_function("reference").set_name(f'RL{level}C{column}ws')
             node.get_function("comparator").set_name(f'CL{level}C{column}')
-            node.get_function("output").set_name(f'pOL{level}C{column}')
+            node.get_function("output").set_name(f'OL{level}C{column}p')
 
             weights=[]
             # configure perceptions
@@ -97,34 +99,36 @@ class ProportionalArchitecture(BaseArchitecture):
         for actionIndex in range(numActions):
             action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'action{actionIndex+1}')
             for column in range(numColumnsThisLevel):
-                action.add_link(f'pOL{level}C{column}')
+                action.add_link(f'OL{level}C{column}p')
             self.hpct.add_postprocessor(action)
             self.env.add_link(action)
 
+        return numColumnsThisLevel
 
-    def configure_level(self, numInputs, level):
+    def configure_level(self, config, numColumnsPreviousLevel, level):
         inputsIndex=0
         outputsIndex=1
         referencesIndex=2
 
-        numColumnsPreviousLevel=len(config[referencesIndex])
+        #numColumnsPreviousLevel=len(config[referencesIndex])
         numColumnsThisLevel = len(config[outputsIndex])
-        #print(config[0])
-        #print(numColumnsThisLevel)
+        print(f'level{level}',config)
+        print('numColumnsPreviousLevel',numColumnsPreviousLevel)
+        print('numColumnsThisLevel',numColumnsThisLevel)
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=1)
+            node = PCTNode(build_links=True, mode=1, name=f'nodeL{level}C{column}')
             # change names
-            node.get_function("perception").set_name(f'wsPL{level}C{column}')
-            node.get_function("reference").set_name(f'wsRL{level}C{column}')
+            node.get_function("perception").set_name(f'PL{level}C{column}ws')
+            node.get_function("reference").set_name(f'RL{level}C{column}ws')
             node.get_function("comparator").set_name(f'CL{level}C{column}')
-            node.get_function("output").set_name(f'pOL{level}C{column}')
+            node.get_function("output").set_name(f'OL{level}C{column}p')
 
             weights=[]
             # configure perceptions
             for inputIndex in range(numColumnsPreviousLevel):
-                node.get_function("perception").add_link(f'wsPL{level-1}C{inputIndex}')
+                node.get_function("perception").add_link(f'PL{level-1}C{inputIndex}ws')
                 weights.append(config[inputsIndex][column][inputIndex])
 
             node.get_function("perception").weights=np.array(weights)
@@ -132,22 +136,22 @@ class ProportionalArchitecture(BaseArchitecture):
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
 
-            hierarchy.add_node(node, level, column)
+            self.hpct.add_node(node, level, column)
 
         # configure lower references
         for referenceIndex in range(numColumnsPreviousLevel):
-            reference = hierarchy.get_function(level-1, referenceIndex, "reference")
+            reference = self.hpct.get_function(level-1, referenceIndex, "reference")
             weights=[]
 
             for output_column in range(numColumnsThisLevel):
-                reference.add_link(f'pOL{level}C{output_column}')
+                reference.add_link(f'OL{level}C{output_column}p')
                 weights.append(config[referencesIndex][referenceIndex][output_column])
 
             reference.weights=np.array(weights)
 
+        return numColumnsThisLevel
 
-
-    def configure_top_level(hierarchy, config, level):
+    def configure_top_level(self, config, level):
         inputsIndex=0
         outputsIndex=1
         lowerReferencesIndex=2
@@ -160,21 +164,23 @@ class ProportionalArchitecture(BaseArchitecture):
         for column in range(numColumnsThisLevel):
             node = PCTNode(build_links=True, mode=2, name=f'nodeL{level}C{column}')
             # change names
-            #reference = Constant(config[topReferencesIndex][column], name=f'wsRL{level}C{column}')
-            #node.replace_function("reference", reference, 0)
-            node.get_function("perception").set_name(f'wsPL{level}C{column}')
-            node.get_function("reference").set_name(f'wsRL{level}C{column}')
+            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c')
+            node.replace_function("reference", reference, 0)
+            node.get_function("perception").set_name(f'PL{level}C{column}ws')
+            #node.get_function("reference").set_name(f'RL{level}C{column}ws')
             node.get_function("comparator").set_name(f'CL{level}C{column}')
-            node.get_function("output").set_name(f'pOL{level}C{column}')
+            node.get_function("output").set_name(f'OL{level}C{column}p')
+            node.get_function("comparator").set_link(reference)
+            node.get_function("comparator").add_link(node.get_function("perception"))
 
             # set reference value
-            node.get_function("reference").set_property('value', config[topReferencesIndex][column])
+            #node.get_function("reference").set_property('value', config[topReferencesIndex][column])
 
 
             weights=[]
             # configure perceptions
             for inputIndex in range(numColumnsPreviousLevel):
-                node.get_function("perception").add_link(f'wsPL{level-1}C{inputIndex}')
+                node.get_function("perception").add_link(f'PL{level-1}C{inputIndex}ws')
                 weights.append(config[inputsIndex][column][inputIndex])
                 #weights.append(config[inputsIndex][inputIndex][column])
             node.get_function("perception").weights=np.array(weights)
@@ -182,15 +188,15 @@ class ProportionalArchitecture(BaseArchitecture):
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
 
-            hierarchy.add_node(node, level, column)
+            self.hpct.add_node(node, level, column)
 
         # configure lower references
         for referenceIndex in range(numColumnsPreviousLevel):
-            reference = hierarchy.get_function(level-1, referenceIndex, "reference")
+            reference = self.hpct.get_function(level-1, referenceIndex, "reference")
             weights=[]
 
             for output_column in range(numColumnsThisLevel):
-                reference.add_link(f'pOL{level}C{output_column}')
+                reference.add_link(f'OL{level}C{output_column}p')
                 weights.append(config[lowerReferencesIndex][referenceIndex][output_column])
 
             reference.weights=np.array(weights)
