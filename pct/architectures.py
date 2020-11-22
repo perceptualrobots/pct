@@ -13,6 +13,9 @@ from abc import ABC, abstractmethod
 from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
 from .functions import WeightedSum
+from .environments import PendulumV0
+from .functions import IndexedParameter
+from .functions import Constant
 
 # Cell
 class BaseArchitecture(ABC):
@@ -29,24 +32,24 @@ class BaseArchitecture(ABC):
 
     def __call__(self):
         level0config = self.config['level0']
-        print('level0config',level0config)
         previous_columns=self.configure_zerothlevel()
 
-        print('previous_columns',previous_columns)
         intermediate_levels = len(self.config)-2
         level=-1
         for level in range(intermediate_levels):
-            print('level', level+1)
             leveln = self.config[f'level{level+1}']
             levelcolumns = self.configure_level(leveln, previous_columns, level+1)
             previous_columns=levelcolumns
-
-        level+=1
-        print('level', level+1)
-        self.configure_top_level(self.config[f'level{level+1}'], level+1)
+        if intermediate_levels < 0:
+            self.set_references()
+        else:
+            level+=1
+            self.configure_top_level(self.config[f'level{level+1}'], level+1)
 
     def get_hierarchy(self):
         return self.hpct
+
+
 
 
 # Cell
@@ -97,7 +100,7 @@ class ProportionalArchitecture(BaseArchitecture):
         numActions = len(config[actionsIndex])
         numColumnsThisLevel = len(config[outputsIndex])
         for actionIndex in range(numActions):
-            action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'action{actionIndex+1}')
+            action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'Action{actionIndex+1}ws')
             for column in range(numColumnsThisLevel):
                 action.add_link(f'OL{level}C{column}p')
             self.hpct.add_postprocessor(action)
@@ -112,9 +115,6 @@ class ProportionalArchitecture(BaseArchitecture):
 
         #numColumnsPreviousLevel=len(config[referencesIndex])
         numColumnsThisLevel = len(config[outputsIndex])
-        print(f'level{level}',config)
-        print('numColumnsPreviousLevel',numColumnsPreviousLevel)
-        print('numColumnsThisLevel',numColumnsThisLevel)
 
         # create nodes
         for column in range(numColumnsThisLevel):
@@ -200,5 +200,21 @@ class ProportionalArchitecture(BaseArchitecture):
                 weights.append(config[lowerReferencesIndex][referenceIndex][output_column])
 
             reference.weights=np.array(weights)
+
+
+    def set_references(self):
+        level=0
+        config=self.config['level0']
+        topReferencesIndex=3
+
+        numColumnsThisLevel = len(config[topReferencesIndex])
+        # change nodes
+        for column in range(numColumnsThisLevel):
+            node = self.hpct.get_node(level, column)
+            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c')
+            node.replace_function("reference", reference, 0)
+            node.get_function("comparator").set_link(reference)
+            node.get_function("comparator").add_link(node.get_function("perception"))
+
 
 
