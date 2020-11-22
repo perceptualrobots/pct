@@ -3,19 +3,18 @@
 __all__ = ['BaseArchitecture', 'ProportionalArchitecture']
 
 # Cell
-import gym
 import random
 import numpy as np
-
 import json
 import os
 from abc import ABC, abstractmethod
+
 from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
 from .functions import WeightedSum
-from .environments import PendulumV0
 from .functions import IndexedParameter
 from .functions import Constant
+from .environments import PendulumV0
 
 # Cell
 class BaseArchitecture(ABC):
