@@ -25,6 +25,7 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "OpenAIGym": "05_environments.ipynb",
          "CartPoleV1": "05_environments.ipynb",
          "PendulumV0": "05_environments.ipynb",
+         "VelocityModel": "05_environments.ipynb",
          "BaseArchitecture": "06_architectures.ipynb",
          "ProportionalArchitecture": "06_architectures.ipynb"}
 
