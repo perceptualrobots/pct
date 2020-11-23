@@ -186,9 +186,7 @@ class BaseFunction(ABC):
         return self.value
 
     def get_indexed_value(self, index):
-        if isinstance(self.value, list):
-            return self.value[index]
-        else:
+        if isinstance(self.value, float):
             if index != 0:
                 raise Exception('Index should be zero for non-list value.')
             return self.value
