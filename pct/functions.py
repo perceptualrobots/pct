@@ -186,11 +186,13 @@ class BaseFunction(ABC):
         return self.value
 
     def get_indexed_value(self, index):
-        if not isinstance(self.value, list):
+        if isinstance(self.value, list):
+            return self.value[index]
+        else:
             if index != 0:
                 raise Exception('Index should be zero for non-list value.')
-
             return self.value
+
         return self.value[index]
 
     def add_link(self, linkfn):
