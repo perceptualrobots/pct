@@ -19,6 +19,7 @@ class PCTHierarchy():
     def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", history=False, build=True, **pargs):
         self.links_built = False
         self.order=None
+        self.history=history
         if clear_names:
             UniqueNamer.getInstance().clear()
         self.name=UniqueNamer.getInstance().get_name(name)
