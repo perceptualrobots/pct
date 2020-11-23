@@ -282,7 +282,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.999 -0.046 1.000 -0.030 0.021 -0.018 -1.0 False {}&#39;</pre>
+<pre>&#39;1.000 -0.011 0.999 -0.051 -0.042 0.073 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -315,7 +315,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9989575702536398</pre>
+<pre>0.9999362331598308</pre>
 </div>
 
 </div>
@@ -366,7 +366,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9989575702536398</pre>
+<pre>0.9999362331598308</pre>
 </div>
 
 </div>
@@ -418,7 +418,7 @@ description: "Classes to create simulated environment functions."
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{&#39;type&#39;: &#39;PendulumV0&#39;, &#39;name&#39;: &#39;gym1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant1&#39;}, &#39;env_name&#39;: &#39;Pendulum-v0&#39;, &#39;reward&#39;: 0, &#39;done&#39;: False, &#39;info&#39;: {}}
--0.435 0.900 0.154 2.021 [-4.10035773] False {} -0.479 0.878 0.979 2.070 [-4.08831748] False {} -0.555 0.832 1.787 2.159 [-4.38205636] False {} -0.657 0.754 2.561 2.288 [-4.98370566] False {} -0.771 0.637 3.277 2.451 [-5.88966585] False {} -0.880 0.475 3.904 2.647 [-7.08373695] False {} -0.963 0.271 4.411 2.867 [-8.52953969] False {} -0.999 0.036 4.764 3.105 [-10.16641633] False {} -0.978 -0.209 4.941 -2.931 [-11.91311918] False {} -0.897 -0.442 4.934 -2.684 [-11.03236328] False {} </pre>
+0.924 0.382 0.337 0.392 [-0.14232439] False {} 0.909 0.417 0.774 0.430 [-0.16588109] False {} 0.881 0.473 1.237 0.492 [-0.24618317] False {} 0.837 0.548 1.741 0.579 [-0.3963298] False {} 0.768 0.640 2.302 0.694 [-0.6398749] False {} 0.667 0.745 2.932 0.841 [-1.01315665] False {} 0.521 0.854 3.641 1.023 [-1.56797406] False {} 0.320 0.947 4.431 1.245 [-2.37335352] False {} 0.062 0.998 5.292 1.509 [-3.51373338] False {} -0.245 0.969 6.190 1.819 [-5.078989] False {} </pre>
 </div>
 </div>
 
@@ -427,7 +427,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([-0.89718557, -0.44165377,  4.93418848, -2.68415153])</pre>
+<pre>array([-0.24543174,  0.96941387,  6.19022763,  1.81876136])</pre>
 </div>
 
 </div>
@@ -469,11 +469,11 @@ description: "Classes to create simulated environment functions."
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">vm</span> <span class="o">=</span> <span class="n">VelocityModel</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;VelocityModel&#39;</span><span class="p">)</span>
-<span class="n">vm</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">Constant</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">vm</span><span class="o">.</span><span class="n">add_link</span><span class="p">(</span><span class="n">Constant</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mycon&#39;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
 <span class="n">config</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">config</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;VelocityModel&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;VelocityModel&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;constant2&#39;</span><span class="p">},</span> <span class="s1">&#39;mass&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">}</span>
+<span class="k">assert</span> <span class="n">config</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;VelocityModel&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;VelocityModel&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;mycon&#39;</span><span class="p">},</span> <span class="s1">&#39;mass&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">}</span>
 <span class="n">vm</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
@@ -487,9 +487,9 @@ description: "Classes to create simulated environment functions."
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>VelocityModel VelocityModel | 0 | links  constant2 
+<pre>VelocityModel VelocityModel | 0 | links  mycon 
 None
-{&#39;type&#39;: &#39;VelocityModel&#39;, &#39;name&#39;: &#39;VelocityModel&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant2&#39;}, &#39;mass&#39;: 50}
+{&#39;type&#39;: &#39;VelocityModel&#39;, &#39;name&#39;: &#39;VelocityModel&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;mycon&#39;}, &#39;mass&#39;: 50}
 0.020 0.040 0.060 0.080 0.100 0.120 0.140 0.160 0.180 0.200 </pre>
 </div>
 </div>
