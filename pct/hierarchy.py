@@ -226,6 +226,12 @@ class PCTHierarchy():
             for col in range(len(self.hierarchy[level])):
                   self.hierarchy[level][col].clear_values()
 
+    def error(self):
+        error = 0
+        for level in range(len(self.hierarchy)):
+             for col in range(len(self.hierarchy[level])):
+                    error += self.hierarchy[level][col].get_function("comparator").get_value()
+        return error
 
     def summary(self, build=True):
         print(self.name, type(self).__name__)
