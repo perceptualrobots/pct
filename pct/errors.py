@@ -22,7 +22,9 @@ from .putils import sigmoid
 # Cell
 class BaseErrorCollector(ABC):
     "Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all."
-    def __init__(self):
+    def __init__(self, limit):
+        self.limit=limit
+        self.limit_exceeded=False
         self.error_value=0
 
     def error(self):
@@ -38,7 +40,12 @@ class BaseErrorCollector(ABC):
              for col in range(len(hpct.hierarchy[level])):
                   node  = hpct.hierarchy[level][col]
                   self.add_error_data(level, col, [node.get_function("comparator").get_value()])
+                  if self.error_value > self.limit:
+                      self.limit_exceeded=True
+                      return
 
+    def is_limit_exceeded(self):
+        return self.limit_exceeded
 
 
 # Cell
