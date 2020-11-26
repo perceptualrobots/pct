@@ -40,7 +40,7 @@ class BaseErrorCollector(ABC):
              for col in range(len(hpct.hierarchy[level])):
                   node  = hpct.hierarchy[level][col]
                   self.add_error_data(level, col, [node.get_function("comparator").get_value()])
-                  if self.error_value > self.limit:
+                  if abs(self.error_value) > self.limit:
                       self.limit_exceeded=True
                       return
 
