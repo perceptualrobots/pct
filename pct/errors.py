@@ -54,8 +54,5 @@ class TotalError(BaseErrorCollector):
     'Parameters:'
     'x - the initial limit of the range for an individual'
 
-    def __init__(self, **cargs):
-        super().__init__()
-
-
-
+    def __init__(self, limit=1000, **cargs):
+        super().__init__(limit)
