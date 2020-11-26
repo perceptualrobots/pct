@@ -136,7 +136,7 @@ class PCTHierarchy():
         for i in range(steps):
             out = self(verbose)
             if self.error_collector != None:
-                if self.is_limit_exceeded():
+                if self.error_collector.is_limit_exceeded():
                     self.step = i
 
         return out
