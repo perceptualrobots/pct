@@ -132,10 +132,17 @@ class PCTHierarchy():
     def get_postprocessor(self):
         return self.postCollection
 
-    def run(self, steps=None, verbose=False):
+    def run(self, steps=1, verbose=False):
         for i in range(steps):
             out = self(verbose)
+            if self.error_collector != None:
+                if self.is_limit_exceeded():
+                    self.step = i
+
         return out
+
+    def last_step(self):
+        return self.step
 
     def get_node(self, level, col):
         return self.hierarchy[level][col]
