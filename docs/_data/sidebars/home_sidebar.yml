@@ -30,6 +30,9 @@ entries:
     - output: web,pdf
       title: Architectures
       url: /architectures
+    - output: web,pdf
+      title: Errors
+      url: /errors
     output: web
     title: pct
   output: web

@@ -16,7 +16,9 @@ from .putils import FunctionsList
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
-    def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", history=False, build=True, **pargs):
+    def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single",
+                 history=False, build=True, error_collector=None, **pargs):
+        self.error_collector=error_collector
         self.links_built = False
         self.order=None
         self.history=history
@@ -99,6 +101,9 @@ class PCTHierarchy():
             print()
 
         output = self.get_output_function().get_value()
+
+        if self.error_collector != None:
+            self.error_collector.add_data(self)
 
         if verbose:
             print()
