@@ -140,6 +140,9 @@ class PCTHierarchy():
     def get_node(self, level, col):
         return self.hierarchy[level][col]
 
+    def get_error_collector(self):
+        return self.error_collector
+
     def handle_perception_links(self, node, level, col, links_type):
         if level == 0 or links_type == None:
             return

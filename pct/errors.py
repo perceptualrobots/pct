@@ -28,13 +28,17 @@ class BaseErrorCollector(ABC):
     def error(self):
         return self.error_value
 
-    def add_error_data(self, data=[]):
+    def add_error_data(self, level, col, data=[]):
         for datum in data:
-            print(datum)
+            #print(datum)
             self.error_value+=datum
 
+    def add_data(self, hpct=None):
+        for level in range(len(hpct.hierarchy)):
+             for col in range(len(hpct.hierarchy[level])):
+                  node  = hpct.hierarchy[level][col]
+                  self.add_error_data(level, col, [node.get_function("comparator").get_value()])
 
-    #@abstractmethod
 
 
 # Cell

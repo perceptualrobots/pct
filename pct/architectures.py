@@ -19,11 +19,11 @@ from .environments import PendulumV0
 # Cell
 class BaseArchitecture(ABC):
     "Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all."
-    def __init__(self, name, config, env, inputs, history):
+    def __init__(self, name, config, env, inputs, history, error_collector):
         self.config = config
         self.env = env
         self.inputs=inputs
-        self.hpct = PCTHierarchy(history=history)
+        self.hpct = PCTHierarchy(history=history, error_collector=error_collector)
         self.hpct.add_preprocessor(env)
 
         for input in inputs:
@@ -54,13 +54,13 @@ class BaseArchitecture(ABC):
 # Cell
 class ProportionalArchitecture(BaseArchitecture):
     "Proportional Architecture"
-    def __init__(self, name="proportional", config=None, env=None, input_indexes=None, history=False, **cargs):
+    def __init__(self, name="proportional", config=None, env=None, input_indexes=None, history=False, error_collector=None, **cargs):
         inputs=[]
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
             inputs.append(ip)
 
-        super().__init__(name, config, env, inputs, history)
+        super().__init__(name, config, env, inputs, history, error_collector)
 
     def configure_zerothlevel(self):
         inputsIndex=0
