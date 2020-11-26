@@ -103,7 +103,7 @@ class PCTHierarchy():
         output = self.get_output_function().get_value()
 
         if self.error_collector != None:
-            self.error_collector.add_data(self)
+            self.error_collector.add_data(this)
 
         if verbose:
             print()
