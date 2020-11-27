@@ -28,6 +28,8 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "VelocityModel": "05_environments.ipynb",
          "BaseArchitecture": "06_architectures.ipynb",
          "ProportionalArchitecture": "06_architectures.ipynb",
+         "BaseErrorType": "07_errors.ipynb",
+         "RootSumSquaredError": "07_errors.ipynb",
          "BaseErrorCollector": "07_errors.ipynb",
          "TotalError": "07_errors.ipynb"}
 
