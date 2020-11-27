@@ -3,7 +3,7 @@
 __all__ = ['BaseErrorType', 'RootSumSquaredError', 'BaseErrorCollector', 'TotalError']
 
 # Cell
-
+import numpy as np
 from .hierarchy import PCTHierarchy
 from abc import ABC, abstractmethod
 
@@ -34,6 +34,10 @@ class RootSumSquaredError(BaseErrorType):
 # Cell
 class BaseErrorCollector(ABC):
     "Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all."
+    'Parameters:'
+    'limit - the limit of valid error response'
+    'error_response - the type of error response'
+
     def __init__(self, limit,error_response):
         self.limit=limit
         self.limit_exceeded=False
@@ -55,17 +59,14 @@ class BaseErrorCollector(ABC):
 # Cell
 class TotalError(BaseErrorCollector):
     "A class to collect all the errors of the control system run."
-    'Parameters:'
-    'x - the initial limit of the range for an individual'
-
     def __init__(self, limit=1000, error_response=None, **cargs):
         super().__init__(limit, error_response)
 
     def add_data(self, hpct=None):
         for level in range(len(hpct.hierarchy)):
              for col in range(len(hpct.hierarchy[level])):
-                  node  = hpct.hierarchy[level][col]
-                  self.add_error_data(level, col, [node.get_function("comparator").get_value()])
-                  if self.error_response.get_error_response() > self.limit:
-                      self.limit_exceeded=True
-                      return
+                node  = hpct.hierarchy[level][col]
+                self.add_error_data(level, col, [node.get_function("comparator").get_value()])
+                if self.error_response.get_error_response() > self.limit:
+                    self.limit_exceeded=True
+                    return
