@@ -138,6 +138,7 @@ class PCTHierarchy():
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
                     self.step = i
+                    return out
 
         return out
 
