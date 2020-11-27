@@ -3,7 +3,10 @@
 __all__ = ['BaseErrorType', 'RootSumSquaredError', 'BaseErrorCollector', 'TotalError']
 
 # Cell
+
 from .hierarchy import PCTHierarchy
+from abc import ABC, abstractmethod
+
 
 # Cell
 class BaseErrorType(ABC):
