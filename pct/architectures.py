@@ -33,7 +33,7 @@ class BaseArchitecture(ABC):
         level0config = self.config['level0']
         previous_columns=self.configure_zerothlevel()
 
-        intermediate_levels = len(self.config)-2
+        intermediate_levels = len(self.config)-3
         level=-1
         for level in range(intermediate_levels):
             leveln = self.config[f'level{level+1}']
