@@ -31,6 +31,9 @@ class RootSumSquaredError(BaseErrorType):
         self.sum+=error*error
         self.error_response=np.sqrt(self.sum)
 
+    class Factory:
+        def create(self): return RootSumSquaredError()
+
 # Cell
 class BaseErrorCollector(ABC):
     "Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all."
