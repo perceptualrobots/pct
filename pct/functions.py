@@ -39,6 +39,11 @@ class BaseFunction(ABC):
 
         return self.value
 
+    def reset(self):
+        self.value = 0
+        self.links = []
+        self.checklinks=True
+
     def run(self, steps=None, verbose=False):
         for i in range(steps):
             out = self(verbose)

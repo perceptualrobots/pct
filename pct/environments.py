@@ -158,8 +158,7 @@ class VelocityModel(BaseFunction):
     def summary(self):
         super().summary("")
 
-    def reset(self):
-        self.value = 0
+
 
     def get_config(self):
         config = super().get_config()
