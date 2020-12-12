@@ -46,6 +46,13 @@ class BaseErrorCollector(ABC):
         self.limit_exceeded=False
         self.error_response=error_response
 
+    def set_limit(self, limit):
+        self.limit=limit
+        self.limit_exceeded=False
+
+    def set_error_response(self, error_response):
+        self.error_response=error_response
+
     def error(self):
         return self.error_response.get_error_response()
 
