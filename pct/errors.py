@@ -73,3 +73,5 @@ class TotalError(BaseErrorCollector):
                 if self.error_response.get_error_response() > self.limit:
                     self.limit_exceeded=True
                     return
+    class Factory:
+        def create(self): return TotalError()
