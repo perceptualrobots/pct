@@ -31,7 +31,8 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "BaseErrorType": "07_errors.ipynb",
          "RootSumSquaredError": "07_errors.ipynb",
          "BaseErrorCollector": "07_errors.ipynb",
-         "TotalError": "07_errors.ipynb"}
+         "TotalError": "07_errors.ipynb",
+         "ErrorFactory": "07_errors.ipynb"}
 
 modules = ["putils.py",
            "functions.py",

@@ -165,26 +165,28 @@ description: "Types of error response of a percectual control hierarchy."
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">ErrorFactory</span><span class="p">:</span>
-    <span class="n">factories</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">def</span> <span class="nf">addFactory</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">errorFactory</span><span class="p">):</span>
-        <span class="n">ErrorFactory</span><span class="o">.</span><span class="n">factories</span><span class="o">.</span><span class="n">put</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">errorFactory</span>
-    <span class="n">addFactory</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">addFactory</span><span class="p">)</span>
-    <span class="c1"># A Template Method:</span>
-    <span class="k">def</span> <span class="nf">createError</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">ErrorFactory</span><span class="o">.</span><span class="n">factories</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-            <span class="n">ErrorFactory</span><span class="o">.</span><span class="n">factories</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> \
-              <span class="nb">eval</span><span class="p">(</span><span class="nb">id</span> <span class="o">+</span> <span class="s1">&#39;.Factory()&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">ErrorFactory</span><span class="o">.</span><span class="n">factories</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-    <span class="n">createError</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">createError</span><span class="p">)</span>
-</pre></div>
+</div>
+    {% endraw %}
 
-    </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="ErrorFactory" class="doc_header"><code>class</code> <code>ErrorFactory</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L93" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ErrorFactory</code>()</p>
+</blockquote>
+
+</div>
+
+</div>
+
 </div>
 </div>
 
