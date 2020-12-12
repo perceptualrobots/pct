@@ -60,11 +60,17 @@ class BaseErrorCollector(ABC):
         for datum in data:
             self.error_response(datum)
 
-
     def is_limit_exceeded(self):
         return self.limit_exceeded
 
+    @classmethod
+    def collector(cls, error_type, error_collector, limit):
+        et = ErrorFactory.createError(error_type)
+        ec = ErrorFactory.createError(error_collector)
+        ec.set_limit(limit)
+        ec.set_error_response(et)
 
+        return ec
 
 # Cell
 class TotalError(BaseErrorCollector):
