@@ -25,6 +25,7 @@ class BaseErrorType(ABC):
 class RootSumSquaredError(BaseErrorType):
     "The square root of the sum of the square of the errors."
     def __init__(self):
+        super().__init__()
         self.sum=0
 
     def __call__(self, error):
@@ -97,7 +98,6 @@ class ErrorFactory:
     addFactory = staticmethod(addFactory)
     # A Template Method:
     def createError(id):
-        print(id)
         if not ErrorFactory.factories.__contains__(id):
             ErrorFactory.factories[id] = \
               eval(id + '.Factory()')
