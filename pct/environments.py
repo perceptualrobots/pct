@@ -110,7 +110,7 @@ class PendulumV0(OpenAIGym):
     # 0 cos(theta)
     # 1 sin(theta)
     # 2 theta dot
-    # 3 theta +pi/-pi (added here)
+    # 3 theta +pi/-pi (added here) zero is pointing upwards
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
     def __init__(self, env_name='Pendulum-v0', render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
