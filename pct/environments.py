@@ -78,6 +78,10 @@ class OpenAIGym(BaseFunction):
             self.env.seed(seed)
             self.env.reset()
 
+    def set_seed(self, seed):
+        self.env.seed(seed)
+
+
     def close(self):
         self.env.close()
 
