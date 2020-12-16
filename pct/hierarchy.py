@@ -71,8 +71,8 @@ class PCTHierarchy():
             #    print(func.get_name(), end =" ")
             func(verbose)
 
-        #if verbose:
-        #    print()
+        if verbose:
+            print()
 
         if self.order==None:
             for level in range(len(self.hierarchy)):
