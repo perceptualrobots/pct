@@ -17,9 +17,7 @@ class OpenAIGym(BaseFunction):
 
         self.video_wrap = video_wrap
         self.env_name=env_name
-        self.create_env(env_name, 4000)
-        if seed:
-            self.env.seed(seed)
+        self.create_env(env_name, 4000, seed)
         self.render = render
         self.reward = 0
         self.done = False
@@ -70,13 +68,14 @@ class OpenAIGym(BaseFunction):
         return rtn
 
 
-    def create_env(self, env_name, max_episode_steps):
+    def create_env(self, env_name, max_episode_steps, seed):
         genv = gym.make(env_name)
         genv._max_episode_steps = max_episode_steps
         if self.video_wrap:
             self.env =  vid.wrap_env(genv)
         else:
             self.env = genv
+            self.env.seed(seed)
             self.env.reset()
 
     def close(self):
