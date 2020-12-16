@@ -11,12 +11,15 @@ from .functions import BaseFunction
 # Cell
 class OpenAIGym(BaseFunction):
     "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
-    def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
+    def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym",
+                 seed=None, links=None, new_name=True, **cargs):
         super().__init__(name, value, links, new_name)
 
         self.video_wrap = video_wrap
         self.env_name=env_name
         self.create_env(env_name, 4000)
+        if seed:
+            self.env.seed(seed)
         self.render = render
         self.reward = 0
         self.done = False
@@ -87,8 +90,9 @@ class CartPoleV1(OpenAIGym):
     # 0 cart_position
     # 3 pole_velocity
     # 2 pole_angle
-    def __init__(self, env_name='CartPole-v1', render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
-        super().__init__(env_name, render, video_wrap, value, name, links, new_name, **cargs)
+    def __init__(self, env_name='CartPole-v1', render=False, video_wrap=False, value=0, name="gym",
+                 seed=None, links=None, new_name=True, **cargs):
+        super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
@@ -113,8 +117,9 @@ class PendulumV0(OpenAIGym):
     # 3 theta +pi/-pi (added here) zero is pointing upwards
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
-    def __init__(self, env_name='Pendulum-v0', render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
-        super().__init__(env_name, render, video_wrap, value, name, links, new_name, **cargs)
+    def __init__(self, env_name='Pendulum-v0', render=False, video_wrap=False, value=0, name="gym",
+                 seed=None, links=None, new_name=True, **cargs):
+        super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().check_links(1)
