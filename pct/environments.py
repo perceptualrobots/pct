@@ -128,7 +128,7 @@ class CartPoleV1(OpenAIGym):
         #    raise Exception(f'OpenAIGym: Input value of {self.input} is not valid, must be 1,0 or -1.')
 
 
-        return super().__call__(verbose)
+        return self.value
 
 
 # Cell
