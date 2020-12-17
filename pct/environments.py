@@ -38,6 +38,11 @@ class OpenAIGym(BaseFunction):
 
         return super().__call__(verbose)
 
+
+    def reset(self):
+        super.reset()
+        self.env.reset()
+
     def summary(self):
         super().summary("")
 
