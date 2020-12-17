@@ -103,16 +103,32 @@ class CartPoleV1(OpenAIGym):
         super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
-        super().__call__(verbose)
+        super().check_links(1)
+        self.input = self.links[0].get_value()
+        if self.input<0:
+            self.input=-1
+        if self.input>0:
+            self.input=1
 
-        if self.input == 1 or self.input == -1 or self.input == 0:
-            pass
-        else:
-            raise Exception(f'OpenAIGym: Input value of {self.input} is not valid, must be 1,0 or -1.')
+        self.obs = self.env.step(self.input)
+
+        self.value = self.obs[0]
+        self.reward = self.obs[1]
+        self.done = self.obs[2]
+        self.info = self.obs[3]
 
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
 
-        return self.value
+        if self.render:
+            self.env.render()
+
+        #if self.input == 1 or self.input == -1 or self.input == 0:
+        #    pass
+        #else:
+        #    raise Exception(f'OpenAIGym: Input value of {self.input} is not valid, must be 1,0 or -1.')
+
+
+        return super().__call__(verbose)
 
 
 # Cell
