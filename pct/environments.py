@@ -140,8 +140,8 @@ class PendulumV0(OpenAIGym):
         if self.render:
             self.env.render()
 
-        #if verbose :
-        #    print(self.output_string(), end= " ")
+        if verbose :
+            print(self.output_string())
 
         return self.value
 
