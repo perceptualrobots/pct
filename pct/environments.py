@@ -40,7 +40,7 @@ class OpenAIGym(BaseFunction):
 
 
     def reset(self):
-        super.reset()
+        super().reset()
         self.env.reset()
 
     def summary(self):
