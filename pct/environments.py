@@ -107,9 +107,10 @@ class CartPoleV1(OpenAIGym):
         self.input = self.links[0].get_value()
         if self.input<0:
             self.input=0
-        if self.input>0:
+        elif self.input>0:
             self.input=1
-
+        else:
+            self.input=0
         self.obs = self.env.step(self.input)
 
         self.value = self.obs[0]
