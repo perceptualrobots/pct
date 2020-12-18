@@ -84,8 +84,6 @@ class TotalError(BaseErrorCollector):
                 node  = hpct.hierarchy[level][col]
                 self.add_error_data(level, col, [node.get_function("comparator").get_value()])
                 if self.error_response.get_error_response() > self.limit:
-                    #if len(hpct.hierarchy) ==1 and len(hpct.hierarchy[0])==1:
-                    #    print('OUT', self.error_response.get_error_response())
                     self.limit_exceeded=True
                     return
     class Factory:
