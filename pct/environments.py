@@ -11,12 +11,13 @@ from .functions import BaseFunction
 # Cell
 class OpenAIGym(BaseFunction):
     "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
-    def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
+    def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym",
+                 seed=None, links=None, new_name=True, **cargs):
         super().__init__(name, value, links, new_name)
 
         self.video_wrap = video_wrap
         self.env_name=env_name
-        self.create_env(env_name, 4000)
+        self.create_env(env_name, 4000, seed)
         self.render = render
         self.reward = 0
         self.done = False
@@ -36,6 +37,11 @@ class OpenAIGym(BaseFunction):
             self.env.render()
 
         return super().__call__(verbose)
+
+
+    def reset(self):
+        super().reset()
+        return self.env.reset()
 
     def summary(self):
         super().summary("")
@@ -67,14 +73,19 @@ class OpenAIGym(BaseFunction):
         return rtn
 
 
-    def create_env(self, env_name, max_episode_steps):
+    def create_env(self, env_name, max_episode_steps, seed):
         genv = gym.make(env_name)
         genv._max_episode_steps = max_episode_steps
         if self.video_wrap:
             self.env =  vid.wrap_env(genv)
         else:
             self.env = genv
+            self.env.seed(seed)
             self.env.reset()
+
+    def set_seed(self, seed):
+        self.env.seed(seed)
+
 
     def close(self):
         self.env.close()
@@ -87,18 +98,36 @@ class CartPoleV1(OpenAIGym):
     # 0 cart_position
     # 3 pole_velocity
     # 2 pole_angle
-    def __init__(self, env_name='CartPole-v1', render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
-        super().__init__(env_name, render, video_wrap, value, name, links, new_name, **cargs)
+    def __init__(self, env_name='CartPole-v1', render=False, video_wrap=False, value=0, name="gym",
+                 seed=None, links=None, new_name=True, **cargs):
+        super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
-        super().__call__(verbose)
-
-        if self.input == 1 or self.input == -1 or self.input == 0:
-            pass
+        super().check_links(1)
+        self.input = self.links[0].get_value()
+        if self.input<0:
+            self.input=0
+        elif self.input>0:
+            self.input=1
         else:
-            raise Exception(f'OpenAIGym: Input value of {self.input} is not valid, must be 1,0 or -1.')
+            self.input=0
+        self.obs = self.env.step(self.input)
+
+        self.value = self.obs[0]
+        self.reward = self.obs[1]
+        self.done = self.obs[2]
+        self.info = self.obs[3]
 
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
+
+        if self.render:
+            self.env.render()
+
+        #if self.input == 1 or self.input == -1 or self.input == 0:
+        #    pass
+        #else:
+        #    raise Exception(f'OpenAIGym: Input value of {self.input} is not valid, must be 1,0 or -1.')
+
 
         return self.value
 
@@ -110,11 +139,12 @@ class PendulumV0(OpenAIGym):
     # 0 cos(theta)
     # 1 sin(theta)
     # 2 theta dot
-    # 3 theta +pi/-pi (added here)
+    # 3 theta +pi/-pi (added here) zero is pointing upwards
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
-    def __init__(self, env_name='Pendulum-v0', render=False, video_wrap=False, value=0, name="gym", links=None, new_name=True, **cargs):
-        super().__init__(env_name, render, video_wrap, value, name, links, new_name, **cargs)
+    def __init__(self, env_name='Pendulum-v0', render=False, video_wrap=False, value=0, name="gym",
+                 seed=None, links=None, new_name=True, **cargs):
+        super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().check_links(1)
@@ -133,7 +163,7 @@ class PendulumV0(OpenAIGym):
             self.env.render()
 
         if verbose :
-            print(self.output_string(), end= " ")
+            print(self.output_string())
 
         return self.value
 
