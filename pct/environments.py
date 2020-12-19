@@ -12,9 +12,9 @@ from .functions import BaseFunction
 class OpenAIGym(BaseFunction):
     "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym",
-                 seed=None, links=None, new_name=True, **cargs):
+                 seed=None, links=None, new_name=True, early_termination=False, **cargs):
         super().__init__(name, value, links, new_name)
-
+        self.early_termination=early_termination
         self.video_wrap = video_wrap
         self.env_name=env_name
         self.create_env(env_name, 4000, seed)
@@ -34,8 +34,9 @@ class OpenAIGym(BaseFunction):
         self.done = self.obs[2]
         self.info = self.obs[3]
 
-        if self.done:
-            raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
+        if self.early_termination:
+            if self.done:
+                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
 
 
         if self.render:

@@ -135,8 +135,8 @@ class PCTHierarchy():
             try:
                 out = self(verbose)
             except Exception as ex:
-                if ex.message.startswith('1000'):
-                    return 0
+                if ex.__str__().startswith('1000'):
+                    return False
 
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
