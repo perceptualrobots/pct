@@ -26,6 +26,7 @@ class OpenAIGym(BaseFunction):
     def __call__(self, verbose=False):
         super().check_links(1)
         self.input = self.links[0].get_value()
+        self.process_input()
         self.obs = self.env.step(self.input)
 
         self.value = self.obs[0]
@@ -33,11 +34,17 @@ class OpenAIGym(BaseFunction):
         self.done = self.obs[2]
         self.info = self.obs[3]
 
+        if self.done:
+            raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
+
+
         if self.render:
             self.env.render()
 
         return super().__call__(verbose)
 
+    def process_input(self):
+        pass
 
     def reset(self):
         super().reset()
@@ -103,33 +110,20 @@ class CartPoleV1(OpenAIGym):
         super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
-        super().check_links(1)
-        self.input = self.links[0].get_value()
+        super().__call__(verbose)
+
+        self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
+
+        return self.value
+
+    def process_input(self):
         if self.input<0:
             self.input=0
         elif self.input>0:
             self.input=1
         else:
             self.input=0
-        self.obs = self.env.step(self.input)
 
-        self.value = self.obs[0]
-        self.reward = self.obs[1]
-        self.done = self.obs[2]
-        self.info = self.obs[3]
-
-        self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
-
-        if self.render:
-            self.env.render()
-
-        #if self.input == 1 or self.input == -1 or self.input == 0:
-        #    pass
-        #else:
-        #    raise Exception(f'OpenAIGym: Input value of {self.input} is not valid, must be 1,0 or -1.')
-
-
-        return self.value
 
 
 # Cell
