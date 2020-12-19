@@ -47,6 +47,9 @@ class OpenAIGym(BaseFunction):
     def process_input(self):
         pass
 
+    def set_render(self, render):
+        self.render=render
+
     def reset(self):
         super().reset()
         return self.env.reset()
