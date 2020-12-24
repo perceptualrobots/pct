@@ -285,6 +285,20 @@ class PCTNode():
         for outputFunction in self.outputCollection:
             outputFunction.set_graph_data(graph, layer)
 
+    def get_edge_labels(self, labels):
+
+        for func in self.referenceCollection:
+            func.get_weights_labels(labels)
+
+        for func in self.comparatorCollection:
+            func.get_weights_labels(labels)
+
+        for func in self.perceptionCollection:
+            func.get_weights_labels(labels)
+
+        for func in self.outputCollection:
+            func.get_weights_labels(labels)
+
 
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(5,5), move={}):

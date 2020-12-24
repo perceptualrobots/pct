@@ -117,8 +117,29 @@ class BaseFunction(ABC):
         graph.add_node(node_name, layer=layer)
         graph.add_edges_from( edges)
 
+    def get_weights_labels(self, labels):
+        if hasattr(self, 'weights'):
+            for i in range(len(self.weights)):
+                link = self.get_link(i)
+                if isinstance(link, str):
+                    name=link
+                else:
+                    name = link.get_name()
+                value = self.weights[i]
+                if isinstance(value, float):
+                    value = f'{value:4.3}'
+                labels[(self.get_name(), name)] = value
 
-
+        if hasattr(self, 'gain'):
+            link = self.get_link(0)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.gain
+            if isinstance(value, float):
+                value = f'{value:4.3}'
+            labels[(self.get_name(), name)] = value
 
     def output_string(self):
         if isinstance (self.value, list):
@@ -217,6 +238,9 @@ class BaseFunction(ABC):
 
     def set_link(self, linkfn):
         self.links = [linkfn]
+
+    def get_link(self, index):
+        return self.links[index]
 
     def clear_links(self):
         self.links = []

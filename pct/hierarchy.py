@@ -184,12 +184,13 @@ class PCTHierarchy():
         return pos
 
 
-    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color=None,
-             color_mapping={'P':'aqua','O':'limegreen','C':'goldenrod', 'R':'red', 'I':'silver', 'A':'yellow'},
+    def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,
+             color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):
         graph = self.graph()
         if node_color==None:
             node_color = self.get_colors(graph, color_mapping)
+
 
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
 
@@ -198,9 +199,13 @@ class PCTHierarchy():
             pos[key][1]+=move[key][1]
 
         plt.figure(figsize=figsize)
-        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+        if with_edge_labels:
+            edge_labels = self.get_edge_labels()
+            nx.draw_networkx_edge_labels(graph, pos=pos, with_labels=with_labels, edge_labels=edge_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
-        #plt.show()
+        else:
+            nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
         if file != None:
             plt.title(self.name)
@@ -217,6 +222,20 @@ class PCTHierarchy():
             colors.append(color)
         return colors
 
+    def get_edge_labels(self):
+        labels={}
+
+        for func in self.postCollection:
+            func.get_weights_labels(labels)
+
+        for func in self.preCollection:
+            func.get_weights_labels(labels)
+
+        for level in self.hierarchy:
+            for node in level:
+                node.get_edge_labels(labels)
+
+        return labels
 
     def graph(self):
         graph = nx.DiGraph()
