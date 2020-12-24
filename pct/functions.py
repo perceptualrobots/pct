@@ -84,10 +84,12 @@ class BaseFunction(ABC):
     def get_colors(self, graph, color_mapping):
         colors=[]
         for node in graph:
+            color = 'darkorchid'
             for key in color_mapping.keys():
                 if node.startswith(key):
-                    colors.append(color_mapping[key])
+                    color = color_mapping[key]
                     break
+            colors.append(color)
         return colors
 
     def graph(self, layer=None, layer_edges=False):

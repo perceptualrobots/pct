@@ -184,9 +184,13 @@ class PCTHierarchy():
         return pos
 
 
-    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
+    def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color=None,
+             color_mapping={'P':'aqua','O':'limegreen','C':'goldenrod', 'R':'red', 'I':'silver', 'A':'yellow'},
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):
         graph = self.graph()
+        if node_color==None:
+            node_color = self.get_colors(graph, color_mapping)
+
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
 
         for key in move.keys():
@@ -201,6 +205,18 @@ class PCTHierarchy():
         if file != None:
             plt.title(self.name)
             plt.savefig(file)
+
+    def get_colors(self, graph, color_mapping):
+        colors=[]
+        for node in graph:
+            color = 'darkorchid'
+            for key in color_mapping.keys():
+                if node.startswith(key):
+                    color = color_mapping[key]
+                    break
+            colors.append(color)
+        return colors
+
 
     def graph(self):
         graph = nx.DiGraph()
