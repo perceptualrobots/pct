@@ -202,9 +202,8 @@ class PCTHierarchy():
         if with_edge_labels:
             edge_labels = self.get_edge_labels()
             nx.draw_networkx_edge_labels(graph, pos=pos, edge_labels=edge_labels, font_size=font_size, font_weight=font_weight,
-                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
-        else:
-            nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+                font_color='red')
+        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
         if file != None:
