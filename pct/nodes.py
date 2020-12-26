@@ -311,16 +311,16 @@ class PCTNode():
     def get_node_list(self, node_list):
 
         for func in self.referenceCollection:
-            node_list.append([func.get_name(), self.name])
+            node_list[func.get_name()] = self.name
 
         for func in self.comparatorCollection:
-            node_list.append([func.get_name(), self.name])
+            node_list[func.get_name()] = self.name
 
         for func in self.perceptionCollection:
-            node_list.append([func.get_name(), self.name])
+            node_list[func.get_name()] = self.name
 
         for func in self.outputCollection:
-            node_list.append([func.get_name(), self.name])
+            node_list[func.get_name()] = self.name
 
 
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
