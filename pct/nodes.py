@@ -270,6 +270,9 @@ class PCTNode():
         for outputFunction in self.outputCollection:
             outputFunction  = 0
 
+    def set_graph_data_node(self, graph, layer=0):
+        graph.add_node(self.name, layer=layer)
+
 
     def set_graph_data(self, graph, layer=0):
 
