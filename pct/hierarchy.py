@@ -336,7 +336,11 @@ class PCTHierarchy():
 
                 for func in node.referenceCollection:
                     for link in func.links:
-                         edges.append((node.get_name(),node_list[link.get_name()]))
+                        if isinstance(link, str):
+                            name=link
+                        else:
+                            name = link.get_name()
+                        edges.append((node.get_name(),node_list[name]))
         graph.add_edges_from(edges)
 
 
