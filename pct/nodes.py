@@ -323,6 +323,29 @@ class PCTNode():
             node_list[func.get_name()] = self.name
 
 
+    def set_graph_data_node(self, graph, layer=0):
+        graph.add_node(self.name, layer=layer)
+
+
+    def graph_node(self, layer=0):
+        graph = nx.DiGraph()
+
+        self.set_graph_data_node(graph, layer=layer)
+
+        return graph
+
+
+    def draw_node(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
+         node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(5,5), move={}):
+
+        graph = self.graph_node()
+        pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
+        plt.figure(figsize=figsize)
+        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
+
+
+
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(5,5), move={}):
 
