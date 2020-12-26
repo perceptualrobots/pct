@@ -141,6 +141,31 @@ class BaseFunction(ABC):
                 value = f'{value:4.3}'
             labels[(self.get_name(), name)] = value
 
+    def get_weights_labels_nodes(self, labels, node_list):
+        if hasattr(self, 'weights'):
+            for i in range(len(self.weights)):
+                link = self.get_link(i)
+                if isinstance(link, str):
+                    name=link
+                else:
+                    name = link.get_name()
+                value = self.weights[i]
+                if isinstance(value, float):
+                    value = f'{value:4.3}'
+                labels[(self.get_name(), node_list[name])] = value
+
+        if hasattr(self, 'gain'):
+            link = self.get_link(0)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.gain
+            if isinstance(value, float):
+                value = f'{value:4.3}'
+            labels[(self.get_name(), node_list[name])] = value
+
+
     def output_string(self):
         if isinstance (self.value, list):
             return [f'{round(item, self.decimal_places):.{self.decimal_places}f}' for item in self.value]
