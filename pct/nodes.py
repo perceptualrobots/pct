@@ -273,6 +273,12 @@ class PCTNode():
     def set_graph_data_node(self, graph, layer=0):
         graph.add_node(self.name, layer=layer)
 
+        for referenceFunction in self.referenceCollection:
+            referenceFunction.set_graph_data(graph, layer+2)
+
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.set_graph_data(graph, layer+2)
+
 
     def set_graph_data(self, graph, layer=0):
 
@@ -301,6 +307,20 @@ class PCTNode():
 
         for func in self.outputCollection:
             func.get_weights_labels(labels)
+
+    def get_node_list(self, node_list):
+
+        for func in self.referenceCollection:
+            node_list.append([func.get_name(), self.name])
+
+        for func in self.comparatorCollection:
+            node_list.append([func.get_name(), self.name])
+
+        for func in self.perceptionCollection:
+            node_list.append([func.get_name(), self.name])
+
+        for func in self.outputCollection:
+            node_list.append([func.get_name(), self.name])
 
 
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',
