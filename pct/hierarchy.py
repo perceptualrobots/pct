@@ -314,12 +314,6 @@ class PCTHierarchy():
         if len(self.preCollection)>0 or len(self.postCollection)>0:
             layer=1
 
-        for func in self.postCollection:
-            func.set_graph_data(graph, layer=0)
-
-        for func in self.preCollection:
-            func.set_graph_data(graph, layer=0)
-
         node_list={}
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])-1, -1, -1):
@@ -328,6 +322,13 @@ class PCTHierarchy():
                 #self.hierarchy[level][col].set_graph_data_node(graph, layer=layer)
 
         print(node_list)
+
+        for func in self.postCollection:
+            func.set_graph_data_node(graph, layer=0, node_list=node_list)
+
+        for func in self.preCollection:
+            func.set_graph_data_node(graph, layer=0, node_list=node_list)
+
         edges = []
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])-1, -1, -1):

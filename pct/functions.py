@@ -117,6 +117,26 @@ class BaseFunction(ABC):
         graph.add_node(node_name, layer=layer)
         graph.add_edges_from( edges)
 
+
+    def set_graph_data_node(self, graph, layer=None, layer_edges=False, node_list=None):
+        node_name = self.name
+        edges = []
+        for link in self.links:
+            func = FunctionsList.getInstance().get_function(link)
+            if isinstance(func, str):
+                name = func
+            else:
+                name = func.get_name()
+
+            if layer_edges:
+                graph.add_node(node_list[name], layer=layer+1)
+
+            edges.append((node_list[name],self.name))
+
+        graph.add_node(node_name, layer=layer)
+        graph.add_edges_from( edges)
+
+
     def get_weights_labels(self, labels):
         if hasattr(self, 'weights'):
             for i in range(len(self.weights)):
