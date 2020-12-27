@@ -76,7 +76,7 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=1, name=f'nodeL{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history)
             # change names
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -117,7 +117,7 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=1, name=f'nodeL{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history)
             # change names
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -161,7 +161,7 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=2, name=f'nodeL{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=2, name=f'L{level}C{column}', history=self.hpct.history)
             # change names
             reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c')
             node.replace_function("reference", reference, 0)
