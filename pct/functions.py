@@ -131,6 +131,9 @@ class BaseFunction(ABC):
             if layer_edges:
                 graph.add_node(node_list[name], layer=layer+1)
 
+            if name in node_list.keys():
+                name = node_list[name]
+
             edges.append((node_list[name],self.name))
 
         graph.add_node(node_name, layer=layer)
