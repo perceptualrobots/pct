@@ -137,6 +137,7 @@ class PCTHierarchy():
             except Exception as ex:
                 if ex.__str__().startswith('1000'):
                     return False
+                raise ex
 
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
