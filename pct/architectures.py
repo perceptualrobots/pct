@@ -32,7 +32,7 @@ class BaseArchitecture(ABC):
             self.hpct.add_preprocessor(input)
 
     def __call__(self):
-        level0config = self.config['level0']
+        #level0config = self.config['level0']
         previous_columns=self.configure_zerothlevel()
 
         intermediate_levels = len(self.config)-3
