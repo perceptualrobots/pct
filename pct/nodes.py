@@ -290,7 +290,7 @@ class PCTNode():
             perceptionFunction.set_graph_data(graph, layer+2)
 
 
-    def set_graph_data(self, graph, layer=0):
+    def set_graph_data(self, graph, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
 
         for referenceFunction in self.referenceCollection:
             referenceFunction.set_graph_data(graph, layer+2)
