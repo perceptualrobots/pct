@@ -237,10 +237,10 @@ class PCTHierarchy():
 
         return labels
 
-    def graph(self, layout):
+    def graph(self, layout={'r':2,'c':1,'p':2, 'o':0}):
         graph = nx.DiGraph()
 
-        self.set_graph_data(graph, layout)
+        self.set_graph_data(graph, layout=layout)
 
         return graph
 
