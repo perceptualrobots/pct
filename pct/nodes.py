@@ -16,6 +16,13 @@ class PCTNode():
     "A single PCT controller."
     def __init__(self, reference=None, perception=None, comparator=None, output=None, default=True,
                  name="pctnode", history=False, build_links=False, mode=0, **pargs):
+        # mode
+        # 0 - per:var, ref:con, com:sub, out:prop
+        # 1 - per:ws, ref:ws, com:sub, out:prop
+        # 2 - per:ws, ref:con, com:sub, out:prop
+        # 3 - per:ws, ref:ws, com:sub, out:ws
+        # 4 - per:ws, ref:con, com:sub, out:ws
+
         self.links_built = False
         self.history = None
         if history:
@@ -24,16 +31,16 @@ class PCTNode():
         FunctionsList.getInstance().add_function(self)
         if default:
             if perception==None:
-                if mode == 1 or mode == 2:
+                if mode >0 :
                      perception =  WeightedSum()
                 else:
                      perception =  Variable(0)
             self.perceptionCollection = [perception]
 
             if reference==None:
-                if mode == 1:
+                if mode == 1 or mode == 3:
                     reference =  WeightedSum()
-                elif mode ==0 or mode == 2:
+                elif mode ==0 or mode == 2 or mode == 4:
                     reference = Constant(1)
             self.referenceCollection = [reference]
 
@@ -42,7 +49,10 @@ class PCTNode():
             self.comparatorCollection = [comparator]
 
             if output==None:
-                output = Proportional(10)
+                if mode >2 :
+                    output =  WeightedSum()
+                else:
+                    output = Proportional(10)
 
             self.outputCollection = [output]
 
