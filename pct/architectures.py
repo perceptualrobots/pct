@@ -8,6 +8,7 @@ import random
 import numpy as np
 import json
 import os
+import enum
 from abc import ABC, abstractmethod
 
 from .hierarchy import PCTHierarchy
