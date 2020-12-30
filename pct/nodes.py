@@ -259,10 +259,10 @@ class PCTNode():
         print("----------------------------")
 
 
-    def graph(self, layer=0):
+    def graph(self, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
         graph = nx.DiGraph()
 
-        self.set_graph_data(graph, layer=layer)
+        self.set_graph_data(graph, layer=layer, layout=layout)
 
         return graph
 

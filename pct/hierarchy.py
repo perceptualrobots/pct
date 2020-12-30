@@ -187,8 +187,8 @@ class PCTHierarchy():
 
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
-             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):
-        graph = self.graph()
+             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, layout={'r':2,'c':1,'p':2, 'o':0}):
+        graph = self.graph(layout=layout)
         if node_color==None:
             node_color = self.get_colors(graph, color_mapping)
 
@@ -237,14 +237,14 @@ class PCTHierarchy():
 
         return labels
 
-    def graph(self):
+    def graph(self, layout):
         graph = nx.DiGraph()
 
-        self.set_graph_data(graph)
+        self.set_graph_data(graph, layout)
 
         return graph
 
-    def set_graph_data(self, graph):
+    def set_graph_data(self, graph, layout={'r':2,'c':1,'p':2, 'o':0}):
         layer=0
         if len(self.preCollection)>0 or len(self.postCollection)>0:
             layer=1
@@ -258,7 +258,7 @@ class PCTHierarchy():
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])-1, -1, -1):
             #for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].set_graph_data(graph, layer=layer)
+                  self.hierarchy[level][col].set_graph_data(graph, layer=layer, layout=layout)
             layer+=3
 
     def draw_nodes(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,
