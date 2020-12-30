@@ -293,16 +293,16 @@ class PCTNode():
     def set_graph_data(self, graph, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
 
         for referenceFunction in self.referenceCollection:
-            referenceFunction.set_graph_data(graph, layer+2)
+            referenceFunction.set_graph_data(graph, layer+layout['r'])
 
         for comparatorFunction in self.comparatorCollection:
-            comparatorFunction.set_graph_data(graph, layer+1)
+            comparatorFunction.set_graph_data(graph, layer+layout['c'])
 
         for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.set_graph_data(graph, layer+2)
+            perceptionFunction.set_graph_data(graph, layer+layout['p'])
 
         for outputFunction in self.outputCollection:
-            outputFunction.set_graph_data(graph, layer)
+            outputFunction.set_graph_data(graph, layer+layout['o'])
 
     def get_edge_labels(self, labels):
 
