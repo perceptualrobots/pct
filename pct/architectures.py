@@ -622,7 +622,7 @@ class DynamicArchitecture(BaseArchitecture):
         for column in range(numColumnsThisLevel):
             node = PCTNode(build_links=True, mode=3, name=f'L{level}C{column}', history=self.hpct.history)
             self.structure.set_node_function(node, 'reference',  'leveln', level, level+1, 'O', column, columnsNextLevel, None, config[referencesIndex], True)
-            self.structure.set_node_function(node, 'perception', 'leveln', level, None, None, column, len(self.inputs), None, config[inputsIndex], False)
+            self.structure.set_node_function(node, 'perception', 'leveln', level, level-1, 'P', column, numColumnsPreviousLevel, None, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
