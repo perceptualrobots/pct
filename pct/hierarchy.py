@@ -188,12 +188,11 @@ class PCTHierarchy():
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, layout={'r':2,'c':1,'p':2, 'o':0}):
-        graph = self.graph(layout=layout)
+        self.graphv = self.graph(layout=layout)
         if node_color==None:
-            node_color = self.get_colors(graph, color_mapping)
+            node_color = self.get_colors(self.graphv, color_mapping)
 
-
-        pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
+        pos = nx.multipartite_layout(self.graphv, subset_key="layer", align=align)
 
         for key in move.keys():
             pos[key][0]+=move[key][0]
@@ -202,9 +201,9 @@ class PCTHierarchy():
         plt.figure(figsize=figsize)
         if with_edge_labels:
             edge_labels = self.get_edge_labels()
-            nx.draw_networkx_edge_labels(graph, pos=pos, edge_labels=edge_labels, font_size=font_size, font_weight=font_weight,
+            nx.draw_networkx_edge_labels(self.graphv, pos=pos, edge_labels=edge_labels, font_size=font_size, font_weight=font_weight,
                 font_color='red')
-        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
+        nx.draw(self.graphv, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
         if file != None:
@@ -238,7 +237,7 @@ class PCTHierarchy():
         return labels
 
     def get_graph(self):
-        return graph
+        return self.graphv
 
     def graph(self, layout={'r':2,'c':1,'p':2, 'o':0}):
         graph = nx.DiGraph()
