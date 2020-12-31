@@ -239,6 +239,9 @@ class PCTHierarchy():
     def get_graph(self):
         return self.graphv
 
+    def clear_graph(self):
+        self.graphv.clear()
+
     def graph(self, layout={'r':2,'c':1,'p':2, 'o':0}):
         graph = nx.DiGraph()
 
