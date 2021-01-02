@@ -223,7 +223,9 @@ class ProportionalArchitecture(BaseArchitecture):
 
 # Cell
 
+
 class BinaryOnes(enum.Enum):
+   ALLOW_ALL_ZEROS = 0
    ALL_ONES = 1
    AT_LEAST_ONE = 2
 
@@ -249,7 +251,6 @@ class BaseParameterType(ABC):
         print('Base',column)
         print('Base',num_target_indices)
         """
-
         weights=[]
         for inputIndex in range(num_target_indices):
             if inputs==None:
@@ -261,14 +262,23 @@ class BaseParameterType(ABC):
             if by_column:
                 weights.append(input_weights[column][inputIndex])
             else:
+                #print(inputIndex,column)
                 weights.append(input_weights[inputIndex][column])
         func.weights=np.array(weights)
+
+    def has_changed(self, wts1, wts2):
+        mutated = 0
+        if wts1 != wts2:
+            mutated = 1
+        return mutated
+
 
 
 class Binary(BaseParameterType):
 
     def __init__(self):
         self.ones=BinaryOnes.AT_LEAST_ONE
+        self.attr_mut_pb=None
 
     def get_weights_list(self, num_inputs, num_columns):
         wts_list=[]
@@ -286,6 +296,40 @@ class Binary(BaseParameterType):
 
         return wts_list
 
+    def set_parameters(self, pars, globals):
+        super().set_parameters(pars, globals)
+        if self.attr_mut_pb==None:
+            self.attr_mut_pb= globals['attr_mut_pb']
+
+
+    def mutate(self, wts):
+        if self.ones == BinaryOnes.ALL_ONES or (self.ones == BinaryOnes.AT_LEAST_ONE and len(wts)==1):
+            pass
+        else:
+            weights, = tools.mutFlipBit(wts, self.attr_mut_pb)
+            if self.ones == BinaryOnes.AT_LEAST_ONE:
+                if np.sum(weights) == 0:
+                    index = random.randint(0, len(weights)-1)
+                    weights[index] = 1
+
+    def copy_data(self, from_wts, to_wts):
+
+        #print(from_wts, to_wts)
+        from_len=len(from_wts)
+        to_len = len(to_wts)
+
+        for ctr in range(min(from_len, to_len)):
+            to_wts[ctr] = from_wts[ctr]
+
+        if self.ones == BinaryOnes.AT_LEAST_ONE:
+            if np.sum(to_wts) == 0:
+                index = random.randint(0, len(to_wts)-1)
+                to_wts[index] = 1
+
+
+        #return to_wts
+
+
     class Factory:
         def create(self): return Binary()
 
@@ -295,6 +339,9 @@ class Float(BaseParameterType):
     def __init__(self):
         self.lower=None
         self.upper=None
+        self.mu=None
+        self.sigma=None
+        self.attr_mut_pb=None
 
     def get_weights_list(self,  num_lists, length):
         wts=[]
@@ -309,6 +356,28 @@ class Float(BaseParameterType):
             self.lower = globals['lower_float']
         if self.upper==None:
             self.upper = globals['upper_float']
+        if self.mu==None:
+            self.mu = globals['mu']
+        if self.sigma==None:
+            self.sigma= globals['sigma']
+        if self.attr_mut_pb==None:
+            self.attr_mut_pb= globals['attr_mut_pb']
+
+    def mutate(self, wts):
+        weights, = tools.mutGaussian(wts, mu=self.mu, sigma=self.sigma, indpb=self.attr_mut_pb)
+
+    def copy_data(self, from_wts, to_wts):
+
+        #print(from_wts, to_wts)
+        from_len=len(from_wts)
+        to_len = len(to_wts)
+
+        for ctr in range(min(from_len, to_len)):
+            to_wts[ctr] = from_wts[ctr]
+
+
+
+
 
     class Factory:
         def create(self): return Float()
@@ -335,6 +404,9 @@ class Literal(BaseParameterType):
         node.replace_function(function, constant, 0)
         """
 
+    def copy_data(self, from_wts, to_wts):
+        pass
+
     class Factory:
         def create(self): return Literal()
 
@@ -356,15 +428,19 @@ class ParameterFactory:
 
 class StructureDefinition():
     "StructureDefinition"
-    def __init__(self, config=None, **cargs):
+    def __init__(self, config=None, attr_mut_pb=None, **cargs):
         if config==None:
-            self.config={'parameters': {'lower_float': -1, 'upper_float': 1, 'levels_limit': 3, 'columns_limit': 3},
+            self.config={'parameters': {'lower_float': -1, 'upper_float': 1,
+                            'levels_limit': 3, 'columns_limit': 3, 'attr_mut_pb': 1.0, 'sigma': 0.8, 'mu': 0.5},
                          'level0': {'perception': {'type': 'Binary'}, 'output': {'type': 'Float'}, 'reference': {'type': 'Float'}, 'action': {'type': 'Binary'}},
                          'leveln': {'perception': {'type': 'Binary'}, 'output': {'type': 'Float'}, 'reference': {'type': 'Float'}},
                          'leveltop': {'perception': {'type': 'Binary'}, 'output': {'type': 'Float'}, 'reference': {'type': 'Literal'}}}
-
         else:
             self.config=config
+
+        if attr_mut_pb != None:
+            self.config['parameters']['attr_mut_pb']=attr_mut_pb
+
 
     def get_config(self):
         return self.config
@@ -420,24 +496,33 @@ class StructureDefinition():
 
 
     def get_list(self, level, function,  num_lists, num_items):
+        parameter = self.get_paramter_object(level, function)
+        return parameter.get_weights_list(num_lists, num_items)
+
+
+    def mutate_list(self, level, function, wts):
+        parameter = self.get_paramter_object(level, function)
+        return parameter.mutate(wts)
+
+    def copy_data(self, level, function, from_wts, to_wts):
+        parameter = self.get_paramter_object(level, function)
+        parameter.copy_data(from_wts, to_wts)
+
+    def get_paramter_object(self, level, function):
         type, type_parameters = self.get_type(level, function)
-        #print(perception_type, perception_type_parameters)
 
         parameter = ParameterFactory.createParameter(type)
         parameter.set_parameters(type_parameters, self.config['parameters'])
-        list = parameter.get_weights_list(num_lists, num_items)
 
-        return list
+        return parameter
+
 
     def get_level0(self, num_inputs, numColumnsThisLevel, numColumnsNextLevel, num_actions):
         config0=[]
 
         perception_list = self.get_list('level0','perception', num_inputs, numColumnsThisLevel)
-
         output_list = self.get_list('level0','output', num_actions, numColumnsThisLevel)
-
         reference_list = self.get_list('level0','reference', numColumnsThisLevel, numColumnsNextLevel)
-
         action_list = self.get_list('level0','action', num_actions, numColumnsThisLevel)
 
         config0.append(perception_list)
