@@ -10,7 +10,7 @@ import json
 import os
 import enum
 from abc import ABC, abstractmethod
-from deap imprt tools
+from deap import tools
 
 from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
