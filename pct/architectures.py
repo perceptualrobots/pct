@@ -235,6 +235,7 @@ class ControlUnitIndices(enum.IntEnum):
    ACT_INDEX = 3
 
 # Cell
+
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="proportional", structure=None, config=None, env=None, input_indexes=None, history=False, error_collector=None, **cargs):
@@ -284,15 +285,15 @@ class DynamicArchitecture(BaseArchitecture):
         # create nodes
         for column in range(columns):
             node = PCTNode(build_links=True, mode=4, name=f'L{level}C{column}', history=self.hpct.history)
-            self.structure.set_node_function(node, 'reference',  'leveltop', level, None, None, column, None, None, config[referencesIndex], True)
-            self.structure.set_node_function(node, 'perception', 'level0', level, None, None, column, len(self.inputs), self.inputs, config[inputsIndex], False)
+            self.structure.set_node_function(node, 'reference', LevelKey.TOP , level, None, None, column, None, None, config[referencesIndex], True)
+            self.structure.set_node_function(node, 'perception', LevelKey.ZERO, level, None, None, column, len(self.inputs), self.inputs, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
             node.get_function("comparator").set_link(node.get_function("reference"))
             node.get_function("comparator").add_link(node.get_function("perception"))
 
-            self.structure.set_node_function(node, 'output',  'leveltop', level, None, 'C',  column, 1, [comparator_name], [config[outputsIndex]], False)
+            self.structure.set_node_function(node, 'output', LevelKey.TOP, level, None, 'C',  column, 1, [comparator_name], [config[outputsIndex]], False)
 
             self.hpct.add_node(node, level, column)
 
