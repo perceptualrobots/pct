@@ -235,10 +235,9 @@ class ControlUnitIndices(enum.IntEnum):
    ACT_INDEX = 3
 
 # Cell
-
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
-    def __init__(self, name="proportional", structure=None, config=None, env=None, input_indexes=None, history=False, error_collector=None, **cargs):
+    def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, history=False, error_collector=None, **cargs):
         inputs=[]
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
@@ -293,7 +292,7 @@ class DynamicArchitecture(BaseArchitecture):
             node.get_function("comparator").set_link(node.get_function("reference"))
             node.get_function("comparator").add_link(node.get_function("perception"))
 
-            self.structure.set_node_function(node, 'output', LevelKey.TOP, level, None, 'C',  column, 1, [comparator_name], [config[outputsIndex]], False)
+            self.structure.set_output_function(node, level, column, config[outputsIndex])
 
             self.hpct.add_node(node, level, column)
 
@@ -382,4 +381,5 @@ class DynamicArchitecture(BaseArchitecture):
             self.structure.set_node_function(node, 'output',  LevelKey.TOP , level, None, 'C',  column, 1, [comparator_name], [config[outputsIndex]], False)
 
             self.hpct.add_node(node, level, column)
+
 
