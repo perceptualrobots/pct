@@ -205,7 +205,7 @@ class DummyModel(BaseFunction):
         pass
 
     def summary(self):
-        pass
+        super().summary("")
 
     def get_config(self):
         pass
