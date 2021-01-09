@@ -384,3 +384,30 @@ class DynamicArchitecture(BaseArchitecture):
 
             self.hpct.add_node(node, level, column)
 
+
+    @classmethod
+    def draw_raw(cls, raw, structure=None, env=None, inputs=None, move={}, figsize=(12,12), layout=None, summary=False):
+        if inputs==None:
+            num_inputs = len(raw[0][0])
+            inputs = [i for i in range(num_inputs)]
+            print(inputs)
+        if structure==None:
+            structure=StructureDefinition()
+            structure.add_config_parameter(LevelKey.TOP, 'reference', 'value', raw[len(raw)-1][2] )
+            structure.add_config_parameter(LevelKey.ZERO, 'action', 'ones', BinaryOnes.ALL_ONES)
+        if env == None:
+            env = DummyModel()
+
+        config = BaseConfiguration.from_raw( raw)
+        print(config)
+        pa = DynamicArchitecture(structure=structure, config=config, env=env, input_indexes=inputs) #, error_collector=te)
+        pa()
+        hpct = pa.get_hierarchy()
+        if summary:
+            hpct.summary()
+        if layout==None:
+            hpct.draw(move=move, figsize=figsize, with_edge_labels=True)
+        else:
+            hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout)
+
+
