@@ -52,7 +52,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L22" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>env</code></strong>, <strong><code>inputs</code></strong>, <strong><code>history</code></strong>, <strong><code>error_collector</code></strong>) :: <code>ABC</code></p>
+<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L20" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>env</code></strong>, <strong><code>inputs</code></strong>, <strong><code>history</code></strong>, <strong><code>error_collector</code></strong>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -84,7 +84,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L57" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
+<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L55" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
 </blockquote>
 <p>Proportional Architecture</p>
 
@@ -116,7 +116,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="LevelKey" class="doc_header"><code>LevelKey</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L225" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [ZERO, N, TOP]</p>
+<h2 id="LevelKey" class="doc_header"><code>LevelKey</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L223" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [ZERO, N, TOP]</p>
 </blockquote>
 <p>An enumeration.</p>
 
@@ -148,7 +148,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ControlUnitIndices" class="doc_header"><code>ControlUnitIndices</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L231" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PER_INDEX, OUT_INDEX, REF_INDEX, ACT_INDEX]</p>
+<h2 id="ControlUnitIndices" class="doc_header"><code>ControlUnitIndices</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L229" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PER_INDEX, OUT_INDEX, REF_INDEX, ACT_INDEX]</p>
 </blockquote>
 <p>An enumeration.</p>
 
@@ -180,7 +180,7 @@ description: "Classes to create hierachy architectures from array configurations
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="DynamicArchitecture" class="doc_header"><code>class</code> <code>DynamicArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L240" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DynamicArchitecture</code>(<strong><code>name</code></strong>=<em><code>'dynamic'</code></em>, <strong><code>structure</code></strong>=<em><code>None</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
+<h2 id="DynamicArchitecture" class="doc_header"><code>class</code> <code>DynamicArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L238" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DynamicArchitecture</code>(<strong><code>name</code></strong>=<em><code>'dynamic'</code></em>, <strong><code>structure</code></strong>=<em><code>None</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures#BaseArchitecture"><code>BaseArchitecture</code></a></p>
 </blockquote>
 <p>Dynamic Architecture</p>
 
