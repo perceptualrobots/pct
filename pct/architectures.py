@@ -224,6 +224,7 @@ class LevelKey(enum.Enum):
    ZERO = 'level0'
    N = 'leveln'
    TOP = 'leveltop'
+   ZEROTOP = 'level0top'
 
 # Cell
 class ControlUnitIndices(enum.IntEnum):

@@ -101,6 +101,9 @@ class OpenAIGym(BaseFunction):
     def close(self):
         self.env.close()
 
+    class Factory:
+        def create(self): return OpenAIGym()
+
 # Cell
 class CartPoleV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
@@ -167,6 +170,8 @@ class PendulumV0(OpenAIGym):
 
         return self.value
 
+    class Factory:
+        def create(self): return PendulumV0()
 
 
 # Cell
@@ -197,6 +202,8 @@ class VelocityModel(BaseFunction):
     def set_seed(self, seed):
         pass
 
+    class Factory:
+        def create(self): return VelocityModel()
 
 # Cell
 class DummyModel(BaseFunction):
@@ -211,3 +218,6 @@ class DummyModel(BaseFunction):
 
     def get_config(self):
         pass
+
+    class Factory:
+        def create(self): return CartPoleV1()
