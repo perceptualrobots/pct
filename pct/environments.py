@@ -128,6 +128,8 @@ class CartPoleV1(OpenAIGym):
         else:
             self.input=0
 
+    class Factory:
+        def create(self): return CartPoleV1()
 
 
 # Cell
