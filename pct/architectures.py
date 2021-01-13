@@ -236,6 +236,7 @@ class ControlUnitIndices(enum.IntEnum):
 # Cell
 
 
+
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, history=False, error_collector=None, **cargs):
@@ -270,6 +271,8 @@ class DynamicArchitecture(BaseArchitecture):
 
 
     def configure_zerotoplevel(self):
+        mode = self.structure.get_parameter('modes')[LevelKey.ZEROTOP]
+
         inputsIndex=0
         outputsIndex=1
         referencesIndex=2
@@ -284,7 +287,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=4, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
             self.structure.set_node_function(node, 'reference', LevelKey.TOP , level, None, None, column, None, None, config[referencesIndex], True)
             self.structure.set_node_function(node, 'perception', LevelKey.ZERO, level, None, None, column, len(self.inputs), self.inputs, config[inputsIndex], False)
 
@@ -304,6 +307,8 @@ class DynamicArchitecture(BaseArchitecture):
         return numColumnsThisLevel
 
     def configure_zerothlevel(self):
+        mode = self.structure.get_parameter('modes')[LevelKey.ZERO]
+
         inputsIndex=0
         outputsIndex=1
         referencesIndex=2
@@ -319,7 +324,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=3, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
             self.structure.set_node_function(node, 'reference', LevelKey.ZERO, level, level+1, 'O', column, columnsNextLevel, None, config[referencesIndex], True)
             self.structure.set_node_function(node, 'perception', LevelKey.ZERO, level, None, None, column, len(self.inputs), self.inputs, config[inputsIndex], False)
 
@@ -337,6 +342,8 @@ class DynamicArchitecture(BaseArchitecture):
         return numColumnsThisLevel
 
     def configure_level(self, config, numColumnsPreviousLevel, level):
+        mode = self.structure.get_parameter('modes')[LevelKey.N]
+
         inputsIndex=0
         outputsIndex=1
         referencesIndex=2
@@ -347,7 +354,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=3, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
             self.structure.set_node_function(node, 'reference', LevelKey.N, level, level+1, 'O', column, columnsNextLevel, None, config[referencesIndex], True)
             self.structure.set_node_function(node, 'perception', LevelKey.N, level, level-1, 'P', column, numColumnsPreviousLevel, None, config[inputsIndex], False)
 
@@ -361,6 +368,7 @@ class DynamicArchitecture(BaseArchitecture):
         return numColumnsThisLevel
 
     def configure_top_level(self, config, level, numColumnsPreviousLevel ):
+        mode = self.structure.get_parameter('modes')[LevelKey.TOP]
         inputsIndex=0
         outputsIndex=1
         referencesIndex=2
@@ -369,7 +377,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=4, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
 
             self.structure.set_node_function(node, 'reference', LevelKey.TOP , level, None, None, column, None, None, config[referencesIndex], None)
             self.structure.set_node_function(node, 'perception', LevelKey.TOP , level, level-1, 'P', column, numColumnsPreviousLevel, None, config[inputsIndex], False)
@@ -382,6 +390,5 @@ class DynamicArchitecture(BaseArchitecture):
             self.structure.set_output_function(node, level, column, config[outputsIndex])
 
             self.hpct.add_node(node, level, column)
-
 
 
