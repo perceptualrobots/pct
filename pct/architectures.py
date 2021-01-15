@@ -234,9 +234,6 @@ class ControlUnitIndices(enum.IntEnum):
    ACT_INDEX = 3
 
 # Cell
-
-
-
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, history=False, error_collector=None, **cargs):
