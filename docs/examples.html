@@ -623,50 +623,12 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-22-50381282bb5e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>cartpole_hierarchy<span class="ansi-blue-fg">.</span>run<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">500</span><span class="ansi-blue-fg">,</span>verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">run</span><span class="ansi-blue-fg">(self, steps, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">    129</span>     <span class="ansi-green-fg">def</span> run<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> steps<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span>         <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>steps<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 131</span><span class="ansi-red-fg">             </span>out <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    132</span>         <span class="ansi-green-fg">return</span> out
-<span class="ansi-green-intense-fg ansi-bold">    133</span> 
 
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">     85</span>                     <span class="ansi-green-fg">if</span> verbose<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     86</span>                         print<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">.</span>get_name<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> end <span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 87</span><span class="ansi-red-fg">                     </span>node<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     88</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     89</span>             <span class="ansi-green-fg">for</span> node_name <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>order<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">     58</span> 
-<span class="ansi-green-intense-fg ansi-bold">     59</span>         <span class="ansi-green-fg">for</span> perceptionFunction <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>perceptionCollection<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 60</span><span class="ansi-red-fg">             </span>perceptionFunction<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     61</span> 
-<span class="ansi-green-intense-fg ansi-bold">     62</span>         <span class="ansi-green-fg">for</span> comparatorFunction <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>comparatorCollection<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">    506</span>     <span class="ansi-green-fg">def</span> __call__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    507</span>         super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>check_links<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 508</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>value <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>get_indexed_value<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>index<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    509</span> 
-<span class="ansi-green-intense-fg ansi-bold">    510</span>         <span class="ansi-green-fg">return</span> super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__call__<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">get_indexed_value</span><span class="ansi-blue-fg">(self, index)</span>
-<span class="ansi-green-intense-fg ansi-bold">    189</span>         <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> isinstance<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>value<span class="ansi-blue-fg">,</span> list<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    190</span>             <span class="ansi-green-fg">if</span> index <span class="ansi-blue-fg">!=</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 191</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Index should be zero for non-list value.&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    192</span> 
-<span class="ansi-green-intense-fg ansi-bold">    193</span>             <span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>value
-
-<span class="ansi-red-fg">Exception</span>: Index should be zero for non-list value.</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
 </div>
+
 </div>
 
 </div>
