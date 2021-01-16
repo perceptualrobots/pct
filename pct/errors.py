@@ -48,7 +48,7 @@ class RootMeanSquareError(BaseErrorType):
         self.error_response=np.sqrt(self.sum/self.num)
 
     class Factory:
-        def create(self): return RootSumSquaredError()
+        def create(self): return RootMeanSquareError()
 
 # Cell
 class BaseErrorCollector(ABC):
