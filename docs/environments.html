@@ -84,7 +84,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CartPoleV1" class="doc_header"><code>class</code> <code>CartPoleV1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L108" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CartPoleV1</code>(<strong><code>env_name</code></strong>=<em><code>'CartPole-v1'</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="CartPoleV1" class="doc_header"><code>class</code> <code>CartPoleV1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L108" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CartPoleV1</code>(<strong><code>env_name</code></strong>=<em><code>'CartPole-v1'</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'CartPole-v1'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
 <p>A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -116,7 +116,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PendulumV0" class="doc_header"><code>class</code> <code>PendulumV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L139" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PendulumV0</code>(<strong><code>env_name</code></strong>=<em><code>'Pendulum-v0'</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="PendulumV0" class="doc_header"><code>class</code> <code>PendulumV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L139" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PendulumV0</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'Pendulum-v0'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
 <p>A function that creates an runs the Pendulum-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -345,7 +345,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;1.000 0.010 1.000 -0.010 -0.001 0.116 -1.0 False {}&#39;</pre>
+<pre>&#39;0.999 0.035 0.999 0.049 0.026 -0.038 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -378,7 +378,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9999450616584837</pre>
+<pre>0.9994033272927141</pre>
 </div>
 
 </div>
@@ -429,7 +429,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9999450616584837</pre>
+<pre>0.9994033272927141</pre>
 </div>
 
 </div>
@@ -480,17 +480,17 @@ description: "Classes to create simulated environment functions."
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;PendulumV0&#39;, &#39;name&#39;: &#39;gym2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant2&#39;}, &#39;env_name&#39;: &#39;Pendulum-v0&#39;, &#39;reward&#39;: 0, &#39;done&#39;: False, &#39;info&#39;: {}}
--0.649 -0.761 -0.303 -2.277 [-5.1195768] False {}
--0.676 -0.737 -0.724 -2.313 [-5.1960148] False {}
--0.717 -0.697 -1.126 -2.370 [-5.40529314] False {}
--0.767 -0.642 -1.499 -2.445 [-5.74345335] False {}
--0.822 -0.569 -1.831 -2.536 [-6.20231588] False {}
--0.878 -0.479 -2.107 -2.642 [-6.76858037] False {}
--0.927 -0.375 -2.317 -2.757 [-7.42318624] False {}
--0.966 -0.259 -2.448 -2.880 [-8.14139088] False {}
--0.991 -0.137 -2.492 -3.004 [-8.89387889] False {}
--1.000 -0.015 -2.445 -3.127 [-9.64888208] False {}
+<pre>{&#39;type&#39;: &#39;PendulumV0&#39;, &#39;name&#39;: &#39;Pendulum-v0&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant1&#39;}, &#39;env_name&#39;: &#39;Pendulum-v0&#39;, &#39;reward&#39;: 0, &#39;done&#39;: False, &#39;info&#39;: {}}
+0.494 0.869 1.571 1.054 [-1.0157747] False {}
+0.388 0.922 2.373 1.172 [-1.35800176] False {}
+0.236 0.972 3.215 1.333 [-1.9384688] False {}
+0.033 0.999 4.093 1.538 [-2.81119818] False {}
+-0.215 0.977 4.993 1.787 [-4.04103639] False {}
+-0.488 0.873 5.876 2.081 [-5.6885321] False {}
+-0.748 0.664 6.680 2.415 [-7.78411534] False {}
+-0.936 0.352 7.328 2.781 [-10.2958617] False {}
+-1.000 -0.027 7.742 -3.115 [-13.10793639] False {}
+-0.913 -0.408 7.872 -2.721 [-15.69606103] False {}
 </pre>
 </div>
 </div>
@@ -500,7 +500,7 @@ description: "Classes to create simulated environment functions."
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([-0.99988906, -0.01489503, -2.44468081, -3.12669707])</pre>
+<pre>array([-0.91282952, -0.40834087,  7.87217489, -2.7209569 ])</pre>
 </div>
 
 </div>

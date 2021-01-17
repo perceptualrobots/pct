@@ -112,7 +112,7 @@ class CartPoleV1(OpenAIGym):
     # 0 cart_position
     # 3 pole_velocity
     # 2 pole_angle
-    def __init__(self, env_name='CartPole-v1', render=False, video_wrap=False, value=0, name="gym",
+    def __init__(self, env_name='CartPole-v1', render=False, video_wrap=False, value=0, name="CartPole-v1",
                  seed=None, links=None, new_name=True, **cargs):
         super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
 
@@ -139,15 +139,15 @@ class CartPoleV1(OpenAIGym):
 class PendulumV0(OpenAIGym):
     "A function that creates an runs the Pendulum-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
-    # 0 cos(theta)
-    # 1 sin(theta)
-    # 2 theta dot
-    # 3 theta +pi/-pi (added here) zero is pointing upwards
+    # 0 cos(theta) - +1 is up, -1 is down, 0 is left and right
+    # 1 sin(theta) - +1 is left, -1 is right, 0 is up and down
+    # 2 theta dot - +dot is anti-clockwise, -dot is clockwise
+    # 3 theta +pi/-pi (added here) 0 is pointing upwards, +pi is anti-clockwise, -pi is clockwise
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
-    def __init__(self, env_name='Pendulum-v0', render=False, video_wrap=False, value=0, name="gym",
+    def __init__(self, render=False, video_wrap=False, value=0, name="Pendulum-v0",
                  seed=None, links=None, new_name=True, **cargs):
-        super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
+        super().__init__('Pendulum-v0', render, video_wrap, value, name, seed, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().check_links(1)
