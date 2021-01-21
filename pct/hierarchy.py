@@ -48,6 +48,7 @@ class PCTHierarchy():
         else:
             self.postCollection=post
         self.hierarchy = []
+        self.prepostData = None
         if history:
             self.prepostData = FunctionsData()
 
