@@ -129,7 +129,7 @@ class PCTHierarchy():
 
         return output
 
-    def get_history_data ():
+    def get_history_data (self):
         return self.history_data
 
     def set_order(self, order):
