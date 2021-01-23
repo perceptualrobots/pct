@@ -44,7 +44,14 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "BaseErrorCollector": "07_errors.ipynb",
          "TotalError": "07_errors.ipynb",
          "InputsError": "07_errors.ipynb",
-         "ErrorFactory": "07_errors.ipynb"}
+         "ErrorFactory": "07_errors.ipynb",
+         "BinaryOnes": "08_structure.ipynb",
+         "BaseParameterType": "08_structure.ipynb",
+         "Binary": "08_structure.ipynb",
+         "Float": "08_structure.ipynb",
+         "Literal": "08_structure.ipynb",
+         "ParameterFactory": "08_structure.ipynb",
+         "StructureDefinition": "08_structure.ipynb"}
 
 modules = ["putils.py",
            "functions.py",
@@ -52,7 +59,8 @@ modules = ["putils.py",
            "hierarchy.py",
            "environments.py",
            "architectures.py",
-           "errors.py"]
+           "errors.py",
+           "structure.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 

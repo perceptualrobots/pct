@@ -15,6 +15,8 @@ from .functions import WeightedSum
 from .functions import IndexedParameter
 from .functions import Constant
 from .environments import PendulumV0
+from .environments import VelocityModel
+from .strutures import StructureDefinition
 
 # Cell
 class BaseArchitecture(ABC):
@@ -236,7 +238,8 @@ class ControlUnitIndices(enum.IntEnum):
 # Cell
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
-    def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, history=False, error_collector=None, **cargs):
+    def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None,
+                 history=False, error_collector=None, **cargs):
         inputs=[]
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
