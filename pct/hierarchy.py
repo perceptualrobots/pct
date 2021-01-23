@@ -12,6 +12,7 @@ from .nodes import PCTNode
 from .functions import *
 from .putils import UniqueNamer
 from .putils import FunctionsList
+from matplotlib import style
 
 # Cell
 class FunctionsData():
