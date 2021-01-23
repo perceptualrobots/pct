@@ -26,6 +26,7 @@ class FunctionsData():
         else:
             dlist=[]
             self.data[name]=dlist
+            self.data[name].append(func.get_value())
 
     def add_list(self, key, list):
         self.data[key]= list
@@ -573,3 +574,22 @@ class PCTHierarchy():
                     history_data.add_list(key,node.history.data['outcoll'][key])
 
         return history_data.data
+
+    def hierarchy_plots(self, title='plot', plot_items={}):
+        history = self.get_history_data()
+
+        num_items = len(history[list(history.keys())[0]])
+        x = np.linspace(0, num_items-1, num_items)
+        style.use('fivethirtyeight')
+
+        fig = plt.figure()
+        ax1 = fig.add_subplot(1,1,1)
+
+        for key in plot_items.keys():
+            ax1.plot(x, history[key], label=plot_items[key])
+
+        plt.title(title)
+        plt.legend()
+        plt.show()
+
+        return fig
