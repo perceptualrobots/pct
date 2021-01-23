@@ -16,7 +16,7 @@ from .functions import IndexedParameter
 from .functions import Constant
 from .environments import PendulumV0
 from .environments import VelocityModel
-from .strutures import StructureDefinition
+from .struture import StructureDefinition
 
 # Cell
 class BaseArchitecture(ABC):
