@@ -8,6 +8,7 @@
     "Hierarchy": "/hierarchy",
     "Environments": "/environments",
     "Architectures": "/architectures",
-    "Errors": "/errors"
+    "Errors": "/errors",
+    "Structure": "/structure"
   }
 }
