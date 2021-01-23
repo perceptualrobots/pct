@@ -28,14 +28,14 @@ entries:
       title: Environments
       url: /environments
     - output: web,pdf
-      title: Architectures
-      url: /architectures
+      title: Structure
+      url: /structure
     - output: web,pdf
       title: Errors
       url: /errors
     - output: web,pdf
-      title: Structure
-      url: /structure
+      title: Architectures
+      url: /architectures
     output: web
     title: pct
   output: web
