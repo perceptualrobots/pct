@@ -549,3 +549,27 @@ class PCTHierarchy():
     def add_links(self, func_name, *link_names):
         for link_name in link_names:
             FunctionsList.getInstance().get_function(func_name).add_link(FunctionsList.getInstance().get_function(link_name))
+
+
+    def get_history_data(self):
+        history_data = self.get_prepost_data()
+        for key in history_data.data.keys():
+            print(key)
+
+        for level in range(len(self.hierarchy)):
+            for col in range(len(self.hierarchy[level])):
+                node = self.get_node(level,col)
+                for key in node.history.data['refcoll'].keys():
+                    print(key)
+                    history_data.add_list(key,node.history.data['refcoll'][key])
+                for key in node.history.data['percoll'].keys():
+                    print(key)
+                    history_data.add_list(key,node.history.data['percoll'][key])
+                for key in node.history.data['comcoll'].keys():
+                    print(key)
+                    history_data.add_list(key,node.history.data['comcoll'][key])
+                for key in node.history.data['outcoll'].keys():
+                    print(key)
+                    history_data.add_list(key,node.history.data['outcoll'][key])
+
+        return history_data.data
