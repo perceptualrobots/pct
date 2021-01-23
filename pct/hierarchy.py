@@ -553,23 +553,23 @@ class PCTHierarchy():
 
     def get_history_data(self):
         history_data = self.get_prepost_data()
-        for key in history_data.data.keys():
-            print(key)
+        #for key in history_data.data.keys():
+        #    print(key)
 
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])):
                 node = self.get_node(level,col)
                 for key in node.history.data['refcoll'].keys():
-                    print(key)
+                    #print(key)
                     history_data.add_list(key,node.history.data['refcoll'][key])
                 for key in node.history.data['percoll'].keys():
-                    print(key)
+                    #print(key)
                     history_data.add_list(key,node.history.data['percoll'][key])
                 for key in node.history.data['comcoll'].keys():
-                    print(key)
+                    #print(key)
                     history_data.add_list(key,node.history.data['comcoll'][key])
                 for key in node.history.data['outcoll'].keys():
-                    print(key)
+                    #print(key)
                     history_data.add_list(key,node.history.data['outcoll'][key])
 
         return history_data.data
