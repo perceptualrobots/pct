@@ -191,47 +191,38 @@ description: "A python library for creating perceptual control hierarchies."
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0 1.000 0.000 1.000 10.000 
-1 1.000 0.200 0.800 8.000 
-2 1.000 0.360 0.640 6.400 
-3 1.000 0.488 0.512 5.120 
-4 1.000 0.590 0.410 4.096 
-5 1.000 0.672 0.328 3.277 
-6 1.000 0.738 0.262 2.621 
-7 1.000 0.790 0.210 2.097 
-8 1.000 0.832 0.168 1.678 
-9 1.000 0.866 0.134 1.342 
-10 1.000 0.893 0.107 1.074 
-11 1.000 0.914 0.086 0.859 
-12 1.000 0.931 0.069 0.687 
-13 1.000 0.945 0.055 0.550 
-14 1.000 0.956 0.044 0.440 
-15 1.000 0.965 0.035 0.352 
-16 1.000 0.972 0.028 0.281 
-17 1.000 0.977 0.023 0.225 
-18 1.000 0.982 0.018 0.180 
-19 1.000 0.986 0.014 0.144 
-20 1.000 0.988 0.012 0.115 
-21 1.000 0.991 0.009 0.092 
-22 1.000 0.993 0.007 0.074 
-23 1.000 0.994 0.006 0.059 
-24 1.000 0.995 0.005 0.047 
-25 1.000 0.996 0.004 0.038 
-26 1.000 0.997 0.003 0.030 
-27 1.000 0.998 0.002 0.024 
-28 1.000 0.998 0.002 0.019 
-29 1.000 0.998 0.002 0.015 
-30 1.000 0.999 0.001 0.012 
-31 1.000 0.999 0.001 0.010 
-32 1.000 0.999 0.001 0.008 
-33 1.000 0.999 0.001 0.006 
-34 1.000 0.999 0.001 0.005 
-35 1.000 1.000 0.000 0.004 
-36 1.000 1.000 0.000 0.003 
-37 1.000 1.000 0.000 0.003 
-38 1.000 1.000 0.000 0.002 
-39 1.000 1.000 0.000 0.002 
-</pre>
+<pre>0 1.000 0.000 1.000 </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-49aa7ec3e15c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">40</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     print<span class="ansi-blue-fg">(</span>i<span class="ansi-blue-fg">,</span> end<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg">     </span>force <span class="ansi-blue-fg">=</span> pctnode<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     velocity <span class="ansi-blue-fg">=</span> velocity_model<span class="ansi-blue-fg">(</span>pctnode<span class="ansi-blue-fg">.</span>get_perception_value<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> force<span class="ansi-blue-fg">,</span> mass<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     pctnode<span class="ansi-blue-fg">.</span>set_perception_value<span class="ansi-blue-fg">(</span>velocity<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
+<span class="ansi-green-intense-fg ansi-bold">     78</span> 
+<span class="ansi-green-intense-fg ansi-bold">     79</span>         <span class="ansi-green-fg">for</span> outputFunction <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>outputCollection<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 80</span><span class="ansi-red-fg">             </span>outputFunction<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     81</span> 
+<span class="ansi-green-intense-fg ansi-bold">     82</span>         self<span class="ansi-blue-fg">.</span>output <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>outputCollection<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>get_value<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
+<span class="ansi-green-intense-fg ansi-bold">    569</span>     <span class="ansi-green-fg">def</span> __call__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    570</span>         <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">!=</span> self<span class="ansi-blue-fg">.</span>weights<span class="ansi-blue-fg">.</span>size<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 571</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;Number of links {len(self.links)} and weights {self.weights.size} must be the same.&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    572</span> 
+<span class="ansi-green-intense-fg ansi-bold">    573</span>         super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>check_links<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">Exception</span>: Number of links 1 and weights 3 must be the same.</pre>
 </div>
 </div>
 

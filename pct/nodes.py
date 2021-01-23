@@ -51,7 +51,7 @@ class PCTNode():
             self.comparatorCollection = [comparator]
 
             if output==None:
-                if mode >2 or mode < 5:
+                if mode >2 and mode < 5:
                     output =  WeightedSum()
                 elif mode == 6:
                     output =  SmoothWeightedSum()
