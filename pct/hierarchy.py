@@ -27,6 +27,9 @@ class FunctionsData():
             dlist=[]
             self.data[name]=dlist
 
+    def add_list(key, list):
+        self.data[key]= list
+
 # Cell
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
