@@ -16,7 +16,7 @@ from .functions import IndexedParameter
 from .functions import Constant
 from .environments import PendulumV0
 from .environments import VelocityModel
-#from pct.structure import StructureDefinition
+from .structure import StructureDefinition
 
 # Cell
 class BaseArchitecture(ABC):
@@ -271,6 +271,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 
     def configure_zerotoplevel(self):
+        print(self.structure.get_parameter('modes'))
         mode = self.structure.get_parameter('modes')[LevelKey.ZEROTOP]
 
         inputsIndex=0
