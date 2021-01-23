@@ -48,9 +48,9 @@ class PCTHierarchy():
         else:
             self.postCollection=post
         self.hierarchy = []
-        self.history_data = None
+        self.prepost_data = None
         if history:
-            self.history_data = FunctionsData()
+            self.prepost_data = FunctionsData()
 
         for r in range(levels):
             col_list=[]
@@ -88,8 +88,8 @@ class PCTHierarchy():
             #if verbose:
             #    print(func.get_name(), end =" ")
             func(verbose)
-            if self.history_data != None:
-                self.history_data.add_data(func)
+            if self.prepost_data != None:
+                self.prepost_data.add_data(func)
 
         if verbose:
             print()
@@ -116,8 +116,8 @@ class PCTHierarchy():
 
         for func in self.postCollection:
             func(verbose)
-            if self.history_data != None:
-                self.history_data.add_data(func)
+            if self.prepost_data != None:
+                self.prepost_data.add_data(func)
 
         output = self.get_output_function().get_value()
 
@@ -129,8 +129,8 @@ class PCTHierarchy():
 
         return output
 
-    def get_history_data (self):
-        return self.history_data
+    def get_prepost_data (self):
+        return self.prepost_data
 
     def set_order(self, order):
         self.order=order
