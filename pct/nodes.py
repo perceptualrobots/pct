@@ -22,6 +22,8 @@ class PCTNode():
         # 2 - per:ws, ref:con, com:sub, out:prop
         # 3 - per:ws, ref:ws, com:sub, out:ws
         # 4 - per:ws, ref:con, com:sub, out:ws
+        # 5 - per:ws, ref:con, com:sub, out:smws
+        # 6 - per:ws, ref:ws, com:sub, out:smws
 
         self.links_built = False
         self.history = None
@@ -38,9 +40,9 @@ class PCTNode():
             self.perceptionCollection = [perception]
 
             if reference==None:
-                if mode == 1 or mode == 3:
+                if mode == 1 or mode == 3 or mode == 6:
                     reference =  WeightedSum()
-                elif mode ==0 or mode == 2 or mode == 4:
+                elif mode ==0 or mode == 2 or mode == 4 or mode == 5:
                     reference = Constant(1)
             self.referenceCollection = [reference]
 
@@ -49,8 +51,10 @@ class PCTNode():
             self.comparatorCollection = [comparator]
 
             if output==None:
-                if mode >2 :
+                if mode >2 or mode < 5:
                     output =  WeightedSum()
+                elif mode == 6:
+                    output =  SmoothWeightedSum()
                 else:
                     output = Proportional(10)
 
