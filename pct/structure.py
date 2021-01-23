@@ -9,7 +9,7 @@ import numpy as np
 from abc import ABC
 
 from .functions import WeightedSum
-from .architectures import LevelKey
+
 
 # Cell
 class BinaryOnes(enum.Enum):
