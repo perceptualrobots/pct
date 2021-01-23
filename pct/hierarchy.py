@@ -27,7 +27,7 @@ class FunctionsData():
             dlist=[]
             self.data[name]=dlist
 
-    def add_list(key, list):
+    def add_list(self, key, list):
         self.data[key]= list
 
 # Cell
