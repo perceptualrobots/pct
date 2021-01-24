@@ -363,6 +363,9 @@ class StructureDefinition():
     def get_function_type(self, mode, function):
         type = 'WeightedSum'
 
+        if function == 'reference' and mode == 5:
+            type = 'Constant'
+
         if function == 'output' and mode == 5:
             type = 'SmoothWeightedSum'
 
