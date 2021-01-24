@@ -350,11 +350,21 @@ class StructureDefinition():
     def get_function_type(self, mode, function):
         type = 'WeightedSum'
 
-        if function == 'reference' and mode == 5:
-            type = 'Constant'
+        if mode == 4:
+            if function == 'reference':
+                type = 'Constant'
 
-        if function == 'output' and mode == 5:
-            type = 'SmoothWeightedSum'
+            if function == 'output':
+                type = 'WeightedSum'
+
+        if mode == 5:
+            if function == 'reference':
+                type = 'Constant'
+
+            if function == 'output':
+                type = 'SmoothWeightedSum'
+
+
 
         return type
 
