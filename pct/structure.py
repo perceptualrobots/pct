@@ -243,19 +243,6 @@ class Literal(BaseParameterType):
     def get_weights_list(self,  num_lists, length):
         return self.value
 
-    def set_node_function(self, node, function, thislevel, targetlevel, not_used, column, not_used1, inputs, weights, not_used2):
-
-        func = node.get_function(function)
-        prefix = function[0].capitalize()
-        func.set_name(f'{prefix}L{thislevel}C{column}c')
-        func.set_value(weights[column])
-        """
-        print('Literal',inputs)
-        print('Literal',weights)
-        prefix = function[0].capitalize()
-        constant = Constant(weights[column], name=f'{prefix}L{thislevel}C{column}c')
-        node.replace_function(function, constant, 0)
-        """
 
     def copy_data(self, from_wts, to_wts):
         pass

@@ -471,6 +471,20 @@ class Constant(BaseFunction):
     def get_config(self):
         return super().get_config()
 
+    def set_node_function(self, node, function, thislevel, targetlevel, not_used, column, not_used1, inputs, weights, not_used2):
+
+        func = node.get_function(function)
+        prefix = function[0].capitalize()
+        func.set_name(f'{prefix}L{thislevel}C{column}c')
+        func.set_value(weights[column])
+        """
+        print('Literal',inputs)
+        print('Literal',weights)
+        prefix = function[0].capitalize()
+        constant = Constant(weights[column], name=f'{prefix}L{thislevel}C{column}c')
+        node.replace_function(function, constant, 0)
+        """
+
     class Factory:
         def create(self): return Constant()
 
