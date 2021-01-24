@@ -370,7 +370,7 @@ class StructureDefinition():
     def set_node_function(self, node, function, levelkey, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
         type, type_parameters = self.get_type(levelkey, function)
         #parameter = ParameterFactory.createParameter(type)
-        parameter = FunctionFactory.createParameter(type)
+        parameter = FunctionFactory.createFunction(type)
         parameter.set_node_function(node, function,  thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column)
 
 
