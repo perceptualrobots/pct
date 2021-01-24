@@ -299,6 +299,35 @@ class BaseFunction(ABC):
         f.write(jsondict)
         f.close()
 
+
+    def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
+        func = node.get_function(function)
+        prefix = function[0].capitalize()
+        func.set_name(f'{prefix}L{thislevel}C{column}ws')
+
+        """
+        print('Base',func.get_name())
+        print('Base',inputs)
+        print('Base',input_weights)
+        print('Base',column)
+        print('Base',num_target_indices)
+        """
+        weights=[]
+        for inputIndex in range(num_target_indices):
+            if inputs==None:
+                name=f'{targetprefix}L{targetlevel}C{inputIndex}ws'
+            else:
+                name=inputs[inputIndex]
+            func.add_link(name)
+            #print(name)
+            if by_column:
+                weights.append(input_weights[column][inputIndex])
+            else:
+                #print(inputIndex,column)
+                weights.append(input_weights[inputIndex][column])
+        func.weights=np.array(weights)
+
+
     @classmethod
     def load(cls, file):
         with open(file) as f:
