@@ -14,7 +14,6 @@ from .nodes import PCTNode
 from .functions import WeightedSum
 from .functions import IndexedParameter
 from .functions import Constant
-from .functions import FunctionFactory
 from .environments import PendulumV0
 from .environments import VelocityModel
 from .structure import StructureDefinition
@@ -284,8 +283,8 @@ class DynamicArchitecture(BaseArchitecture):
         # create nodes
         for column in range(columns):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
-            self.structure.set_node_function(node, 'reference', LevelKey.TOP , level, None, None, column, None, None, config[referencesIndex], True)
-            self.structure.set_node_function(node, 'perception', LevelKey.ZERO, level, None, None, column, len(self.inputs), self.inputs, config[inputsIndex], False)
+            self.structure.set_node_function(node, 'reference', mode , level, None, None, column, None, None, config[referencesIndex], True)
+            self.structure.set_node_function(node, 'perception', mode, level, None, None, column, len(self.inputs), self.inputs, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
@@ -321,8 +320,8 @@ class DynamicArchitecture(BaseArchitecture):
         # create nodes
         for column in range(columns):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
-            self.structure.set_node_function(node, 'reference', LevelKey.ZERO, level, level+1, 'O', column, columnsNextLevel, None, config[referencesIndex], True)
-            self.structure.set_node_function(node, 'perception', LevelKey.ZERO, level, None, None, column, len(self.inputs), self.inputs, config[inputsIndex], False)
+            self.structure.set_node_function(node, 'reference', mode, level, level+1, 'O', column, columnsNextLevel, None, config[referencesIndex], True)
+            self.structure.set_node_function(node, 'perception', mode, level, None, None, column, len(self.inputs), self.inputs, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
@@ -351,8 +350,8 @@ class DynamicArchitecture(BaseArchitecture):
         # create nodes
         for column in range(numColumnsThisLevel):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
-            self.structure.set_node_function(node, 'reference', LevelKey.N, level, level+1, 'O', column, columnsNextLevel, None, config[referencesIndex], True)
-            self.structure.set_node_function(node, 'perception', LevelKey.N, level, level-1, 'P', column, numColumnsPreviousLevel, None, config[inputsIndex], False)
+            self.structure.set_node_function(node, 'reference', mode, level, level+1, 'O', column, columnsNextLevel, None, config[referencesIndex], True)
+            self.structure.set_node_function(node, 'perception', mode, level, level-1, 'P', column, numColumnsPreviousLevel, None, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
@@ -375,8 +374,8 @@ class DynamicArchitecture(BaseArchitecture):
         for column in range(numColumnsThisLevel):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
 
-            self.structure.set_node_function(node, 'reference', LevelKey.TOP , level, None, None, column, None, None, config[referencesIndex], None)
-            self.structure.set_node_function(node, 'perception', LevelKey.TOP , level, level-1, 'P', column, numColumnsPreviousLevel, None, config[inputsIndex], False)
+            self.structure.set_node_function(node, 'reference', mode, level, None, None, column, None, None, config[referencesIndex], None)
+            self.structure.set_node_function(node, 'perception', mode, level, level-1, 'P', column, numColumnsPreviousLevel, None, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
