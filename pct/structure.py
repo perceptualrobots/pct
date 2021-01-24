@@ -360,6 +360,15 @@ class StructureDefinition():
 
         return package['type'], pars
 
+    def get_function_type(self, mode, function):
+        type = 'WeightedSum'
+
+        if function == 'output' and mode = 5:
+            type = 'SmoothWeightedSum'
+
+        return type
+
+
     def get_type_parameters(self, level, function):
         return self.config[level][function]
 
@@ -368,7 +377,7 @@ class StructureDefinition():
 
 
     def set_node_function(self, node, function, levelkey, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
-        type, type_parameters = self.get_type(levelkey, function)
+        type = self.get_function_type(mode, function)
         #parameter = ParameterFactory.createParameter(type)
         parameter = FunctionFactory.createFunction(type)
         parameter.set_node_function(node, function,  thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column)
