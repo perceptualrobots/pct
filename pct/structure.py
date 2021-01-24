@@ -376,7 +376,7 @@ class StructureDefinition():
         return self.config['parameters'][key]
 
 
-    def set_node_function(self, node, function, levelkey, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
+    def set_node_function(self, node, function, mode, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
         type = self.get_function_type(mode, function)
         #parameter = ParameterFactory.createParameter(type)
         parameter = FunctionFactory.createFunction(type)

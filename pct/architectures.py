@@ -14,6 +14,7 @@ from .nodes import PCTNode
 from .functions import WeightedSum
 from .functions import IndexedParameter
 from .functions import Constant
+from .functions import FunctionFactory
 from .environments import PendulumV0
 from .environments import VelocityModel
 from .structure import StructureDefinition
