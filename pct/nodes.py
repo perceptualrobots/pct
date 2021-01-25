@@ -89,6 +89,8 @@ class PCTNode():
 
         return self.output
 
+
+
     def get_name(self):
         return self.name
 
@@ -448,6 +450,28 @@ class PCTNode():
             func = eval(fnname).from_config(fndict)
             collection.append(func)
 
+    @classmethod
+    def get_function_type(cls, mode, function):
+        type = 'WeightedSum'
+
+        if function == ControlUnitFunctions.PERCEPTION:
+            if mode == 0 :
+                type = 'Variable'
+
+        if function == ControlUnitFunctions.REFERENCE:
+            if mode == 0 or mode == 2  or mode == 4  or mode == 5 :
+                type = 'Constant'
+
+        if function == ControlUnitFunctions.COMPARATOR:
+            type = 'Subtract'
+
+        if function == ControlUnitFunctions.OUTPUT:
+            if mode < 3:
+                type = 'Proportional'
+            elif mode == 5  or mode == 6 :
+                type = 'SmoothWeightedSum'
+
+        return type
 
 # Cell
 class PCTNodeData():
