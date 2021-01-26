@@ -139,11 +139,10 @@ description: "Classes to create hierachy architectures from array configurations
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">VelocityModel</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;VModel&#39;</span><span class="p">)</span>
 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">structure = ArchitectureStructure()</span>
-<span class="sd">config = {&#39;parameters&#39;: {}, &#39;level0&#39;: [[[1.0864011617580416, -1.0342161642584196], [-8.899524671308557, -8.976856229389936]], [-0.7295091920311653, -4.460573287694404], [0, 0], [[-4.146713118740296, 1.2794655139677662]]]}</span>
-<span class="sd">pa = DynamicArchitecture(structure=structure, config=config, env=env, input_indexes=inputs) #, error_collector=te)</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">structure</span> <span class="o">=</span> <span class="n">ArchitectureStructure</span><span class="p">()</span>
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{},</span> <span class="s1">&#39;level0&#39;</span><span class="p">:</span> <span class="p">[[[</span><span class="mf">1.0864011617580416</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0342161642584196</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">8.899524671308557</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.976856229389936</span><span class="p">]],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.7295091920311653</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.460573287694404</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="o">-</span><span class="mf">4.146713118740296</span><span class="p">,</span> <span class="mf">1.2794655139677662</span><span class="p">]]]}</span>
+<span class="n">pa</span> <span class="o">=</span> <span class="n">DynamicArchitecture</span><span class="p">(</span><span class="n">structure</span><span class="o">=</span><span class="n">structure</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">input_indexes</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span> <span class="c1">#, error_collector=te)</span>
+
 <span class="c1">#pa()</span>
 <span class="c1">#hpct = pa.get_hierarchy()</span>
 <span class="c1">#hpct.summary()</span>
