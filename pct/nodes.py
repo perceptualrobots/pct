@@ -58,17 +58,25 @@ class PCTNode():
             self.perceptionCollection = [perception]
 
             if reference==None:
+                reference = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.REFERENCE))
+                """
                 if mode == 1 or mode == 3 or mode == 6:
                     reference =  WeightedSum()
                 elif mode ==0 or mode == 2 or mode == 4 or mode == 5:
                     reference = Constant(1)
+                """
             self.referenceCollection = [reference]
 
             if comparator==None:
+                comparator = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.COMPARATOR))
+                """
                 comparator = Subtract()
+                """
             self.comparatorCollection = [comparator]
 
             if output==None:
+                output = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.OUTPUT))
+                """
                 if mode >2 and mode < 5:
                     output =  WeightedSum()
                 elif mode == 6:
@@ -76,6 +84,7 @@ class PCTNode():
                 else:
                     output = Proportional(10)
 
+                """
             self.outputCollection = [output]
 
             if build_links:
@@ -111,6 +120,22 @@ class PCTNode():
 
     def get_name(self):
         return self.name
+
+    def get_function_from_collection(self, collection, position=-1):
+        if collection == ControlUnitFunctions.REFERENCE:
+            func = self.referenceCollection[position]
+
+        if collection == ControlUnitFunctions.PERCEPTION:
+            func = self.perceptionCollection[position]
+
+        if collection == ControlUnitFunctions.COMPARATOR:
+            func = self.comparatorCollection[position]
+
+        if collection == ControlUnitFunctions.OUTPUT:
+            func = self.outputCollection[position]
+
+        return func
+
 
     def get_function(self, collection, position=-1):
         if collection == "reference":

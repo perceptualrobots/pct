@@ -473,7 +473,7 @@ class Constant(BaseFunction):
 
     def set_node_function(self, node, function, thislevel, targetlevel, not_used, column, not_used1, inputs, weights, not_used2):
 
-        func = node.get_function(function)
+        func = node.get_function_from_collection(function)
         prefix = function[0].capitalize()
         func.set_name(f'{prefix}L{thislevel}C{column}c')
         func.set_value(weights[column])
@@ -647,7 +647,7 @@ class WeightedSum(BaseFunction):
 
 
     def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
-        func = node.get_function(function)
+        func = node.get_function_from_collection(function)
         prefix = function[0].capitalize()
         func.set_name(f'{prefix}L{thislevel}C{column}ws')
 
