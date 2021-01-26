@@ -10,7 +10,7 @@ from .putils import UniqueNamer
 from .putils import FunctionsList
 from .functions import *
 from .environments import *
-#from pct.architectures import ControlUnitFunctions
+from .architectures import ControlUnitFunctions
 
 # Cell
 class PCTNode():
