@@ -9,6 +9,7 @@ import numpy as np
 from abc import ABC
 from .functions import FunctionFactory
 from .functions import WeightedSum
+from .nodes import PCTNode
 
 # Cell
 class LevelKey(enum.Enum):

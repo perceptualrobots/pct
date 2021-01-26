@@ -139,7 +139,7 @@ description: "Classes to create hierachy architectures from array configurations
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">VelocityModel</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;VModel&#39;</span><span class="p">)</span>
 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">structure</span> <span class="o">=</span> <span class="n">StructureDefinition</span><span class="p">()</span>
+<span class="n">structure</span> <span class="o">=</span> <span class="n">ArchitectureStructure</span><span class="p">()</span>
 <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{},</span> <span class="s1">&#39;level0&#39;</span><span class="p">:</span> <span class="p">[[[</span><span class="mf">1.0864011617580416</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0342161642584196</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">8.899524671308557</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.976856229389936</span><span class="p">]],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.7295091920311653</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.460573287694404</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="o">-</span><span class="mf">4.146713118740296</span><span class="p">,</span> <span class="mf">1.2794655139677662</span><span class="p">]]]}</span>
 <span class="n">pa</span> <span class="o">=</span> <span class="n">DynamicArchitecture</span><span class="p">(</span><span class="n">structure</span><span class="o">=</span><span class="n">structure</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">input_indexes</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span> <span class="c1">#, error_collector=te)</span>
 <span class="n">pa</span><span class="p">()</span>
@@ -150,6 +150,29 @@ description: "Classes to create hierachy architectures from array configurations
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-11-452fbb8320b7&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> env <span class="ansi-blue-fg">=</span> VelocityModel<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;VModel&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> inputs<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>structure <span class="ansi-blue-fg">=</span> StructureDefinition<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> config <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;parameters&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;level0&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1.0864011617580416</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1.0342161642584196</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">8.899524671308557</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">8.976856229389936</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">0.7295091920311653</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">4.460573287694404</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">4.146713118740296</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1.2794655139677662</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">}</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> pa <span class="ansi-blue-fg">=</span> DynamicArchitecture<span class="ansi-blue-fg">(</span>structure<span class="ansi-blue-fg">=</span>structure<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">=</span>config<span class="ansi-blue-fg">,</span> env<span class="ansi-blue-fg">=</span>env<span class="ansi-blue-fg">,</span> input_indexes<span class="ansi-blue-fg">=</span>inputs<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#, error_collector=te)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;StructureDefinition&#39; is not defined</pre>
+</div>
+</div>
+
 </div>
 </div>
 
