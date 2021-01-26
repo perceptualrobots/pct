@@ -11,6 +11,7 @@ import enum
 from abc import ABC, abstractmethod
 from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
+from .nodes import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
 from .functions import Constant
