@@ -34,13 +34,13 @@ class PCTNode():
         FunctionsList.getInstance().add_function(self)
         if default:
             if perception==None:
-                perception = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION))
-                """
+                #perception = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION))
+                #"""
                 if mode >0 :
                      perception =  WeightedSum()
                 else:
                      perception =  Variable(0)
-                """
+                #"""
             self.perceptionCollection = [perception]
 
             if reference==None:
