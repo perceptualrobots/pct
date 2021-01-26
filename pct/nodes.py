@@ -10,6 +10,7 @@ from .putils import UniqueNamer
 from .putils import FunctionsList
 from .functions import *
 from .environments import *
+from .architectures import ControlUnitFunctions
 
 # Cell
 class PCTNode():
@@ -33,10 +34,13 @@ class PCTNode():
         FunctionsList.getInstance().add_function(self)
         if default:
             if perception==None:
+                perception = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION))
+                """
                 if mode >0 :
                      perception =  WeightedSum()
                 else:
                      perception =  Variable(0)
+                """
             self.perceptionCollection = [perception]
 
             if reference==None:
