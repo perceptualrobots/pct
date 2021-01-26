@@ -16,7 +16,7 @@ from .functions import IndexedParameter
 from .functions import Constant
 from .environments import PendulumV0
 from .environments import VelocityModel
-from .structure import StructureDefinition
+#from pct.structure import ArchitectureStructure
 from .structure import LevelKey
 
 # Cell
