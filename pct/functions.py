@@ -695,6 +695,13 @@ class WeightedSum(BaseFunction):
                 weights.append(input_weights[inputIndex][column])
         func.weights=np.array(weights)
 
+    def set_output_function(self, node,  thislevel, column, input_weights):
+        func = node.get_function_from_collection(ControlUnitFunctions.OUTPUT)
+        func.set_name(f'OL{thislevel}C{column}ws')
+
+        weights=[]
+        weights.append(input_weights[column])
+        func.weights=np.array(weights)
 
     class Factory:
         def create(self): return WeightedSum()
