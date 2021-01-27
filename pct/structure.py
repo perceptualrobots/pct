@@ -24,6 +24,9 @@ class ArchitectureStructure():
     def __init__(self, references=None, config=None, attr_mut_pb=None, lower_float=None, upper_float=None, levels_limit=None,
                  columns_limit=None, sigma=None, mu=None, alpha=None, modes=None, **cargs):
         if config==None:
+            self.config={'parameters': { 'modes' : {LevelKey.ZERO:3, LevelKey.N:3,LevelKey.TOP:4,LevelKey.ZEROTOP :4}
+                        }
+            """
             self.config={'parameters': {'lower_float': -1, 'upper_float': 1,
                          'modes' : {LevelKey.ZERO:3, LevelKey.N:3,LevelKey.TOP:4,LevelKey.ZEROTOP :4},
                          'levels_limit': 3, 'columns_limit': 3, 'attr_mut_pb': 1.0,
@@ -31,9 +34,11 @@ class ArchitectureStructure():
                          LevelKey.ZERO: {'perception': {'type': 'Binary'}, 'output': {'type': 'Float'}, 'reference': {'type': 'Float'}, 'action': {'type': 'Binary'}},
                          LevelKey.N: {'perception': {'type': 'Binary'}, 'output': {'type': 'Float'}, 'reference': {'type': 'Float'}},
                          LevelKey.TOP: {'perception': {'type': 'Binary'}, 'output': {'type': 'Float'}, 'reference': {'type': 'Literal'}}}
+            """
         else:
             self.config=config
 
+            """
         if references!=None:
             self.add_config_parameter(LevelKey.TOP , 'reference', 'value', references )
 
@@ -54,6 +59,7 @@ class ArchitectureStructure():
             self.config['parameters']['mu']=mu
         if alpha!=None:
             self.config['parameters']['alpha']=alpha
+            """
         if modes!=None:
             self.config['parameters']['modes']=modes
 
@@ -61,6 +67,7 @@ class ArchitectureStructure():
     def get_config(self):
         return self.config
 
+    """
     def add_config_type(self, level_key=None, function=None, type=None):
         ttype={'type': type}
         self.config[level_key][function]=ttype
@@ -98,6 +105,7 @@ class ArchitectureStructure():
             pars = package['pars']
 
         return package['type'], pars
+    """
 
     """
     def get_function_type(self, mode, function):
@@ -122,11 +130,6 @@ class ArchitectureStructure():
         return type
     """
 
-    def get_type_parameters(self, level, function):
-        return self.config[level][function]
-
-    def get_parameter(self, key):
-        return self.config['parameters'][key]
 
 
     def set_node_function(self, node, function, mode, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
@@ -135,12 +138,18 @@ class ArchitectureStructure():
         function_type.set_node_function(node, function,  thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column)
 
 
+    """
+
+    def get_type_parameters(self, level, function):
+        return self.config[level][function]
+
+    def get_parameter(self, key):
+        return self.config['parameters'][key]
 
     def get_list(self, level_key, function,  num_lists, num_items):
         parameter = self.get_parameter_object(level_key, function)
         return parameter.get_weights_list(num_lists, num_items)
 
-    """
     def mutate_list(self, level, function, wts):
         parameter = self.get_parameter_object(level, function)
         return parameter.mutate(wts)
@@ -161,6 +170,9 @@ class ArchitectureStructure():
         parameter = self.get_parameter_object(level, function)
         parameter.copy_data(from_wts, to_wts)
     """
+
+    """
+
     def get_parameter_object(self, level_key, function):
         type, type_parameters = self.get_type(level_key, function)
 
@@ -235,6 +247,7 @@ class ArchitectureStructure():
         config.append(reference_list)
 
         return config
+    """
 
     # assume same for all levels and that datatypes are always floats
     def set_output_function(self, node,  thislevel, column, input_weights):
