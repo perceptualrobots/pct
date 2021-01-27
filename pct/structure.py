@@ -252,7 +252,7 @@ class ArchitectureStructure():
     """
 
     def set_output_function(self, node, mode, thislevel, column, input_weights):
-        type = PCTNode.get_function_type(mode, function)
+        type = PCTNode.get_function_type(mode, ControlUnitFunction.OUTPUT)
         function_type = FunctionFactory.createFunction(type)
         function_type.set_output_function(node, thislevel, column, input_weights)
 
