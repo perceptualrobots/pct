@@ -670,7 +670,7 @@ class WeightedSum(BaseFunction):
 
     def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
         func = node.get_function_from_collection(function)
-        prefix = function[0].capitalize()
+        prefix = self.get_capital(function)
         func.set_name(f'{prefix}L{thislevel}C{column}ws')
 
         """
