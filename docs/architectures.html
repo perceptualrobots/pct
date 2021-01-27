@@ -143,7 +143,7 @@ description: "Classes to create hierachy architectures from array configurations
 <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{},</span> <span class="s1">&#39;level0&#39;</span><span class="p">:</span> <span class="p">[[[</span><span class="mf">1.0864011617580416</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0342161642584196</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">8.899524671308557</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.976856229389936</span><span class="p">]],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.7295091920311653</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.460573287694404</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[[</span><span class="o">-</span><span class="mf">4.146713118740296</span><span class="p">,</span> <span class="mf">1.2794655139677662</span><span class="p">]]]}</span>
 <span class="n">pa</span> <span class="o">=</span> <span class="n">DynamicArchitecture</span><span class="p">(</span><span class="n">structure</span><span class="o">=</span><span class="n">structure</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">input_indexes</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span> <span class="c1">#, error_collector=te)</span>
 
-<span class="n">pa</span><span class="p">()</span>
+<span class="c1">#pa()</span>
 <span class="c1">#hpct = pa.get_hierarchy()</span>
 <span class="c1">#hpct.summary()</span>
 <span class="c1">#move={&#39;VModel&#39;: [-0.2, -0.3],&#39;Input0&#39;: [-0.3, 0],&#39;OL0C0ws&#39;: [-0.4, 0],&#39;OL0C1ws&#39;: [0.6, 0]}</span>
@@ -151,6 +151,51 @@ description: "Classes to create hierachy architectures from array configurations
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&lt;LevelKey.ZERO: &#39;level0&#39;&gt;: 3, &lt;LevelKey.N: &#39;leveln&#39;&gt;: 3, &lt;LevelKey.TOP: &#39;leveltop&#39;&gt;: 4, &lt;LevelKey.ZEROTOP: &#39;level0top&#39;&gt;: 4}
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-006f4ba30449&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> pa <span class="ansi-blue-fg">=</span> DynamicArchitecture<span class="ansi-blue-fg">(</span>structure<span class="ansi-blue-fg">=</span>structure<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">=</span>config<span class="ansi-blue-fg">,</span> env<span class="ansi-blue-fg">=</span>env<span class="ansi-blue-fg">,</span> input_indexes<span class="ansi-blue-fg">=</span>inputs<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#, error_collector=te)</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span> 
+<span class="ansi-green-fg">----&gt; 7</span><span class="ansi-red-fg"> </span>pa<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> <span class="ansi-red-fg">#hpct = pa.get_hierarchy()</span>
+<span class="ansi-green-intense-fg ansi-bold">      9</span> <span class="ansi-red-fg">#hpct.summary()</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-6-37508b96b8d7&gt;</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">     17</span>         <span class="ansi-red-fg">#print(&#39;levels&#39;, levels)</span>
+<span class="ansi-green-intense-fg ansi-bold">     18</span>         <span class="ansi-green-fg">if</span> levels <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>configure_zerotoplevel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     20</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     21</span>             previous_columns<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>configure_zerothlevel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-6-37508b96b8d7&gt;</span> in <span class="ansi-cyan-fg">configure_zerotoplevel</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">     61</span>             node<span class="ansi-blue-fg">.</span>get_function<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;comparator&#34;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>add_link<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">.</span>get_function<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;perception&#34;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     62</span> 
+<span class="ansi-green-fg">---&gt; 63</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>structure<span class="ansi-blue-fg">.</span>set_output_function<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">,</span> level<span class="ansi-blue-fg">,</span> column<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">[</span>outputsIndex<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     64</span> 
+<span class="ansi-green-intense-fg ansi-bold">     65</span>             self<span class="ansi-blue-fg">.</span>hpct<span class="ansi-blue-fg">.</span>add_node<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> level<span class="ansi-blue-fg">,</span> column<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: set_output_function() takes 5 positional arguments but 6 were given</pre>
+</div>
+</div>
+
 </div>
 </div>
 
