@@ -138,13 +138,15 @@ class ArchitectureStructure():
         function_type.set_node_function(node, function,  thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column)
 
 
+    def get_parameter(self, key):
+        return self.config['parameters'][key]
+
+
     """
 
     def get_type_parameters(self, level, function):
         return self.config[level][function]
 
-    def get_parameter(self, key):
-        return self.config['parameters'][key]
 
     def get_list(self, level_key, function,  num_lists, num_items):
         parameter = self.get_parameter_object(level_key, function)
