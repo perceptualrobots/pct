@@ -81,6 +81,20 @@ class BaseFunction(ABC):
         nx.draw(graph,  pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
+
+    def get_capital(self, ftype):
+        rtn = None
+        if ftype == ControlUnitFunctions.PERCEPTION:
+            rtn ='P'
+        if ftype == ControlUnitFunctions.REFERENCE:
+            rtn ='R'
+        if ftype == ControlUnitFunctions.COMPARATOR:
+            rtn ='C'
+        if ftype == ControlUnitFunctions.OUTPUT:
+            rtn ='O'
+
+        return rtn
+
     def get_colors(self, graph, color_mapping):
         colors=[]
         for node in graph:
@@ -474,7 +488,7 @@ class Constant(BaseFunction):
     def set_node_function(self, node, function, thislevel, targetlevel, not_used, column, not_used1, inputs, weights, not_used2):
 
         func = node.get_function_from_collection(function)
-        prefix = function[0].capitalize()
+        prefix = self.get_capital(function)
         func.set_name(f'{prefix}L{thislevel}C{column}c')
         func.set_value(weights[column])
         """

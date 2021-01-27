@@ -159,10 +159,18 @@ description: "Classes to create hierachy architectures from array configurations
 
 <div class="output_area">
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&lt;LevelKey.ZERO: &#39;level0&#39;&gt;: 3, &lt;LevelKey.N: &#39;leveln&#39;&gt;: 3, &lt;LevelKey.TOP: &#39;leveltop&#39;&gt;: 4, &lt;LevelKey.ZEROTOP: &#39;level0top&#39;&gt;: 4}
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
 <span class="ansi-green-fg">&lt;ipython-input-7-006f4ba30449&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">      5</span> pa <span class="ansi-blue-fg">=</span> DynamicArchitecture<span class="ansi-blue-fg">(</span>structure<span class="ansi-blue-fg">=</span>structure<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">=</span>config<span class="ansi-blue-fg">,</span> env<span class="ansi-blue-fg">=</span>env<span class="ansi-blue-fg">,</span> input_indexes<span class="ansi-blue-fg">=</span>inputs<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#, error_collector=te)</span>
 <span class="ansi-green-intense-fg ansi-bold">      6</span> 
@@ -178,13 +186,27 @@ description: "Classes to create hierachy architectures from array configurations
 <span class="ansi-green-intense-fg ansi-bold">     21</span>             previous_columns<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>configure_zerothlevel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 
 <span class="ansi-green-fg">&lt;ipython-input-6-99544df8ee7a&gt;</span> in <span class="ansi-cyan-fg">configure_zerotoplevel</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     35</span> 
-<span class="ansi-green-intense-fg ansi-bold">     36</span>     <span class="ansi-green-fg">def</span> configure_zerotoplevel<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 37</span><span class="ansi-red-fg">         </span>print<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>structure<span class="ansi-blue-fg">.</span>get_parameter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;modes&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     38</span>         mode <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>structure<span class="ansi-blue-fg">.</span>get_parameter<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;modes&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span>LevelKey<span class="ansi-blue-fg">.</span>ZEROTOP<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     39</span> 
+<span class="ansi-green-intense-fg ansi-bold">     53</span>         <span class="ansi-green-fg">for</span> column <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>columns<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     54</span>             node <span class="ansi-blue-fg">=</span> PCTNode<span class="ansi-blue-fg">(</span>build_links<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span>mode<span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">f&#39;L{level}C{column}&#39;</span><span class="ansi-blue-fg">,</span> history<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>hpct<span class="ansi-blue-fg">.</span>history<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 55</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>structure<span class="ansi-blue-fg">.</span>set_node_function<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> ControlUnitFunctions<span class="ansi-blue-fg">.</span>REFERENCE<span class="ansi-blue-fg">,</span> mode <span class="ansi-blue-fg">,</span> level<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> column<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">[</span>referencesIndex<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     56</span>             self<span class="ansi-blue-fg">.</span>structure<span class="ansi-blue-fg">.</span>set_node_function<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> ControlUnitFunctions<span class="ansi-blue-fg">.</span>PERCEPTION<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">,</span> level<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> column<span class="ansi-blue-fg">,</span> len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>inputs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>inputs<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">[</span>inputsIndex<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     57</span> 
 
-<span class="ansi-red-fg">AttributeError</span>: &#39;ArchitectureStructure&#39; object has no attribute &#39;get_parameter&#39;</pre>
+<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/structure.py</span> in <span class="ansi-cyan-fg">set_node_function</span><span class="ansi-blue-fg">(self, node, function, mode, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column)</span>
+<span class="ansi-green-intense-fg ansi-bold">    136</span>         type <span class="ansi-blue-fg">=</span> PCTNode<span class="ansi-blue-fg">.</span>get_function_type<span class="ansi-blue-fg">(</span>mode<span class="ansi-blue-fg">,</span> function<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    137</span>         function_type <span class="ansi-blue-fg">=</span> FunctionFactory<span class="ansi-blue-fg">.</span>createFunction<span class="ansi-blue-fg">(</span>type<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 138</span><span class="ansi-red-fg">         </span>function_type<span class="ansi-blue-fg">.</span>set_node_function<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> function<span class="ansi-blue-fg">,</span>  thislevel<span class="ansi-blue-fg">,</span> targetlevel<span class="ansi-blue-fg">,</span> targetprefix<span class="ansi-blue-fg">,</span> column<span class="ansi-blue-fg">,</span> num_target_indices<span class="ansi-blue-fg">,</span> inputs<span class="ansi-blue-fg">,</span> input_weights<span class="ansi-blue-fg">,</span> by_column<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    139</span> 
+<span class="ansi-green-intense-fg ansi-bold">    140</span> 
+
+<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">set_node_function</span><span class="ansi-blue-fg">(self, node, function, thislevel, targetlevel, not_used, column, not_used1, inputs, weights, not_used2)</span>
+<span class="ansi-green-intense-fg ansi-bold">    475</span> 
+<span class="ansi-green-intense-fg ansi-bold">    476</span>         func <span class="ansi-blue-fg">=</span> node<span class="ansi-blue-fg">.</span>get_function_from_collection<span class="ansi-blue-fg">(</span>function<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 477</span><span class="ansi-red-fg">         </span>prefix <span class="ansi-blue-fg">=</span> function<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>capitalize<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    478</span>         func<span class="ansi-blue-fg">.</span>set_name<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;{prefix}L{thislevel}C{column}c&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    479</span>         func<span class="ansi-blue-fg">.</span>set_value<span class="ansi-blue-fg">(</span>weights<span class="ansi-blue-fg">[</span>column<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: &#39;ControlUnitFunctions&#39; object is not subscriptable</pre>
 </div>
 </div>
 
