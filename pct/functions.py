@@ -90,7 +90,6 @@ class BaseFunction(ABC):
         nx.draw(graph,  pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight,
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
-    """
     def get_capital(self, ftype):
         rtn = None
         if ftype == ControlUnitFunctions.PERCEPTION:
@@ -103,7 +102,6 @@ class BaseFunction(ABC):
             rtn ='O'
 
         return rtn
-    """
 
     def get_colors(self, graph, color_mapping):
         colors=[]
