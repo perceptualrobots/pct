@@ -9,7 +9,6 @@ import numpy as np
 from abc import ABC
 from .functions import FunctionFactory
 from .functions import WeightedSum
-from .functions import ControlUnitFunctions
 from .nodes import PCTNode
 
 # Cell
@@ -252,22 +251,22 @@ class ArchitectureStructure():
         return config
     """
 
-    def set_output_function(self, node, mode, thislevel, column, input_weights):
-        type = PCTNode.get_function_type(mode, ControlUnitFunctions.OUTPUT)
-        function_type = FunctionFactory.createFunction(type)
-        function_type.set_output_function(node, thislevel, column, input_weights)
-
-
     # assume same for all levels and that datatypes are always floats
-    """
     def set_output_function(self, node,  thislevel, column, input_weights):
         func = node.get_function('output')
         func.set_name(f'OL{thislevel}C{column}ws')
 
+        """
+        print('Base',func.get_name())
+        print('Base',inputs)
+        print('Base',input_weights)
+        print('Base',column)
+        print('Base',num_target_indices)
+        """
         weights=[]
         weights.append(input_weights[column])
         func.weights=np.array(weights)
-    """
+
 
     def set_action_function(self, hpct, env, numColumnsThisLevel,  weights):
         numActions = len(weights)
