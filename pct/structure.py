@@ -25,7 +25,7 @@ class ArchitectureStructure():
                  columns_limit=None, sigma=None, mu=None, alpha=None, modes=None, **cargs):
         if config==None:
             self.config={'parameters': { 'modes' : {LevelKey.ZERO:3, LevelKey.N:3,LevelKey.TOP:4,LevelKey.ZEROTOP :4}
-                        }
+                        }}
             """
             self.config={'parameters': {'lower_float': -1, 'upper_float': 1,
                          'modes' : {LevelKey.ZERO:3, LevelKey.N:3,LevelKey.TOP:4,LevelKey.ZEROTOP :4},
@@ -38,7 +38,7 @@ class ArchitectureStructure():
         else:
             self.config=config
 
-            """
+        """
         if references!=None:
             self.add_config_parameter(LevelKey.TOP , 'reference', 'value', references )
 
@@ -59,7 +59,7 @@ class ArchitectureStructure():
             self.config['parameters']['mu']=mu
         if alpha!=None:
             self.config['parameters']['alpha']=alpha
-            """
+        """
         if modes!=None:
             self.config['parameters']['modes']=modes
 
