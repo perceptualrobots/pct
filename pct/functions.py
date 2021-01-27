@@ -9,6 +9,7 @@ import numpy as np
 import gym
 import json
 import math
+import enum
 import networkx as nx
 from abc import ABC, abstractmethod
 from .putils import sigmoid
