@@ -14,7 +14,6 @@ from abc import ABC, abstractmethod
 from .putils import sigmoid
 from .putils import UniqueNamer
 from .putils import FunctionsList
-from .nodes import ControlUnitFunctions
 
 # Cell
 class ControlUnitFunctions(enum.IntEnum):
