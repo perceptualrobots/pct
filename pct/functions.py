@@ -786,7 +786,7 @@ class SmoothWeightedSum(BaseFunction):
         func.weights=np.array(weights)
 
     class Factory:
-        def create(self): return WeightedSum()
+        def create(self): return SmoothWeightedSum()
 
 # Cell
 class IndexedParameter(BaseFunction):
