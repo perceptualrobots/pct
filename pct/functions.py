@@ -737,6 +737,18 @@ class SmoothWeightedSum(BaseFunction):
         config["smooth_factor"] = self.smooth_factor
         return config
 
+    def get_weights_labels(self, labels):
+        for i in range(len(self.weights)):
+            link = self.get_link(i)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.weights[i]
+            if isinstance(value, float):
+                value = f'{value:4.3}:{self.smooth_factor:4.2}'
+            labels[(self.get_name(), name)] = value
+
 
     def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
         func = node.get_function_from_collection(function)
