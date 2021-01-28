@@ -376,7 +376,7 @@ class DynamicArchitecture(BaseArchitecture):
             node.get_function("comparator").set_link(node.get_function('reference'))
             node.get_function("comparator").add_link(node.get_function('perception'))
 
-            self.structure.set_output_function(node, level, column, config[outputsIndex])
+            self.structure.set_output_function(node, mode, level, column, config[outputsIndex])
 
             self.hpct.add_node(node, level, column)
 
