@@ -2,7 +2,7 @@
 
 __all__ = ['ControlUnitFunctions', 'BaseFunction', 'FunctionFactory', 'Subtract', 'Proportional', 'Variable', 'PassOn',
            'GreaterThan', 'Constant', 'Step', 'Integration', 'IntegrationDual', 'Sigmoid', 'WeightedSum',
-           'IndexedParameter']
+           'SmoothWeightedSum', 'IndexedParameter']
 
 # Cell
 import numpy as np
@@ -665,6 +665,76 @@ class WeightedSum(BaseFunction):
     def get_config(self):
         config = super().get_config()
         config["weights"] = self.weights.tolist()
+        return config
+
+
+    def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
+        func = node.get_function_from_collection(function)
+        prefix = self.get_capital(function)
+        func.set_name(f'{prefix}L{thislevel}C{column}ws')
+
+        """
+        print('Base',func.get_name())
+        print('Base',inputs)
+        print('Base',input_weights)
+        print('Base',column)
+        print('Base',num_target_indices)
+        """
+        weights=[]
+        for inputIndex in range(num_target_indices):
+            if inputs==None:
+                name=f'{targetprefix}L{targetlevel}C{inputIndex}ws'
+            else:
+                name=inputs[inputIndex]
+            func.add_link(name)
+            #print(name)
+            if by_column:
+                weights.append(input_weights[column][inputIndex])
+            else:
+                #print(inputIndex,column)
+                weights.append(input_weights[inputIndex][column])
+        func.weights=np.array(weights)
+
+    def set_output_function(self, node,  thislevel, column, input_weights):
+        func = node.get_function_from_collection(ControlUnitFunctions.OUTPUT)
+        func.set_name(f'OL{thislevel}C{column}ws')
+
+        weights=[]
+        weights.append(input_weights[column])
+        func.weights=np.array(weights)
+
+    class Factory:
+        def create(self): return WeightedSum()
+
+# Cell
+class SmoothWeightedSum(BaseFunction):
+    "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
+    def __init__(self, weights=np.ones(3), smooth_factor=1, value=0, name="smooth_weighted_sum", links=None, new_name=True, **cargs):
+        super().__init__(name, value, links, new_name)
+        if isinstance(weights, list):
+            self.weights = np.array(weights)
+        else:
+            self.weights = weights
+        self.smooth_factor = smooth_factor
+
+    def __call__(self, verbose=False):
+        if len(self.links) != self.weights.size:
+            raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} must be the same.')
+
+        super().check_links(len(self.links))
+        inputs = np.array([link.get_value() for link in self.links])
+        weighted_sum = np.dot(inputs, self.weights)
+
+        self.value = self.value * (1 - self.smooth_factor) + weighted_sum * self.smooth_factor
+        return super().__call__(verbose)
+
+    def summary(self):
+        super().summary(f'weights {self.weights} smooth {self.smooth_factor}')
+
+    def get_config(self):
+        config = super().get_config()
+        config["weights"] = self.weights.tolist()
+        config["smooth_factor"] = self.smooth_factor
         return config
 
 
