@@ -320,7 +320,7 @@ class DynamicArchitecture(BaseArchitecture):
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
 
-            self.structure.set_output_function(node, level, column, config[outputsIndex])
+            self.structure.set_output_function(node, mode, level, column, config[outputsIndex])
 
             self.hpct.add_node(node, level, column)
 
@@ -350,7 +350,7 @@ class DynamicArchitecture(BaseArchitecture):
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
 
-            self.structure.set_output_function(node, level, column, config[outputsIndex])
+            self.structure.set_output_function(node, mode, level, column, config[outputsIndex])
 
             self.hpct.add_node(node, level, column)
 
