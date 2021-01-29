@@ -310,7 +310,7 @@ class DynamicArchitecture(BaseArchitecture):
         #print(columns)
         columnsNextLevel = len(config[referencesIndex][0])
         #print('columnsNextLevel',columnsNextLevel)
-        ref_suffix = hpct.get_function(level+1, 0, 'output').get_suffix()
+        ref_suffix = self.hpct.get_function(level+1, 0, 'output').get_suffix()
 
         # create nodes
         for column in range(columns):
@@ -344,8 +344,8 @@ class DynamicArchitecture(BaseArchitecture):
         numColumnsThisLevel = len(config[outputsIndex])
         columnsNextLevel = len(config[referencesIndex][0])
 
-        ref_suffix = hpct.get_function(level+1, 0, 'output').get_suffix()
-        per_suffix = hpct.get_function(level-1, 0, 'perception').get_suffix()
+        ref_suffix = self.hpct.get_function(level+1, 0, 'output').get_suffix()
+        per_suffix = self.hpct.get_function(level-1, 0, 'perception').get_suffix()
 
         # create nodes
         for column in range(numColumnsThisLevel):
@@ -371,7 +371,7 @@ class DynamicArchitecture(BaseArchitecture):
         referencesIndex=2
 
         numColumnsThisLevel = len(config[referencesIndex])
-        per_suffix = hpct.get_function(level-1, 0, 'perception').get_suffix()
+        per_suffix = self.hpct.get_function(level-1, 0, 'perception').get_suffix()
 
         # create nodes
         for column in range(numColumnsThisLevel):
