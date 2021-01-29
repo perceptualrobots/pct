@@ -276,6 +276,6 @@ class ArchitectureStructure():
         for actionIndex in range(numActions):
             action = WeightedSum(weights=weights[actionIndex], name=f'Action{actionIndex+1}ws')
             for column in range(numColumnsThisLevel):
-                action.add_link(f'OL0C{column}ws')
+                action.add_link(f'OL0C{column}sm')
             hpct.add_postprocessor(action)
             env.add_link(action)
