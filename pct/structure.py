@@ -137,7 +137,7 @@ class ArchitectureStructure():
                           num_target_indices, inputs, input_weights, by_column):
         type = PCTNode.get_function_type(mode, function)
         function_type = FunctionFactory.createFunction(type)
-        function_type.set_node_function(node, function,  thislevel, targetlevel, targetprefix, targetsuffix, column,
+        function_type.set_node_function(node, function,  thislevel, targetlevel, targetprefix, targetsuffix, targetcolumn,
                                         num_target_indices, inputs, input_weights, by_column)
 
 
