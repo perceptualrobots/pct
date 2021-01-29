@@ -729,7 +729,7 @@ class SmoothWeightedSum(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self):
-        weights = [float(f'{wt:3.3}') for wt in self.weights]
+        weights = [float(f'{wt:4.3}') for wt in self.weights]
         super().summary(f'weights {weights} smooth {self.smooth_factor:4.3}')
 
     def get_config(self):
@@ -754,7 +754,7 @@ class SmoothWeightedSum(BaseFunction):
     def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
         func = node.get_function_from_collection(function)
         prefix = self.get_capital(function)
-        func.set_name(f'{prefix}L{thislevel}C{column}ws')
+        func.set_name(f'{prefix}L{thislevel}C{column}sm')
 
         """
         print('Base',func.get_name())
