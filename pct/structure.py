@@ -273,9 +273,10 @@ class ArchitectureStructure():
 
     def set_action_function(self, hpct, env, numColumnsThisLevel,  weights):
         numActions = len(weights)
+        suffix = hpct.get_function(0, 0, 'outcoll').get_suffix()
         for actionIndex in range(numActions):
             action = WeightedSum(weights=weights[actionIndex], name=f'Action{actionIndex+1}ws')
             for column in range(numColumnsThisLevel):
-                action.add_link(f'OL0C{column}sm')
+                action.add_link(f'OL0C{column}'+suffix)
             hpct.add_postprocessor(action)
             env.add_link(action)
