@@ -506,7 +506,7 @@ class Constant(BaseFunction):
         return 'c'
 
     def set_node_function(self, node, function, thislevel, targetlevel, not_used,
-                          not_used, column, not_used1, inputs, weights, not_used2):
+                          not_used3, column, not_used1, inputs, weights, not_used2):
 
         func = node.get_function_from_collection(function)
         prefix = self.get_capital(function)
