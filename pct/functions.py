@@ -695,9 +695,14 @@ class WeightedSum(BaseFunction):
         print('Base',num_target_indices)
         """
         weights=[]
+        if prefix == 'R':
+            suffix = hpct.get_function(targetlevel, 0, 'output').get_suffix()
+        else:
+            suffix = hpct.get_function(targetlevel, 0, 'perception').get_suffix()
+
         for inputIndex in range(num_target_indices):
             if inputs==None:
-                name=f'{targetprefix}L{targetlevel}C{inputIndex}ws'
+                name=f'{targetprefix}L{targetlevel}C{inputIndex}'+suffix
             else:
                 name=inputs[inputIndex]
             func.add_link(name)
@@ -711,6 +716,7 @@ class WeightedSum(BaseFunction):
 
     def set_output_function(self, node,  thislevel, column, input_weights):
         func = node.get_function_from_collection(ControlUnitFunctions.OUTPUT)
+
         func.set_name(f'OL{thislevel}C{column}ws')
 
         weights=[]
