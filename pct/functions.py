@@ -729,7 +729,7 @@ class SmoothWeightedSum(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self):
-        super().summary(f'weights {self.weights} smooth {self.smooth_factor}')
+        super().summary(f'weights {self.weights:4.3} smooth {self.smooth_factor:4.3}')
 
     def get_config(self):
         config = super().get_config()
@@ -779,7 +779,7 @@ class SmoothWeightedSum(BaseFunction):
 
     def set_output_function(self, node,  thislevel, column, input_weights):
         func = node.get_function_from_collection(ControlUnitFunctions.OUTPUT)
-        func.set_name(f'OL{thislevel}C{column}ws')
+        func.set_name(f'OL{thislevel}C{column}sm')
 
         weights=[]
         weights.append(input_weights[column][0])
