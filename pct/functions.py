@@ -48,6 +48,9 @@ class BaseFunction(ABC):
 
         return self.value
 
+    def get_suffix(self):
+        return ''
+
     def reset(self):
         self.value = 0
         self.links = []
@@ -396,6 +399,9 @@ class Proportional(BaseFunction):
         config["gain"] = self.gain
         return config
 
+    def get_suffix(self):
+        return 'p'
+
     class Factory:
         def create(self): return Proportional()
 
@@ -414,6 +420,9 @@ class Variable(BaseFunction):
     def get_config(self):
         config = super().get_config()
         return config
+
+    def get_suffix(self):
+        return 'v'
 
     class Factory:
         def create(self): return Variable()
@@ -492,6 +501,9 @@ class Constant(BaseFunction):
 
     def get_config(self):
         return super().get_config()
+
+    def get_suffix(self):
+        return 'c'
 
     def set_node_function(self, node, function, thislevel, targetlevel, not_used, column, not_used1, inputs, weights, not_used2):
 
@@ -667,6 +679,8 @@ class WeightedSum(BaseFunction):
         config["weights"] = self.weights.tolist()
         return config
 
+    def get_suffix(self):
+        return 'ws'
 
     def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
         func = node.get_function_from_collection(function)
@@ -737,6 +751,9 @@ class SmoothWeightedSum(BaseFunction):
         config["weights"] = self.weights.tolist()
         config["smooth_factor"] = self.smooth_factor
         return config
+
+    def get_suffix(self):
+        return 'sm'
 
     def get_weights_labels(self, labels):
         for i in range(len(self.weights)):
