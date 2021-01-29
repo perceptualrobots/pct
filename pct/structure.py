@@ -273,7 +273,7 @@ class ArchitectureStructure():
 
     def set_action_function(self, hpct, env, numColumnsThisLevel,  weights):
         numActions = len(weights)
-        suffix = hpct.get_function(0, 0, 'outcoll').get_suffix()
+        suffix = hpct.get_function(0, 0, 'output').get_suffix()
         for actionIndex in range(numActions):
             action = WeightedSum(weights=weights[actionIndex], name=f'Action{actionIndex+1}ws')
             for column in range(numColumnsThisLevel):
