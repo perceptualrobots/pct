@@ -782,8 +782,9 @@ class SmoothWeightedSum(BaseFunction):
         func.set_name(f'OL{thislevel}C{column}ws')
 
         weights=[]
-        weights.append(input_weights[column])
+        weights.append(input_weights[column][0])
         func.weights=np.array(weights)
+        func.smooth_factor=input_weights[column][1]
 
     class Factory:
         def create(self): return SmoothWeightedSum()
