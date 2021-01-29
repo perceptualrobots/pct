@@ -505,7 +505,8 @@ class Constant(BaseFunction):
     def get_suffix(self):
         return 'c'
 
-    def set_node_function(self, node, function, thislevel, targetlevel, not_used, column, not_used1, inputs, weights, not_used2):
+    def set_node_function(self, node, function, thislevel, targetlevel, not_used,
+                          not_used, column, not_used1, inputs, weights, not_used2):
 
         func = node.get_function_from_collection(function)
         prefix = self.get_capital(function)
@@ -682,7 +683,8 @@ class WeightedSum(BaseFunction):
     def get_suffix(self):
         return 'ws'
 
-    def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
+    def set_node_function(self, node, function, thislevel, targetlevel, targetprefix,
+                          targetsuffix, column, num_target_indices, inputs, input_weights, by_column):
         func = node.get_function_from_collection(function)
         prefix = self.get_capital(function)
         func.set_name(f'{prefix}L{thislevel}C{column}ws')
@@ -695,14 +697,10 @@ class WeightedSum(BaseFunction):
         print('Base',num_target_indices)
         """
         weights=[]
-        if prefix == 'R':
-            suffix = hpct.get_function(targetlevel, 0, 'output').get_suffix()
-        else:
-            suffix = hpct.get_function(targetlevel, 0, 'perception').get_suffix()
 
         for inputIndex in range(num_target_indices):
             if inputs==None:
-                name=f'{targetprefix}L{targetlevel}C{inputIndex}'+suffix
+                name=f'{targetprefix}L{targetlevel}C{inputIndex}'+targetsuffix
             else:
                 name=inputs[inputIndex]
             func.add_link(name)
@@ -774,7 +772,8 @@ class SmoothWeightedSum(BaseFunction):
             labels[(self.get_name(), name)] = value
 
 
-    def set_node_function(self, node, function, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column):
+    def set_node_function(self, node, function, thislevel, targetlevel, targetprefix,
+                          targetsuffix, column, num_target_indices, inputs, input_weights, by_column):
         func = node.get_function_from_collection(function)
         prefix = self.get_capital(function)
         func.set_name(f'{prefix}L{thislevel}C{column}sm')
@@ -789,7 +788,7 @@ class SmoothWeightedSum(BaseFunction):
         weights=[]
         for inputIndex in range(num_target_indices):
             if inputs==None:
-                name=f'{targetprefix}L{targetlevel}C{inputIndex}ws'
+                name=f'{targetprefix}L{targetlevel}C{inputIndex}'+targetsuffix
             else:
                 name=inputs[inputIndex]
             func.add_link(name)

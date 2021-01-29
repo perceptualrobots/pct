@@ -133,11 +133,11 @@ class ArchitectureStructure():
 
 
 
-    def set_node_function(self, node, function, mode, thislevel, targetlevel, targetprefix, column,
+    def set_node_function(self, node, function, mode, thislevel, targetlevel, targetprefix, targetsuffix, targetcolumn,
                           num_target_indices, inputs, input_weights, by_column):
         type = PCTNode.get_function_type(mode, function)
         function_type = FunctionFactory.createFunction(type)
-        function_type.set_node_function(node, function,  thislevel, targetlevel, targetprefix, column,
+        function_type.set_node_function(node, function,  thislevel, targetlevel, targetprefix, targetsuffix, column,
                                         num_target_indices, inputs, input_weights, by_column)
 
 
