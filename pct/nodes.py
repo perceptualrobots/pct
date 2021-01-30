@@ -375,6 +375,22 @@ class PCTNode():
             node_list[func.get_name()] = self.name
 
 
+    def change_link_name(self, old_name, new_name):
+
+        for func in self.referenceCollection:
+            func.links = [new_name if i==old_name else i for i in func.links ]
+
+        for func in self.comparatorCollection:
+            func.links = [new_name if i==old_name else i for i in func.links ]
+
+        for func in self.perceptionCollection:
+            func.links = [new_name if i==old_name else i for i in func.links ]
+
+        for func in self.outputCollection:
+            func.links = [new_name if i==old_name else i for i in func.links ]
+
+
+
     def set_graph_data_node(self, graph, layer=0):
         graph.add_node(self.name, layer=layer)
 

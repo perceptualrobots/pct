@@ -337,14 +337,10 @@ class PCTHierarchy():
 
     def change_link_name(self, old_name, new_name):
         for func in self.postCollection:
-             for link in func.get_links():
-                 if link.get_name() == old_name:
-                     link.set_name(new_name)
+            func.links = [new_name if i==old_name else i for i in func.links ]
 
         for func in self.preCollection:
-             for link in func.get_links():
-                 if link.get_name() == old_name:
-                     link.set_name(new_name)
+            func.links = [new_name if i==old_name else i for i in func.links ]
 
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])):
