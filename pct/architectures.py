@@ -256,7 +256,7 @@ class DynamicArchitecture(BaseArchitecture):
             else:
                 level+=1
                 self.configure_top_level(self.config[f'level{level+1}'], level+1, previous_columns)
-        #self.hpct.set_suffixes()
+        self.hpct.set_suffixes()
 
 
     def configure_zerotoplevel(self):
