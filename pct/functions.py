@@ -245,7 +245,7 @@ class BaseFunction(ABC):
             print('| links ', end=" ")
         for link in self.links:
             func = FunctionsList.getInstance().get_function(link)
-            if isinstance(func, type(str)):
+            if isinstance(func, str):
                 fname = func
             else:
                 fname = func.get_name()
@@ -505,13 +505,12 @@ class Constant(BaseFunction):
     def get_suffix(self):
         return 'c'
 
-    def set_node_function(self, node, function, thislevel, targetlevel, not_used,
+    def set_node_function(self, function_type, thislevel, targetlevel, not_used,
                           column, not_used1, inputs, weights, not_used2):
 
-        func = node.get_function_from_collection(function)
-        prefix = self.get_capital(function)
-        func.set_name(f'{prefix}L{thislevel}C{column}')
-        func.set_value(weights[column])
+        prefix = self.get_capital(function_type)
+        self.set_name(f'{prefix}L{thislevel}C{column}')
+        self.set_value(weights[column])
         """
         print('Literal',inputs)
         print('Literal',weights)
@@ -683,11 +682,10 @@ class WeightedSum(BaseFunction):
     def get_suffix(self):
         return 'ws'
 
-    def set_node_function(self, node, function, thislevel, targetlevel, targetprefix,
-                          column, num_target_indices, inputs, input_weights, by_column):
-        func = node.get_function_from_collection(function)
-        prefix = self.get_capital(function)
-        func.set_name(f'{prefix}L{thislevel}C{column}')
+    def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
+                          inputs, input_weights, by_column):
+        prefix = self.get_capital(function_type)
+        self.name = f'{prefix}L{thislevel}C{column}'
 
         """
         print('Base',func.get_name())
@@ -703,23 +701,22 @@ class WeightedSum(BaseFunction):
                 name=f'{targetprefix}L{targetlevel}C{inputIndex}'
             else:
                 name=inputs[inputIndex]
-            func.add_link(name)
-            #print(name)
+            self.add_link(name)
+
             if by_column:
                 weights.append(input_weights[column][inputIndex])
             else:
                 #print(inputIndex,column)
                 weights.append(input_weights[inputIndex][column])
-        func.weights=np.array(weights)
+        self.weights=np.array(weights)
 
-    def set_output_function(self, node,  thislevel, column, input_weights):
-        func = node.get_function_from_collection(ControlUnitFunctions.OUTPUT)
+    def set_output_function(self, thislevel, column, input_weights):
 
-        func.set_name(f'OL{thislevel}C{column}')
+        self.set_name(f'OL{thislevel}C{column}')
 
         weights=[]
         weights.append(input_weights[column])
-        func.weights=np.array(weights)
+        self.weights=np.array(weights)
 
     class Factory:
         def create(self): return WeightedSum()
@@ -772,11 +769,10 @@ class SmoothWeightedSum(BaseFunction):
             labels[(self.get_name(), name)] = value
 
 
-    def set_node_function(self, node, function, thislevel, targetlevel, targetprefix,
+    def set_node_function(self, function_type, thislevel, targetlevel, targetprefix,
                           column, num_target_indices, inputs, input_weights, by_column):
-        func = node.get_function_from_collection(function)
-        prefix = self.get_capital(function)
-        func.set_name(f'{prefix}L{thislevel}C{column}')
+        prefix = self.get_capital(function_type)
+        self.name = f'{prefix}L{thislevel}C{column}'
 
         """
         print('Base',func.get_name())
@@ -791,23 +787,22 @@ class SmoothWeightedSum(BaseFunction):
                 name=f'{targetprefix}L{targetlevel}C{inputIndex}'
             else:
                 name=inputs[inputIndex]
-            func.add_link(name)
+            self.add_link(name)
             #print(name)
             if by_column:
                 weights.append(input_weights[column][inputIndex])
             else:
                 #print(inputIndex,column)
                 weights.append(input_weights[inputIndex][column])
-        func.weights=np.array(weights)
+        self.weights=np.array(weights)
 
-    def set_output_function(self, node,  thislevel, column, input_weights):
-        func = node.get_function_from_collection(ControlUnitFunctions.OUTPUT)
-        func.set_name(f'OL{thislevel}C{column}')
+    def set_output_function(self, thislevel, column, input_weights):
+        self.set_name(f'OL{thislevel}C{column}')
 
         weights=[]
         weights.append(input_weights[column][0])
-        func.weights=np.array(weights)
-        func.smooth_factor=input_weights[column][1]
+        self.weights=np.array(weights)
+        self.smooth_factor=input_weights[column][1]
 
     class Factory:
         def create(self): return SmoothWeightedSum()
