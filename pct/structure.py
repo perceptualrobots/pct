@@ -133,11 +133,11 @@ class ArchitectureStructure():
 
 
 
-    def set_node_function(self, node, function, mode, thislevel, targetlevel, targetprefix, targetsuffix, targetcolumn,
+    def set_node_function(self, node, function, mode, thislevel, targetlevel, targetprefix, targetcolumn,
                           num_target_indices, inputs, input_weights, by_column):
         type = PCTNode.get_function_type(mode, function)
         function_type = FunctionFactory.createFunction(type)
-        function_type.set_node_function(node, function,  thislevel, targetlevel, targetprefix, targetsuffix, targetcolumn,
+        function_type.set_node_function(node, function,  thislevel, targetlevel, targetprefix, targetcolumn,
                                         num_target_indices, inputs, input_weights, by_column)
 
 
@@ -275,7 +275,7 @@ class ArchitectureStructure():
         numActions = len(weights)
         suffix = hpct.get_function(0, 0, 'output').get_suffix()
         for actionIndex in range(numActions):
-            action = WeightedSum(weights=weights[actionIndex], name=f'Action{actionIndex+1}ws')
+            action = WeightedSum(weights=weights[actionIndex], name=f'Action{actionIndex+1}')
             for column in range(numColumnsThisLevel):
                 action.add_link(f'OL0C{column}'+suffix)
             hpct.add_postprocessor(action)
