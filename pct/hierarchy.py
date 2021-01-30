@@ -335,6 +335,7 @@ class PCTHierarchy():
 
         return labels
 
+    """
     def set_suffixes(self):
         #FunctionsList.getInstance().report()
         # change names
@@ -378,7 +379,7 @@ class PCTHierarchy():
                 #print(func.get_suffix())
             if isinstance (func, str):
                 print('----> ', key)
-
+    """
 
     def graph_nodes(self):
         graph = nx.DiGraph()
