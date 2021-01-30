@@ -335,43 +335,59 @@ class PCTHierarchy():
 
         return labels
 
-    """
-    def set_suffixes(self):
-        #FunctionsList.getInstance().report()
-        # change names
+    def change_link_name(self, old_name, new_name):
+        for func in self.postCollection:
+             for link in func.get_links():
+                 if link.get_name() == old_name:
+                     link.set_name(new_name)
 
+        for func in self.preCollection:
+             for link in func.get_links():
+                 if link.get_name() == old_name:
+                     link.set_name(new_name)
+
+        for level in range(len(self.hierarchy)):
+            for col in range(len(self.hierarchy[level])):
+                  self.hierarchy[level][col].change_link_name(old_name, new_name)
+
+    def set_suffixes(self):
+
+        """
         for key in FunctionsList.getInstance().functions.keys():
             func = FunctionsList.getInstance().get_function(key)
             if isinstance (func, BaseFunction):
                 print(key)
-                #print(func.get_suffix())
             if isinstance (func, str):
                 print('----> ', key)
 
         print('end listing 1')
         print()
+        """
 
+        # change names
         for key in FunctionsList.getInstance().functions.keys():
             func = FunctionsList.getInstance().get_function(key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
-                print(name)
+                #print(name)
                 suffix = func.get_suffix()
                 func.name = name+suffix
+                self.change_link_name(key, func.name)
 
-        print('end name change')
-        print()
+        #print('end name change')
+        #print()
 
         for key in FunctionsList.getInstance().functions.keys():
             func = FunctionsList.getInstance().get_function(key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
-                print(key, name)
+                #print(key, name)
                 FunctionsList.getInstance().functions[name] = FunctionsList.getInstance().functions.pop(key)
 
-        print('end name keys')
-        print()
+        #print('end name keys')
+        #print()
 
+        """
         for key in FunctionsList.getInstance().functions.keys():
             func = FunctionsList.getInstance().get_function(key)
             if isinstance (func, BaseFunction):
@@ -379,7 +395,7 @@ class PCTHierarchy():
                 #print(func.get_suffix())
             if isinstance (func, str):
                 print('----> ', key)
-    """
+        """
 
     def graph_nodes(self):
         graph = nx.DiGraph()

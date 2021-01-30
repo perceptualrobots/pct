@@ -312,6 +312,9 @@ class BaseFunction(ABC):
     def get_link(self, index):
         return self.links[index]
 
+    def get_links(self):
+        return self.links
+
     def clear_links(self):
         self.links = []
 
