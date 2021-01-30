@@ -348,18 +348,6 @@ class PCTHierarchy():
 
     def set_suffixes(self):
 
-        """
-        for key in FunctionsList.getInstance().functions.keys():
-            func = FunctionsList.getInstance().get_function(key)
-            if isinstance (func, BaseFunction):
-                print(key)
-            if isinstance (func, str):
-                print('----> ', key)
-
-        print('end listing 1')
-        print()
-        """
-
         # change names
         for key in FunctionsList.getInstance().functions.keys():
             func = FunctionsList.getInstance().get_function(key)
@@ -370,28 +358,15 @@ class PCTHierarchy():
                 func.name = name+suffix
                 self.change_link_name(key, func.name)
 
-        #print('end name change')
-        #print()
-
-        for key in FunctionsList.getInstance().functions.keys():
+        keys = list(FunctionsList.getInstance().functions.keys())
+        for key in keys:
             func = FunctionsList.getInstance().get_function(key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
                 #print(key, name)
                 FunctionsList.getInstance().functions[name] = FunctionsList.getInstance().functions.pop(key)
 
-        #print('end name keys')
-        #print()
 
-        """
-        for key in FunctionsList.getInstance().functions.keys():
-            func = FunctionsList.getInstance().get_function(key)
-            if isinstance (func, BaseFunction):
-                print(key)
-                #print(func.get_suffix())
-            if isinstance (func, str):
-                print('----> ', key)
-        """
 
     def graph_nodes(self):
         graph = nx.DiGraph()
