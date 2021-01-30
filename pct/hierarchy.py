@@ -335,6 +335,49 @@ class PCTHierarchy():
 
         return labels
 
+    def set_suffixes(self):
+        #FunctionsList.getInstance().report()
+        # change names
+
+        for key in FunctionsList.getInstance().functions.keys():
+            func = FunctionsList.getInstance().get_function(key)
+            if isinstance (func, BaseFunction):
+                print(key)
+                #print(func.get_suffix())
+            if isinstance (func, str):
+                print('----> ', key)
+
+        print('end listing 1')
+        print()
+
+        for key in FunctionsList.getInstance().functions.keys():
+            func = FunctionsList.getInstance().get_function(key)
+            if isinstance (func, BaseFunction):
+                name = func.get_name()
+                print(name)
+                suffix = func.get_suffix()
+                func.name = name+suffix
+
+        print('end name change')
+        print()
+
+        for key in FunctionsList.getInstance().functions.keys():
+            func = FunctionsList.getInstance().get_function(key)
+            if isinstance (func, BaseFunction):
+                name = func.get_name()
+                print(key, name)
+                FunctionsList.getInstance().functions[name] = FunctionsList.getInstance().functions.pop(key)
+
+        print('end name keys')
+        print()
+
+        for key in FunctionsList.getInstance().functions.keys():
+            func = FunctionsList.getInstance().get_function(key)
+            if isinstance (func, BaseFunction):
+                print(key)
+                #print(func.get_suffix())
+            if isinstance (func, str):
+                print('----> ', key)
 
 
     def graph_nodes(self):
