@@ -510,7 +510,7 @@ class Constant(BaseFunction):
 
         func = node.get_function_from_collection(function)
         prefix = self.get_capital(function)
-        func.set_name(f'{prefix}L{thislevel}C{column}c')
+        func.set_name(f'{prefix}L{thislevel}C{column}')
         func.set_value(weights[column])
         """
         print('Literal',inputs)
