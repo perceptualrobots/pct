@@ -688,7 +688,7 @@ class WeightedSum(BaseFunction):
     def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
                           inputs, input_weights, by_column):
         prefix = self.get_capital(function_type)
-        self.name = f'{prefix}L{thislevel}C{column}'
+        self.set_name(f'{prefix}L{thislevel}C{column}')
 
         """
         print('Base',func.get_name())
@@ -775,7 +775,7 @@ class SmoothWeightedSum(BaseFunction):
     def set_node_function(self, function_type, thislevel, targetlevel, targetprefix,
                           column, num_target_indices, inputs, input_weights, by_column):
         prefix = self.get_capital(function_type)
-        self.name = f'{prefix}L{thislevel}C{column}'
+        self.set_name(f'{prefix}L{thislevel}C{column}')
 
         """
         print('Base',func.get_name())
