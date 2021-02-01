@@ -666,7 +666,7 @@ class WeightedSum(BaseFunction):
 
     def __call__(self, verbose=False):
         if len(self.links) != self.weights.size:
-            raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} must be the same.')
+            raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
 
         super().check_links(len(self.links))
         inputs = np.array([link.get_value() for link in self.links])
@@ -737,7 +737,7 @@ class SmoothWeightedSum(BaseFunction):
 
     def __call__(self, verbose=False):
         if len(self.links) != self.weights.size:
-            raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} must be the same.')
+            raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
 
         super().check_links(len(self.links))
         inputs = np.array([link.get_value() for link in self.links])
