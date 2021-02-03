@@ -227,14 +227,14 @@ class ProportionalArchitecture(BaseArchitecture):
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None,
-                 history=False, error_collector=None, draw = False, **cargs):
+                 history=False, error_collector=None, suffixes = False, **cargs):
         inputs=[]
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
             inputs.append(ip)
 
         super().__init__(name, config, env, inputs, history, error_collector)
-        self.draw=draw
+        self.suffixes=suffixes
         self.structure=structure
 
     def __call__(self):
@@ -257,7 +257,7 @@ class DynamicArchitecture(BaseArchitecture):
             else:
                 level+=1
                 self.configure_top_level(self.config[f'level{level+1}'], level+1, previous_columns)
-        if self.draw:
+        if self.suffixes:
             self.hpct.set_suffixes()
 
 
