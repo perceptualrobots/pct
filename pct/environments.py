@@ -16,10 +16,10 @@ class EnvironmentFactory:
         EnvironmentFactory.factories.put[id] = environmentFactory
     addFactory = staticmethod(addFactory)
     # A Template Method:
-    def createEnvironment(id, name, render, early_termination):
+    def createEnvironment(id):
         if not EnvironmentFactory.factories.__contains__(id):
             EnvironmentFactory.factories[id] = \
-              eval(id + f'.Factory(name={name}, render={render}, early_termination={early_termination})')
+              eval(id + '.Factory()')
         return EnvironmentFactory.factories[id].create()
     createEnvironment = staticmethod(createEnvironment)
 
@@ -127,9 +127,9 @@ class CartPoleV1(OpenAIGym):
     # 0 cart_position
     # 3 pole_velocity
     # 2 pole_angle
-    def __init__(self, env_name='CartPole-v1', render=False, video_wrap=False, value=0, name="CartPole-v1",
+    def __init__(self, render=False, video_wrap=False, value=0, name="CartPole-v1",
                  seed=None, links=None, new_name=True, **cargs):
-        super().__init__(env_name, render, video_wrap, value, name, seed, links, new_name, **cargs)
+        super().__init__('CartPole-v1', render, video_wrap, value, name, seed, links, new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
