@@ -52,6 +52,13 @@ class BaseArchitecture(ABC):
     def get_hierarchy(self):
         return self.hpct
 
+    @classmethod
+    def from_raw(cls, raw):
+        config = {}
+        config['parameters']={}
+        for level in range(len(raw)):
+            config[f'level{level}'] = raw[level]
+        return config
 
 
 
@@ -390,4 +397,49 @@ class DynamicArchitecture(BaseArchitecture):
 
             self.hpct.add_node(node, level, column)
 
+    @classmethod
+    def run_raw(cls, raw=None, arch_structure=None, structure=None, env=None, runs=None, inputs=None, inputs_names=None,
+                history=False, move={}, figsize=(12,12), layout=None, summary=False, draw=False, seed=None, verbose=False,
+                error_collector_type ='TotalError', error_response_type ='RootSumSquaredError', error_limit =100, suffixes=False):
+        if inputs==None:
+            num_inputs = len(raw[0][0])
+            inputs = [i for i in range(num_inputs)]
 
+        if arch_structure==None:
+            arch_structure = ArchitectureStructure()
+
+        if env == None:
+            env = DummyModel()
+
+        config = BaseArchitecture.from_raw( raw)
+
+        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit)
+        if seed != None:
+            env.set_seed(seed)
+        env.reset()
+
+        da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
+                                 history=history, error_collector=error_collector, suffixes=suffixes)
+        da()
+        hpct = da.get_hierarchy()
+        if inputs_names != None:
+            for ctr in range(len(inputs_names)):
+                hpct.get_preprocessor()[ctr+1].set_name(inputs_names[ctr])
+
+        if summary:
+            hpct.summary()
+
+        status = hpct.run(steps=runs, verbose=verbose)
+        if not status:
+            print('Terminated early')
+
+        if draw:
+            if layout==None:
+                hpct.draw(move=move, figsize=figsize, with_edge_labels=True)
+            else:
+                hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout)
+
+        score = hpct.get_error_collector().error()
+        last_step = hpct.last_step()
+
+        return score, last_step, hpct
