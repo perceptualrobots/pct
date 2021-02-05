@@ -398,6 +398,36 @@ class DynamicArchitecture(BaseArchitecture):
 
             self.hpct.add_node(node, level, column)
 
+
+    @classmethod
+    def draw_raw(cls, raw, arch_structure=None, structure=None, env=None, inputs=None, inputs_names=None, move={},
+                 figsize=(12,12), layout=None, summary=False):
+        if inputs==None:
+            num_inputs = len(raw[0][0])
+            inputs = [i for i in range(num_inputs)]
+
+        if arch_structure==None:
+            arch_structure = ArchitectureStructure()
+
+        if env == None:
+            env = DummyModel()
+
+        config = BaseArchitecture.from_raw( raw)
+        #print(config)
+        pa = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs, suffixes=True)
+        pa()
+        hpct = pa.get_hierarchy()
+        if inputs_names != None:
+            for ctr in range(len(inputs_names)):
+                hpct.get_preprocessor()[ctr+1].set_name(inputs_names[ctr])
+        if summary:
+            hpct.summary()
+        if layout==None:
+            hpct.draw(move=move, figsize=figsize, with_edge_labels=True)
+        else:
+            hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout)
+
+
     @classmethod
     def run_raw(cls, raw=None, arch_structure=None, structure=None, env=None, runs=None, inputs=None, inputs_names=None,
                 history=False, move={}, figsize=(12,12), layout=None, summary=False, draw=False, seed=None, verbose=False,
