@@ -235,7 +235,7 @@ class DummyModel(BaseFunction):
         pass
 
     class Factory:
-        def create(self): return CartPoleV1()
+        def create(self): return DummyModel()
 
 # Cell
 class EnvironmentFactory:
