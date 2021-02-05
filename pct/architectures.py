@@ -410,7 +410,7 @@ class DynamicArchitecture(BaseArchitecture):
             arch_structure = ArchitectureStructure()
 
         if env == None:
-            env = DummyModel()
+            env = EnvironmentFactory.createEnvironment('DummyModel')
 
         config = BaseArchitecture.from_raw( raw)
         #print(config)
@@ -440,7 +440,7 @@ class DynamicArchitecture(BaseArchitecture):
             arch_structure = ArchitectureStructure()
 
         if env == None:
-            env = DummyModel()
+            env = EnvironmentFactory.createEnvironment('DummyModel')
 
         config = BaseArchitecture.from_raw( raw)
 
