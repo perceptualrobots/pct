@@ -19,6 +19,7 @@ from .environments import PendulumV0
 from .environments import VelocityModel
 from .structure import ArchitectureStructure
 from .structure import LevelKey
+from .errors import BaseErrorCollector
 
 # Cell
 class BaseArchitecture(ABC):
