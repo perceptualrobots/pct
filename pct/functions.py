@@ -741,7 +741,7 @@ class SmoothWeightedSum(BaseFunction):
 
         super().check_links(len(self.links))
         inputs = np.array([link.get_value() for link in self.links])
-        weighted_sum = np.dot(inputs, self.weights)
+        weighted_sum = abs(np.dot(inputs, self.weights))
 
         self.value = self.value * self.smooth_factor + weighted_sum * (1-self.smooth_factor)
         return super().__call__(verbose)
