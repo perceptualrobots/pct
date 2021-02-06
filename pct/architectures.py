@@ -9,6 +9,7 @@ import json
 import os
 import enum
 import socket
+from jproperties import Properties
 from abc import ABC, abstractmethod
 
 from .hierarchy import PCTHierarchy
