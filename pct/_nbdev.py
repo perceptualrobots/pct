@@ -48,7 +48,8 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "ErrorFactory": "07_errors.ipynb",
          "BaseArchitecture": "08_architectures.ipynb",
          "ProportionalArchitecture": "08_architectures.ipynb",
-         "DynamicArchitecture": "08_architectures.ipynb"}
+         "DynamicArchitecture": "08_architectures.ipynb",
+         "run_from_properties_file": "08_architectures.ipynb"}
 
 modules = ["putils.py",
            "functions.py",
