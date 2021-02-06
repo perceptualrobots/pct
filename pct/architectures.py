@@ -508,6 +508,7 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
     error_collector_type = 'TotalError'
     if 'error_collector' in db.keys():
         error_collector_type = db['error_collector']
+    error_response_type = 'RootSumSquaredError'
     if 'error_response' in db.keys():
         error_response_type = db['error_response']
     inputs_names = stringListToListOfStrings(db['inputs_names'], ',')
