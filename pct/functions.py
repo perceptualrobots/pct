@@ -768,7 +768,7 @@ class SmoothWeightedSum(BaseFunction):
                 name = link.get_name()
             value = self.weights[i]
             if isinstance(value, float):
-                value = f'{value:5.3}:{self.smooth_factor:4.2}'
+                value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
             labels[(self.get_name(), name)] = value
 
 
