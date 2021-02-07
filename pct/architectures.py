@@ -491,7 +491,7 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
         root_dir='/mnt/c/Users/ruper/Google Drive/'
 
     if os.name == 'nt' :
-       root_dir='C:\\Users\\ruper\\Google Drive\\'
+        root_dir='C:\\Users\\ruper\\Google Drive\\'
 
 
     file = ''.join((root_dir, file_path))
@@ -503,7 +503,20 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
     for item in items_view:
         db[item[0]] = item[1].data
 
-    raw = eval(db['raw'])
+    if 'raw' in db.keys():
+        raw = eval(db['raw'])
+    else:
+        fh = open(file, "r")
+        for _ in range(5):
+            line = fh.readline()
+            #print('<',line,'>')
+            if line.startswith('# Best individual'):
+                break
+        line = fh.readline()
+        #print(line[2:])
+        raw = eval(line[2:])
+        fh.close()
+
     inputs = eval(db['inputs'])
     error_collector_type = 'TotalError'
     if 'error_collector' in db.keys():
