@@ -526,11 +526,9 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
         error_response_type = db['error_response']
     inputs_names = stringListToListOfStrings(db['inputs_names'], ',')
 
-    if nevals == None:
-        if 'nevals' in db.keys():
-            nevals  = int(db['nevals'])
-        else:
-            nevals = 1
+
+    if 'nevals' in db.keys():
+        nevals  = int(db['nevals'])
 
     if seed==None:
         seed = int(db['seed'])
