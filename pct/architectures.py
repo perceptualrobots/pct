@@ -562,7 +562,8 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
                         inputs_names=inputs_names, summary=False, verbose=verbose, seed=seedn, history=history,
                         error_collector_type=error_collector_type, error_response_type=error_response_type, draw=True, suffixes=True)
         except KeyError as ex:
-                print(ex.__str__())
+                print()
+                print('KeyError: ',ex.__str__())
                 break
         print(f'score {score:5.3f} last step {last}')
         for plot_item in plots:
