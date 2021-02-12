@@ -557,15 +557,16 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
 
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
-        score, last, hpct = DynamicArchitecture.run_raw(raw=raw, arch_structure=arch_structure, move=move, env=env, runs=runs, inputs=inputs,
-                    inputs_names=inputs_names, summary=False, verbose=verbose, seed=seedn, history=history,
-                    error_collector_type=error_collector_type, error_response_type=error_response_type, draw=True, suffixes=True)
-        print(f'score {score:5.3f} last step {last}')
         try:
-            for plot_item in plots:
-                fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'])
+            score, last, hpct = DynamicArchitecture.run_raw(raw=raw, arch_structure=arch_structure, move=move, env=env, runs=runs, inputs=inputs,
+                        inputs_names=inputs_names, summary=False, verbose=verbose, seed=seedn, history=history,
+                        error_collector_type=error_collector_type, error_response_type=error_response_type, draw=True, suffixes=True)
         except KeyError as ex:
                 print(ex.__str__())
+                break
+        print(f'score {score:5.3f} last step {last}')
+            for plot_item in plots:
+                fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'])
 
     env.close()
 
