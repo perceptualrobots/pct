@@ -483,7 +483,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 # Cell
 def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, verbose=None,
-        test=False, move=None, root_dir=None, draw=False, plots_figsize=(15,4),
+        test=False, move=None, root_dir=None, draw=False, plots_figsize=(15,4), render=True,
         plots=None, seed=None, print_properties=False):
 
     if root_dir == None:
@@ -549,7 +549,7 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
     arch_structure = ArchitectureStructure(modes=modes)
 
     env = EnvironmentFactory.createEnvironment(db['env'])
-    env.render=True
+    env.render=render
     env.set_name(db['env'])
 
 
