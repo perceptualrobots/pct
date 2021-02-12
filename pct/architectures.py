@@ -483,15 +483,15 @@ class DynamicArchitecture(BaseArchitecture):
 
 # Cell
 def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, verbose=None,
-        test=False, move=None, root_dir='/mnt/c/Users/ryoung/Google Drive/', draw=False,
+        test=False, move=None, root_dir=None, draw=False,
         plots=None, seed=None, print_properties=False):
 
+    if root_dir == None:
+        if socket.gethostname() == 'DESKTOP-5O07H5P':
+            root_dir='/mnt/c/Users/ruper/Google Drive/'
 
-    if socket.gethostname() == 'DESKTOP-5O07H5P':
-        root_dir='/mnt/c/Users/ruper/Google Drive/'
-
-    if os.name == 'nt' :
-        root_dir='C:\\Users\\ruper\\Google Drive\\'
+        if os.name == 'nt' :
+            root_dir='C:\\Users\\ruper\\Google Drive\\'
 
 
     file = ''.join((root_dir, file_path))
