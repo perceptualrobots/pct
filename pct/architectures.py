@@ -565,8 +565,8 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
                 print(ex.__str__())
                 break
         print(f'score {score:5.3f} last step {last}')
-            for plot_item in plots:
-                fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'])
+        for plot_item in plots:
+            fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'])
 
     env.close()
 
