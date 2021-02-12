@@ -565,7 +565,7 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
             for plot_item in plots:
                 fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'])
         except KeyError as ex:
-                print(ex.__str__()):
+                print(ex.__str__())
 
     env.close()
 
