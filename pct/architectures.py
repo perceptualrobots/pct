@@ -483,7 +483,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 # Cell
 def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, verbose=None,
-        test=False, move=None, root_dir=None, draw=False,
+        test=False, move=None, root_dir=None, draw=False, plots_figsize=(15,4),
         plots=None, seed=None, print_properties=False):
 
     if root_dir == None:
@@ -563,7 +563,7 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
                         error_collector_type=error_collector_type, error_response_type=error_response_type, draw=True, suffixes=True)
             print(f'score {score:5.3f} last step {last}')
             for plot_item in plots:
-                fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'])
+                fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'], figsize=plots_figsize)
         except KeyError as ex:
                 print()
                 print('KeyError: ',ex.__str__())
