@@ -82,6 +82,9 @@ class OpenAIGym(BaseFunction):
 
         return config
 
+    def get_reward(self):
+        return self.reward
+
     def output_string(self):
 
         if isinstance(self.value, int):
@@ -170,7 +173,7 @@ class PendulumV0(OpenAIGym):
         self.obs = self.env.step([self.input])
 
         self.value = self.obs[0]
-        self.reward = self.obs[1]
+        self.reward = -self.obs[1]
         self.done = self.obs[2]
         self.info = self.obs[3]
 
