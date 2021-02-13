@@ -484,7 +484,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 
 # Cell
-def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, verbose=None,
+def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True, verbose=None,
         test=False, move=None, root_dir=None, draw=False, plots_figsize=(15,4), render=True,
         plots=None, seed=None, print_properties=False, figsize=(12,12)):
 
@@ -529,11 +529,13 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
     inputs_names = stringListToListOfStrings(db['inputs_names'], ',')
 
 
-    if 'nevals' in db.keys():
-        nevals  = int(db['nevals'])
+    if nevals == None:
+        if 'nevals' in db.keys():
+            nevals  = int(db['nevals'])
 
     if seed==None:
         seed = int(db['seed'])
+
     modes = eval(db['modes'])
 
 
