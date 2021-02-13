@@ -405,7 +405,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 
     @classmethod
-    def draw_raw(cls, raw, arch_structure=None, structure=None, env=None, inputs=None, inputs_names=None, move={},
+    def draw_raw(cls, raw, arch_structure=None, env=None, inputs=None, inputs_names=None, move={},
                  figsize=(12,12), layout=None, summary=False):
         if inputs==None:
             num_inputs = len(raw[0][0])
@@ -435,7 +435,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 
     @classmethod
-    def run_raw(cls, raw=None, arch_structure=None, structure=None, env=None, runs=None, inputs=None, inputs_names=None,
+    def run_raw(cls, raw=None, arch_structure=None, env=None, runs=None, inputs=None, inputs_names=None,
                 history=False, move={}, figsize=(12,12), layout=None, summary=False, draw=False, seed=None, verbose=False,
                 error_collector_type ='TotalError', error_response_type ='RootSumSquaredError', error_limit =100, suffixes=False):
         if inputs==None:
