@@ -416,6 +416,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
+        env.reset()
 
         config = BaseArchitecture.from_raw( raw)
         #print(config)
@@ -446,6 +447,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
+        env.reset()
 
         config = BaseArchitecture.from_raw( raw)
 
