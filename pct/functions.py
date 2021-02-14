@@ -746,7 +746,7 @@ class SmoothWeightedSum(BaseFunction):
 
         #self.value = self.value * self.smooth_factor + weighted_sum * (1-self.smooth_factor)
 
-        self.value = smooth(weighted_sum, self.value, self.smooth_factor):
+        self.value = smooth(weighted_sum, self.value, self.smooth_factor)
 
         return super().__call__(verbose)
 
