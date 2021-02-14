@@ -4,6 +4,10 @@ __all__ = ['UniqueNamer', 'FunctionsList', 'get_drive', 'stringIntListToListOfIn
            'stringListToListOfStrings', 'listNumsToString', 'sigmoid', 'smooth', 'is_in_notebooks']
 
 # Cell
+import os
+import numpy as np
+
+# Cell
 class UniqueNamer:
     "A utility for ensuring the names of functions are unique."
     __instance = None
