@@ -12,6 +12,7 @@ import math
 import enum
 import networkx as nx
 from abc import ABC, abstractmethod
+from .putils import smooth
 from .putils import sigmoid
 from .putils import UniqueNamer
 from .putils import FunctionsList
