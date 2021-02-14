@@ -125,7 +125,6 @@ def listNumsToString(list):
     return str
 
 # Cell
-import numpy as np
 def sigmoid(x, range, scale) :
     return -range / 2 + range / (1 + np.exp(-x * scale / range));
 
