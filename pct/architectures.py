@@ -405,7 +405,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 
     @classmethod
-    def draw_raw(cls, raw, arch_structure=None, structure=None, env=None, inputs=None, inputs_names=None, move={},
+    def draw_raw(cls, raw, arch_structure=None, env=None, inputs=None, inputs_names=None, move={},
                  figsize=(12,12), layout=None, summary=False):
         if inputs==None:
             num_inputs = len(raw[0][0])
@@ -416,6 +416,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
+        env.reset()
 
         config = BaseArchitecture.from_raw( raw)
         #print(config)
@@ -434,7 +435,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 
     @classmethod
-    def run_raw(cls, raw=None, arch_structure=None, structure=None, env=None, runs=None, inputs=None, inputs_names=None,
+    def run_raw(cls, raw=None, arch_structure=None, env=None, runs=None, inputs=None, inputs_names=None,
                 history=False, move={}, figsize=(12,12), layout=None, summary=False, draw=False, seed=None, verbose=False,
                 error_collector_type ='TotalError', error_response_type ='RootSumSquaredError', error_limit =100, suffixes=False):
         if inputs==None:
@@ -446,6 +447,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
+        env.reset()
 
         config = BaseArchitecture.from_raw( raw)
 
@@ -482,16 +484,16 @@ class DynamicArchitecture(BaseArchitecture):
 
 
 # Cell
-def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, verbose=None,
-        test=False, move=None, root_dir='/mnt/c/Users/ryoung/Google Drive/', draw=False,
-        plots=None, seed=None, print_properties=False):
+def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True, verbose=None,
+        test=False, move=None, root_dir=None, draw=False, plots_figsize=(15,4), render=True,
+        plots=None, seed=None, print_properties=False, figsize=(12,12)):
 
+    if root_dir == None:
+        if socket.gethostname() == 'DESKTOP-5O07H5P':
+            root_dir='/mnt/c/Users/ruper/Google Drive/'
 
-    if socket.gethostname() == 'DESKTOP-5O07H5P':
-        root_dir='/mnt/c/Users/ruper/Google Drive/'
-
-    if os.name == 'nt' :
-        root_dir='C:\\Users\\ruper\\Google Drive\\'
+        if os.name == 'nt' :
+            root_dir='C:\\Users\\ruper\\Google Drive\\'
 
 
     file = ''.join((root_dir, file_path))
@@ -527,11 +529,13 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
     inputs_names = stringListToListOfStrings(db['inputs_names'], ',')
 
 
-    if 'nevals' in db.keys():
-        nevals  = int(db['nevals'])
+    if nevals == None:
+        if 'nevals' in db.keys():
+            nevals  = int(db['nevals'])
 
     if seed==None:
         seed = int(db['seed'])
+
     modes = eval(db['modes'])
 
 
@@ -549,7 +553,7 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
     arch_structure = ArchitectureStructure(modes=modes)
 
     env = EnvironmentFactory.createEnvironment(db['env'])
-    env.render=True
+    env.render=render
     env.set_name(db['env'])
 
 
@@ -557,13 +561,17 @@ def run_from_properties_file(file_path=None, nevals=1, runs=500, history=True, v
 
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
-        score, last, hpct = DynamicArchitecture.run_raw(raw=raw, arch_structure=arch_structure, move=move, env=env, runs=runs, inputs=inputs,
-                    inputs_names=inputs_names, summary=False, verbose=verbose, seed=seedn, history=history,
-                    error_collector_type=error_collector_type, error_response_type=error_response_type, draw=True, suffixes=True)
-        print(f'score {score:5.3f} last step {last}')
-        for plot_item in plots:
-            fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'])
-
+        try:
+            score, last, hpct = DynamicArchitecture.run_raw(raw=raw, arch_structure=arch_structure, move=move, env=env, runs=runs, inputs=inputs,
+                        inputs_names=inputs_names, summary=False, verbose=verbose, seed=seedn, history=history, figsize=figsize,
+                        error_collector_type=error_collector_type, error_response_type=error_response_type, draw=draw, suffixes=True)
+            print(f'score {score:5.3f} last step {last}')
+            for plot_item in plots:
+                fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'], figsize=plots_figsize)
+        except KeyError as ex:
+                print()
+                print('KeyError: ',ex.__str__())
+                break
 
     env.close()
 

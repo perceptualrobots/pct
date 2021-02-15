@@ -12,6 +12,7 @@ import math
 import enum
 import networkx as nx
 from abc import ABC, abstractmethod
+from .putils import smooth
 from .putils import sigmoid
 from .putils import UniqueNamer
 from .putils import FunctionsList
@@ -727,7 +728,7 @@ class WeightedSum(BaseFunction):
 # Cell
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), smooth_factor=1, value=0, name="smooth_weighted_sum", links=None, new_name=True, **cargs):
+    def __init__(self, weights=np.ones(3), smooth_factor=0, value=0, name="smooth_weighted_sum", links=None, new_name=True, **cargs):
         super().__init__(name, value, links, new_name)
         if isinstance(weights, list):
             self.weights = np.array(weights)
@@ -743,7 +744,10 @@ class SmoothWeightedSum(BaseFunction):
         inputs = np.array([link.get_value() for link in self.links])
         weighted_sum = np.dot(inputs, self.weights)
 
-        self.value = self.value * self.smooth_factor + weighted_sum * (1-self.smooth_factor)
+        #self.value = self.value * self.smooth_factor + weighted_sum * (1-self.smooth_factor)
+
+        self.value = smooth(weighted_sum, self.value, self.smooth_factor)
+
         return super().__call__(verbose)
 
     def summary(self):
