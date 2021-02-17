@@ -240,11 +240,18 @@ class ProportionalArchitecture(BaseArchitecture):
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None,
-                 history=False, error_collector=None, suffixes = False, **cargs):
+                 top_input_indexes=None, history=False, error_collector=None, suffixes = False, **cargs):
         inputs=[]
+        if top_input_indexes != None:
+            self.top_inputs = []
+        else:
+            self.top_inputs = None
+
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
             inputs.append(ip)
+            if input_indexes[ctr] in top_input_indexes :
+                self.top_inputs.append(ip)
 
         super().__init__(name, config, env, inputs, history, error_collector)
         self.suffixes=suffixes
@@ -391,7 +398,13 @@ class DynamicArchitecture(BaseArchitecture):
 
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, None, None,
                                              column, None, None, config[referencesIndex], None)
-            self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P',
+
+
+            if self.top_inputs == None:
+                self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P',
+                                             column, numColumnsPreviousLevel, None, config[inputsIndex], False)
+            else:
+                self.structure.set_sparse_node_function(node, ControlUnitFunctions.PERCEPTION, level, level-1, 'P',
                                              column, numColumnsPreviousLevel, None, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
