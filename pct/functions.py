@@ -714,6 +714,31 @@ class WeightedSum(BaseFunction):
                 weights.append(input_weights[inputIndex][column])
         self.weights=np.array(weights)
 
+    def set_sparse_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
+                          inputs, input_weights, by_column):
+        prefix = self.get_capital(function_type)
+        self.set_name(f'{prefix}L{thislevel}C{column}')
+
+        """
+        print('Base',func.get_name())
+        print('Base',inputs)
+        print('Base',input_weights)
+        print('Base',column)
+        print('Base',num_target_indices)
+        """
+        weights=[]
+
+        # get name of input function
+        # set link
+
+        name=inputs[inputIndex]
+        self.add_link(name)
+
+        self.weights=np.array(weights)
+
+
+
+
     def set_output_function(self, thislevel, column, input_weights):
 
         self.set_name(f'OL{thislevel}C{column}')
