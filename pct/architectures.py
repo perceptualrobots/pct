@@ -420,7 +420,7 @@ class DynamicArchitecture(BaseArchitecture):
 
     @classmethod
     def draw_raw(cls, raw, arch_structure=None, env=None, inputs=None, inputs_names=None, move={},
-                 figsize=(12,12), layout=None, summary=False):
+                 top_input_indexes=None, figsize=(12,12), layout=None, summary=False):
         if inputs==None:
             num_inputs = len(raw[0][0])
             inputs = [i for i in range(num_inputs)]
@@ -434,7 +434,8 @@ class DynamicArchitecture(BaseArchitecture):
 
         config = BaseArchitecture.from_raw( raw)
         #print(config)
-        pa = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs, suffixes=True)
+        pa = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
+                                 top_input_indexes=top_input_indexes, suffixes=True)
         pa()
         hpct = pa.get_hierarchy()
         if inputs_names != None:
