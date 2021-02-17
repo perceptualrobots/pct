@@ -52,7 +52,7 @@ class ArchitectureStructure():
 
 
     def set_sparse_node_function(self, node, function, thislevel, targetlevel, targetprefix, targetcolumn,
-                          num_target_indices, inputs, input_weights, by_column)
+                          num_target_indices, inputs, input_weights, by_column):
         func = node.get_function_from_collection(function)
         func.set_sparse_node_function(function, thislevel, targetlevel, targetprefix, targetcolumn, num_target_indices, inputs,
                                input_weights, by_column)
