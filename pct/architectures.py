@@ -250,8 +250,9 @@ class DynamicArchitecture(BaseArchitecture):
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
             inputs.append(ip)
-            if input_indexes[ctr] in top_input_indexes :
-                self.top_inputs.append(ip)
+            if top_input_indexes != None:
+                if input_indexes[ctr] in top_input_indexes :
+                    self.top_inputs.append(ip)
 
         super().__init__(name, config, env, inputs, history, error_collector)
         self.suffixes=suffixes
