@@ -244,16 +244,19 @@ class DynamicArchitecture(BaseArchitecture):
         inputs=[]
         if top_input_indexes != None:
             self.top_inputs = []
+            self.zero_inputs = []
         else:
             self.top_inputs = None
+            self.zero_inputs = None
 
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
-            #inputs.append(ip)
+            inputs.append(ip)
             if top_input_indexes != None and input_indexes[ctr] in top_input_indexes :
                 self.top_inputs.append(ip)
             else:
-                inputs.append(ip)
+                self.zero_inputs.append(ip)
+
         super().__init__(name, config, env, inputs, history, error_collector)
         self.suffixes=suffixes
         self.structure=structure
@@ -335,13 +338,16 @@ class DynamicArchitecture(BaseArchitecture):
         columnsNextLevel = len(config[referencesIndex][0])
         #print('columnsNextLevel',columnsNextLevel)
 
+        num_inputs = len(self.inputs)
+        inputs = self.inputs
+
         # create nodes
         for column in range(columns):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, level+1, 'O',
                                              column, columnsNextLevel, None, config[referencesIndex], True)
             self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None,
-                                             column, len(self.inputs), self.inputs, config[inputsIndex], False)
+                                             column, num_inputs, inputs, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
