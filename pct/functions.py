@@ -718,9 +718,9 @@ class WeightedSum(BaseFunction):
         prefix = self.get_capital(function_type)
         self.set_name(f'{prefix}L{thislevel}C{column}')
 
-
+        name=input.get_name()
         print('Base',self.get_name())
-        print('Base',input)
+        print('Base',name)
         print('Base',input_weights)
         print('Base',column)
 
@@ -729,9 +729,9 @@ class WeightedSum(BaseFunction):
         # get name of input function
         # set link
 
-        name=input.get_name()
+
         self.add_link(name)
-        weights.append(input_weights[0])
+        weights.append(input_weights[0][0])
         self.weights=np.array(weights)
 
 
