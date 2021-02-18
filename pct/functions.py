@@ -719,10 +719,10 @@ class WeightedSum(BaseFunction):
         self.set_name(f'{prefix}L{thislevel}C{column}')
 
         name=input.get_name()
-        print('Base',self.get_name())
-        print('Base',name)
-        print('Base',input_weights)
-        print('Base',column)
+        #print('Base',self.get_name())
+        #print('Base',name)
+        #print('Base',input_weights)
+        #print('Base',column)
 
         weights=[]
 
