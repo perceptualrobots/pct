@@ -718,13 +718,12 @@ class WeightedSum(BaseFunction):
         prefix = self.get_capital(function_type)
         self.set_name(f'{prefix}L{thislevel}C{column}')
 
-        """
-        print('Base',func.get_name())
-        print('Base',inputs)
+
+        print('Base',self.get_name())
+        print('Base',input)
         print('Base',input_weights)
         print('Base',column)
-        print('Base',num_target_indices)
-        """
+
         weights=[]
 
         # get name of input function
