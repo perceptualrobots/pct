@@ -403,7 +403,7 @@ class DynamicArchitecture(BaseArchitecture):
 
             if self.top_inputs != None and column < len(self.top_inputs):
                 self.structure.set_sparse_node_function(node, ControlUnitFunctions.PERCEPTION, level,
-                        self.top_inputs(column), column, config[inputsIndex])
+                        self.top_inputs[column], column, config[inputsIndex])
             else:
                 self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P',
                                              column, numColumnsPreviousLevel, None, config[inputsIndex], False)
