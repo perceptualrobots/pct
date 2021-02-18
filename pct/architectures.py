@@ -339,8 +339,13 @@ class DynamicArchitecture(BaseArchitecture):
         columnsNextLevel = len(config[referencesIndex][0])
         #print('columnsNextLevel',columnsNextLevel)
 
-        num_inputs = len(self.inputs)
-        inputs = self.inputs
+        if self.top_inputs == None:
+            num_inputs = len(self.inputs)
+            inputs = self.inputs
+        else:
+            num_inputs = len(self.zero_inputs)
+            inputs = self.zero_inputs
+
 
         # create nodes
         for column in range(columns):
