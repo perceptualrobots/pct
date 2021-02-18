@@ -401,11 +401,11 @@ class DynamicArchitecture(BaseArchitecture):
                                              column, None, None, config[referencesIndex], None)
 
 
-            if self.top_inputs == None:
-                self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P',
-                                             column, numColumnsPreviousLevel, None, config[inputsIndex], False)
+            if self.top_inputs != None and column < len(self.top_inputs):
+                self.structure.set_sparse_node_function(node, ControlUnitFunctions.PERCEPTION, level,
+                        self.top_inputs(column), column, config[inputsIndex])
             else:
-                self.structure.set_sparse_node_function(node, ControlUnitFunctions.PERCEPTION, level, level-1, 'P',
+                self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P',
                                              column, numColumnsPreviousLevel, None, config[inputsIndex], False)
 
             comparator_name=f'CL{level}C{column}'
