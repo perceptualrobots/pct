@@ -510,7 +510,7 @@ class Constant(BaseFunction):
         return 'c'
 
     def set_node_function(self, function_type, thislevel, targetlevel, not_used,
-                          column, not_used1, inputs, weights, not_used2):
+                          column, not_used1, inputs, weights, not_used2, not_used3):
 
         prefix = self.get_capital(function_type)
         self.set_name(f'{prefix}L{thislevel}C{column}')
@@ -800,7 +800,7 @@ class SmoothWeightedSum(BaseFunction):
 
 
     def set_node_function(self, function_type, thislevel, targetlevel, targetprefix,
-                          column, num_target_indices, inputs, input_weights, by_column):
+                          column, num_target_indices, inputs, input_weights, by_column, not_used):
         prefix = self.get_capital(function_type)
         self.set_name(f'{prefix}L{thislevel}C{column}')
 
