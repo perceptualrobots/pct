@@ -404,6 +404,7 @@ class DynamicArchitecture(BaseArchitecture):
         referencesIndex=2
 
         numColumnsThisLevel = len(config[referencesIndex])
+        offset=0
 
         # create nodes
         for column in range(numColumnsThisLevel):
@@ -414,11 +415,12 @@ class DynamicArchitecture(BaseArchitecture):
 
 
             if self.top_inputs != None and column < len(self.top_inputs):
+                offset = len(self.top_inputs)
                 self.structure.set_sparse_node_function(node, ControlUnitFunctions.PERCEPTION, level,
                         self.top_inputs[column], column, config[inputsIndex])
             else:
                 self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P',
-                                             column, numColumnsPreviousLevel, None, config[inputsIndex], False)
+                                             column, numColumnsPreviousLevel, None, config[inputsIndex], False, offset)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)

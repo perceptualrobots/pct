@@ -37,11 +37,11 @@ class ArchitectureStructure():
         return self.config
 
     def set_node_function(self, node, function, mode, thislevel, targetlevel, targetprefix, targetcolumn,
-                          num_target_indices, inputs, input_weights, by_column):
+                          num_target_indices, inputs, input_weights, by_column, offset):
 
         func = node.get_function_from_collection(function)
         func.set_node_function(function, thislevel, targetlevel, targetprefix, targetcolumn, num_target_indices, inputs,
-                               input_weights, by_column)
+                               input_weights, by_column, offset)
 
 
         #type = PCTNode.get_function_type(mode, function)
