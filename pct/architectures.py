@@ -411,7 +411,7 @@ class DynamicArchitecture(BaseArchitecture):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
 
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, None, None,
-                                             column, None, None, config[referencesIndex], None)
+                                             column, None, None, config[referencesIndex], None, 0)
 
 
             if self.top_inputs != None and column < len(self.top_inputs):
