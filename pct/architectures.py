@@ -305,8 +305,8 @@ class DynamicArchitecture(BaseArchitecture):
         # create nodes
         for column in range(columns):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
-            self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode , level, None, None,  column, None, None, config[referencesIndex], True)
-            self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None,  column, len(self.inputs), self.inputs, config[inputsIndex], False)
+            self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode , level, None, None,  column, None, None, config[referencesIndex], True, 0)
+            self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None,  column, len(self.inputs), self.inputs, config[inputsIndex], False,0)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
