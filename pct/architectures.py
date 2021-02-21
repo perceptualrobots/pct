@@ -490,7 +490,7 @@ class DynamicArchitecture(BaseArchitecture):
             env.set_seed(seed)
         env.reset()
 
-        da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
+        da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs, inputs_names=inputs_names,
                                  top_input_indexes=top_input_indexes, history=history, error_collector=error_collector, suffixes=suffixes)
         da()
         hpct = da.get_hierarchy()
