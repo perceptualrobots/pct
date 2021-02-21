@@ -239,7 +239,7 @@ class ProportionalArchitecture(BaseArchitecture):
 # Cell
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
-    def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None,
+    def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, inputs_names=None,
                  top_input_indexes=None, history=False, error_collector=None, suffixes = False, **cargs):
         inputs=[]
         if top_input_indexes != None:
@@ -250,7 +250,12 @@ class DynamicArchitecture(BaseArchitecture):
             self.zero_inputs = None
 
         for ctr in range(len(input_indexes)):
-            ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
+            if inputs_names == None:
+                input_name=f'Input{ctr}'
+            else:
+                input_name = inputs_names[ctr]
+
+            ip = IndexedParameter(index=input_indexes[ctr], name=input_name, links=[env])
             inputs.append(ip)
             if top_input_indexes != None :
                 if input_indexes[ctr] in top_input_indexes :
