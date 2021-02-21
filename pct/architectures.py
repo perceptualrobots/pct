@@ -561,6 +561,8 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
     if nevals == None:
         if 'nevals' in db.keys():
             nevals  = int(db['nevals'])
+        else:
+            nevals = 1
 
     if seed==None:
         seed = int(db['seed'])
