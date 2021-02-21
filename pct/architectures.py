@@ -494,9 +494,9 @@ class DynamicArchitecture(BaseArchitecture):
                                  top_input_indexes=top_input_indexes, history=history, error_collector=error_collector, suffixes=suffixes)
         da()
         hpct = da.get_hierarchy()
-        if inputs_names != None:
-            for ctr in range(len(inputs_names)):
-                hpct.get_preprocessor()[ctr+1].set_name(inputs_names[ctr])
+        #if inputs_names != None:
+        #    for ctr in range(len(inputs_names)):
+        #        hpct.get_preprocessor()[ctr+1].set_name(inputs_names[ctr])
 
         if summary:
             hpct.summary()
