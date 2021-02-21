@@ -464,7 +464,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 
     @classmethod
-    def run_raw(cls, raw=None, arch_structure=None, env=None, runs=None, inputs=None, inputs_names=None,
+    def run_raw(cls, raw=None, arch_structure=None, env=None, runs=None, inputs=None, inputs_names=None, top_input_indexes=None,
                 history=False, move={}, figsize=(12,12), layout=None, summary=False, draw=False, seed=None, verbose=False,
                 error_collector_type ='TotalError', error_response_type ='RootSumSquaredError', error_limit =100, suffixes=False):
         if inputs==None:
@@ -486,7 +486,7 @@ class DynamicArchitecture(BaseArchitecture):
         env.reset()
 
         da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
-                                 history=history, error_collector=error_collector, suffixes=suffixes)
+                                 top_input_indexes=top_input_indexes, history=history, error_collector=error_collector, suffixes=suffixes)
         da()
         hpct = da.get_hierarchy()
         if inputs_names != None:
@@ -549,6 +549,10 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
         fh.close()
 
     inputs = eval(db['inputs'])
+    top_inputs=None
+    if 'top_inputs' in db.keys():
+        top_inputs=eval(db['top_inputs'])
+
     error_collector_type = 'TotalError'
     if 'error_collector' in db.keys():
         error_collector_type = db['error_collector']
@@ -573,12 +577,14 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
     if print_properties:
         print('Properties:')
         print('Description = ', db['desc'])
+        print('inputs = ', inputs)
+        print('top_inputs = ', top_inputs)
         print('error_collector = ', error_collector_type)
         print('error_response = ',error_response_type)
         print('seed = ',seed)
         print('nevals = ',nevals)
         print('modes = ',modes)
-
+        print(raw)
 
     modes =  {LevelKey.ZERO:modes[0], LevelKey.N:modes[1],LevelKey.TOP:modes[2],LevelKey.ZEROTOP :modes[3]}
     arch_structure = ArchitectureStructure(modes=modes)
@@ -587,14 +593,11 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
     env.render=render
     env.set_name(db['env'])
 
-
-    print(raw[0])
-
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
         try:
             score, last, hpct = DynamicArchitecture.run_raw(raw=raw, arch_structure=arch_structure, move=move, env=env, runs=runs, inputs=inputs,
-                        inputs_names=inputs_names, summary=False, verbose=verbose, seed=seedn, history=history, figsize=figsize,
+                        inputs_names=inputs_names, summary=False, verbose=verbose, seed=seedn, history=history, figsize=figsize, top_inputs_indexes=top_inputs,
                         error_collector_type=error_collector_type, error_response_type=error_response_type, draw=draw, suffixes=True)
             print(f'score {score:5.3f} last step {last}')
             for plot_item in plots:
