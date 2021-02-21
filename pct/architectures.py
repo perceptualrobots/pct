@@ -515,7 +515,7 @@ class DynamicArchitecture(BaseArchitecture):
 # Cell
 def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True, verbose=None,
         test=False, move=None, root_dir=None, draw=False, plots_figsize=(15,4), render=True,
-        plots=None, seed=None, print_properties=False, figsize=(12,12)):
+        plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False):
 
     if root_dir == None:
         if socket.gethostname() == 'DESKTOP-5O07H5P':
@@ -597,7 +597,7 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
         print(f'seed {seedn} ', end = ' ')
         try:
             score, last, hpct = DynamicArchitecture.run_raw(raw=raw, arch_structure=arch_structure, move=move, env=env, runs=runs, inputs=inputs,
-                        inputs_names=inputs_names, summary=False, verbose=verbose, seed=seedn, history=history, figsize=figsize, top_input_indexes=top_inputs,
+                        inputs_names=inputs_names, summary=summary, verbose=verbose, seed=seedn, history=history, figsize=figsize, top_input_indexes=top_inputs,
                         error_collector_type=error_collector_type, error_response_type=error_response_type, draw=draw, suffixes=True)
             print(f'score {score:5.3f} last step {last}')
             for plot_item in plots:
