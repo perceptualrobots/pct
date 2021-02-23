@@ -73,7 +73,7 @@ class SmoothError(BaseErrorType):
         self.smooth_factor = 0.99
 
     def __call__(self, error):
-        self.error_response=smooth(error, self.error_response, self.smooth_factor)
+        self.error_response=smooth(abs(error), self.error_response, self.smooth_factor)
 
     class Factory:
         def create(self): return SmoothError()
