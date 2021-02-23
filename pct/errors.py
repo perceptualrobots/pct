@@ -70,7 +70,7 @@ class SmoothError(BaseErrorType):
     "The exponential smoothed value of the error."
     def __init__(self):
         super().__init__()
-        self.smooth_factor = 0.75
+        self.smooth_factor = 0.99
 
     def __call__(self, error):
         self.error_response=smooth(error, self.error_response, self.smooth_factor)
