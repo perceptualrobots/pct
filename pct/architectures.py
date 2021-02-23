@@ -525,9 +525,12 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
     if root_dir == None:
         if socket.gethostname() == 'DESKTOP-5O07H5P':
             root_dir='/mnt/c/Users/ruper/Google Drive/'
-
-        if os.name == 'nt' :
-            root_dir='C:\\Users\\ruper\\Google Drive\\'
+            if os.name == 'nt' :
+                root_dir='C:\\Users\\ruper\\Google Drive\\'
+        else:
+            root_dir='/mnt/c/Users/ryoung/Google Drive/'
+            if os.name == 'nt' :
+                root_dir='C:\\Users\\ryoung\\Google Drive\\'
 
 
     file = ''.join((root_dir, file_path))
