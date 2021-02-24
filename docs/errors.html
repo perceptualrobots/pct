@@ -84,7 +84,7 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RootSumSquaredError" class="doc_header"><code>class</code> <code>RootSumSquaredError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L27" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RootSumSquaredError</code>() :: <a href="/pct/errors#BaseErrorType"><code>BaseErrorType</code></a></p>
+<h2 id="RootSumSquaredError" class="doc_header"><code>class</code> <code>RootSumSquaredError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L30" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RootSumSquaredError</code>() :: <a href="/pct/errors#BaseErrorType"><code>BaseErrorType</code></a></p>
 </blockquote>
 <p>The square root of the sum of the square of the errors.</p>
 
@@ -116,7 +116,7 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RootMeanSquareError" class="doc_header"><code>class</code> <code>RootMeanSquareError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L41" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RootMeanSquareError</code>() :: <a href="/pct/errors#BaseErrorType"><code>BaseErrorType</code></a></p>
+<h2 id="RootMeanSquareError" class="doc_header"><code>class</code> <code>RootMeanSquareError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L44" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RootMeanSquareError</code>() :: <a href="/pct/errors#BaseErrorType"><code>BaseErrorType</code></a></p>
 </blockquote>
 <p>The square root of the sum of the square of the errors.</p>
 
@@ -148,7 +148,7 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CurrentError" class="doc_header"><code>class</code> <code>CurrentError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L57" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CurrentError</code>() :: <a href="/pct/errors#BaseErrorType"><code>BaseErrorType</code></a></p>
+<h2 id="CurrentError" class="doc_header"><code>class</code> <code>CurrentError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L60" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CurrentError</code>() :: <a href="/pct/errors#BaseErrorType"><code>BaseErrorType</code></a></p>
 </blockquote>
 <p>The current error, rather than a function of the historical values.</p>
 
@@ -180,7 +180,7 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SmoothError" class="doc_header"><code>class</code> <code>SmoothError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L69" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SmoothError</code>(<strong><code>smooth_factor</code></strong>) :: <a href="/pct/errors#BaseErrorType"><code>BaseErrorType</code></a></p>
+<h2 id="SmoothError" class="doc_header"><code>class</code> <code>SmoothError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L72" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SmoothError</code>(<strong><code>smooth_factor</code></strong>) :: <a href="/pct/errors#BaseErrorType"><code>BaseErrorType</code></a></p>
 </blockquote>
 <p>The exponential smoothed value of the error.</p>
 
@@ -212,7 +212,7 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseErrorCollector" class="doc_header"><code>class</code> <code>BaseErrorCollector</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L82" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseErrorCollector</code>(<strong><code>limit</code></strong>, <strong><code>error_response</code></strong>) :: <code>ABC</code></p>
+<h2 id="BaseErrorCollector" class="doc_header"><code>class</code> <code>BaseErrorCollector</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L85" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseErrorCollector</code>(<strong><code>limit</code></strong>, <strong><code>error_response</code></strong>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all.</p>
 
@@ -244,7 +244,7 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TotalError" class="doc_header"><code>class</code> <code>TotalError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L120" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TotalError</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>error_response</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/errors#BaseErrorCollector"><code>BaseErrorCollector</code></a></p>
+<h2 id="TotalError" class="doc_header"><code>class</code> <code>TotalError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L128" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TotalError</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>error_response</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/errors#BaseErrorCollector"><code>BaseErrorCollector</code></a></p>
 </blockquote>
 <p>A class to collect all the errors of the control system run.</p>
 
@@ -276,7 +276,7 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="InputsError" class="doc_header"><code>class</code> <code>InputsError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L137" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>InputsError</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>error_response</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/errors#BaseErrorCollector"><code>BaseErrorCollector</code></a></p>
+<h2 id="TopError" class="doc_header"><code>class</code> <code>TopError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L145" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TopError</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>error_response</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/errors#BaseErrorCollector"><code>BaseErrorCollector</code></a></p>
 </blockquote>
 <p>A class to collect all the errors of the control system run.</p>
 
@@ -308,7 +308,39 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RewardError" class="doc_header"><code>class</code> <code>RewardError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L156" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RewardError</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>error_response</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/errors#BaseErrorCollector"><code>BaseErrorCollector</code></a></p>
+<h2 id="InputsError" class="doc_header"><code>class</code> <code>InputsError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L164" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>InputsError</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>error_response</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/errors#BaseErrorCollector"><code>BaseErrorCollector</code></a></p>
+</blockquote>
+<p>A class to collect all the errors of the control system run.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="RewardError" class="doc_header"><code>class</code> <code>RewardError</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L183" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RewardError</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>error_response</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/errors#BaseErrorCollector"><code>BaseErrorCollector</code></a></p>
 </blockquote>
 <p>A class that collects the reward value of the control system run.</p>
 
@@ -340,7 +372,7 @@ description: "Types of error response of a percectual control hierarchy."
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ErrorFactory" class="doc_header"><code>class</code> <code>ErrorFactory</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L173" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ErrorFactory</code>()</p>
+<h2 id="ErrorFactory" class="doc_header"><code>class</code> <code>ErrorFactory</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/errors.py#L200" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ErrorFactory</code>()</p>
 </blockquote>
 
 </div>
