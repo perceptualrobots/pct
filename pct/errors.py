@@ -71,9 +71,9 @@ class CurrentError(BaseErrorType):
 # Cell
 class SmoothError(BaseErrorType):
     "The exponential smoothed value of the error."
-    def __init__(self, smooth_factor):
+    def __init__(self):
         super().__init__()
-        self.smooth_factor = smooth_factor
+        self.smooth_factor = None
 
     def __call__(self, error):
         self.error_response=smooth(abs(error), self.error_response, self.smooth_factor)
