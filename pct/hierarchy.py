@@ -103,7 +103,7 @@ class PCTHierarchy():
             func(verbose)
             if self.prepost_data != None:
                 self.prepost_data.add_data(func)
-                if ctr == 0:
+                if ctr == 0 and hasattr(func, 'reward'):
                     self.prepost_data.add_reward(func)
 
         if verbose:
