@@ -29,6 +29,15 @@ class FunctionsData():
             self.data[name]=dlist
             self.data[name].append(func.get_value())
 
+    def add_reward(self, func):
+        name = 'reward'
+        if name in self.data.keys():
+            self.data[name].append(func.get_reward())
+        else:
+            dlist=[]
+            self.data[name]=dlist
+            self.data[name].append(func.get_reward())
+
     def add_list(self, key, list):
         self.data[key]= list
 
@@ -89,12 +98,13 @@ class PCTHierarchy():
 
     def __call__(self, verbose=False):
 
-        for func in self.preCollection:
-            #if verbose:
-            #    print(func.get_name(), end =" ")
+        for ctr in range(len(self.preCollection)):
+            func = self.preCollection[ctr]
             func(verbose)
             if self.prepost_data != None:
                 self.prepost_data.add_data(func)
+                if ctr == 0:
+                    self.prepost_data.add_reward(func)
 
         if verbose:
             print()
