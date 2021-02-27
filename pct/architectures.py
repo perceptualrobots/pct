@@ -471,7 +471,7 @@ class DynamicArchitecture(BaseArchitecture):
     @classmethod
     def run_raw(cls, raw=None, arch_structure=None, env=None, runs=None, inputs=None, inputs_names=None, top_input_indexes=None,
                 history=False, move={}, figsize=(12,12), layout=None, summary=False, draw=False, seed=None, verbose=False,
-                error_collector_type ='TotalError', error_response_type ='RootSumSquaredError', error_limit =100, suffixes=False):
+                error_collector_type ='TotalError', error_response_type ='RootSumSquaredError', error_properties=None, error_limit =100, suffixes=False):
         if inputs==None:
             num_inputs = len(raw[0][0])
             inputs = [i for i in range(num_inputs)]
@@ -485,7 +485,8 @@ class DynamicArchitecture(BaseArchitecture):
 
         config = BaseArchitecture.from_raw( raw)
 
-        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit)
+        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type
+                                                       , error_limit, properties=error_properties)
         if seed != None:
             env.set_seed(seed)
         env.reset()
@@ -525,9 +526,12 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
     if root_dir == None:
         if socket.gethostname() == 'DESKTOP-5O07H5P':
             root_dir='/mnt/c/Users/ruper/Google Drive/'
-
-        if os.name == 'nt' :
-            root_dir='C:\\Users\\ruper\\Google Drive\\'
+            if os.name == 'nt' :
+                root_dir='C:\\Users\\ruper\\Google Drive\\'
+        else:
+            root_dir='/mnt/c/Users/ryoung/Google Drive/'
+            if os.name == 'nt' :
+                root_dir='C:\\Users\\ryoung\\Google Drive\\'
 
 
     file = ''.join((root_dir, file_path))
@@ -566,6 +570,19 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
         error_response_type = db['error_response']
     inputs_names = stringListToListOfStrings(db['inputs_names'], ',')
 
+    error_properties = []
+    for property in range(1, 100):
+        property_key = f'property{property}'
+        if property_key in db.keys():
+            property_string = db[property_key]
+            strarr = property_string.split(':')
+            if strarr[0] == 'error':
+                parr = strarr[1].split(',')
+                prop=[]
+                prop.append(parr[0])
+                prop.append(parr[1])
+                error_properties.append(prop)
+
 
     if nevals == None:
         if 'nevals' in db.keys():
@@ -603,7 +620,7 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
         try:
             score, last, hpct = DynamicArchitecture.run_raw(raw=raw, arch_structure=arch_structure, move=move, env=env, runs=runs, inputs=inputs,
                         inputs_names=inputs_names, summary=summary, verbose=verbose, seed=seedn, history=history, figsize=figsize, top_input_indexes=top_inputs,
-                        error_collector_type=error_collector_type, error_response_type=error_response_type, draw=draw, suffixes=True)
+                        error_collector_type=error_collector_type, error_response_type=error_response_type, error_properties=error_properties, draw=draw, suffixes=True)
             print(f'score {score:5.3f} last step {last}')
             for plot_item in plots:
                 fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'], figsize=plots_figsize)
