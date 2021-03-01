@@ -148,7 +148,7 @@ class TopError(BaseErrorCollector):
         super().__init__(limit, error_response)
 
     def add_data(self, hpct=None):
-        level = range(len(hpct.hierarchy)-1)
+        level = len(hpct.hierarchy)-1
 
         for col in range(len(hpct.hierarchy[level])):
             node  = hpct.hierarchy[level][col]
