@@ -161,6 +161,7 @@ class PendulumV0(OpenAIGym):
     # 1 sin(theta) - +1 is left, -1 is right, 0 is up and down
     # 2 theta dot - +dot is anti-clockwise, -dot is clockwise
     # 3 theta +pi/-pi (added here) 0 is pointing upwards, +pi is anti-clockwise, -pi is clockwise
+    # 4 theta +x+pi/x-pi (added here) 0 is pointing downwards, + is anti-clockwise, - is clockwise
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
     def __init__(self, render=False, video_wrap=False, value=0, name="Pendulum-v0",
@@ -179,6 +180,10 @@ class PendulumV0(OpenAIGym):
 
         pi = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])
         self.value = np.append(self.value, pi)
+        #x = math.copysign(pi-abs(pi), pi)
+        x = 10 + pi
+        self.value = np.append(self.value, x)
+
 
         if self.render:
             self.env.render()
