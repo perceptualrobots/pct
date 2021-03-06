@@ -714,7 +714,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
 
     properties = {'raw':raw, 'modes':modes, 'env_name': db['env'], 'inputs': inputs, 'top_inputs':top_inputs,
                   'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
-                  'seed':seed, 'nevals':nevals, 'error_limit':db['error_limit'],
+                  'seed':seed, 'nevals':nevals, 'error_limit':eval(db['error_limit']),
                   'error_properties':error_properties, 'inputs_names':inputs_names}
 
     return properties
