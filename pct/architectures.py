@@ -586,7 +586,6 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
                 prop.append(parr[1])
                 error_properties.append(prop)
 
-
     if nevals == None:
         if 'nevals' in db.keys():
             nevals  = int(db['nevals'])
@@ -637,12 +636,7 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
     return hpct, env
 
 # Cell
-
-
-
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False):
-
-
     delim = os.sep
     file = delim.join((root_dir, file_path, file_name))
     configs = Properties()

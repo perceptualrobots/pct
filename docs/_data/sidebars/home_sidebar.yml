@@ -36,6 +36,9 @@ entries:
     - output: web,pdf
       title: Architectures
       url: /architectures
+    - output: web,pdf
+      title: Plotting
+      url: /plotting
     output: web
     title: pct
   output: web

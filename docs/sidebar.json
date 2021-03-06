@@ -9,6 +9,7 @@
     "Environments": "/environments",
     "Structure": "/structure",
     "Errors": "/errors",
-    "Architectures": "/architectures"
+    "Architectures": "/architectures",
+    "Plotting": "/plotting"
   }
 }
