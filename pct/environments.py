@@ -237,7 +237,7 @@ class PendulumV0_1(OpenAIGym):
         return self.value
 
     class Factory:
-        def create(self): return PendulumV0-1()
+        def create(self): return PendulumV0_1()
 
 # Cell
 class MountainCarV0(OpenAIGym):
