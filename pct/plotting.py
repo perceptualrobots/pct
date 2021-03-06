@@ -3,9 +3,6 @@
 __all__ = ['SubPlotter']
 
 # Cell
-import matplotlib.pyplot as plt
-
-# Cell
 class SubPlotter(object):
 
   def __init__(self, width, height, title, plotsconfig=[["title", "xlabel", "ylabel", 1, 0, 111]]):

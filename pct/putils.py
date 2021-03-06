@@ -110,7 +110,8 @@ def get_gdrive():
 
 # Cell
 class Counter(object):
-    def __init__(self, limit=1000, init=0, step=1, print=100, pause=False, display=10):
+
+  def __init__(self, limit=1000, init=0, step=1, print=100, pause=False, display=10):
       self.limit=limit
       self.counter=init
       self.step=step
@@ -119,17 +120,17 @@ class Counter(object):
       self.display=display
 
 
-    def __call__(self):
+  def __call__(self):
       self.counter+=self.step
       return self.counter
 
-    def get(self):
+  def get(self):
       return self.counter
 
-    def get_limit(self):
+  def get_limit(self):
       return self.limit
 
-    def set_limit(self, limit):
+  def set_limit(self, limit):
       self.limit=limit
 
 
