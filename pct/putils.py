@@ -6,6 +6,7 @@ __all__ = ['UniqueNamer', 'FunctionsList', 'get_drive', 'get_gdrive', 'stringInt
 
 # Cell
 import os
+import socket
 import numpy as np
 
 # Cell

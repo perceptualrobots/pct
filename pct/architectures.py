@@ -727,8 +727,6 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
 
 # Cell
 def setup_environment(properties):
-
-    # raw, modes, env_name, render, inputs, top_inputs, error_collector_type, error_response_type, seed, nevals, error_limit, error_properties):
     env_name = properties['env_name']
     error_collector_type = properties['error_collector_type']
     error_limit = properties['error_limit']
