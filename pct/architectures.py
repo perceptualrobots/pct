@@ -726,7 +726,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     return properties
 
 # Cell
-def setup_environment(properties):
+def setup_environment(properties, render=False):
     env_name = properties['env_name']
     error_collector_type = properties['error_collector_type']
     error_limit = properties['error_limit']
