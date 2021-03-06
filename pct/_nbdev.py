@@ -5,6 +5,7 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"UniqueNamer": "01_putils.ipynb",
          "FunctionsList": "01_putils.ipynb",
          "get_drive": "01_putils.ipynb",
+         "get_gdrive": "01_putils.ipynb",
          "stringIntListToListOfInts": "01_putils.ipynb",
          "stringFloatListToListOfFloats": "01_putils.ipynb",
          "stringListToListOfStrings": "01_putils.ipynb",
@@ -57,7 +58,10 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "BaseArchitecture": "08_architectures.ipynb",
          "ProportionalArchitecture": "08_architectures.ipynb",
          "DynamicArchitecture": "08_architectures.ipynb",
-         "run_from_properties_file": "08_architectures.ipynb"}
+         "run_from_properties_file": "08_architectures.ipynb",
+         "load_properties": "08_architectures.ipynb",
+         "setup_environment": "08_architectures.ipynb",
+         "create_hierarchy": "08_architectures.ipynb"}
 
 modules = ["putils.py",
            "functions.py",
