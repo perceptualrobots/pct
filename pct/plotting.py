@@ -60,3 +60,4 @@ class SubPlotter(object):
         #self.ax1.margins(x=5,y=10)
 
     plt.tight_layout()
+    plt.grid()
