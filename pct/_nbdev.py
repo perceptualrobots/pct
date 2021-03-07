@@ -64,8 +64,7 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "load_properties": "08_architectures.ipynb",
          "setup_environment": "08_architectures.ipynb",
          "create_hierarchy": "08_architectures.ipynb",
-         "SubPlotter": "09_plotting.ipynb",
-         "run_hpct_animation": "09_plotting.ipynb"}
+         "SubPlotter": "09_plotting.ipynb"}
 
 modules = ["putils.py",
            "functions.py",
