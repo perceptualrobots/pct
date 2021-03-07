@@ -506,7 +506,8 @@ class DynamicArchitecture(BaseArchitecture):
             hpct.summary()
 
         status = hpct.run(steps=runs, verbose=verbose)
-        if not status:
+        last_step = hpct.last_step()
+        if last_step < runs-1:
             print('Terminated early')
 
         if draw:
@@ -516,7 +517,6 @@ class DynamicArchitecture(BaseArchitecture):
                 hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout)
 
         score = hpct.get_error_collector().error()
-        last_step = hpct.last_step()
 
         return score, last_step, hpct
 
