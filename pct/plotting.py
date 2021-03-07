@@ -74,7 +74,7 @@ class SubPlotter(object):
 
 
 # Cell
-def run_hpct_animation(hpct, counter=None, interval=1):
+def run_hpct_animation(hpct, counter=None, plotter=None, interval=1):
     anim_running = True
 
     def onClick(event):
