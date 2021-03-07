@@ -4,13 +4,15 @@ __all__ = ['SubPlotter']
 
 # Cell
 import matplotlib.pyplot as plt
+from matplotlib import style
+from random import random
 
 # Cell
 class SubPlotter(object):
 
-  def __init__(self, width, height, title, plotsconfig=[["title", "xlabel", "ylabel", 1, 0, 111]]):
+  def __init__(self, width, height, title, plotsconfig=[["title", "xlabel", "ylabel", 1, 0, 111, ['line1']]]):
 
-
+    style.use('fivethirtyeight')
     self.fig = plt.figure(figsize=[width, height])
     self.fig.canvas.set_window_title(title)
 
@@ -22,10 +24,11 @@ class SubPlotter(object):
         ys=[]
         for line in range(plotconfig[3]):
             ys.append([])
+
         plot = dict([("title", plotconfig[0]), ("xlabel", plotconfig[1]),
                      ("ylabel", plotconfig[2]), ("window", plotconfig[4]),
-                     ("subplot", plt.subplot(plotconfig[5])), ("x", []), ("ys", ys)])
-        #print(plot)
+                     ("subplot", plt.subplot(plotconfig[5])), ("x", []), ("ys", ys),
+                     ("lines", plotconfig[6])])
 
         self.plots.append(plot)
 
@@ -42,6 +45,13 @@ class SubPlotter(object):
             for i in range(len(ys)):
                 plot["ys"][i].pop(0)
 
+  def add_history_data(self, x, data):
+    for index, plot in enumerate(self.plots):
+        yvals = []
+        for line in plot["lines"]:
+            y = data[line][-1]
+            yvals.append(y)
+        self.add_data(index, x, yvals)
 
   def show(self):
     plt.show()
@@ -51,13 +61,12 @@ class SubPlotter(object):
         plot["subplot"].clear()
         #print(plot["ys"])
         ctr=0
-        for y in plot["ys"]:
-            plot["subplot"].plot(plot["x"], y, self.colors[ctr])
+        for y, line in zip(plot["ys"], plot["lines"]):
+            plot["subplot"].plot(plot["x"], y, self.colors[ctr], label=line, linewidth=2)
             ctr+=1
         plot["subplot"].set_title(plot["title"])
         plot["subplot"].set_xlabel(plot["xlabel"])
         plot["subplot"].set_ylabel(plot["ylabel"])
-        #self.ax1.margins(x=5,y=10)
+        plot["subplot"].legend()
 
     plt.tight_layout()
-    plt.grid()
