@@ -63,7 +63,7 @@ class SubPlotter(object):
         #print(plot["ys"])
         ctr=0
         for y, line in zip(plot["ys"], plot["lines"]):
-            plot["subplot"].plot(plot["x"], y, self.colors[ctr], label=line, linewidth=2)
+            plot["subplot"].plot(plot["x"], y, self.colors[ctr], label=line, linewidth=2, fontsize=8)
             ctr+=1
         plot["subplot"].set_title(plot["title"])
         plot["subplot"].set_xlabel(plot["xlabel"])
