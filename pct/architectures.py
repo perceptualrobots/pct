@@ -624,8 +624,10 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
                         inputs_names=inputs_names, summary=summary, verbose=verbose, seed=seedn, history=history, figsize=figsize, top_input_indexes=top_inputs,
                         error_collector_type=error_collector_type, error_response_type=error_response_type, error_properties=error_properties, draw=draw, suffixes=True)
             print(f'score {score:5.3f} last step {last}')
-            for plot_item in plots:
-                fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'], figsize=plots_figsize)
+            if draw:
+                for plot_item in plots:
+                    fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'], figsize=plots_figsize)
+            draw = False
         except KeyError as ex:
                 print()
                 print('KeyError: ',ex.__str__())
