@@ -225,7 +225,7 @@ class PendulumV0_1(OpenAIGym):
         vel = self.obs[0][2]/8.0
         self.value = np.append(self.value, vel)
         x = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])/math.pi
-        theta = 10 * math.copysign(1-abs(x), x)
+        theta = 100 - (10 * math.copysign(1-abs(x), x))
         self.value = np.append(self.value, theta)
 
         if self.render:
