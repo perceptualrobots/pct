@@ -193,7 +193,7 @@ class ReferencedInputsError(BaseErrorCollector):
         self.reference_values=None
         self.input_indexes=None
 
-    def set_reference_properties(properties):
+    def set_reference_properties(self, properties):
         strarr = properties.split(':')
         self.reference_values=[]
         self.input_indexes=[]
