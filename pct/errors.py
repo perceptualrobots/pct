@@ -208,7 +208,7 @@ class ReferencedInputsError(BaseErrorCollector):
     def add_data(self, hpct=None):
         data = []
         pre = hpct.get_preprocessor()
-        for ctr, index enumerate(self.input_indexes):
+        for ctr, index in enumerate(self.input_indexes):
             func = pre[index+1]
             if isinstance(func, IndexedParameter):
                 data.append(self.reference_values[ctr]-func.get_value())
