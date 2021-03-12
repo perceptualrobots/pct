@@ -123,7 +123,7 @@ class BaseErrorCollector(ABC):
                     error_response.set_property(property[0], property[1])
                     continue
                 if error_collector_type == 'ReferencedInputsError' and property[0] == 'referenced_inputs':
-                    error_collector.set_reference_properties(property[1]):
+                    error_collector.set_reference_properties(property[1])
                     continue
 
         error_collector.set_error_response(error_response)
@@ -192,7 +192,6 @@ class ReferencedInputsError(BaseErrorCollector):
         super().__init__(limit, error_response)
         self.reference_values=None
         self.input_indexes=None
-
 
     def set_reference_properties(properties):
         strarr = properties.split(':')
