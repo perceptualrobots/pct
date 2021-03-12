@@ -198,10 +198,10 @@ class ReferencedInputsError(BaseErrorCollector):
         self.reference_values=[]
         self.input_indexes=[]
 
-        for inp in strarr[0].split(';')
+        for inp in strarr[0].split(';'):
             self.input_indexes.append(eval(inp))
 
-        for ref in strarr[1].split(';')
+        for ref in strarr[1].split(';'):
             self.reference_values.append(eval(ref))
 
 
