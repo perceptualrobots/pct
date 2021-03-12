@@ -115,7 +115,7 @@ class BaseErrorCollector(ABC):
     def collector(cls, error_response_type, error_collector_type, limit, properties=None):
         error_response = ErrorFactory.createError(error_response_type)
         error_collector = ErrorFactory.createError(error_collector_type)
-        ec.set_limit(limit)
+        error_collector.set_limit(limit)
 
         if properties != None:
             for property in properties:
