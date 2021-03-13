@@ -531,11 +531,11 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
     if seed == None:
         seed = properties['seed']
 
-    env, error_collector = setup_environment(properties, render=render)
 
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
         try:
+            env, error_collector = setup_environment(properties, render=render)
             hpct = create_hierarchy(env, error_collector, properties, history=True, suffixes=True)
             if summary:
                 hpct.summary()
@@ -545,6 +545,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
             if last_step < runs-1:
                 print('Terminated early')
 
+            env.close()
             if draw:
                 if layout==None:
                     hpct.draw(move=move, figsize=figsize, with_edge_labels=True)
@@ -561,9 +562,8 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
                 print('KeyError: ',ex.__str__())
                 break
 
-    env.close()
 
-    return hpct, env
+    return hpct
 
 # Cell
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False,
