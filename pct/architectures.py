@@ -473,7 +473,7 @@ class DynamicArchitecture(BaseArchitecture):
     def run_raw(cls, raw=None, arch_structure=None, env=None, runs=None, inputs=None, inputs_names=None,
                 top_input_indexes=None, history=False, move={}, figsize=(12,12), layout=None, summary=False,
                 draw=False, seed=None, verbose=False, error_collector_type ='TotalError',
-                error_response_type ='RootSumSquaredError', error_properties=None, error_limit =100, suffixes=False):
+                error_response_type ='RootSumSquaredError', error_properties=None, error_limit =None, suffixes=False):
 
         if inputs==None:
             num_inputs = len(raw[0][0])
