@@ -551,7 +551,7 @@ def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, r
                     hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout)
 
             score = hpct.get_error_collector().error()
-            print(f'score {score:5.3f} last step {last}')
+            print(f'score {score:5.3f} last step {last_step}')
             for plot_item in plots:
                 fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'], figsize=plots_figsize)
             draw = False
