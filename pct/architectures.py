@@ -641,13 +641,13 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     for type in range(1, 100):
         type_key = f'type{type}'
         if type_key in db.keys():
-            types[type_key]=db[type_key]
+            types_strings[type_key]=db[type_key]
 
     configs_strings={}
     for config in range(1, 100):
         config_key = f'config{config}'
         if config_key in db.keys():
-            configs[config_key]=db[config_key]
+            configs_strings[config_key]=db[config_key]
 
 
     if nevals == None:
