@@ -522,7 +522,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 
 # Cell
-def run_from_properties_file(root_dir=None, path=None, nevals=None, runs=500, history=True, verbose=None,
+def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, runs=500, history=True, verbose=None,
         test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,
         plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False):
 
