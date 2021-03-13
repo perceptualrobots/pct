@@ -587,6 +587,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
 
     if evolve:
         raw = None
+    else:
         if 'raw' in db.keys():
             raw = eval(db['raw'])
         else:
@@ -675,7 +676,8 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
         print('seed = ',seed)
         print('nevals = ',nevals)
         print('modes = ',modes)
-        print(raw)
+        if raw != None:
+            print(raw)
 
     properties = {'raw':raw, 'modes':modes, 'env_name': db['env'], 'inputs': inputs, 'top_inputs':top_inputs,
                   'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
