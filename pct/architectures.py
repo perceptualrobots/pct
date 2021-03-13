@@ -528,6 +528,8 @@ def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, r
 
 
     properties = load_properties(root_dir, path, file, print_properties=True)
+    if seed = None:
+        seed = properties['seed']
 
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
