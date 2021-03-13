@@ -681,7 +681,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
 
     properties = {'raw':raw, 'modes':modes, 'env_name': db['env'], 'inputs': inputs, 'top_inputs':top_inputs,
                   'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
-                  'seed':seed, 'nevals':nevals, 'error_limit':eval(db['error_limit']), 'desc':db['desc']),
+                  'seed':seed, 'nevals':nevals, 'error_limit':eval(db['error_limit']), 'desc':db['desc'],
                   'error_properties':error_properties, 'inputs_names':inputs_names, 'attr_mut_pb':int(db['attr_mut_pb']),
                   'lower_float':float(db['lower_float']), 'upper_float':float( db['upper_float']),
                   'levels_limit': int(db['levels_limit']), 'columns_limit': int(db['columns_limit']),
