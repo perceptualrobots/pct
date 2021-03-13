@@ -686,7 +686,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
                   'lower_float':float(db['lower_float']), 'upper_float':float( db['upper_float']),
                   'levels_limit': int(db['levels_limit']), 'columns_limit': int(db['columns_limit']),
                   'min_levels_limit': min_levels_limit, 'min_columns_limit': min_columns_limit, 'types_strings':types_strings,
-                  'configs_strings': configs_strings, 'references':references
+                  'configs_strings': configs_strings, 'references':references, 'gens':gens, 'pop_size':pop_size
                  }
 
     return properties
