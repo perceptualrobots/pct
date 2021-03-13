@@ -565,7 +565,8 @@ def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, r
     return hpct, env
 
 # Cell
-def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False):
+def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False,
+                    gens=None, pop_size=None):
     delim = os.sep
     file = delim.join((root_dir, file_path, file_name))
 
@@ -578,6 +579,9 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     for item in items_view:
         db[item[0]] = item[1].data
 
+    # evolve arguments
+    if pop_size == None:
+        pop_size = int(db['POPULATION_SIZE'])
     if gens==None:
         gens = int(db['MAX_GENERATIONS'])
 
