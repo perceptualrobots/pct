@@ -522,24 +522,12 @@ class DynamicArchitecture(BaseArchitecture):
 
 
 # Cell
-def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True, verbose=None,
-        test=False, move=None, root_dir=None, draw=False, plots_figsize=(15,4), render=True,
+def run_from_properties_file(root_dir=None, path=None, nevals=None, runs=500, history=True, verbose=None,
+        test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,
         plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False):
 
-    if root_dir == None:
-        if socket.gethostname() == 'DESKTOP-5O07H5P':
-            root_dir='/mnt/c/Users/ruper/Google Drive/'
-            if os.name == 'nt' :
-                root_dir='C:\\Users\\ruper\\Google Drive\\'
-        else:
-            root_dir='/mnt/c/Users/ryoung/Google Drive/'
-            if os.name == 'nt' :
-                root_dir='C:\\Users\\ryoung\\Google Drive\\'
 
     properties = load_properties(root_dir, path, file, print_properties=True)
-
-
-
 
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
