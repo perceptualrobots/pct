@@ -527,7 +527,7 @@ def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, r
         plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False):
 
 
-    properties = load_properties(root_dir, path, file, print_properties=print_properties)
+    properties = load_properties(root_dir, path, file, print_properties=True)
     if seed == None:
         seed = properties['seed']
 
@@ -566,7 +566,7 @@ def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, r
 
 # Cell
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False,
-                    gens=None, pop_size=None, evolve=False):
+                    gens=None, pop_size=None):
     delim = os.sep
     file = delim.join((root_dir, file_path, file_name))
 
@@ -585,22 +585,19 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     if gens==None:
         gens = int(db['MAX_GENERATIONS'])
 
-    if evolve:
-        raw = None
+    if 'raw' in db.keys():
+        raw = eval(db['raw'])
     else:
-        if 'raw' in db.keys():
-            raw = eval(db['raw'])
-        else:
-            fh = open(file, "r")
-            for _ in range(5):
-                line = fh.readline()
-                #print('<',line,'>')
-                if line.startswith('# Best individual'):
-                    break
+        fh = open(file, "r")
+        for _ in range(5):
             line = fh.readline()
-            #print(line[2:])
-            raw = eval(line[2:])
-            fh.close()
+            #print('<',line,'>')
+            if line.startswith('# Best individual'):
+                break
+        line = fh.readline()
+        #print(line[2:])
+        raw = eval(line[2:])
+        fh.close()
 
     inputs = eval(db['inputs'])
     references = eval(db['references'])
@@ -676,8 +673,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
         print('seed = ',seed)
         print('nevals = ',nevals)
         print('modes = ',modes)
-        if raw != None:
-            print(raw)
+        print(raw)
 
     properties = {'raw':raw, 'modes':modes, 'env_name': db['env'], 'inputs': inputs, 'top_inputs':top_inputs,
                   'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
@@ -686,7 +682,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
                   'lower_float':float(db['lower_float']), 'upper_float':float( db['upper_float']),
                   'levels_limit': int(db['levels_limit']), 'columns_limit': int(db['columns_limit']),
                   'min_levels_limit': min_levels_limit, 'min_columns_limit': min_columns_limit, 'types_strings':types_strings,
-                  'configs_strings': configs_strings, 'references':references, 'gens':gens, 'pop_size':pop_size
+                  'configs_strings': configs_strings
                  }
 
     return properties
