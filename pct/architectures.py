@@ -568,6 +568,8 @@ def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, r
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False):
     delim = os.sep
     file = delim.join((root_dir, file_path, file_name))
+
+    # read properties from file
     configs = Properties()
     with open(file, 'rb') as config_file:
         configs.load(config_file)
@@ -575,6 +577,9 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     db = {}
     for item in items_view:
         db[item[0]] = item[1].data
+
+    if gens==None:
+        gens = int(db['MAX_GENERATIONS'])
 
     if 'raw' in db.keys():
         raw = eval(db['raw'])
@@ -591,6 +596,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
         fh.close()
 
     inputs = eval(db['inputs'])
+    references = eval(db['references'])
     top_inputs=None
     if 'top_inputs' in db.keys():
         top_inputs=eval(db['top_inputs'])
@@ -616,6 +622,29 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
                 prop.append(parr[1])
                 error_properties.append(prop)
 
+    min_levels_limit = 1
+    if 'min_levels_limit' in db.keys():
+         min_levels_limit = int(db['min_levels_limit'])
+
+    min_columns_limit = 1
+    if 'min_columns_limit' in db.keys():
+         min_columns_limit = int(db['min_columns_limit'])
+
+    # extract config
+    modes_list = eval(db['modes'])
+
+    types_strings={}
+    for type in range(1, 100):
+        type_key = f'type{type}'
+        if type_key in db.keys():
+            types[type_key]=db[type_key]
+
+    configs_strings={}
+    for config in range(1, 100):
+        config_key = f'config{config}'
+        if config_key in db.keys():
+            configs[config_key]=db[config_key]
+
 
     if nevals == None:
         if 'nevals' in db.keys():
@@ -624,7 +653,8 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
             nevals = 1
 
     if seed==None:
-        seed = int(db['seed'])
+        if 'seed' in db.keys():
+            seed = int(db['seed'])
 
     modes = eval(db['modes'])
 
@@ -644,7 +674,12 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     properties = {'raw':raw, 'modes':modes, 'env_name': db['env'], 'inputs': inputs, 'top_inputs':top_inputs,
                   'error_collector_type':error_collector_type, 'error_response_type': error_response_type,
                   'seed':seed, 'nevals':nevals, 'error_limit':eval(db['error_limit']),
-                  'error_properties':error_properties, 'inputs_names':inputs_names}
+                  'error_properties':error_properties, 'inputs_names':inputs_names, 'attr_mut_pb':int(db['attr_mut_pb']),
+                  'lower_float':float(db['lower_float']), 'upper_float':float( db['upper_float']),
+                  'levels_limit': int(db['levels_limit']), 'columns_limit': int(db['columns_limit']),
+                  'min_levels_limit': min_levels_limit, 'min_columns_limit': min_columns_limit, 'types_strings':types_strings,
+                  'configs_strings': configs_strings
+                 }
 
     return properties
 
