@@ -536,93 +536,31 @@ def run_from_properties_file(file_path=None, nevals=None, runs=500, history=True
             if os.name == 'nt' :
                 root_dir='C:\\Users\\ryoung\\Google Drive\\'
 
-
-    file = ''.join((root_dir, file_path))
-    configs = Properties()
-    with open(file, 'rb') as config_file:
-        configs.load(config_file)
-    items_view = configs.items()
-    db = {}
-    for item in items_view:
-        db[item[0]] = item[1].data
-
-    if 'raw' in db.keys():
-        raw = eval(db['raw'])
-    else:
-        fh = open(file, "r")
-        for _ in range(5):
-            line = fh.readline()
-            #print('<',line,'>')
-            if line.startswith('# Best individual'):
-                break
-        line = fh.readline()
-        #print(line[2:])
-        raw = eval(line[2:])
-        fh.close()
-
-    inputs = eval(db['inputs'])
-    top_inputs=None
-    if 'top_inputs' in db.keys():
-        top_inputs=eval(db['top_inputs'])
-
-    error_collector_type = 'TotalError'
-    if 'error_collector' in db.keys():
-        error_collector_type = db['error_collector']
-    error_response_type = 'RootSumSquaredError'
-    if 'error_response' in db.keys():
-        error_response_type = db['error_response']
-    inputs_names = stringListToListOfStrings(db['inputs_names'], ',')
-
-    error_properties = []
-    for property in range(1, 100):
-        property_key = f'property{property}'
-        if property_key in db.keys():
-            property_string = db[property_key]
-            strarr = property_string.split(':')
-            if strarr[0] == 'error':
-                parr = strarr[1].split(',')
-                prop=[]
-                prop.append(parr[0])
-                prop.append(parr[1])
-                error_properties.append(prop)
-
-    if nevals == None:
-        if 'nevals' in db.keys():
-            nevals  = int(db['nevals'])
-        else:
-            nevals = 1
-
-    if seed==None:
-        seed = int(db['seed'])
-
-    modes = eval(db['modes'])
+    properties = load_properties(root_dir, path, file, print_properties=True)
 
 
-    if print_properties:
-        print('Properties:')
-        print('Description = ', db['desc'])
-        print('inputs = ', inputs)
-        print('top_inputs = ', top_inputs)
-        print('error_collector = ', error_collector_type)
-        print('error_response = ',error_response_type)
-        print('seed = ',seed)
-        print('nevals = ',nevals)
-        print('modes = ',modes)
-        print(raw)
 
-    modes =  {LevelKey.ZERO:modes[0], LevelKey.N:modes[1],LevelKey.TOP:modes[2],LevelKey.ZEROTOP :modes[3]}
-    arch_structure = ArchitectureStructure(modes=modes)
-
-    env = EnvironmentFactory.createEnvironment(db['env'])
-    env.render=render
-    env.set_name(db['env'])
 
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
         try:
-            score, last, hpct = DynamicArchitecture.run_raw(raw=raw, arch_structure=arch_structure, move=move, env=env, runs=runs, inputs=inputs,
-                        inputs_names=inputs_names, summary=summary, verbose=verbose, seed=seedn, history=history, figsize=figsize, top_input_indexes=top_inputs,
-                        error_collector_type=error_collector_type, error_response_type=error_response_type, error_properties=error_properties, draw=draw, suffixes=True)
+            env, error_collector = setup_environment(properties, render=render)
+            hpct = create_hierarchy(env, error_collector, properties, history=True, suffixes=True)
+            if summary:
+                hpct.summary()
+
+            status = hpct.run(steps=runs, verbose=verbose)
+            last_step = hpct.last_step()
+            if last_step < runs-1:
+                print('Terminated early')
+
+            if draw:
+                if layout==None:
+                    hpct.draw(move=move, figsize=figsize, with_edge_labels=True)
+                else:
+                    hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout)
+
+            score = hpct.get_error_collector().error()
             print(f'score {score:5.3f} last step {last}')
             for plot_item in plots:
                 fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'], figsize=plots_figsize)
