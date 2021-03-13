@@ -527,7 +527,7 @@ def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, r
         plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False):
 
 
-    properties = load_properties(root_dir, path, file, print_properties=True)
+    properties = load_properties(root_dir, path, file, print_properties=print_properties)
     if seed == None:
         seed = properties['seed']
 
@@ -566,7 +566,7 @@ def run_from_properties_file(root_dir=None, path=None, file=None, nevals=None, r
 
 # Cell
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False,
-                    gens=None, pop_size=None):
+                    gens=None, pop_size=None, evolve=False):
     delim = os.sep
     file = delim.join((root_dir, file_path, file_name))
 
@@ -585,19 +585,21 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     if gens==None:
         gens = int(db['MAX_GENERATIONS'])
 
-    if 'raw' in db.keys():
-        raw = eval(db['raw'])
-    else:
-        fh = open(file, "r")
-        for _ in range(5):
+    if evolve:
+        raw = None
+        if 'raw' in db.keys():
+            raw = eval(db['raw'])
+        else:
+            fh = open(file, "r")
+            for _ in range(5):
+                line = fh.readline()
+                #print('<',line,'>')
+                if line.startswith('# Best individual'):
+                    break
             line = fh.readline()
-            #print('<',line,'>')
-            if line.startswith('# Best individual'):
-                break
-        line = fh.readline()
-        #print(line[2:])
-        raw = eval(line[2:])
-        fh.close()
+            #print(line[2:])
+            raw = eval(line[2:])
+            fh.close()
 
     inputs = eval(db['inputs'])
     references = eval(db['references'])
