@@ -535,7 +535,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
         try:
-            env, error_collector = setup_environment(properties, render=render)
+            env, error_collector = setup_environment(properties, render=render, seed=seed)
             hpct = create_hierarchy(env, error_collector, properties, history=True, suffixes=True)
             if summary:
                 hpct.summary()
@@ -695,13 +695,14 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     return properties
 
 # Cell
-def setup_environment(properties, render=False):
+def setup_environment(properties, render=False, seed=None):
     env_name = properties['env_name']
     error_collector_type = properties['error_collector_type']
     error_limit = properties['error_limit']
     error_response_type = properties['error_response_type']
     error_properties = properties['error_properties']
-    seed = properties['seed']
+    if seed == None:
+        seed = properties['seed']
 
 
     env = EnvironmentFactory.createEnvironment(env_name)
