@@ -537,7 +537,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
         try:
-            env, error_collector = setup_environment(properties, render=render, seed=seed)
+            env, error_collector = setup_environment(properties, render=render, seed=seedn)
             hpct = create_hierarchy(env, error_collector, properties, history=True, suffixes=True)
             if summary:
                 hpct.summary()
