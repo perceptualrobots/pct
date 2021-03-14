@@ -530,6 +530,8 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
     properties = load_properties(root_dir, path, file, print_properties=print_properties)
     if seed == None:
         seed = properties['seed']
+    if nevals == None:
+        nevals = properties['nevals']
 
 
     for seedn in range(seed, nevals+seed, 1):
