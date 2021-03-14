@@ -96,6 +96,7 @@ def run_hpct_animation(hpct, counter=None, plotter=None, interval=1):
             if epoch <= counter.get_limit():
                 counter()
                 if counter.pause and counter.get() % counter.display == 0:
+                    #print(counter.get(), counter.display)
                     anim_running = False
                     anim.event_source.stop()
                 else:
@@ -105,7 +106,7 @@ def run_hpct_animation(hpct, counter=None, plotter=None, interval=1):
                     plotter.add_history_data(x, history)
                     plotter.draw()
         else:
-            print("init here", epoch)
+            pass#print("init here", epoch)
 
     plotter.fig.canvas.mpl_connect('button_press_event', onClick)
 
