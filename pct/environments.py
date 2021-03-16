@@ -263,6 +263,7 @@ class MountainCarV0(OpenAIGym):
         return self.value
 
     def process_values(self):
+        self.reward = -self.obs[1]
         pos = self.value[0] + 1.2
         self.value = np.append(self.value, pos)
 
@@ -298,6 +299,7 @@ class MountainCarContinuousV0(OpenAIGym):
         self.input=[self.input]
 
     def process_values(self):
+        self.reward = -self.obs[1]
         pos = self.value[0] + 1.2
         self.value = np.append(self.value, pos)
 
