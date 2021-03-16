@@ -49,6 +49,8 @@ class OpenAIGym(BaseFunction):
         self.done = self.obs[2]
         self.info = self.obs[3]
 
+        self.process_values()
+
         if self.early_termination:
             if self.done:
                 raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
@@ -60,6 +62,9 @@ class OpenAIGym(BaseFunction):
         return super().__call__(verbose)
 
     def process_input(self):
+        pass
+
+    def process_values(self):
         pass
 
     def set_render(self, render):
@@ -244,8 +249,9 @@ class PendulumV0_1(OpenAIGym):
 class MountainCarV0(OpenAIGym):
     "A function that creates and runs the MountainCar-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
-    # 0 Car position - -1.2 to +0.6
+    # 0 Car position - -1.2 to +0.6, reference 0.45
     # 1 Car Velocity - -0.07 t0 +0.07
+    # 2 Car position - 0 to +1.8, reference 1.65
 
     def __init__(self, render=False, video_wrap=False, value=0, name="MountainCarV0",
                  seed=None, links=None, new_name=True, **cargs):
@@ -255,6 +261,10 @@ class MountainCarV0(OpenAIGym):
         super().__call__(verbose)
 
         return self.value
+
+    def process_values(self):
+        pos = self.value[0] + 1.2
+        self.value = np.append(self.value, pos)
 
     def process_input(self):
         if self.input<0:
@@ -271,9 +281,9 @@ class MountainCarV0(OpenAIGym):
 # Cell
 class MountainCarContinuousV0(OpenAIGym):
     "A function that creates and runs the MountainCarContinuous-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
-    # from obs[0], indices
-    # 0 Car position - -1.2 to +0.6
+    # 0 Car position - -1.2 to +0.6, reference 0.45
     # 1 Car Velocity - -0.07 t0 +0.07
+    # 2 Car position - 0 to +1.8, reference 1.65
 
     def __init__(self, render=False, video_wrap=False, value=0, name="MountainCarContinuousV0",
                  seed=None, links=None, new_name=True, **cargs):
@@ -286,6 +296,10 @@ class MountainCarContinuousV0(OpenAIGym):
 
     def process_input(self):
         self.input=[self.input]
+
+    def process_values(self):
+        pos = self.value[0] + 1.2
+        self.value = np.append(self.value, pos)
 
     class Factory:
         def create(self): return MountainCarContinuousV0()
