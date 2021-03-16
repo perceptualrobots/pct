@@ -209,7 +209,7 @@ class ReferencedInputsError(BaseErrorCollector):
         data = []
         pre = hpct.get_preprocessor()
         for ctr, index in enumerate(self.input_indexes):
-            func = pre[index+1]
+            func = pre[index+1] # add 1 as environment is 0
             if isinstance(func, IndexedParameter):
                 data.append(self.reference_values[ctr]-func.get_value())
             else:

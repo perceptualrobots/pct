@@ -76,7 +76,7 @@ class SubPlotter(object):
 
 
 # Cell
-def run_hpct_animation(hpct, counter=None, plotter=None, interval=1):
+def run_hpct_animation(hpct, counter=None, plotter=None, interval=1, verbose=False):
     anim_running = True
 
     def onClick(event):
@@ -101,7 +101,7 @@ def run_hpct_animation(hpct, counter=None, plotter=None, interval=1):
                     anim.event_source.stop()
                 else:
                     x = counter.get()
-                    hpct.run(steps=1, verbose=False)
+                    hpct.run(steps=1, verbose=verbose)
                     history = hpct.get_history_data()
                     plotter.add_history_data(x, history)
                     plotter.draw()
