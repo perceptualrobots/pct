@@ -289,6 +289,8 @@ class MountainCarContinuousV0(OpenAIGym):
     def __init__(self, render=False, video_wrap=False, value=0, name="MountainCarContinuousV0",
                  seed=None, links=None, new_name=True, **cargs):
         super().__init__('MountainCarContinuous-v0', render, video_wrap, value, name, seed, links, new_name, **cargs)
+        self.min_action = -1.0
+        self.max_action = 1.0
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
@@ -296,10 +298,11 @@ class MountainCarContinuousV0(OpenAIGym):
         return self.value
 
     def process_input(self):
-        self.input=[self.input]
+        force = min(max(self.input, self.min_action), self.max_action)
+        self.input=[force]
 
     def process_values(self):
-        self.reward = -self.obs[1]
+        self.reward = 100 - self.obs[1]
         pos = self.value[0] + 1.2
         self.value = np.append(self.value, pos)
 
