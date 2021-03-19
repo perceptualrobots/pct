@@ -313,7 +313,10 @@ class MountainCarContinuousV0(OpenAIGym):
         self.input=[force]
 
     def process_values(self):
-        self.reward = - self.obs[1]
+        reward = self.obs[1]
+        if reward > 90:
+            reward = 0
+        self.reward = - reward
         pos = self.value[0] + 1.2
         self.value = np.append(self.value, pos)
 
