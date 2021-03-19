@@ -523,7 +523,7 @@ class DynamicArchitecture(BaseArchitecture):
 
 # Cell
 def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, runs=500, history=True, verbose=None,
-        test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,  layout=None,
+        test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,  layout=None, early_termination=False,
         plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False):
 
 
@@ -537,7 +537,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
     for seedn in range(seed, nevals+seed, 1):
         print(f'seed {seedn} ', end = ' ')
         try:
-            env, error_collector = setup_environment(properties, render=render, seed=seedn)
+            env, error_collector = setup_environment(properties, render=render, seed=seedn, early_termination=early_termination)
             hpct = create_hierarchy(env, error_collector, properties, history=True, suffixes=True)
             if summary:
                 hpct.summary()
@@ -698,7 +698,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     return properties
 
 # Cell
-def setup_environment(properties, render=False, seed=None):
+def setup_environment(properties, render=False, seed=None, early_termination=False):
     env_name = properties['env_name']
     error_collector_type = properties['error_collector_type']
     error_limit = properties['error_limit']
@@ -711,6 +711,7 @@ def setup_environment(properties, render=False, seed=None):
     env = EnvironmentFactory.createEnvironment(env_name)
     env.render=render
     env.set_name(env_name)
+    env.early_termination = early_termination
 
     if env == None:
         env = EnvironmentFactory.createEnvironment('DummyModel')
