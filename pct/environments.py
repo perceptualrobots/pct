@@ -307,7 +307,6 @@ class MountainCarContinuousV0(OpenAIGym):
             if self.done:
                 self.reward = 0
                 self.really_done = True
-                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
 
     def process_input(self):
         force = min(max(self.input, self.min_action), self.max_action)
