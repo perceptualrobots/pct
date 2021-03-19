@@ -51,15 +51,17 @@ class OpenAIGym(BaseFunction):
 
         self.process_values()
 
-        if self.early_termination:
-            if self.done:
-                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
-
+        self.early_termination()
 
         if self.render:
             self.env.render()
 
         return super().__call__(verbose)
+
+    def early_termination(self):
+        if self.early_termination:
+            if self.done:
+                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
 
     def process_input(self):
         pass
@@ -291,18 +293,28 @@ class MountainCarContinuousV0(OpenAIGym):
         super().__init__('MountainCarContinuous-v0', render, video_wrap, value, name, seed, links, new_name, **cargs)
         self.min_action = -1.0
         self.max_action = 1.0
+        self.really_done = False
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
 
         return self.value
 
+    def early_termination(self):
+        if self.early_termination:
+            if self.really_done:
+                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
+            if self.done:
+                self.reward = 0
+                self.really_done = True
+                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
+
     def process_input(self):
         force = min(max(self.input, self.min_action), self.max_action)
         self.input=[force]
 
     def process_values(self):
-        self.reward = 100 - self.obs[1]
+        self.reward = - self.obs[1]
         pos = self.value[0] + 1.2
         self.value = np.append(self.value, pos)
 
