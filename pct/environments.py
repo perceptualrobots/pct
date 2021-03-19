@@ -51,14 +51,14 @@ class OpenAIGym(BaseFunction):
 
         self.process_values()
 
-        self.early_termination()
+        self.early_terminate()
 
         if self.render:
             self.env.render()
 
         return super().__call__(verbose)
 
-    def early_termination(self):
+    def early_terminate(self):
         if self.early_termination:
             if self.done:
                 raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
@@ -300,7 +300,7 @@ class MountainCarContinuousV0(OpenAIGym):
 
         return self.value
 
-    def early_termination(self):
+    def early_terminate(self):
         if self.early_termination:
             if self.really_done:
                 raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
