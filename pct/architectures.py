@@ -458,11 +458,11 @@ class DynamicArchitecture(BaseArchitecture):
                                  top_input_indexes=top_input_indexes, suffixes=True)
         pa()
         hpct = pa.get_hierarchy()
+        if summary:
+            hpct.summary()
         if inputs_names != None:
             for ctr in range(len(inputs_names)):
                 hpct.get_preprocessor()[ctr+1].set_name(inputs_names[ctr])
-        if summary:
-            hpct.summary()
         if layout==None:
             hpct.draw(move=move, figsize=figsize, with_edge_labels=True)
         else:
