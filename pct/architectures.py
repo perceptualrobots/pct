@@ -524,7 +524,8 @@ class DynamicArchitecture(BaseArchitecture):
 # Cell
 def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, runs=500, history=True, verbose=False,
         test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,  layout=None, early_termination=False,
-        plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False, hpct_verbose=None):
+        plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False, hpct_verbose=None,
+        error_collector_type=None, error_response_type=None):
 
 
     properties = load_properties(root_dir, path, file, print_properties=print_properties)
@@ -539,7 +540,8 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
         if verbose:
             print(f'seed {seedn} ', end = ' ')
         try:
-            env, error_collector = setup_environment(properties, render=render, seed=seedn, early_termination=early_termination)
+            env, error_collector = setup_environment(properties, render=render, seed=seedn,
+                early_termination=early_termination)
             hpct = create_hierarchy(env, error_collector, properties, history=True, suffixes=True)
             if summary:
                 hpct.summary()
@@ -702,11 +704,16 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     return properties
 
 # Cell
-def setup_environment(properties, render=False, seed=None, early_termination=True):
+def setup_environment(properties, render=False, seed=None, early_termination=True,
+        error_collector_type=None, error_response_type=None):
+
+    if error_collector_type == None:
+        error_collector_type = properties['error_collector_type']
+    if error_response_type == None:
+        error_response_type = properties['error_response_type']
+
     env_name = properties['env_name']
-    error_collector_type = properties['error_collector_type']
     error_limit = properties['error_limit']
-    error_response_type = properties['error_response_type']
     error_properties = properties['error_properties']
     if seed == None:
         seed = properties['seed']
