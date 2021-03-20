@@ -613,7 +613,12 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
             raw = eval(line[2:])
             fh.close()
 
-    inputs = eval(db['inputs'])
+    early_termination=None
+    if 'early_termination' in db.keys():
+        early_termination=eval(db['early_termination'])
+
+
+        inputs = eval(db['inputs'])
     references = eval(db['references'])
     top_inputs=None
     if 'top_inputs' in db.keys():
@@ -696,7 +701,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
                   'seed':seed, 'nevals':nevals, 'error_limit':eval(db['error_limit']), 'desc':db['desc'],
                   'error_properties':error_properties, 'inputs_names':inputs_names, 'attr_mut_pb':float(db['attr_mut_pb']),
                   'structurepb':float(db['structurepb']), 'runs':db['runs'], 'p_crossover': db['p_crossover'],
-                  'p_mutation': db['p_mutation'], 'num_actions':int(db['num_actions']),
+                  'p_mutation': db['p_mutation'], 'num_actions':int(db['num_actions']), 'early_termination':early_termination,
                   'lower_float':float(db['lower_float']), 'upper_float':float( db['upper_float']),
                   'levels_limit': int(db['levels_limit']), 'columns_limit': int(db['columns_limit']),
                   'min_levels_limit': min_levels_limit, 'min_columns_limit': min_columns_limit, 'types_strings':types_strings,
@@ -706,13 +711,15 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     return properties
 
 # Cell
-def setup_environment(properties, render=False, seed=None, early_termination=True,
+def setup_environment(properties, render=False, seed=None, early_termination=None,
         error_collector_type=None, error_response_type=None):
 
     if error_collector_type == None:
         error_collector_type = properties['error_collector_type']
     if error_response_type == None:
         error_response_type = properties['error_response_type']
+    if early_termination == None:
+        early_termination = properties['early_termination']
 
     env_name = properties['env_name']
     error_limit = properties['error_limit']
