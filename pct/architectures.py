@@ -522,9 +522,9 @@ class DynamicArchitecture(BaseArchitecture):
 
 
 # Cell
-def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, runs=500, history=True, verbose=None,
+def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, runs=500, history=True, verbose=False,
         test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,  layout=None, early_termination=False,
-        plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False):
+        plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False, hpct_verbose=None):
 
 
     properties = load_properties(root_dir, path, file, print_properties=print_properties)
@@ -533,16 +533,18 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
     if nevals == None:
         nevals = properties['nevals']
 
+    score_sum = 0
 
     for seedn in range(seed, nevals+seed, 1):
-        print(f'seed {seedn} ', end = ' ')
+        if verbose:
+            print(f'seed {seedn} ', end = ' ')
         try:
             env, error_collector = setup_environment(properties, render=render, seed=seedn, early_termination=early_termination)
             hpct = create_hierarchy(env, error_collector, properties, history=True, suffixes=True)
             if summary:
                 hpct.summary()
 
-            status = hpct.run(steps=runs, verbose=verbose)
+            status = hpct.run(steps=runs, verbose=hpct_verbose)
             last_step = hpct.last_step()
             if last_step < runs-1:
                 print('Terminated early')
@@ -555,7 +557,9 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
                     hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout)
 
             score = hpct.get_error_collector().error()
-            print(f'score {score:5.3f} last step {last_step}')
+            score_sum += score
+            if verbose:
+                print(f'score {score:5.3f} last step {last_step}')
             for plot_item in plots:
                 fig = hpct.hierarchy_plots(title=plot_item['title'], plot_items=plot_item['plot_items'], figsize=plots_figsize)
             draw = False
@@ -565,7 +569,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
                 break
 
 
-    return hpct
+    return hpct, score_sum
 
 # Cell
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False,
