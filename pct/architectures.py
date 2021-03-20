@@ -542,7 +542,8 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
             print(f'seed {seedn} ', end = ' ')
         try:
             env, error_collector = setup_environment(properties, render=render, seed=seedn,
-                early_termination=early_termination)
+                early_termination=early_termination, error_collector_type=error_collector_type,
+                error_response_type=error_response_type)
             hpct = create_hierarchy(env, error_collector, properties, history=True, suffixes=True)
             if summary:
                 hpct.summary()
@@ -551,7 +552,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
             last_step = hpct.last_step()
             if last_step < runs-1:
                 if verbose:
-                    print('Terminated early')
+                    print('TE ', end=' ')
 
             env.close()
             if draw:
