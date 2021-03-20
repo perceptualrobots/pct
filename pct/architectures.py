@@ -539,7 +539,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
 
     for seedn in range(seed, nevals+seed, 1):
         if verbose:
-            print(f'seed {seedn} ', end = ' ')
+            print(f'seed {seedn}', end = ' ')
         try:
             env, error_collector = setup_environment(properties, render=render, seed=seedn,
                 early_termination=early_termination, error_collector_type=error_collector_type,
@@ -548,11 +548,11 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
             if summary:
                 hpct.summary()
 
-            status = hpct.run(steps=runs, verbose=hpct_verbose)
+            output = hpct.run(steps=runs, verbose=hpct_verbose)
             last_step = hpct.last_step()
             if last_step < runs-1:
                 if verbose:
-                    print('TE ', end=' ')
+                    print('<TE>', end=' ')
 
             env.close()
             if draw:
@@ -574,7 +574,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
                 break
 
 
-    return hpct, score_sum
+    return hpct, score_sum, output
 
 # Cell
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False,
