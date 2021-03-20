@@ -617,8 +617,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
     if 'early_termination' in db.keys():
         early_termination=eval(db['early_termination'])
 
-
-        inputs = eval(db['inputs'])
+    inputs = eval(db['inputs'])
     references = eval(db['references'])
     top_inputs=None
     if 'top_inputs' in db.keys():
