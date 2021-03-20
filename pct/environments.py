@@ -74,6 +74,7 @@ class OpenAIGym(BaseFunction):
 
     def reset(self):
         super().reset()
+        self.really_done = False
         return self.env.reset()
 
     def summary(self):
