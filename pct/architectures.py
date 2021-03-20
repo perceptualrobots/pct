@@ -494,8 +494,9 @@ class DynamicArchitecture(BaseArchitecture):
             env.set_seed(seed)
         env.reset()
 
-        da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs, inputs_names=inputs_names,
-                                 top_input_indexes=top_input_indexes, history=history, error_collector=error_collector, suffixes=suffixes)
+        da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
+                                 inputs_names=inputs_names, top_input_indexes=top_input_indexes,
+                                 history=history, error_collector=error_collector, suffixes=suffixes)
         da()
         hpct = da.get_hierarchy()
         #if inputs_names != None:
@@ -549,7 +550,8 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
             status = hpct.run(steps=runs, verbose=hpct_verbose)
             last_step = hpct.last_step()
             if last_step < runs-1:
-                print('Terminated early')
+                if verbose:
+                    print('Terminated early')
 
             env.close()
             if draw:
