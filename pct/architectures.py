@@ -455,14 +455,14 @@ class DynamicArchitecture(BaseArchitecture):
         config = BaseArchitecture.from_raw( raw)
         #print(config)
         pa = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
-                                 top_input_indexes=top_input_indexes, suffixes=True)
+                                 inputs_names=inputs_names, top_input_indexes=top_input_indexes, suffixes=True)
         pa()
         hpct = pa.get_hierarchy()
         if summary:
             hpct.summary()
-        if inputs_names != None:
-            for ctr in range(len(inputs_names)):
-                hpct.get_preprocessor()[ctr+1].set_name(inputs_names[ctr])
+        #if inputs_names != None:
+        #    for ctr in range(len(inputs_names)):
+        #        hpct.get_preprocessor()[ctr+1].set_name(inputs_names[ctr])
         if layout==None:
             hpct.draw(move=move, figsize=figsize, with_edge_labels=True)
         else:
