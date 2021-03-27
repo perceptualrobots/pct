@@ -176,10 +176,11 @@ class CartPoleDV1(OpenAIGym):
     def __call__(self, verbose=False):
         super().__call__(verbose)
 
+        return self.value
+
+    def process_values(self):
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
         self.value = np.append(self.value, self.env.gravity)
-
-        return self.value
 
     def process_input(self):
         if self.input<0:
