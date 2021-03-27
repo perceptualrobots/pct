@@ -177,6 +177,7 @@ class CartPoleDV1(OpenAIGym):
         super().__call__(verbose)
 
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
+        self.value = np.append(self.value, self.env.gravity)
 
         return self.value
 
