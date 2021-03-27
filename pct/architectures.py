@@ -686,8 +686,11 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
         print('Properties:')
         print('Description = ', db['desc'])
         print('inputs = ', inputs)
-        print('names = ', inputs_names)
+        print('references = ', references)
         print('top_inputs = ', top_inputs)
+        print('names = ', inputs_names)
+        if early_termination!=None:
+            print('early_termination = ', early_termination)
         print('error_collector = ', error_collector_type)
         print('error_response = ',error_response_type)
         print('seed = ',seed)
