@@ -82,7 +82,7 @@ class OpenAIGym(BaseFunction):
     def reset(self):
         super().reset()
         self.really_done = False
-        self.env.done = True
+        self.env.stats_recorder.done = True
         return self.env.reset()
 
     def summary(self):
