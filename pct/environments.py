@@ -7,6 +7,7 @@ __all__ = ['EnvironmentFactory', 'OpenAIGym', 'CartPoleV1', 'CartPoleDV1', 'Pend
 import gym
 import math
 import numpy as np
+import pct.putils as vid
 from .functions import BaseFunction
 
 # Cell
