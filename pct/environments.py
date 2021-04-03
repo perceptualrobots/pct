@@ -59,6 +59,11 @@ class OpenAIGym(BaseFunction):
 
         return super().__call__(verbose)
 
+
+    def set_video_wrap(self, video_wrap):
+        self.video_wrap = video_wrap
+
+
     def early_terminate(self):
         if self.early_termination:
             if self.done:
