@@ -172,6 +172,8 @@ class PCTHierarchy():
         for i in range(steps):
             self.step = i
             try:
+                if verbose:
+                    print(f'[{i}]', end=' ')
                 out = self(verbose)
             except Exception as ex:
                 if ex.__str__().startswith('1000'):
