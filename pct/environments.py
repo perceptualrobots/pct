@@ -42,6 +42,7 @@ class OpenAIGym(BaseFunction):
 
     def __call__(self, verbose=False):
         super().check_links(1)
+        self.early_terminate()
         self.input = self.links[0].get_value()
         self.process_input()
         self.obs = self.env.step(self.input)
@@ -53,7 +54,6 @@ class OpenAIGym(BaseFunction):
 
         self.process_values()
         out = super().__call__(verbose)
-        self.early_terminate()
 
         if self.render:
             self.env.render()
