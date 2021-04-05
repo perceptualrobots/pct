@@ -52,13 +52,13 @@ class OpenAIGym(BaseFunction):
         self.info = self.obs[3]
 
         self.process_values()
-
+        out = super().__call__(verbose)
         self.early_terminate()
 
         if self.render:
             self.env.render()
 
-        return super().__call__(verbose)
+        return out
 
 
     def set_video_wrap(self, video_wrap):
