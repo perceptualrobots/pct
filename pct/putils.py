@@ -5,17 +5,6 @@ __all__ = ['UniqueNamer', 'FunctionsList', 'get_drive', 'get_gdrive', 'Counter',
            'show_video', 'wrap_env', 'is_in_notebooks']
 
 # Cell
-import os
-import socket
-import numpy as np
-import glob
-import io
-import base64
-
-from IPython.display import HTML
-
-from IPython import display as ipythondisplay
-from gym.wrappers import Monitor
 
 
 # Cell
