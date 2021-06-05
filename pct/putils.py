@@ -5,6 +5,7 @@ __all__ = ['UniqueNamer', 'FunctionsList', 'get_drive', 'get_gdrive', 'Counter',
            'show_video', 'wrap_env', 'is_in_notebooks']
 
 # Cell
+import numpy as np
 
 
 # Cell
