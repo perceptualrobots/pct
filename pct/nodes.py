@@ -4,9 +4,9 @@ __all__ = ['ControlUnitIndices', 'PCTNode', 'PCTNodeData']
 
 # Cell
 import enum
-import networkx as nx
+#import networkx as nx
+#import matplotlib.pyplot as plt
 import json
-import matplotlib.pyplot as plt
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .functions import *

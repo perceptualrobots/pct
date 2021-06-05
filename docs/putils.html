@@ -30,32 +30,6 @@ sidebar: home_sidebar
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">socket</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">io</span>
-<span class="kn">import</span> <span class="nn">base64</span>
-
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-
-<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span> <span class="k">as</span> <span class="n">ipythondisplay</span>
-<span class="kn">from</span> <span class="nn">gym.wrappers</span> <span class="kn">import</span> <span class="n">Monitor</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -78,7 +52,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="UniqueNamer" class="doc_header"><code>class</code> <code>UniqueNamer</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L12" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>UniqueNamer</code>()</p>
+<h2 id="UniqueNamer" class="doc_header"><code>class</code> <code>UniqueNamer</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L11" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>UniqueNamer</code>()</p>
 </blockquote>
 <p>A utility for ensuring the names of functions are unique.</p>
 
@@ -110,7 +84,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FunctionsList" class="doc_header"><code>class</code> <code>FunctionsList</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L43" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FunctionsList</code>()</p>
+<h2 id="FunctionsList" class="doc_header"><code>class</code> <code>FunctionsList</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L42" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FunctionsList</code>()</p>
 </blockquote>
 <p>A utility for storing functions created, keyed on the function name.</p>
 
@@ -142,7 +116,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_drive" class="doc_header"><code>get_drive</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L91" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_drive</code>()</p>
+<h4 id="check_module" class="doc_header"><code>check_module</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_module</code>(<strong><code>modulename</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -173,7 +147,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_gdrive" class="doc_header"><code>get_gdrive</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L99" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_gdrive</code>()</p>
+<h4 id="get_drive" class="doc_header"><code>get_drive</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L95" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_drive</code>()</p>
 </blockquote>
 
 </div>
@@ -204,7 +178,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Counter" class="doc_header"><code>class</code> <code>Counter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L111" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Counter</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>init</code></strong>=<em><code>0</code></em>, <strong><code>step</code></strong>=<em><code>1</code></em>, <strong><code>print</code></strong>=<em><code>100</code></em>, <strong><code>pause</code></strong>=<em><code>False</code></em>, <strong><code>display</code></strong>=<em><code>10</code></em>)</p>
+<h4 id="get_gdrive" class="doc_header"><code>get_gdrive</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L103" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_gdrive</code>()</p>
 </blockquote>
 
 </div>
@@ -235,7 +209,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="stringIntListToListOfInts" class="doc_header"><code>stringIntListToListOfInts</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L137" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>stringIntListToListOfInts</code>(<strong><code>strList</code></strong>, <strong><code>delimiter</code></strong>)</p>
+<h2 id="Counter" class="doc_header"><code>class</code> <code>Counter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L115" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Counter</code>(<strong><code>limit</code></strong>=<em><code>1000</code></em>, <strong><code>init</code></strong>=<em><code>0</code></em>, <strong><code>step</code></strong>=<em><code>1</code></em>, <strong><code>print</code></strong>=<em><code>100</code></em>, <strong><code>pause</code></strong>=<em><code>False</code></em>, <strong><code>display</code></strong>=<em><code>10</code></em>)</p>
 </blockquote>
 
 </div>
@@ -266,7 +240,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="stringFloatListToListOfFloats" class="doc_header"><code>stringFloatListToListOfFloats</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L146" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>stringFloatListToListOfFloats</code>(<strong><code>strList</code></strong>, <strong><code>delimiter</code></strong>)</p>
+<h4 id="stringIntListToListOfInts" class="doc_header"><code>stringIntListToListOfInts</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L141" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>stringIntListToListOfInts</code>(<strong><code>strList</code></strong>, <strong><code>delimiter</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -297,7 +271,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="stringListToListOfStrings" class="doc_header"><code>stringListToListOfStrings</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L155" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>stringListToListOfStrings</code>(<strong><code>strList</code></strong>, <strong><code>delimiter</code></strong>)</p>
+<h4 id="stringFloatListToListOfFloats" class="doc_header"><code>stringFloatListToListOfFloats</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L150" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>stringFloatListToListOfFloats</code>(<strong><code>strList</code></strong>, <strong><code>delimiter</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -328,7 +302,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="listNumsToString" class="doc_header"><code>listNumsToString</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L164" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>listNumsToString</code>(<strong><code>list</code></strong>)</p>
+<h4 id="stringListToListOfStrings" class="doc_header"><code>stringListToListOfStrings</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L159" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>stringListToListOfStrings</code>(<strong><code>strList</code></strong>, <strong><code>delimiter</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -359,7 +333,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="sigmoid" class="doc_header"><code>sigmoid</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L171" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sigmoid</code>(<strong><code>x</code></strong>, <strong><code>range</code></strong>, <strong><code>scale</code></strong>)</p>
+<h4 id="listNumsToString" class="doc_header"><code>listNumsToString</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L168" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>listNumsToString</code>(<strong><code>list</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -390,7 +364,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="smooth" class="doc_header"><code>smooth</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L175" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>smooth</code>(<strong><code>new_val</code></strong>, <strong><code>old_val</code></strong>, <strong><code>smooth_factor</code></strong>)</p>
+<h4 id="sigmoid" class="doc_header"><code>sigmoid</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L175" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>sigmoid</code>(<strong><code>x</code></strong>, <strong><code>range</code></strong>, <strong><code>scale</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -421,7 +395,38 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="show_video" class="doc_header"><code>show_video</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L179" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>show_video</code>()</p>
+<h4 id="smooth" class="doc_header"><code>smooth</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L179" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>smooth</code>(<strong><code>new_val</code></strong>, <strong><code>old_val</code></strong>, <strong><code>smooth_factor</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="show_video" class="doc_header"><code>show_video</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L183" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>show_video</code>()</p>
 </blockquote>
 
 </div>
@@ -445,7 +450,7 @@ sidebar: home_sidebar
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="wrap_env" class="doc_header"><code>wrap_env</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L192" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>wrap_env</code>(<strong><code>env</code></strong>)</p>
+<h4 id="wrap_env" class="doc_header"><code>wrap_env</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/putils.py#L196" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>wrap_env</code>(<strong><code>env</code></strong>)</p>
 </blockquote>
 
 </div>
