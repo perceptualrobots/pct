@@ -10,7 +10,7 @@ import gym
 import json
 import math
 import enum
-import networkx as nx
+#import networkx as nx
 from abc import ABC, abstractmethod
 from .putils import smooth
 from .putils import sigmoid
