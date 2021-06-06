@@ -7,6 +7,7 @@ __all__ = ['UniqueNamer', 'FunctionsList', 'dynamic_module_import', 'get_drive',
 # Cell
 import numpy as np
 import sys
+import importlib
 
 # Cell
 class UniqueNamer:
