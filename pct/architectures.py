@@ -7,10 +7,10 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture', 'DynamicArchitecture'
 from abc import ABC, abstractmethod
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
-
+import numpy as np
 """
 import random
-import numpy as np
+
 import json
 import os
 import enum

@@ -284,6 +284,8 @@ class PCTHierarchy():
         self.graphv.clear()
 
     def graph(self, layout={'r':2,'c':1,'p':2, 'o':0}):
+        if 'networkx' not in sys.modules:
+            import networkx as nx
         graph = nx.DiGraph()
 
         self.set_graph_data(graph, layout=layout)
