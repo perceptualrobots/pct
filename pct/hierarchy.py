@@ -230,8 +230,7 @@ class PCTHierarchy():
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, layout={'r':2,'c':1,'p':2, 'o':0}):
-        if 'networkx' not in sys.modules:
-            import networkx as nx
+        import networkx as nx
         self.graphv = self.graph(layout=layout)
         if node_color==None:
             node_color = self.get_colors(self.graphv, color_mapping)
@@ -287,8 +286,7 @@ class PCTHierarchy():
         self.graphv.clear()
 
     def graph(self, layout={'r':2,'c':1,'p':2, 'o':0}):
-        if 'networkx' not in sys.modules:
-            import networkx as nx
+        import networkx as nx
         graph = nx.DiGraph()
 
         self.set_graph_data(graph, layout=layout)
