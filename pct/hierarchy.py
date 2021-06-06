@@ -8,6 +8,7 @@ __all__ = ['FunctionsData', 'PCTHierarchy']
 #from networkx.drawing.nx_agraph import graphviz_layout
 #import matplotlib.pyplot as plt
 import numpy as np
+import sys
 from .nodes import PCTNode
 #from pct.functions import *
 from .putils import UniqueNamer
