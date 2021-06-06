@@ -6,13 +6,13 @@ __all__ = ['ControlUnitFunctions', 'BaseFunction', 'FunctionFactory', 'Subtract'
 
 # Cell
 import numpy as np
-import gym
-import json
-import math
+#import gym
+#import json
+#import math
 import enum
 #import networkx as nx
 from abc import ABC, abstractmethod
-from .putils import smooth
+#from pct.putils import smooth
 from .putils import sigmoid
 from .putils import UniqueNamer
 from .putils import FunctionsList
