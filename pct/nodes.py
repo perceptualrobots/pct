@@ -12,7 +12,7 @@ from .functions import ControlUnitFunctions
 #import networkx as nx
 #import matplotlib.pyplot as plt
 #import json
-#from pct.functions import *
+from .functions import *
 #from pct.environments import *
 
 # Cell
