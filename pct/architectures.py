@@ -4,6 +4,9 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture', 'DynamicArchitecture'
            'load_properties', 'setup_environment', 'create_hierarchy']
 
 # Cell
+from abc import ABC, abstractmethod
+
+"""
 import random
 import numpy as np
 import json
@@ -11,7 +14,6 @@ import os
 import enum
 import socket
 from jproperties import Properties
-from abc import ABC, abstractmethod
 
 from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
@@ -26,6 +28,7 @@ from .structure import ArchitectureStructure
 from .structure import LevelKey
 from .errors import BaseErrorCollector
 from .putils import stringListToListOfStrings
+"""
 
 # Cell
 class BaseArchitecture(ABC):
