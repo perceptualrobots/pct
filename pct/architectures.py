@@ -5,6 +5,8 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture', 'DynamicArchitecture'
 
 # Cell
 from abc import ABC, abstractmethod
+from .functions import ControlUnitFunctions
+from .functions import WeightedSum
 
 """
 import random

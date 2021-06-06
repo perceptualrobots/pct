@@ -9,8 +9,7 @@ from .functions import ControlUnitFunctions
 #import numpy as np
 #from abc import ABC
 #from pct.functions import FunctionFactory
-#from pct.functions import WeightedSum
-#from pct.functions import ControlUnitFunctions
+from .functions import WeightedSum
 #from pct.nodes import PCTNode
 
 # Cell
