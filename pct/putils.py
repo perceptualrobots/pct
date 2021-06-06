@@ -89,9 +89,9 @@ class FunctionsList:
 
 
 # Cell
-def dynamic_module_import(modulename, package=None):
+def dynamic_module_import(modulename, pa):
     if modulename not in sys.modules:
-        importlib.import_module(modulename, package)
+        importlib.import_module(modulename)
 
 # Cell
 def get_drive():
