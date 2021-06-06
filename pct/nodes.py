@@ -6,6 +6,7 @@ __all__ = ['ControlUnitIndices', 'PCTNode', 'PCTNodeData']
 import enum
 from .putils import UniqueNamer
 from .putils import FunctionsList
+from .putils import dynamic_module_import
 from .functions import FunctionFactory
 from .functions import ControlUnitFunctions
 #import networkx as nx

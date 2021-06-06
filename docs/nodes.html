@@ -60,7 +60,7 @@ description: "A node is a single control unit representing a feedback control lo
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ControlUnitIndices" class="doc_header"><code>ControlUnitIndices</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L18" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PER_INDEX, OUT_INDEX, REF_INDEX, ACT_INDEX]</p>
+<h2 id="ControlUnitIndices" class="doc_header"><code>ControlUnitIndices</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L19" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PER_INDEX, OUT_INDEX, REF_INDEX, ACT_INDEX]</p>
 </blockquote>
 <p>An enumeration.</p>
 
@@ -92,7 +92,7 @@ description: "A node is a single control unit representing a feedback control lo
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L25" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>reference</code></strong>=<em><code>None</code></em>, <strong><code>perception</code></strong>=<em><code>None</code></em>, <strong><code>comparator</code></strong>=<em><code>None</code></em>, <strong><code>output</code></strong>=<em><code>None</code></em>, <strong><code>default</code></strong>=<em><code>True</code></em>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>build_links</code></strong>=<em><code>False</code></em>, <strong><code>mode</code></strong>=<em><code>0</code></em>, <strong>**<code>pargs</code></strong>)</p>
+<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L26" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>reference</code></strong>=<em><code>None</code></em>, <strong><code>perception</code></strong>=<em><code>None</code></em>, <strong><code>comparator</code></strong>=<em><code>None</code></em>, <strong><code>output</code></strong>=<em><code>None</code></em>, <strong><code>default</code></strong>=<em><code>True</code></em>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>build_links</code></strong>=<em><code>False</code></em>, <strong><code>mode</code></strong>=<em><code>0</code></em>, <strong>**<code>pargs</code></strong>)</p>
 </blockquote>
 <p>A single PCT controller.</p>
 
@@ -141,7 +141,7 @@ description: "A node is a single control unit representing a feedback control lo
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L531" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
+<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L532" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
 </blockquote>
 <p>Data collected for a PCTNode</p>
 
@@ -183,7 +183,7 @@ description: "A node is a single control unit representing a feedback control lo
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>pctnode3 PCTNode
+<pre>pctnode PCTNode
 ----------------------------
 REF: constant Constant | 0 
 PER: variable Variable | 0 
@@ -226,26 +226,6 @@ OUT: proportional Proportional | gain 1 | 0 | links  subtract
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-58-731b8a9bef41&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>node <span class="ansi-blue-fg">=</span> PCTNode<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;mypctnode&#34;</span><span class="ansi-blue-fg">,</span> history<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> reference <span class="ansi-blue-fg">=</span> Constant<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> output<span class="ansi-blue-fg">=</span>Proportional<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> node<span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">NameError</span>: name &#39;Constant&#39; is not defined</pre>
-</div>
-</div>
-
 </div>
 </div>
 
