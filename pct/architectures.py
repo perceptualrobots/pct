@@ -13,27 +13,6 @@ from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
 from .structure import LevelKey
 import numpy as np
-"""
-import random
-
-import json
-import os
-import enum
-import socket
-from jproperties import Properties
-
-
-
-from .functions import ControlUnitFunctions
-from .functions import WeightedSum
-from .functions import IndexedParameter
-from .environments import PendulumV0
-from .environments import VelocityModel
-from .environments import EnvironmentFactory
-from .structure import ArchitectureStructure
-from .errors import BaseErrorCollector
-from .putils import stringListToListOfStrings
-"""
 
 # Cell
 class BaseArchitecture(ABC):
