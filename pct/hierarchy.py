@@ -10,6 +10,7 @@ __all__ = ['FunctionsData', 'PCTHierarchy']
 import numpy as np
 import sys
 from .nodes import PCTNode
+from .functions import WeightedSum
 #from pct.functions import *
 from .putils import UniqueNamer
 from .putils import FunctionsList
