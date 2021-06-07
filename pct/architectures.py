@@ -567,7 +567,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
 # Cell
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False,
                     gens=None, pop_size=None, evolve=False):
-    import jproperties
+    from jproperties import Properties
     delim = os.sep
     file = delim.join((root_dir, file_path, file_name))
 
