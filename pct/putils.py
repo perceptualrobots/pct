@@ -109,6 +109,7 @@ def get_drive():
 # Cell
 def get_gdrive():
     import socket
+    import os
     if socket.gethostname() == 'DESKTOP-5O07H5P':
         root_dir='/mnt/c/Users/ruper/Google Drive/'
         if os.name == 'nt' :
