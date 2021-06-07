@@ -8,6 +8,7 @@ from abc import ABC, abstractmethod
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
+from .functions import Constant
 from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
 from .structure import LevelKey
@@ -26,7 +27,6 @@ from jproperties import Properties
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
-from .functions import Constant
 from .environments import PendulumV0
 from .environments import VelocityModel
 from .environments import EnvironmentFactory
