@@ -9,6 +9,7 @@ from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
 from .hierarchy import PCTHierarchy
+from .structure import LevelKey
 import numpy as np
 """
 import random
@@ -29,7 +30,6 @@ from .environments import PendulumV0
 from .environments import VelocityModel
 from .environments import EnvironmentFactory
 from .structure import ArchitectureStructure
-from .structure import LevelKey
 from .errors import BaseErrorCollector
 from .putils import stringListToListOfStrings
 """
