@@ -9,6 +9,7 @@ from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
 from .hierarchy import PCTHierarchy
+from .nodes import PCTNode
 from .structure import LevelKey
 import numpy as np
 """
@@ -21,7 +22,7 @@ import socket
 from jproperties import Properties
 
 
-from .nodes import PCTNode
+
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
