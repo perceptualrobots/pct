@@ -8,6 +8,7 @@ from abc import ABC, abstractmethod
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
+from .hierarchy import PCTHierarchy
 import numpy as np
 """
 import random
@@ -18,7 +19,7 @@ import enum
 import socket
 from jproperties import Properties
 
-from .hierarchy import PCTHierarchy
+
 from .nodes import PCTNode
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
