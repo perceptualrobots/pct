@@ -495,6 +495,7 @@ class PCTHierarchy():
         print("**************************")
 
     def save(self, file=None, indent=4):
+        import json
         jsondict = json.dumps(self.get_config(), indent=indent)
         f = open(file, "w")
         f.write(jsondict)
