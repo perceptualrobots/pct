@@ -7,6 +7,7 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture', 'DynamicArchitecture'
 from abc import ABC, abstractmethod
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
+from .functions import IndexedParameter
 import numpy as np
 """
 import random
