@@ -13,6 +13,7 @@ from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
 from .structure import LevelKey
 import numpy as np
+import os
 
 # Cell
 class BaseArchitecture(ABC):
