@@ -7,6 +7,7 @@ __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'Curre
 # Cell
 import numpy as np
 from abc import ABC, abstractmethod
+from .functions import IndexedParameter
 
 # Cell
 class BaseErrorType(ABC):
