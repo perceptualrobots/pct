@@ -4,28 +4,22 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture', 'DynamicArchitecture'
            'load_properties', 'setup_environment', 'create_hierarchy']
 
 # Cell
-import random
-import numpy as np
-import json
 import os
-import enum
-import socket
-from jproperties import Properties
+import numpy as np
 from abc import ABC, abstractmethod
 
-from .hierarchy import PCTHierarchy
-from .nodes import PCTNode
+# Cell
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
 from .functions import Constant
-from .environments import PendulumV0
-from .environments import VelocityModel
+from .hierarchy import PCTHierarchy
+from .nodes import PCTNode
 from .environments import EnvironmentFactory
-from .structure import ArchitectureStructure
 from .structure import LevelKey
-from .errors import BaseErrorCollector
+from .structure import ArchitectureStructure
 from .putils import stringListToListOfStrings
+from .errors import BaseErrorCollector
 
 # Cell
 class BaseArchitecture(ABC):
@@ -579,6 +573,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
 # Cell
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False,
                     gens=None, pop_size=None, evolve=False):
+    from jproperties import Properties
     delim = os.sep
     file = delim.join((root_dir, file_path, file_name))
 

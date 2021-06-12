@@ -3,14 +3,9 @@
 __all__ = ['LevelKey', 'ArchitectureStructure']
 
 # Cell
-import random
 import enum
-import numpy as np
-from abc import ABC
-from .functions import FunctionFactory
-from .functions import WeightedSum
 from .functions import ControlUnitFunctions
-from .nodes import PCTNode
+from .functions import WeightedSum
 
 # Cell
 class LevelKey(enum.Enum):

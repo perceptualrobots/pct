@@ -7,9 +7,7 @@ __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'Curre
 # Cell
 import numpy as np
 from abc import ABC, abstractmethod
-from .hierarchy import PCTHierarchy
 from .functions import IndexedParameter
-from .putils import smooth
 
 # Cell
 class BaseErrorType(ABC):

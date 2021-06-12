@@ -4,13 +4,12 @@ __all__ = ['ControlUnitIndices', 'PCTNode', 'PCTNodeData']
 
 # Cell
 import enum
-import networkx as nx
-import json
-import matplotlib.pyplot as plt
 from .putils import UniqueNamer
 from .putils import FunctionsList
+from .putils import dynamic_module_import
+from .functions import FunctionFactory
+from .functions import ControlUnitFunctions
 from .functions import *
-from .environments import *
 
 # Cell
 class ControlUnitIndices(enum.IntEnum):

@@ -4,6 +4,8 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"UniqueNamer": "01_putils.ipynb",
          "FunctionsList": "01_putils.ipynb",
+         "dynamic_module_import": "01_putils.ipynb",
+         "dynamic_class_load": "01_putils.ipynb",
          "get_drive": "01_putils.ipynb",
          "get_gdrive": "01_putils.ipynb",
          "Counter": "01_putils.ipynb",
