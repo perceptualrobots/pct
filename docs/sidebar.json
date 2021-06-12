@@ -1,15 +1,15 @@
 {
   "pct": {
     "Overview": "/",
-    "Examples": "examples.html",
-    "Utilities": "putils.html",
-    "Functions": "functions.html",
-    "Nodes": "nodes.html",
-    "Hierarchy": "hierarchy.html",
-    "Environments": "environments.html",
-    "Structure": "structure.html",
-    "Errors": "errors.html",
-    "Architectures": "architectures.html",
-    "Plotting": "plotting.html"
+    "Examples": "/examples",
+    "Utilities": "/putils",
+    "Functions": "/functions",
+    "Nodes": "/nodes",
+    "Hierarchy": "/hierarchy",
+    "Environments": "/environments",
+    "Structure": "/structure",
+    "Errors": "/errors",
+    "Architectures": "/architectures",
+    "Plotting": "/plotting"
   }
 }

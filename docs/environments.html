@@ -2,13 +2,11 @@
 
 title: Environments
 
-
 keywords: fastai
 sidebar: home_sidebar
 
 summary: "Classes to create simulated environment functions."
 description: "Classes to create simulated environment functions."
-nb_path: "nbs/05_environments.ipynb"
 ---
 <!--
 
@@ -76,6 +74,13 @@ nb_path: "nbs/05_environments.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -114,7 +119,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L28" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong><code>early_termination</code></strong>=<em><code>False</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="OpenAIGym" class="doc_header"><code>class</code> <code>OpenAIGym</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L28" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>OpenAIGym</code>(<strong><code>env_name</code></strong>=<em><code>None</code></em>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'gym'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong><code>early_termination</code></strong>=<em><code>False</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -146,7 +151,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CartPoleV1" class="doc_header"><code>class</code> <code>CartPoleV1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L142" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CartPoleV1</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'CartPole-v1'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments.html#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="CartPoleV1" class="doc_header"><code>class</code> <code>CartPoleV1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L142" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CartPoleV1</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'CartPole-v1'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
 <p>A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -178,7 +183,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CartPoleDV1" class="doc_header"><code>class</code> <code>CartPoleDV1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L174" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CartPoleDV1</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'CartPoleD-v1'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments.html#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="CartPoleDV1" class="doc_header"><code>class</code> <code>CartPoleDV1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L174" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CartPoleDV1</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'CartPoleD-v1'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
 <p>A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -210,7 +215,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PendulumV0" class="doc_header"><code>class</code> <code>PendulumV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L206" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PendulumV0</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'Pendulum-v0'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments.html#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="PendulumV0" class="doc_header"><code>class</code> <code>PendulumV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L206" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PendulumV0</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'Pendulum-v0'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
 <p>A function that creates an runs the Pendulum-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -242,7 +247,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PendulumV0_1" class="doc_header"><code>class</code> <code>PendulumV0_1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L250" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PendulumV0_1</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'Pendulum-v0-1'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments.html#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="PendulumV0_1" class="doc_header"><code>class</code> <code>PendulumV0_1</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L250" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PendulumV0_1</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'Pendulum-v0-1'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
 <p>A function that creates an runs the Pendulum-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -274,7 +279,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="MountainCarV0" class="doc_header"><code>class</code> <code>MountainCarV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L293" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MountainCarV0</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'MountainCarV0'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments.html#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="MountainCarV0" class="doc_header"><code>class</code> <code>MountainCarV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L293" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MountainCarV0</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'MountainCarV0'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
 <p>A function that creates and runs the MountainCar-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -306,7 +311,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="MountainCarContinuousV0" class="doc_header"><code>class</code> <code>MountainCarContinuousV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L327" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MountainCarContinuousV0</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'MountainCarContinuousV0'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong><code>early_termination</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments.html#OpenAIGym"><code>OpenAIGym</code></a></p>
+<h2 id="MountainCarContinuousV0" class="doc_header"><code>class</code> <code>MountainCarContinuousV0</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L327" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MountainCarContinuousV0</code>(<strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>video_wrap</code></strong>=<em><code>False</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'MountainCarContinuousV0'</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong><code>early_termination</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/environments#OpenAIGym"><code>OpenAIGym</code></a></p>
 </blockquote>
 <p>A function that creates and runs the MountainCarContinuous-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function.</p>
 
@@ -338,7 +343,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="VelocityModel" class="doc_header"><code>class</code> <code>VelocityModel</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L371" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>VelocityModel</code>(<strong><code>mass</code></strong>=<em><code>50</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'VelocityModel'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="VelocityModel" class="doc_header"><code>class</code> <code>VelocityModel</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L371" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>VelocityModel</code>(<strong><code>mass</code></strong>=<em><code>50</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'VelocityModel'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function.</p>
 
@@ -370,7 +375,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="DummyModel" class="doc_header"><code>class</code> <code>DummyModel</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L402" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DummyModel</code>(<strong><code>name</code></strong>=<em><code>'World'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="DummyModel" class="doc_header"><code>class</code> <code>DummyModel</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/environments.py#L402" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DummyModel</code>(<strong><code>name</code></strong>=<em><code>'World'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -411,13 +416,6 @@ nb_path: "nbs/05_environments.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
