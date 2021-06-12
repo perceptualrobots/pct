@@ -4,7 +4,11 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture', 'DynamicArchitecture'
            'load_properties', 'setup_environment', 'create_hierarchy']
 
 # Cell
+import os
+import numpy as np
 from abc import ABC, abstractmethod
+
+# Cell
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
@@ -15,7 +19,6 @@ from .environments import EnvironmentFactory
 from .structure import LevelKey
 from .structure import ArchitectureStructure
 from .putils import stringListToListOfStrings
-import numpy as np
 
 # Cell
 class BaseArchitecture(ABC):
