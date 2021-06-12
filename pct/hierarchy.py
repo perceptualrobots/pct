@@ -9,6 +9,7 @@ from .nodes import PCTNode
 from .functions import WeightedSum
 from .putils import UniqueNamer
 from .putils import FunctionsList
+from .functions import BaseFunction
 
 # Cell
 class FunctionsData():
