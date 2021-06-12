@@ -9,6 +9,7 @@ from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
 from .functions import Constant
+from .functions import BaseFunction
 from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
 from .environments import EnvironmentFactory
