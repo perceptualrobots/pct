@@ -2,11 +2,13 @@
 
 title: Examples
 
+
 keywords: fastai
 sidebar: home_sidebar
 
 summary: "Examples of the PCT library in use."
 description: "Examples of the PCT library in use."
+nb_path: "nbs/00_examples.ipynb"
 ---
 <!--
 
@@ -35,6 +37,44 @@ description: "Examples of the PCT library in use."
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nbdev</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">nbdev_hide</span>
+<span class="o">%</span><span class="k">reload_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">nbdev_hide</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -612,17 +652,15 @@ POST: greaterthan GreaterThan | threshold 0 upper 1 lower 0  | 0 | links  force
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-5-a52fdbfbb8fd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">import</span> networkx <span class="ansi-green-fg">as</span> nx
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>gr <span class="ansi-blue-fg">=</span> cartpole_hierarchy<span class="ansi-blue-fg">.</span>graph<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> print<span class="ansi-blue-fg">(</span>nx<span class="ansi-blue-fg">.</span>info<span class="ansi-blue-fg">(</span>gr<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> print<span class="ansi-blue-fg">(</span>gr<span class="ansi-blue-fg">.</span>nodes<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">NameError</span>: name &#39;cartpole_hierarchy&#39; is not defined</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Name: 
+Type: DiGraph
+Number of nodes: 18
+Number of edges: 21
+Average in degree:   1.1667
+Average out degree:   1.1667
+[&#39;greaterthan&#39;, &#39;force&#39;, &#39;CartPole-v1&#39;, &#39;cart_velocity_reference&#39;, &#39;cart_position_output&#39;, &#39;subtract&#39;, &#39;cart_velocity&#39;, &#39;cart_position_reference&#39;, &#39;pole_velocity_output&#39;, &#39;subtract1&#39;, &#39;cart_position&#39;, &#39;pole_velocity_reference&#39;, &#39;pole_angle_output&#39;, &#39;subtract2&#39;, &#39;pole_velocity&#39;, &#39;pole_angle_reference&#39;, &#39;subtract3&#39;, &#39;pole_angle&#39;]
+</pre>
 </div>
 </div>
 
