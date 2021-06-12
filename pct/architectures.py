@@ -19,6 +19,7 @@ from .environments import EnvironmentFactory
 from .structure import LevelKey
 from .structure import ArchitectureStructure
 from .putils import stringListToListOfStrings
+from .errors import BaseErrorCollector
 
 # Cell
 class BaseArchitecture(ABC):
