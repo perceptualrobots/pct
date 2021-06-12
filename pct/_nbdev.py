@@ -17,9 +17,26 @@ index = {"UniqueNamer": "01_putils.ipynb",
          "smooth": "01_putils.ipynb",
          "show_video": "01_putils.ipynb",
          "wrap_env": "01_putils.ipynb",
-         "is_in_notebooks": "01_putils.ipynb"}
+         "is_in_notebooks": "01_putils.ipynb",
+         "ControlUnitFunctions": "02_functions.ipynb",
+         "BaseFunction": "02_functions.ipynb",
+         "FunctionFactory": "02_functions.ipynb",
+         "Subtract": "02_functions.ipynb",
+         "Proportional": "02_functions.ipynb",
+         "Variable": "02_functions.ipynb",
+         "PassOn": "02_functions.ipynb",
+         "GreaterThan": "02_functions.ipynb",
+         "Constant": "02_functions.ipynb",
+         "Step": "02_functions.ipynb",
+         "Integration": "02_functions.ipynb",
+         "IntegrationDual": "02_functions.ipynb",
+         "Sigmoid": "02_functions.ipynb",
+         "WeightedSum": "02_functions.ipynb",
+         "SmoothWeightedSum": "02_functions.ipynb",
+         "IndexedParameter": "02_functions.ipynb"}
 
-modules = ["putils.py"]
+modules = ["putils.py",
+           "functions.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 
