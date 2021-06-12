@@ -621,6 +621,8 @@ class PCTHierarchy():
         return history_data.data
 
     def hierarchy_plots(self, title='plot', plot_items={}, figsize=(15,4)):
+        from matplotlib import style
+        import matplotlib.pyplot as plt
         history = self.get_history_data()
 
         num_items = len(history[list(history.keys())[0]])
