@@ -11,11 +11,11 @@ from .functions import IndexedParameter
 from .functions import Constant
 from .hierarchy import PCTHierarchy
 from .nodes import PCTNode
+from .environments import EnvironmentFactory
 from .structure import LevelKey
 from .structure import ArchitectureStructure
 from .putils import stringListToListOfStrings
 import numpy as np
-import os
 
 # Cell
 class BaseArchitecture(ABC):
