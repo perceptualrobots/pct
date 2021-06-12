@@ -2,9 +2,24 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"UniqueNamer": "01_putils.ipynb",
+         "FunctionsList": "01_putils.ipynb",
+         "dynamic_module_import": "01_putils.ipynb",
+         "dynamic_class_load": "01_putils.ipynb",
+         "get_drive": "01_putils.ipynb",
+         "get_gdrive": "01_putils.ipynb",
+         "Counter": "01_putils.ipynb",
+         "stringIntListToListOfInts": "01_putils.ipynb",
+         "stringFloatListToListOfFloats": "01_putils.ipynb",
+         "stringListToListOfStrings": "01_putils.ipynb",
+         "listNumsToString": "01_putils.ipynb",
+         "sigmoid": "01_putils.ipynb",
+         "smooth": "01_putils.ipynb",
+         "show_video": "01_putils.ipynb",
+         "wrap_env": "01_putils.ipynb",
+         "is_in_notebooks": "01_putils.ipynb"}
 
-modules = []
+modules = ["putils.py"]
 
 doc_url = "https://perceptualrobots.github.io/pct/"
 
