@@ -674,7 +674,7 @@ class WeightedSum(BaseFunction):
             raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
 
         super().check_links(len(self.links))
-        if usenumpy:
+        if self.usenumpy:
             inputs = np.array([link.get_value() for link in self.links])
             self.value = np.dot(inputs, self.weights)
         else:
@@ -779,7 +779,7 @@ class SmoothWeightedSum(BaseFunction):
             raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
 
         super().check_links(len(self.links))
-        if usenumpy:
+        if self.usenumpy:
             inputs = np.array([link.get_value() for link in self.links])
             weighted_sum = np.dot(inputs, self.weights)
         else:
