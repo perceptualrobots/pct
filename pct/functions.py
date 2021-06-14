@@ -667,6 +667,7 @@ class WeightedSum(BaseFunction):
                 self.weights = weights.tolist()
             else:
                 self.weights = weights
+        self.usenumpy=usenumpy
 
     def __call__(self, verbose=False):
         if len(self.links) != self.weights.size:
@@ -760,11 +761,18 @@ class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=np.ones(3), smooth_factor=0, value=0, name="smooth_weighted_sum", links=None, new_name=True, usenumpy=True, **cargs):
         super().__init__(name, value, links, new_name)
-        if isinstance(weights, list):
-            self.weights = np.array(weights)
+        if usenumpy:
+            if isinstance(weights, list):
+                self.weights = np.array(weights)
+            else:
+                self.weights = weights
         else:
-            self.weights = weights
+            if not isinstance(weights, list):
+                self.weights = weights.tolist()
+            else:
+                self.weights = weights
         self.smooth_factor = smooth_factor
+        self.usenumpy=usenumpy
 
     def __call__(self, verbose=False):
         if len(self.links) != self.weights.size:
