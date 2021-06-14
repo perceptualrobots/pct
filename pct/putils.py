@@ -2,7 +2,7 @@
 
 __all__ = ['UniqueNamer', 'FunctionsList', 'dynamic_module_import', 'dynamic_class_load', 'get_drive', 'get_gdrive',
            'Counter', 'stringIntListToListOfInts', 'stringFloatListToListOfFloats', 'stringListToListOfStrings',
-           'listNumsToString', 'sigmoid', 'smooth', 'show_video', 'wrap_env', 'is_in_notebooks']
+           'listNumsToString', 'sigmoid', 'smooth', 'dot', 'show_video', 'wrap_env', 'is_in_notebooks']
 
 # Cell
 import numpy as np
@@ -187,6 +187,13 @@ def sigmoid(x, range, scale) :
 # Cell
 def smooth(new_val, old_val, smooth_factor):
     return old_val * smooth_factor + new_val * (1-smooth_factor)
+
+# Cell
+def dot(inputs, weights):
+    sum = 0
+    for i in range(len(inputs)):
+        sum += inputs[i]*weights[i]
+    return sum
 
 # Cell
 def show_video():

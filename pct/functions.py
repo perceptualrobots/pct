@@ -10,6 +10,7 @@ import enum
 from abc import ABC, abstractmethod
 from .putils import sigmoid
 from .putils import smooth
+from .putils import dot
 from .putils import UniqueNamer
 from .putils import FunctionsList
 
@@ -654,20 +655,30 @@ class Sigmoid(BaseFunction):
 # Cell
 class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, **cargs):
+    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, usenumpy=True, **cargs):
         super().__init__(name, value, links, new_name)
-        if isinstance(weights, list):
-            self.weights = np.array(weights)
+        if usenumpy:
+            if isinstance(weights, list):
+                self.weights = np.array(weights)
+            else:
+                self.weights = weights
         else:
-            self.weights = weights
+            if not isinstance(weights, list):
+                self.weights = weights.tolist()
+            else:
+                self.weights = weights
 
     def __call__(self, verbose=False):
         if len(self.links) != self.weights.size:
             raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
 
         super().check_links(len(self.links))
-        inputs = np.array([link.get_value() for link in self.links])
-        self.value = np.dot(inputs, self.weights)
+        if usenumpy:
+            inputs = np.array([link.get_value() for link in self.links])
+            self.value = np.dot(inputs, self.weights)
+        else:
+            inputs = [link.get_value() for link in self.links]
+            self.value = dot(inputs, self.weights)
 
         return super().__call__(verbose)
 
@@ -747,7 +758,7 @@ class WeightedSum(BaseFunction):
 # Cell
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), smooth_factor=0, value=0, name="smooth_weighted_sum", links=None, new_name=True, **cargs):
+    def __init__(self, weights=np.ones(3), smooth_factor=0, value=0, name="smooth_weighted_sum", links=None, new_name=True, usenumpy=True, **cargs):
         super().__init__(name, value, links, new_name)
         if isinstance(weights, list):
             self.weights = np.array(weights)
@@ -760,8 +771,12 @@ class SmoothWeightedSum(BaseFunction):
             raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
 
         super().check_links(len(self.links))
-        inputs = np.array([link.get_value() for link in self.links])
-        weighted_sum = np.dot(inputs, self.weights)
+        if usenumpy:
+            inputs = np.array([link.get_value() for link in self.links])
+            weighted_sum = np.dot(inputs, self.weights)
+        else:
+            inputs = [link.get_value() for link in self.links]
+            weighted_sum = dot(inputs, self.weights)
 
         #self.value = self.value * self.smooth_factor + weighted_sum * (1-self.smooth_factor)
 
