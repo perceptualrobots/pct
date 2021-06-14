@@ -655,7 +655,7 @@ class Sigmoid(BaseFunction):
 # Cell
 class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, usenumpy=True, **cargs):
+    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
         super().__init__(name, value, links, new_name)
         if usenumpy:
             if isinstance(weights, list):
@@ -759,7 +759,7 @@ class WeightedSum(BaseFunction):
 # Cell
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), smooth_factor=0, value=0, name="smooth_weighted_sum", links=None, new_name=True, usenumpy=True, **cargs):
+    def __init__(self, weights=np.ones(3), smooth_factor=0, value=0, name="smooth_weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
         super().__init__(name, value, links, new_name)
         if usenumpy:
             if isinstance(weights, list):
