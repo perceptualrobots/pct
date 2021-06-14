@@ -670,8 +670,12 @@ class WeightedSum(BaseFunction):
         self.usenumpy=usenumpy
 
     def __call__(self, verbose=False):
-        if len(self.links) != self.weights.size:
-            raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
+        if self.usenumpy:
+            if len(self.links) != self.weights.size:
+                raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
+        else:
+            if len(self.links) != len(self.weights):
+                raise Exception(f'Number of links {len(self.links)} and weights {len(self.weights)} for function {self.name} must be the same.')
 
         super().check_links(len(self.links))
         if self.usenumpy:
@@ -688,7 +692,10 @@ class WeightedSum(BaseFunction):
 
     def get_config(self):
         config = super().get_config()
-        config["weights"] = self.weights.tolist()
+        if self.usenumpy:
+            config["weights"] = self.weights.tolist()
+        else:
+            config["weights"] = self.weights
         return config
 
     def get_suffix(self):
@@ -775,8 +782,12 @@ class SmoothWeightedSum(BaseFunction):
         self.usenumpy=usenumpy
 
     def __call__(self, verbose=False):
-        if len(self.links) != self.weights.size:
-            raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
+        if self.usenumpy:
+            if len(self.links) != self.weights.size:
+                raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
+        else:
+            if len(self.links) != len(self.weights):
+                raise Exception(f'Number of links {len(self.links)} and weights {len(self.weights)} for function {self.name} must be the same.')
 
         super().check_links(len(self.links))
         if self.usenumpy:
@@ -798,7 +809,10 @@ class SmoothWeightedSum(BaseFunction):
 
     def get_config(self):
         config = super().get_config()
-        config["weights"] = self.weights.tolist()
+        if self.usenumpy:
+            config["weights"] = self.weights.tolist()
+        else:
+            config["weights"] = self.weights
         config["smooth_factor"] = self.smooth_factor
         return config
 
