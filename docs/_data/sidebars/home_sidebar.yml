@@ -11,34 +11,34 @@ entries:
       url: /
     - output: web,pdf
       title: Examples
-      url: /examples
+      url: examples.html
     - output: web,pdf
       title: Utilities
-      url: /putils
+      url: putils.html
     - output: web,pdf
       title: Functions
-      url: /functions
+      url: functions.html
     - output: web,pdf
       title: Nodes
-      url: /nodes
+      url: nodes.html
     - output: web,pdf
       title: Hierarchy
-      url: /hierarchy
+      url: hierarchy.html
     - output: web,pdf
       title: Environments
-      url: /environments
+      url: environments.html
     - output: web,pdf
       title: Structure
-      url: /structure
+      url: structure.html
     - output: web,pdf
       title: Errors
-      url: /errors
+      url: errors.html
     - output: web,pdf
       title: Architectures
-      url: /architectures
+      url: architectures.html
     - output: web,pdf
       title: Plotting
-      url: /plotting
+      url: plotting.html
     output: web
     title: pct
   output: web
