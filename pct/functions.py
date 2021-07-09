@@ -514,10 +514,6 @@ class Constant(BaseFunction):
     def get_suffix(self):
         return 'c'
 
-    def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
-        self.set_value(inputs[column])
-
-
     def set_node_function(self, function_type, thislevel, targetlevel, not_used,
                           column, not_used1, inputs, weights, not_used2, not_used3):
 
