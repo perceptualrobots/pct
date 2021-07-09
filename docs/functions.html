@@ -601,6 +601,24 @@ nb_path: "nbs/02_functions.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-22-b1eb7948968e&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">51</span>
+<span class="ansi-red-fg">    class WeightedSum(BaseFunction):</span>
+        ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -615,7 +633,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SmoothWeightedSum" class="doc_header"><code>class</code> <code>SmoothWeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L774" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SmoothWeightedSum</code>() :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="SmoothWeightedSum" class="doc_header"><code>class</code> <code>SmoothWeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L785" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SmoothWeightedSum</code>() :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions.</p>
 
@@ -647,7 +665,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L882" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L893" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One.</p>
 
@@ -700,22 +718,6 @@ nb_path: "nbs/02_functions.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -738,20 +740,6 @@ nb_path: "nbs/02_functions.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -781,20 +769,6 @@ nb_path: "nbs/02_functions.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: -0.5, &#39;links&#39;: {}, &#39;gain&#39;: 21}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -813,21 +787,6 @@ nb_path: "nbs/02_functions.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -861,26 +820,6 @@ nb_path: "nbs/02_functions.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
- &#39;name&#39;: &#39;weighted_sum&#39;,
- &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
- &#39;weights&#39;: [1.0, 1.0, 1.0]}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -896,26 +835,6 @@ nb_path: "nbs/02_functions.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
- &#39;name&#39;: &#39;weighted_sum&#39;,
- &#39;value&#39;: 35.0,
- &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
- &#39;weights&#39;: [1.0, 1.0, 1.0]}</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -936,22 +855,6 @@ nb_path: "nbs/02_functions.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.7615941559557646</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -985,20 +888,6 @@ nb_path: "nbs/02_functions.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>proportional3 Proportional | gain 1 | 0 
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1023,20 +912,6 @@ nb_path: "nbs/02_functions.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1058,20 +933,6 @@ nb_path: "nbs/02_functions.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -1101,21 +962,6 @@ nb_path: "nbs/02_functions.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0.000
-0.00
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1140,338 +986,6 @@ nb_path: "nbs/02_functions.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-<div class="output_svg output_subarea ">
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="302.4pt" version="1.1" viewBox="0 0 446.4 302.4" width="446.4pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <metadata>
-  <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-   <cc:Work>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-06-14T19:38:13.282089</dc:date>
-    <dc:format>image/svg+xml</dc:format>
-    <dc:creator>
-     <cc:Agent>
-      <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
-     </cc:Agent>
-    </dc:creator>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <defs>
-  <style type="text/css">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
- </defs>
- <g id="figure_1">
-  <g id="patch_1">
-   <path d="M 0 302.4 
-L 446.4 302.4 
-L 446.4 0 
-L 0 0 
-z
-" style="fill:#ffffff;"/>
-  </g>
-  <g id="axes_1">
-   <g id="patch_2">
-    <path clip-path="url(#p34be2aeb62)" d="M 388.297273 50.078567 
-Q 312.455965 151.200311 237.285478 251.427628 
-" style="fill:none;stroke:#000000;stroke-linecap:round;"/>
-    <path clip-path="url(#p34be2aeb62)" d="M 247.285478 246.427628 
-L 237.285478 251.427628 
-L 239.285478 240.427628 
-L 247.285478 246.427628 
-z
-" style="stroke:#000000;stroke-linecap:round;"/>
-   </g>
-   <g id="patch_3">
-    <path clip-path="url(#p34be2aeb62)" d="M 58.102727 50.078567 
-Q 133.944035 151.200311 209.114522 251.427628 
-" style="fill:none;stroke:#000000;stroke-linecap:round;"/>
-    <path clip-path="url(#p34be2aeb62)" d="M 207.114522 240.427628 
-L 209.114522 251.427628 
-L 199.114522 246.427628 
-L 207.114522 240.427628 
-z
-" style="stroke:#000000;stroke-linecap:round;"/>
-   </g>
-   <g id="PathCollection_1">
-    <defs>
-     <path d="M 0 22.36068 
-C 5.930122 22.36068 11.618159 20.004617 15.811388 15.811388 
-C 20.004617 11.618159 22.36068 5.930122 22.36068 -0 
-C 22.36068 -5.930122 20.004617 -11.618159 15.811388 -15.811388 
-C 11.618159 -20.004617 5.930122 -22.36068 0 -22.36068 
-C -5.930122 -22.36068 -11.618159 -20.004617 -15.811388 -15.811388 
-C -20.004617 -11.618159 -22.36068 -5.930122 -22.36068 0 
-C -22.36068 5.930122 -20.004617 11.618159 -15.811388 15.811388 
-C -11.618159 20.004617 -5.930122 22.36068 0 22.36068 
-z
-" id="C0_0_9afac3c167"/>
-    </defs>
-    <g clip-path="url(#p34be2aeb62)">
-     <use style="fill:#32cd32;stroke:#32cd32;" x="401.712397" xlink:href="#C0_0_9afac3c167" y="32.191736"/>
-    </g>
-    <g clip-path="url(#p34be2aeb62)">
-     <use style="fill:#ff0000;stroke:#ff0000;" x="44.687603" xlink:href="#C0_0_9afac3c167" y="32.191736"/>
-    </g>
-    <g clip-path="url(#p34be2aeb62)">
-     <use style="fill:#00ffff;stroke:#00ffff;" x="223.2" xlink:href="#C0_0_9afac3c167" y="270.208264"/>
-    </g>
-   </g>
-   <g id="text_1">
-    <g clip-path="url(#p34be2aeb62)">
-     <!-- cons -->
-     <g transform="translate(386.191147 35.502986)scale(0.12 -0.12)">
-      <defs>
-       <path d="M 52.59375 52.984375 
-L 52.59375 38.71875 
-Q 49.03125 41.15625 45.4375 42.328125 
-Q 41.84375 43.5 37.984375 43.5 
-Q 30.671875 43.5 26.59375 39.234375 
-Q 22.515625 34.96875 22.515625 27.296875 
-Q 22.515625 19.625 26.59375 15.34375 
-Q 30.671875 11.078125 37.984375 11.078125 
-Q 42.09375 11.078125 45.78125 12.296875 
-Q 49.46875 13.53125 52.59375 15.921875 
-L 52.59375 1.609375 
-Q 48.484375 0.09375 44.265625 -0.65625 
-Q 40.046875 -1.421875 35.796875 -1.421875 
-Q 21 -1.421875 12.640625 6.171875 
-Q 4.296875 13.765625 4.296875 27.296875 
-Q 4.296875 40.828125 12.640625 48.40625 
-Q 21 56 35.796875 56 
-Q 40.09375 56 44.265625 55.25 
-Q 48.4375 54.5 52.59375 52.984375 
-z
-" id="DejaVuSans-Bold-99"/>
-       <path d="M 34.421875 43.5 
-Q 28.609375 43.5 25.5625 39.328125 
-Q 22.515625 35.15625 22.515625 27.296875 
-Q 22.515625 19.4375 25.5625 15.25 
-Q 28.609375 11.078125 34.421875 11.078125 
-Q 40.140625 11.078125 43.15625 15.25 
-Q 46.1875 19.4375 46.1875 27.296875 
-Q 46.1875 35.15625 43.15625 39.328125 
-Q 40.140625 43.5 34.421875 43.5 
-z
-M 34.421875 56 
-Q 48.53125 56 56.46875 48.375 
-Q 64.40625 40.765625 64.40625 27.296875 
-Q 64.40625 13.8125 56.46875 6.1875 
-Q 48.53125 -1.421875 34.421875 -1.421875 
-Q 20.265625 -1.421875 12.28125 6.1875 
-Q 4.296875 13.8125 4.296875 27.296875 
-Q 4.296875 40.765625 12.28125 48.375 
-Q 20.265625 56 34.421875 56 
-z
-" id="DejaVuSans-Bold-111"/>
-       <path d="M 63.375 33.296875 
-L 63.375 0 
-L 45.796875 0 
-L 45.796875 5.421875 
-L 45.796875 25.484375 
-Q 45.796875 32.5625 45.484375 35.25 
-Q 45.171875 37.9375 44.390625 39.203125 
-Q 43.359375 40.921875 41.59375 41.875 
-Q 39.84375 42.828125 37.59375 42.828125 
-Q 32.125 42.828125 29 38.59375 
-Q 25.875 34.375 25.875 26.90625 
-L 25.875 0 
-L 8.40625 0 
-L 8.40625 54.6875 
-L 25.875 54.6875 
-L 25.875 46.6875 
-Q 29.828125 51.46875 34.265625 53.734375 
-Q 38.71875 56 44.09375 56 
-Q 53.5625 56 58.46875 50.1875 
-Q 63.375 44.390625 63.375 33.296875 
-z
-" id="DejaVuSans-Bold-110"/>
-       <path d="M 51.125 52.984375 
-L 51.125 39.703125 
-Q 45.515625 42.046875 40.28125 43.21875 
-Q 35.0625 44.390625 30.421875 44.390625 
-Q 25.4375 44.390625 23.015625 43.140625 
-Q 20.609375 41.890625 20.609375 39.3125 
-Q 20.609375 37.203125 22.4375 36.078125 
-Q 24.265625 34.96875 29 34.421875 
-L 32.078125 33.984375 
-Q 45.515625 32.28125 50.140625 28.375 
-Q 54.78125 24.46875 54.78125 16.109375 
-Q 54.78125 7.375 48.328125 2.96875 
-Q 41.890625 -1.421875 29.109375 -1.421875 
-Q 23.6875 -1.421875 17.890625 -0.5625 
-Q 12.109375 0.296875 6 2 
-L 6 15.28125 
-Q 11.234375 12.75 16.71875 11.46875 
-Q 22.21875 10.203125 27.875 10.203125 
-Q 33.015625 10.203125 35.59375 11.609375 
-Q 38.1875 13.03125 38.1875 15.828125 
-Q 38.1875 18.171875 36.40625 19.3125 
-Q 34.625 20.453125 29.296875 21.09375 
-L 26.21875 21.484375 
-Q 14.546875 22.953125 9.859375 26.90625 
-Q 5.171875 30.859375 5.171875 38.921875 
-Q 5.171875 47.609375 11.125 51.796875 
-Q 17.09375 56 29.390625 56 
-Q 34.234375 56 39.546875 55.265625 
-Q 44.875 54.546875 51.125 52.984375 
-z
-" id="DejaVuSans-Bold-115"/>
-      </defs>
-      <use xlink:href="#DejaVuSans-Bold-99"/>
-      <use x="59.277344" xlink:href="#DejaVuSans-Bold-111"/>
-      <use x="127.978516" xlink:href="#DejaVuSans-Bold-110"/>
-      <use x="199.169922" xlink:href="#DejaVuSans-Bold-115"/>
-     </g>
-    </g>
-   </g>
-   <g id="text_2">
-    <g clip-path="url(#p34be2aeb62)">
-     <!-- prop -->
-     <g transform="translate(29.017291 35.502986)scale(0.12 -0.12)">
-      <defs>
-       <path d="M 25.875 7.90625 
-L 25.875 -20.796875 
-L 8.40625 -20.796875 
-L 8.40625 54.6875 
-L 25.875 54.6875 
-L 25.875 46.6875 
-Q 29.5 51.46875 33.890625 53.734375 
-Q 38.28125 56 44 56 
-Q 54.109375 56 60.59375 47.96875 
-Q 67.09375 39.9375 67.09375 27.296875 
-Q 67.09375 14.65625 60.59375 6.609375 
-Q 54.109375 -1.421875 44 -1.421875 
-Q 38.28125 -1.421875 33.890625 0.84375 
-Q 29.5 3.125 25.875 7.90625 
-z
-M 37.5 43.3125 
-Q 31.890625 43.3125 28.875 39.1875 
-Q 25.875 35.0625 25.875 27.296875 
-Q 25.875 19.53125 28.875 15.40625 
-Q 31.890625 11.28125 37.5 11.28125 
-Q 43.109375 11.28125 46.0625 15.375 
-Q 49.03125 19.484375 49.03125 27.296875 
-Q 49.03125 35.109375 46.0625 39.203125 
-Q 43.109375 43.3125 37.5 43.3125 
-z
-" id="DejaVuSans-Bold-112"/>
-       <path d="M 49.03125 39.796875 
-Q 46.734375 40.875 44.453125 41.375 
-Q 42.1875 41.890625 39.890625 41.890625 
-Q 33.15625 41.890625 29.515625 37.5625 
-Q 25.875 33.25 25.875 25.203125 
-L 25.875 0 
-L 8.40625 0 
-L 8.40625 54.6875 
-L 25.875 54.6875 
-L 25.875 45.703125 
-Q 29.25 51.078125 33.609375 53.53125 
-Q 37.984375 56 44.09375 56 
-Q 44.96875 56 45.984375 55.921875 
-Q 47.015625 55.859375 48.96875 55.609375 
-z
-" id="DejaVuSans-Bold-114"/>
-      </defs>
-      <use xlink:href="#DejaVuSans-Bold-112"/>
-      <use x="71.582031" xlink:href="#DejaVuSans-Bold-114"/>
-      <use x="120.898438" xlink:href="#DejaVuSans-Bold-111"/>
-      <use x="189.599609" xlink:href="#DejaVuSans-Bold-112"/>
-     </g>
-    </g>
-   </g>
-   <g id="text_3">
-    <g clip-path="url(#p34be2aeb62)">
-     <!-- sub -->
-     <g transform="translate(211.063125 273.519514)scale(0.12 -0.12)">
-      <defs>
-       <path d="M 7.8125 21.296875 
-L 7.8125 54.6875 
-L 25.390625 54.6875 
-L 25.390625 49.21875 
-Q 25.390625 44.78125 25.34375 38.0625 
-Q 25.296875 31.34375 25.296875 29.109375 
-Q 25.296875 22.515625 25.640625 19.609375 
-Q 25.984375 16.703125 26.8125 15.375 
-Q 27.875 13.671875 29.609375 12.734375 
-Q 31.34375 11.8125 33.59375 11.8125 
-Q 39.0625 11.8125 42.1875 16.015625 
-Q 45.3125 20.21875 45.3125 27.6875 
-L 45.3125 54.6875 
-L 62.796875 54.6875 
-L 62.796875 0 
-L 45.3125 0 
-L 45.3125 7.90625 
-Q 41.359375 3.125 36.9375 0.84375 
-Q 32.515625 -1.421875 27.203125 -1.421875 
-Q 17.71875 -1.421875 12.765625 4.390625 
-Q 7.8125 10.203125 7.8125 21.296875 
-z
-" id="DejaVuSans-Bold-117"/>
-       <path d="M 37.5 11.28125 
-Q 43.109375 11.28125 46.0625 15.375 
-Q 49.03125 19.484375 49.03125 27.296875 
-Q 49.03125 35.109375 46.0625 39.203125 
-Q 43.109375 43.3125 37.5 43.3125 
-Q 31.890625 43.3125 28.875 39.1875 
-Q 25.875 35.0625 25.875 27.296875 
-Q 25.875 19.53125 28.875 15.40625 
-Q 31.890625 11.28125 37.5 11.28125 
-z
-M 25.875 46.6875 
-Q 29.5 51.46875 33.890625 53.734375 
-Q 38.28125 56 44 56 
-Q 54.109375 56 60.59375 47.96875 
-Q 67.09375 39.9375 67.09375 27.296875 
-Q 67.09375 14.65625 60.59375 6.609375 
-Q 54.109375 -1.421875 44 -1.421875 
-Q 38.28125 -1.421875 33.890625 0.84375 
-Q 29.5 3.125 25.875 7.90625 
-L 25.875 0 
-L 8.40625 0 
-L 8.40625 75.984375 
-L 25.875 75.984375 
-z
-" id="DejaVuSans-Bold-98"/>
-      </defs>
-      <use xlink:href="#DejaVuSans-Bold-115"/>
-      <use x="59.521484" xlink:href="#DejaVuSans-Bold-117"/>
-      <use x="130.712891" xlink:href="#DejaVuSans-Bold-98"/>
-     </g>
-    </g>
-   </g>
-  </g>
- </g>
- <defs>
-  <clipPath id="p34be2aeb62">
-   <rect height="288" width="432" x="7.2" y="7.2"/>
-  </clipPath>
- </defs>
-</svg>
-
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1506,20 +1020,6 @@ z
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1546,19 +1046,6 @@ z
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0.900 1.710 2.439 3.095 3.686 4.217 4.695 5.126 5.513 5.862 </pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1573,29 +1060,6 @@ z
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>6.176 </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>6.17570463519</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1630,20 +1094,6 @@ z
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1667,20 +1117,6 @@ z
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -1711,20 +1147,6 @@ z
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>integration1 Integration | gain 3 slow 10  | 0 | links  constant3 
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1744,20 +1166,6 @@ z
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;myinteg&#39;, &#39;value&#39;: 1, &#39;links&#39;: {0: &#39;myprop&#39;}, &#39;gain&#39;: 20, &#39;slow&#39;: 100}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -1788,20 +1196,6 @@ z
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>pr Proportional | gain 1 | 0 | links  const 
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1825,20 +1219,6 @@ z
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>pr1 Proportional | gain 10 | 0 | links  const 
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -1868,20 +1248,6 @@ z
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>subtract Subtract | 0 | links  const pr 
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1905,20 +1271,6 @@ z
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1.5
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -1949,20 +1301,6 @@ z
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[2.4 3.3 5.1 4.2]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -1977,20 +1315,6 @@ z
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration1&#39;, &#39;value&#39;: [2.4, 3.3, 5.1, 4.2], &#39;links&#39;: {0: &#39;constant3&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -2030,22 +1354,6 @@ z
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1.5
-{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: 1.5, &#39;links&#39;: {0: &#39;constant&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
-{&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integration&#39;, &#39;value&#39;: 1.5, &#39;links&#39;: {0: &#39;constant&#39;}, &#39;gain&#39;: 3, &#39;slow&#39;: 10}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
