@@ -2,7 +2,7 @@
 
 __all__ = ['ControlUnitFunctions', 'CUF', 'BaseFunction', 'FunctionFactory', 'Subtract', 'Proportional', 'Variable',
            'PassOn', 'GreaterThan', 'Constant', 'Step', 'Integration', 'IntegrationDual', 'Sigmoid', 'WeightedSum',
-           'WeightedSum', 'SmoothWeightedSum', 'IndexedParameter']
+           'SmoothWeightedSum', 'IndexedParameter']
 
 # Cell
 import numpy as np
@@ -708,54 +708,7 @@ class WeightedSum(BaseFunction):
     def get_suffix(self):
         return 'ws'
 
-    def set_properties(self, #export
-class WeightedSum(BaseFunction):
-    "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
-        super().__init__(name, value, links, new_name)
-        if usenumpy:
-            if isinstance(weights, list):
-                self.weights = np.array(weights)
-            else:
-                self.weights = weights
-        else:
-            if not isinstance(weights, list):
-                self.weights = weights.tolist()
-            else:
-                self.weights = weights
-        self.usenumpy=usenumpy
 
-    def __call__(self, verbose=False):
-        if self.usenumpy:
-            if len(self.links) != self.weights.size:
-                raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
-        else:
-            if len(self.links) != len(self.weights):
-                raise Exception(f'Number of links {len(self.links)} and weights {len(self.weights)} for function {self.name} must be the same.')
-
-        super().check_links(len(self.links))
-        if self.usenumpy:
-            inputs = np.array([link.get_value() for link in self.links])
-            self.value = np.dot(inputs, self.weights)
-        else:
-            inputs = [link.get_value() for link in self.links]
-            self.value = dot(inputs, self.weights)
-
-        return super().__call__(verbose)
-
-    def summary(self):
-        super().summary(f'weights {self.weights}')
-
-    def get_config(self):
-        config = super().get_config()
-        if self.usenumpy:
-            config["weights"] = self.weights.tolist()
-        else:
-            config["weights"] = self.weights
-        return config
-
-    def get_suffix(self):
-        return 'ws'
 
     def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
 
