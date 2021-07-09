@@ -2,7 +2,7 @@
 
 __all__ = ['ControlUnitFunctions', 'CUF', 'BaseFunction', 'FunctionFactory', 'Subtract', 'Proportional', 'Variable',
            'PassOn', 'GreaterThan', 'Constant', 'Step', 'Integration', 'IntegrationDual', 'Sigmoid', 'WeightedSum',
-           'SmoothWeightedSum', 'IndexedParameter']
+           'WeightedSum', 'SmoothWeightedSum', 'IndexedParameter']
 
 # Cell
 import numpy as np
@@ -707,6 +707,129 @@ class WeightedSum(BaseFunction):
 
     def get_suffix(self):
         return 'ws'
+
+    def set_properties(self, #export
+class WeightedSum(BaseFunction):
+    "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
+    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
+        super().__init__(name, value, links, new_name)
+        if usenumpy:
+            if isinstance(weights, list):
+                self.weights = np.array(weights)
+            else:
+                self.weights = weights
+        else:
+            if not isinstance(weights, list):
+                self.weights = weights.tolist()
+            else:
+                self.weights = weights
+        self.usenumpy=usenumpy
+
+    def __call__(self, verbose=False):
+        if self.usenumpy:
+            if len(self.links) != self.weights.size:
+                raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
+        else:
+            if len(self.links) != len(self.weights):
+                raise Exception(f'Number of links {len(self.links)} and weights {len(self.weights)} for function {self.name} must be the same.')
+
+        super().check_links(len(self.links))
+        if self.usenumpy:
+            inputs = np.array([link.get_value() for link in self.links])
+            self.value = np.dot(inputs, self.weights)
+        else:
+            inputs = [link.get_value() for link in self.links]
+            self.value = dot(inputs, self.weights)
+
+        return super().__call__(verbose)
+
+    def summary(self):
+        super().summary(f'weights {self.weights}')
+
+    def get_config(self):
+        config = super().get_config()
+        if self.usenumpy:
+            config["weights"] = self.weights.tolist()
+        else:
+            config["weights"] = self.weights
+        return config
+
+    def get_suffix(self):
+        return 'ws'
+
+    def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
+
+        for column in range(targetcolumns):
+            name=f'{targetprefix}L{targetlevel}C{column}'
+            self.add_link(name)
+
+
+        #weights=[]
+        #self.weights=np.array(weights)
+
+
+    def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
+                          inputs, input_weights, by_column, offset):
+        prefix = self.get_capital(function_type)
+        self.set_name(f'{prefix}L{thislevel}C{column}')
+        column=column-offset
+        """
+        print('Base',func.get_name())
+        print('Base',inputs)
+        print('Base',input_weights)
+        print('Base',column)
+        print('Base',num_target_indices)
+        """
+        weights=[]
+
+        for inputIndex in range(num_target_indices):
+            if inputs==None:
+                name=f'{targetprefix}L{targetlevel}C{inputIndex}'
+            else:
+                name=inputs[inputIndex]
+            self.add_link(name)
+
+            if by_column:
+                weights.append(input_weights[column][inputIndex])
+            else:
+                #print(inputIndex,column)
+                weights.append(input_weights[inputIndex][column])
+        self.weights=np.array(weights)
+
+    def set_sparse_node_function(self, function_type, thislevel, input, column, input_weights):
+        prefix = self.get_capital(function_type)
+        self.set_name(f'{prefix}L{thislevel}C{column}')
+
+        name=input.get_name()
+        #print('Base',self.get_name())
+        #print('Base',name)
+        #print('Base',input_weights)
+        #print('Base',column)
+
+        weights=[]
+
+        # get name of input function
+        # set link
+
+
+        self.add_link(name)
+        weights.append(input_weights[0][0])
+        self.weights=np.array(weights)
+
+
+
+
+    def set_output_function(self, thislevel, column, input_weights):
+
+        self.set_name(f'OL{thislevel}C{column}')
+
+        weights=[]
+        weights.append(input_weights[column])
+        self.weights=np.array(weights)
+
+    class Factory:
+        def create(self): return WeightedSum()):
+
 
     def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
                           inputs, input_weights, by_column, offset):
