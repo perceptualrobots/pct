@@ -712,7 +712,11 @@ class WeightedSum(BaseFunction):
     def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
 
         for column in range(targetcolumns):
-            name=f'{targetprefix}L{targetlevel}C{column}'
+            if inputs==None:
+                name=f'{targetprefix}L{targetlevel}C{column}'
+            else:
+                name = inputs[column]
+
             self.add_link(name)
 
 
