@@ -719,6 +719,11 @@ class WeightedSum(BaseFunction):
 
             self.add_link(name)
 
+        if inputs==None:
+            length = targetcolumns
+        else:
+            length = len(inputs)
+        self.weights= [random.uniform(-10, 10) for iter in range(length)]
 
         #weights=[]
         #self.weights=np.array(weights)
