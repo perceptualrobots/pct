@@ -667,14 +667,18 @@ class Sigmoid(BaseFunction):
 # Cell
 class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
+    def __init__(self, weights=None, value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
         super().__init__(name, value, links, new_name)
         if usenumpy:
+            if weights==None:
+                weights=np.ones(3)
             if isinstance(weights, list):
                 self.weights = np.array(weights)
             else:
                 self.weights = weights
         else:
+            if weights==None:
+                weights=[1,1,1]
             if not isinstance(weights, list):
                 self.weights = weights.tolist()
             else:
