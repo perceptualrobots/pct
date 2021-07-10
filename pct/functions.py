@@ -2,7 +2,7 @@
 
 __all__ = ['ControlUnitFunctions', 'CUF', 'BaseFunction', 'FunctionFactory', 'Subtract', 'Proportional', 'Variable',
            'PassOn', 'GreaterThan', 'Constant', 'Step', 'Integration', 'IntegrationDual', 'Sigmoid', 'WeightedSum',
-           'SmoothWeightedSum', 'IndexedParameter']
+           'set_node_function', 'SmoothWeightedSum', 'IndexedParameter']
 
 # Cell
 import numpy as np
@@ -713,7 +713,7 @@ class WeightedSum(BaseFunction):
     def get_suffix(self):
         return 'ws'
 
-
+"""
     def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
 
         for column in range(targetcolumns):
@@ -732,8 +732,9 @@ class WeightedSum(BaseFunction):
 
         #weights=[]
         #self.weights=np.array(weights)
+"""
 
-    def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
+def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
                           inputs, input_weights, by_column, offset):
         prefix = self.get_capital(function_type)
         self.set_name(f'{prefix}L{thislevel}C{column}')
