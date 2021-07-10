@@ -713,7 +713,7 @@ class WeightedSum(BaseFunction):
     def get_suffix(self):
         return 'ws'
 
-"""
+    """
     def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
 
         for column in range(targetcolumns):
@@ -730,9 +730,8 @@ class WeightedSum(BaseFunction):
             length = len(inputs)
         self.weights= [random.uniform(-10, 10) for iter in range(length)]
 
-        #weights=[]
-        #self.weights=np.array(weights)
-"""
+
+    """
 
     def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
                           inputs, input_weights, by_column, offset):
