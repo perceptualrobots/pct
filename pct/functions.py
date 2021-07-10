@@ -2,7 +2,7 @@
 
 __all__ = ['ControlUnitFunctions', 'CUF', 'BaseFunction', 'FunctionFactory', 'Subtract', 'Proportional', 'Variable',
            'PassOn', 'GreaterThan', 'Constant', 'Step', 'Integration', 'IntegrationDual', 'Sigmoid', 'WeightedSum',
-           'set_node_function', 'SmoothWeightedSum', 'IndexedParameter']
+           'SmoothWeightedSum', 'IndexedParameter']
 
 # Cell
 import numpy as np
@@ -734,7 +734,7 @@ class WeightedSum(BaseFunction):
         #self.weights=np.array(weights)
 """
 
-def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
+    def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
                           inputs, input_weights, by_column, offset):
         prefix = self.get_capital(function_type)
         self.set_name(f'{prefix}L{thislevel}C{column}')
