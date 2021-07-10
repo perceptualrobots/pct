@@ -27,6 +27,7 @@ class CUF(enum.IntEnum):
    REFERENCE = 1
    COMPARATOR = 2
    OUTPUT = 3
+   ACTION = 4
 
 
 # Cell
