@@ -7,6 +7,7 @@ __all__ = ['ControlUnitFunctions', 'CUF', 'BaseFunction', 'FunctionFactory', 'Su
 # Cell
 import numpy as np
 import enum
+import random
 from abc import ABC, abstractmethod
 from .putils import sigmoid
 from .putils import smooth
@@ -26,7 +27,7 @@ class CUF(enum.IntEnum):
    REFERENCE = 1
    COMPARATOR = 2
    OUTPUT = 3
-
+   ACTION = 4
 
 
 # Cell
@@ -514,6 +515,10 @@ class Constant(BaseFunction):
     def get_suffix(self):
         return 'c'
 
+    def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
+        self.set_value(inputs[targetcolumns])
+
+
     def set_node_function(self, function_type, thislevel, targetlevel, not_used,
                           column, not_used1, inputs, weights, not_used2, not_used3):
 
@@ -663,7 +668,7 @@ class Sigmoid(BaseFunction):
 # Cell
 class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
+    def __init__(self, weights=[0], value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
         super().__init__(name, value, links, new_name)
         if usenumpy:
             if isinstance(weights, list):
@@ -708,6 +713,26 @@ class WeightedSum(BaseFunction):
 
     def get_suffix(self):
         return 'ws'
+
+    """
+    def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
+
+        for column in range(targetcolumns):
+            if inputs==None:
+                name=f'{targetprefix}L{targetlevel}C{column}'
+            else:
+                name = inputs[column]
+
+            self.add_link(name)
+
+        if inputs==None:
+            length = targetcolumns
+        else:
+            length = len(inputs)
+        self.weights= [random.uniform(-10, 10) for iter in range(length)]
+
+
+    """
 
     def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices,
                           inputs, input_weights, by_column, offset):
@@ -774,7 +799,7 @@ class WeightedSum(BaseFunction):
 # Cell
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=np.ones(3), smooth_factor=0, value=0, name="smooth_weighted_sum", links=None,
+    def __init__(self, weights=[0], smooth_factor=0, value=0, name="smooth_weighted_sum", links=None,
                  new_name=True, usenumpy=False, **cargs):
         super().__init__(name, value, links, new_name)
         if usenumpy:

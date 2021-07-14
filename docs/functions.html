@@ -44,6 +44,21 @@ nb_path: "nbs/02_functions.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -109,7 +124,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ControlUnitFunctions" class="doc_header"><code>ControlUnitFunctions</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L18" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PERCEPTION, REFERENCE, COMPARATOR, OUTPUT]</p>
+<h2 id="ControlUnitFunctions" class="doc_header"><code>ControlUnitFunctions</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L19" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PERCEPTION, REFERENCE, COMPARATOR, OUTPUT]</p>
 </blockquote>
 <p>An enumeration.</p>
 
@@ -134,7 +149,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="CUF" class="doc_header"><code>CUF</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L24" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PERCEPTION, REFERENCE, COMPARATOR, OUTPUT]</p>
+<h2 id="CUF" class="doc_header"><code>CUF</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L25" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PERCEPTION, REFERENCE, COMPARATOR, OUTPUT, ACTION]</p>
 </blockquote>
 <p>An enumeration.</p>
 
@@ -166,7 +181,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L33" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>, <strong><code>value</code></strong>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>) :: <code>ABC</code></p>
+<h2 id="BaseFunction" class="doc_header"><code>class</code> <code>BaseFunction</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L34" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseFunction</code>(<strong><code>name</code></strong>, <strong><code>value</code></strong>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -198,7 +213,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FunctionFactory" class="doc_header"><code>class</code> <code>FunctionFactory</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L355" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FunctionFactory</code>()</p>
+<h2 id="FunctionFactory" class="doc_header"><code>class</code> <code>FunctionFactory</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L356" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FunctionFactory</code>()</p>
 </blockquote>
 
 </div>
@@ -263,7 +278,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L369" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'subtract'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Subtract" class="doc_header"><code>class</code> <code>Subtract</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L370" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Subtract</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'subtract'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted.</p>
 
@@ -295,7 +310,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L391" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Proportional" class="doc_header"><code>class</code> <code>Proportional</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L392" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Proportional</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One.</p>
 
@@ -327,7 +342,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L418" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Variable" class="doc_header"><code>class</code> <code>Variable</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L419" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Variable</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a variable value. Parameter: The variable value. Links: None</p>
 
@@ -359,7 +374,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PassOn" class="doc_header"><code>class</code> <code>PassOn</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L442" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PassOn</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="PassOn" class="doc_header"><code>class</code> <code>PassOn</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L443" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PassOn</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'variable'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that passes on a variable value from a linked function. Parameter: None. Links: One</p>
 
@@ -391,7 +406,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="GreaterThan" class="doc_header"><code>class</code> <code>GreaterThan</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L465" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GreaterThan</code>(<strong><code>threshold</code></strong>=<em><code>0</code></em>, <strong><code>upper</code></strong>=<em><code>1</code></em>, <strong><code>lower</code></strong>=<em><code>0</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'greaterthan'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="GreaterThan" class="doc_header"><code>class</code> <code>GreaterThan</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L466" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GreaterThan</code>(<strong><code>threshold</code></strong>=<em><code>0</code></em>, <strong><code>upper</code></strong>=<em><code>1</code></em>, <strong><code>lower</code></strong>=<em><code>0</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'greaterthan'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>One of two supplied values is returned if the input is greater than supplied threshold.&lt;/br&gt; Parameters: The threshold and upper and lower value. Links: One</p>
 
@@ -423,7 +438,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L500" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Constant" class="doc_header"><code>class</code> <code>Constant</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L501" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Constant</code>(<strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'constant'</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a constant value. Parameter: The constant value. Links: None</p>
 
@@ -455,7 +470,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Step" class="doc_header"><code>class</code> <code>Step</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L536" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Step</code>(<strong><code>upper</code></strong>=<em><code>None</code></em>, <strong><code>lower</code></strong>=<em><code>None</code></em>, <strong><code>delay</code></strong>=<em><code>None</code></em>, <strong><code>period</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'step'</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Step" class="doc_header"><code>class</code> <code>Step</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L541" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Step</code>(<strong><code>upper</code></strong>=<em><code>None</code></em>, <strong><code>lower</code></strong>=<em><code>None</code></em>, <strong><code>delay</code></strong>=<em><code>None</code></em>, <strong><code>period</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'step'</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns an alternating signal. Parameter: The upper and lower values, and a delay value. Links: None</p>
 
@@ -487,7 +502,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L580" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Integration" class="doc_header"><code>class</code> <code>Integration</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L585" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Integration</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: One.</p>
 
@@ -519,7 +534,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IntegrationDual" class="doc_header"><code>class</code> <code>IntegrationDual</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L608" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IntegrationDual</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="IntegrationDual" class="doc_header"><code>class</code> <code>IntegrationDual</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L613" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IntegrationDual</code>(<strong><code>gain</code></strong>=<em><code>1</code></em>, <strong><code>slow</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'integration'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A leaky integrating function, applying one signal to another. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: Two.</p>
 
@@ -551,7 +566,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Sigmoid" class="doc_header"><code>class</code> <code>Sigmoid</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L637" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Sigmoid</code>(<strong><code>range</code></strong>=<em><code>2</code></em>, <strong><code>scale</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'sigmoid'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="Sigmoid" class="doc_header"><code>class</code> <code>Sigmoid</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L642" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Sigmoid</code>(<strong><code>range</code></strong>=<em><code>2</code></em>, <strong><code>scale</code></strong>=<em><code>2</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'sigmoid'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and scale (slope) values. Links: One.</p>
 
@@ -583,7 +598,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L664" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>() :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="WeightedSum" class="doc_header"><code>class</code> <code>WeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L669" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSum</code>(<strong><code>weights</code></strong>=<em><code>[0]</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'weighted_sum'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong><code>usenumpy</code></strong>=<em><code>False</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions.</p>
 
@@ -615,7 +630,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SmoothWeightedSum" class="doc_header"><code>class</code> <code>SmoothWeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L775" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SmoothWeightedSum</code>() :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="SmoothWeightedSum" class="doc_header"><code>class</code> <code>SmoothWeightedSum</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L800" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SmoothWeightedSum</code>(<strong><code>weights</code></strong>=<em><code>[0]</code></em>, <strong><code>smooth_factor</code></strong>=<em><code>0</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'smooth_weighted_sum'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong><code>usenumpy</code></strong>=<em><code>False</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions.</p>
 
@@ -647,7 +662,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L883" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
+<h2 id="IndexedParameter" class="doc_header"><code>class</code> <code>IndexedParameter</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/functions.py#L908" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IndexedParameter</code>(<strong><code>index</code></strong>=<em><code>None</code></em>, <strong><code>value</code></strong>=<em><code>0</code></em>, <strong><code>name</code></strong>=<em><code>'indexed_parameter'</code></em>, <strong><code>links</code></strong>=<em><code>None</code></em>, <strong><code>new_name</code></strong>=<em><code>True</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/functions.html#BaseFunction"><code>BaseFunction</code></a></p>
 </blockquote>
 <p>A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One.</p>
 
@@ -706,9 +721,9 @@ nb_path: "nbs/02_functions.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional5&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}, &#39;gain&#39;: &#39;myprop&#39;}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional6&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 10}
 </pre>
 </div>
 </div>
@@ -747,7 +762,7 @@ nb_path: "nbs/02_functions.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop1&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}, &#39;gain&#39;: 20}
 </pre>
 </div>
 </div>
@@ -822,8 +837,8 @@ nb_path: "nbs/02_functions.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -870,7 +885,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
- &#39;name&#39;: &#39;weighted_sum&#39;,
+ &#39;name&#39;: &#39;weighted_sum1&#39;,
  &#39;value&#39;: 35.0,
  &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
  &#39;weights&#39;: [1.0, 1.0, 1.0]}</pre>
@@ -908,7 +923,7 @@ nb_path: "nbs/02_functions.ipynb"
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
- &#39;name&#39;: &#39;weighted_sum&#39;,
+ &#39;name&#39;: &#39;weighted_sum1&#39;,
  &#39;value&#39;: 35.0,
  &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;},
  &#39;weights&#39;: [1.0, 1.0, 1.0]}</pre>
@@ -991,7 +1006,7 @@ nb_path: "nbs/02_functions.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>proportional3 Proportional | gain 1 | 0 
+<pre>proportional7 Proportional | gain 1 | 0 
 </pre>
 </div>
 </div>
@@ -1029,7 +1044,7 @@ nb_path: "nbs/02_functions.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
+<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -1067,7 +1082,7 @@ nb_path: "nbs/02_functions.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+<pre>{&#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional7&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -1157,317 +1172,11 @@ nb_path: "nbs/02_functions.ipynb"
 <div class="output_area">
 
 
-<div class="output_svg output_subarea ">
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Created with matplotlib (https://matplotlib.org/) -->
-<svg height="302.4pt" version="1.1" viewBox="0 0 446.4 302.4" width="446.4pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <metadata>
-  <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-   <cc:Work>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2021-06-14T19:38:13.282089</dc:date>
-    <dc:format>image/svg+xml</dc:format>
-    <dc:creator>
-     <cc:Agent>
-      <dc:title>Matplotlib v3.3.2, https://matplotlib.org/</dc:title>
-     </cc:Agent>
-    </dc:creator>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <defs>
-  <style type="text/css">*{stroke-linecap:butt;stroke-linejoin:round;}</style>
- </defs>
- <g id="figure_1">
-  <g id="patch_1">
-   <path d="M 0 302.4 
-L 446.4 302.4 
-L 446.4 0 
-L 0 0 
-z
-" style="fill:#ffffff;"/>
-  </g>
-  <g id="axes_1">
-   <g id="patch_2">
-    <path clip-path="url(#p34be2aeb62)" d="M 388.297273 50.078567 
-Q 312.455965 151.200311 237.285478 251.427628 
-" style="fill:none;stroke:#000000;stroke-linecap:round;"/>
-    <path clip-path="url(#p34be2aeb62)" d="M 247.285478 246.427628 
-L 237.285478 251.427628 
-L 239.285478 240.427628 
-L 247.285478 246.427628 
-z
-" style="stroke:#000000;stroke-linecap:round;"/>
-   </g>
-   <g id="patch_3">
-    <path clip-path="url(#p34be2aeb62)" d="M 58.102727 50.078567 
-Q 133.944035 151.200311 209.114522 251.427628 
-" style="fill:none;stroke:#000000;stroke-linecap:round;"/>
-    <path clip-path="url(#p34be2aeb62)" d="M 207.114522 240.427628 
-L 209.114522 251.427628 
-L 199.114522 246.427628 
-L 207.114522 240.427628 
-z
-" style="stroke:#000000;stroke-linecap:round;"/>
-   </g>
-   <g id="PathCollection_1">
-    <defs>
-     <path d="M 0 22.36068 
-C 5.930122 22.36068 11.618159 20.004617 15.811388 15.811388 
-C 20.004617 11.618159 22.36068 5.930122 22.36068 -0 
-C 22.36068 -5.930122 20.004617 -11.618159 15.811388 -15.811388 
-C 11.618159 -20.004617 5.930122 -22.36068 0 -22.36068 
-C -5.930122 -22.36068 -11.618159 -20.004617 -15.811388 -15.811388 
-C -20.004617 -11.618159 -22.36068 -5.930122 -22.36068 0 
-C -22.36068 5.930122 -20.004617 11.618159 -15.811388 15.811388 
-C -11.618159 20.004617 -5.930122 22.36068 0 22.36068 
-z
-" id="C0_0_9afac3c167"/>
-    </defs>
-    <g clip-path="url(#p34be2aeb62)">
-     <use style="fill:#32cd32;stroke:#32cd32;" x="401.712397" xlink:href="#C0_0_9afac3c167" y="32.191736"/>
-    </g>
-    <g clip-path="url(#p34be2aeb62)">
-     <use style="fill:#ff0000;stroke:#ff0000;" x="44.687603" xlink:href="#C0_0_9afac3c167" y="32.191736"/>
-    </g>
-    <g clip-path="url(#p34be2aeb62)">
-     <use style="fill:#00ffff;stroke:#00ffff;" x="223.2" xlink:href="#C0_0_9afac3c167" y="270.208264"/>
-    </g>
-   </g>
-   <g id="text_1">
-    <g clip-path="url(#p34be2aeb62)">
-     <!-- cons -->
-     <g transform="translate(386.191147 35.502986)scale(0.12 -0.12)">
-      <defs>
-       <path d="M 52.59375 52.984375 
-L 52.59375 38.71875 
-Q 49.03125 41.15625 45.4375 42.328125 
-Q 41.84375 43.5 37.984375 43.5 
-Q 30.671875 43.5 26.59375 39.234375 
-Q 22.515625 34.96875 22.515625 27.296875 
-Q 22.515625 19.625 26.59375 15.34375 
-Q 30.671875 11.078125 37.984375 11.078125 
-Q 42.09375 11.078125 45.78125 12.296875 
-Q 49.46875 13.53125 52.59375 15.921875 
-L 52.59375 1.609375 
-Q 48.484375 0.09375 44.265625 -0.65625 
-Q 40.046875 -1.421875 35.796875 -1.421875 
-Q 21 -1.421875 12.640625 6.171875 
-Q 4.296875 13.765625 4.296875 27.296875 
-Q 4.296875 40.828125 12.640625 48.40625 
-Q 21 56 35.796875 56 
-Q 40.09375 56 44.265625 55.25 
-Q 48.4375 54.5 52.59375 52.984375 
-z
-" id="DejaVuSans-Bold-99"/>
-       <path d="M 34.421875 43.5 
-Q 28.609375 43.5 25.5625 39.328125 
-Q 22.515625 35.15625 22.515625 27.296875 
-Q 22.515625 19.4375 25.5625 15.25 
-Q 28.609375 11.078125 34.421875 11.078125 
-Q 40.140625 11.078125 43.15625 15.25 
-Q 46.1875 19.4375 46.1875 27.296875 
-Q 46.1875 35.15625 43.15625 39.328125 
-Q 40.140625 43.5 34.421875 43.5 
-z
-M 34.421875 56 
-Q 48.53125 56 56.46875 48.375 
-Q 64.40625 40.765625 64.40625 27.296875 
-Q 64.40625 13.8125 56.46875 6.1875 
-Q 48.53125 -1.421875 34.421875 -1.421875 
-Q 20.265625 -1.421875 12.28125 6.1875 
-Q 4.296875 13.8125 4.296875 27.296875 
-Q 4.296875 40.765625 12.28125 48.375 
-Q 20.265625 56 34.421875 56 
-z
-" id="DejaVuSans-Bold-111"/>
-       <path d="M 63.375 33.296875 
-L 63.375 0 
-L 45.796875 0 
-L 45.796875 5.421875 
-L 45.796875 25.484375 
-Q 45.796875 32.5625 45.484375 35.25 
-Q 45.171875 37.9375 44.390625 39.203125 
-Q 43.359375 40.921875 41.59375 41.875 
-Q 39.84375 42.828125 37.59375 42.828125 
-Q 32.125 42.828125 29 38.59375 
-Q 25.875 34.375 25.875 26.90625 
-L 25.875 0 
-L 8.40625 0 
-L 8.40625 54.6875 
-L 25.875 54.6875 
-L 25.875 46.6875 
-Q 29.828125 51.46875 34.265625 53.734375 
-Q 38.71875 56 44.09375 56 
-Q 53.5625 56 58.46875 50.1875 
-Q 63.375 44.390625 63.375 33.296875 
-z
-" id="DejaVuSans-Bold-110"/>
-       <path d="M 51.125 52.984375 
-L 51.125 39.703125 
-Q 45.515625 42.046875 40.28125 43.21875 
-Q 35.0625 44.390625 30.421875 44.390625 
-Q 25.4375 44.390625 23.015625 43.140625 
-Q 20.609375 41.890625 20.609375 39.3125 
-Q 20.609375 37.203125 22.4375 36.078125 
-Q 24.265625 34.96875 29 34.421875 
-L 32.078125 33.984375 
-Q 45.515625 32.28125 50.140625 28.375 
-Q 54.78125 24.46875 54.78125 16.109375 
-Q 54.78125 7.375 48.328125 2.96875 
-Q 41.890625 -1.421875 29.109375 -1.421875 
-Q 23.6875 -1.421875 17.890625 -0.5625 
-Q 12.109375 0.296875 6 2 
-L 6 15.28125 
-Q 11.234375 12.75 16.71875 11.46875 
-Q 22.21875 10.203125 27.875 10.203125 
-Q 33.015625 10.203125 35.59375 11.609375 
-Q 38.1875 13.03125 38.1875 15.828125 
-Q 38.1875 18.171875 36.40625 19.3125 
-Q 34.625 20.453125 29.296875 21.09375 
-L 26.21875 21.484375 
-Q 14.546875 22.953125 9.859375 26.90625 
-Q 5.171875 30.859375 5.171875 38.921875 
-Q 5.171875 47.609375 11.125 51.796875 
-Q 17.09375 56 29.390625 56 
-Q 34.234375 56 39.546875 55.265625 
-Q 44.875 54.546875 51.125 52.984375 
-z
-" id="DejaVuSans-Bold-115"/>
-      </defs>
-      <use xlink:href="#DejaVuSans-Bold-99"/>
-      <use x="59.277344" xlink:href="#DejaVuSans-Bold-111"/>
-      <use x="127.978516" xlink:href="#DejaVuSans-Bold-110"/>
-      <use x="199.169922" xlink:href="#DejaVuSans-Bold-115"/>
-     </g>
-    </g>
-   </g>
-   <g id="text_2">
-    <g clip-path="url(#p34be2aeb62)">
-     <!-- prop -->
-     <g transform="translate(29.017291 35.502986)scale(0.12 -0.12)">
-      <defs>
-       <path d="M 25.875 7.90625 
-L 25.875 -20.796875 
-L 8.40625 -20.796875 
-L 8.40625 54.6875 
-L 25.875 54.6875 
-L 25.875 46.6875 
-Q 29.5 51.46875 33.890625 53.734375 
-Q 38.28125 56 44 56 
-Q 54.109375 56 60.59375 47.96875 
-Q 67.09375 39.9375 67.09375 27.296875 
-Q 67.09375 14.65625 60.59375 6.609375 
-Q 54.109375 -1.421875 44 -1.421875 
-Q 38.28125 -1.421875 33.890625 0.84375 
-Q 29.5 3.125 25.875 7.90625 
-z
-M 37.5 43.3125 
-Q 31.890625 43.3125 28.875 39.1875 
-Q 25.875 35.0625 25.875 27.296875 
-Q 25.875 19.53125 28.875 15.40625 
-Q 31.890625 11.28125 37.5 11.28125 
-Q 43.109375 11.28125 46.0625 15.375 
-Q 49.03125 19.484375 49.03125 27.296875 
-Q 49.03125 35.109375 46.0625 39.203125 
-Q 43.109375 43.3125 37.5 43.3125 
-z
-" id="DejaVuSans-Bold-112"/>
-       <path d="M 49.03125 39.796875 
-Q 46.734375 40.875 44.453125 41.375 
-Q 42.1875 41.890625 39.890625 41.890625 
-Q 33.15625 41.890625 29.515625 37.5625 
-Q 25.875 33.25 25.875 25.203125 
-L 25.875 0 
-L 8.40625 0 
-L 8.40625 54.6875 
-L 25.875 54.6875 
-L 25.875 45.703125 
-Q 29.25 51.078125 33.609375 53.53125 
-Q 37.984375 56 44.09375 56 
-Q 44.96875 56 45.984375 55.921875 
-Q 47.015625 55.859375 48.96875 55.609375 
-z
-" id="DejaVuSans-Bold-114"/>
-      </defs>
-      <use xlink:href="#DejaVuSans-Bold-112"/>
-      <use x="71.582031" xlink:href="#DejaVuSans-Bold-114"/>
-      <use x="120.898438" xlink:href="#DejaVuSans-Bold-111"/>
-      <use x="189.599609" xlink:href="#DejaVuSans-Bold-112"/>
-     </g>
-    </g>
-   </g>
-   <g id="text_3">
-    <g clip-path="url(#p34be2aeb62)">
-     <!-- sub -->
-     <g transform="translate(211.063125 273.519514)scale(0.12 -0.12)">
-      <defs>
-       <path d="M 7.8125 21.296875 
-L 7.8125 54.6875 
-L 25.390625 54.6875 
-L 25.390625 49.21875 
-Q 25.390625 44.78125 25.34375 38.0625 
-Q 25.296875 31.34375 25.296875 29.109375 
-Q 25.296875 22.515625 25.640625 19.609375 
-Q 25.984375 16.703125 26.8125 15.375 
-Q 27.875 13.671875 29.609375 12.734375 
-Q 31.34375 11.8125 33.59375 11.8125 
-Q 39.0625 11.8125 42.1875 16.015625 
-Q 45.3125 20.21875 45.3125 27.6875 
-L 45.3125 54.6875 
-L 62.796875 54.6875 
-L 62.796875 0 
-L 45.3125 0 
-L 45.3125 7.90625 
-Q 41.359375 3.125 36.9375 0.84375 
-Q 32.515625 -1.421875 27.203125 -1.421875 
-Q 17.71875 -1.421875 12.765625 4.390625 
-Q 7.8125 10.203125 7.8125 21.296875 
-z
-" id="DejaVuSans-Bold-117"/>
-       <path d="M 37.5 11.28125 
-Q 43.109375 11.28125 46.0625 15.375 
-Q 49.03125 19.484375 49.03125 27.296875 
-Q 49.03125 35.109375 46.0625 39.203125 
-Q 43.109375 43.3125 37.5 43.3125 
-Q 31.890625 43.3125 28.875 39.1875 
-Q 25.875 35.0625 25.875 27.296875 
-Q 25.875 19.53125 28.875 15.40625 
-Q 31.890625 11.28125 37.5 11.28125 
-z
-M 25.875 46.6875 
-Q 29.5 51.46875 33.890625 53.734375 
-Q 38.28125 56 44 56 
-Q 54.109375 56 60.59375 47.96875 
-Q 67.09375 39.9375 67.09375 27.296875 
-Q 67.09375 14.65625 60.59375 6.609375 
-Q 54.109375 -1.421875 44 -1.421875 
-Q 38.28125 -1.421875 33.890625 0.84375 
-Q 29.5 3.125 25.875 7.90625 
-L 25.875 0 
-L 8.40625 0 
-L 8.40625 75.984375 
-L 25.875 75.984375 
-z
-" id="DejaVuSans-Bold-98"/>
-      </defs>
-      <use xlink:href="#DejaVuSans-Bold-115"/>
-      <use x="59.521484" xlink:href="#DejaVuSans-Bold-117"/>
-      <use x="130.712891" xlink:href="#DejaVuSans-Bold-98"/>
-     </g>
-    </g>
-   </g>
-  </g>
- </g>
- <defs>
-  <clipPath id="p34be2aeb62">
-   <rect height="288" width="432" x="7.2" y="7.2"/>
-  </clipPath>
- </defs>
-</svg>
 
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
 </div>
 
 </div>
@@ -1636,7 +1345,7 @@ z
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
+<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
 </pre>
 </div>
 </div>
@@ -1676,7 +1385,7 @@ z
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
+<pre>{&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;value&#39;: 35.0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant1&#39;, 2: &#39;constant2&#39;}, &#39;weights&#39;: [1.0, 1.0, 1.0]}
 </pre>
 </div>
 </div>
