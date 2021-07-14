@@ -6,3 +6,4 @@ gem 'github-pages', group: :jekyll_plugins
 gem "jekyll", "~> 3.7"
 gem "kramdown", ">= 2.3.0"
 gem "nokogiri", ">= 1.11.0.rc4"
+gem "addressable", ">= 2.8.0"
