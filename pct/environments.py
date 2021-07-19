@@ -379,6 +379,9 @@ class VelocityModel(BaseFunction):
         super().__init__(name, value, links, new_name)
         self.mass = mass
         self.indexes=indexes
+        if self.indexes>0:
+            self.value = [0 for _ in range(indexes)]
+
 
     def __call__(self, verbose=False):
         super().check_links(1)
