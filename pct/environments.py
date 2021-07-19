@@ -79,11 +79,14 @@ class OpenAIGym(BaseFunction):
     def set_render(self, render):
         self.render=render
 
-    def reset(self):
-        super().reset()
+    def reset(self, full=True):
+        if full:
+            super().reset()
+        else:
+            self.value=0
         self.really_done = False
-        #self.env.stats_recorder.done = True
         return self.env.reset()
+
 
     def summary(self):
         super().summary("")
