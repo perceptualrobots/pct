@@ -375,7 +375,7 @@ class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
 
-    def __init__(self, mass=50, value=0, name="VelocityModel", links=None, new_name=True, indexes=0 **cargs):
+    def __init__(self, mass=50, value=0, name="VelocityModel", links=None, new_name=True, indexes=0, **cargs):
         super().__init__(name, value, links, new_name)
         self.mass = mass
 
