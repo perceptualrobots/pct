@@ -371,7 +371,7 @@ class MountainCarContinuousV0(OpenAIGym):
 
 
 # Cell
-class VelocityModel(OpenAIGym):
+class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
 
@@ -385,6 +385,15 @@ class VelocityModel(OpenAIGym):
 
         self.value = self.value + force / self.mass
         return super().__call__(verbose)
+
+
+    def reset(self, full=True):
+        if full:
+            super().reset()
+        else:
+            self.value=0
+
+        return True
 
     def summary(self):
         super().summary("")
