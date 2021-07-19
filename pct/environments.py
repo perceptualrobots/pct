@@ -371,7 +371,7 @@ class MountainCarContinuousV0(OpenAIGym):
 
 
 # Cell
-class VelocityModel(BaseFunction):
+class VelocityModel(OpenAIGym):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
 
