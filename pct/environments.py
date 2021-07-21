@@ -388,7 +388,7 @@ class VelocityModel(BaseFunction):
 
         if self.indexes>0:
             output = self.value[0] + force / self.mass
-            self.value = [output for _ in range(indexes)]
+            self.value = [output for _ in range(self.indexes)]
         else:
             self.value = self.value + force / self.mass
         return super().__call__(verbose)
