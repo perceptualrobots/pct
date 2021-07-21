@@ -402,7 +402,7 @@ class VelocityModel(BaseFunction):
         if full:
             super().reset()
         else:
-            self.value=0
+            self.init_value()
 
         return True
 
