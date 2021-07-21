@@ -379,8 +379,7 @@ class VelocityModel(BaseFunction):
         super().__init__(name, value, links, new_name)
         self.mass = mass
         self.indexes=indexes
-        if self.indexes>0:
-            self.value = [0 for _ in range(indexes)]
+        self.init_value()
 
 
     def __call__(self, verbose=False):
@@ -393,6 +392,10 @@ class VelocityModel(BaseFunction):
         else:
             self.value = self.value + force / self.mass
         return super().__call__(verbose)
+
+    def init_value(self):
+        if self.indexes>0:
+            self.value = [0 for _ in range(indexes)]
 
 
     def reset(self, full=True):
