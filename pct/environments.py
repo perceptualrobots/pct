@@ -406,6 +406,9 @@ class VelocityModel(BaseFunction):
 
         return True
 
+    def set_render(self, render):
+        pass
+
     def summary(self):
         super().summary("")
 
