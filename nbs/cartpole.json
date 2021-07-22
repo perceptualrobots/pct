@@ -50,7 +50,10 @@
                                 "type": "Subtract",
                                 "name": "subtract",
                                 "value": 0,
-                                "links": {}
+                                "links": {
+                                    "0": "cart_velocity_reference",
+                                    "1": "cart_velocity"
+                                }
                             }
                         },
                         "outcoll": {
@@ -103,7 +106,10 @@
                                 "type": "Subtract",
                                 "name": "subtract1",
                                 "value": 0,
-                                "links": {}
+                                "links": {
+                                    "0": "cart_position_reference",
+                                    "1": "cart_position"
+                                }
                             }
                         },
                         "outcoll": {
@@ -111,7 +117,9 @@
                                 "type": "Proportional",
                                 "name": "cart_position_output",
                                 "value": 0,
-                                "links": {},
+                                "links": {
+                                    "0": "subtract1"
+                                },
                                 "gain": 2
                             }
                         }
@@ -153,7 +161,10 @@
                                 "type": "Subtract",
                                 "name": "subtract2",
                                 "value": 0,
-                                "links": {}
+                                "links": {
+                                    "0": "pole_velocity_reference",
+                                    "1": "pole_velocity"
+                                }
                             }
                         },
                         "outcoll": {
@@ -161,7 +172,9 @@
                                 "type": "Proportional",
                                 "name": "pole_velocity_output",
                                 "value": 0,
-                                "links": {},
+                                "links": {
+                                    "0": "subtract2"
+                                },
                                 "gain": 0.5
                             }
                         }
@@ -201,7 +214,10 @@
                                 "type": "Subtract",
                                 "name": "subtract3",
                                 "value": 0,
-                                "links": {}
+                                "links": {
+                                    "0": "pole_angle_reference",
+                                    "1": "pole_angle"
+                                }
                             }
                         },
                         "outcoll": {
@@ -209,7 +225,9 @@
                                 "type": "Proportional",
                                 "name": "pole_angle_output",
                                 "value": 0,
-                                "links": {},
+                                "links": {
+                                    "0": "subtract3"
+                                },
                                 "gain": 3.5
                             }
                         }

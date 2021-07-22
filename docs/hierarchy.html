@@ -166,15 +166,15 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x7f568863e710&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f568863e250&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f566b576d50&gt;],
- [&lt;pct.nodes.PCTNode at 0x7f566b576a90&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f566b576990&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f5669d0c290&gt;],
- [&lt;pct.nodes.PCTNode at 0x7f5669d0c4d0&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f5669d0cd10&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f5669d0cfd0&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x7f5669c9aed0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f566b711d10&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f566b711150&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7f566b711890&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f566b711ed0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f566b711710&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7f566b711a10&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f566b5ce410&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f566b5ceb10&gt;]]</pre>
 </div>
 
 </div>
@@ -259,74 +259,74 @@ nb_path: "nbs/04_hierarchy.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>pcthierarchy1 PCTHierarchy
+<pre>pcthierarchy PCTHierarchy
 **************************
 PRE: precon Constant | 5 
 Level 0
 level0col0 PCTNode
 ----------------------------
-REF: weighted_sum WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional6 proportional7 proportional8 
-PER: variable3 Variable | 0 
-COM: subtract3 Subtract | 0 | links  weighted_sum variable3 
-OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
+REF: weighted_sum WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable Variable | 0 
+COM: subtract Subtract | 0 | links  weighted_sum variable 
+OUT: proportional Proportional | gain 10 | 0 | links  subtract 
 ----------------------------
 level0col1 PCTNode
 ----------------------------
-REF: weighted_sum1 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional6 proportional7 proportional8 
-PER: variable4 Variable | 0 
-COM: subtract4 Subtract | 0 | links  weighted_sum1 variable4 
-OUT: proportional4 Proportional | gain 10 | 0 | links  subtract4 
+REF: weighted_sum1 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable1 Variable | 0 
+COM: subtract1 Subtract | 0 | links  weighted_sum1 variable1 
+OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
 ----------------------------
 level0col2 PCTNode
 ----------------------------
-REF: weighted_sum2 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional6 proportional7 proportional8 
-PER: variable5 Variable | 0 
-COM: subtract5 Subtract | 0 | links  weighted_sum2 variable5 
-OUT: proportional5 Proportional | gain 10 | 0 | links  subtract5 
+REF: weighted_sum2 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable2 Variable | 0 
+COM: subtract2 Subtract | 0 | links  weighted_sum2 variable2 
+OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
 ----------------------------
 Level 1
 level1col0 PCTNode
 ----------------------------
-REF: weighted_sum4 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional9 proportional10 proportional11 
-PER: weighted_sum3 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  variable3 variable4 variable5 
-COM: subtract6 Subtract | 0 | links  weighted_sum4 weighted_sum3 
-OUT: proportional6 Proportional | gain 10 | 0 | links  subtract6 
+REF: weighted_sum4 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum3 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  variable variable1 variable2 
+COM: subtract3 Subtract | 0 | links  weighted_sum4 weighted_sum3 
+OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
 ----------------------------
 level1col1 PCTNode
 ----------------------------
-REF: weighted_sum6 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional9 proportional10 proportional11 
-PER: weighted_sum5 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  variable3 variable4 variable5 
-COM: subtract7 Subtract | 0 | links  weighted_sum6 weighted_sum5 
-OUT: proportional7 Proportional | gain 10 | 0 | links  subtract7 
+REF: weighted_sum6 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum5 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  variable variable1 variable2 
+COM: subtract4 Subtract | 0 | links  weighted_sum6 weighted_sum5 
+OUT: proportional4 Proportional | gain 10 | 0 | links  subtract4 
 ----------------------------
 level1col2 PCTNode
 ----------------------------
-REF: weighted_sum8 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional9 proportional10 proportional11 
-PER: weighted_sum7 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  variable3 variable4 variable5 
-COM: subtract8 Subtract | 0 | links  weighted_sum8 weighted_sum7 
-OUT: proportional8 Proportional | gain 10 | 0 | links  subtract8 
+REF: weighted_sum8 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum7 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  variable variable1 variable2 
+COM: subtract5 Subtract | 0 | links  weighted_sum8 weighted_sum7 
+OUT: proportional5 Proportional | gain 10 | 0 | links  subtract5 
 ----------------------------
 Level 2
 level2col0 PCTNode
 ----------------------------
-REF: constant3 Constant | 1 
+REF: constant Constant | 1 
 PER: weighted_sum9 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
-COM: subtract9 Subtract | 0 | links  constant3 weighted_sum9 
-OUT: proportional9 Proportional | gain 10 | 0 | links  subtract9 
+COM: subtract6 Subtract | 0 | links  constant weighted_sum9 
+OUT: proportional6 Proportional | gain 10 | 0 | links  subtract6 
 ----------------------------
 level2col1 PCTNode
 ----------------------------
-REF: constant4 Constant | 1 
+REF: constant1 Constant | 1 
 PER: weighted_sum10 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
-COM: subtract10 Subtract | 0 | links  constant4 weighted_sum10 
-OUT: proportional10 Proportional | gain 10 | 0 | links  subtract10 
+COM: subtract7 Subtract | 0 | links  constant1 weighted_sum10 
+OUT: proportional7 Proportional | gain 10 | 0 | links  subtract7 
 ----------------------------
 level2col2 PCTNode
 ----------------------------
-REF: constant5 Constant | 1 
+REF: constant2 Constant | 1 
 PER: weighted_sum11 WeightedSum | weights [1.0, 1.0, 1.0] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
-COM: subtract11 Subtract | 0 | links  constant5 weighted_sum11 
-OUT: proportional11 Proportional | gain 10 | 0 | links  subtract11 
+COM: subtract8 Subtract | 0 | links  constant2 weighted_sum11 
+OUT: proportional8 Proportional | gain 10 | 0 | links  subtract8 
 ----------------------------
 POST: postcon Constant | 10 
 **************************
@@ -370,7 +370,7 @@ POST: postcon Constant | 10
 
 <div class="output_text output_subarea output_execute_result">
 <pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;,
- &#39;name&#39;: &#39;pcthierarchy1&#39;,
+ &#39;name&#39;: &#39;pcthierarchy&#39;,
  &#39;pre&#39;: {&#39;pre0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
    &#39;name&#39;: &#39;precon&#39;,
    &#39;value&#39;: 5,
@@ -382,20 +382,20 @@ POST: postcon Constant | 10
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
-        &#39;name&#39;: &#39;variable3&#39;,
+        &#39;name&#39;: &#39;variable&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {}}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract3&#39;,
+        &#39;name&#39;: &#39;subtract&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;variable3&#39;}}},
+        &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;variable&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional3&#39;,
+        &#39;name&#39;: &#39;proportional&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract3&#39;},
+        &#39;links&#39;: {0: &#39;subtract&#39;},
         &#39;gain&#39;: 10}}}},
     &#39;col1&#39;: {&#39;col&#39;: 1,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
@@ -403,20 +403,20 @@ POST: postcon Constant | 10
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum1&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
-        &#39;name&#39;: &#39;variable4&#39;,
+        &#39;name&#39;: &#39;variable1&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {}}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract4&#39;,
+        &#39;name&#39;: &#39;subtract1&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum1&#39;, 1: &#39;variable4&#39;}}},
+        &#39;links&#39;: {0: &#39;weighted_sum1&#39;, 1: &#39;variable1&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional4&#39;,
+        &#39;name&#39;: &#39;proportional1&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract4&#39;},
+        &#39;links&#39;: {0: &#39;subtract1&#39;},
         &#39;gain&#39;: 10}}}},
     &#39;col2&#39;: {&#39;col&#39;: 2,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
@@ -424,20 +424,20 @@ POST: postcon Constant | 10
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum2&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
-        &#39;name&#39;: &#39;variable5&#39;,
+        &#39;name&#39;: &#39;variable2&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {}}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract5&#39;,
+        &#39;name&#39;: &#39;subtract2&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;weighted_sum2&#39;, 1: &#39;variable5&#39;}}},
+        &#39;links&#39;: {0: &#39;weighted_sum2&#39;, 1: &#39;variable2&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional5&#39;,
+        &#39;name&#39;: &#39;proportional2&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract5&#39;},
+        &#39;links&#39;: {0: &#39;subtract2&#39;},
         &#39;gain&#39;: 10}}}}}},
   &#39;level1&#39;: {&#39;level&#39;: 1,
    &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
@@ -446,23 +446,21 @@ POST: postcon Constant | 10
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum4&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional9&#39;,
-         1: &#39;proportional10&#39;,
-         2: &#39;proportional11&#39;},
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum3&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;variable3&#39;, 1: &#39;variable4&#39;, 2: &#39;variable5&#39;},
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract6&#39;,
+        &#39;name&#39;: &#39;subtract3&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {0: &#39;weighted_sum4&#39;, 1: &#39;weighted_sum3&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional6&#39;,
+        &#39;name&#39;: &#39;proportional3&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract6&#39;},
+        &#39;links&#39;: {0: &#39;subtract3&#39;},
         &#39;gain&#39;: 10}}}},
     &#39;col1&#39;: {&#39;col&#39;: 1,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
@@ -470,23 +468,21 @@ POST: postcon Constant | 10
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum6&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional9&#39;,
-         1: &#39;proportional10&#39;,
-         2: &#39;proportional11&#39;},
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum5&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;variable3&#39;, 1: &#39;variable4&#39;, 2: &#39;variable5&#39;},
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract7&#39;,
+        &#39;name&#39;: &#39;subtract4&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {0: &#39;weighted_sum6&#39;, 1: &#39;weighted_sum5&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional7&#39;,
+        &#39;name&#39;: &#39;proportional4&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract7&#39;},
+        &#39;links&#39;: {0: &#39;subtract4&#39;},
         &#39;gain&#39;: 10}}}},
     &#39;col2&#39;: {&#39;col&#39;: 2,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
@@ -494,30 +490,28 @@ POST: postcon Constant | 10
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum8&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;proportional9&#39;,
-         1: &#39;proportional10&#39;,
-         2: &#39;proportional11&#39;},
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
         &#39;name&#39;: &#39;weighted_sum7&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;variable3&#39;, 1: &#39;variable4&#39;, 2: &#39;variable5&#39;},
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract8&#39;,
+        &#39;name&#39;: &#39;subtract5&#39;,
         &#39;value&#39;: 0,
         &#39;links&#39;: {0: &#39;weighted_sum8&#39;, 1: &#39;weighted_sum7&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional8&#39;,
+        &#39;name&#39;: &#39;proportional5&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract8&#39;},
+        &#39;links&#39;: {0: &#39;subtract5&#39;},
         &#39;gain&#39;: 10}}}}}},
   &#39;level2&#39;: {&#39;level&#39;: 2,
    &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;level2col0&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant3&#39;,
+        &#39;name&#39;: &#39;constant&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
@@ -526,19 +520,19 @@ POST: postcon Constant | 10
         &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract9&#39;,
+        &#39;name&#39;: &#39;subtract6&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;constant3&#39;, 1: &#39;weighted_sum9&#39;}}},
+        &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum9&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional9&#39;,
+        &#39;name&#39;: &#39;proportional6&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract9&#39;},
+        &#39;links&#39;: {0: &#39;subtract6&#39;},
         &#39;gain&#39;: 10}}}},
     &#39;col1&#39;: {&#39;col&#39;: 1,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;level2col1&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant4&#39;,
+        &#39;name&#39;: &#39;constant1&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
@@ -547,19 +541,19 @@ POST: postcon Constant | 10
         &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract10&#39;,
+        &#39;name&#39;: &#39;subtract7&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;constant4&#39;, 1: &#39;weighted_sum10&#39;}}},
+        &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;weighted_sum10&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional10&#39;,
+        &#39;name&#39;: &#39;proportional7&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract10&#39;},
+        &#39;links&#39;: {0: &#39;subtract7&#39;},
         &#39;gain&#39;: 10}}}},
     &#39;col2&#39;: {&#39;col&#39;: 2,
      &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
       &#39;name&#39;: &#39;level2col2&#39;,
       &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-        &#39;name&#39;: &#39;constant5&#39;,
+        &#39;name&#39;: &#39;constant2&#39;,
         &#39;value&#39;: 1,
         &#39;links&#39;: {}}},
       &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
@@ -568,13 +562,13 @@ POST: postcon Constant | 10
         &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
         &#39;weights&#39;: [1.0, 1.0, 1.0]}},
       &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-        &#39;name&#39;: &#39;subtract11&#39;,
+        &#39;name&#39;: &#39;subtract8&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;constant5&#39;, 1: &#39;weighted_sum11&#39;}}},
+        &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;weighted_sum11&#39;}}},
       &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
-        &#39;name&#39;: &#39;proportional11&#39;,
+        &#39;name&#39;: &#39;proportional8&#39;,
         &#39;value&#39;: 0,
-        &#39;links&#39;: {0: &#39;subtract11&#39;},
+        &#39;links&#39;: {0: &#39;subtract8&#39;},
         &#39;gain&#39;: 10}}}}}}},
  &#39;post&#39;: {&#39;post0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
    &#39;name&#39;: &#39;postcon&#39;,
@@ -1208,7 +1202,7 @@ POST: None
 <span class="n">myhpct</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">myhpct</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">myhpct</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s1">&#39;gain&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">myhpct</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+<span class="n">myhpct</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">build</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
