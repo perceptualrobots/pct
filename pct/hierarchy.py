@@ -459,7 +459,7 @@ class PCTHierarchy():
                     error += self.hierarchy[level][col].get_function("comparator").get_value()
         return error
 
-    def summary(self, build=True):
+    def summary(self, build=False):
         print(self.name, type(self).__name__)
 
         print("**************************")
