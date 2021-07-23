@@ -459,7 +459,7 @@ class PCTHierarchy():
                     error += self.hierarchy[level][col].get_function("comparator").get_value()
         return error
 
-    def summary(self, build=True):
+    def summary(self, build=False):
         print(self.name, type(self).__name__)
 
         print("**************************")
@@ -512,7 +512,7 @@ class PCTHierarchy():
 
         pre = {}
         for i in range(len(self.preCollection)):
-            pre[f'pre{i}']=self.preCollection[0].get_config()
+            pre[f'pre{i}']=self.preCollection[i].get_config()
         config['pre']=pre
 
 
@@ -533,7 +533,7 @@ class PCTHierarchy():
 
         post = {}
         for i in range(len(self.postCollection)):
-            post[f'post{i}']=self.postCollection[0].get_config()
+            post[f'post{i}']=self.postCollection[i].get_config()
         config['post']=post
         return config
 

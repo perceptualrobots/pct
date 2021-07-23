@@ -79,11 +79,14 @@ class OpenAIGym(BaseFunction):
     def set_render(self, render):
         self.render=render
 
-    def reset(self):
-        super().reset()
+    def reset(self, full=True):
+        if full:
+            super().reset()
+        else:
+            self.value=0
         self.really_done = False
-        #self.env.stats_recorder.done = True
         return self.env.reset()
+
 
     def summary(self):
         super().summary("")
@@ -372,16 +375,41 @@ class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
 
-    def __init__(self, mass=50, value=0, name="VelocityModel", links=None, new_name=True, **cargs):
+    def __init__(self, mass=50, value=0, name="VelocityModel", links=None,
+                 num_links=1, new_name=True, indexes=0, **cargs):
         super().__init__(name, value, links, new_name)
         self.mass = mass
+        self.indexes=indexes
+        self.num_links=num_links
+        self.init_value()
+
 
     def __call__(self, verbose=False):
-        super().check_links(1)
+        super().check_links(self.num_links)
         force = self.links[0].get_value()
 
-        self.value = self.value + force / self.mass
+        if self.indexes>0:
+            output = self.value[0] + force / self.mass
+            self.value = [output for _ in range(self.indexes)]
+        else:
+            self.value = self.value + force / self.mass
         return super().__call__(verbose)
+
+    def init_value(self):
+        if self.indexes>0:
+            self.value = [0 for _ in range(self.indexes)]
+
+
+    def reset(self, full=True):
+        if full:
+            super().reset()
+        else:
+            self.init_value()
+
+        return True
+
+    def set_render(self, render):
+        pass
 
     def summary(self):
         super().summary("")
