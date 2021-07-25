@@ -379,6 +379,11 @@ class PCTHierarchy():
                 FunctionsList.getInstance().functions[name] = FunctionsList.getInstance().functions.pop(key)
 
 
+    def get_levels(self):
+        return len(self.hierarchy)
+
+    def get_columns(self, level):
+        return len(self.hierarchy[level])
 
     def graph_nodes(self):
         graph = nx.DiGraph()
