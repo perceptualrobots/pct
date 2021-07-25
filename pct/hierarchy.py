@@ -217,7 +217,7 @@ class PCTHierarchy():
                 thatnode.add_link("reference", thisnode.get_function("output"))
 
     def get_grid(self):
-        return [self.get_columns(level) for level in self.get_levels()]
+        return [self.get_columns(level) for level in range(self.get_levels())]
 
     def get_node_positions(self, align='horizontal'):
         graph = self.graph()
