@@ -466,6 +466,13 @@ class PCTHierarchy():
                     error += self.hierarchy[level][col].get_function("comparator").get_value()
         return error
 
+    def insert_level(self, level):
+        cols_list=[]
+        self.hierarchy.insert(level, cols_list)
+
+    def remove_level(self, level):
+        self.hierarchy.pop(level)
+
     def summary(self, build=False):
         print(self.name, type(self).__name__)
 
