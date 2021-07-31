@@ -65,7 +65,7 @@ class BaseFunction(ABC):
 
     def reset_links(self, prefix, level):
         self.links = []
-        for column in range(len(self.weights):
+        for column in range(len(self.weights)):
             name = f'{prefix}L{level}C{column}'
             self.links.append(name)
 
