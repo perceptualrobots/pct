@@ -474,7 +474,8 @@ class PCTHierarchy():
         self.hierarchy.pop(level)
 
     def remove_nodes(self, level, num_nodes):
-        del self.hierarchy[level][num_nodes]
+        for _ in range(num_nodes):
+            del self.hierarchy[level][-1]
 
     def summary(self, build=False):
         print(self.name, type(self).__name__)
