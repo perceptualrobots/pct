@@ -63,6 +63,12 @@ class BaseFunction(ABC):
         self.links = []
         self.checklinks=True
 
+    def reset_links(self, prefix, level):
+        self.links = []
+        for column in range(len(self.weights)):
+            name = f'{prefix}L{level}C{column}'
+            self.links.append(name)
+
     def run(self, steps=None, verbose=False):
         for i in range(steps):
             out = self(verbose)
@@ -312,6 +318,7 @@ class BaseFunction(ABC):
 
     def add_link(self, linkfn):
         self.links.append(linkfn)
+
 
     def set_link(self, linkfn):
         self.links = [linkfn]
