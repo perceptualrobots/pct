@@ -356,8 +356,8 @@ class BaseFunction(ABC):
         func = cls(new_name=False, **config)
         return func
 
-    def __str__(self):
-        return str(self.__dict__)
+#     def __str__(self):
+#         return str(self.__dict__)
 
 # Cell
 class FunctionFactory:
