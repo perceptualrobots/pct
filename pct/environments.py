@@ -397,7 +397,7 @@ class VelocityModel(BaseFunction):
 
     def init_value(self):
         if self.indexes>0:
-            self.value = [0 for _ in range(self.indexes)]
+            self.value = [1 for _ in range(self.indexes)]
 
 
     def reset(self, full=True):
