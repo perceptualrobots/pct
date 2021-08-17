@@ -44,11 +44,9 @@ class UniqueNamer:
         if fname == None:
             print(len(self.names))
             for name in self.names:
-                print("*** ", key, [self.names[key]])
-                print(self.names[key])
+                print("*** ", name)
         else:
-            print("*** ", key, [self.names[key]])
-            print(self.names[key])
+            print("*** ", fname)
 
 
 # Cell
@@ -91,12 +89,12 @@ class FunctionsList:
     def report(self, name=None):
         if name == None:
             print(len(self.functions))
-            for key in self.functions.keys():
-                print("*** ", key, [self.functions[key]])
-                print(self.functions[key])
+            for name, function in self.functions.items():
+                print("*** ", name, [function])
+                print(function)
         else:
-            print("*** ", key, [self.functions[key]])
-            print(self.functions[key])
+            print("*** ", name, [self.functions[name]])
+            print(self.functions[name])
 
 
 # Cell
