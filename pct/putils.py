@@ -40,6 +40,17 @@ class UniqueNamer:
         self.names[name]=0
         return name
 
+    def report(self, fname=None):
+        if fname == None:
+            print(len(self.names))
+            for name in self.names:
+                print("*** ", key, [self.names[key]])
+                print(self.names[key])
+        else:
+            print("*** ", key, [self.names[key]])
+            print(self.names[key])
+
+
 # Cell
 class FunctionsList:
     "A utility for storing functions created, keyed on the function name."

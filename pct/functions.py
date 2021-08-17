@@ -32,7 +32,7 @@ class CUF(enum.IntEnum):
 
 # Cell
 class BaseFunction(ABC):
-    "Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all."
+    "Base class of a PCT function. This class is not used directly by developers, but defines the functionality common to all."
     def __init__(self, name, value, links=None, new_name=True):
         self.value = value
         self.links = []
