@@ -769,7 +769,7 @@ class WeightedSum(BaseFunction):
             else:
                 #print(inputIndex,column)
                 weights.append(input_weights[inputIndex][column])
-        self.weights=np.array(weights)
+        self.weights=weights #np.array(weights)
 
     def set_sparse_node_function(self, function_type, thislevel, input, column, input_weights):
         prefix = self.get_capital(function_type)
@@ -789,7 +789,7 @@ class WeightedSum(BaseFunction):
 
         self.add_link(name)
         weights.append(input_weights[0][0])
-        self.weights=np.array(weights)
+        self.weights=weights #np.array(weights)
 
 
 
@@ -800,7 +800,7 @@ class WeightedSum(BaseFunction):
 
         weights=[]
         weights.append(input_weights[column])
-        self.weights=np.array(weights)
+        self.weights=weights #np.array(weights)
 
     class Factory:
         def create(self): return WeightedSum()
