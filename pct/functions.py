@@ -5,7 +5,7 @@ __all__ = ['ControlUnitFunctions', 'CUF', 'BaseFunction', 'FunctionFactory', 'Su
            'SmoothWeightedSum', 'IndexedParameter']
 
 # Cell
-import numpy as np
+#import numpy as np
 import enum
 import random
 import uuid
@@ -85,19 +85,19 @@ class BaseFunction(ABC):
             if isinstance(links, dict):
                 if len(links)>0:
                     for key in links.keys():
-                        self.links.append(FunctionsList.getInstance().get_function(links[key]))
+                        self.links.append(FunctionsList.getInstance().get_function(self.namespace, links[key]))
                 return
 
             if isinstance(links, list):
                 for link in links:
                     if isinstance(link, str):
-                        self.links.append(FunctionsList.getInstance().get_function(link))
+                        self.links.append(FunctionsList.getInstance().get_function(self.namespace, link))
                     else:
                         self.links.append(link)
                 return
 
             if isinstance(links, str):
-                self.links.append(FunctionsList.getInstance().get_function(links))
+                self.links.append(FunctionsList.getInstance().get_function(self.namespace, links))
                 return
 
             self.links.append(links)
@@ -240,7 +240,7 @@ class BaseFunction(ABC):
         if self.checklinks:
             ctr=0
             for link in self.links:
-                func = FunctionsList.getInstance().get_function(link)
+                func = FunctionsList.getInstance().get_function(self.namespace, link)
                 self.links[ctr]=func
                 ctr+=1
 
@@ -278,10 +278,10 @@ class BaseFunction(ABC):
         config = {"type": type(self).__name__,
                     "name": self.name}
 
-        if isinstance(self.value, np.ndarray):
-            config["value"] = self.value.tolist()
-        else:
-            config["value"] = self.value
+#         if isinstance(self.value, np.ndarray):
+#             config["value"] = self.value.tolist()
+#         else:
+        config["value"] = self.value
 
         ctr=0
         links={}
