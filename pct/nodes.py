@@ -4,12 +4,14 @@ __all__ = ['ControlUnitIndices', 'PCTNode', 'PCTNodeData']
 
 # Cell
 import enum
+import uuid
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .putils import dynamic_module_import
 from .functions import FunctionFactory
 from .functions import ControlUnitFunctions
-from .functions import *
+
+#from pct.functions import *
 
 # Cell
 class ControlUnitIndices(enum.IntEnum):
@@ -22,7 +24,7 @@ class ControlUnitIndices(enum.IntEnum):
 class PCTNode():
     "A single PCT controller."
     def __init__(self, reference=None, perception=None, comparator=None, output=None, default=True,
-                 name="pctnode", history=False, build_links=False, mode=0, **pargs):
+                 name="pctnode", history=False, build_links=False, mode=0, namespace=None, **pargs):
         # mode
         # 0 - per:var, ref:con, com:sub, out:prop
         # 1 - per:ws, ref:ws, com:sub, out:prop
@@ -32,12 +34,16 @@ class PCTNode():
         # 5 - per:ws, ref:con, com:sub, out:smws
         # 6 - per:ws, ref:ws, com:sub, out:smws
 
+        if namespace ==None:
+            namespace = uuid.uuid1()
+        self.namespace=namespace
+
         self.links_built = False
         self.history = None
         if history:
             self.history = PCTNodeData()
-        self.name = UniqueNamer.getInstance().get_name(name)
-        FunctionsList.getInstance().add_function(self)
+        self.name = UniqueNamer.getInstance().get_name(self.namespace, name)
+        FunctionsList.getInstance().add_function(self.namespace, self)
         if default:
             if perception==None:
                 perception = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION))
@@ -225,39 +231,15 @@ class PCTNode():
 
     def replace_function(self, collection, function, position=-1):
         if collection == "reference":
-            """
-            func = self.referenceCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.referenceCollection) == 0:
-                position=-1
-            """
             self.referenceCollection[position] = function
 
         if collection == "perception":
-            """
-            func = self.perceptionCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.perceptionCollection) == 0:
-                position=-1
-            """
             self.perceptionCollection[position]  = function
 
         if collection == "comparator":
-            """
-            func = self.comparatorCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.comparatorCollection) == 0:
-                position=-1
-            """
             self.comparatorCollection[position] = function
 
         if collection == "output":
-            """
-            func = self.outputCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.outputCollection) == 0:
-                position=-1
-            """
             self.outputCollection[position] = function
 
 

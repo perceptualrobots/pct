@@ -44,6 +44,21 @@ nb_path: "nbs/03_nodes.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -73,7 +88,7 @@ nb_path: "nbs/03_nodes.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ControlUnitIndices" class="doc_header"><code>ControlUnitIndices</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PER_INDEX, OUT_INDEX, REF_INDEX, ACT_INDEX]</p>
+<h2 id="ControlUnitIndices" class="doc_header"><code>ControlUnitIndices</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L17" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Enum</code> = [PER_INDEX, OUT_INDEX, REF_INDEX, ACT_INDEX]</p>
 </blockquote>
 <p>An enumeration.</p>
 
@@ -105,7 +120,7 @@ nb_path: "nbs/03_nodes.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L22" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>reference</code></strong>=<em><code>None</code></em>, <strong><code>perception</code></strong>=<em><code>None</code></em>, <strong><code>comparator</code></strong>=<em><code>None</code></em>, <strong><code>output</code></strong>=<em><code>None</code></em>, <strong><code>default</code></strong>=<em><code>True</code></em>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>build_links</code></strong>=<em><code>False</code></em>, <strong><code>mode</code></strong>=<em><code>0</code></em>, <strong>**<code>pargs</code></strong>)</p>
+<h2 id="PCTNode" class="doc_header"><code>class</code> <code>PCTNode</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L24" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNode</code>(<strong><code>reference</code></strong>=<em><code>None</code></em>, <strong><code>perception</code></strong>=<em><code>None</code></em>, <strong><code>comparator</code></strong>=<em><code>None</code></em>, <strong><code>output</code></strong>=<em><code>None</code></em>, <strong><code>default</code></strong>=<em><code>True</code></em>, <strong><code>name</code></strong>=<em><code>'pctnode'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>build_links</code></strong>=<em><code>False</code></em>, <strong><code>mode</code></strong>=<em><code>0</code></em>, <strong><code>namespace</code></strong>=<em><code>None</code></em>, <strong>**<code>pargs</code></strong>)</p>
 </blockquote>
 <p>A single PCT controller.</p>
 
@@ -154,7 +169,7 @@ nb_path: "nbs/03_nodes.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L530" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
+<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L512" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
 </blockquote>
 <p>Data collected for a PCTNode</p>
 
@@ -291,10 +306,10 @@ OUT: proportional Proportional | gain 1 | 0 | links  subtract
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>mypctnode PCTNode
 ----------------------------
-REF: constant2 Constant | 1 
-PER: variable1 Variable | 0 
-COM: subtract1 Subtract | 0 | links  constant2 variable1 
-OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
+REF: constant Constant | 1 
+PER: variable Variable | 0 
+COM: subtract Subtract | 0 | links  constant variable 
+OUT: proportional Proportional | gain 10 | 0 | links  subtract 
 ----------------------------
 </pre>
 </div>
@@ -701,9 +716,53 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;integratingnode1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;velocity_reference&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant_perception&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;velocity_reference&#39;, 1: &#39;constant_perception&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integrator&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10, &#39;slow&#39;: 100}}}
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    290</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 291</span><span class="ansi-red-fg">                 </span>links<span class="ansi-blue-fg">[</span>ctr<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">=</span>func<span class="ansi-blue-fg">.</span>get_name<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    292</span>             <span class="ansi-green-fg">except</span> AttributeError<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;str&#39; object has no attribute &#39;get_name&#39;
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-40-283ab2214067&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> nnode <span class="ansi-blue-fg">=</span> PCTNode<span class="ansi-blue-fg">.</span>load<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;inode.json&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>nnode<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-24-4c19459830e4&gt;</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    397</span>         coll_name <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;comcoll&#39;</span>
+<span class="ansi-green-intense-fg ansi-bold">    398</span>         collection <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>comparatorCollection
+<span class="ansi-green-fg">--&gt; 399</span><span class="ansi-red-fg">         </span>config<span class="ansi-blue-fg">[</span>coll_name<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>get_collection_config<span class="ansi-blue-fg">(</span>coll_name<span class="ansi-blue-fg">,</span> collection<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    400</span>         coll_name <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;outcoll&#39;</span>
+<span class="ansi-green-intense-fg ansi-bold">    401</span>         collection <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>outputCollection
+
+<span class="ansi-green-fg">&lt;ipython-input-24-4c19459830e4&gt;</span> in <span class="ansi-cyan-fg">get_collection_config</span><span class="ansi-blue-fg">(self, coll_name, collection)</span>
+<span class="ansi-green-intense-fg ansi-bold">    408</span>         ctr<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span>
+<span class="ansi-green-intense-fg ansi-bold">    409</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> collection<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 410</span><span class="ansi-red-fg">             </span>coll<span class="ansi-blue-fg">[</span>str<span class="ansi-blue-fg">(</span>ctr<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> func<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    411</span>             ctr<span class="ansi-blue-fg">+=</span><span class="ansi-cyan-fg">1</span>
+<span class="ansi-green-intense-fg ansi-bold">    412</span>         <span class="ansi-green-fg">return</span> coll
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    393</span> 
+<span class="ansi-green-intense-fg ansi-bold">    394</span>     <span class="ansi-green-fg">def</span> get_config<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 395</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    396</span> 
+<span class="ansi-green-intense-fg ansi-bold">    397</span>     <span class="ansi-green-fg">class</span> Factory<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">get_config</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    291</span>                 links<span class="ansi-blue-fg">[</span>ctr<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">=</span>func<span class="ansi-blue-fg">.</span>get_name<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    292</span>             <span class="ansi-green-fg">except</span> AttributeError<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 293</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39; there is no function called {link}, ensure it exists first.&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    294</span>             ctr<span class="ansi-blue-fg">+=</span><span class="ansi-cyan-fg">1</span>
+<span class="ansi-green-intense-fg ansi-bold">    295</span> 
+
+<span class="ansi-red-fg">Exception</span>:  there is no function called velocity_reference, ensure it exists first.</pre>
 </div>
 </div>
 
@@ -751,21 +810,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<img src="http://www.perceptualrobots.com/wp-content/uploads/2020/08/pct_node_plot.png"/>
-</div>
-
-</div>
-
 </div>
 </div>
 
