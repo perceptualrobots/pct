@@ -785,9 +785,16 @@ nb_path: "nbs/02_functions.ipynb"
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;myprop&#39;, &#39;value&#39;: -0.5, &#39;links&#39;: {}, &#39;gain&#39;: 21}
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-142-1bc88f81854e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> config <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;name&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;myprop&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;value&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">0.5</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;gain&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">21</span><span class="ansi-blue-fg">}</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>prop <span class="ansi-blue-fg">=</span> Proportional<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> print<span class="ansi-blue-fg">(</span>prop<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: from_config() missing 1 required positional argument: &#39;namespace&#39;</pre>
 </div>
 </div>
 
@@ -812,21 +819,6 @@ nb_path: "nbs/02_functions.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-{&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}, &#39;gain&#39;: 1}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -860,26 +852,6 @@ nb_path: "nbs/02_functions.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;type&#39;: &#39;WeightedSum&#39;,
- &#39;name&#39;: &#39;weighted_sum&#39;,
- &#39;value&#39;: 35,
- &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;constant&#39;, 2: &#39;constant&#39;},
- &#39;weights&#39;: [1, 1, 1]}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -895,61 +867,6 @@ nb_path: "nbs/02_functions.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-114-adffda43cf33&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>ws1 <span class="ansi-blue-fg">=</span> WeightedSum<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>ws<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> ws1<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-92-e97927295c5c&gt;</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config)</span>
-<span class="ansi-green-intense-fg ansi-bold">    327</span>     <span class="ansi-blue-fg">@</span>classmethod
-<span class="ansi-green-intense-fg ansi-bold">    328</span>     <span class="ansi-green-fg">def</span> from_config<span class="ansi-blue-fg">(</span>cls<span class="ansi-blue-fg">,</span>  config<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 329</span><span class="ansi-red-fg">         </span>func <span class="ansi-blue-fg">=</span> cls<span class="ansi-blue-fg">(</span>new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>config<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    330</span>         <span class="ansi-green-fg">return</span> func
-<span class="ansi-green-intense-fg ansi-bold">    331</span> 
-
-<span class="ansi-green-fg">&lt;ipython-input-106-7951230c1ae4&gt;</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, weights, value, name, links, new_name, usenumpy, **cargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span>     <span class="ansi-blue-fg">&#34;A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions.&#34;</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span>     <span class="ansi-green-fg">def</span> __init__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> weights<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;weighted_sum&#34;</span><span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> usenumpy<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>cargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg">         </span>super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">,</span> new_name<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span>         <span class="ansi-green-fg">if</span> usenumpy<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">      7</span>             <span class="ansi-green-fg">if</span> isinstance<span class="ansi-blue-fg">(</span>weights<span class="ansi-blue-fg">,</span> list<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-92-e97927295c5c&gt;</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, name, value, links, new_name, namespace)</span>
-<span class="ansi-green-intense-fg ansi-bold">     10</span>         self<span class="ansi-blue-fg">.</span>value <span class="ansi-blue-fg">=</span> value
-<span class="ansi-green-intense-fg ansi-bold">     11</span>         self<span class="ansi-blue-fg">.</span>links <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">---&gt; 12</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>handle_links<span class="ansi-blue-fg">(</span>links<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span>         self<span class="ansi-blue-fg">.</span>checklinks<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">     14</span> 
-
-<span class="ansi-green-fg">&lt;ipython-input-92-e97927295c5c&gt;</span> in <span class="ansi-cyan-fg">handle_links</span><span class="ansi-blue-fg">(self, links)</span>
-<span class="ansi-green-intense-fg ansi-bold">     53</span>                 <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>links<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">&gt;</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     54</span>                     <span class="ansi-green-fg">for</span> key <span class="ansi-green-fg">in</span> links<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 55</span><span class="ansi-red-fg">                         </span>self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>FunctionsList<span class="ansi-blue-fg">.</span>getInstance<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>get_function<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>namespace<span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     56</span>                 <span class="ansi-green-fg">return</span>
-<span class="ansi-green-intense-fg ansi-bold">     57</span> 
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/putils.py</span> in <span class="ansi-cyan-fg">get_function</span><span class="ansi-blue-fg">(self, namespace, name)</span>
-<span class="ansi-green-intense-fg ansi-bold">    105</span>             namespace_list <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>functions<span class="ansi-blue-fg">[</span>namespace<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    106</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 107</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#34;Namespace {namespace} not found in get_function&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    108</span> 
-<span class="ansi-green-intense-fg ansi-bold">    109</span>         <span class="ansi-green-fg">if</span> isinstance<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> str<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">and</span> name <span class="ansi-green-fg">in</span> namespace_list<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">Exception</span>: Namespace e449bfe4-0265-11ec-8567-810fb3e6a70a not found in get_function</pre>
-</div>
-</div>
-
 </div>
 </div>
 
