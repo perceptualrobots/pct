@@ -31,23 +31,38 @@ class UniqueNamer:
     def clear(self):
       self.names = {}
 
-    def get_name(self, name):
-        if name in self.names.keys():
-            num = self.names[name]+1
-            self.names[name]=num
+    def get_name(self, namespace=None, name=None):
+
+        if namespace in self.names:
+            namespace_list = self.names[namespace]
+        else:
+            namespace_list = {}
+            self.names[namespace] = namespace_list
+
+        if name in namespace_list:
+            num = namespace_list[name]+1
+            namespace_list[name]=num
             name = f'{name}{num}'
         #else:
-        self.names[name]=0
+        namespace_list[name]=0
         return name
 
-    def report(self, fname=None):
-        if fname == None:
-            print(len(self.names))
-            for name in self.names:
-                print("*** ", name)
-        else:
-            print("*** ", fname)
+    def report(self,  namespace=None, name=None,):
 
+        if namespace is None:
+            for namespace, namespace_list in self.names.items():
+                print(namespace, len(namespace_list))
+                for name in namespace_list:
+                    print("*** ", name)
+        else:
+            if namespace in self.names:
+                namespace_list = self.names[namespace]
+                if name == None:
+                    print(len(namespace_list))
+                    for nname in namespace_list:
+                        print("*** ", nname, namespace_list[nname])
+                else:
+                    print("*** ", name, namespace_list[name])
 
 # Cell
 class FunctionsList:
@@ -67,34 +82,58 @@ class FunctionsList:
          FunctionsList.__instance = self
       self.functions = {}
 
-    def clear(self):
-      self.functions = {}
+    def clear(self, namespace):
+      self.functions[namespace] = {}
 
-    def add_function(self, func):
+    def add_function(self, namespace=None, func=None):
+        if namespace in self.functions:
+            namespace_list = self.functions[namespace]
+        else:
+            namespace_list = {}
+            self.functions[namespace]=namespace_list
+
         name = func.get_name()
-        self.functions[name]=func
+        namespace_list[name]=func
 
         return name
 
-    def remove_function(self, name):
-        self.functions.pop(name)
+    def remove_function(self, namespace=None, name=None):
+        self.functions[namespace].pop(name)
 
-    def get_function(self, name):
-        if isinstance(name, str) and name in self.functions:
-            func = self.functions[name]
+    def get_function(self, namespace=None, name=None):
+        if namespace in self.functions:
+            namespace_list = self.functions[namespace]
+        else:
+            raise Exception(f"Namespace {namespace} not found in get_function")
+
+        if isinstance(name, str) and name in namespace_list:
+            func = namespace_list[name]
         else:
             func = name
+
         return func
 
-    def report(self, name=None):
-        if name == None:
-            print(len(self.functions))
-            for name, function in self.functions.items():
-                print("*** ", name, [function])
-                print(function)
+    def report(self, namespace=None, name=None):
+        if namespace is None:
+            for namespace, namespace_list in self.functions.items():
+                print(len(namespace_list), namespace)
+                for name, function in namespace_list.items():
+                    print("*** ", name, [function])
+                    print(function)
         else:
-            print("*** ", name, [self.functions[name]])
-            print(self.functions[name])
+            if namespace in self.functions:
+                namespace_list = self.functions[namespace]
+            else:
+                raise Exception(f"Namespace {namespace} not found in report")
+
+            if name == None:
+                print(len(namespace_list), namespace)
+                for name, function in namespace_list.items():
+                    print("*** ", name, [function])
+                    print(function)
+            else:
+                print("*** ", name, [namespace_list[name]])
+                print(namespace_list[name])
 
 
 # Cell
