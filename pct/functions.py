@@ -147,7 +147,7 @@ class BaseFunction(ABC):
         node_name = self.name
         edges = []
         for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
             if isinstance(func, str):
                 name = func
             else:
@@ -166,7 +166,7 @@ class BaseFunction(ABC):
         node_name = self.name
         edges = []
         for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
             if isinstance(func, str):
                 name = func
             else:
@@ -263,7 +263,7 @@ class BaseFunction(ABC):
         if len(self.links)>0:
             print('| links ', end=" ")
         for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
             if isinstance(func, str):
                 fname = func
             else:
@@ -286,7 +286,7 @@ class BaseFunction(ABC):
         ctr=0
         links={}
         for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
             try:
                 links[ctr]=func.get_name()
             except AttributeError:
@@ -300,9 +300,9 @@ class BaseFunction(ABC):
         return self.name
 
     def set_name(self, name):
-        FunctionsList.getInstance().remove_function(self.name)
+        FunctionsList.getInstance().remove_function(self.namespace, self.name)
         self.name=name
-        FunctionsList.getInstance().add_function(self)
+        FunctionsList.getInstance().add_function(self.namespace, self)
 
     def set_property(self, property_name, property_value):
         #self[property_name]= property_value
