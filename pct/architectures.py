@@ -100,7 +100,7 @@ class ProportionalArchitecture(BaseArchitecture):
             for inputIndex in range(numInputs):
                 node.get_function("perception").add_link(self.inputs[inputIndex])
                 weights.append(config[inputsIndex][inputIndex][column])
-            node.get_function("perception").weights=np.array(weights)
+            node.get_function("perception").weights=weights #np.array(weights)
 
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
@@ -142,7 +142,7 @@ class ProportionalArchitecture(BaseArchitecture):
                 node.get_function("perception").add_link(f'PL{level-1}C{inputIndex}ws')
                 weights.append(config[inputsIndex][column][inputIndex])
 
-            node.get_function("perception").weights=np.array(weights)
+            node.get_function("perception").weights=weights #np.array(weights)
 
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
@@ -158,7 +158,7 @@ class ProportionalArchitecture(BaseArchitecture):
                 reference.add_link(f'OL{level}C{output_column}p')
                 weights.append(config[referencesIndex][referenceIndex][output_column])
 
-            reference.weights=np.array(weights)
+            reference.weights=weights #np.array(weights)
 
         return numColumnsThisLevel
 
@@ -194,7 +194,7 @@ class ProportionalArchitecture(BaseArchitecture):
                 node.get_function("perception").add_link(f'PL{level-1}C{inputIndex}ws')
                 weights.append(config[inputsIndex][column][inputIndex])
                 #weights.append(config[inputsIndex][inputIndex][column])
-            node.get_function("perception").weights=np.array(weights)
+            node.get_function("perception").weights=weights #np.array(weights)
 
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
@@ -210,7 +210,7 @@ class ProportionalArchitecture(BaseArchitecture):
                 reference.add_link(f'OL{level}C{output_column}p')
                 weights.append(config[lowerReferencesIndex][referenceIndex][output_column])
 
-            reference.weights=np.array(weights)
+            reference.weights=weights #np.array(weights)
 
 
     def set_references(self):
