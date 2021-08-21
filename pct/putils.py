@@ -70,20 +70,23 @@ class FunctionsList:
     __instance = None
     @staticmethod
     def getInstance():
-      """ Static access method. """
-      if FunctionsList.__instance == None:
+        """ Static access method. """
+        if FunctionsList.__instance == None:
          FunctionsList()
-      return FunctionsList.__instance
+        return FunctionsList.__instance
     def __init__(self):
-      """ Virtually private constructor. """
-      if FunctionsList.__instance != None:
+        """ Virtually private constructor. """
+        if FunctionsList.__instance != None:
          raise Exception("This class is a singleton!")
-      else:
+        else:
          FunctionsList.__instance = self
-      self.functions = {}
+        self.functions = {}
 
-    def clear(self, namespace):
-      self.functions[namespace] = {}
+    def clear(self, namespace=None):
+        if namespace==None:
+            self.functions = {}
+        else:
+            self.functions[namespace] = {}
 
     def add_function(self, namespace=None, func=None):
         if namespace in self.functions:
