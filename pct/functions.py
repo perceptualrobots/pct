@@ -34,6 +34,11 @@ class CUF(enum.IntEnum):
 class BaseFunction(ABC):
     "Base class of a PCT function. This class is not used directly by developers, but defines the functionality common to all."
     def __init__(self, name, value, links=None, new_name=True):
+        if namespace ==None:
+            namespace = uuid.uuid1()
+        self.namespace=namespace
+
+
         self.value = value
         self.links = []
         self.handle_links(links)
@@ -41,11 +46,11 @@ class BaseFunction(ABC):
 
         #print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
         if new_name:
-            self.name = UniqueNamer.getInstance().get_name(name)
+            self.name = UniqueNamer.getInstance().get_name(namespace, name)
         else:
             self.name = name
         #print(self.name)
-        FunctionsList.getInstance().add_function(self)
+        FunctionsList.getInstance().add_function(namespace, self)
         self.decimal_places = 3
 
     @abstractmethod
