@@ -354,8 +354,8 @@ class BaseFunction(ABC):
         return cls.from_config(config)
 
     @classmethod
-    def from_config(cls,  config):
-        func = cls(new_name=False, **config)
+    def from_config(cls,  config,  namespace):
+        func = cls(new_name=False, namespace=namespace, **config)
         return func
 
     def __str__(self):
