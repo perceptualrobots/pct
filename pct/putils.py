@@ -104,7 +104,7 @@ class FunctionsList:
         if namespace in self.functions:
             namespace_list = self.functions[namespace]
         else:
-            raise Exception(f"Namespace {namespace} not found in get_function")
+            return name
 
         if isinstance(name, str) and name in namespace_list:
             func = namespace_list[name]

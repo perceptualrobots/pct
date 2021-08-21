@@ -347,10 +347,6 @@ class BaseFunction(ABC):
         f.write(jsondict)
         f.close()
 
-
-
-
-
     @classmethod
     def load(cls, file):
         with open(file) as f:
