@@ -106,8 +106,11 @@ class FunctionsList:
         else:
             return name
 
-        if isinstance(name, str) and name in namespace_list:
-            func = namespace_list[name]
+        if isinstance(name, str) :
+            if  name in namespace_list:
+                func = namespace_list[name]
+            else:
+                raise Exception(f'Function {name} does not exist in namespace {namespace}')
         else:
             func = name
 
