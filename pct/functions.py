@@ -378,8 +378,8 @@ class FunctionFactory:
 # Cell
 class Subtract(BaseFunction):
     "A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted."
-    def __init__(self, value=0, name="subtract", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, value=0, name="subtract", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
 
     def __call__(self, verbose=False):
         super().check_links(2)
@@ -400,8 +400,8 @@ class Subtract(BaseFunction):
 # Cell
 class Proportional(BaseFunction):
     "A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One."
-    def __init__(self, gain=1, value=0, name="proportional", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, gain=1, value=0, name="proportional", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
         self.gain = gain
 
     def __call__(self, verbose=False):
@@ -428,7 +428,7 @@ class Proportional(BaseFunction):
 class Variable(BaseFunction):
     "A function that returns a variable value. Parameter: The variable value. Links: None"
     def __init__(self,  value=0, name="variable", links=None, new_name=True, namespace=None, **cargs):
-        super().__init__(name, value, links, new_name, namespace)
+        super().__init__(name, value, links, new_name, namespace, namespace)
 
     def __call__(self, verbose=False):
         return super().__call__(verbose)
@@ -451,8 +451,8 @@ class Variable(BaseFunction):
 # Cell
 class PassOn(BaseFunction):
     "A function that passes on a variable value from a linked function. Parameter: None. Links: One"
-    def __init__(self,  value=0, name="variable", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self,  value=0, name="variable", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
 
     def __call__(self, verbose=False):
         super().check_links(1)
@@ -474,8 +474,8 @@ class PassOn(BaseFunction):
 # Cell
 class GreaterThan(BaseFunction):
     "One of two supplied values is returned if the input is greater than supplied threshold.</br> Parameters: The threshold and upper and lower value. Links: One"
-    def __init__(self, threshold=0, upper=1, lower=0, value=0, name="greaterthan", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, threshold=0, upper=1, lower=0, value=0, name="greaterthan", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
         self.threshold=threshold
         self.upper=upper
         self.lower=lower
@@ -509,8 +509,8 @@ class GreaterThan(BaseFunction):
 # Cell
 class Constant(BaseFunction):
     "A function that returns a constant value. Parameter: The constant value. Links: None"
-    def __init__(self, value=0, name="constant", new_name=True, **cargs):
-        super().__init__(name, value, None, new_name)
+    def __init__(self, value=0, name="constant", new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, None, new_name, namespace)
 
     def __call__(self, verbose=False):
         return super().__call__(verbose)
@@ -549,7 +549,7 @@ class Constant(BaseFunction):
 # Cell
 class Step(BaseFunction):
     "A function that returns an alternating signal. Parameter: The upper and lower values, and a delay value. Links: None"
-    def __init__(self, upper=None, lower=None, delay=None, period=None, value=0, name="step", new_name=True, **cargs):
+    def __init__(self, upper=None, lower=None, delay=None, period=None, value=0, name="step", new_name=True, namespace=None, **cargs):
         self.ctr=1
         self.upper=upper
         self.lower=lower
@@ -557,7 +557,7 @@ class Step(BaseFunction):
         self.period=period
         self.delay_finished=False
 
-        super().__init__(name, value, None, new_name)
+        super().__init__(name, value, None, new_name, namespace)
 
     def __call__(self, verbose=False):
         if self.ctr>self.delay-1:
@@ -593,8 +593,8 @@ class Step(BaseFunction):
 # Cell
 class Integration(BaseFunction):
     "A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: One."
-    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
         self.gain = gain
         self.slow = slow
 
@@ -621,8 +621,8 @@ class Integration(BaseFunction):
 # Cell
 class IntegrationDual(BaseFunction):
     "A leaky integrating function, applying one signal to another. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: Two."
-    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
         self.gain = gain
         self.slow = slow
 
@@ -650,8 +650,8 @@ class IntegrationDual(BaseFunction):
 # Cell
 class Sigmoid(BaseFunction):
     "A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and scale (slope) values. Links: One."
-    def __init__(self, range=2, scale=2, value=0, name="sigmoid", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, range=2, scale=2, value=0, name="sigmoid", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
         self.range = range
         self.scale = scale
 
@@ -677,8 +677,8 @@ class Sigmoid(BaseFunction):
 # Cell
 class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=[0], value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, weights=[0], value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
         if usenumpy:
             if isinstance(weights, list):
                 self.weights = np.array(weights)
@@ -809,8 +809,8 @@ class WeightedSum(BaseFunction):
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=[0], smooth_factor=0, value=0, name="smooth_weighted_sum", links=None,
-                 new_name=True, usenumpy=False, **cargs):
-        super().__init__(name, value, links, new_name)
+                 new_name=True, usenumpy=False, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
         if usenumpy:
             if isinstance(weights, list):
                 self.weights = np.array(weights)
@@ -916,8 +916,8 @@ class SmoothWeightedSum(BaseFunction):
 # Cell
 class IndexedParameter(BaseFunction):
     "A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One."
-    def __init__(self, index=None, value=0, name="indexed_parameter", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, index=None, value=0, name="indexed_parameter", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
         self.index = index
 
     def __call__(self, verbose=False):
