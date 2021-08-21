@@ -290,7 +290,10 @@ class BaseFunction(ABC):
             try:
                 links[ctr]=func.get_name()
             except AttributeError:
-                raise Exception(f' there is no function called {link}, ensure it exists first.')
+                #raise Exception(f' there is no function called {link}, ensure it exists first.')
+                print(f'WARN: there is no function called {link}, ensure it exists first.')
+                links[ctr]=func
+
             ctr+=1
 
         config['links']=links
