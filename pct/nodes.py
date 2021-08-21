@@ -447,8 +447,9 @@ class PCTNode():
         return cls.from_config(config)
 
     @classmethod
-    def from_config(cls, config):
-        node = PCTNode(default=False, name=config['name'])
+    def from_config(cls, config, namespace=None):
+
+        node = PCTNode(default=False, name=config['name'], namespace=namespace)
         namespace= node.namespace
         node.referenceCollection = []
         collection = node.referenceCollection

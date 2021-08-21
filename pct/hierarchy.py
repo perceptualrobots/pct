@@ -8,8 +8,7 @@ import sys
 import uuid
 from .nodes import PCTNode
 from .functions import WeightedSum
-from .putils import UniqueNamer
-from .putils import FunctionsList
+from .putils import UniqueNamer, FunctionsList, list_of_ones
 from .functions import BaseFunction
 
 # Cell
@@ -73,9 +72,9 @@ class PCTHierarchy():
             for c in range(cols):
                 if links == "dense":
                     if r > 0:
-                        perc = WeightedSum(weights=np.ones(cols), namespace=namespace)
+                        perc = WeightedSum(weights=list_of_ones(cols), namespace=namespace)
                     if r < levels-1:
-                        ref = WeightedSum(weights=np.ones(cols), namespace=namespace)
+                        ref = WeightedSum(weights=list_of_ones(cols), namespace=namespace)
                     if r == 0:
                         if levels > 1:
                             node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history, namespace=namespace)
@@ -564,13 +563,14 @@ class PCTHierarchy():
     @classmethod
     def from_config(cls, config):
         hpct = PCTHierarchy(name=config['name'])
+        namespace = hpct.namespace
         preCollection = []
         coll_dict = config['pre']
-        PCTNode.collection_from_config(preCollection, coll_dict)
+        PCTNode.collection_from_config(preCollection, coll_dict, namespace=namespace)
 
         postCollection = []
         coll_dict = config['post']
-        PCTNode.collection_from_config(postCollection, coll_dict)
+        PCTNode.collection_from_config(postCollection, coll_dict, namespace=namespace)
 
         hpct.preCollection=preCollection
         hpct.postCollection=postCollection
@@ -579,7 +579,7 @@ class PCTHierarchy():
         for level_key in config['levels'].keys():
             cols = []
             for nodes_key in config['levels'][level_key]['nodes'].keys():
-                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'])
+                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace)
                 cols.append(node)
             hpct.hierarchy.append(cols)
 

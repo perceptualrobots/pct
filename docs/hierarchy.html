@@ -80,7 +80,7 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FunctionsData" class="doc_header"><code>class</code> <code>FunctionsData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/hierarchy.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FunctionsData</code>()</p>
+<h2 id="FunctionsData" class="doc_header"><code>class</code> <code>FunctionsData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/hierarchy.py#L15" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FunctionsData</code>()</p>
 </blockquote>
 <p>Data collected for a set of functions</p>
 
@@ -112,7 +112,7 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTHierarchy" class="doc_header"><code>class</code> <code>PCTHierarchy</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/hierarchy.py#L43" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTHierarchy</code>(<strong><code>levels</code></strong>=<em><code>0</code></em>, <strong><code>cols</code></strong>=<em><code>0</code></em>, <strong><code>pre</code></strong>=<em><code>None</code></em>, <strong><code>post</code></strong>=<em><code>None</code></em>, <strong><code>name</code></strong>=<em><code>'pcthierarchy'</code></em>, <strong><code>clear_names</code></strong>=<em><code>True</code></em>, <strong><code>links</code></strong>=<em><code>'single'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>build</code></strong>=<em><code>True</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong><code>namespace</code></strong>=<em><code>None</code></em>, <strong>**<code>pargs</code></strong>)</p>
+<h2 id="PCTHierarchy" class="doc_header"><code>class</code> <code>PCTHierarchy</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/hierarchy.py#L42" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTHierarchy</code>(<strong><code>levels</code></strong>=<em><code>0</code></em>, <strong><code>cols</code></strong>=<em><code>0</code></em>, <strong><code>pre</code></strong>=<em><code>None</code></em>, <strong><code>post</code></strong>=<em><code>None</code></em>, <strong><code>name</code></strong>=<em><code>'pcthierarchy'</code></em>, <strong><code>clear_names</code></strong>=<em><code>True</code></em>, <strong><code>links</code></strong>=<em><code>'single'</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>build</code></strong>=<em><code>True</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong><code>namespace</code></strong>=<em><code>None</code></em>, <strong>**<code>pargs</code></strong>)</p>
 </blockquote>
 <p>A hierarchical perceptual control system, of PCTNodes.</p>
 
@@ -163,25 +163,20 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-25-8542925102d3&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> pre<span class="ansi-blue-fg">=</span>Constant<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;precon&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> post<span class="ansi-blue-fg">=</span>Constant<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;postcon&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>hpct <span class="ansi-blue-fg">=</span> PCTHierarchy<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">,</span> pre<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span>pre<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> post<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span>post<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> history<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> clear_names<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;dense&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> hpct<span class="ansi-blue-fg">.</span>hierarchy
 
-<span class="ansi-green-fg">&lt;ipython-input-24-b800b239f9fb&gt;</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, levels, cols, pre, post, name, clear_names, links, history, build, error_collector, namespace, **pargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     35</span>                         perc <span class="ansi-blue-fg">=</span> WeightedSum<span class="ansi-blue-fg">(</span>weights<span class="ansi-blue-fg">=</span>np<span class="ansi-blue-fg">.</span>ones<span class="ansi-blue-fg">(</span>cols<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     36</span>                     <span class="ansi-green-fg">if</span> r <span class="ansi-blue-fg">&lt;</span> levels<span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 37</span><span class="ansi-red-fg">                         </span>ref <span class="ansi-blue-fg">=</span> WeightedSum<span class="ansi-blue-fg">(</span>weights<span class="ansi-blue-fg">=</span>np<span class="ansi-blue-fg">.</span>ones<span class="ansi-blue-fg">(</span>cols<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     38</span>                     <span class="ansi-green-fg">if</span> r <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     39</span>                         <span class="ansi-green-fg">if</span> levels <span class="ansi-blue-fg">&gt;</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;np&#39; is not defined</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>[[&lt;pct.nodes.PCTNode at 0x7feb7b69c8d0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7feb7b69ce10&gt;,
+  &lt;pct.nodes.PCTNode at 0x7feb7b29edd0&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7feb7b29e750&gt;,
+  &lt;pct.nodes.PCTNode at 0x7feb7b530190&gt;,
+  &lt;pct.nodes.PCTNode at 0x7feb7b5304d0&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7feb7b5306d0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7feb7b5309d0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7feb7b558310&gt;]]</pre>
 </div>
+
 </div>
 
 </div>
@@ -212,6 +207,20 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;, &#39;name&#39;: &#39;pcthierarchy&#39;, &#39;pre&#39;: {&#39;pre0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;precon&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}}}, &#39;levels&#39;: {&#39;level0&#39;: {&#39;level&#39;: 0, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;variable&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum1&#39;, 1: &#39;variable&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum2&#39;, 1: &#39;variable&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}}}, &#39;level1&#39;: {&#39;level&#39;: 1, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable&#39;, 2: &#39;variable&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum4&#39;, 1: &#39;weighted_sum3&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum6&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum5&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable&#39;, 2: &#39;variable&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum6&#39;, 1: &#39;weighted_sum5&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum8&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable&#39;, 2: &#39;variable&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum8&#39;, 1: &#39;weighted_sum7&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}}}, &#39;level2&#39;: {&#39;level&#39;: 2, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum9&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum9&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum10&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum10&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum11&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum11&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}}}}, &#39;post&#39;: {&#39;post0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;postcon&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}}}}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -226,6 +235,32 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-30-526536cba263&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>h <span class="ansi-blue-fg">=</span> PCTHierarchy<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-27-2edb34c1b700&gt;</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config)</span>
+<span class="ansi-green-intense-fg ansi-bold">    540</span>             cols <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">    541</span>             <span class="ansi-green-fg">for</span> nodes_key <span class="ansi-green-fg">in</span> config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;levels&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>level_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;nodes&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 542</span><span class="ansi-red-fg">                 </span>node <span class="ansi-blue-fg">=</span> PCTNode<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;levels&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>level_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;nodes&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>nodes_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;node&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    543</span>                 cols<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    544</span>             hpct<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>cols<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">TypeError</span>: from_config() got an unexpected keyword argument &#39;namespace&#39;</pre>
+</div>
+</div>
+
 </div>
 </div>
 
