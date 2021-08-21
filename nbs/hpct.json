@@ -22,16 +22,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum",
-                                "value": 900.0,
+                                "value": 900,
                                 "links": {
                                     "0": "proportional3",
                                     "1": "proportional4",
                                     "2": "proportional5"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -47,7 +47,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract",
-                                "value": 900.0,
+                                "value": 900,
                                 "links": {
                                     "0": "weighted_sum",
                                     "1": "variable"
@@ -58,7 +58,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional",
-                                "value": 9000.0,
+                                "value": 9000,
                                 "links": {
                                     "0": "subtract"
                                 },
@@ -76,16 +76,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum1",
-                                "value": 900.0,
+                                "value": 900,
                                 "links": {
                                     "0": "proportional3",
                                     "1": "proportional4",
                                     "2": "proportional5"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -101,7 +101,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract1",
-                                "value": 900.0,
+                                "value": 900,
                                 "links": {
                                     "0": "weighted_sum1",
                                     "1": "variable1"
@@ -112,7 +112,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional1",
-                                "value": 9000.0,
+                                "value": 9000,
                                 "links": {
                                     "0": "subtract1"
                                 },
@@ -130,16 +130,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum2",
-                                "value": 900.0,
+                                "value": 900,
                                 "links": {
                                     "0": "proportional3",
                                     "1": "proportional4",
                                     "2": "proportional5"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -155,7 +155,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract2",
-                                "value": 900.0,
+                                "value": 900,
                                 "links": {
                                     "0": "weighted_sum2",
                                     "1": "variable2"
@@ -166,7 +166,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional2",
-                                "value": 9000.0,
+                                "value": 9000,
                                 "links": {
                                     "0": "subtract2"
                                 },
@@ -189,16 +189,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum4",
-                                "value": 30.0,
+                                "value": 30,
                                 "links": {
                                     "0": "proportional6",
                                     "1": "proportional7",
                                     "2": "proportional8"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -206,16 +206,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum3",
-                                "value": 0.0,
+                                "value": 0,
                                 "links": {
                                     "0": "variable",
                                     "1": "variable1",
                                     "2": "variable2"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -223,7 +223,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract3",
-                                "value": 30.0,
+                                "value": 30,
                                 "links": {
                                     "0": "weighted_sum4",
                                     "1": "weighted_sum3"
@@ -234,7 +234,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional3",
-                                "value": 300.0,
+                                "value": 300,
                                 "links": {
                                     "0": "subtract3"
                                 },
@@ -252,16 +252,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum6",
-                                "value": 30.0,
+                                "value": 30,
                                 "links": {
                                     "0": "proportional6",
                                     "1": "proportional7",
                                     "2": "proportional8"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -269,16 +269,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum5",
-                                "value": 0.0,
+                                "value": 0,
                                 "links": {
                                     "0": "variable",
                                     "1": "variable1",
                                     "2": "variable2"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -286,7 +286,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract4",
-                                "value": 30.0,
+                                "value": 30,
                                 "links": {
                                     "0": "weighted_sum6",
                                     "1": "weighted_sum5"
@@ -297,7 +297,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional4",
-                                "value": 300.0,
+                                "value": 300,
                                 "links": {
                                     "0": "subtract4"
                                 },
@@ -315,16 +315,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum8",
-                                "value": 30.0,
+                                "value": 30,
                                 "links": {
                                     "0": "proportional6",
                                     "1": "proportional7",
                                     "2": "proportional8"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -332,16 +332,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum7",
-                                "value": 0.0,
+                                "value": 0,
                                 "links": {
                                     "0": "variable",
                                     "1": "variable1",
                                     "2": "variable2"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -349,7 +349,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract5",
-                                "value": 30.0,
+                                "value": 30,
                                 "links": {
                                     "0": "weighted_sum8",
                                     "1": "weighted_sum7"
@@ -360,7 +360,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional5",
-                                "value": 300.0,
+                                "value": 300,
                                 "links": {
                                     "0": "subtract5"
                                 },
@@ -391,16 +391,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum9",
-                                "value": 0.0,
+                                "value": 0,
                                 "links": {
                                     "0": "weighted_sum3",
                                     "1": "weighted_sum5",
                                     "2": "weighted_sum7"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -408,7 +408,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract6",
-                                "value": 1.0,
+                                "value": 1,
                                 "links": {
                                     "0": "constant",
                                     "1": "weighted_sum9"
@@ -419,7 +419,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional6",
-                                "value": 10.0,
+                                "value": 10,
                                 "links": {
                                     "0": "subtract6"
                                 },
@@ -445,16 +445,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum10",
-                                "value": 0.0,
+                                "value": 0,
                                 "links": {
                                     "0": "weighted_sum3",
                                     "1": "weighted_sum5",
                                     "2": "weighted_sum7"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -462,7 +462,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract7",
-                                "value": 1.0,
+                                "value": 1,
                                 "links": {
                                     "0": "constant1",
                                     "1": "weighted_sum10"
@@ -473,7 +473,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional7",
-                                "value": 10.0,
+                                "value": 10,
                                 "links": {
                                     "0": "subtract7"
                                 },
@@ -499,16 +499,16 @@
                             "0": {
                                 "type": "WeightedSum",
                                 "name": "weighted_sum11",
-                                "value": 0.0,
+                                "value": 0,
                                 "links": {
                                     "0": "weighted_sum3",
                                     "1": "weighted_sum5",
                                     "2": "weighted_sum7"
                                 },
                                 "weights": [
-                                    1.0,
-                                    1.0,
-                                    1.0
+                                    1,
+                                    1,
+                                    1
                                 ]
                             }
                         },
@@ -516,7 +516,7 @@
                             "0": {
                                 "type": "Subtract",
                                 "name": "subtract8",
-                                "value": 1.0,
+                                "value": 1,
                                 "links": {
                                     "0": "constant2",
                                     "1": "weighted_sum11"
@@ -527,7 +527,7 @@
                             "0": {
                                 "type": "Proportional",
                                 "name": "proportional8",
-                                "value": 10.0,
+                                "value": 10,
                                 "links": {
                                     "0": "subtract8"
                                 },

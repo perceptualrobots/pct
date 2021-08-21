@@ -44,6 +44,21 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -152,15 +167,15 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x7ff1f0e47210&gt;,
-  &lt;pct.nodes.PCTNode at 0x7ff1f0e47f50&gt;,
-  &lt;pct.nodes.PCTNode at 0x7ff1f0e2ccd0&gt;],
- [&lt;pct.nodes.PCTNode at 0x7ff1f0d38410&gt;,
-  &lt;pct.nodes.PCTNode at 0x7ff1f0d38810&gt;,
-  &lt;pct.nodes.PCTNode at 0x7ff1f0d38b10&gt;],
- [&lt;pct.nodes.PCTNode at 0x7ff1f0d38e90&gt;,
-  &lt;pct.nodes.PCTNode at 0x7ff1f0c6fe50&gt;,
-  &lt;pct.nodes.PCTNode at 0x7ff1f0c6f210&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x7ff1f1b9f190&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f1b9f690&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f1b98e10&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7ff1f1b98750&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0d45b10&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0d45d50&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7ff1f0d45990&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0dfd210&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0dfd490&gt;]]</pre>
 </div>
 
 </div>
@@ -191,125 +206,101 @@ nb_path: "nbs/04_hierarchy.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>23 d0c384e6-0297-11ec-bb71-f3a3fc31a32d
-***  precon [&lt;pct.functions.Constant object at 0x7ff1f0e474d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 5, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;precon&#39;, &#39;decimal_places&#39;: 3}
-***  postcon [&lt;pct.functions.Constant object at 0x7ff1f0e47f90&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 10, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;postcon&#39;, &#39;decimal_places&#39;: 3}
-***  weighted_sum [&lt;pct.functions.WeightedSum object at 0x7ff1f0e47790&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38590&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38850&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38dd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level0col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f0e47210&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0e47210&gt;
-***  weighted_sum1 [&lt;pct.functions.WeightedSum object at 0x7ff1f0e47850&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38590&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38850&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38dd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level0col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f0e47f50&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0e47f50&gt;
-***  weighted_sum2 [&lt;pct.functions.WeightedSum object at 0x7ff1f0e2cb90&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38590&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38850&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38dd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum2&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level0col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f0e2ccd0&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0e2ccd0&gt;
-***  weighted_sum3 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;, &lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum3&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  weighted_sum4 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d384d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38710&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f190&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f4d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum4&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level1col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d38410&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0d38410&gt;
-***  weighted_sum5 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;, &lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum5&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  weighted_sum6 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38790&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38710&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f190&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f4d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum6&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level1col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d38810&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0d38810&gt;
-***  weighted_sum7 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;, &lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum7&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  weighted_sum8 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38a90&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38710&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f190&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f4d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum8&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level1col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d38b10&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0d38b10&gt;
-***  weighted_sum9 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38fd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum9&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level2col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d38e90&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0d38e90&gt;
-***  weighted_sum10 [&lt;pct.functions.WeightedSum object at 0x7ff1f0c6fe10&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum10&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level2col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f0c6fe50&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0c6fe50&gt;
-***  weighted_sum11 [&lt;pct.functions.WeightedSum object at 0x7ff1f0c6ff90&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum11&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
-***  level2col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f0c6f210&gt;]
-&lt;pct.nodes.PCTNode object at 0x7ff1f0c6f210&gt;
-1 d0c3922e-0297-11ec-bb71-f3a3fc31a32d
-***  variable [&lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3922e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable&#39;, &#39;decimal_places&#39;: 3}
-1 d0c39350-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0e47810&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39350-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0e47790&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c3940e-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0e47ad0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3940e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0e47810&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-1 d0c39544-0297-11ec-bb71-f3a3fc31a32d
-***  variable [&lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39544-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable&#39;, &#39;decimal_places&#39;: 3}
-1 d0c3959e-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0cb4f10&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3959e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0e47850&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c395f8-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0e47cd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c395f8-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0cb4f10&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-1 d0c396ca-0297-11ec-bb71-f3a3fc31a32d
-***  variable [&lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c396ca-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable&#39;, &#39;decimal_places&#39;: 3}
-1 d0c3972e-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d38150&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3972e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0e2cb90&gt;, &lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c3977e-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d381d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3977e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d38150&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-1 d0c39878-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d382d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39878-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d384d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c398d2-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d38590&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c398d2-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d382d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-1 d0c39a12-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d38950&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39a12-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38790&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c39a6c-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d38850&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39a6c-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d38950&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-1 d0c39b84-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d38f90&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39b84-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38a90&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c39bde-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d38dd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39bde-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d38f90&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-1 d0c39d8c-0297-11ec-bb71-f3a3fc31a32d
-***  constant [&lt;pct.functions.Constant object at 0x7ff1f0d38c90&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39d8c-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant&#39;, &#39;decimal_places&#39;: 3}
-1 d0c39df0-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d38bd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39df0-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0d38c90&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38fd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c39e40-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d38710&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39e40-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d38bd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-1 d0c39f4e-0297-11ec-bb71-f3a3fc31a32d
-***  constant [&lt;pct.functions.Constant object at 0x7ff1f0c6ff50&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39f4e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant&#39;, &#39;decimal_places&#39;: 3}
-1 d0c39fa8-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0c6f050&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c39fa8-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0c6ff50&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0c6fe10&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c3a002-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0c6f190&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3a002-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0c6f050&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-1 d0c3a124-0297-11ec-bb71-f3a3fc31a32d
-***  constant [&lt;pct.functions.Constant object at 0x7ff1f0c6f410&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3a124-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant&#39;, &#39;decimal_places&#39;: 3}
-1 d0c3a174-0297-11ec-bb71-f3a3fc31a32d
-***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0c6f450&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3a174-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0c6f410&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0c6ff90&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-1 d0c3a1ba-0297-11ec-bb71-f3a3fc31a32d
-***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0c6f4d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;d0c3a1ba-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0c6f450&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+<pre>47 709e5630-029d-11ec-bb71-f3a3fc31a32d
+***  precon [&lt;pct.functions.Constant object at 0x7ff1f0dad410&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 5, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;precon&#39;, &#39;decimal_places&#39;: 3}
+***  postcon [&lt;pct.functions.Constant object at 0x7ff1f1b93f90&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 10, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;postcon&#39;, &#39;decimal_places&#39;: 3}
+***  weighted_sum [&lt;pct.functions.WeightedSum object at 0x7ff1f1b9f310&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d45d90&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d45dd0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d45050&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level0col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f1b9f190&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f1b9f190&gt;
+***  variable [&lt;pct.functions.Variable object at 0x7ff1f1b9f1d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable&#39;, &#39;decimal_places&#39;: 3}
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f1b9f050&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f1b9f310&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b9f1d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f1b9f6d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f1b9f050&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+***  weighted_sum1 [&lt;pct.functions.WeightedSum object at 0x7ff1f1b9f590&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d45d90&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d45dd0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d45050&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level0col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f1b9f690&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f1b9f690&gt;
+***  variable1 [&lt;pct.functions.Variable object at 0x7ff1f1b98f10&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable1&#39;, &#39;decimal_places&#39;: 3}
+***  subtract1 [&lt;pct.functions.Subtract object at 0x7ff1f1b98b90&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f1b9f590&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b98f10&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract1&#39;, &#39;decimal_places&#39;: 3}
+***  proportional1 [&lt;pct.functions.Proportional object at 0x7ff1f1b98d90&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f1b98b90&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional1&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+***  weighted_sum2 [&lt;pct.functions.WeightedSum object at 0x7ff1f1b98c10&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d45d90&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d45dd0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d45050&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum2&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level0col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f1b98e10&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f1b98e10&gt;
+***  variable2 [&lt;pct.functions.Variable object at 0x7ff1f1b98990&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable2&#39;, &#39;decimal_places&#39;: 3}
+***  subtract2 [&lt;pct.functions.Subtract object at 0x7ff1f1b98050&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f1b98c10&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b98990&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract2&#39;, &#39;decimal_places&#39;: 3}
+***  proportional2 [&lt;pct.functions.Proportional object at 0x7ff1f1b98350&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f1b98050&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional2&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+***  weighted_sum3 [&lt;pct.functions.WeightedSum object at 0x7ff1f1b98550&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f1b9f1d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b98f10&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b98990&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum3&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  weighted_sum4 [&lt;pct.functions.WeightedSum object at 0x7ff1f1b98b10&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0dfd0d0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0dfd3d0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0dfd990&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum4&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level1col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f1b98750&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f1b98750&gt;
+***  subtract3 [&lt;pct.functions.Subtract object at 0x7ff1f1b987d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f1b98b10&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f1b98550&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract3&#39;, &#39;decimal_places&#39;: 3}
+***  proportional3 [&lt;pct.functions.Proportional object at 0x7ff1f0d45d90&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f1b987d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+***  weighted_sum5 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d45e90&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f1b9f1d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b98f10&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b98990&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum5&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  weighted_sum6 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d459d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0dfd0d0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0dfd3d0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0dfd990&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum6&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level1col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d45b10&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0d45b10&gt;
+***  subtract4 [&lt;pct.functions.Subtract object at 0x7ff1f0d45390&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d459d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45e90&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract4&#39;, &#39;decimal_places&#39;: 3}
+***  proportional4 [&lt;pct.functions.Proportional object at 0x7ff1f0d45dd0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d45390&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional4&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+***  weighted_sum7 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d45ed0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f1b9f1d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b98f10&gt;, &lt;pct.functions.Variable object at 0x7ff1f1b98990&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum7&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  weighted_sum8 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d45e50&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0dfd0d0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0dfd3d0&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0dfd990&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum8&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level1col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d45d50&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0d45d50&gt;
+***  subtract5 [&lt;pct.functions.Subtract object at 0x7ff1f0d45ad0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d45e50&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45ed0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract5&#39;, &#39;decimal_places&#39;: 3}
+***  proportional5 [&lt;pct.functions.Proportional object at 0x7ff1f0d45050&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d45ad0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional5&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+***  weighted_sum9 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d45fd0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f1b98550&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45e90&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45ed0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum9&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level2col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d45990&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0d45990&gt;
+***  constant [&lt;pct.functions.Constant object at 0x7ff1f0dfd050&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant&#39;, &#39;decimal_places&#39;: 3}
+***  subtract6 [&lt;pct.functions.Subtract object at 0x7ff1f0dfd090&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0dfd050&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45fd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract6&#39;, &#39;decimal_places&#39;: 3}
+***  proportional6 [&lt;pct.functions.Proportional object at 0x7ff1f0dfd0d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0dfd090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional6&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+***  weighted_sum10 [&lt;pct.functions.WeightedSum object at 0x7ff1f0dfd190&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f1b98550&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45e90&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45ed0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum10&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level2col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f0dfd210&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0dfd210&gt;
+***  constant1 [&lt;pct.functions.Constant object at 0x7ff1f0dfd2d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant1&#39;, &#39;decimal_places&#39;: 3}
+***  subtract7 [&lt;pct.functions.Subtract object at 0x7ff1f0dfd310&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0dfd2d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0dfd190&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract7&#39;, &#39;decimal_places&#39;: 3}
+***  proportional7 [&lt;pct.functions.Proportional object at 0x7ff1f0dfd3d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0dfd310&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional7&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+***  weighted_sum11 [&lt;pct.functions.WeightedSum object at 0x7ff1f0dfd590&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f1b98550&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45e90&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d45ed0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum11&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level2col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f0dfd490&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0dfd490&gt;
+***  constant2 [&lt;pct.functions.Constant object at 0x7ff1f0dfd710&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant2&#39;, &#39;decimal_places&#39;: 3}
+***  subtract8 [&lt;pct.functions.Subtract object at 0x7ff1f0dfd750&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0dfd710&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0dfd590&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract8&#39;, &#39;decimal_places&#39;: 3}
+***  proportional8 [&lt;pct.functions.Proportional object at 0x7ff1f0dfd990&gt;]
+{&#39;namespace&#39;: UUID(&#39;709e5630-029d-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0dfd750&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional8&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
 </pre>
 </div>
 </div>
@@ -348,7 +339,7 @@ nb_path: "nbs/04_hierarchy.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;, &#39;name&#39;: &#39;pcthierarchy&#39;, &#39;pre&#39;: {&#39;pre0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;precon&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}}}, &#39;levels&#39;: {&#39;level0&#39;: {&#39;level&#39;: 0, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;variable&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum1&#39;, 1: &#39;variable&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum2&#39;, 1: &#39;variable&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}}}, &#39;level1&#39;: {&#39;level&#39;: 1, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable&#39;, 2: &#39;variable&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum4&#39;, 1: &#39;weighted_sum3&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum6&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum5&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable&#39;, 2: &#39;variable&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum6&#39;, 1: &#39;weighted_sum5&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum8&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional&#39;, 1: &#39;proportional&#39;, 2: &#39;proportional&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable&#39;, 2: &#39;variable&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum8&#39;, 1: &#39;weighted_sum7&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}}}, &#39;level2&#39;: {&#39;level&#39;: 2, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum9&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum9&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum10&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum10&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum11&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum11&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}}}}, &#39;post&#39;: {&#39;post0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;postcon&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}}}}
+<pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;, &#39;name&#39;: &#39;pcthierarchy&#39;, &#39;pre&#39;: {&#39;pre0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;precon&#39;, &#39;value&#39;: 5, &#39;links&#39;: {}}}, &#39;levels&#39;: {&#39;level0&#39;: {&#39;level&#39;: 0, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;variable&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum1&#39;, 1: &#39;variable1&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract1&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level0col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;variable2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum2&#39;, 1: &#39;variable2&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract2&#39;}, &#39;gain&#39;: 1}}}}}}, &#39;level1&#39;: {&#39;level&#39;: 1, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum4&#39;, 1: &#39;weighted_sum3&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional3&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract3&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum6&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum5&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum6&#39;, 1: &#39;weighted_sum5&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional4&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract4&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level1col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum8&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract5&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum8&#39;, 1: &#39;weighted_sum7&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional5&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract5&#39;}, &#39;gain&#39;: 1}}}}}}, &#39;level2&#39;: {&#39;level&#39;: 2, &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col0&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum9&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract6&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum9&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional6&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract6&#39;}, &#39;gain&#39;: 1}}}}, &#39;col1&#39;: {&#39;col&#39;: 1, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col1&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant1&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum10&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;weighted_sum10&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional7&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract7&#39;}, &#39;gain&#39;: 1}}}}, &#39;col2&#39;: {&#39;col&#39;: 2, &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;level2col2&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant2&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;, &#39;name&#39;: &#39;weighted_sum11&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;}, &#39;weights&#39;: [1, 1, 1, 1, 1]}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract8&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;weighted_sum11&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional8&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract8&#39;}, &#39;gain&#39;: 1}}}}}}}, &#39;post&#39;: {&#39;post0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;postcon&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}}}}
 </pre>
 </div>
 </div>
@@ -370,81 +361,6 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-11-72f7b13a5aef&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>h <span class="ansi-blue-fg">=</span> PCTHierarchy<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-7-c7c5e88f9b7d&gt;</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
-<span class="ansi-green-intense-fg ansi-bold">    540</span>             cols <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    541</span>             <span class="ansi-green-fg">for</span> nodes_key <span class="ansi-green-fg">in</span> config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;levels&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>level_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;nodes&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 542</span><span class="ansi-red-fg">                 </span>node <span class="ansi-blue-fg">=</span> PCTNode<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;levels&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>level_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;nodes&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>nodes_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;node&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    543</span>                 cols<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    544</span>             hpct<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>cols<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
-<span class="ansi-green-intense-fg ansi-bold">    455</span>         collection <span class="ansi-blue-fg">=</span> node<span class="ansi-blue-fg">.</span>referenceCollection
-<span class="ansi-green-intense-fg ansi-bold">    456</span>         coll_dict <span class="ansi-blue-fg">=</span> config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;refcoll&#39;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">--&gt; 457</span><span class="ansi-red-fg">         </span>PCTNode<span class="ansi-blue-fg">.</span>collection_from_config<span class="ansi-blue-fg">(</span>collection<span class="ansi-blue-fg">,</span> coll_dict<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    458</span> 
-<span class="ansi-green-intense-fg ansi-bold">    459</span>         node<span class="ansi-blue-fg">.</span>perceptionCollection <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">collection_from_config</span><span class="ansi-blue-fg">(node, collection, coll_dict, namespace)</span>
-<span class="ansi-green-intense-fg ansi-bold">    485</span>             fnname <span class="ansi-blue-fg">=</span> fndict<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;type&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    486</span>             <span class="ansi-red-fg">#print(fndict)</span>
-<span class="ansi-green-fg">--&gt; 487</span><span class="ansi-red-fg">             </span>func <span class="ansi-blue-fg">=</span> eval<span class="ansi-blue-fg">(</span>fnname<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>fndict<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    488</span>             collection<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    489</span> 
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
-<span class="ansi-green-intense-fg ansi-bold">    359</span>     <span class="ansi-blue-fg">@</span>classmethod
-<span class="ansi-green-intense-fg ansi-bold">    360</span>     <span class="ansi-green-fg">def</span> from_config<span class="ansi-blue-fg">(</span>cls<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 361</span><span class="ansi-red-fg">         </span>func <span class="ansi-blue-fg">=</span> cls<span class="ansi-blue-fg">(</span>new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>config<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    362</span>         <span class="ansi-green-fg">return</span> func
-<span class="ansi-green-intense-fg ansi-bold">    363</span> 
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, weights, value, name, links, new_name, usenumpy, namespace, **cargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    682</span>     <span class="ansi-blue-fg">&#34;A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions.&#34;</span>
-<span class="ansi-green-intense-fg ansi-bold">    683</span>     <span class="ansi-green-fg">def</span> __init__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> weights<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;weighted_sum&#34;</span><span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> usenumpy<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>cargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 684</span><span class="ansi-red-fg">         </span>super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">,</span> new_name<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    685</span>         <span class="ansi-green-fg">if</span> usenumpy<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    686</span>             <span class="ansi-green-fg">if</span> isinstance<span class="ansi-blue-fg">(</span>weights<span class="ansi-blue-fg">,</span> list<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, name, value, links, new_name, namespace)</span>
-<span class="ansi-green-intense-fg ansi-bold">     43</span>         self<span class="ansi-blue-fg">.</span>value <span class="ansi-blue-fg">=</span> value
-<span class="ansi-green-intense-fg ansi-bold">     44</span>         self<span class="ansi-blue-fg">.</span>links <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">---&gt; 45</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>handle_links<span class="ansi-blue-fg">(</span>links<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     46</span>         self<span class="ansi-blue-fg">.</span>checklinks<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">     47</span> 
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">handle_links</span><span class="ansi-blue-fg">(self, links)</span>
-<span class="ansi-green-intense-fg ansi-bold">     86</span>                 <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>links<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">&gt;</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     87</span>                     <span class="ansi-green-fg">for</span> key <span class="ansi-green-fg">in</span> links<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 88</span><span class="ansi-red-fg">                         </span>self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>FunctionsList<span class="ansi-blue-fg">.</span>getInstance<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>get_function<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>namespace<span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     89</span>                 <span class="ansi-green-fg">return</span>
-<span class="ansi-green-intense-fg ansi-bold">     90</span> 
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/putils.py</span> in <span class="ansi-cyan-fg">get_function</span><span class="ansi-blue-fg">(self, namespace, name)</span>
-<span class="ansi-green-intense-fg ansi-bold">    111</span>                 func <span class="ansi-blue-fg">=</span> namespace_list<span class="ansi-blue-fg">[</span>name<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    112</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 113</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;Function {name} does not exist in namespace {namespace}&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    114</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    115</span>             func <span class="ansi-blue-fg">=</span> name
-
-<span class="ansi-red-fg">Exception</span>: Function proportional does not exist in namespace d0c384e6-0297-11ec-bb71-f3a3fc31a32d</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -495,6 +411,90 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>pcthierarchy PCTHierarchy
+**************************
+PRE: precon Constant | 5 
+Level 0 Cols 3
+level0col0 PCTNode
+----------------------------
+REF: weighted_sum WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable Variable | 0 
+COM: subtract Subtract | 0 | links  weighted_sum variable 
+OUT: proportional Proportional | gain 10 | 0 | links  subtract 
+----------------------------
+level0col1 PCTNode
+----------------------------
+REF: weighted_sum1 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable1 Variable | 0 
+COM: subtract1 Subtract | 0 | links  weighted_sum1 variable1 
+OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
+----------------------------
+level0col2 PCTNode
+----------------------------
+REF: weighted_sum2 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable2 Variable | 0 
+COM: subtract2 Subtract | 0 | links  weighted_sum2 variable2 
+OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
+----------------------------
+Level 1 Cols 3
+level1col0 PCTNode
+----------------------------
+REF: weighted_sum4 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum3 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract3 Subtract | 0 | links  weighted_sum4 weighted_sum3 
+OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
+----------------------------
+level1col1 PCTNode
+----------------------------
+REF: weighted_sum6 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum5 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract4 Subtract | 0 | links  weighted_sum6 weighted_sum5 
+OUT: proportional4 Proportional | gain 10 | 0 | links  subtract4 
+----------------------------
+level1col2 PCTNode
+----------------------------
+REF: weighted_sum8 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum7 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract5 Subtract | 0 | links  weighted_sum8 weighted_sum7 
+OUT: proportional5 Proportional | gain 10 | 0 | links  subtract5 
+----------------------------
+Level 2 Cols 3
+level2col0 PCTNode
+----------------------------
+REF: constant Constant | 1 
+PER: weighted_sum9 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract6 Subtract | 0 | links  constant weighted_sum9 
+OUT: proportional6 Proportional | gain 10 | 0 | links  subtract6 
+----------------------------
+level2col1 PCTNode
+----------------------------
+REF: constant1 Constant | 1 
+PER: weighted_sum10 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract7 Subtract | 0 | links  constant1 weighted_sum10 
+OUT: proportional7 Proportional | gain 10 | 0 | links  subtract7 
+----------------------------
+level2col2 PCTNode
+----------------------------
+REF: constant2 Constant | 1 
+PER: weighted_sum11 WeightedSum | weights [1, 1, 1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract8 Subtract | 0 | links  constant2 weighted_sum11 
+OUT: proportional8 Proportional | gain 10 | 0 | links  subtract8 
+----------------------------
+POST: postcon Constant | 10 
+**************************
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -516,6 +516,226 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;type&#39;: &#39;PCTHierarchy&#39;,
+ &#39;name&#39;: &#39;pcthierarchy&#39;,
+ &#39;pre&#39;: {&#39;pre0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+   &#39;name&#39;: &#39;precon&#39;,
+   &#39;value&#39;: 5,
+   &#39;links&#39;: {}}},
+ &#39;levels&#39;: {&#39;level0&#39;: {&#39;level&#39;: 0,
+   &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level0col0&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum&#39;, 1: &#39;variable&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col1&#39;: {&#39;col&#39;: 1,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level0col1&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum1&#39;, 1: &#39;variable1&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional1&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract1&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col2&#39;: {&#39;col&#39;: 2,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level0col2&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum2&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional3&#39;, 1: &#39;proportional4&#39;, 2: &#39;proportional5&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
+        &#39;name&#39;: &#39;variable2&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {}}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract2&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum2&#39;, 1: &#39;variable2&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional2&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract2&#39;},
+        &#39;gain&#39;: 10}}}}}},
+  &#39;level1&#39;: {&#39;level&#39;: 1,
+   &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level1col0&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum4&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum3&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract3&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum4&#39;, 1: &#39;weighted_sum3&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional3&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract3&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col1&#39;: {&#39;col&#39;: 1,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level1col1&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum6&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum5&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract4&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum6&#39;, 1: &#39;weighted_sum5&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional4&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract4&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col2&#39;: {&#39;col&#39;: 2,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level1col2&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum8&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;proportional6&#39;, 1: &#39;proportional7&#39;, 2: &#39;proportional8&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum7&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;variable&#39;, 1: &#39;variable1&#39;, 2: &#39;variable2&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract5&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum8&#39;, 1: &#39;weighted_sum7&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional5&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract5&#39;},
+        &#39;gain&#39;: 10}}}}}},
+  &#39;level2&#39;: {&#39;level&#39;: 2,
+   &#39;nodes&#39;: {&#39;col0&#39;: {&#39;col&#39;: 0,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level2col0&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+        &#39;name&#39;: &#39;constant&#39;,
+        &#39;value&#39;: 1,
+        &#39;links&#39;: {}}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum9&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract6&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;constant&#39;, 1: &#39;weighted_sum9&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional6&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract6&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col1&#39;: {&#39;col&#39;: 1,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level2col1&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+        &#39;name&#39;: &#39;constant1&#39;,
+        &#39;value&#39;: 1,
+        &#39;links&#39;: {}}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum10&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract7&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;constant1&#39;, 1: &#39;weighted_sum10&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional7&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract7&#39;},
+        &#39;gain&#39;: 10}}}},
+    &#39;col2&#39;: {&#39;col&#39;: 2,
+     &#39;node&#39;: {&#39;type&#39;: &#39;PCTNode&#39;,
+      &#39;name&#39;: &#39;level2col2&#39;,
+      &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+        &#39;name&#39;: &#39;constant2&#39;,
+        &#39;value&#39;: 1,
+        &#39;links&#39;: {}}},
+      &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;WeightedSum&#39;,
+        &#39;name&#39;: &#39;weighted_sum11&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;weighted_sum3&#39;, 1: &#39;weighted_sum5&#39;, 2: &#39;weighted_sum7&#39;},
+        &#39;weights&#39;: [1, 1, 1, 1, 1]}},
+      &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
+        &#39;name&#39;: &#39;subtract8&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;constant2&#39;, 1: &#39;weighted_sum11&#39;}}},
+      &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;,
+        &#39;name&#39;: &#39;proportional8&#39;,
+        &#39;value&#39;: 0,
+        &#39;links&#39;: {0: &#39;subtract8&#39;},
+        &#39;gain&#39;: 10}}}}}}},
+ &#39;post&#39;: {&#39;post0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
+   &#39;name&#39;: &#39;postcon&#39;,
+   &#39;value&#39;: 10,
+   &#39;links&#39;: {}}}}</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -541,6 +761,20 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;postcon&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}}
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -608,6 +842,54 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>5.000 
+level0col0 </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-28-de5361fe1b8e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>hpct<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-18-c7c5e88f9b7d&gt;</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
+<span class="ansi-green-intense-fg ansi-bold">     77</span>                     <span class="ansi-green-fg">if</span> verbose<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     78</span>                         print<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">.</span>get_name<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> end <span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34; &#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 79</span><span class="ansi-red-fg">                     </span>node<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     80</span>         <span class="ansi-green-fg">elif</span> self<span class="ansi-blue-fg">.</span>order<span class="ansi-blue-fg">==</span><span class="ansi-blue-fg">&#34;Down&#34;</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     81</span>             <span class="ansi-green-fg">for</span> level <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
+<span class="ansi-green-intense-fg ansi-bold">     71</span> 
+<span class="ansi-green-intense-fg ansi-bold">     72</span>         <span class="ansi-green-fg">for</span> referenceFunction <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>referenceCollection<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 73</span><span class="ansi-red-fg">             </span>referenceFunction<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     74</span> 
+<span class="ansi-green-intense-fg ansi-bold">     75</span>         <span class="ansi-green-fg">for</span> perceptionFunction <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>perceptionCollection<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
+<span class="ansi-green-intense-fg ansi-bold">    740</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    741</span>             <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">!=</span> len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>weights<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 742</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;Number of links {len(self.links)} and weights {len(self.weights)} for function {self.name} must be the same.&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    743</span> 
+<span class="ansi-green-intense-fg ansi-bold">    744</span>         super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>check_links<span class="ansi-blue-fg">(</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">Exception</span>: Number of links 3 and weights 5 for function weighted_sum must be the same.</pre>
+</div>
+</div>
+
 </div>
 </div>
 

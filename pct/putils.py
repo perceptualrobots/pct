@@ -248,7 +248,7 @@ def dot(inputs, weights):
 
 # Cell
 def list_of_ones(num):
-    x = [1 for _ in range(5) ]
+    x = [1 for _ in range(num) ]
     return x
 
 # Cell

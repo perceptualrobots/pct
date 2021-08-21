@@ -647,7 +647,7 @@ nb_path: "nbs/01_putils.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">list_of_ones</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">list_of_ones</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -659,9 +659,20 @@ nb_path: "nbs/01_putils.ipynb"
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[1, 1, 1, 1, 1]
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-32-1ae579f1f593&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>list_of_ones<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-31-a7790f0df0d2&gt;</span> in <span class="ansi-cyan-fg">list_of_ones</span><span class="ansi-blue-fg">(num)</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg">#export</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">def</span> list_of_ones<span class="ansi-blue-fg">(</span>num<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg">     </span>x <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span> <span class="ansi-green-fg">for</span> _ <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>num<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     <span class="ansi-green-fg">return</span> x
+
+<span class="ansi-red-fg">TypeError</span>: &#39;int&#39; object is not callable</pre>
 </div>
 </div>
 
