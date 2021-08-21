@@ -128,7 +128,7 @@ class PCTHierarchy():
             for node_name in self.order:
                 if verbose:
                     print(node_name, end =" ")
-                FunctionsList.getInstance().get_function(node_name)(verbose)
+                FunctionsList.getInstance().get_function(self.namespace, node_name)(verbose)
 
         for func in self.postCollection:
             func(verbose)
@@ -367,8 +367,8 @@ class PCTHierarchy():
     def set_suffixes(self):
 
         # change names
-        for key in FunctionsList.getInstance().functions.keys():
-            func = FunctionsList.getInstance().get_function(key)
+        for key in FunctionsList.getInstance().functions[self.namespace].keys():
+            func = FunctionsList.getInstance().get_function(self.namespace, key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
                 #print(name)
@@ -376,13 +376,13 @@ class PCTHierarchy():
                 func.name = name+suffix
                 self.change_link_name(key, func.name)
 
-        keys = list(FunctionsList.getInstance().functions.keys())
+        keys = list(FunctionsList.getInstance().functions[self.namespace].keys())
         for key in keys:
-            func = FunctionsList.getInstance().get_function(key)
+            func = FunctionsList.getInstance().get_function(self.namespace,key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
                 #print(key, name)
-                FunctionsList.getInstance().functions[name] = FunctionsList.getInstance().functions.pop(key)
+                FunctionsList.getInstance().functions[self.namespace][name] = FunctionsList.getInstance().functions[self.namespace].pop(key)
 
 
     def get_levels(self):
@@ -520,13 +520,13 @@ class PCTHierarchy():
         f.close()
 
     @classmethod
-    def load(cls, file, clear=True):
+    def load(cls, file, clear=True, namespace=None):
         if clear:
             FunctionsList.getInstance().clear()
 
         with open(file) as f:
             config = json.load(f)
-        return cls.from_config(config)
+        return cls.from_config(config, namespace=namespace)
 
     def get_config(self):
         config = {"type": type(self).__name__,
@@ -610,14 +610,14 @@ class PCTHierarchy():
         return self.hierarchy[level][col].get_function(collection, position)
 
     def set_links(self, func_name, *link_names):
-        func = FunctionsList.getInstance().get_function(func_name)
+        func = FunctionsList.getInstance().get_function(self.namespace, func_name)
         func.clear_links()
         for link_name in link_names:
-            func.add_link(FunctionsList.getInstance().get_function(link_name))
+            func.add_link(FunctionsList.getInstance().get_function(self.namespace, link_name))
 
     def add_links(self, func_name, *link_names):
         for link_name in link_names:
-            FunctionsList.getInstance().get_function(func_name).add_link(FunctionsList.getInstance().get_function(link_name))
+            FunctionsList.getInstance().get_function(self.namespace, func_name).add_link(FunctionsList.getInstance().get_function(self.namespace, link_name))
 
 
     def get_history_data(self):
