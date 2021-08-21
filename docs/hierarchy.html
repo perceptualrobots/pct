@@ -44,21 +44,6 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -149,8 +134,9 @@ nb_path: "nbs/04_hierarchy.ipynb"
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pct.functions</span> <span class="kn">import</span> <span class="n">Constant</span>
 <span class="n">pre</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;precon&#39;</span><span class="p">)</span>
-<span class="n">post</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;postcon&#39;</span><span class="p">)</span>
-<span class="n">hpct</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">pre</span><span class="p">],</span> <span class="n">post</span><span class="o">=</span><span class="p">[</span><span class="n">post</span><span class="p">],</span> <span class="n">history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">clear_names</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">)</span>
+<span class="n">namespace</span><span class="o">=</span><span class="n">pre</span><span class="o">.</span><span class="n">namespace</span>
+<span class="n">post</span><span class="o">=</span><span class="n">Constant</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;postcon&#39;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
+<span class="n">hpct</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="p">[</span><span class="n">pre</span><span class="p">],</span> <span class="n">post</span><span class="o">=</span><span class="p">[</span><span class="n">post</span><span class="p">],</span> <span class="n">history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">clear_names</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">links</span><span class="o">=</span><span class="s2">&quot;dense&quot;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
 <span class="n">hpct</span><span class="o">.</span><span class="n">hierarchy</span>
 </pre></div>
 
@@ -166,17 +152,166 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x7feb7b69c8d0&gt;,
-  &lt;pct.nodes.PCTNode at 0x7feb7b69ce10&gt;,
-  &lt;pct.nodes.PCTNode at 0x7feb7b29edd0&gt;],
- [&lt;pct.nodes.PCTNode at 0x7feb7b29e750&gt;,
-  &lt;pct.nodes.PCTNode at 0x7feb7b530190&gt;,
-  &lt;pct.nodes.PCTNode at 0x7feb7b5304d0&gt;],
- [&lt;pct.nodes.PCTNode at 0x7feb7b5306d0&gt;,
-  &lt;pct.nodes.PCTNode at 0x7feb7b5309d0&gt;,
-  &lt;pct.nodes.PCTNode at 0x7feb7b558310&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x7ff1f0e47210&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0e47f50&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0e2ccd0&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7ff1f0d38410&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0d38810&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0d38b10&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7ff1f0d38e90&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0c6fe50&gt;,
+  &lt;pct.nodes.PCTNode at 0x7ff1f0c6f210&gt;]]</pre>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FunctionsList</span><span class="o">.</span><span class="n">getInstance</span><span class="p">()</span><span class="o">.</span><span class="n">report</span><span class="p">()</span>    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>23 d0c384e6-0297-11ec-bb71-f3a3fc31a32d
+***  precon [&lt;pct.functions.Constant object at 0x7ff1f0e474d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 5, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;precon&#39;, &#39;decimal_places&#39;: 3}
+***  postcon [&lt;pct.functions.Constant object at 0x7ff1f0e47f90&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 10, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;postcon&#39;, &#39;decimal_places&#39;: 3}
+***  weighted_sum [&lt;pct.functions.WeightedSum object at 0x7ff1f0e47790&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38590&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38850&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38dd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level0col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f0e47210&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0e47210&gt;
+***  weighted_sum1 [&lt;pct.functions.WeightedSum object at 0x7ff1f0e47850&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38590&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38850&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38dd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level0col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f0e47f50&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0e47f50&gt;
+***  weighted_sum2 [&lt;pct.functions.WeightedSum object at 0x7ff1f0e2cb90&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38590&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38850&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0d38dd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum2&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level0col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f0e2ccd0&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0e2ccd0&gt;
+***  weighted_sum3 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;, &lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum3&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  weighted_sum4 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d384d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38710&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f190&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f4d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum4&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level1col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d38410&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0d38410&gt;
+***  weighted_sum5 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;, &lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum5&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  weighted_sum6 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38790&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38710&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f190&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f4d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum6&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level1col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d38810&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0d38810&gt;
+***  weighted_sum7 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;, &lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum7&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  weighted_sum8 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38a90&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7ff1f0d38710&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f190&gt;, &lt;pct.functions.Proportional object at 0x7ff1f0c6f4d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum8&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level1col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d38b10&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0d38b10&gt;
+***  weighted_sum9 [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38fd0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum9&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level2col0 [&lt;pct.nodes.PCTNode object at 0x7ff1f0d38e90&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0d38e90&gt;
+***  weighted_sum10 [&lt;pct.functions.WeightedSum object at 0x7ff1f0c6fe10&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum10&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level2col1 [&lt;pct.nodes.PCTNode object at 0x7ff1f0c6fe50&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0c6fe50&gt;
+***  weighted_sum11 [&lt;pct.functions.WeightedSum object at 0x7ff1f0c6ff90&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c384e6-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum11&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1, 1, 1], &#39;usenumpy&#39;: False}
+***  level2col2 [&lt;pct.nodes.PCTNode object at 0x7ff1f0c6f210&gt;]
+&lt;pct.nodes.PCTNode object at 0x7ff1f0c6f210&gt;
+1 d0c3922e-0297-11ec-bb71-f3a3fc31a32d
+***  variable [&lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3922e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable&#39;, &#39;decimal_places&#39;: 3}
+1 d0c39350-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0e47810&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39350-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0e47790&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e478d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c3940e-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0e47ad0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3940e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0e47810&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+1 d0c39544-0297-11ec-bb71-f3a3fc31a32d
+***  variable [&lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39544-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable&#39;, &#39;decimal_places&#39;: 3}
+1 d0c3959e-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0cb4f10&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3959e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0e47850&gt;, &lt;pct.functions.Variable object at 0x7ff1f0e47d50&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c395f8-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0e47cd0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c395f8-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0cb4f10&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+1 d0c396ca-0297-11ec-bb71-f3a3fc31a32d
+***  variable [&lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c396ca-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable&#39;, &#39;decimal_places&#39;: 3}
+1 d0c3972e-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d38150&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3972e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0e2cb90&gt;, &lt;pct.functions.Variable object at 0x7ff1f0d38090&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c3977e-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d381d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3977e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d38150&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+1 d0c39878-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d382d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39878-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d384d0&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d380d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c398d2-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d38590&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c398d2-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d382d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+1 d0c39a12-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d38950&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39a12-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38790&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38290&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c39a6c-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d38850&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39a6c-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d38950&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+1 d0c39b84-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d38f90&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39b84-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7ff1f0d38a90&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d389d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c39bde-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d38dd0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39bde-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d38f90&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+1 d0c39d8c-0297-11ec-bb71-f3a3fc31a32d
+***  constant [&lt;pct.functions.Constant object at 0x7ff1f0d38c90&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39d8c-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant&#39;, &#39;decimal_places&#39;: 3}
+1 d0c39df0-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0d38bd0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39df0-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0d38c90&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0d38fd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c39e40-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0d38710&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39e40-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0d38bd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+1 d0c39f4e-0297-11ec-bb71-f3a3fc31a32d
+***  constant [&lt;pct.functions.Constant object at 0x7ff1f0c6ff50&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39f4e-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant&#39;, &#39;decimal_places&#39;: 3}
+1 d0c39fa8-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0c6f050&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c39fa8-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0c6ff50&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0c6fe10&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c3a002-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0c6f190&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3a002-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0c6f050&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+1 d0c3a124-0297-11ec-bb71-f3a3fc31a32d
+***  constant [&lt;pct.functions.Constant object at 0x7ff1f0c6f410&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3a124-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant&#39;, &#39;decimal_places&#39;: 3}
+1 d0c3a174-0297-11ec-bb71-f3a3fc31a32d
+***  subtract [&lt;pct.functions.Subtract object at 0x7ff1f0c6f450&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3a174-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7ff1f0c6f410&gt;, &lt;pct.functions.WeightedSum object at 0x7ff1f0c6ff90&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
+1 d0c3a1ba-0297-11ec-bb71-f3a3fc31a32d
+***  proportional [&lt;pct.functions.Proportional object at 0x7ff1f0c6f4d0&gt;]
+{&#39;namespace&#39;: UUID(&#39;d0c3a1ba-0297-11ec-bb71-f3a3fc31a32d&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7ff1f0c6f450&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
+</pre>
+</div>
 </div>
 
 </div>
@@ -231,7 +366,7 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">PCTHierarchy</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -246,18 +381,67 @@ nb_path: "nbs/04_hierarchy.ipynb"
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-30-526536cba263&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>h <span class="ansi-blue-fg">=</span> PCTHierarchy<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">)</span>
+<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-11-72f7b13a5aef&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>h <span class="ansi-blue-fg">=</span> PCTHierarchy<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-27-2edb34c1b700&gt;</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config)</span>
+<span class="ansi-green-fg">&lt;ipython-input-7-c7c5e88f9b7d&gt;</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
 <span class="ansi-green-intense-fg ansi-bold">    540</span>             cols <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
 <span class="ansi-green-intense-fg ansi-bold">    541</span>             <span class="ansi-green-fg">for</span> nodes_key <span class="ansi-green-fg">in</span> config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;levels&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>level_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;nodes&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
 <span class="ansi-green-fg">--&gt; 542</span><span class="ansi-red-fg">                 </span>node <span class="ansi-blue-fg">=</span> PCTNode<span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;levels&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>level_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;nodes&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>nodes_key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;node&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">    543</span>                 cols<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">    544</span>             hpct<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>cols<span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">TypeError</span>: from_config() got an unexpected keyword argument &#39;namespace&#39;</pre>
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
+<span class="ansi-green-intense-fg ansi-bold">    455</span>         collection <span class="ansi-blue-fg">=</span> node<span class="ansi-blue-fg">.</span>referenceCollection
+<span class="ansi-green-intense-fg ansi-bold">    456</span>         coll_dict <span class="ansi-blue-fg">=</span> config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;refcoll&#39;</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">--&gt; 457</span><span class="ansi-red-fg">         </span>PCTNode<span class="ansi-blue-fg">.</span>collection_from_config<span class="ansi-blue-fg">(</span>collection<span class="ansi-blue-fg">,</span> coll_dict<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    458</span> 
+<span class="ansi-green-intense-fg ansi-bold">    459</span>         node<span class="ansi-blue-fg">.</span>perceptionCollection <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/nodes.py</span> in <span class="ansi-cyan-fg">collection_from_config</span><span class="ansi-blue-fg">(node, collection, coll_dict, namespace)</span>
+<span class="ansi-green-intense-fg ansi-bold">    485</span>             fnname <span class="ansi-blue-fg">=</span> fndict<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;type&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    486</span>             <span class="ansi-red-fg">#print(fndict)</span>
+<span class="ansi-green-fg">--&gt; 487</span><span class="ansi-red-fg">             </span>func <span class="ansi-blue-fg">=</span> eval<span class="ansi-blue-fg">(</span>fnname<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>from_config<span class="ansi-blue-fg">(</span>fndict<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    488</span>             collection<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    489</span> 
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
+<span class="ansi-green-intense-fg ansi-bold">    359</span>     <span class="ansi-blue-fg">@</span>classmethod
+<span class="ansi-green-intense-fg ansi-bold">    360</span>     <span class="ansi-green-fg">def</span> from_config<span class="ansi-blue-fg">(</span>cls<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 361</span><span class="ansi-red-fg">         </span>func <span class="ansi-blue-fg">=</span> cls<span class="ansi-blue-fg">(</span>new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>config<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    362</span>         <span class="ansi-green-fg">return</span> func
+<span class="ansi-green-intense-fg ansi-bold">    363</span> 
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, weights, value, name, links, new_name, usenumpy, namespace, **cargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    682</span>     <span class="ansi-blue-fg">&#34;A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions.&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    683</span>     <span class="ansi-green-fg">def</span> __init__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> weights<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;weighted_sum&#34;</span><span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> usenumpy<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>cargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 684</span><span class="ansi-red-fg">         </span>super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">,</span> new_name<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    685</span>         <span class="ansi-green-fg">if</span> usenumpy<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    686</span>             <span class="ansi-green-fg">if</span> isinstance<span class="ansi-blue-fg">(</span>weights<span class="ansi-blue-fg">,</span> list<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, name, value, links, new_name, namespace)</span>
+<span class="ansi-green-intense-fg ansi-bold">     43</span>         self<span class="ansi-blue-fg">.</span>value <span class="ansi-blue-fg">=</span> value
+<span class="ansi-green-intense-fg ansi-bold">     44</span>         self<span class="ansi-blue-fg">.</span>links <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">---&gt; 45</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>handle_links<span class="ansi-blue-fg">(</span>links<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     46</span>         self<span class="ansi-blue-fg">.</span>checklinks<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span>
+<span class="ansi-green-intense-fg ansi-bold">     47</span> 
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">handle_links</span><span class="ansi-blue-fg">(self, links)</span>
+<span class="ansi-green-intense-fg ansi-bold">     86</span>                 <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>links<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">&gt;</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     87</span>                     <span class="ansi-green-fg">for</span> key <span class="ansi-green-fg">in</span> links<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 88</span><span class="ansi-red-fg">                         </span>self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>FunctionsList<span class="ansi-blue-fg">.</span>getInstance<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>get_function<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>namespace<span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">[</span>key<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     89</span>                 <span class="ansi-green-fg">return</span>
+<span class="ansi-green-intense-fg ansi-bold">     90</span> 
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/putils.py</span> in <span class="ansi-cyan-fg">get_function</span><span class="ansi-blue-fg">(self, namespace, name)</span>
+<span class="ansi-green-intense-fg ansi-bold">    111</span>                 func <span class="ansi-blue-fg">=</span> namespace_list<span class="ansi-blue-fg">[</span>name<span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">    112</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 113</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;Function {name} does not exist in namespace {namespace}&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    114</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    115</span>             func <span class="ansi-blue-fg">=</span> name
+
+<span class="ansi-red-fg">Exception</span>: Function proportional does not exist in namespace d0c384e6-0297-11ec-bb71-f3a3fc31a32d</pre>
 </div>
 </div>
 

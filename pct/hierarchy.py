@@ -561,8 +561,8 @@ class PCTHierarchy():
 
 
     @classmethod
-    def from_config(cls, config):
-        hpct = PCTHierarchy(name=config['name'])
+    def from_config(cls, config, namespace=None):
+        hpct = PCTHierarchy(name=config['name'], namespace=namespace)
         namespace = hpct.namespace
         preCollection = []
         coll_dict = config['pre']

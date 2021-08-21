@@ -378,6 +378,13 @@ class FunctionFactory:
         return FunctionFactory.factories[id].create()
     createFunction = staticmethod(createFunction)
 
+    def createFunctionWithNamespace(id, namespace=None):
+        if not FunctionFactory.factories.__contains__(id):
+            FunctionFactory.factories[id] = \
+              eval(id + f'.FactoryWithNamespace()')
+        return FunctionFactory.factories[id].create(namespace=namespace)
+    createFunctionWithNamespace = staticmethod(createFunctionWithNamespace)
+
 # Cell
 class Subtract(BaseFunction):
     "A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted."
@@ -399,6 +406,10 @@ class Subtract(BaseFunction):
 
     class Factory:
         def create(self): return Subtract()
+
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Subtract(namespace=namespace)
+
 
 # Cell
 class Proportional(BaseFunction):
@@ -427,6 +438,10 @@ class Proportional(BaseFunction):
     class Factory:
         def create(self): return Proportional()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Proportional(namespace=namespace)
+
+
 # Cell
 class Variable(BaseFunction):
     "A function that returns a variable value. Parameter: The variable value. Links: None"
@@ -449,6 +464,8 @@ class Variable(BaseFunction):
     class Factory:
         def create(self): return Variable()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Variable(namespace=namespace)
 
 
 # Cell
@@ -472,6 +489,8 @@ class PassOn(BaseFunction):
     class Factory:
         def create(self): return PassOn()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return PassOn(namespace=namespace)
 
 
 # Cell
@@ -507,6 +526,8 @@ class GreaterThan(BaseFunction):
     class Factory:
         def create(self): return GreaterThan()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return GreaterThan(namespace=namespace)
 
 
 # Cell
@@ -547,6 +568,9 @@ class Constant(BaseFunction):
 
     class Factory:
         def create(self): return Constant()
+
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Constant(namespace=namespace)
 
 
 # Cell
@@ -593,6 +617,10 @@ class Step(BaseFunction):
     class Factory:
         def create(self): return Step()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Step(namespace=namespace)
+
+
 # Cell
 class Integration(BaseFunction):
     "A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: One."
@@ -619,6 +647,9 @@ class Integration(BaseFunction):
 
     class Factory:
         def create(self): return Integration()
+
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Integration(namespace=namespace)
 
 
 # Cell
@@ -650,6 +681,10 @@ class IntegrationDual(BaseFunction):
     class Factory:
         def create(self): return IntegrationDual()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return IntegrationDual(namespace=namespace)
+
+
 # Cell
 class Sigmoid(BaseFunction):
     "A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and scale (slope) values. Links: One."
@@ -676,6 +711,10 @@ class Sigmoid(BaseFunction):
 
     class Factory:
         def create(self): return Sigmoid()
+
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Sigmoid(namespace=namespace)
+
 
 # Cell
 class WeightedSum(BaseFunction):
@@ -808,6 +847,10 @@ class WeightedSum(BaseFunction):
     class Factory:
         def create(self): return WeightedSum()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return WeightedSum(namespace=namespace)
+
+
 # Cell
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
@@ -916,6 +959,10 @@ class SmoothWeightedSum(BaseFunction):
     class Factory:
         def create(self): return SmoothWeightedSum()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return SmoothWeightedSum(namespace=namespace)
+
+
 # Cell
 class IndexedParameter(BaseFunction):
     "A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One."
@@ -940,3 +987,6 @@ class IndexedParameter(BaseFunction):
 
     class Factory:
         def create(self): return IndexedParameter()
+
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return IndexedParameter(namespace=namespace)

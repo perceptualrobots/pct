@@ -47,43 +47,19 @@ class PCTNode():
         FunctionsList.getInstance().add_function(self.namespace, self)
         if default:
             if perception==None:
-                perception = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION))
-                """
-                if mode >0 :
-                     perception =  WeightedSum()
-                else:
-                     perception =  Variable(0)
-                """
+                perception = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION), namespace=namespace)
             self.perceptionCollection = [perception]
 
             if reference==None:
-                reference = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.REFERENCE))
-                """
-                if mode == 1 or mode == 3 or mode == 6:
-                    reference =  WeightedSum()
-                elif mode ==0 or mode == 2 or mode == 4 or mode == 5:
-                    reference = Constant(1)
-                """
+                reference = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.REFERENCE), namespace=namespace)
             self.referenceCollection = [reference]
 
             if comparator==None:
-                comparator = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.COMPARATOR))
-                """
-                comparator = Subtract()
-                """
+                comparator = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.COMPARATOR), namespace=namespace)
             self.comparatorCollection = [comparator]
 
             if output==None:
-                output = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.OUTPUT))
-                """
-                if mode >2 and mode < 5:
-                    output =  WeightedSum()
-                elif mode == 6:
-                    output =  SmoothWeightedSum()
-                else:
-                    output = Proportional(10)
-
-                """
+                output = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.OUTPUT), namespace=namespace)
             self.outputCollection = [output]
 
             if build_links:
