@@ -3,8 +3,9 @@
 __all__ = ['FunctionsData', 'PCTHierarchy']
 
 # Cell
-import numpy as np
+#import numpy as np
 import sys
+import uuid
 from .nodes import PCTNode
 from .functions import WeightedSum
 from .putils import UniqueNamer
@@ -42,14 +43,18 @@ class FunctionsData():
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
     def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single",
-                 history=False, build=True, error_collector=None, **pargs):
+                 history=False, build=True, error_collector=None, namespace=None, **pargs):
+        if namespace ==None:
+            namespace = uuid.uuid1()
+        self.namespace=namespace
+
         self.error_collector=error_collector
         self.links_built = False
         self.order=None
         self.history=history
         if clear_names:
             UniqueNamer.getInstance().clear()
-        self.name=UniqueNamer.getInstance().get_name(name)
+        self.name=UniqueNamer.getInstance().get_name(namespace=namespace, name=name)
         if pre==None:
             self.preCollection=[]
         else:
@@ -68,21 +73,21 @@ class PCTHierarchy():
             for c in range(cols):
                 if links == "dense":
                     if r > 0:
-                        perc = WeightedSum(weights=np.ones(cols))
+                        perc = WeightedSum(weights=np.ones(cols), namespace=namespace)
                     if r < levels-1:
-                        ref = WeightedSum(weights=np.ones(cols))
+                        ref = WeightedSum(weights=np.ones(cols), namespace=namespace)
                     if r == 0:
                         if levels > 1:
-                            node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history)
+                            node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history, namespace=namespace)
                         else:
-                            node = PCTNode(name=f'level{r}col{c}', history=history)
+                            node = PCTNode(name=f'level{r}col{c}', history=history, namespace=namespace)
                     if r > 0 and r == levels-1:
-                        node = PCTNode(perception=perc, name=f'level{r}col{c}', history=history)
+                        node = PCTNode(perception=perc, name=f'level{r}col{c}', history=history, namespace=namespace)
                     if r > 0 and r < levels-1:
-                        node = PCTNode(perception=perc, reference=ref, history=history, name=f'level{r}col{c}')
+                        node = PCTNode(perception=perc, reference=ref, history=history, name=f'level{r}col{c}', namespace=namespace)
 
                 else:
-                    node = PCTNode(name=f'level{r}col{c}', history=history)
+                    node = PCTNode(name=f'level{r}col{c}', history=history, namespace=namespace)
 
                 if build:
                     node.build_links()

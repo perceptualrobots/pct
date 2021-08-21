@@ -351,10 +351,10 @@ class BaseFunction(ABC):
         f.close()
 
     @classmethod
-    def load(cls, file, namespace=None):
+    def load(cls, file):
         with open(file) as f:
             config = json.load(f)
-        return cls.from_config(config, namespace=namespace)
+        return cls.from_config(config)
 
     @classmethod
     def from_config(cls, config=None, namespace=None):

@@ -2,7 +2,7 @@
 
 __all__ = ['UniqueNamer', 'FunctionsList', 'dynamic_module_import', 'dynamic_class_load', 'get_drive', 'get_gdrive',
            'Counter', 'stringIntListToListOfInts', 'stringFloatListToListOfFloats', 'stringListToListOfStrings',
-           'listNumsToString', 'sigmoid', 'smooth', 'dot', 'show_video', 'wrap_env', 'is_in_notebooks']
+           'listNumsToString', 'sigmoid', 'smooth', 'dot', 'list_of_ones', 'show_video', 'wrap_env', 'is_in_notebooks']
 
 # Cell
 import numpy as np
@@ -245,6 +245,11 @@ def dot(inputs, weights):
     for i in range(len(inputs)):
         sum += inputs[i]*weights[i]
     return sum
+
+# Cell
+def list_of_ones(num):
+    x = [1 for _ in range(5) ]
+    return x
 
 # Cell
 def show_video():
