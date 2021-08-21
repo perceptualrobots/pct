@@ -8,6 +8,7 @@ __all__ = ['ControlUnitFunctions', 'CUF', 'BaseFunction', 'FunctionFactory', 'Su
 import numpy as np
 import enum
 import random
+import uuid
 from abc import ABC, abstractmethod
 from .putils import sigmoid
 from .putils import smooth
