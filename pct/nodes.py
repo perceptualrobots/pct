@@ -448,32 +448,32 @@ class PCTNode():
     @classmethod
     def from_config(cls, config):
         node = PCTNode(default=False, name=config['name'])
-
+        namespace= node.namespace
         node.referenceCollection = []
         collection = node.referenceCollection
         coll_dict = config['refcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
+        PCTNode.collection_from_config(collection, coll_dict, namespace)
 
         node.perceptionCollection = []
         collection = node.perceptionCollection
         coll_dict = config['percoll']
-        PCTNode.collection_from_config(collection, coll_dict)
+        PCTNode.collection_from_config(collection, coll_dict, namespace)
 
         node.comparatorCollection = []
         collection = node.comparatorCollection
         coll_dict = config['comcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
+        PCTNode.collection_from_config(collection, coll_dict, namespace)
 
         node.outputCollection = []
         collection = node.outputCollection
         coll_dict = config['outcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
+        PCTNode.collection_from_config(collection, coll_dict, namespace)
 
         node.links_built = True
         return node
 
     @classmethod
-    def collection_from_config(node, collection, coll_dict):
+    def collection_from_config(node, collection, coll_dict, namespace):
         #print("collection_from_config", coll_dict)
         for fndict_label in coll_dict:
             #print("fndict_label",fndict_label)
@@ -482,7 +482,7 @@ class PCTNode():
             #print(fndict)
             fnname = fndict.pop('type')
             #print(fndict)
-            func = eval(fnname).from_config(fndict)
+            func = eval(fnname).from_config(fndict, namespace)
             collection.append(func)
 
     @classmethod

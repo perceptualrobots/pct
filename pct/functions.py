@@ -427,8 +427,8 @@ class Proportional(BaseFunction):
 # Cell
 class Variable(BaseFunction):
     "A function that returns a variable value. Parameter: The variable value. Links: None"
-    def __init__(self,  value=0, name="variable", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self,  value=0, name="variable", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name, value, links, new_name, namespace)
 
     def __call__(self, verbose=False):
         return super().__call__(verbose)
