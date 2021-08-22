@@ -542,7 +542,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.997 0.083 1.000 0.024 -0.100 -0.020 -1.0 False {}&#39;</pre>
+<pre>&#39;0.999 0.045 0.996 0.092 -0.136 0.063 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -575,7 +575,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9965100763504378</pre>
+<pre>0.9990020148516222</pre>
 </div>
 
 </div>
@@ -626,7 +626,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9965100763504378</pre>
+<pre>0.9990020148516222</pre>
 </div>
 
 </div>
@@ -668,40 +668,6 @@ nb_path: "nbs/05_environments.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;PendulumV0&#39;, &#39;name&#39;: &#39;Pendulum-v0&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant1&#39;}, &#39;env_name&#39;: &#39;Pendulum-v0&#39;, &#39;reward&#39;: 0, &#39;done&#39;: False, &#39;info&#39;: {}}
--0.998 -0.064 -0.196 -3.077 6.923 [9.41756478] False {}
--0.998 -0.060 -0.094 -3.082 6.918 [9.47316614] False {}
--0.998 -0.060 0.011 -3.081 6.919 [9.49924636] False {}
--0.998 -0.066 0.116 -3.075 6.925 [9.49501175] False {}
--0.997 -0.077 0.216 -3.065 6.935 [9.46073499] False {}
--0.996 -0.092 0.308 -3.049 6.951 [9.39772765] False {}
--0.994 -0.112 0.389 -3.030 6.970 [9.30828578] False {}
--0.991 -0.134 0.456 -3.007 6.993 [9.19561101] False {}
--0.987 -0.159 0.505 -2.982 7.018 [9.06370833] False {}
--0.983 -0.186 0.536 -2.955 7.045 [8.91726129] False {}
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([-0.98263516, -0.18554821,  0.53552464, -2.95496292,  7.04503708])</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -748,71 +714,6 @@ nb_path: "nbs/05_environments.ipynb"
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">Error</span>                                     Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-26-7aca4271d1a7&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>vm <span class="ansi-blue-fg">=</span> VelocityModel<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;VelocityModel&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> vm<span class="ansi-blue-fg">.</span>add_link<span class="ansi-blue-fg">(</span>Constant<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;mycon&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> print<span class="ansi-blue-fg">(</span>vm<span class="ansi-blue-fg">.</span>summary<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> config <span class="ansi-blue-fg">=</span> vm<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> print<span class="ansi-blue-fg">(</span>config<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-13-f2a07154b802&gt;</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, mass, value, name, links, new_name, **cargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> 
-<span class="ansi-green-intense-fg ansi-bold">      6</span>     <span class="ansi-green-fg">def</span> __init__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> mass<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">50</span><span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;VelocityModel&#34;</span><span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>cargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">----&gt; 7</span><span class="ansi-red-fg">         </span>super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">,</span> links<span class="ansi-blue-fg">,</span> new_name<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      8</span>         self<span class="ansi-blue-fg">.</span>mass <span class="ansi-blue-fg">=</span> mass
-<span class="ansi-green-intense-fg ansi-bold">      9</span> 
-
-<span class="ansi-green-fg">&lt;ipython-input-6-0432e9253f40&gt;</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, env_name, render, video_wrap, value, name, seed, links, new_name, early_termination, **cargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span>         self<span class="ansi-blue-fg">.</span>env_name<span class="ansi-blue-fg">=</span>env_name
-<span class="ansi-green-intense-fg ansi-bold">     10</span>         self<span class="ansi-blue-fg">.</span>max_episode_steps<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">4000</span>
-<span class="ansi-green-fg">---&gt; 11</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>create_env<span class="ansi-blue-fg">(</span>seed<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     12</span>         self<span class="ansi-blue-fg">.</span>render <span class="ansi-blue-fg">=</span> render
-<span class="ansi-green-intense-fg ansi-bold">     13</span>         self<span class="ansi-blue-fg">.</span>reward <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">0</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-6-0432e9253f40&gt;</span> in <span class="ansi-cyan-fg">create_env</span><span class="ansi-blue-fg">(self, seed)</span>
-<span class="ansi-green-intense-fg ansi-bold">     97</span> 
-<span class="ansi-green-intense-fg ansi-bold">     98</span>     <span class="ansi-green-fg">def</span> create_env<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> seed<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 99</span><span class="ansi-red-fg">         </span>genv <span class="ansi-blue-fg">=</span> gym<span class="ansi-blue-fg">.</span>make<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>env_name<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    100</span>         genv<span class="ansi-blue-fg">.</span>_max_episode_steps <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>max_episode_steps
-<span class="ansi-green-intense-fg ansi-bold">    101</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>video_wrap<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/anaconda3/envs/dev37/lib/python3.7/site-packages/gym/envs/registration.py</span> in <span class="ansi-cyan-fg">make</span><span class="ansi-blue-fg">(id, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    143</span> 
-<span class="ansi-green-intense-fg ansi-bold">    144</span> <span class="ansi-green-fg">def</span> make<span class="ansi-blue-fg">(</span>id<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 145</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> registry<span class="ansi-blue-fg">.</span>make<span class="ansi-blue-fg">(</span>id<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    146</span> 
-<span class="ansi-green-intense-fg ansi-bold">    147</span> <span class="ansi-green-fg">def</span> spec<span class="ansi-blue-fg">(</span>id<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/anaconda3/envs/dev37/lib/python3.7/site-packages/gym/envs/registration.py</span> in <span class="ansi-cyan-fg">make</span><span class="ansi-blue-fg">(self, path, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     87</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     88</span>             logger<span class="ansi-blue-fg">.</span>info<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Making new env: %s&#39;</span><span class="ansi-blue-fg">,</span> path<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 89</span><span class="ansi-red-fg">         </span>spec <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>spec<span class="ansi-blue-fg">(</span>path<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     90</span>         env <span class="ansi-blue-fg">=</span> spec<span class="ansi-blue-fg">.</span>make<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     91</span>         <span class="ansi-red-fg"># We used to have people override _reset/_step rather than</span>
-
-<span class="ansi-green-fg">~/anaconda3/envs/dev37/lib/python3.7/site-packages/gym/envs/registration.py</span> in <span class="ansi-cyan-fg">spec</span><span class="ansi-blue-fg">(self, path)</span>
-<span class="ansi-green-intense-fg ansi-bold">    116</span>         match <span class="ansi-blue-fg">=</span> env_id_re<span class="ansi-blue-fg">.</span>search<span class="ansi-blue-fg">(</span>id<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    117</span>         <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> match<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 118</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> error<span class="ansi-blue-fg">.</span>Error<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Attempted to look up malformed environment ID: {}. (Currently all IDs must be of the form {}.)&#39;</span><span class="ansi-blue-fg">.</span>format<span class="ansi-blue-fg">(</span>id<span class="ansi-blue-fg">.</span>encode<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;utf-8&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> env_id_re<span class="ansi-blue-fg">.</span>pattern<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    119</span> 
-<span class="ansi-green-intense-fg ansi-bold">    120</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">Error</span>: Attempted to look up malformed environment ID: b&#39;VelocityModel&#39;. (Currently all IDs must be of the form ^(?:[\w:-]+\/)?([\w:.-]+)-v(\d+)$.)</pre>
-</div>
-</div>
-
 </div>
 </div>
 
