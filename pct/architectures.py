@@ -68,6 +68,7 @@ class ProportionalArchitecture(BaseArchitecture):
     "Proportional Architecture"
     def __init__(self, name="proportional", config=None, env=None, input_indexes=None, history=False,
                  error_collector=None, namespace=None, **cargs):
+        self.namespace=namespace
         inputs=[]
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env], namespace=namespace)
@@ -89,7 +90,7 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             # change names
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -130,7 +131,7 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             # change names
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -174,9 +175,9 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=2, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=2, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             # change names
-            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c')
+            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c', namespace=self.namespace)
             node.replace_function("reference", reference, 0)
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             #node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -236,7 +237,9 @@ class ProportionalArchitecture(BaseArchitecture):
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, inputs_names=None,
-                 top_input_indexes=None, history=False, error_collector=None, suffixes = False, **cargs):
+                 top_input_indexes=None, history=False, error_collector=None, suffixes = False, namespace=None, **cargs):
+
+        self.namespace=namespace
         inputs=[]
         if top_input_indexes != None:
             self.top_inputs = []
@@ -305,7 +308,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode , level, None, None,  column, None, None, config[referencesIndex], True, 0)
             self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None,  column, len(self.inputs), self.inputs, config[inputsIndex], False,0)
 
@@ -350,7 +353,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, level+1, 'O',
                                              column, columnsNextLevel, None, config[referencesIndex], True, 0)
             self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None,
@@ -383,7 +386,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, level+1, 'O',
                                              column, columnsNextLevel, None, config[referencesIndex], True, 0)
             self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P',
@@ -409,7 +412,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
 
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, None, None,
                                              column, None, None, config[referencesIndex], None, 0)
@@ -446,11 +449,11 @@ class DynamicArchitecture(BaseArchitecture):
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
         env.reset()
-
+        namespace=env.namespace
         config = BaseArchitecture.from_raw( raw)
         #print(config)
         pa = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
-                                 inputs_names=inputs_names, top_input_indexes=top_input_indexes, suffixes=True)
+                                 inputs_names=inputs_names, top_input_indexes=top_input_indexes, suffixes=True, namespace=namespace)
         pa()
         hpct = pa.get_hierarchy()
         if summary:
@@ -480,6 +483,7 @@ class DynamicArchitecture(BaseArchitecture):
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
         env.reset()
+        namespace=env.namespace
 
         config = BaseArchitecture.from_raw( raw)
 
@@ -491,7 +495,8 @@ class DynamicArchitecture(BaseArchitecture):
 
         da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
                                  inputs_names=inputs_names, top_input_indexes=top_input_indexes,
-                                 history=history, error_collector=error_collector, suffixes=suffixes)
+                                 history=history, error_collector=error_collector, suffixes=suffixes,
+                                 namespace=namespace)
         da()
         hpct = da.get_hierarchy()
         #if inputs_names != None:
@@ -758,10 +763,11 @@ def create_hierarchy(env, error_collector, properties, history=False, suffixes=F
 
     modes =  {LevelKey.ZERO:modes[0], LevelKey.N:modes[1],LevelKey.TOP:modes[2],LevelKey.ZEROTOP :modes[3]}
     arch_structure = ArchitectureStructure(modes=modes)
+    namespace=env.namespace
 
     da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
                              inputs_names=inputs_names, top_input_indexes=top_input_indexes, history=history,
-                             error_collector=error_collector, suffixes=suffixes)
+                             error_collector=error_collector, suffixes=suffixes, namespace=namespace)
     da()
     hpct = da.get_hierarchy()
 
