@@ -106,6 +106,8 @@ class FunctionsList:
     def get_function(self, namespace=None, name=None):
         if  name is None:
             raise Exception(f'The function name must be specified')
+        if  namespace is None:
+            raise Exception(f'The namespace must be specified')
 
         if namespace in self.functions:
             namespace_list = self.functions[namespace]
