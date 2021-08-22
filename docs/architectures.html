@@ -44,6 +44,21 @@ nb_path: "nbs/08_architectures.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -72,7 +87,7 @@ nb_path: "nbs/08_architectures.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L25" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>, <strong><code>config</code></strong>, <strong><code>env</code></strong>, <strong><code>inputs</code></strong>, <strong><code>history</code></strong>, <strong><code>error_collector</code></strong>) :: <code>ABC</code></p>
+<h2 id="BaseArchitecture" class="doc_header"><code>class</code> <code>BaseArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L25" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BaseArchitecture</code>(<strong><code>name</code></strong>=<em><code>None</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>inputs</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>None</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong><code>namespace</code></strong>=<em><code>None</code></em>) :: <code>ABC</code></p>
 </blockquote>
 <p>Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all.</p>
 
@@ -104,7 +119,7 @@ nb_path: "nbs/08_architectures.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L67" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures.html#BaseArchitecture"><code>BaseArchitecture</code></a></p>
+<h2 id="ProportionalArchitecture" class="doc_header"><code>class</code> <code>ProportionalArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L67" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ProportionalArchitecture</code>(<strong><code>name</code></strong>=<em><code>'proportional'</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong><code>namespace</code></strong>=<em><code>None</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures.html#BaseArchitecture"><code>BaseArchitecture</code></a></p>
 </blockquote>
 <p>Proportional Architecture</p>
 
@@ -136,7 +151,7 @@ nb_path: "nbs/08_architectures.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="DynamicArchitecture" class="doc_header"><code>class</code> <code>DynamicArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L235" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DynamicArchitecture</code>(<strong><code>name</code></strong>=<em><code>'dynamic'</code></em>, <strong><code>structure</code></strong>=<em><code>None</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>inputs_names</code></strong>=<em><code>None</code></em>, <strong><code>top_input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong><code>suffixes</code></strong>=<em><code>False</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures.html#BaseArchitecture"><code>BaseArchitecture</code></a></p>
+<h2 id="DynamicArchitecture" class="doc_header"><code>class</code> <code>DynamicArchitecture</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L236" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DynamicArchitecture</code>(<strong><code>name</code></strong>=<em><code>'dynamic'</code></em>, <strong><code>structure</code></strong>=<em><code>None</code></em>, <strong><code>config</code></strong>=<em><code>None</code></em>, <strong><code>env</code></strong>=<em><code>None</code></em>, <strong><code>input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>inputs_names</code></strong>=<em><code>None</code></em>, <strong><code>top_input_indexes</code></strong>=<em><code>None</code></em>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>error_collector</code></strong>=<em><code>None</code></em>, <strong><code>suffixes</code></strong>=<em><code>False</code></em>, <strong>**<code>cargs</code></strong>) :: <a href="/pct/architectures.html#BaseArchitecture"><code>BaseArchitecture</code></a></p>
 </blockquote>
 <p>Dynamic Architecture</p>
 
@@ -168,7 +183,7 @@ nb_path: "nbs/08_architectures.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="run_from_properties_file" class="doc_header"><code>run_from_properties_file</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L520" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>run_from_properties_file</code>(<strong><code>root_dir</code></strong>=<em><code>'.'</code></em>, <strong><code>path</code></strong>=<em><code>'.'</code></em>, <strong><code>file</code></strong>=<em><code>None</code></em>, <strong><code>nevals</code></strong>=<em><code>None</code></em>, <strong><code>runs</code></strong>=<em><code>500</code></em>, <strong><code>history</code></strong>=<em><code>True</code></em>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>test</code></strong>=<em><code>False</code></em>, <strong><code>move</code></strong>=<em><code>None</code></em>, <strong><code>draw</code></strong>=<em><code>False</code></em>, <strong><code>plots_figsize</code></strong>=<em><code>(15, 4)</code></em>, <strong><code>render</code></strong>=<em><code>True</code></em>, <strong><code>layout</code></strong>=<em><code>None</code></em>, <strong><code>early_termination</code></strong>=<em><code>False</code></em>, <strong><code>plots</code></strong>=<em><code>None</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>print_properties</code></strong>=<em><code>False</code></em>, <strong><code>figsize</code></strong>=<em><code>(12, 12)</code></em>, <strong><code>summary</code></strong>=<em><code>False</code></em>, <strong><code>hpct_verbose</code></strong>=<em><code>None</code></em>, <strong><code>error_collector_type</code></strong>=<em><code>None</code></em>, <strong><code>error_response_type</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="run_from_properties_file" class="doc_header"><code>run_from_properties_file</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L521" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>run_from_properties_file</code>(<strong><code>root_dir</code></strong>=<em><code>'.'</code></em>, <strong><code>path</code></strong>=<em><code>'.'</code></em>, <strong><code>file</code></strong>=<em><code>None</code></em>, <strong><code>nevals</code></strong>=<em><code>None</code></em>, <strong><code>runs</code></strong>=<em><code>500</code></em>, <strong><code>history</code></strong>=<em><code>True</code></em>, <strong><code>verbose</code></strong>=<em><code>False</code></em>, <strong><code>test</code></strong>=<em><code>False</code></em>, <strong><code>move</code></strong>=<em><code>None</code></em>, <strong><code>draw</code></strong>=<em><code>False</code></em>, <strong><code>plots_figsize</code></strong>=<em><code>(15, 4)</code></em>, <strong><code>render</code></strong>=<em><code>True</code></em>, <strong><code>layout</code></strong>=<em><code>None</code></em>, <strong><code>early_termination</code></strong>=<em><code>False</code></em>, <strong><code>plots</code></strong>=<em><code>None</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>print_properties</code></strong>=<em><code>False</code></em>, <strong><code>figsize</code></strong>=<em><code>(12, 12)</code></em>, <strong><code>summary</code></strong>=<em><code>False</code></em>, <strong><code>hpct_verbose</code></strong>=<em><code>None</code></em>, <strong><code>error_collector_type</code></strong>=<em><code>None</code></em>, <strong><code>error_response_type</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -199,7 +214,7 @@ nb_path: "nbs/08_architectures.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_properties" class="doc_header"><code>load_properties</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L574" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_properties</code>(<strong><code>root_dir</code></strong>=<em><code>None</code></em>, <strong><code>file_path</code></strong>=<em><code>None</code></em>, <strong><code>file_name</code></strong>=<em><code>None</code></em>, <strong><code>nevals</code></strong>=<em><code>None</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>print_properties</code></strong>=<em><code>False</code></em>, <strong><code>gens</code></strong>=<em><code>None</code></em>, <strong><code>pop_size</code></strong>=<em><code>None</code></em>, <strong><code>evolve</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="load_properties" class="doc_header"><code>load_properties</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L575" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_properties</code>(<strong><code>root_dir</code></strong>=<em><code>None</code></em>, <strong><code>file_path</code></strong>=<em><code>None</code></em>, <strong><code>file_name</code></strong>=<em><code>None</code></em>, <strong><code>nevals</code></strong>=<em><code>None</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>print_properties</code></strong>=<em><code>False</code></em>, <strong><code>gens</code></strong>=<em><code>None</code></em>, <strong><code>pop_size</code></strong>=<em><code>None</code></em>, <strong><code>evolve</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 
 </div>
@@ -230,7 +245,7 @@ nb_path: "nbs/08_architectures.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="setup_environment" class="doc_header"><code>setup_environment</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L712" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setup_environment</code>(<strong><code>properties</code></strong>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>early_termination</code></strong>=<em><code>None</code></em>, <strong><code>error_collector_type</code></strong>=<em><code>None</code></em>, <strong><code>error_response_type</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="setup_environment" class="doc_header"><code>setup_environment</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L713" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>setup_environment</code>(<strong><code>properties</code></strong>, <strong><code>render</code></strong>=<em><code>False</code></em>, <strong><code>seed</code></strong>=<em><code>None</code></em>, <strong><code>early_termination</code></strong>=<em><code>None</code></em>, <strong><code>error_collector_type</code></strong>=<em><code>None</code></em>, <strong><code>error_response_type</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -261,7 +276,7 @@ nb_path: "nbs/08_architectures.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="create_hierarchy" class="doc_header"><code>create_hierarchy</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L745" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_hierarchy</code>(<strong><code>env</code></strong>, <strong><code>error_collector</code></strong>, <strong><code>properties</code></strong>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>suffixes</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="create_hierarchy" class="doc_header"><code>create_hierarchy</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/architectures.py#L746" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_hierarchy</code>(<strong><code>env</code></strong>, <strong><code>error_collector</code></strong>, <strong><code>properties</code></strong>, <strong><code>history</code></strong>=<em><code>False</code></em>, <strong><code>suffixes</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 
 </div>
@@ -312,57 +327,6 @@ nb_path: "nbs/08_architectures.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-13-8a8d07484be6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">     12</span> pa <span class="ansi-blue-fg">=</span> DynamicArchitecture<span class="ansi-blue-fg">(</span>structure<span class="ansi-blue-fg">=</span>structure<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">=</span>config<span class="ansi-blue-fg">,</span> env<span class="ansi-blue-fg">=</span>env<span class="ansi-blue-fg">,</span> input_indexes<span class="ansi-blue-fg">=</span>inputs<span class="ansi-blue-fg">)</span> <span class="ansi-red-fg">#, error_collector=te)</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span> 
-<span class="ansi-green-fg">---&gt; 14</span><span class="ansi-red-fg"> </span>pa<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     15</span> <span class="ansi-red-fg">#hpct = pa.get_hierarchy()</span>
-<span class="ansi-green-intense-fg ansi-bold">     16</span> <span class="ansi-red-fg">#hpct.summary()</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-8-c88ed2ae5459&gt;</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     35</span>         <span class="ansi-red-fg">#print(&#39;levels&#39;, levels)</span>
-<span class="ansi-green-intense-fg ansi-bold">     36</span>         <span class="ansi-green-fg">if</span> levels <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 37</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>configure_zerotoplevel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     38</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     39</span>             previous_columns<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>configure_zerothlevel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-8-c88ed2ae5459&gt;</span> in <span class="ansi-cyan-fg">configure_zerotoplevel</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">     74</span>             node <span class="ansi-blue-fg">=</span> PCTNode<span class="ansi-blue-fg">(</span>build_links<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span>mode<span class="ansi-blue-fg">,</span> name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">f&#39;L{level}C{column}&#39;</span><span class="ansi-blue-fg">,</span> history<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>hpct<span class="ansi-blue-fg">.</span>history<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     75</span>             self<span class="ansi-blue-fg">.</span>structure<span class="ansi-blue-fg">.</span>set_node_function<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> ControlUnitFunctions<span class="ansi-blue-fg">.</span>REFERENCE<span class="ansi-blue-fg">,</span> mode <span class="ansi-blue-fg">,</span> level<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>  column<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">[</span>referencesIndex<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 76</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>structure<span class="ansi-blue-fg">.</span>set_node_function<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">,</span> ControlUnitFunctions<span class="ansi-blue-fg">.</span>PERCEPTION<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">,</span> level<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span>  column<span class="ansi-blue-fg">,</span> len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>inputs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>inputs<span class="ansi-blue-fg">,</span> config<span class="ansi-blue-fg">[</span>inputsIndex<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     77</span> 
-<span class="ansi-green-intense-fg ansi-bold">     78</span>             comparator_name<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">f&#39;CL{level}C{column}&#39;</span>
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/structure.py</span> in <span class="ansi-cyan-fg">set_node_function</span><span class="ansi-blue-fg">(self, node, function, mode, thislevel, targetlevel, targetprefix, targetcolumn, num_target_indices, inputs, input_weights, by_column, offset)</span>
-<span class="ansi-green-intense-fg ansi-bold">     37</span>         func <span class="ansi-blue-fg">=</span> node<span class="ansi-blue-fg">.</span>get_function_from_collection<span class="ansi-blue-fg">(</span>function<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     38</span>         func.set_node_function(function, thislevel, targetlevel, targetprefix, targetcolumn, num_target_indices, inputs,
-<span class="ansi-green-fg">---&gt; 39</span><span class="ansi-red-fg">                                input_weights, by_column, offset)
-</span><span class="ansi-green-intense-fg ansi-bold">     40</span> 
-<span class="ansi-green-intense-fg ansi-bold">     41</span> 
-
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">set_node_function</span><span class="ansi-blue-fg">(self, function_type, thislevel, targetlevel, targetprefix, column, num_target_indices, inputs, input_weights, by_column, offset)</span>
-<span class="ansi-green-intense-fg ansi-bold">    770</span>                 <span class="ansi-red-fg">#print(inputIndex,column)</span>
-<span class="ansi-green-intense-fg ansi-bold">    771</span>                 weights<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>input_weights<span class="ansi-blue-fg">[</span>inputIndex<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span>column<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 772</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>weights<span class="ansi-blue-fg">=</span>np<span class="ansi-blue-fg">.</span>array<span class="ansi-blue-fg">(</span>weights<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    773</span> 
-<span class="ansi-green-intense-fg ansi-bold">    774</span>     <span class="ansi-green-fg">def</span> set_sparse_node_function<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> function_type<span class="ansi-blue-fg">,</span> thislevel<span class="ansi-blue-fg">,</span> input<span class="ansi-blue-fg">,</span> column<span class="ansi-blue-fg">,</span> input_weights<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">NameError</span>: name &#39;np&#39; is not defined</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -377,17 +341,87 @@ nb_path: "nbs/08_architectures.ipynb"
 <span class="kn">from</span> <span class="nn">pct.functions</span> <span class="kn">import</span> <span class="n">Constant</span>
 
 <span class="n">pen</span> <span class="o">=</span> <span class="n">PendulumV0</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Pendulum&#39;</span><span class="p">,</span><span class="n">render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#namespace = pen.namespace</span>
+<span class="c1">#print(namespace)</span>
 <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;level0&#39;</span><span class="p">:</span> <span class="p">[[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="mf">74.7727669099358</span><span class="p">,</span> <span class="mf">37.42447782017047</span><span class="p">,</span> <span class="mf">70.45900090605967</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]],</span> <span class="s1">&#39;level1&#39;</span><span class="p">:</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="mf">0.028281504070566288</span><span class="p">,</span> <span class="mf">0.29618653732851286</span><span class="p">],</span> <span class="p">[[</span><span class="o">-</span><span class="mf">49.05302284318027</span><span class="p">,</span> <span class="mf">46.949638698585005</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">96.63198831250754</span><span class="p">,</span> <span class="o">-</span><span class="mf">29.78373183094591</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">3.8249493797145107</span><span class="p">,</span> <span class="o">-</span><span class="mf">60.95121501461629</span><span class="p">]]],</span> <span class="s1">&#39;level2&#39;</span><span class="p">:</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="mf">0.633350421196448</span><span class="p">,</span> <span class="mf">0.5607290603484817</span><span class="p">],</span> <span class="p">[[</span><span class="mf">41.217164164869104</span><span class="p">,</span> <span class="o">-</span><span class="mf">76.70635343790484</span><span class="p">],</span> <span class="p">[</span><span class="mf">83.21744682425535</span><span class="p">,</span> <span class="o">-</span><span class="mf">96.9311066757899</span><span class="p">]],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="s1">&#39;parameters&#39;</span><span class="p">:</span> <span class="p">{}}</span>
 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-<span class="n">pa</span> <span class="o">=</span> <span class="n">ProportionalArchitecture</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">pen</span><span class="p">,</span> <span class="n">input_indexes</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">pa</span> <span class="o">=</span> <span class="n">ProportionalArchitecture</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">pen</span><span class="p">,</span> <span class="n">input_indexes</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
 <span class="n">pa</span><span class="p">()</span>
 <span class="n">hpct</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">get_hierarchy</span><span class="p">()</span>
 <span class="n">hpct</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">move</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Pendulum&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">],</span><span class="s1">&#39;Input0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;Input1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>58b37d60-034d-11ec-992a-8500e08ca23e
+level0 [[[0, 0, 1], [0, 0, 1]], [74.7727669099358, 37.42447782017047, 70.45900090605967], [[1, 0, 1]]]
+level1 [[[1, 0, 1], [1, 1, 1]], [0.028281504070566288, 0.29618653732851286], [[-49.05302284318027, 46.949638698585005], [-96.63198831250754, -29.78373183094591], [-3.8249493797145107, -60.95121501461629]]]
+level2 [[[1, 0], [0, 1]], [0.633350421196448, 0.5607290603484817], [[41.217164164869104, -76.70635343790484], [83.21744682425535, -96.9311066757899]], [1, 2]]
+parameters {}
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">Exception</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-30-bc657dbf34d0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">     12</span> pa<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     13</span> hpct <span class="ansi-blue-fg">=</span> pa<span class="ansi-blue-fg">.</span>get_hierarchy<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">---&gt; 14</span><span class="ansi-red-fg"> </span>hpct<span class="ansi-blue-fg">.</span>draw<span class="ansi-blue-fg">(</span>move<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;Pendulum&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">0.2</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">0.3</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;Input0&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">0.3</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Input1&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0.3</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-fg">(self, with_labels, with_edge_labels, font_size, font_weight, node_color, color_mapping, node_size, arrowsize, align, file, figsize, move, layout)</span>
+<span class="ansi-green-intense-fg ansi-bold">    235</span>         <span class="ansi-green-fg">import</span> networkx <span class="ansi-green-fg">as</span> nx
+<span class="ansi-green-intense-fg ansi-bold">    236</span>         <span class="ansi-green-fg">import</span> matplotlib<span class="ansi-blue-fg">.</span>pyplot <span class="ansi-green-fg">as</span> plt
+<span class="ansi-green-fg">--&gt; 237</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>graphv <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>graph<span class="ansi-blue-fg">(</span>layout<span class="ansi-blue-fg">=</span>layout<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    238</span>         <span class="ansi-green-fg">if</span> node_color<span class="ansi-blue-fg">==</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    239</span>             node_color <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>get_colors<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>graphv<span class="ansi-blue-fg">,</span> color_mapping<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">graph</span><span class="ansi-blue-fg">(self, layout)</span>
+<span class="ansi-green-intense-fg ansi-bold">    293</span>         graph <span class="ansi-blue-fg">=</span> nx<span class="ansi-blue-fg">.</span>DiGraph<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    294</span> 
+<span class="ansi-green-fg">--&gt; 295</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>set_graph_data<span class="ansi-blue-fg">(</span>graph<span class="ansi-blue-fg">,</span> layout<span class="ansi-blue-fg">=</span>layout<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    296</span> 
+<span class="ansi-green-intense-fg ansi-bold">    297</span>         <span class="ansi-green-fg">return</span> graph
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/hierarchy.py</span> in <span class="ansi-cyan-fg">set_graph_data</span><span class="ansi-blue-fg">(self, graph, layout)</span>
+<span class="ansi-green-intense-fg ansi-bold">    303</span> 
+<span class="ansi-green-intense-fg ansi-bold">    304</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>postCollection<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 305</span><span class="ansi-red-fg">             </span>func<span class="ansi-blue-fg">.</span>set_graph_data<span class="ansi-blue-fg">(</span>graph<span class="ansi-blue-fg">,</span> layer<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    306</span> 
+<span class="ansi-green-intense-fg ansi-bold">    307</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>preCollection<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">set_graph_data</span><span class="ansi-blue-fg">(self, graph, layer, layer_edges)</span>
+<span class="ansi-green-intense-fg ansi-bold">    148</span>         edges <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">    149</span>         <span class="ansi-green-fg">for</span> link <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>links<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 150</span><span class="ansi-red-fg">             </span>func <span class="ansi-blue-fg">=</span> FunctionsList<span class="ansi-blue-fg">.</span>getInstance<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>get_function<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>namespace<span class="ansi-blue-fg">,</span> link<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    151</span>             <span class="ansi-green-fg">if</span> isinstance<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">,</span> str<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    152</span>                 name <span class="ansi-blue-fg">=</span> func
+
+<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/putils.py</span> in <span class="ansi-cyan-fg">get_function</span><span class="ansi-blue-fg">(self, namespace, name)</span>
+<span class="ansi-green-intense-fg ansi-bold">    119</span>                 func <span class="ansi-blue-fg">=</span> namespace_list<span class="ansi-blue-fg">[</span>name<span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">    120</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 121</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">raise</span> Exception<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">f&#39;Function {name} does not exist in namespace {namespace}&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    122</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    123</span>             func <span class="ansi-blue-fg">=</span> name
+
+<span class="ansi-red-fg">Exception</span>: Function OL0C0p does not exist in namespace ae80077c-034d-11ec-992a-8500e08ca23e</pre>
+</div>
+</div>
+
 </div>
 </div>
 

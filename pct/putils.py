@@ -127,7 +127,7 @@ class FunctionsList:
     def report(self, namespace=None, name=None):
         if namespace is None:
             for namespace, namespace_list in self.functions.items():
-                print(len(namespace_list), namespace)
+                print(len(namespace_list), 'NAMESPACE', namespace)
                 for name, function in namespace_list.items():
                     print("*** ", name, [function])
                     print(function)
@@ -138,7 +138,7 @@ class FunctionsList:
                 raise Exception(f"Namespace {namespace} not found in report")
 
             if name == None:
-                print(len(namespace_list), namespace)
+                print(len(namespace_list), 'NAMESPACE', namespace)
                 for name, function in namespace_list.items():
                     print("*** ", name, [function])
                     print(function)
