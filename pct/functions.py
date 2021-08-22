@@ -953,7 +953,7 @@ class SmoothWeightedSum(BaseFunction):
 
         weights=[]
         weights.append(input_weights[column][0])
-        self.weights=np.array(weights)
+        self.weights=weights #np.array(weights)
         self.smooth_factor=input_weights[column][1]
 
     class Factory:
