@@ -25,6 +25,7 @@ from .errors import BaseErrorCollector
 class BaseArchitecture(ABC):
     "Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all."
     def __init__(self, name=None, config=None, env=None, inputs=None, history=None, error_collector=None, namespace=None):
+        self.namespace=namespace
         self.config = config
         self.env = env
         self.inputs=inputs
@@ -68,13 +69,12 @@ class ProportionalArchitecture(BaseArchitecture):
     "Proportional Architecture"
     def __init__(self, name="proportional", config=None, env=None, input_indexes=None, history=False,
                  error_collector=None, namespace=None, **cargs):
-        self.namespace=namespace
         inputs=[]
         for ctr in range(len(input_indexes)):
             ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env], namespace=namespace)
             inputs.append(ip)
 
-        super().__init__(name, config, env, inputs, history, error_collector)
+        super().__init__(name=name, config=config, env=env, inputs=inputs, history=history, error_collector=error_collector, namespace=namespace)
 
     def configure_zerothlevel(self):
         inputsIndex=0
@@ -90,7 +90,8 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
+            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history,
+                           namespace=self.namespace)
             # change names
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -113,7 +114,7 @@ class ProportionalArchitecture(BaseArchitecture):
         numActions = len(config[actionsIndex])
         numColumnsThisLevel = len(config[outputsIndex])
         for actionIndex in range(numActions):
-            action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'Action{actionIndex+1}ws')
+            action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'Action{actionIndex+1}ws', namespace=self.namespace)
             for column in range(numColumnsThisLevel):
                 action.add_link(f'OL{level}C{column}p')
             self.hpct.add_postprocessor(action)
@@ -224,7 +225,7 @@ class ProportionalArchitecture(BaseArchitecture):
         # change nodes
         for column in range(numColumnsThisLevel):
             node = self.hpct.get_node(level, column)
-            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c')
+            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c', namespace=self.namespace)
             node.replace_function("reference", reference, 0)
             node.get_function("comparator").set_link(reference)
             node.get_function("comparator").add_link(node.get_function("perception"))
@@ -239,7 +240,7 @@ class DynamicArchitecture(BaseArchitecture):
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, inputs_names=None,
                  top_input_indexes=None, history=False, error_collector=None, suffixes = False, namespace=None, **cargs):
 
-        self.namespace=namespace
+
         inputs=[]
         if top_input_indexes != None:
             self.top_inputs = []
@@ -254,7 +255,7 @@ class DynamicArchitecture(BaseArchitecture):
             else:
                 input_name = inputs_names[ctr]
 
-            ip = IndexedParameter(index=input_indexes[ctr], name=input_name, links=[env])
+            ip = IndexedParameter(index=input_indexes[ctr], name=input_name, links=[env], namespace=namespace)
             inputs.append(ip)
             if top_input_indexes != None :
                 if input_indexes[ctr] in top_input_indexes :
