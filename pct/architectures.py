@@ -444,13 +444,14 @@ class DynamicArchitecture(BaseArchitecture):
             num_inputs = len(raw[0][0])
             inputs = [i for i in range(num_inputs)]
 
-        if arch_structure==None:
-            arch_structure = ArchitectureStructure()
-
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
         env.reset()
         namespace=env.namespace
+
+        if arch_structure==None:
+            arch_structure = ArchitectureStructure(namespace=namespace)
+
         config = BaseArchitecture.from_raw( raw)
         #print(config)
         pa = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
@@ -478,13 +479,13 @@ class DynamicArchitecture(BaseArchitecture):
             num_inputs = len(raw[0][0])
             inputs = [i for i in range(num_inputs)]
 
-        if arch_structure==None:
-            arch_structure = ArchitectureStructure()
 
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
         env.reset()
         namespace=env.namespace
+        if arch_structure==None:
+            arch_structure = ArchitectureStructure(namespace=namespace)
 
         config = BaseArchitecture.from_raw( raw)
 
