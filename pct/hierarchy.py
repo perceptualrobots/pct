@@ -383,8 +383,9 @@ class PCTHierarchy():
             if isinstance (func, BaseFunction):
                 name = func.get_name()
                 #print(key, name)
-                popped = functionsList.functions[self.namespace].pop(key)
-                functionsList.functions[self.namespace][name] = popped
+                if key != name:
+                    popped = functionsList.functions[self.namespace].pop(key)
+                    functionsList.functions[self.namespace][name] = popped
 
 
     def get_levels(self):
