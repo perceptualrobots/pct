@@ -263,7 +263,7 @@ class DynamicArchitecture(BaseArchitecture):
                 else:
                     self.zero_inputs.append(ip)
 
-        super().__init__(name, config, env, inputs, history, error_collector)
+        super().__init__(name, config, env, inputs, history, error_collector, namespace=namespace)
         self.suffixes=suffixes
         self.structure=structure
 
