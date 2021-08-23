@@ -373,8 +373,9 @@ class PCTHierarchy():
                 name = func.get_name()
                 #print(name)
                 suffix = func.get_suffix()
-                func.name = name+suffix
-                self.change_link_name(key, func.name)
+                if len(suffix)>0:
+                    func.name = name+suffix
+                    self.change_link_name(key, func.name)
 
         keys = list(FunctionsList.getInstance().functions[self.namespace].keys())
         for key in keys:
