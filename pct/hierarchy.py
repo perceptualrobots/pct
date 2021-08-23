@@ -365,10 +365,10 @@ class PCTHierarchy():
                   self.hierarchy[level][col].change_link_name(old_name, new_name)
 
     def set_suffixes(self):
-
+        functionsList = FunctionsList.getInstance()
         # change names
-        for key in FunctionsList.getInstance().functions[self.namespace].keys():
-            func = FunctionsList.getInstance().get_function(self.namespace, key)
+        for key in functionsList.functions[self.namespace].keys():
+            func = functionsList.get_function(self.namespace, key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
                 #print(name)
@@ -377,13 +377,14 @@ class PCTHierarchy():
                     func.name = name+suffix
                     self.change_link_name(key, func.name)
 
-        keys = list(FunctionsList.getInstance().functions[self.namespace].keys())
+        keys = list(functionsList.functions[self.namespace].keys())
         for key in keys:
-            func = FunctionsList.getInstance().get_function(self.namespace,key)
+            func = functionsList.get_function(self.namespace,key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
                 #print(key, name)
-                FunctionsList.getInstance().functions[self.namespace][name] = FunctionsList.getInstance().functions[self.namespace].pop(key)
+                popped = functionsList.functions[self.namespace].pop(key)
+                functionsList.functions[self.namespace][name] = popped
 
 
     def get_levels(self):
