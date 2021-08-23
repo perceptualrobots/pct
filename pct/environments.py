@@ -434,7 +434,7 @@ class VelocityModel(BaseFunction):
 
 # Cell
 class DummyModel(BaseFunction):
-    def __init__(self, name="World", links=None, new_name=True, namespace=None, **cargs):
+    def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, **cargs):
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
 
     def __call__(self, verbose=False):
