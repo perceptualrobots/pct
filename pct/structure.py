@@ -56,6 +56,8 @@ class ArchitectureStructure():
         func = node.get_function_from_collection(function)
         func.set_sparse_node_function(function, thislevel, input, column, input_weights)
 
+    def set_namespace(self,namespace):
+        self.namespace=namespace
 
 
     def get_parameter(self, key):
