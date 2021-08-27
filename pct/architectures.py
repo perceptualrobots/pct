@@ -763,9 +763,9 @@ def create_hierarchy(env, error_collector, properties, history=False, suffixes=F
 
     config = BaseArchitecture.from_raw( raw)
 
-    modes =  {LevelKey.ZERO:modes[0], LevelKey.N:modes[1],LevelKey.TOP:modes[2],LevelKey.ZEROTOP :modes[3]}
-    arch_structure = ArchitectureStructure(modes=modes)
     namespace=env.namespace
+    modes =  {LevelKey.ZERO:modes[0], LevelKey.N:modes[1],LevelKey.TOP:modes[2],LevelKey.ZEROTOP :modes[3]}
+    arch_structure = ArchitectureStructure(modes=modes,     namespace=namespace)
 
     da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
                              inputs_names=inputs_names, top_input_indexes=top_input_indexes, history=history,
