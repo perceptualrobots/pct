@@ -652,7 +652,8 @@ class PCTHierarchy():
         history = self.get_history_data()
 
         num_items = len(history[list(history.keys())[0]])
-        x = np.linspace(0, num_items-1, num_items)
+        #x = np.linspace(0, num_items-1, num_items)
+        x =  [i for i in range(num_items)]
         style.use('fivethirtyeight')
 
         fig = plt.figure(figsize=figsize)
