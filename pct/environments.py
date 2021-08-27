@@ -28,8 +28,8 @@ class EnvironmentFactory:
 class OpenAIGym(BaseFunction):
     "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym",
-                 seed=None, links=None, new_name=True, early_termination=False, **cargs):
-        super().__init__(name, value, links, new_name)
+                 seed=None, links=None, new_name=True, early_termination=False, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.early_termination=early_termination
         self.video_wrap = video_wrap
         self.env_name=env_name
@@ -150,8 +150,9 @@ class CartPoleV1(OpenAIGym):
     # 3 pole_velocity
     # 2 pole_angle
     def __init__(self, render=False, video_wrap=False, value=0, name="CartPole-v1",
-                 seed=None, links=None, new_name=True, **cargs):
-        super().__init__('CartPole-v1', render, video_wrap, value, name, seed, links, new_name, **cargs)
+                 seed=None, links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(env_name='CartPole-v1', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed,
+                         links=links, new_name=new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
@@ -182,8 +183,9 @@ class CartPoleDV1(OpenAIGym):
     # 3 pole_velocity
     # 2 pole_angle
     def __init__(self, render=False, video_wrap=False, value=0, name="CartPoleD-v1",
-                 seed=None, links=None, new_name=True, **cargs):
-        super().__init__('CartPoleD-v1', render, video_wrap, value, name, seed, links, new_name, **cargs)
+                 seed=None, links=None, new_name=True, namespace=None, **cargs):
+        super().__init__('CartPoleD-v1', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed,
+                         links=links, new_name=new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
@@ -217,8 +219,9 @@ class PendulumV0(OpenAIGym):
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
     def __init__(self, render=False, video_wrap=False, value=0, name="Pendulum-v0",
-                 seed=None, links=None, new_name=True, **cargs):
-        super().__init__('Pendulum-v0', render, video_wrap, value, name, seed, links, new_name, **cargs)
+                 seed=None, links=None, new_name=True, namespace=None,**cargs):
+        super().__init__('Pendulum-v0', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed,
+                         links=links, new_name=new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().check_links(1)
@@ -261,8 +264,9 @@ class PendulumV0_1(OpenAIGym):
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
     def __init__(self, render=False, video_wrap=False, value=0, name="Pendulum-v0-1",
-                 seed=None, links=None, new_name=True, **cargs):
-        super().__init__('Pendulum-v0', render, video_wrap, value, name, seed, links, new_name, **cargs)
+                 seed=None, links=None, new_name=True, namespace=None,**cargs):
+        super().__init__('Pendulum-v0', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed,
+                         links=links, new_name=new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().check_links(1)
@@ -301,8 +305,9 @@ class MountainCarV0(OpenAIGym):
     # 2 Car position - 0 to +1.8, reference 1.65
 
     def __init__(self, render=False, video_wrap=False, value=0, name="MountainCarV0",
-                 seed=None, links=None, new_name=True, **cargs):
-        super().__init__('MountainCar-v0', render, video_wrap, value, name, seed, links, new_name, **cargs)
+                 seed=None, links=None, new_name=True, namespace=None, **cargs):
+        super().__init__('MountainCar-v0', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed,
+                         links=links, new_name=new_name, **cargs)
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
@@ -334,9 +339,10 @@ class MountainCarContinuousV0(OpenAIGym):
     # 2 Car position - 0 to +1.8, reference 1.65
 
     def __init__(self, render=False, video_wrap=False, value=0, name="MountainCarContinuousV0",
-                 seed=None, links=None, new_name=True, early_termination=True, **cargs):
-        super().__init__('MountainCarContinuous-v0', render, video_wrap, value, name, seed, links,
-                         new_name, early_termination, **cargs)
+                 seed=None, links=None, new_name=True, early_termination=True, namespace=None, **cargs):
+        super().__init__('MountainCarContinuous-v0', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed,
+                         links=links, new_name=new_name, early_termination=early_termination, **cargs)
+
         self.min_action = -1.0
         self.max_action = 1.0
         self.really_done = False
@@ -376,8 +382,8 @@ class VelocityModel(BaseFunction):
     # from obs[0], indices
 
     def __init__(self, mass=50, value=0, name="VelocityModel", links=None,
-                 num_links=1, new_name=True, indexes=0, **cargs):
-        super().__init__(name, value, links, new_name)
+                 num_links=1, new_name=True, indexes=0, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.mass = mass
         self.indexes=indexes
         self.num_links=num_links
@@ -428,8 +434,8 @@ class VelocityModel(BaseFunction):
 
 # Cell
 class DummyModel(BaseFunction):
-    def __init__(self, name="World", links=None, new_name=True, **cargs):
-        super().__init__(name, 0, links, new_name)
+    def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
 
     def __call__(self, verbose=False):
         pass

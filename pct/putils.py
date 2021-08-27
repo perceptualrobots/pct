@@ -2,7 +2,7 @@
 
 __all__ = ['UniqueNamer', 'FunctionsList', 'dynamic_module_import', 'dynamic_class_load', 'get_drive', 'get_gdrive',
            'Counter', 'stringIntListToListOfInts', 'stringFloatListToListOfFloats', 'stringListToListOfStrings',
-           'listNumsToString', 'sigmoid', 'smooth', 'dot', 'show_video', 'wrap_env', 'is_in_notebooks']
+           'listNumsToString', 'sigmoid', 'smooth', 'dot', 'list_of_ones', 'show_video', 'wrap_env', 'is_in_notebooks']
 
 # Cell
 import numpy as np
@@ -31,14 +31,38 @@ class UniqueNamer:
     def clear(self):
       self.names = {}
 
-    def get_name(self, name):
-        if name in self.names.keys():
-            num = self.names[name]+1
-            self.names[name]=num
+    def get_name(self, namespace=None, name=None):
+
+        if namespace in self.names:
+            namespace_list = self.names[namespace]
+        else:
+            namespace_list = {}
+            self.names[namespace] = namespace_list
+
+        if name in namespace_list:
+            num = namespace_list[name]+1
+            namespace_list[name]=num
             name = f'{name}{num}'
         #else:
-        self.names[name]=0
+        namespace_list[name]=0
         return name
+
+    def report(self,  namespace=None, name=None,):
+
+        if namespace is None:
+            for namespace, namespace_list in self.names.items():
+                print(namespace, len(namespace_list))
+                for name in namespace_list:
+                    print("*** ", name)
+        else:
+            if namespace in self.names:
+                namespace_list = self.names[namespace]
+                if name == None:
+                    print(len(namespace_list))
+                    for nname in namespace_list:
+                        print("*** ", nname, namespace_list[nname])
+                else:
+                    print("*** ", name, namespace_list[name])
 
 # Cell
 class FunctionsList:
@@ -46,46 +70,81 @@ class FunctionsList:
     __instance = None
     @staticmethod
     def getInstance():
-      """ Static access method. """
-      if FunctionsList.__instance == None:
+        """ Static access method. """
+        if FunctionsList.__instance == None:
          FunctionsList()
-      return FunctionsList.__instance
+        return FunctionsList.__instance
     def __init__(self):
-      """ Virtually private constructor. """
-      if FunctionsList.__instance != None:
+        """ Virtually private constructor. """
+        if FunctionsList.__instance != None:
          raise Exception("This class is a singleton!")
-      else:
+        else:
          FunctionsList.__instance = self
-      self.functions = {}
+        self.functions = {}
 
-    def clear(self):
-      self.functions = {}
+    def clear(self, namespace=None):
+        if namespace==None:
+            self.functions = {}
+        else:
+            self.functions[namespace] = {}
 
-    def add_function(self, func):
+    def add_function(self, namespace=None, func=None):
+        if namespace in self.functions:
+            namespace_list = self.functions[namespace]
+        else:
+            namespace_list = {}
+            self.functions[namespace]=namespace_list
+
         name = func.get_name()
-        self.functions[name]=func
+        namespace_list[name]=func
 
         return name
 
-    def remove_function(self, name):
-        self.functions.pop(name)
+    def remove_function(self, namespace=None, name=None):
+        self.functions[namespace].pop(name)
 
-    def get_function(self, name):
-        if isinstance(name, str) and name in self.functions:
-            func = self.functions[name]
+    def get_function(self, namespace=None, name=None):
+        if  name is None:
+            raise Exception(f'The function name must be specified')
+        if  namespace is None:
+            raise Exception(f'The namespace must be specified')
+
+        if namespace in self.functions:
+            namespace_list = self.functions[namespace]
+        else:
+            return name
+
+        if isinstance(name, str) :
+            if  name in namespace_list:
+                func = namespace_list[name]
+            else:
+                raise Exception(f'Function {name} does not exist in namespace {namespace}')
         else:
             func = name
+
         return func
 
-    def report(self, name=None):
-        if name == None:
-            print(len(self.functions))
-            for key in self.functions.keys():
-                print("*** ", key, [self.functions[key]])
-                print(self.functions[key])
+    def report(self, namespace=None, name=None):
+        if namespace is None:
+            for namespace, namespace_list in self.functions.items():
+                print(len(namespace_list), 'NAMESPACE', namespace)
+                for name, function in namespace_list.items():
+                    print("*** ", name, [function])
+                    print(function)
         else:
-            print("*** ", key, [self.functions[key]])
-            print(self.functions[key])
+            if namespace in self.functions:
+                namespace_list = self.functions[namespace]
+            else:
+                raise Exception(f"Namespace {namespace} not found in report")
+
+            if name == None:
+                print(len(namespace_list), 'NAMESPACE', namespace)
+                for name, function in namespace_list.items():
+                    print("*** ", name, [function])
+                    print(function)
+            else:
+                print("*** ", name, [namespace_list[name]])
+                print(namespace_list[name])
 
 
 # Cell
@@ -194,6 +253,11 @@ def dot(inputs, weights):
     for i in range(len(inputs)):
         sum += inputs[i]*weights[i]
     return sum
+
+# Cell
+def list_of_ones(num):
+    x = [1 for _ in range(num) ]
+    return x
 
 # Cell
 def show_video():

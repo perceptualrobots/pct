@@ -3,12 +3,12 @@
 __all__ = ['FunctionsData', 'PCTHierarchy']
 
 # Cell
-import numpy as np
+#import numpy as np
 import sys
+import uuid
 from .nodes import PCTNode
 from .functions import WeightedSum
-from .putils import UniqueNamer
-from .putils import FunctionsList
+from .putils import UniqueNamer, FunctionsList, list_of_ones
 from .functions import BaseFunction
 
 # Cell
@@ -42,14 +42,18 @@ class FunctionsData():
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
     def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single",
-                 history=False, build=True, error_collector=None, **pargs):
+                 history=False, build=True, error_collector=None, namespace=None, **pargs):
+        if namespace ==None:
+            namespace = uuid.uuid1()
+        self.namespace=namespace
+
         self.error_collector=error_collector
         self.links_built = False
         self.order=None
         self.history=history
         if clear_names:
             UniqueNamer.getInstance().clear()
-        self.name=UniqueNamer.getInstance().get_name(name)
+        self.name=UniqueNamer.getInstance().get_name(namespace=namespace, name=name)
         if pre==None:
             self.preCollection=[]
         else:
@@ -68,21 +72,21 @@ class PCTHierarchy():
             for c in range(cols):
                 if links == "dense":
                     if r > 0:
-                        perc = WeightedSum(weights=np.ones(cols))
+                        perc = WeightedSum(weights=list_of_ones(cols), namespace=namespace)
                     if r < levels-1:
-                        ref = WeightedSum(weights=np.ones(cols))
+                        ref = WeightedSum(weights=list_of_ones(cols), namespace=namespace)
                     if r == 0:
                         if levels > 1:
-                            node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history)
+                            node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history, namespace=namespace)
                         else:
-                            node = PCTNode(name=f'level{r}col{c}', history=history)
+                            node = PCTNode(name=f'level{r}col{c}', history=history, namespace=namespace)
                     if r > 0 and r == levels-1:
-                        node = PCTNode(perception=perc, name=f'level{r}col{c}', history=history)
+                        node = PCTNode(perception=perc, name=f'level{r}col{c}', history=history, namespace=namespace)
                     if r > 0 and r < levels-1:
-                        node = PCTNode(perception=perc, reference=ref, history=history, name=f'level{r}col{c}')
+                        node = PCTNode(perception=perc, reference=ref, history=history, name=f'level{r}col{c}', namespace=namespace)
 
                 else:
-                    node = PCTNode(name=f'level{r}col{c}', history=history)
+                    node = PCTNode(name=f'level{r}col{c}', history=history, namespace=namespace)
 
                 if build:
                     node.build_links()
@@ -124,7 +128,7 @@ class PCTHierarchy():
             for node_name in self.order:
                 if verbose:
                     print(node_name, end =" ")
-                FunctionsList.getInstance().get_function(node_name)(verbose)
+                FunctionsList.getInstance().get_function(self.namespace, node_name)(verbose)
 
         for func in self.postCollection:
             func(verbose)
@@ -361,24 +365,27 @@ class PCTHierarchy():
                   self.hierarchy[level][col].change_link_name(old_name, new_name)
 
     def set_suffixes(self):
-
+        functionsList = FunctionsList.getInstance()
         # change names
-        for key in FunctionsList.getInstance().functions.keys():
-            func = FunctionsList.getInstance().get_function(key)
+        for key in functionsList.functions[self.namespace].keys():
+            func = functionsList.get_function(self.namespace, key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
                 #print(name)
                 suffix = func.get_suffix()
-                func.name = name+suffix
-                self.change_link_name(key, func.name)
+                if len(suffix)>0:
+                    func.name = name+suffix
+                    self.change_link_name(key, func.name)
 
-        keys = list(FunctionsList.getInstance().functions.keys())
+        keys = list(functionsList.functions[self.namespace].keys())
         for key in keys:
-            func = FunctionsList.getInstance().get_function(key)
+            func = functionsList.get_function(self.namespace,key)
             if isinstance (func, BaseFunction):
                 name = func.get_name()
                 #print(key, name)
-                FunctionsList.getInstance().functions[name] = FunctionsList.getInstance().functions.pop(key)
+                if key != name:
+                    popped = functionsList.functions[self.namespace].pop(key)
+                    functionsList.functions[self.namespace][name] = popped
 
 
     def get_levels(self):
@@ -516,13 +523,13 @@ class PCTHierarchy():
         f.close()
 
     @classmethod
-    def load(cls, file, clear=True):
+    def load(cls, file, clear=True, namespace=None):
         if clear:
             FunctionsList.getInstance().clear()
 
         with open(file) as f:
             config = json.load(f)
-        return cls.from_config(config)
+        return cls.from_config(config, namespace=namespace)
 
     def get_config(self):
         config = {"type": type(self).__name__,
@@ -557,15 +564,16 @@ class PCTHierarchy():
 
 
     @classmethod
-    def from_config(cls, config):
-        hpct = PCTHierarchy(name=config['name'])
+    def from_config(cls, config, namespace=None):
+        hpct = PCTHierarchy(name=config['name'], namespace=namespace)
+        namespace = hpct.namespace
         preCollection = []
         coll_dict = config['pre']
-        PCTNode.collection_from_config(preCollection, coll_dict)
+        PCTNode.collection_from_config(preCollection, coll_dict, namespace=namespace)
 
         postCollection = []
         coll_dict = config['post']
-        PCTNode.collection_from_config(postCollection, coll_dict)
+        PCTNode.collection_from_config(postCollection, coll_dict, namespace=namespace)
 
         hpct.preCollection=preCollection
         hpct.postCollection=postCollection
@@ -574,7 +582,7 @@ class PCTHierarchy():
         for level_key in config['levels'].keys():
             cols = []
             for nodes_key in config['levels'][level_key]['nodes'].keys():
-                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'])
+                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace)
                 cols.append(node)
             hpct.hierarchy.append(cols)
 
@@ -605,14 +613,14 @@ class PCTHierarchy():
         return self.hierarchy[level][col].get_function(collection, position)
 
     def set_links(self, func_name, *link_names):
-        func = FunctionsList.getInstance().get_function(func_name)
+        func = FunctionsList.getInstance().get_function(self.namespace, func_name)
         func.clear_links()
         for link_name in link_names:
-            func.add_link(FunctionsList.getInstance().get_function(link_name))
+            func.add_link(FunctionsList.getInstance().get_function(self.namespace, link_name))
 
     def add_links(self, func_name, *link_names):
         for link_name in link_names:
-            FunctionsList.getInstance().get_function(func_name).add_link(FunctionsList.getInstance().get_function(link_name))
+            FunctionsList.getInstance().get_function(self.namespace, func_name).add_link(FunctionsList.getInstance().get_function(self.namespace, link_name))
 
 
     def get_history_data(self):
@@ -644,7 +652,8 @@ class PCTHierarchy():
         history = self.get_history_data()
 
         num_items = len(history[list(history.keys())[0]])
-        x = np.linspace(0, num_items-1, num_items)
+        #x = np.linspace(0, num_items-1, num_items)
+        x =  [i for i in range(num_items)]
         style.use('fivethirtyeight')
 
         fig = plt.figure(figsize=figsize)

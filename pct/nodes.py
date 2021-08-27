@@ -4,11 +4,14 @@ __all__ = ['ControlUnitIndices', 'PCTNode', 'PCTNodeData']
 
 # Cell
 import enum
+import uuid
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .putils import dynamic_module_import
 from .functions import FunctionFactory
 from .functions import ControlUnitFunctions
+
+import json
 from .functions import *
 
 # Cell
@@ -22,7 +25,7 @@ class ControlUnitIndices(enum.IntEnum):
 class PCTNode():
     "A single PCT controller."
     def __init__(self, reference=None, perception=None, comparator=None, output=None, default=True,
-                 name="pctnode", history=False, build_links=False, mode=0, **pargs):
+                 name="pctnode", history=False, build_links=False, mode=0, namespace=None, **pargs):
         # mode
         # 0 - per:var, ref:con, com:sub, out:prop
         # 1 - per:ws, ref:ws, com:sub, out:prop
@@ -32,51 +35,31 @@ class PCTNode():
         # 5 - per:ws, ref:con, com:sub, out:smws
         # 6 - per:ws, ref:ws, com:sub, out:smws
 
+        if namespace ==None:
+            namespace = uuid.uuid1()
+        self.namespace=namespace
+
         self.links_built = False
         self.history = None
         if history:
             self.history = PCTNodeData()
-        self.name = UniqueNamer.getInstance().get_name(name)
-        FunctionsList.getInstance().add_function(self)
+        self.name = UniqueNamer.getInstance().get_name(self.namespace, name)
+        FunctionsList.getInstance().add_function(self.namespace, self)
         if default:
             if perception==None:
-                perception = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION))
-                """
-                if mode >0 :
-                     perception =  WeightedSum()
-                else:
-                     perception =  Variable(0)
-                """
+                perception = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION), namespace=namespace)
             self.perceptionCollection = [perception]
 
             if reference==None:
-                reference = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.REFERENCE))
-                """
-                if mode == 1 or mode == 3 or mode == 6:
-                    reference =  WeightedSum()
-                elif mode ==0 or mode == 2 or mode == 4 or mode == 5:
-                    reference = Constant(1)
-                """
+                reference = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.REFERENCE), namespace=namespace)
             self.referenceCollection = [reference]
 
             if comparator==None:
-                comparator = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.COMPARATOR))
-                """
-                comparator = Subtract()
-                """
+                comparator = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.COMPARATOR), namespace=namespace)
             self.comparatorCollection = [comparator]
 
             if output==None:
-                output = FunctionFactory.createFunction(PCTNode.get_function_type(mode, ControlUnitFunctions.OUTPUT))
-                """
-                if mode >2 and mode < 5:
-                    output =  WeightedSum()
-                elif mode == 6:
-                    output =  SmoothWeightedSum()
-                else:
-                    output = Proportional(10)
-
-                """
+                output = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.OUTPUT), namespace=namespace)
             self.outputCollection = [output]
 
             if build_links:
@@ -225,39 +208,15 @@ class PCTNode():
 
     def replace_function(self, collection, function, position=-1):
         if collection == "reference":
-            """
-            func = self.referenceCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.referenceCollection) == 0:
-                position=-1
-            """
             self.referenceCollection[position] = function
 
         if collection == "perception":
-            """
-            func = self.perceptionCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.perceptionCollection) == 0:
-                position=-1
-            """
             self.perceptionCollection[position]  = function
 
         if collection == "comparator":
-            """
-            func = self.comparatorCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.comparatorCollection) == 0:
-                position=-1
-            """
             self.comparatorCollection[position] = function
 
         if collection == "output":
-            """
-            func = self.outputCollection[position]
-            FunctionsList.getInstance().remove_function(func.get_name())
-            if len(self.outputCollection) == 0:
-                position=-1
-            """
             self.outputCollection[position] = function
 
 
@@ -464,34 +423,35 @@ class PCTNode():
         return cls.from_config(config)
 
     @classmethod
-    def from_config(cls, config):
-        node = PCTNode(default=False, name=config['name'])
+    def from_config(cls, config, namespace=None):
 
+        node = PCTNode(default=False, name=config['name'], namespace=namespace)
+        namespace= node.namespace
         node.referenceCollection = []
         collection = node.referenceCollection
         coll_dict = config['refcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
+        PCTNode.collection_from_config(collection, coll_dict, namespace)
 
         node.perceptionCollection = []
         collection = node.perceptionCollection
         coll_dict = config['percoll']
-        PCTNode.collection_from_config(collection, coll_dict)
+        PCTNode.collection_from_config(collection, coll_dict, namespace)
 
         node.comparatorCollection = []
         collection = node.comparatorCollection
         coll_dict = config['comcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
+        PCTNode.collection_from_config(collection, coll_dict, namespace)
 
         node.outputCollection = []
         collection = node.outputCollection
         coll_dict = config['outcoll']
-        PCTNode.collection_from_config(collection, coll_dict)
+        PCTNode.collection_from_config(collection, coll_dict, namespace)
 
         node.links_built = True
         return node
 
     @classmethod
-    def collection_from_config(node, collection, coll_dict):
+    def collection_from_config(node, collection, coll_dict, namespace):
         #print("collection_from_config", coll_dict)
         for fndict_label in coll_dict:
             #print("fndict_label",fndict_label)
@@ -500,7 +460,7 @@ class PCTNode():
             #print(fndict)
             fnname = fndict.pop('type')
             #print(fndict)
-            func = eval(fnname).from_config(fndict)
+            func = eval(fnname).from_config(fndict, namespace)
             collection.append(func)
 
     @classmethod

@@ -5,9 +5,10 @@ __all__ = ['ControlUnitFunctions', 'CUF', 'BaseFunction', 'FunctionFactory', 'Su
            'SmoothWeightedSum', 'IndexedParameter']
 
 # Cell
-import numpy as np
+#import numpy as np
 import enum
 import random
+import uuid
 from abc import ABC, abstractmethod
 from .putils import sigmoid
 from .putils import smooth
@@ -32,8 +33,13 @@ class CUF(enum.IntEnum):
 
 # Cell
 class BaseFunction(ABC):
-    "Base class of a PCT function. This class is not used direclty by developers, but defines the functionality common to all."
-    def __init__(self, name, value, links=None, new_name=True):
+    "Base class of a PCT function. This class is not used directly by developers, but defines the functionality common to all."
+    def __init__(self, name=None, value=None, links=None, new_name=True, namespace=None):
+        if namespace ==None:
+            namespace = uuid.uuid1()
+        self.namespace=namespace
+
+
         self.value = value
         self.links = []
         self.handle_links(links)
@@ -41,11 +47,11 @@ class BaseFunction(ABC):
 
         #print(f'size {len(UniqueNamer.getInstance().names)} {name} {name in UniqueNamer.getInstance().names}', end=" ")
         if new_name:
-            self.name = UniqueNamer.getInstance().get_name(name)
+            self.name = UniqueNamer.getInstance().get_name(namespace, name)
         else:
             self.name = name
         #print(self.name)
-        FunctionsList.getInstance().add_function(self)
+        FunctionsList.getInstance().add_function(namespace, self)
         self.decimal_places = 3
 
     @abstractmethod
@@ -79,19 +85,19 @@ class BaseFunction(ABC):
             if isinstance(links, dict):
                 if len(links)>0:
                     for key in links.keys():
-                        self.links.append(FunctionsList.getInstance().get_function(links[key]))
+                        self.links.append(FunctionsList.getInstance().get_function(self.namespace, links[key]))
                 return
 
             if isinstance(links, list):
                 for link in links:
                     if isinstance(link, str):
-                        self.links.append(FunctionsList.getInstance().get_function(link))
+                        self.links.append(FunctionsList.getInstance().get_function(self.namespace, link))
                     else:
                         self.links.append(link)
                 return
 
             if isinstance(links, str):
-                self.links.append(FunctionsList.getInstance().get_function(links))
+                self.links.append(FunctionsList.getInstance().get_function(self.namespace, links))
                 return
 
             self.links.append(links)
@@ -141,7 +147,7 @@ class BaseFunction(ABC):
         node_name = self.name
         edges = []
         for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
             if isinstance(func, str):
                 name = func
             else:
@@ -160,7 +166,7 @@ class BaseFunction(ABC):
         node_name = self.name
         edges = []
         for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
             if isinstance(func, str):
                 name = func
             else:
@@ -234,7 +240,7 @@ class BaseFunction(ABC):
         if self.checklinks:
             ctr=0
             for link in self.links:
-                func = FunctionsList.getInstance().get_function(link)
+                func = FunctionsList.getInstance().get_function(self.namespace, link)
                 self.links[ctr]=func
                 ctr+=1
 
@@ -257,7 +263,7 @@ class BaseFunction(ABC):
         if len(self.links)>0:
             print('| links ', end=" ")
         for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
             if isinstance(func, str):
                 fname = func
             else:
@@ -272,19 +278,22 @@ class BaseFunction(ABC):
         config = {"type": type(self).__name__,
                     "name": self.name}
 
-        if isinstance(self.value, np.ndarray):
-            config["value"] = self.value.tolist()
-        else:
-            config["value"] = self.value
+#         if isinstance(self.value, np.ndarray):
+#             config["value"] = self.value.tolist()
+#         else:
+        config["value"] = self.value
 
         ctr=0
         links={}
         for link in self.links:
-            func = FunctionsList.getInstance().get_function(link)
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
             try:
                 links[ctr]=func.get_name()
             except AttributeError:
-                raise Exception(f' there is no function called {link}, ensure it exists first.')
+                #raise Exception(f' there is no function called {link}, ensure it exists first.')
+                print(f'WARN: there is no function called {link}, ensure it exists first.')
+                links[ctr]=func
+
             ctr+=1
 
         config['links']=links
@@ -294,9 +303,9 @@ class BaseFunction(ABC):
         return self.name
 
     def set_name(self, name):
-        FunctionsList.getInstance().remove_function(self.name)
+        FunctionsList.getInstance().remove_function(self.namespace, self.name)
         self.name=name
-        FunctionsList.getInstance().add_function(self)
+        FunctionsList.getInstance().add_function(self.namespace, self)
 
     def set_property(self, property_name, property_value):
         #self[property_name]= property_value
@@ -341,19 +350,15 @@ class BaseFunction(ABC):
         f.write(jsondict)
         f.close()
 
-
-
-
-
     @classmethod
-    def load(cls, file):
+    def load(cls, file, namespace=None):
         with open(file) as f:
             config = json.load(f)
-        return cls.from_config(config)
+        return cls.from_config(config, namespace=namespace)
 
     @classmethod
-    def from_config(cls,  config):
-        func = cls(new_name=False, **config)
+    def from_config(cls, config=None, namespace=None):
+        func = cls(new_name=False, namespace=namespace, **config)
         return func
 
     def __str__(self):
@@ -373,11 +378,18 @@ class FunctionFactory:
         return FunctionFactory.factories[id].create()
     createFunction = staticmethod(createFunction)
 
+    def createFunctionWithNamespace(id, namespace=None):
+        if not FunctionFactory.factories.__contains__(id):
+            FunctionFactory.factories[id] = \
+              eval(id + f'.FactoryWithNamespace()')
+        return FunctionFactory.factories[id].create(namespace=namespace)
+    createFunctionWithNamespace = staticmethod(createFunctionWithNamespace)
+
 # Cell
 class Subtract(BaseFunction):
     "A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted."
-    def __init__(self, value=0, name="subtract", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, value=0, name="subtract", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
 
     def __call__(self, verbose=False):
         super().check_links(2)
@@ -395,11 +407,15 @@ class Subtract(BaseFunction):
     class Factory:
         def create(self): return Subtract()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Subtract(namespace=namespace)
+
+
 # Cell
 class Proportional(BaseFunction):
     "A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One."
-    def __init__(self, gain=1, value=0, name="proportional", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, gain=1, value=0, name="proportional", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.gain = gain
 
     def __call__(self, verbose=False):
@@ -422,11 +438,15 @@ class Proportional(BaseFunction):
     class Factory:
         def create(self): return Proportional()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Proportional(namespace=namespace)
+
+
 # Cell
 class Variable(BaseFunction):
     "A function that returns a variable value. Parameter: The variable value. Links: None"
-    def __init__(self,  value=0, name="variable", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self,  value=0, name="variable", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
 
     def __call__(self, verbose=False):
         return super().__call__(verbose)
@@ -444,13 +464,15 @@ class Variable(BaseFunction):
     class Factory:
         def create(self): return Variable()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Variable(namespace=namespace)
 
 
 # Cell
 class PassOn(BaseFunction):
     "A function that passes on a variable value from a linked function. Parameter: None. Links: One"
-    def __init__(self,  value=0, name="variable", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self,  value=0, name="variable", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
 
     def __call__(self, verbose=False):
         super().check_links(1)
@@ -467,13 +489,15 @@ class PassOn(BaseFunction):
     class Factory:
         def create(self): return PassOn()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return PassOn(namespace=namespace)
 
 
 # Cell
 class GreaterThan(BaseFunction):
     "One of two supplied values is returned if the input is greater than supplied threshold.</br> Parameters: The threshold and upper and lower value. Links: One"
-    def __init__(self, threshold=0, upper=1, lower=0, value=0, name="greaterthan", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, threshold=0, upper=1, lower=0, value=0, name="greaterthan", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.threshold=threshold
         self.upper=upper
         self.lower=lower
@@ -502,13 +526,15 @@ class GreaterThan(BaseFunction):
     class Factory:
         def create(self): return GreaterThan()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return GreaterThan(namespace=namespace)
 
 
 # Cell
 class Constant(BaseFunction):
     "A function that returns a constant value. Parameter: The constant value. Links: None"
-    def __init__(self, value=0, name="constant", new_name=True, **cargs):
-        super().__init__(name, value, None, new_name)
+    def __init__(self, value=0, name="constant", new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=None, new_name=new_name, namespace=namespace)
 
     def __call__(self, verbose=False):
         return super().__call__(verbose)
@@ -543,11 +569,14 @@ class Constant(BaseFunction):
     class Factory:
         def create(self): return Constant()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Constant(namespace=namespace)
+
 
 # Cell
 class Step(BaseFunction):
     "A function that returns an alternating signal. Parameter: The upper and lower values, and a delay value. Links: None"
-    def __init__(self, upper=None, lower=None, delay=None, period=None, value=0, name="step", new_name=True, **cargs):
+    def __init__(self, upper=None, lower=None, delay=None, period=None, value=0, name="step", new_name=True, namespace=None, **cargs):
         self.ctr=1
         self.upper=upper
         self.lower=lower
@@ -555,7 +584,7 @@ class Step(BaseFunction):
         self.period=period
         self.delay_finished=False
 
-        super().__init__(name, value, None, new_name)
+        super().__init__(name=name, value=value, links=None, new_name=new_name, namespace=namespace)
 
     def __call__(self, verbose=False):
         if self.ctr>self.delay-1:
@@ -588,11 +617,15 @@ class Step(BaseFunction):
     class Factory:
         def create(self): return Step()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Step(namespace=namespace)
+
+
 # Cell
 class Integration(BaseFunction):
     "A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: One."
-    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.gain = gain
         self.slow = slow
 
@@ -615,12 +648,15 @@ class Integration(BaseFunction):
     class Factory:
         def create(self): return Integration()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Integration(namespace=namespace)
+
 
 # Cell
 class IntegrationDual(BaseFunction):
     "A leaky integrating function, applying one signal to another. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: Two."
-    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.gain = gain
         self.slow = slow
 
@@ -645,11 +681,15 @@ class IntegrationDual(BaseFunction):
     class Factory:
         def create(self): return IntegrationDual()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return IntegrationDual(namespace=namespace)
+
+
 # Cell
 class Sigmoid(BaseFunction):
     "A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and scale (slope) values. Links: One."
-    def __init__(self, range=2, scale=2, value=0, name="sigmoid", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, range=2, scale=2, value=0, name="sigmoid", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.range = range
         self.scale = scale
 
@@ -672,11 +712,15 @@ class Sigmoid(BaseFunction):
     class Factory:
         def create(self): return Sigmoid()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return Sigmoid(namespace=namespace)
+
+
 # Cell
 class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=[0], value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, weights=[0], value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         if usenumpy:
             if isinstance(weights, list):
                 self.weights = np.array(weights)
@@ -767,7 +811,7 @@ class WeightedSum(BaseFunction):
             else:
                 #print(inputIndex,column)
                 weights.append(input_weights[inputIndex][column])
-        self.weights=np.array(weights)
+        self.weights=weights #np.array(weights)
 
     def set_sparse_node_function(self, function_type, thislevel, input, column, input_weights):
         prefix = self.get_capital(function_type)
@@ -787,7 +831,7 @@ class WeightedSum(BaseFunction):
 
         self.add_link(name)
         weights.append(input_weights[0][0])
-        self.weights=np.array(weights)
+        self.weights=weights #np.array(weights)
 
 
 
@@ -798,17 +842,21 @@ class WeightedSum(BaseFunction):
 
         weights=[]
         weights.append(input_weights[column])
-        self.weights=np.array(weights)
+        self.weights=weights #np.array(weights)
 
     class Factory:
         def create(self): return WeightedSum()
+
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return WeightedSum(namespace=namespace)
+
 
 # Cell
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=[0], smooth_factor=0, value=0, name="smooth_weighted_sum", links=None,
-                 new_name=True, usenumpy=False, **cargs):
-        super().__init__(name, value, links, new_name)
+                 new_name=True, usenumpy=False, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         if usenumpy:
             if isinstance(weights, list):
                 self.weights = np.array(weights)
@@ -905,17 +953,21 @@ class SmoothWeightedSum(BaseFunction):
 
         weights=[]
         weights.append(input_weights[column][0])
-        self.weights=np.array(weights)
+        self.weights=weights #np.array(weights)
         self.smooth_factor=input_weights[column][1]
 
     class Factory:
         def create(self): return SmoothWeightedSum()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return SmoothWeightedSum(namespace=namespace)
+
+
 # Cell
 class IndexedParameter(BaseFunction):
     "A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One."
-    def __init__(self, index=None, value=0, name="indexed_parameter", links=None, new_name=True, **cargs):
-        super().__init__(name, value, links, new_name)
+    def __init__(self, index=None, value=0, name="indexed_parameter", links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.index = index
 
     def __call__(self, verbose=False):
@@ -935,3 +987,6 @@ class IndexedParameter(BaseFunction):
 
     class Factory:
         def create(self): return IndexedParameter()
+
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return IndexedParameter(namespace=namespace)

@@ -4,6 +4,7 @@ __all__ = ['LevelKey', 'ArchitectureStructure']
 
 # Cell
 import enum
+import uuid
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 
@@ -18,7 +19,12 @@ class LevelKey(enum.Enum):
 class ArchitectureStructure():
     "ArchitectureStructure"
     def __init__(self, references=None, config=None, attr_mut_pb=None, lower_float=None, upper_float=None, levels_limit=None,
-                 columns_limit=None, sigma=None, mu=None, alpha=None, modes=None, **cargs):
+                 columns_limit=None, sigma=None, mu=None, alpha=None, modes=None, namespace=None,**cargs):
+
+        if namespace ==None:
+            namespace = uuid.uuid1()
+        self.namespace=namespace
+
         if config==None:
             self.config={'parameters': { 'modes' : {LevelKey.ZERO:3, LevelKey.N:3,LevelKey.TOP:4,LevelKey.ZEROTOP :4} }}
         else:
@@ -50,6 +56,8 @@ class ArchitectureStructure():
         func = node.get_function_from_collection(function)
         func.set_sparse_node_function(function, thislevel, input, column, input_weights)
 
+    def set_namespace(self,namespace):
+        self.namespace=namespace
 
 
     def get_parameter(self, key):
@@ -68,7 +76,7 @@ class ArchitectureStructure():
     def set_action_function(self, hpct, env, numColumnsThisLevel,  weights):
         numActions = len(weights)
         for actionIndex in range(numActions):
-            action = WeightedSum(weights=weights[actionIndex], name=f'Action{actionIndex+1}')
+            action = WeightedSum(weights=weights[actionIndex], name=f'Action{actionIndex+1}', namespace=self.namespace)
             for column in range(numColumnsThisLevel):
                 action.add_link(f'OL0C{column}')
             hpct.add_postprocessor(action)

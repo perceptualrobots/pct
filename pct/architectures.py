@@ -24,11 +24,12 @@ from .errors import BaseErrorCollector
 # Cell
 class BaseArchitecture(ABC):
     "Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all."
-    def __init__(self, name, config, env, inputs, history, error_collector):
+    def __init__(self, name=None, config=None, env=None, inputs=None, history=None, error_collector=None, namespace=None):
+        self.namespace=namespace
         self.config = config
         self.env = env
         self.inputs=inputs
-        self.hpct = PCTHierarchy(history=history, error_collector=error_collector)
+        self.hpct = PCTHierarchy(history=history, error_collector=error_collector, namespace=namespace)
         self.hpct.add_preprocessor(env)
 
         for input in inputs:
@@ -66,13 +67,14 @@ class BaseArchitecture(ABC):
 # Cell
 class ProportionalArchitecture(BaseArchitecture):
     "Proportional Architecture"
-    def __init__(self, name="proportional", config=None, env=None, input_indexes=None, history=False, error_collector=None, **cargs):
+    def __init__(self, name="proportional", config=None, env=None, input_indexes=None, history=False,
+                 error_collector=None, namespace=None, **cargs):
         inputs=[]
         for ctr in range(len(input_indexes)):
-            ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env])
+            ip = IndexedParameter(index=input_indexes[ctr], name=f'Input{ctr}', links=[env], namespace=namespace)
             inputs.append(ip)
 
-        super().__init__(name, config, env, inputs, history, error_collector)
+        super().__init__(name=name, config=config, env=env, inputs=inputs, history=history, error_collector=error_collector, namespace=namespace)
 
     def configure_zerothlevel(self):
         inputsIndex=0
@@ -88,7 +90,8 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history,
+                           namespace=self.namespace)
             # change names
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -100,7 +103,7 @@ class ProportionalArchitecture(BaseArchitecture):
             for inputIndex in range(numInputs):
                 node.get_function("perception").add_link(self.inputs[inputIndex])
                 weights.append(config[inputsIndex][inputIndex][column])
-            node.get_function("perception").weights=np.array(weights)
+            node.get_function("perception").weights=weights #np.array(weights)
 
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
@@ -111,7 +114,7 @@ class ProportionalArchitecture(BaseArchitecture):
         numActions = len(config[actionsIndex])
         numColumnsThisLevel = len(config[outputsIndex])
         for actionIndex in range(numActions):
-            action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'Action{actionIndex+1}ws')
+            action = WeightedSum(weights=config[actionsIndex][actionIndex], name=f'Action{actionIndex+1}ws', namespace=self.namespace)
             for column in range(numColumnsThisLevel):
                 action.add_link(f'OL{level}C{column}p')
             self.hpct.add_postprocessor(action)
@@ -129,7 +132,7 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=1, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             # change names
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -142,7 +145,7 @@ class ProportionalArchitecture(BaseArchitecture):
                 node.get_function("perception").add_link(f'PL{level-1}C{inputIndex}ws')
                 weights.append(config[inputsIndex][column][inputIndex])
 
-            node.get_function("perception").weights=np.array(weights)
+            node.get_function("perception").weights=weights #np.array(weights)
 
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
@@ -158,7 +161,7 @@ class ProportionalArchitecture(BaseArchitecture):
                 reference.add_link(f'OL{level}C{output_column}p')
                 weights.append(config[referencesIndex][referenceIndex][output_column])
 
-            reference.weights=np.array(weights)
+            reference.weights=weights #np.array(weights)
 
         return numColumnsThisLevel
 
@@ -173,9 +176,9 @@ class ProportionalArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=2, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=2, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             # change names
-            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c')
+            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c', namespace=self.namespace)
             node.replace_function("reference", reference, 0)
             node.get_function("perception").set_name(f'PL{level}C{column}ws')
             #node.get_function("reference").set_name(f'RL{level}C{column}ws')
@@ -194,7 +197,7 @@ class ProportionalArchitecture(BaseArchitecture):
                 node.get_function("perception").add_link(f'PL{level-1}C{inputIndex}ws')
                 weights.append(config[inputsIndex][column][inputIndex])
                 #weights.append(config[inputsIndex][inputIndex][column])
-            node.get_function("perception").weights=np.array(weights)
+            node.get_function("perception").weights=weights #np.array(weights)
 
             # configure outputs
             node.get_function("output").set_property('gain', config[outputsIndex][column])
@@ -210,7 +213,7 @@ class ProportionalArchitecture(BaseArchitecture):
                 reference.add_link(f'OL{level}C{output_column}p')
                 weights.append(config[lowerReferencesIndex][referenceIndex][output_column])
 
-            reference.weights=np.array(weights)
+            reference.weights=weights #np.array(weights)
 
 
     def set_references(self):
@@ -222,7 +225,7 @@ class ProportionalArchitecture(BaseArchitecture):
         # change nodes
         for column in range(numColumnsThisLevel):
             node = self.hpct.get_node(level, column)
-            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c')
+            reference = Constant(config[topReferencesIndex][column], name=f'RL{level}C{column}c', namespace=self.namespace)
             node.replace_function("reference", reference, 0)
             node.get_function("comparator").set_link(reference)
             node.get_function("comparator").add_link(node.get_function("perception"))
@@ -235,7 +238,9 @@ class ProportionalArchitecture(BaseArchitecture):
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, inputs_names=None,
-                 top_input_indexes=None, history=False, error_collector=None, suffixes = False, **cargs):
+                 top_input_indexes=None, history=False, error_collector=None, suffixes = False, namespace=None, **cargs):
+
+
         inputs=[]
         if top_input_indexes != None:
             self.top_inputs = []
@@ -250,7 +255,7 @@ class DynamicArchitecture(BaseArchitecture):
             else:
                 input_name = inputs_names[ctr]
 
-            ip = IndexedParameter(index=input_indexes[ctr], name=input_name, links=[env])
+            ip = IndexedParameter(index=input_indexes[ctr], name=input_name, links=[env], namespace=namespace)
             inputs.append(ip)
             if top_input_indexes != None :
                 if input_indexes[ctr] in top_input_indexes :
@@ -258,7 +263,7 @@ class DynamicArchitecture(BaseArchitecture):
                 else:
                     self.zero_inputs.append(ip)
 
-        super().__init__(name, config, env, inputs, history, error_collector)
+        super().__init__(name, config, env, inputs, history, error_collector, namespace=namespace)
         self.suffixes=suffixes
         self.structure=structure
 
@@ -304,7 +309,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode , level, None, None,  column, None, None, config[referencesIndex], True, 0)
             self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None,  column, len(self.inputs), self.inputs, config[inputsIndex], False,0)
 
@@ -349,7 +354,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(columns):
-            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, level+1, 'O',
                                              column, columnsNextLevel, None, config[referencesIndex], True, 0)
             self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None,
@@ -382,7 +387,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, level+1, 'O',
                                              column, columnsNextLevel, None, config[referencesIndex], True, 0)
             self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P',
@@ -408,7 +413,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         # create nodes
         for column in range(numColumnsThisLevel):
-            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history)
+            node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
 
             self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, None, None,
                                              column, None, None, config[referencesIndex], None, 0)
@@ -439,17 +444,18 @@ class DynamicArchitecture(BaseArchitecture):
             num_inputs = len(raw[0][0])
             inputs = [i for i in range(num_inputs)]
 
-        if arch_structure==None:
-            arch_structure = ArchitectureStructure()
-
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
         env.reset()
+        namespace=env.namespace
+
+        if arch_structure==None:
+            arch_structure = ArchitectureStructure(namespace=namespace)
 
         config = BaseArchitecture.from_raw( raw)
         #print(config)
         pa = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
-                                 inputs_names=inputs_names, top_input_indexes=top_input_indexes, suffixes=True)
+                                 inputs_names=inputs_names, top_input_indexes=top_input_indexes, suffixes=True, namespace=namespace)
         pa()
         hpct = pa.get_hierarchy()
         if summary:
@@ -473,12 +479,13 @@ class DynamicArchitecture(BaseArchitecture):
             num_inputs = len(raw[0][0])
             inputs = [i for i in range(num_inputs)]
 
-        if arch_structure==None:
-            arch_structure = ArchitectureStructure()
 
         if env == None:
             env = EnvironmentFactory.createEnvironment('DummyModel')
         env.reset()
+        namespace=env.namespace
+        if arch_structure==None:
+            arch_structure = ArchitectureStructure(namespace=namespace)
 
         config = BaseArchitecture.from_raw( raw)
 
@@ -490,7 +497,8 @@ class DynamicArchitecture(BaseArchitecture):
 
         da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
                                  inputs_names=inputs_names, top_input_indexes=top_input_indexes,
-                                 history=history, error_collector=error_collector, suffixes=suffixes)
+                                 history=history, error_collector=error_collector, suffixes=suffixes,
+                                 namespace=namespace)
         da()
         hpct = da.get_hierarchy()
         #if inputs_names != None:
@@ -755,12 +763,13 @@ def create_hierarchy(env, error_collector, properties, history=False, suffixes=F
 
     config = BaseArchitecture.from_raw( raw)
 
+    namespace=env.namespace
     modes =  {LevelKey.ZERO:modes[0], LevelKey.N:modes[1],LevelKey.TOP:modes[2],LevelKey.ZEROTOP :modes[3]}
-    arch_structure = ArchitectureStructure(modes=modes)
+    arch_structure = ArchitectureStructure(modes=modes,     namespace=namespace)
 
     da = DynamicArchitecture(structure=arch_structure, config=config, env=env, input_indexes=inputs,
                              inputs_names=inputs_names, top_input_indexes=top_input_indexes, history=history,
-                             error_collector=error_collector, suffixes=suffixes)
+                             error_collector=error_collector, suffixes=suffixes, namespace=namespace)
     da()
     hpct = da.get_hierarchy()
 
