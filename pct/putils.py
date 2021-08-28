@@ -21,15 +21,19 @@ class UniqueNamer:
       return UniqueNamer.__instance
 
     def __init__(self):
-      """ Virtually private constructor. """
-      if UniqueNamer.__instance != None:
-         raise Exception("This class is a singleton!")
-      else:
-         UniqueNamer.__instance = self
-      self.names = {}
+        """ Virtually private constructor. """
+        if UniqueNamer.__instance != None:
+            raise Exception("This class is a singleton!")
+        else:
+            UniqueNamer.__instance = self
+        self.names = {}
 
-    def clear(self):
-      self.names = {}
+    def clear(self, namespace=None):
+        if namespace==None:
+            self.names = {}
+        else:
+            self.names[namespace] = {}
+
 
     def get_name(self, namespace=None, name=None):
 

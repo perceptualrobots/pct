@@ -52,7 +52,7 @@ class PCTHierarchy():
         self.order=None
         self.history=history
         if clear_names:
-            UniqueNamer.getInstance().clear()
+            UniqueNamer.getInstance().clear(namespace=namespace)
         self.name=UniqueNamer.getInstance().get_name(namespace=namespace, name=name)
         if pre==None:
             self.preCollection=[]
