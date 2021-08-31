@@ -674,10 +674,10 @@ class PCTHierarchy():
         post = []
 
         for func in self.preCollection:
-            pre.append(func.get_list(labels))
+            pre.append(func.get_list())
 
         for func in self.postCollection:
-            post.append(func.get_list(labels))
+            post.append(func.get_list())
 
         lowest = [pre, post]
 
