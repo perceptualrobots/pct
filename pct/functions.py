@@ -551,7 +551,7 @@ class Constant(BaseFunction):
         return super().get_config()
 
     def get_list(self):
-        return [value]
+        return [self.value]
 
 
     def get_suffix(self):
