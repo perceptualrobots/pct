@@ -667,3 +667,24 @@ class PCTHierarchy():
         plt.show()
 
         return fig
+
+    def get_hpct_list(self):
+
+        pre = []
+        post = []
+
+        for func in self.preCollection:
+            pre.append(func.get_list(labels))
+
+        for func in self.postCollection:
+            post.append(func.get_list(labels))
+
+        lowest = [pre, post]
+
+        hpct=[lowest]
+
+        for level in self.hierarchy:
+            for node in level:
+                hpct.append(node.get_list())
+
+        return hpct

@@ -253,6 +253,11 @@ class BaseFunction(ABC):
         self.decimal_places = dp
 
 
+
+    def get_list(self):
+        return []
+
+
     @abstractmethod
     def summary(self, sstr):
         "Print the summary of the function configuration. No argument required."
@@ -544,6 +549,10 @@ class Constant(BaseFunction):
 
     def get_config(self):
         return super().get_config()
+
+    def get_list(self):
+        return [value]
+
 
     def get_suffix(self):
         return 'c'
