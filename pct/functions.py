@@ -774,6 +774,10 @@ class WeightedSum(BaseFunction):
     def get_suffix(self):
         return 'ws'
 
+
+    def get_parameters_list(self):
+        return self.weights
+
     """
     def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
 
