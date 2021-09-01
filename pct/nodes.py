@@ -334,6 +334,23 @@ class PCTNode():
         for func in self.outputCollection:
             node_list[func.get_name()] = self.name
 
+    def get_list(self):
+
+        ref_list = []
+        for func in self.referenceCollection:
+            ref_list.append(func.get_list())
+
+        per_list = []
+        for func in self.perceptionCollection:
+            per_list.append(func.get_list())
+
+        out_list = []
+        for func in self.outputCollection:
+            out_list.append(func.get_list())
+
+        node_list = [ref_list, per_list, out_list]
+
+        return node_list
 
     def change_link_name(self, old_name, new_name):
 

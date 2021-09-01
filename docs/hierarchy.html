@@ -151,15 +151,15 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x7f3a389b2210&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a389b2f50&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a389b2910&gt;],
- [&lt;pct.nodes.PCTNode at 0x7f3a389a6b50&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a389a6510&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a389a6710&gt;],
- [&lt;pct.nodes.PCTNode at 0x7f3a389a6d50&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a389a6990&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a389b7b10&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x7f8e88a1ce10&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f8e88a1c990&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f8e88a1c890&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7f8e88a1cd10&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f8ea435d110&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f8ea435dbd0&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7f8e88a1d050&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f8e940ad410&gt;,
+  &lt;pct.nodes.PCTNode at 0x7f8e940ade10&gt;]]</pre>
 </div>
 
 </div>
@@ -192,25 +192,18 @@ nb_path: "nbs/04_hierarchy.ipynb"
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-21-4729e6286fbb&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-18-4729e6286fbb&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>hpct<span class="ansi-blue-fg">.</span>get_hpct_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-19-0d33d5dede86&gt;</span> in <span class="ansi-cyan-fg">get_hpct_list</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    635</span> 
-<span class="ansi-green-intense-fg ansi-bold">    636</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>preCollection<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 637</span><span class="ansi-red-fg">             </span>pre<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">.</span>get_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    638</span> 
-<span class="ansi-green-intense-fg ansi-bold">    639</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>postCollection<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">&lt;ipython-input-16-85a6afdcd5c7&gt;</span> in <span class="ansi-cyan-fg">get_hpct_list</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    646</span>         <span class="ansi-green-fg">for</span> level <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    647</span>             <span class="ansi-green-fg">for</span> node <span class="ansi-green-fg">in</span> level<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 648</span><span class="ansi-red-fg">                 </span>hpct<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">.</span>get_node_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    649</span> 
+<span class="ansi-green-intense-fg ansi-bold">    650</span>         <span class="ansi-green-fg">return</span> hpct
 
-<span class="ansi-green-fg">/mnt/c/Users/ruper/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">get_list</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    552</span> 
-<span class="ansi-green-intense-fg ansi-bold">    553</span>     <span class="ansi-green-fg">def</span> get_list<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 554</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> <span class="ansi-blue-fg">[</span>value<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    555</span> 
-<span class="ansi-green-intense-fg ansi-bold">    556</span> 
-
-<span class="ansi-red-fg">NameError</span>: name &#39;value&#39; is not defined</pre>
+<span class="ansi-red-fg">TypeError</span>: get_node_list() missing 1 required positional argument: &#39;node_list&#39;</pre>
 </div>
 </div>
 
