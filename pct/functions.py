@@ -432,6 +432,9 @@ class Proportional(BaseFunction):
     def summary(self):
         super().summary(f'gain {self.gain}')
 
+    def get_parameters_list(self):
+        return [self.gain]
+
     def get_config(self):
         config = super().get_config()
         config["gain"] = self.gain
