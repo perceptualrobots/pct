@@ -432,6 +432,9 @@ class Proportional(BaseFunction):
     def summary(self):
         super().summary(f'gain {self.gain}')
 
+    def get_parameters_list(self):
+        return [self.gain]
+
     def get_config(self):
         config = super().get_config()
         config["gain"] = self.gain
@@ -458,6 +461,9 @@ class Variable(BaseFunction):
 
     def summary(self):
         super().summary("")
+
+    def get_parameters_list(self):
+        return ['var']
 
     def get_config(self):
         config = super().get_config()
@@ -550,7 +556,7 @@ class Constant(BaseFunction):
     def get_config(self):
         return super().get_config()
 
-    def get_list(self):
+    def get_parameters_list(self):
         return [self.value]
 
 
@@ -774,6 +780,10 @@ class WeightedSum(BaseFunction):
     def get_suffix(self):
         return 'ws'
 
+
+    def get_parameters_list(self):
+        return self.weights
+
     """
     def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
 
@@ -905,6 +915,11 @@ class SmoothWeightedSum(BaseFunction):
         weights = [float(f'{wt:4.3}') for wt in self.weights]
         super().summary(f'weights {weights} smooth {self.smooth_factor:4.3}')
 
+
+    def get_parameters_list(self):
+        return [self.weights, self.smooth_factor]
+
+
     def get_config(self):
         config = super().get_config()
         if self.usenumpy:
@@ -988,6 +1003,8 @@ class IndexedParameter(BaseFunction):
     def summary(self):
         super().summary(f'index {self.index}')
 
+    def get_parameters_list(self):
+        return [self.index]
 
     def get_config(self):
         config = super().get_config()

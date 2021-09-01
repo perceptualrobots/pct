@@ -101,15 +101,19 @@ class PCTNode():
     def get_function_from_collection(self, collection, position=-1):
         if collection == ControlUnitFunctions.REFERENCE:
             func = self.referenceCollection[position]
+            return func
 
         if collection == ControlUnitFunctions.PERCEPTION:
             func = self.perceptionCollection[position]
+            return func
 
         if collection == ControlUnitFunctions.COMPARATOR:
             func = self.comparatorCollection[position]
+            return func
 
         if collection == ControlUnitFunctions.OUTPUT:
             func = self.outputCollection[position]
+            return func
 
         return func
 
@@ -334,6 +338,23 @@ class PCTNode():
         for func in self.outputCollection:
             node_list[func.get_name()] = self.name
 
+    def get_parameters_list(self):
+
+        ref_list = []
+        for func in self.referenceCollection:
+            ref_list.append(func.get_parameters_list())
+
+        per_list = []
+        for func in self.perceptionCollection:
+            per_list.append(func.get_parameters_list())
+
+        out_list = []
+        for func in self.outputCollection:
+            out_list.append(func.get_parameters_list())
+
+        node_list = [ref_list, per_list, out_list]
+
+        return node_list
 
     def change_link_name(self, old_name, new_name):
 

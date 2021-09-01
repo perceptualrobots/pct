@@ -420,6 +420,9 @@ class VelocityModel(BaseFunction):
     def summary(self):
         super().summary("")
 
+    def get_parameters_list(self):
+        return ['vm']
+
     def get_config(self):
         config = super().get_config()
         config["mass"] = self.mass
