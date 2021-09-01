@@ -36,7 +36,8 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#autoreload 2</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
 </pre></div>
 
     </div>
@@ -151,15 +152,15 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x7f8e88a1ce10&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f8e88a1c990&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f8e88a1c890&gt;],
- [&lt;pct.nodes.PCTNode at 0x7f8e88a1cd10&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f8ea435d110&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f8ea435dbd0&gt;],
- [&lt;pct.nodes.PCTNode at 0x7f8e88a1d050&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f8e940ad410&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f8e940ade10&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x7fba882df590&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fba882df0d0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fba882ec890&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7fba8827a050&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fba8827a510&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fba883ce090&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7fba88299110&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fba882991d0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fba88299650&gt;]]</pre>
 </div>
 
 </div>
@@ -177,7 +178,7 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hpct</span><span class="o">.</span><span class="n">get_hpct_list</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">hpct</span><span class="o">.</span><span class="n">get_parameters_list</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -192,18 +193,18 @@ nb_path: "nbs/04_hierarchy.ipynb"
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-18-4729e6286fbb&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>hpct<span class="ansi-blue-fg">.</span>get_hpct_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-9-a08c090c4ffd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>hpct<span class="ansi-blue-fg">.</span>get_parameters_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-16-85a6afdcd5c7&gt;</span> in <span class="ansi-cyan-fg">get_hpct_list</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    646</span>         <span class="ansi-green-fg">for</span> level <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    647</span>             <span class="ansi-green-fg">for</span> node <span class="ansi-green-fg">in</span> level<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 648</span><span class="ansi-red-fg">                 </span>hpct<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">.</span>get_node_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    649</span> 
-<span class="ansi-green-intense-fg ansi-bold">    650</span>         <span class="ansi-green-fg">return</span> hpct
+<span class="ansi-green-fg">&lt;ipython-input-7-af78b956d0b6&gt;</span> in <span class="ansi-cyan-fg">get_parameters_list</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    635</span> 
+<span class="ansi-green-intense-fg ansi-bold">    636</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>preCollection<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 637</span><span class="ansi-red-fg">             </span>pre<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">.</span>get_parameters_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    638</span> 
+<span class="ansi-green-intense-fg ansi-bold">    639</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>postCollection<span class="ansi-blue-fg">:</span>
 
-<span class="ansi-red-fg">TypeError</span>: get_node_list() missing 1 required positional argument: &#39;node_list&#39;</pre>
+<span class="ansi-red-fg">AttributeError</span>: &#39;Constant&#39; object has no attribute &#39;get_parameters_list&#39;</pre>
 </div>
 </div>
 

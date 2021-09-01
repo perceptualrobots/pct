@@ -334,19 +334,19 @@ class PCTNode():
         for func in self.outputCollection:
             node_list[func.get_name()] = self.name
 
-    def get_list(self):
+    def get_parameters_list(self):
 
         ref_list = []
         for func in self.referenceCollection:
-            ref_list.append(func.get_list())
+            ref_list.append(func.get_parameters_list())
 
         per_list = []
         for func in self.perceptionCollection:
-            per_list.append(func.get_list())
+            per_list.append(func.get_parameters_list())
 
         out_list = []
         for func in self.outputCollection:
-            out_list.append(func.get_list())
+            out_list.append(func.get_parameters_list())
 
         node_list = [ref_list, per_list, out_list]
 

@@ -668,16 +668,16 @@ class PCTHierarchy():
 
         return fig
 
-    def get_hpct_list(self):
+    def get_parameters_list(self):
 
         pre = []
         post = []
 
         for func in self.preCollection:
-            pre.append(func.get_list())
+            pre.append(func.get_parameters_list())
 
         for func in self.postCollection:
-            post.append(func.get_list())
+            post.append(func.get_parameters_list())
 
         lowest = [pre, post]
 
@@ -685,6 +685,6 @@ class PCTHierarchy():
 
         for level in self.hierarchy:
             for node in level:
-                hpct.append(node.get_list())
+                hpct.append(node.get_parameters_list())
 
         return hpct

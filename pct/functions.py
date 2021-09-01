@@ -550,7 +550,7 @@ class Constant(BaseFunction):
     def get_config(self):
         return super().get_config()
 
-    def get_list(self):
+    def get_parameters_list(self):
         return [self.value]
 
 
