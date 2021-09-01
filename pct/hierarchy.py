@@ -684,7 +684,9 @@ class PCTHierarchy():
         hpct=[lowest]
 
         for level in self.hierarchy:
+            level_list=[]
             for node in level:
-                hpct.append(node.get_parameters_list())
+                level_list.append(node.get_parameters_list())
+            hpct.append(level_list)
 
         return hpct

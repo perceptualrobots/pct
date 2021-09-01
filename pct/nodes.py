@@ -101,15 +101,19 @@ class PCTNode():
     def get_function_from_collection(self, collection, position=-1):
         if collection == ControlUnitFunctions.REFERENCE:
             func = self.referenceCollection[position]
+            return func
 
         if collection == ControlUnitFunctions.PERCEPTION:
             func = self.perceptionCollection[position]
+            return func
 
         if collection == ControlUnitFunctions.COMPARATOR:
             func = self.comparatorCollection[position]
+            return func
 
         if collection == ControlUnitFunctions.OUTPUT:
             func = self.outputCollection[position]
+            return func
 
         return func
 
