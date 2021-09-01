@@ -459,6 +459,9 @@ class Variable(BaseFunction):
     def summary(self):
         super().summary("")
 
+    def get_parameters_list(self):
+        return ['var']
+
     def get_config(self):
         config = super().get_config()
         return config
@@ -908,6 +911,11 @@ class SmoothWeightedSum(BaseFunction):
     def summary(self):
         weights = [float(f'{wt:4.3}') for wt in self.weights]
         super().summary(f'weights {weights} smooth {self.smooth_factor:4.3}')
+
+
+    def get_parameters_list(self):
+        return [self.weights, self.smooth_factor]
+
 
     def get_config(self):
         config = super().get_config()
