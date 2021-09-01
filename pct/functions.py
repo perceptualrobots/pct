@@ -1003,6 +1003,8 @@ class IndexedParameter(BaseFunction):
     def summary(self):
         super().summary(f'index {self.index}')
 
+    def get_parameters_list(self):
+        return [self.index]
 
     def get_config(self):
         config = super().get_config()
