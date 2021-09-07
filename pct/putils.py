@@ -15,10 +15,10 @@ class UniqueNamer:
     __instance = None
     @staticmethod
     def getInstance():
-      """ Static access method. """
-      if UniqueNamer.__instance == None:
-         UniqueNamer()
-      return UniqueNamer.__instance
+        """ Static access method. """
+        if UniqueNamer.__instance == None:
+           UniqueNamer()
+        return UniqueNamer.__instance
 
     def __init__(self):
         """ Virtually private constructor. """
@@ -105,7 +105,8 @@ class FunctionsList:
         return name
 
     def remove_function(self, namespace=None, name=None):
-        self.functions[namespace].pop(name)
+        if name in self.functions[namespace]:
+            self.functions[namespace].pop(name)
 
     def get_function(self, namespace=None, name=None):
         if  name is None:
