@@ -286,6 +286,20 @@ class PCTNode():
         for outputFunction in self.outputCollection:
             outputFunction  = 0
 
+    def change_namespace(self, namespace):
+        for referenceFunction in self.referenceCollection:
+            referenceFunction.change_namespace(namespace)
+
+        for comparatorFunction in self.comparatorCollection:
+            comparatorFunction.change_namespace(namespace)
+
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.change_namespace(namespace)
+
+        for outputFunction in self.outputCollection:
+            outputFunction.change_namespace(namespace)
+
+
     def set_graph_data_node(self, graph, layer=0):
         graph.add_node(self.name, layer=layer)
 
