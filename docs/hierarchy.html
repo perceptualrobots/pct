@@ -44,21 +44,6 @@ nb_path: "nbs/04_hierarchy.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -167,15 +152,15 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[&lt;pct.nodes.PCTNode at 0x7f3a406f5610&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a406f5810&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a406f5250&gt;],
- [&lt;pct.nodes.PCTNode at 0x7f3a24469690&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a24469a10&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a2412c5d0&gt;],
- [&lt;pct.nodes.PCTNode at 0x7f3a2412c610&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a389ae6d0&gt;,
-  &lt;pct.nodes.PCTNode at 0x7f3a406eecd0&gt;]]</pre>
+<pre>[[&lt;pct.nodes.PCTNode at 0x7fce0c0676d0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fce0c067850&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fce0c067e10&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7fce0c1bc210&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fce0c154250&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fce0c154450&gt;],
+ [&lt;pct.nodes.PCTNode at 0x7fce0c1546d0&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fce0c154b50&gt;,
+  &lt;pct.nodes.PCTNode at 0x7fce0c154f50&gt;]]</pre>
 </div>
 
 </div>
@@ -205,21 +190,52 @@ nb_path: "nbs/04_hierarchy.ipynb"
 
 <div class="output_area">
 
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[[[5]], [[10]]], [[[[1, 1, 1]], [[&#39;var&#39;]], [[1]]], [[[1, 1, 1]], [[&#39;var&#39;]], [[1]]], [[[1, 1, 1]], [[&#39;var&#39;]], [[1]]]], [[[[1, 1, 1]], [[1, 1, 1]], [[1]]], [[[1, 1, 1]], [[1, 1, 1]], [[1]]], [[[1, 1, 1]], [[1, 1, 1]], [[1]]]], [[[[0]], [[1, 1, 1]], [[1]]], [[[0]], [[1, 1, 1]], [[1]]], [[[0]], [[1, 1, 1]], [[1]]]]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hpct</span><span class="o">.</span><span class="n">change_namespace</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-30-4729e6286fbb&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>hpct<span class="ansi-blue-fg">.</span>get_hpct_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">&lt;ipython-input-34-a858aa5bf7e0&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>hpct<span class="ansi-blue-fg">.</span>change_namespace<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-28-0d33d5dede86&gt;</span> in <span class="ansi-cyan-fg">get_hpct_list</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    646</span>         <span class="ansi-green-fg">for</span> level <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>hierarchy<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    647</span>             <span class="ansi-green-fg">for</span> node <span class="ansi-green-fg">in</span> level<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 648</span><span class="ansi-red-fg">                 </span>hpct<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>node<span class="ansi-blue-fg">.</span>get_list<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    649</span> 
-<span class="ansi-green-intense-fg ansi-bold">    650</span>         <span class="ansi-green-fg">return</span> hpct
+<span class="ansi-green-fg">&lt;ipython-input-7-1491f787deab&gt;</span> in <span class="ansi-cyan-fg">change_namespace</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    249</span> 
+<span class="ansi-green-intense-fg ansi-bold">    250</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>postCollection<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 251</span><span class="ansi-red-fg">             </span>func<span class="ansi-blue-fg">.</span>change_namespace<span class="ansi-blue-fg">(</span>namespace<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    252</span> 
+<span class="ansi-green-intense-fg ansi-bold">    253</span>         <span class="ansi-green-fg">for</span> func <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>preCollection<span class="ansi-blue-fg">:</span>
 
-<span class="ansi-red-fg">AttributeError</span>: &#39;PCTNode&#39; object has no attribute &#39;get_list&#39;</pre>
+<span class="ansi-red-fg">AttributeError</span>: &#39;Constant&#39; object has no attribute &#39;change_namespace&#39;</pre>
 </div>
 </div>
 
@@ -341,114 +357,6 @@ POST: postcon Constant | 10
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>47 NAMESPACE 63589ce4-0b15-11ec-9fa1-0968141d42b6
-***  precon [&lt;pct.functions.Constant object at 0x7fba8836fa50&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 5, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;precon&#39;, &#39;decimal_places&#39;: 3}
-***  postcon [&lt;pct.functions.Constant object at 0x7fba8836fbd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 10, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;postcon&#39;, &#39;decimal_places&#39;: 3}
-***  weighted_sum [&lt;pct.functions.WeightedSum object at 0x7fba8836f950&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7fba88171a90&gt;, &lt;pct.functions.Proportional object at 0x7fba880e3190&gt;, &lt;pct.functions.Proportional object at 0x7fba880e34d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level0col0 [&lt;pct.nodes.PCTNode object at 0x7fba8836f290&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba8836f290&gt;
-***  variable [&lt;pct.functions.Variable object at 0x7fba8836f610&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable&#39;, &#39;decimal_places&#39;: 3}
-***  subtract [&lt;pct.functions.Subtract object at 0x7fba88171c50&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba8836f950&gt;, &lt;pct.functions.Variable object at 0x7fba8836f610&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract&#39;, &#39;decimal_places&#39;: 3}
-***  proportional [&lt;pct.functions.Proportional object at 0x7fba88171d50&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba88171c50&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-***  weighted_sum1 [&lt;pct.functions.WeightedSum object at 0x7fba88171850&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7fba88171a90&gt;, &lt;pct.functions.Proportional object at 0x7fba880e3190&gt;, &lt;pct.functions.Proportional object at 0x7fba880e34d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum1&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level0col1 [&lt;pct.nodes.PCTNode object at 0x7fba881719d0&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba881719d0&gt;
-***  variable1 [&lt;pct.functions.Variable object at 0x7fba88171950&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable1&#39;, &#39;decimal_places&#39;: 3}
-***  subtract1 [&lt;pct.functions.Subtract object at 0x7fba88171cd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba88171850&gt;, &lt;pct.functions.Variable object at 0x7fba88171950&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract1&#39;, &#39;decimal_places&#39;: 3}
-***  proportional1 [&lt;pct.functions.Proportional object at 0x7fba88171b90&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba88171cd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional1&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-***  weighted_sum2 [&lt;pct.functions.WeightedSum object at 0x7fba88171e90&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7fba88171a90&gt;, &lt;pct.functions.Proportional object at 0x7fba880e3190&gt;, &lt;pct.functions.Proportional object at 0x7fba880e34d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum2&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level0col2 [&lt;pct.nodes.PCTNode object at 0x7fba88171710&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba88171710&gt;
-***  variable2 [&lt;pct.functions.Variable object at 0x7fba881717d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;variable2&#39;, &#39;decimal_places&#39;: 3}
-***  subtract2 [&lt;pct.functions.Subtract object at 0x7fba88171810&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba88171e90&gt;, &lt;pct.functions.Variable object at 0x7fba881717d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract2&#39;, &#39;decimal_places&#39;: 3}
-***  proportional2 [&lt;pct.functions.Proportional object at 0x7fba88171490&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba88171810&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional2&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-***  weighted_sum3 [&lt;pct.functions.WeightedSum object at 0x7fba88171c90&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7fba8836f610&gt;, &lt;pct.functions.Variable object at 0x7fba88171950&gt;, &lt;pct.functions.Variable object at 0x7fba881717d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum3&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  weighted_sum4 [&lt;pct.functions.WeightedSum object at 0x7fba88171ed0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7fba880e3d50&gt;, &lt;pct.functions.Proportional object at 0x7fba880ac050&gt;, &lt;pct.functions.Proportional object at 0x7fba880ac310&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum4&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level1col0 [&lt;pct.nodes.PCTNode object at 0x7fba88171890&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba88171890&gt;
-***  subtract3 [&lt;pct.functions.Subtract object at 0x7fba88171bd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba88171ed0&gt;, &lt;pct.functions.WeightedSum object at 0x7fba88171c90&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract3&#39;, &#39;decimal_places&#39;: 3}
-***  proportional3 [&lt;pct.functions.Proportional object at 0x7fba88171a90&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba88171bd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional3&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-***  weighted_sum5 [&lt;pct.functions.WeightedSum object at 0x7fba88362d50&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7fba8836f610&gt;, &lt;pct.functions.Variable object at 0x7fba88171950&gt;, &lt;pct.functions.Variable object at 0x7fba881717d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum5&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  weighted_sum6 [&lt;pct.functions.WeightedSum object at 0x7fba88362a10&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7fba880e3d50&gt;, &lt;pct.functions.Proportional object at 0x7fba880ac050&gt;, &lt;pct.functions.Proportional object at 0x7fba880ac310&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum6&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level1col1 [&lt;pct.nodes.PCTNode object at 0x7fba88362910&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba88362910&gt;
-***  subtract4 [&lt;pct.functions.Subtract object at 0x7fba880e3150&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba88362a10&gt;, &lt;pct.functions.WeightedSum object at 0x7fba88362d50&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract4&#39;, &#39;decimal_places&#39;: 3}
-***  proportional4 [&lt;pct.functions.Proportional object at 0x7fba880e3190&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba880e3150&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional4&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-***  weighted_sum7 [&lt;pct.functions.WeightedSum object at 0x7fba880e30d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Variable object at 0x7fba8836f610&gt;, &lt;pct.functions.Variable object at 0x7fba88171950&gt;, &lt;pct.functions.Variable object at 0x7fba881717d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum7&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  weighted_sum8 [&lt;pct.functions.WeightedSum object at 0x7fba880e3210&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Proportional object at 0x7fba880e3d50&gt;, &lt;pct.functions.Proportional object at 0x7fba880ac050&gt;, &lt;pct.functions.Proportional object at 0x7fba880ac310&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum8&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level1col2 [&lt;pct.nodes.PCTNode object at 0x7fba880e3bd0&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba880e3bd0&gt;
-***  subtract5 [&lt;pct.functions.Subtract object at 0x7fba880e3510&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba880e3210&gt;, &lt;pct.functions.WeightedSum object at 0x7fba880e30d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract5&#39;, &#39;decimal_places&#39;: 3}
-***  proportional5 [&lt;pct.functions.Proportional object at 0x7fba880e34d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba880e3510&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional5&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-***  weighted_sum9 [&lt;pct.functions.WeightedSum object at 0x7fba880e3450&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba88171c90&gt;, &lt;pct.functions.WeightedSum object at 0x7fba88362d50&gt;, &lt;pct.functions.WeightedSum object at 0x7fba880e30d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum9&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level2col0 [&lt;pct.nodes.PCTNode object at 0x7fba880e33d0&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba880e33d0&gt;
-***  constant [&lt;pct.functions.Constant object at 0x7fba880e3cd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant&#39;, &#39;decimal_places&#39;: 3}
-***  subtract6 [&lt;pct.functions.Subtract object at 0x7fba880e3d10&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7fba880e3cd0&gt;, &lt;pct.functions.WeightedSum object at 0x7fba880e3450&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract6&#39;, &#39;decimal_places&#39;: 3}
-***  proportional6 [&lt;pct.functions.Proportional object at 0x7fba880e3d50&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba880e3d10&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional6&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-***  weighted_sum10 [&lt;pct.functions.WeightedSum object at 0x7fba880e3dd0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba88171c90&gt;, &lt;pct.functions.WeightedSum object at 0x7fba88362d50&gt;, &lt;pct.functions.WeightedSum object at 0x7fba880e30d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum10&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level2col1 [&lt;pct.nodes.PCTNode object at 0x7fba880e3e50&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba880e3e50&gt;
-***  constant1 [&lt;pct.functions.Constant object at 0x7fba880e3f50&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant1&#39;, &#39;decimal_places&#39;: 3}
-***  subtract7 [&lt;pct.functions.Subtract object at 0x7fba880e3f90&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7fba880e3f50&gt;, &lt;pct.functions.WeightedSum object at 0x7fba880e3dd0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract7&#39;, &#39;decimal_places&#39;: 3}
-***  proportional7 [&lt;pct.functions.Proportional object at 0x7fba880ac050&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba880e3f90&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional7&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-***  weighted_sum11 [&lt;pct.functions.WeightedSum object at 0x7fba880ac0d0&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.WeightedSum object at 0x7fba88171c90&gt;, &lt;pct.functions.WeightedSum object at 0x7fba88362d50&gt;, &lt;pct.functions.WeightedSum object at 0x7fba880e30d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;weighted_sum11&#39;, &#39;decimal_places&#39;: 3, &#39;weights&#39;: [1, 1, 1], &#39;usenumpy&#39;: False}
-***  level2col2 [&lt;pct.nodes.PCTNode object at 0x7fba880ac150&gt;]
-&lt;pct.nodes.PCTNode object at 0x7fba880ac150&gt;
-***  constant2 [&lt;pct.functions.Constant object at 0x7fba880ac250&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;constant2&#39;, &#39;decimal_places&#39;: 3}
-***  subtract8 [&lt;pct.functions.Subtract object at 0x7fba880ac290&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Constant object at 0x7fba880ac250&gt;, &lt;pct.functions.WeightedSum object at 0x7fba880ac0d0&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;subtract8&#39;, &#39;decimal_places&#39;: 3}
-***  proportional8 [&lt;pct.functions.Proportional object at 0x7fba880ac310&gt;]
-{&#39;namespace&#39;: UUID(&#39;63589ce4-0b15-11ec-9fa1-0968141d42b6&#39;), &#39;value&#39;: 0, &#39;links&#39;: [&lt;pct.functions.Subtract object at 0x7fba880ac290&gt;], &#39;checklinks&#39;: True, &#39;name&#39;: &#39;proportional8&#39;, &#39;decimal_places&#39;: 3, &#39;gain&#39;: 1}
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 

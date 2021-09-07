@@ -54,6 +54,12 @@ class BaseFunction(ABC):
         FunctionsList.getInstance().add_function(namespace, self)
         self.decimal_places = 3
 
+    def change_namespace(self, namespace):
+        self.namespace=namespace
+        UniqueNamer.getInstance().get_name(namespace, self.name)
+        FunctionsList.getInstance().add_function(namespace, self)
+
+
     @abstractmethod
     def __call__(self, verbose=False):
         if verbose :

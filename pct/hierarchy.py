@@ -282,6 +282,22 @@ class PCTHierarchy():
 
         return labels
 
+    def change_namespace(self):
+        namespace = uuid.uuid1()
+        self.namespace=namespace
+        self.name=UniqueNamer.getInstance().get_name(namespace=namespace, name=self.name)
+
+        for func in self.postCollection:
+            func.change_namespace(namespace)
+
+        for func in self.preCollection:
+            func.change_namespace(namespace)
+
+        for level in self.hierarchy:
+            for node in level:
+                node.change_namespace(namespace)
+
+
     def get_graph(self):
         return self.graphv
 
