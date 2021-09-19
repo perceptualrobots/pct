@@ -117,6 +117,19 @@ class PCTNode():
 
         return func
 
+    def reset_checklink(self, val=True):
+        for func in self.referenceCollection:
+            func.reset_checklink(val)
+
+        for func in self.perceptionCollection:
+            func.reset_checklink(val)
+
+        for func in self.comparatorCollection:
+            func.reset_checklink(val)
+
+        for func in self.outputCollection:
+            func.reset_checklink(val)
+
 
     def get_function(self, collection, position=-1):
         if collection == "reference":

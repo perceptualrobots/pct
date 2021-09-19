@@ -267,6 +267,19 @@ class PCTHierarchy():
             colors.append(color)
         return colors
 
+
+    def reset_checklink(self, val=True):
+        for func in self.postCollection:
+            func.reset_checklink(val)
+
+        for func in self.preCollection:
+            func.reset_checklink(val)
+
+        for level in self.hierarchy:
+            for node in level:
+                node.reset_checklink(val)
+
+
     def get_edge_labels(self):
         labels={}
 
