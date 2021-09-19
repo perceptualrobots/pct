@@ -86,7 +86,7 @@ class BaseFunction(ABC):
             out = self(verbose)
         return out
 
-    def reset_checklink(self, val=True):
+    def reset_checklinks(self, val=True):
         self.checklinks=val
 
     def handle_links(self, links):
