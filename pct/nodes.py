@@ -292,7 +292,7 @@ class PCTNode():
             for func in self.referenceCollection:
                 func.validate(num_higher_outputs)
 
-        for perceptionFunction in self.perceptionCollection:
+        for func in self.perceptionCollection:
             func.validate(num_lower_perceptions)
 
 
