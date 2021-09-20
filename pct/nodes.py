@@ -301,13 +301,13 @@ class PCTNode():
             referenceFunction.value = 0
 
         for comparatorFunction in self.comparatorCollection:
-            comparatorFunction = 0
+            comparatorFunction.value = 0
 
         for perceptionFunction in self.perceptionCollection:
-            perceptionFunction = 0
+            perceptionFunction.value = 0
 
         for outputFunction in self.outputCollection:
-            outputFunction  = 0
+            outputFunction.value  = 0
 
     def change_namespace(self, namespace):
         for referenceFunction in self.referenceCollection:
