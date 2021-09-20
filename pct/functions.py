@@ -81,6 +81,11 @@ class BaseFunction(ABC):
             name = f'{prefix}L{level}C{column}'
             self.links.append(name)
 
+    def validate(self, num):
+        if len(self.links) != num:
+            raise Exception(f'Number of links, {len(self.links)}, for {self.name} is not equal to {num}')
+
+
     def run(self, steps=None, verbose=False):
         for i in range(steps):
             out = self(verbose)
