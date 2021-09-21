@@ -266,7 +266,8 @@ class BaseFunction(ABC):
     def set_decimal_places(self, dp):
         self.decimal_places = dp
 
-
+    def remove_connections(self, num_columns):
+        self.parameter.remove_connections(num_columns, self.weights, self.links)
 
     def get_list(self):
         return []
