@@ -476,7 +476,7 @@ class Proportional(BaseFunction):
     class FactoryWithNamespace:
         def create(self, namespace=None): return Proportional(namespace=namespace)
     class FactoryFromConfig:
-        def create(self, new_name=None, namespace=None, **cargs): return Proportional(new_name=None, namespace=None, **cargs)
+        def create(self, new_name=None, namespace=None, **cargs): return Proportional(new_name=new_name, namespace=namespace, cargs)
 
 
 # Cell
@@ -506,8 +506,9 @@ class Variable(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Variable(namespace=namespace)
+
     class FactoryFromConfig:
-        def create(self, new_name=None, config=None, namespace=None): return Variable(namespace=namespace)
+        def create(self, new_name=None, namespace=None, **cargs): return Variable(new_name=new_name, namespace=namespace, cargs)
 
 
 # Cell
