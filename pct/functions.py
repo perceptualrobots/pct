@@ -438,6 +438,10 @@ class Subtract(BaseFunction):
     class FactoryWithNamespace:
         def create(self, namespace=None): return Subtract(namespace=namespace)
 
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return Subtract(namespace=namespace)
+
+
 
 # Cell
 class Proportional(BaseFunction):
@@ -471,6 +475,8 @@ class Proportional(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Proportional(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return Proportional(namespace=namespace)
 
 
 # Cell
@@ -500,6 +506,8 @@ class Variable(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Variable(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return Variable(namespace=namespace)
 
 
 # Cell
@@ -525,6 +533,8 @@ class PassOn(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return PassOn(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return PassOn(namespace=namespace)
 
 
 # Cell
@@ -562,6 +572,8 @@ class GreaterThan(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return GreaterThan(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return GreaterThan(namespace=namespace)
 
 
 # Cell
@@ -609,6 +621,8 @@ class Constant(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Constant(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return Constant(namespace=namespace)
 
 
 # Cell
@@ -657,6 +671,8 @@ class Step(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Step(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return Step(namespace=namespace)
 
 
 # Cell
@@ -688,6 +704,8 @@ class Integration(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Integration(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return Integration(namespace=namespace)
 
 
 # Cell
@@ -721,6 +739,8 @@ class IntegrationDual(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return IntegrationDual(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return IntegrationDual(namespace=namespace)
 
 
 # Cell
@@ -752,6 +772,8 @@ class Sigmoid(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Sigmoid(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return Sigmoid(namespace=namespace)
 
 
 # Cell
@@ -891,6 +913,8 @@ class WeightedSum(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return WeightedSum(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return WeightedSum(namespace=namespace)
 
 
 # Cell
@@ -1008,6 +1032,8 @@ class SmoothWeightedSum(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return SmoothWeightedSum(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return SmoothWeightedSum(namespace=namespace)
 
 
 # Cell
@@ -1039,3 +1065,5 @@ class IndexedParameter(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return IndexedParameter(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, config=None, namespace=None): return IndexedParameter(namespace=namespace)
