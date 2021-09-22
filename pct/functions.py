@@ -410,7 +410,7 @@ class FunctionFactory:
             FunctionFactory.factories[id] = \
               eval(id + f'.FactoryFromConfig()')
         return FunctionFactory.factories[id].create(new_name=False, namespace=namespace, **config)
-    createFunctionWithNamespace = staticmethod(createFunctionFromConfig)
+    createFunctionFromConfig = staticmethod(createFunctionFromConfig)
 
 
 # Cell
