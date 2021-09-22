@@ -9,6 +9,7 @@ import math
 import numpy as np
 import pct.putils as vid
 from .functions import BaseFunction
+from .putils import FunctionsList
 
 # Cell
 class EnvironmentFactory:
