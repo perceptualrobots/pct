@@ -27,6 +27,14 @@ class EnvironmentFactory:
 
     createEnvironment = staticmethod(createEnvironment)
 
+
+    def createEnvironmentWithNamespace(id, namespace=None):
+        if not EnvironmentFactory.factories.__contains__(id):
+            EnvironmentFactory.factories[id] = \
+              eval(id + f'.FactoryWithNamespace()')
+        return EnvironmentFactory.factories[id].create(namespace=namespace)
+    createEnvironmentWithNamespace = staticmethod(createEnvironmentWithNamespace)
+
 # Cell
 class OpenAIGym(BaseFunction):
     "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
