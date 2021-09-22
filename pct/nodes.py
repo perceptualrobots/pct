@@ -518,7 +518,9 @@ class PCTNode():
             #print(fndict)
             fnname = fndict.pop('type')
             #print(fndict)
-            func = eval(fnname).from_config(fndict, namespace)
+            #func = eval(fnname).from_config(fndict, namespace)
+            func = FunctionFactory.createFunctionFromConfig(fndict, namespace)
+
             collection.append(func)
 
     @classmethod

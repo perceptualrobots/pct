@@ -405,6 +405,14 @@ class FunctionFactory:
         return FunctionFactory.factories[id].create(namespace=namespace)
     createFunctionWithNamespace = staticmethod(createFunctionWithNamespace)
 
+    def createFunctionFromConfig(id, config=None, namespace=None):
+        if not FunctionFactory.factories.__contains__(id):
+            FunctionFactory.factories[id] = \
+              eval(id + f'.FactoryFromConfig()')
+        return FunctionFactory.factories[id].create(new_name=False, namespace=namespace, **config)
+    createFunctionWithNamespace = staticmethod(createFunctionFromConfig)
+
+
 # Cell
 class Subtract(BaseFunction):
     "A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted."
