@@ -471,12 +471,16 @@ class Proportional(BaseFunction):
         return 'p'
 
     class Factory:
-        def create(self): return Proportional()
+        def create(self):
+            return Proportional()
 
     class FactoryWithNamespace:
-        def create(self, namespace=None): return Proportional(namespace=namespace)
+        def create(self, namespace=None):
+            return Proportional(namespace=namespace)
+
     class FactoryFromConfig:
-        def create(self, new_name=None, namespace=None, **cargs): return Proportional(new_name=new_name, namespace=namespace, **cargs)
+        def create(self, new_name=None, namespace=None, **cargs):
+            return Proportional(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
