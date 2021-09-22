@@ -405,10 +405,11 @@ class FunctionFactory:
         return FunctionFactory.factories[id].create(namespace=namespace)
     createFunctionWithNamespace = staticmethod(createFunctionWithNamespace)
 
-    def createFunctionFromConfig(id, config=None, namespace=None):
+    def createFunctionFromConfig(id, namespace=None, config=None):
         if not FunctionFactory.factories.__contains__(id):
             FunctionFactory.factories[id] = \
               eval(id + f'.FactoryFromConfig()')
+        config['namespace']
         return FunctionFactory.factories[id].create(new_name=False, namespace=namespace, **config)
     createFunctionFromConfig = staticmethod(createFunctionFromConfig)
 
@@ -476,7 +477,7 @@ class Proportional(BaseFunction):
     class FactoryWithNamespace:
         def create(self, namespace=None): return Proportional(namespace=namespace)
     class FactoryFromConfig:
-        def create(self, new_name=None, config=None, namespace=None): return Proportional(namespace=namespace)
+        def create(self, new_name=None, namespace=None, **cargs): return Proportional(new_name=None, namespace=None, **cargs)
 
 
 # Cell
