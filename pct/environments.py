@@ -94,7 +94,30 @@ class OpenAIGym(BaseFunction):
         super().summary("")
 
     def get_config(self):
-        config = super().get_config()
+        "Return the JSON  configuration of the function."
+        config = {"type": type(self).__name__,
+                    "name": self.name}
+
+#         if isinstance(self.value, np.ndarray):
+#             config["value"] = self.value.tolist()
+#         else:
+        config["value"] = self.value.tolist()
+
+        ctr=0
+        links={}
+        for link in self.links:
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
+            try:
+                links[ctr]=func.get_name()
+            except AttributeError:
+                #raise Exception(f' there is no function called {link}, ensure it exists first.')
+                print(f'WARN: there is no function called {link}, ensure it exists first.')
+                links[ctr]=func
+
+            ctr+=1
+
+        config['links']=links
+
         config["env_name"] = self.env_name
         #config["values"] = self.value
         config["reward"] = self.reward
