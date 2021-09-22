@@ -44,21 +44,6 @@ nb_path: "nbs/03_nodes.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -169,7 +154,7 @@ nb_path: "nbs/03_nodes.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L538" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
+<h2 id="PCTNodeData" class="doc_header"><code>class</code> <code>PCTNodeData</code><a href="https://github.com/perceptualrobots/pct/tree/master/pct/nodes.py#L550" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>PCTNodeData</code>(<strong><code>name</code></strong>=<em><code>'pctnodedata'</code></em>)</p>
 </blockquote>
 <p>Data collected for a PCTNode</p>
 
@@ -375,6 +360,48 @@ OUT: proportional Proportional | gain 10 | 0 | links  subtract
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-14-5f01ccd49f82&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     <span class="ansi-blue-fg">&#39;percoll&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;0&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;type&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;Variable&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;name&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;velocity&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;value&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">0.2</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;links&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     <span class="ansi-blue-fg">&#39;comcoll&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;0&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;type&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;Subtract&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;name&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;subtract&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;value&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;links&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;constant&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;velocity&#39;</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">,</span>
+<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg">     &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 10, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10}}}, namespace=namespace)
+</span>
+<span class="ansi-green-fg">&lt;ipython-input-6-6d3f392b69c0&gt;</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
+<span class="ansi-green-intense-fg ansi-bold">    466</span>         collection <span class="ansi-blue-fg">=</span> node<span class="ansi-blue-fg">.</span>referenceCollection
+<span class="ansi-green-intense-fg ansi-bold">    467</span>         coll_dict <span class="ansi-blue-fg">=</span> config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;refcoll&#39;</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">--&gt; 468</span><span class="ansi-red-fg">         </span>PCTNode<span class="ansi-blue-fg">.</span>collection_from_config<span class="ansi-blue-fg">(</span>collection<span class="ansi-blue-fg">,</span> coll_dict<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    469</span> 
+<span class="ansi-green-intense-fg ansi-bold">    470</span>         node<span class="ansi-blue-fg">.</span>perceptionCollection <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-6-6d3f392b69c0&gt;</span> in <span class="ansi-cyan-fg">collection_from_config</span><span class="ansi-blue-fg">(node, collection, coll_dict, namespace)</span>
+<span class="ansi-green-intense-fg ansi-bold">    497</span>             <span class="ansi-red-fg">#print(fndict)</span>
+<span class="ansi-green-intense-fg ansi-bold">    498</span>             <span class="ansi-red-fg">#func = eval(fnname).from_config(fndict, namespace)</span>
+<span class="ansi-green-fg">--&gt; 499</span><span class="ansi-red-fg">             </span>func <span class="ansi-blue-fg">=</span> FunctionFactory<span class="ansi-blue-fg">.</span>createFunctionFromConfig<span class="ansi-blue-fg">(</span>fnname<span class="ansi-blue-fg">,</span> fndict<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    500</span> 
+<span class="ansi-green-intense-fg ansi-bold">    501</span>             collection<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">createFunctionFromConfig</span><span class="ansi-blue-fg">(id, config, namespace)</span>
+<span class="ansi-green-intense-fg ansi-bold">    410</span>             FunctionFactory<span class="ansi-blue-fg">.</span>factories<span class="ansi-blue-fg">[</span>id<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span><span class="ansi-red-fg"> </span><span class="ansi-red-fg">\</span>
+<span class="ansi-green-intense-fg ansi-bold">    411</span>               eval<span class="ansi-blue-fg">(</span>id <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">f&#39;.FactoryFromConfig()&#39;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 412</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> FunctionFactory<span class="ansi-blue-fg">.</span>factories<span class="ansi-blue-fg">[</span>id<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>create<span class="ansi-blue-fg">(</span>new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>config<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    413</span>     createFunctionFromConfig <span class="ansi-blue-fg">=</span> staticmethod<span class="ansi-blue-fg">(</span>createFunctionFromConfig<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    414</span> 
+
+<span class="ansi-red-fg">TypeError</span>: create() got an unexpected keyword argument &#39;new_name&#39;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -399,26 +426,6 @@ OUT: proportional Proportional | gain 10 | 0 | links  subtract
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>integratingnode PCTNode
-----------------------------
-REF: velocity_reference Variable | 0 
-PER: constant_perception Constant | 10 
-COM: subtract Subtract | 0 | links  velocity_reference constant_perception 
-OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract 
-----------------------------
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -434,41 +441,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;type&#39;: &#39;PCTNode&#39;,
- &#39;name&#39;: &#39;integratingnode&#39;,
- &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;,
-   &#39;name&#39;: &#39;velocity_reference&#39;,
-   &#39;value&#39;: 0,
-   &#39;links&#39;: {}}},
- &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;,
-   &#39;name&#39;: &#39;constant_perception&#39;,
-   &#39;value&#39;: 10,
-   &#39;links&#39;: {}}},
- &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;,
-   &#39;name&#39;: &#39;subtract&#39;,
-   &#39;value&#39;: 0,
-   &#39;links&#39;: {0: &#39;velocity_reference&#39;, 1: &#39;constant_perception&#39;}}},
- &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Integration&#39;,
-   &#39;name&#39;: &#39;integrator&#39;,
-   &#39;value&#39;: 0,
-   &#39;links&#39;: {0: &#39;subtract&#39;},
-   &#39;gain&#39;: 10,
-   &#39;slow&#39;: 100}}}</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -556,20 +528,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>10
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -600,59 +558,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0 0.000 0.000 0.000 0.000 
-1 0.000 0.000 0.000 0.000 
-2 0.000 0.000 0.000 0.000 
-3 0.000 0.000 0.000 0.000 
-4 0.000 0.000 0.000 0.000 
-5 0.000 0.000 0.000 0.000 
-6 0.000 0.000 0.000 0.000 
-7 0.000 0.000 0.000 0.000 
-8 0.000 0.000 0.000 0.000 
-9 0.000 0.000 0.000 0.000 
-10 0.000 0.000 0.000 0.000 
-11 0.000 0.000 0.000 0.000 
-12 0.000 0.000 0.000 0.000 
-13 0.000 0.000 0.000 0.000 
-14 0.000 0.000 0.000 0.000 
-15 0.000 0.000 0.000 0.000 
-16 0.000 0.000 0.000 0.000 
-17 0.000 0.000 0.000 0.000 
-18 0.000 0.000 0.000 0.000 
-19 0.000 0.000 0.000 0.000 
-20 0.000 0.000 0.000 0.000 
-21 0.000 0.000 0.000 0.000 
-22 0.000 0.000 0.000 0.000 
-23 0.000 0.000 0.000 0.000 
-24 0.000 0.000 0.000 0.000 
-25 0.000 0.000 0.000 0.000 
-26 0.000 0.000 0.000 0.000 
-27 0.000 0.000 0.000 0.000 
-28 0.000 0.000 0.000 0.000 
-29 0.000 0.000 0.000 0.000 
-30 0.000 0.000 0.000 0.000 
-31 0.000 0.000 0.000 0.000 
-32 0.000 0.000 0.000 0.000 
-33 0.000 0.000 0.000 0.000 
-34 0.000 0.000 0.000 0.000 
-35 0.000 0.000 0.000 0.000 
-36 0.000 0.000 0.000 0.000 
-37 0.000 0.000 0.000 0.000 
-38 0.000 0.000 0.000 0.000 
-39 0.000 0.000 0.000 0.000 
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -712,20 +617,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;type&#39;: &#39;PCTNode&#39;, &#39;name&#39;: &#39;integratingnode&#39;, &#39;refcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Variable&#39;, &#39;name&#39;: &#39;velocity_reference&#39;, &#39;value&#39;: 0, &#39;links&#39;: {}}}, &#39;percoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Constant&#39;, &#39;name&#39;: &#39;constant_perception&#39;, &#39;value&#39;: 10, &#39;links&#39;: {}}}, &#39;comcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Subtract&#39;, &#39;name&#39;: &#39;subtract&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;velocity_reference&#39;, 1: &#39;constant_perception&#39;}}}, &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Integration&#39;, &#39;name&#39;: &#39;integrator&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10, &#39;slow&#39;: 100}}}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -767,21 +658,6 @@ OUT: integrator Integration | gain 10 slow 100  | 0 | links  subtract
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<img src="http://www.perceptualrobots.com/wp-content/uploads/2020/08/pct_node_plot.png"/>
-</div>
-
-</div>
-
 </div>
 </div>
 

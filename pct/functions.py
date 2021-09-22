@@ -81,6 +81,11 @@ class BaseFunction(ABC):
             name = f'{prefix}L{level}C{column}'
             self.links.append(name)
 
+    def validate(self, num):
+        if len(self.links) != num:
+            raise Exception(f'Number of links, {len(self.links)}, for {self.name} is not equal to {num}')
+
+
     def run(self, steps=None, verbose=False):
         for i in range(steps):
             out = self(verbose)
@@ -261,7 +266,8 @@ class BaseFunction(ABC):
     def set_decimal_places(self, dp):
         self.decimal_places = dp
 
-
+    def remove_connections(self, num_columns):
+        self.parameter.remove_connections(num_columns, self.weights, self.links)
 
     def get_list(self):
         return []
@@ -399,6 +405,14 @@ class FunctionFactory:
         return FunctionFactory.factories[id].create(namespace=namespace)
     createFunctionWithNamespace = staticmethod(createFunctionWithNamespace)
 
+    def createFunctionFromConfig(id, namespace=None, config=None):
+        if not FunctionFactory.factories.__contains__(id):
+            FunctionFactory.factories[id] = \
+              eval(id + f'.FactoryFromConfig()')
+        return FunctionFactory.factories[id].create(new_name=False, namespace=namespace, **config)
+    createFunctionFromConfig = staticmethod(createFunctionFromConfig)
+
+
 # Cell
 class Subtract(BaseFunction):
     "A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted."
@@ -423,6 +437,10 @@ class Subtract(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Subtract(namespace=namespace)
+
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return Subtract(new_name=new_name, namespace=namespace, **cargs)
+
 
 
 # Cell
@@ -453,10 +471,16 @@ class Proportional(BaseFunction):
         return 'p'
 
     class Factory:
-        def create(self): return Proportional()
+        def create(self):
+            return Proportional()
 
     class FactoryWithNamespace:
-        def create(self, namespace=None): return Proportional(namespace=namespace)
+        def create(self, namespace=None):
+            return Proportional(namespace=namespace)
+
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs):
+            return Proportional(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -487,6 +511,9 @@ class Variable(BaseFunction):
     class FactoryWithNamespace:
         def create(self, namespace=None): return Variable(namespace=namespace)
 
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return Variable(new_name=new_name, namespace=namespace, **cargs)
+
 
 # Cell
 class PassOn(BaseFunction):
@@ -511,6 +538,8 @@ class PassOn(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return PassOn(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return PassOn(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -548,6 +577,8 @@ class GreaterThan(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return GreaterThan(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return GreaterThan(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -595,6 +626,8 @@ class Constant(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Constant(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return Constant(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -643,6 +676,8 @@ class Step(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Step(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return Step(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -674,6 +709,8 @@ class Integration(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Integration(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return Integration(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -707,6 +744,8 @@ class IntegrationDual(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return IntegrationDual(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return IntegrationDual(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -738,6 +777,8 @@ class Sigmoid(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return Sigmoid(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return Sigmoid(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -877,6 +918,8 @@ class WeightedSum(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return WeightedSum(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return WeightedSum(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -994,6 +1037,8 @@ class SmoothWeightedSum(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return SmoothWeightedSum(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return SmoothWeightedSum(new_name=new_name, namespace=namespace, **cargs)
 
 
 # Cell
@@ -1025,3 +1070,5 @@ class IndexedParameter(BaseFunction):
 
     class FactoryWithNamespace:
         def create(self, namespace=None): return IndexedParameter(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return IndexedParameter(new_name=new_name, namespace=namespace, **cargs)

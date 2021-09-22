@@ -286,18 +286,28 @@ class PCTNode():
         return graph
 
 
+    def validate(self, num_lower_perceptions=None, num_higher_outputs=None):
+
+        if num_higher_outputs is not None:
+            for func in self.referenceCollection:
+                func.validate(num_higher_outputs)
+
+        for func in self.perceptionCollection:
+            func.validate(num_lower_perceptions)
+
+
     def clear_values(self):
         for referenceFunction in self.referenceCollection:
             referenceFunction.value = 0
 
         for comparatorFunction in self.comparatorCollection:
-            comparatorFunction = 0
+            comparatorFunction.value = 0
 
         for perceptionFunction in self.perceptionCollection:
-            perceptionFunction = 0
+            perceptionFunction.value = 0
 
         for outputFunction in self.outputCollection:
-            outputFunction  = 0
+            outputFunction.value  = 0
 
     def change_namespace(self, namespace):
         for referenceFunction in self.referenceCollection:
@@ -508,7 +518,9 @@ class PCTNode():
             #print(fndict)
             fnname = fndict.pop('type')
             #print(fndict)
-            func = eval(fnname).from_config(fndict, namespace)
+            #func = eval(fnname).from_config(fndict, namespace)
+            func = FunctionFactory.createFunctionFromConfig(fnname, namespace, fndict)
+
             collection.append(func)
 
     @classmethod

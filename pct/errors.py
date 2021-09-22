@@ -5,7 +5,8 @@ __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'Curre
            'ErrorFactory']
 
 # Cell
-import numpy as np
+#import numpy as np
+import math
 from abc import ABC, abstractmethod
 from .functions import IndexedParameter
 
@@ -17,6 +18,10 @@ class BaseErrorType(ABC):
 
     @abstractmethod
     def __call__(self):
+        pass
+
+    @abstractmethod
+    def reset(self):
         pass
 
     def set_property(self, property_name, property_value):
@@ -34,7 +39,10 @@ class RootSumSquaredError(BaseErrorType):
 
     def __call__(self, error):
         self.sum+=error*error
-        self.error_response=np.sqrt(self.sum)
+        self.error_response=math.sqrt(self.sum)
+
+    def reset(self):
+        self.sum=0
 
     class Factory:
         def create(self): return RootSumSquaredError()
@@ -44,13 +52,16 @@ class RootMeanSquareError(BaseErrorType):
     "The square root of the sum of the square of the errors."
     def __init__(self):
         super().__init__()
-        self.sum=0
-        self.num=0
+        self.reset()
 
     def __call__(self, error):
         self.num+=1
         self.sum+=error*error
-        self.error_response=np.sqrt(self.sum/self.num)
+        self.error_response=math.sqrt(self.sum/self.num)
+
+    def reset(self):
+        self.sum=0
+        self.num=0
 
     class Factory:
         def create(self): return RootMeanSquareError()
@@ -64,6 +75,9 @@ class CurrentError(BaseErrorType):
     def __call__(self, error):
         self.error_response=error
 
+    def reset(self):
+        pass
+
     class Factory:
         def create(self): return CurrentError()
 
@@ -76,6 +90,9 @@ class SmoothError(BaseErrorType):
 
     def __call__(self, error):
         self.error_response=smooth(abs(error), self.error_response, self.smooth_factor)
+
+    def reset(self):
+        pass
 
     class Factory:
         def create(self): return SmoothError()
@@ -98,6 +115,9 @@ class BaseErrorCollector(ABC):
 
     def set_error_response(self, error_response):
         self.error_response=error_response
+
+    def reset(self):
+        self.error_response.reset()
 
     def error(self):
         return self.error_response.get_error_response()
@@ -180,6 +200,7 @@ class InputsError(BaseErrorCollector):
         if self.error_response.get_error_response() > self.limit:
             self.limit_exceeded=True
             return
+
     class Factory:
         def create(self): return InputsError()
 
