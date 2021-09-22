@@ -178,6 +178,9 @@ class OpenAIGym(BaseFunction):
     class Factory:
         def create(self): return OpenAIGym()
 
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return OpenAIGym(namespace=namespace)
+
 # Cell
 class CartPoleV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
@@ -209,7 +212,8 @@ class CartPoleV1(OpenAIGym):
 
     class Factory:
         def create(self): return CartPoleV1()
-
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return CartPoleV1(namespace=namespace)
 
 # Cell
 class CartPoleDV1(OpenAIGym):
@@ -243,6 +247,8 @@ class CartPoleDV1(OpenAIGym):
 
     class Factory:
         def create(self): return CartPoleDV1()
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return CartPoleDV1(namespace=namespace)
 
 # Cell
 class PendulumV0(OpenAIGym):
@@ -287,7 +293,8 @@ class PendulumV0(OpenAIGym):
 
     class Factory:
         def create(self): return PendulumV0()
-
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return PendulumV0(namespace=namespace)
 
 # Cell
 class PendulumV0_1(OpenAIGym):
@@ -332,6 +339,8 @@ class PendulumV0_1(OpenAIGym):
 
     class Factory:
         def create(self): return PendulumV0_1()
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return PendulumV0_1(namespace=namespace)
 
 # Cell
 class MountainCarV0(OpenAIGym):
@@ -366,7 +375,8 @@ class MountainCarV0(OpenAIGym):
 
     class Factory:
         def create(self): return MountainCarV0()
-
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return MountainCarV0(namespace=namespace)
 
 # Cell
 class MountainCarContinuousV0(OpenAIGym):
@@ -411,7 +421,8 @@ class MountainCarContinuousV0(OpenAIGym):
 
     class Factory:
         def create(self): return MountainCarContinuousV0()
-
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return MountainCarContinuousV0(namespace=namespace)
 
 # Cell
 class VelocityModel(BaseFunction):
