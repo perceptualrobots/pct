@@ -192,7 +192,7 @@ class CartPoleV1(OpenAIGym):
     def __init__(self, render=False, video_wrap=False, value=0, name="CartPole-v1",
                  seed=None, links=None, new_name=True, namespace=None, **cargs):
         super().__init__(env_name='CartPole-v1', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed,
-                         links=links, new_name=new_name, **cargs)
+                         links=links, new_name=new_name, namespace=namespace, **cargs)
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
