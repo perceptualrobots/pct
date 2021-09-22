@@ -44,6 +44,21 @@ nb_path: "nbs/05_environments.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -512,7 +527,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;0.998 0.066 1.000 -0.026 -0.077 0.000 -1.0 False {}&#39;</pre>
+<pre>&#39;0.999 0.047 1.000 0.002 -0.040 0.113 -1.0 False {}&#39;</pre>
 </div>
 
 </div>
@@ -545,7 +560,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9978319357292763</pre>
+<pre>0.9989063490531491</pre>
 </div>
 
 </div>
@@ -596,7 +611,7 @@ nb_path: "nbs/05_environments.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9978319357292763</pre>
+<pre>0.9989063490531491</pre>
 </div>
 
 </div>
@@ -648,37 +663,28 @@ nb_path: "nbs/05_environments.ipynb"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{&#39;type&#39;: &#39;PendulumV0&#39;, &#39;name&#39;: &#39;Pendulum-v0&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;constant1&#39;}, &#39;env_name&#39;: &#39;Pendulum-v0&#39;, &#39;reward&#39;: 0, &#39;done&#39;: False, &#39;info&#39;: {}}
+-0.487 0.873 1.276 2.080 12.080 [4.08529385] False {}
+-0.575 0.818 2.081 2.184 12.184 [4.48934584] False {}
+-0.685 0.728 2.845 2.326 12.326 [5.20326621] False {}
+-0.803 0.596 3.541 2.503 12.503 [6.22076278] False {}
+-0.908 0.418 4.138 2.710 12.710 [7.52014832] False {}
+-0.980 0.200 4.601 2.940 12.940 [9.05703953] False {}
+-0.999 -0.044 4.902 -3.098 6.902 [10.76222555] False {}
+-0.957 -0.290 5.019 -2.847 7.153 [12.00146133] False {}
+-0.857 -0.516 4.951 -2.600 7.400 [10.62597198] False {}
+-0.712 -0.702 4.714 -2.364 7.636 [9.21010799] False {}
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-23-6f5111514b7d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> pen<span class="ansi-blue-fg">.</span>add_link<span class="ansi-blue-fg">(</span>Constant<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> print<span class="ansi-blue-fg">(</span>pen<span class="ansi-blue-fg">.</span>get_config<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg"> </span>pen<span class="ansi-blue-fg">.</span>run<span class="ansi-blue-fg">(</span>steps<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">10</span><span class="ansi-blue-fg">,</span> verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">run</span><span class="ansi-blue-fg">(self, steps, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">     89</span>     <span class="ansi-green-fg">def</span> run<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> steps<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> verbose<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     90</span>         <span class="ansi-green-fg">for</span> i <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>steps<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 91</span><span class="ansi-red-fg">             </span>out <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">(</span>verbose<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     92</span>         <span class="ansi-green-fg">return</span> out
-<span class="ansi-green-intense-fg ansi-bold">     93</span> 
 
-<span class="ansi-green-fg">&lt;ipython-input-9-f573cb9625e6&gt;</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, verbose)</span>
-<span class="ansi-green-intense-fg ansi-bold">     26</span> 
-<span class="ansi-green-intense-fg ansi-bold">     27</span>         pi <span class="ansi-blue-fg">=</span> math<span class="ansi-blue-fg">.</span>copysign<span class="ansi-blue-fg">(</span>math<span class="ansi-blue-fg">.</span>acos<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>obs<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>obs<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">---&gt; 28</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>value <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>value<span class="ansi-blue-fg">,</span> pi<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     29</span>         <span class="ansi-red-fg">#x = math.copysign(pi-abs(pi), pi)</span>
-<span class="ansi-green-intense-fg ansi-bold">     30</span>         x <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">10</span> <span class="ansi-blue-fg">+</span> pi
-
-<span class="ansi-red-fg">NameError</span>: name &#39;np&#39; is not defined</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([-0.71248616, -0.70168617,  4.71430938, -2.36383131,  7.63616869])</pre>
 </div>
+
 </div>
 
 </div>
@@ -727,6 +733,32 @@ nb_path: "nbs/05_environments.ipynb"
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>VelocityModel VelocityModel | 0 | links  mycon 
+None
+{&#39;type&#39;: &#39;VelocityModel&#39;, &#39;name&#39;: &#39;VelocityModel&#39;, &#39;value&#39;: 0, &#39;links&#39;: {0: &#39;mycon&#39;}, &#39;mass&#39;: 50}
+0.020 0.040 0.060 0.080 0.100 0.120 0.140 0.160 0.180 0.200 </pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.19999999999999998</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 

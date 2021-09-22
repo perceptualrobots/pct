@@ -98,10 +98,10 @@ class OpenAIGym(BaseFunction):
         config = {"type": type(self).__name__,
                     "name": self.name}
 
-#         if isinstance(self.value, np.ndarray):
-#             config["value"] = self.value.tolist()
-#         else:
-        config["value"] = self.value.tolist()
+        if isinstance(self.value, np.ndarray):
+            config["value"] = self.value.tolist()
+        else:
+            config["value"] = self.value
 
         ctr=0
         links={}
