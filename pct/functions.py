@@ -405,7 +405,7 @@ class FunctionFactory:
         return FunctionFactory.factories[id].create(namespace=namespace)
     createFunctionWithNamespace = staticmethod(createFunctionWithNamespace)
 
-    def createFunctionFromConfig(id, namespace=None, config=None):
+    def createFunctionFromConfig(id, config=None, namespace=None):
         if not FunctionFactory.factories.__contains__(id):
             FunctionFactory.factories[id] = \
               eval(id + f'.FactoryFromConfig()')
