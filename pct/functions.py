@@ -398,7 +398,7 @@ class FunctionFactory:
         return FunctionFactory.factories[id].create()
     createFunction = staticmethod(createFunction)
 
-    def createFunctionWithNamespace(id, namespace=None):
+    def createFunctionWithNamespace(sid, namespace=None):
         id = sid + f'.FactoryWithNamespace()'
         if not FunctionFactory.factories.__contains__(id):
             FunctionFactory.factories[id] = \
