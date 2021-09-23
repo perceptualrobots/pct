@@ -399,16 +399,17 @@ class FunctionFactory:
     createFunction = staticmethod(createFunction)
 
     def createFunctionWithNamespace(id, namespace=None):
+        id = sid + f'.FactoryWithNamespace()'
         if not FunctionFactory.factories.__contains__(id):
             FunctionFactory.factories[id] = \
-              eval(id + f'.FactoryWithNamespace()')
+              eval(id)
         return FunctionFactory.factories[id].create(namespace=namespace)
     createFunctionWithNamespace = staticmethod(createFunctionWithNamespace)
 
-    def createFunctionFromConfig(id, namespace=None, config=None):
+    def createFunctionFromConfig(sid, namespace=None, config=None):
+        id = sid + f'.FactoryFromConfig()'
         if not FunctionFactory.factories.__contains__(id):
-            FunctionFactory.factories[id] = \
-              eval(id + f'.FactoryFromConfig()')
+            FunctionFactory.factories[id] = eval(id)
         return FunctionFactory.factories[id].create(new_name=False, namespace=namespace, **config)
     createFunctionFromConfig = staticmethod(createFunctionFromConfig)
 

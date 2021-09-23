@@ -44,6 +44,21 @@ nb_path: "nbs/03_nodes.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -369,26 +384,26 @@ OUT: proportional Proportional | gain 10 | 0 | links  subtract
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-14-5f01ccd49f82&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">&lt;ipython-input-56-5f01ccd49f82&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">      3</span>     <span class="ansi-blue-fg">&#39;percoll&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;0&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;type&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;Variable&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;name&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;velocity&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;value&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">0.2</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;links&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">,</span>
 <span class="ansi-green-intense-fg ansi-bold">      4</span>     <span class="ansi-blue-fg">&#39;comcoll&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;0&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;type&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;Subtract&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;name&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;subtract&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;value&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;links&#39;</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">{</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;constant&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span> <span class="ansi-blue-fg">&#39;velocity&#39;</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">,</span>
 <span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg">     &#39;outcoll&#39;: {&#39;0&#39;: {&#39;type&#39;: &#39;Proportional&#39;, &#39;name&#39;: &#39;proportional&#39;, &#39;value&#39;: 10, &#39;links&#39;: {0: &#39;subtract&#39;}, &#39;gain&#39;: 10}}}, namespace=namespace)
 </span>
-<span class="ansi-green-fg">&lt;ipython-input-6-6d3f392b69c0&gt;</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
+<span class="ansi-green-fg">&lt;ipython-input-48-cd0de577147b&gt;</span> in <span class="ansi-cyan-fg">from_config</span><span class="ansi-blue-fg">(cls, config, namespace)</span>
 <span class="ansi-green-intense-fg ansi-bold">    466</span>         collection <span class="ansi-blue-fg">=</span> node<span class="ansi-blue-fg">.</span>referenceCollection
 <span class="ansi-green-intense-fg ansi-bold">    467</span>         coll_dict <span class="ansi-blue-fg">=</span> config<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;refcoll&#39;</span><span class="ansi-blue-fg">]</span>
 <span class="ansi-green-fg">--&gt; 468</span><span class="ansi-red-fg">         </span>PCTNode<span class="ansi-blue-fg">.</span>collection_from_config<span class="ansi-blue-fg">(</span>collection<span class="ansi-blue-fg">,</span> coll_dict<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">    469</span> 
 <span class="ansi-green-intense-fg ansi-bold">    470</span>         node<span class="ansi-blue-fg">.</span>perceptionCollection <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-6-6d3f392b69c0&gt;</span> in <span class="ansi-cyan-fg">collection_from_config</span><span class="ansi-blue-fg">(node, collection, coll_dict, namespace)</span>
+<span class="ansi-green-fg">&lt;ipython-input-48-cd0de577147b&gt;</span> in <span class="ansi-cyan-fg">collection_from_config</span><span class="ansi-blue-fg">(node, collection, coll_dict, namespace)</span>
 <span class="ansi-green-intense-fg ansi-bold">    497</span>             <span class="ansi-red-fg">#print(fndict)</span>
 <span class="ansi-green-intense-fg ansi-bold">    498</span>             <span class="ansi-red-fg">#func = eval(fnname).from_config(fndict, namespace)</span>
-<span class="ansi-green-fg">--&gt; 499</span><span class="ansi-red-fg">             </span>func <span class="ansi-blue-fg">=</span> FunctionFactory<span class="ansi-blue-fg">.</span>createFunctionFromConfig<span class="ansi-blue-fg">(</span>fnname<span class="ansi-blue-fg">,</span> fndict<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 499</span><span class="ansi-red-fg">             </span>func <span class="ansi-blue-fg">=</span> FunctionFactory<span class="ansi-blue-fg">.</span>createFunctionFromConfig<span class="ansi-blue-fg">(</span>fnname<span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">,</span> fndict<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">    500</span> 
 <span class="ansi-green-intense-fg ansi-bold">    501</span>             collection<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>func<span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">createFunctionFromConfig</span><span class="ansi-blue-fg">(id, config, namespace)</span>
+<span class="ansi-green-fg">/mnt/c/Users/ryoung/Versioning/python/nbdev/pct/pct/functions.py</span> in <span class="ansi-cyan-fg">createFunctionFromConfig</span><span class="ansi-blue-fg">(id, namespace, config)</span>
 <span class="ansi-green-intense-fg ansi-bold">    410</span>             FunctionFactory<span class="ansi-blue-fg">.</span>factories<span class="ansi-blue-fg">[</span>id<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span><span class="ansi-red-fg"> </span><span class="ansi-red-fg">\</span>
 <span class="ansi-green-intense-fg ansi-bold">    411</span>               eval<span class="ansi-blue-fg">(</span>id <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">f&#39;.FactoryFromConfig()&#39;</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-fg">--&gt; 412</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> FunctionFactory<span class="ansi-blue-fg">.</span>factories<span class="ansi-blue-fg">[</span>id<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>create<span class="ansi-blue-fg">(</span>new_name<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> namespace<span class="ansi-blue-fg">=</span>namespace<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>config<span class="ansi-blue-fg">)</span>
