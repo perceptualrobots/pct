@@ -28,7 +28,8 @@ class EnvironmentFactory:
     createEnvironment = staticmethod(createEnvironment)
 
 
-    def createEnvironmentWithNamespace(id, namespace=None):
+    def createEnvironmentWithNamespace(sid, namespace=None):
+        id = sid + f'.FactoryWithNamespace()'
         if not EnvironmentFactory.factories.__contains__(id):
             EnvironmentFactory.factories[id] = \
               eval(id + f'.FactoryWithNamespace()')
