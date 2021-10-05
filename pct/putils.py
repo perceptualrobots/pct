@@ -229,11 +229,11 @@ def stringFloatListToListOfFloats(strList, delimiter):
     return result
 
 # Cell
-def stringListToListOfStrings(strList, delimiter):
+def stringListToListOfStrings(strList, delimiter=','):
     #listRes = list(strList.split(","))
     #print(listRes)
     result = []
-    for item in strList.strip('][').split(','):
+    for item in strList.strip('][').split(delimiter):
         result.append(item.strip())
     return result
 
