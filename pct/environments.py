@@ -292,13 +292,13 @@ class Pendulum(OpenAIGym):
         return self.value
 
     class Factory:
-        def create(self): return PendulumV0()
+        def create(self): return Pendulum()
     class FactoryWithNamespace:
-        def create(self, namespace=None): return PendulumV0(namespace=namespace)
+        def create(self, namespace=None): return Pendulum(namespace=namespace)
 
 # Cell
 class Pendulum_1(OpenAIGym):
-    "A function that creates an runs the Pendulum-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
+    "A function that creates an runs the Pendulum-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
     # 0 cos(theta) - +1 is up, -1 is down, 0 is left and right
     # 1 sin(theta) - +1 is left, -1 is right, 0 is up and down
@@ -338,9 +338,9 @@ class Pendulum_1(OpenAIGym):
         return self.value
 
     class Factory:
-        def create(self): return PendulumV0_1()
+        def create(self): return Pendulum_1()
     class FactoryWithNamespace:
-        def create(self, namespace=None): return PendulumV0_1(namespace=namespace)
+        def create(self, namespace=None): return Pendulum_1(namespace=namespace)
 
 # Cell
 class MountainCarV0(OpenAIGym):
