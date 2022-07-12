@@ -162,11 +162,13 @@ class OpenAIGym(BaseFunction):
             self.env =  vid.wrap_env(genv)
         else:
             self.env = genv
-        self.env.seed(seed)
+        self.env.reset(seed=seed)
+        #self.env.seed(seed)
         self.env.reset()
 
     def set_seed(self, seed):
-        self.env.seed(seed)
+        self.env.reset(seed=seed)
+        #self.env.seed(seed)
 
 
     def get_parameters_list(self):
