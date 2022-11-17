@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "pct"
+  site-url: "https://perceptualrobots.github.io/pct/"
+  description: "Perceptual Control Theory with Python"
+  repo-branch: master
+  repo-url: "https://github.com/perceptualrobots/pct/tree/master/"

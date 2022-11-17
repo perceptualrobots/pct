@@ -1,0 +1,14 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - 00_examples.ipynb
+      - 01_putils.ipynb
+      - 02_functions.ipynb
+      - 03_nodes.ipynb
+      - 04_hierarchy.ipynb
+      - 05_environments.ipynb
+      - 06_structure.ipynb
+      - 07_errors.ipynb
+      - 08_architectures.ipynb
+      - 09_plotting.ipynb
