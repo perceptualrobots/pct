@@ -15,7 +15,7 @@ A hierarchy is defined by a collection of nodes.
 
 ## Install
 
-`pip install pctx`
+`pip install pct`
 
 ## Import
 
