@@ -4,12 +4,12 @@
 __all__ = ['BaseArchitecture', 'ProportionalArchitecture', 'DynamicArchitecture', 'run_from_properties_file', 'load_properties',
            'setup_environment', 'create_hierarchy']
 
-# %% ../nbs/08_architectures.ipynb 4
+# %% ../nbs/08_architectures.ipynb 5
 import os
 import numpy as np
 from abc import ABC, abstractmethod
 
-# %% ../nbs/08_architectures.ipynb 5
+# %% ../nbs/08_architectures.ipynb 6
 from .functions import ControlUnitFunctions
 from .functions import WeightedSum
 from .functions import IndexedParameter
@@ -22,7 +22,7 @@ from .structure import ArchitectureStructure
 from .putils import stringListToListOfStrings
 from .errors import BaseErrorCollector
 
-# %% ../nbs/08_architectures.ipynb 6
+# %% ../nbs/08_architectures.ipynb 7
 class BaseArchitecture(ABC):
     "Base class of an array architecture. This class is not used direclty by developers, but defines the functionality common to all."
     def __init__(self, name=None, config=None, env=None, inputs=None, history=None, error_collector=None, namespace=None):
@@ -65,7 +65,7 @@ class BaseArchitecture(ABC):
 
  
 
-# %% ../nbs/08_architectures.ipynb 7
+# %% ../nbs/08_architectures.ipynb 8
 class ProportionalArchitecture(BaseArchitecture):
     "Proportional Architecture"
     def __init__(self, name="proportional", config=None, env=None, input_indexes=None, history=False, 
@@ -234,7 +234,7 @@ class ProportionalArchitecture(BaseArchitecture):
 
  
 
-# %% ../nbs/08_architectures.ipynb 9
+# %% ../nbs/08_architectures.ipynb 10
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, inputs_names=None,
@@ -523,7 +523,7 @@ class DynamicArchitecture(BaseArchitecture):
 
         return score, last_step, hpct        
 
-# %% ../nbs/08_architectures.ipynb 10
+# %% ../nbs/08_architectures.ipynb 11
 def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, runs=500, history=True, verbose=False, 
         test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,  layout=None, early_termination=False,
         plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False, hpct_verbose=None,
@@ -577,7 +577,7 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
     
     return hpct, score_sum, output
 
-# %% ../nbs/08_architectures.ipynb 11
+# %% ../nbs/08_architectures.ipynb 12
 def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, seed=None, print_properties=False, 
                     gens=None, pop_size=None, evolve=False):
     from jproperties import Properties
@@ -715,7 +715,7 @@ def load_properties(root_dir=None, file_path=None, file_name=None, nevals=None, 
 
     return properties 
 
-# %% ../nbs/08_architectures.ipynb 12
+# %% ../nbs/08_architectures.ipynb 13
 def setup_environment(properties, render=False, seed=None, early_termination=None, 
         error_collector_type=None, error_response_type=None):    
     
@@ -748,7 +748,7 @@ def setup_environment(properties, render=False, seed=None, early_termination=Non
 
     return env, error_collector
 
-# %% ../nbs/08_architectures.ipynb 13
+# %% ../nbs/08_architectures.ipynb 14
 def create_hierarchy(env, error_collector, properties, history=False, suffixes=False):
     inputs = properties['inputs']
     raw = properties['raw']

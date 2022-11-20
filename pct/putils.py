@@ -153,17 +153,17 @@ class FunctionsList:
                 print(namespace_list[name])          
             
 
-# %% ../nbs/01_putils.ipynb 10
+# %% ../nbs/01_putils.ipynb 11
 def dynamic_module_import(modulename, package=None):
     if modulename not in sys.modules:
         importlib.import_module(modulename, package)     
 
-# %% ../nbs/01_putils.ipynb 11
+# %% ../nbs/01_putils.ipynb 12
 def dynamic_class_load(modulename, classname):
     module = importlib.import_module(modulename) 
     my_class = getattr(module, classname)
 
-# %% ../nbs/01_putils.ipynb 13
+# %% ../nbs/01_putils.ipynb 14
 def get_drive():
     if os.name == 'nt':
         drive = os.path.abspath(os.sep)
@@ -171,7 +171,7 @@ def get_drive():
         drive = os.path.abspath(os.sep)+'mnt'+os.sep+'c'+os.sep    
     return drive
 
-# %% ../nbs/01_putils.ipynb 14
+# %% ../nbs/01_putils.ipynb 15
 class Counter(object):
 
   def __init__(self, limit=1000, init=0, step=1, print=100, pause=False, display=10):
@@ -196,7 +196,7 @@ class Counter(object):
   def set_limit(self, limit):
       self.limit=limit
 
-# %% ../nbs/01_putils.ipynb 15
+# %% ../nbs/01_putils.ipynb 16
 def stringIntListToListOfInts(strList, delimiter):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -205,7 +205,7 @@ def stringIntListToListOfInts(strList, delimiter):
         result.append(int(item))
     return result
 
-# %% ../nbs/01_putils.ipynb 16
+# %% ../nbs/01_putils.ipynb 17
 def stringFloatListToListOfFloats(strList, delimiter):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -214,7 +214,7 @@ def stringFloatListToListOfFloats(strList, delimiter):
         result.append(float(item))
     return result
 
-# %% ../nbs/01_putils.ipynb 17
+# %% ../nbs/01_putils.ipynb 18
 def stringListToListOfStrings(strList, delimiter=','):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -223,34 +223,34 @@ def stringListToListOfStrings(strList, delimiter=','):
         result.append(item.strip())
     return result
 
-# %% ../nbs/01_putils.ipynb 18
+# %% ../nbs/01_putils.ipynb 19
 def listNumsToString(list):
     str = ""
     for item in list:
         str += f'{item}'
     return str
 
-# %% ../nbs/01_putils.ipynb 19
+# %% ../nbs/01_putils.ipynb 20
 def sigmoid(x, range, scale) :
     return -range / 2 + range / (1 + np.exp(-x * scale / range));
 
-# %% ../nbs/01_putils.ipynb 20
+# %% ../nbs/01_putils.ipynb 21
 def smooth(new_val, old_val, smooth_factor):
     return old_val * smooth_factor + new_val * (1-smooth_factor)
 
-# %% ../nbs/01_putils.ipynb 21
+# %% ../nbs/01_putils.ipynb 22
 def dot(inputs, weights):
     sum = 0
     for i in range(len(inputs)):
         sum += inputs[i]*weights[i]
     return sum
 
-# %% ../nbs/01_putils.ipynb 22
+# %% ../nbs/01_putils.ipynb 23
 def list_of_ones(num):
     x = [1 for _ in range(num) ]
     return x
 
-# %% ../nbs/01_putils.ipynb 24
+# %% ../nbs/01_putils.ipynb 25
 def show_video():
   mp4list = glob.glob('video/*.mp4')
   if len(mp4list) > 0:
@@ -268,10 +268,10 @@ def wrap_env(env):
   env = Monitor(env, './video', force=True)
   return env
 
-# %% ../nbs/01_putils.ipynb 26
+# %% ../nbs/01_putils.ipynb 28
 import os
 
-# %% ../nbs/01_putils.ipynb 27
+# %% ../nbs/01_putils.ipynb 29
 from pathlib import Path
 
 def is_in_notebooks():
