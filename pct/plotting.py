@@ -18,7 +18,7 @@ class SubPlotter(object):
     self.legend_fontsize=legend_fontsize
     style.use('fivethirtyeight')
     self.fig = plt.figure(figsize=[width, height])
-    self.fig.canvas.set_window_title(title)
+    #self.fig.canvas.set_window_title(title)
     
     self.plots=[]
     self.colors=['b',  'r', 'g', 'c', 'm', 'y', 'k', 'w']
