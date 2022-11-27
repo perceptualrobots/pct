@@ -6,7 +6,7 @@ __all__ = ['LevelKey', 'ArchitectureStructure']
 # %% ../nbs/06_structure.ipynb 5
 import enum
 import uuid
-from .functions import ControlUnitFunctions
+from .functions import HPCTFUNCTION
 from .functions import WeightedSum
 
 # %% ../nbs/06_structure.ipynb 6
@@ -66,10 +66,10 @@ class ArchitectureStructure():
 
     
     def set_output_function(self, node, mode, thislevel, column, input_weights):
-        func = node.get_function_from_collection(ControlUnitFunctions.OUTPUT)
+        func = node.get_function_from_collection(HPCTFUNCTION.OUTPUT)
         func.set_output_function(thislevel, column, input_weights)
 
-        #type = PCTNode.get_function_type(mode, ControlUnitFunctions.OUTPUT)
+        #type = PCTNode.get_function_type(mode, HPCTFUNCTION.OUTPUT)
         #function_type = FunctionFactory.createFunction(type)
         #function_type.set_output_function(node, thislevel, column, input_weights)
 

@@ -10,7 +10,7 @@ from .putils import UniqueNamer
 from .putils import FunctionsList
 from .putils import dynamic_module_import
 from .functions import FunctionFactory
-from .functions import ControlUnitFunctions
+from .functions import HPCTFUNCTION
 
 import json
 from .functions import *
@@ -48,19 +48,19 @@ class PCTNode():
         FunctionsList.getInstance().add_function(self.namespace, self)
         if default:
             if perception==None:
-                perception = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.PERCEPTION), namespace=namespace)
+                perception = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, HPCTFUNCTION.PERCEPTION), namespace=namespace)
             self.perceptionCollection = [perception]
 
             if reference==None:
-                reference = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.REFERENCE), namespace=namespace)
+                reference = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, HPCTFUNCTION.REFERENCE), namespace=namespace)
             self.referenceCollection = [reference]
 
             if comparator==None:
-                comparator = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.COMPARATOR), namespace=namespace)
+                comparator = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, HPCTFUNCTION.COMPARATOR), namespace=namespace)
             self.comparatorCollection = [comparator]
 
             if output==None:
-                output = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, ControlUnitFunctions.OUTPUT), namespace=namespace)
+                output = FunctionFactory.createFunctionWithNamespace(PCTNode.get_function_type(mode, HPCTFUNCTION.OUTPUT), namespace=namespace)
             self.outputCollection = [output]
             
             if build_links:
@@ -100,19 +100,19 @@ class PCTNode():
         return self.name
 
     def get_function_from_collection(self, collection, position=-1):
-        if collection == ControlUnitFunctions.REFERENCE:
+        if collection == HPCTFUNCTION.REFERENCE:
             func = self.referenceCollection[position]
             return func 
 
-        if collection == ControlUnitFunctions.PERCEPTION:
+        if collection == HPCTFUNCTION.PERCEPTION:
             func = self.perceptionCollection[position]
             return func 
  
-        if collection == ControlUnitFunctions.COMPARATOR:
+        if collection == HPCTFUNCTION.COMPARATOR:
             func = self.comparatorCollection[position]
             return func 
         
-        if collection == ControlUnitFunctions.OUTPUT:
+        if collection == HPCTFUNCTION.OUTPUT:
             func = self.outputCollection[position]
             return func 
         
@@ -528,18 +528,18 @@ class PCTNode():
     def get_function_type(cls, mode, function):
         type = 'WeightedSum'
        
-        if function == ControlUnitFunctions.PERCEPTION:
+        if function == HPCTFUNCTION.PERCEPTION:
             if mode == 0 :
                 type = 'Variable'
                 
-        if function == ControlUnitFunctions.REFERENCE:
+        if function == HPCTFUNCTION.REFERENCE:
             if mode == 0 or mode == 2  or mode == 4  or mode == 5 :
                 type = 'Constant'
             
-        if function == ControlUnitFunctions.COMPARATOR:
+        if function == HPCTFUNCTION.COMPARATOR:
             type = 'Subtract'
             
-        if function == ControlUnitFunctions.OUTPUT:
+        if function == HPCTFUNCTION.OUTPUT:
             if mode < 3: 
                 type = 'Proportional'
             elif mode == 5  or mode == 6 :
