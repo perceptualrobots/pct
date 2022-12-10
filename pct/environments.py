@@ -39,9 +39,10 @@ class EnvironmentFactory:
 # %% ../nbs/05_environments.ipynb 5
 class OpenAIGym(BaseFunction):
     "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
-    def __init__(self, env_name=None, render=False, video_wrap=False, value=0, name="gym", 
+    def __init__(self, env_name=None, render=False, render_mode= "rgb_array", video_wrap=False, value=0, name="gym", 
                  seed=None, links=None, new_name=True, early_termination=False, namespace=None, **cargs):
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
+        self.render_mode=render_mode
         self.early_termination=early_termination
         self.video_wrap = video_wrap
         self.env_name=env_name
@@ -157,7 +158,7 @@ class OpenAIGym(BaseFunction):
 
     
     def create_env(self, seed):
-        genv = gym.make(self.env_name)
+        genv = gym.make(self.env_name) #, render_mode=self.render_mode)
         genv._max_episode_steps = self.max_episode_steps
         if self.video_wrap:
             self.env =  vid.wrap_env(genv)
@@ -192,9 +193,9 @@ class CartPoleV1(OpenAIGym):
     # 0 cart_position
     # 3 pole_velocity
     # 2 pole_angle
-    def __init__(self, render=False, video_wrap=False, value=0, name="CartPoleV1", 
+    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="CartPoleV1", 
                  seed=None, links=None, new_name=True, namespace=None, **cargs):
-        super().__init__(env_name='CartPole-v1', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed, 
+        super().__init__(env_name='CartPole-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, namespace=namespace, **cargs)
  
     def __call__(self, verbose=False):
@@ -226,9 +227,9 @@ class CartPoleDV1(OpenAIGym):
     # 0 cart_position
     # 3 pole_velocity
     # 2 pole_angle
-    def __init__(self, render=False, video_wrap=False, value=0, name="CartPoleD-v1", 
+    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="CartPoleD-v1", 
                  seed=None, links=None, new_name=True, namespace=None, **cargs):
-        super().__init__('CartPoleD-v1', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed, 
+        super().__init__('CartPoleD-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, **cargs)
  
     def __call__(self, verbose=False):
@@ -264,9 +265,9 @@ class Pendulum(OpenAIGym):
     # 4 theta +x+pi/x-pi (added here) 0 is pointing downwards, + is anti-clockwise, - is clockwise
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
-    def __init__(self, render=False, video_wrap=False, value=0, name="Pendulum", 
+    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="Pendulum", 
                  seed=None, links=None, new_name=True, namespace=None,**cargs):        
-        super().__init__('Pendulum-v1', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed, 
+        super().__init__('Pendulum-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, **cargs)
         
     def __call__(self, verbose=False):
@@ -310,9 +311,9 @@ class Pendulum_1(OpenAIGym):
     # 4 theta +1/-1 (added here) 1 is pointing upwards, + is anti-clockwise, - is clockwise
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
-    def __init__(self, render=False, video_wrap=False, value=0, name="Pendulum-1", 
+    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="Pendulum-1", 
                  seed=None, links=None, new_name=True, namespace=None,**cargs):        
-        super().__init__('Pendulum-v1', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed, 
+        super().__init__('Pendulum-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, **cargs)
         
     def __call__(self, verbose=False):
@@ -353,9 +354,9 @@ class MountainCarV0(OpenAIGym):
     # 1 Car Velocity - -0.07 t0 +0.07
     # 2 Car position - 0 to +1.8, reference 1.65 
     
-    def __init__(self, render=False, video_wrap=False, value=0, name="MountainCarV0", 
+    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="MountainCarV0", 
                  seed=None, links=None, new_name=True, namespace=None, **cargs):        
-        super().__init__('MountainCar-v0', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed, 
+        super().__init__('MountainCar-v0', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, **cargs)
         
     def __call__(self, verbose=False):        
@@ -388,9 +389,9 @@ class MountainCarContinuousV0(OpenAIGym):
     # 1 Car Velocity - -0.07 t0 +0.07
     # 2 Car position - 0 to +1.8, reference 1.65 
     
-    def __init__(self, render=False, video_wrap=False, value=0, name="MountainCarContinuousV0", 
+    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="MountainCarContinuousV0", 
                  seed=None, links=None, new_name=True, early_termination=True, namespace=None, **cargs):        
-        super().__init__('MountainCarContinuous-v0', render=render, video_wrap=video_wrap, value=value, name=name, seed=seed, 
+        super().__init__('MountainCarContinuous-v0', render=render, render_mode=render_mode,  video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, early_termination=early_termination, **cargs)
         
         self.min_action = -1.0
