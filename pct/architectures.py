@@ -10,7 +10,7 @@ import numpy as np
 from abc import ABC, abstractmethod
 
 # %% ../nbs/08_architectures.ipynb 6
-from .functions import ControlUnitFunctions
+from .functions import HPCTFUNCTION
 from .functions import WeightedSum
 from .functions import IndexedParameter
 from .functions import Constant
@@ -310,8 +310,8 @@ class DynamicArchitecture(BaseArchitecture):
         # create nodes
         for column in range(columns):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
-            self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode , level, None, None,  column, None, None, config[referencesIndex], True, 0)            
-            self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None,  column, len(self.inputs), self.inputs, config[inputsIndex], False,0)
+            self.structure.set_node_function(node, HPCTFUNCTION.REFERENCE, mode , level, None, None,  column, None, None, config[referencesIndex], True, 0)            
+            self.structure.set_node_function(node, HPCTFUNCTION.PERCEPTION, mode, level, None, None,  column, len(self.inputs), self.inputs, config[inputsIndex], False,0)
 
             comparator_name=f'CL{level}C{column}'
             node.get_function("comparator").set_name(comparator_name)
@@ -355,9 +355,9 @@ class DynamicArchitecture(BaseArchitecture):
         # create nodes
         for column in range(columns):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
-            self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, level+1, 'O', 
+            self.structure.set_node_function(node, HPCTFUNCTION.REFERENCE, mode, level, level+1, 'O', 
                                              column, columnsNextLevel, None, config[referencesIndex], True, 0)
-            self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, None, None, 
+            self.structure.set_node_function(node, HPCTFUNCTION.PERCEPTION, mode, level, None, None, 
                                              column, num_inputs, inputs, config[inputsIndex], False, 0)
 
             comparator_name=f'CL{level}C{column}'
@@ -388,9 +388,9 @@ class DynamicArchitecture(BaseArchitecture):
         # create nodes
         for column in range(numColumnsThisLevel):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
-            self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, level+1, 'O', 
+            self.structure.set_node_function(node, HPCTFUNCTION.REFERENCE, mode, level, level+1, 'O', 
                                              column, columnsNextLevel, None, config[referencesIndex], True, 0)
-            self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P', 
+            self.structure.set_node_function(node, HPCTFUNCTION.PERCEPTION, mode, level, level-1, 'P', 
                                              column, numColumnsPreviousLevel, None, config[inputsIndex], False, 0)
 
             comparator_name=f'CL{level}C{column}'
@@ -415,16 +415,16 @@ class DynamicArchitecture(BaseArchitecture):
         for column in range(numColumnsThisLevel):
             node = PCTNode(build_links=True, mode=mode, name=f'L{level}C{column}', history=self.hpct.history, namespace=self.namespace)
             
-            self.structure.set_node_function(node, ControlUnitFunctions.REFERENCE, mode, level, None, None, 
+            self.structure.set_node_function(node, HPCTFUNCTION.REFERENCE, mode, level, None, None, 
                                              column, None, None, config[referencesIndex], None, 0)
             
             
             if self.top_inputs != None and column < len(self.top_inputs):  
                 offset = len(self.top_inputs)          
-                self.structure.set_sparse_node_function(node, ControlUnitFunctions.PERCEPTION, level, 
+                self.structure.set_sparse_node_function(node, HPCTFUNCTION.PERCEPTION, level, 
                         self.top_inputs[column], column, config[inputsIndex])
             else:
-                self.structure.set_node_function(node, ControlUnitFunctions.PERCEPTION, mode, level, level-1, 'P', 
+                self.structure.set_node_function(node, HPCTFUNCTION.PERCEPTION, mode, level, level-1, 'P', 
                                              column, numColumnsPreviousLevel, None, config[inputsIndex], False, offset)
 
             comparator_name=f'CL{level}C{column}'
