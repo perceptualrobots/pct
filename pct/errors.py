@@ -15,6 +15,10 @@ class BaseErrorType(ABC):
     "Base class of a type error response. This class is not used direclty by developers, but defines the interface common to all."
     def __init__(self):
         self.error_response=0
+        
+    def __repr__(self):
+        return f'{self.__class__.__name__} error_response:{self.error_response}'
+
     
     @abstractmethod
     def __call__(self):
@@ -49,7 +53,7 @@ class RootSumSquaredError(BaseErrorType):
 
 # %% ../nbs/07_errors.ipynb 7
 class RootMeanSquareError(BaseErrorType):
-    "The square root of the sum of the square of the errors."
+    "The square root of the mean of the sum of the square of the errors."
     def __init__(self):
         super().__init__()
         self.reset()
@@ -108,6 +112,9 @@ class BaseErrorCollector(ABC):
         self.limit=limit
         self.limit_exceeded=False
         self.error_response=error_response
+        
+    def __repr__(self):
+        return f'{self.__class__.__name__} limit:{self.limit}, limit_exceeded:{self.limit_exceeded}, {self.error_response.__repr__()}'
         
     def set_limit(self, limit):
         self.limit=limit
