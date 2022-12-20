@@ -181,6 +181,9 @@ class PCTHierarchy():
                 if ex.__str__().startswith('1000'):
                     return False
                 raise ex
+
+            if verbose:
+                print(f'Current score={self.error_collector.error()}')
             
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
