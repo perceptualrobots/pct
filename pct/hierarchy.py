@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['FunctionsData', 'PCTHierarchy']
 
-# %% ../nbs/04_hierarchy.ipynb 3
+# %% ../nbs/04_hierarchy.ipynb 4
 #import numpy as np
 import sys
 import uuid
@@ -12,7 +12,7 @@ from .functions import WeightedSum
 from .putils import UniqueNamer, FunctionsList, list_of_ones
 from .functions import BaseFunction
 
-# %% ../nbs/04_hierarchy.ipynb 5
+# %% ../nbs/04_hierarchy.ipynb 6
 class FunctionsData():
     "Data collected for a set of functions"
     def __init__(self):
@@ -39,7 +39,7 @@ class FunctionsData():
     def add_list(self, key, list):
         self.data[key]= list
 
-# %% ../nbs/04_hierarchy.ipynb 6
+# %% ../nbs/04_hierarchy.ipynb 7
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
     def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", 
@@ -145,6 +145,10 @@ class PCTHierarchy():
             print()
         
         return output
+    
+
+    def set_name(self, name):
+        self.name=name    
     
     def get_prepost_data (self):
         return self.prepost_data 
