@@ -29,11 +29,11 @@ class EnvironmentFactory:
     createEnvironment = staticmethod(createEnvironment)       
     
     
-    def createEnvironmentWithNamespace(sid, namespace=None):
+    def createEnvironmentWithNamespace(sid, namespace=None, seed=None):
         id = sid + f'.FactoryWithNamespace()'                
         if not EnvironmentFactory.factories.__contains__(id):
             EnvironmentFactory.factories[id] = eval(id)
-        return EnvironmentFactory.factories[id].create(namespace=namespace)
+        return EnvironmentFactory.factories[id].create(namespace=namespace, seed=seed)
     createEnvironmentWithNamespace = staticmethod(createEnvironmentWithNamespace)
 
 # %% ../nbs/05_environments.ipynb 5
@@ -183,7 +183,7 @@ class OpenAIGym(BaseFunction):
         def create(self): return OpenAIGym()
         
     class FactoryWithNamespace:
-        def create(self, namespace=None): return OpenAIGym(namespace=namespace)        
+        def create(self, namespace=None, seed=None): return OpenAIGym(namespace=namespace, seed=seed)        
 
 # %% ../nbs/05_environments.ipynb 6
 class CartPoleV1(OpenAIGym):
@@ -217,7 +217,7 @@ class CartPoleV1(OpenAIGym):
     class Factory:
         def create(self): return CartPoleV1()
     class FactoryWithNamespace:
-        def create(self, namespace=None): return CartPoleV1(namespace=namespace)        
+        def create(self, namespace=None, seed=None): return CartPoleV1(namespace=namespace, seed=seed)        
 
 # %% ../nbs/05_environments.ipynb 7
 class CartPoleDV1(OpenAIGym):
@@ -252,7 +252,7 @@ class CartPoleDV1(OpenAIGym):
     class Factory:
         def create(self): return CartPoleDV1()
     class FactoryWithNamespace:
-        def create(self, namespace=None): return CartPoleDV1(namespace=namespace)        
+        def create(self, namespace=None, seed=None): return CartPoleDV1(namespace=namespace, seed=seed)        
 
 # %% ../nbs/05_environments.ipynb 8
 class Pendulum(OpenAIGym):
@@ -298,7 +298,7 @@ class Pendulum(OpenAIGym):
     class Factory:
         def create(self): return Pendulum()
     class FactoryWithNamespace:
-        def create(self, namespace=None): return Pendulum(namespace=namespace)                
+        def create(self, namespace=None, seed=None): return Pendulum(namespace=namespace, seed=seed)                
 
 # %% ../nbs/05_environments.ipynb 9
 class Pendulum_1(OpenAIGym):
@@ -344,7 +344,7 @@ class Pendulum_1(OpenAIGym):
     class Factory:
         def create(self): return Pendulum_1()
     class FactoryWithNamespace:
-        def create(self, namespace=None): return Pendulum_1(namespace=namespace)                
+        def create(self, namespace=None, seed=None): return Pendulum_1(namespace=namespace, seed=seed)                
 
 # %% ../nbs/05_environments.ipynb 10
 class MountainCarV0(OpenAIGym):
@@ -380,7 +380,7 @@ class MountainCarV0(OpenAIGym):
     class Factory:
         def create(self): return MountainCarV0()
     class FactoryWithNamespace:
-        def create(self, namespace=None): return MountainCarV0(namespace=namespace)                
+        def create(self, namespace=None, seed=None): return MountainCarV0(namespace=namespace, seed=seed)                
 
 # %% ../nbs/05_environments.ipynb 11
 class MountainCarContinuousV0(OpenAIGym):
@@ -426,7 +426,7 @@ class MountainCarContinuousV0(OpenAIGym):
     class Factory:
         def create(self): return MountainCarContinuousV0()
     class FactoryWithNamespace:
-        def create(self, namespace=None): return MountainCarContinuousV0(namespace=namespace)               
+        def create(self, namespace=None, seed=None): return MountainCarContinuousV0(namespace=namespace, seed=seed)               
 
 # %% ../nbs/05_environments.ipynb 12
 class VelocityModel(BaseFunction):
