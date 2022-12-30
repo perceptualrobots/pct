@@ -20,11 +20,11 @@ class EnvironmentFactory:
     addFactory = staticmethod(addFactory)
     
     # A Template Method:
-    def createEnvironment(id):
+    def createEnvironment(id, seed=None):
         if not EnvironmentFactory.factories.__contains__(id):
             EnvironmentFactory.factories[id] = \
               eval(id + '.Factory()')
-        return EnvironmentFactory.factories[id].create()
+        return EnvironmentFactory.factories[id].create(seed=seed)
     
     createEnvironment = staticmethod(createEnvironment)       
     
@@ -47,6 +47,8 @@ class OpenAIGym(BaseFunction):
         self.video_wrap = video_wrap
         self.env_name=env_name
         self.max_episode_steps=4000
+        if seed == None:
+            raise Exception(f'Seed value for environment should be specified {self.__class__.__name__}:{env_name}.')
         self.create_env(seed)
         self.render = render
         self.reward = 0
@@ -215,7 +217,7 @@ class CartPoleV1(OpenAIGym):
             self.input=0
 
     class Factory:
-        def create(self): return CartPoleV1()
+        def create(self, seed=None): return CartPoleV1(seed=seed)
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return CartPoleV1(namespace=namespace, seed=seed)        
 
@@ -250,7 +252,7 @@ class CartPoleDV1(OpenAIGym):
             self.input=0
 
     class Factory:
-        def create(self): return CartPoleDV1()
+        def create(self, seed=None): return CartPoleDV1(seed=seed)
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return CartPoleDV1(namespace=namespace, seed=seed)        
 
@@ -296,7 +298,7 @@ class Pendulum(OpenAIGym):
         return self.value
 
     class Factory:
-        def create(self): return Pendulum()
+        def create(self, seed=None): return Pendulum(seed=seed)
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return Pendulum(namespace=namespace, seed=seed)                
 
@@ -342,7 +344,7 @@ class Pendulum_1(OpenAIGym):
         return self.value
 
     class Factory:
-        def create(self): return Pendulum_1()
+        def create(self, seed=None): return Pendulum_1(seed=seed)
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return Pendulum_1(namespace=namespace, seed=seed)                
 
@@ -378,7 +380,7 @@ class MountainCarV0(OpenAIGym):
             self.input=1
 
     class Factory:
-        def create(self): return MountainCarV0()
+        def create(self, seed=None): return MountainCarV0(seed=seed)
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MountainCarV0(namespace=namespace, seed=seed)                
 
@@ -424,7 +426,7 @@ class MountainCarContinuousV0(OpenAIGym):
         self.value = np.append(self.value, pos)
 
     class Factory:
-        def create(self): return MountainCarContinuousV0()
+        def create(self, seed=None): return MountainCarContinuousV0(seed=seed)
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MountainCarContinuousV0(namespace=namespace, seed=seed)               
 
@@ -485,11 +487,11 @@ class VelocityModel(BaseFunction):
         pass
 
     class Factory:
-        def create(self): return VelocityModel()
+        def create(self, seed=None): return VelocityModel(seed=seed)
 
 # %% ../nbs/05_environments.ipynb 13
 class DummyModel(BaseFunction):    
-    def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, **cargs):        
+    def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
     
     def __call__(self, verbose=False):        
@@ -502,4 +504,4 @@ class DummyModel(BaseFunction):
         pass
 
     class Factory:
-        def create(self): return DummyModel()
+        def create(self, seed=None): return DummyModel(seed=seed)
