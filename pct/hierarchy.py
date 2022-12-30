@@ -571,13 +571,13 @@ class PCTHierarchy():
             config = json.load(f)
         return cls.from_config(config, namespace=namespace)
                    
-    def get_config(self):
+    def get_config(self, zero=1):
         config = {"type": type(self).__name__,
                     "name": self.name}        
         
         pre = {}
         for i in range(len(self.preCollection)):
-            pre[f'pre{i}']=self.preCollection[i].get_config()
+            pre[f'pre{i}']=self.preCollection[i].get_config(zero=zero)
         config['pre']=pre
 
         
@@ -587,7 +587,7 @@ class PCTHierarchy():
             columns={}
             for col in range(len(self.hierarchy[lvl])):
                 column={'col':col}
-                nodeconfig = self.hierarchy[lvl][col].get_config()
+                nodeconfig = self.hierarchy[lvl][col].get_config(zero=zero)
                 #print(nodeconfig)
                 column['node']=nodeconfig
                 #print(column)
@@ -598,7 +598,7 @@ class PCTHierarchy():
         
         post = {}
         for i in range(len(self.postCollection)):
-            post[f'post{i}']=self.postCollection[i].get_config()
+            post[f'post{i}']=self.postCollection[i].get_config(zero=zero)
         config['post']=post
         return config       
 

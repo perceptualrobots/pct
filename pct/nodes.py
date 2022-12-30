@@ -442,30 +442,30 @@ class PCTNode():
         nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight, 
                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
         
-    def get_config(self):
+    def get_config(self, zero=1):
         config = {"type": type(self).__name__,
                     "name": self.name}        
 
         coll_name = 'refcoll'
         collection = self.referenceCollection
-        config[coll_name] = self.get_collection_config(coll_name, collection)       
+        config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
         coll_name = 'percoll'
         collection = self.perceptionCollection
-        config[coll_name] = self.get_collection_config(coll_name, collection)       
+        config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
         coll_name = 'comcoll'
         collection = self.comparatorCollection
-        config[coll_name] = self.get_collection_config(coll_name, collection)       
+        config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
         coll_name = 'outcoll'
         collection = self.outputCollection
-        config[coll_name] = self.get_collection_config(coll_name, collection)       
+        config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
         
         return config       
 
-    def get_collection_config(self, coll_name, collection):
+    def get_collection_config(self, coll_name, collection, zero=1):
         coll = {}
         ctr=0
         for func in collection:
-            coll[str(ctr)] = func.get_config()
+            coll[str(ctr)] = func.get_config(zero=zero)
             ctr+=1            
         return coll
     

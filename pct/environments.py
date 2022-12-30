@@ -106,15 +106,15 @@ class OpenAIGym(BaseFunction):
     def summary(self):
         super().summary("")
 
-    def get_config(self):
+    def get_config(self, zero=1):
         "Return the JSON  configuration of the function."
         config = {"type": type(self).__name__,
                     "name": self.name}
         
         if isinstance(self.value, np.ndarray):
-            config["value"] = self.value.tolist()
+            config["value"] = self.value.tolist() * zero
         else:
-            config["value"] = self.value
+            config["value"] = self.value * zero
         
         ctr=0
         links={}
@@ -477,8 +477,8 @@ class VelocityModel(BaseFunction):
     def get_parameters_list(self):
         return ['vm']    
 
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         config["mass"] = self.mass
         
         return config
