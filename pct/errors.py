@@ -132,9 +132,12 @@ class BaseErrorCollector(ABC):
 
     def error(self):
         return self.error_response.get_error_response()
-    
-    def set_maximum(self):
-        self.error_response.set_error_response(self.limit)
+
+    def override_value(self):
+        self.error_response.set_error_response(self.error_response.get_error_response()*self.limit)
+
+#     def set_maximum(self):
+#         self.error_response.set_error_response(self.limit)
     
     def add_error_data(self, data=[]):
         for datum in data:

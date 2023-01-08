@@ -100,6 +100,7 @@ class OpenAIGym(BaseFunction):
         else:
             self.value=0
         self.really_done = False
+        self.done = False
         return self.env.reset()
 
 

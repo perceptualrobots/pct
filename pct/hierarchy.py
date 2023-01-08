@@ -183,7 +183,7 @@ class PCTHierarchy():
                 out = self(verbose)
             except Exception as ex:
                 if ex.__str__().startswith('1000'):
-                    self.error_collector.set_maximum()
+                    self.error_collector.override_value()
                     if verbose:
                         print(f'Current score={self.error_collector.error()}')                    
                     return False
