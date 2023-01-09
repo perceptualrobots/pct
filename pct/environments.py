@@ -94,14 +94,16 @@ class OpenAIGym(BaseFunction):
     def set_render(self, render):
         self.render=render
         
-    def reset(self, full=True):
+    def reset(self, full=True, seed=None):        
+        if seed == None:
+            raise Exception(f'Seed value for environment should be specified {self.__class__.__name__}:{env_name}.')
         if full:
             super().reset()        
         else:
             self.value=0
         self.really_done = False
         self.done = False
-        return self.env.reset()
+        return self.env.reset(seed=seed)
 
 
     def summary(self):
@@ -169,10 +171,10 @@ class OpenAIGym(BaseFunction):
             self.env = genv
         self.env.reset(seed=seed)
         #self.env.seed(seed)
-        self.env.reset()
+        #self.env.reset()
             
-    def set_seed(self, seed):
-        self.env.reset(seed=seed)
+#     def set_seed(self, seed):
+#         self.env.reset(seed=seed)
         #self.env.seed(seed)
 
                 
@@ -484,8 +486,8 @@ class VelocityModel(BaseFunction):
         
         return config
 
-    def set_seed(self, seed):
-        pass
+#     def set_seed(self, seed):
+#         pass
 
     class Factory:
         def create(self, seed=None): return VelocityModel(seed=seed)
