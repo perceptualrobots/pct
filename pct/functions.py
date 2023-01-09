@@ -302,7 +302,7 @@ class BaseFunction(ABC):
         print()
         
     @abstractmethod    
-    def get_config(self):
+    def get_config(self, zero=1):
         "Return the JSON  configuration of the function."
         config = {"type": type(self).__name__,
                     "name": self.name}
@@ -310,7 +310,7 @@ class BaseFunction(ABC):
 #         if isinstance(self.value, np.ndarray):
 #             config["value"] = self.value.tolist()
 #         else:
-        config["value"] = self.value
+        config["value"] = self.value * zero
         
         ctr=0
         links={}
@@ -373,8 +373,8 @@ class BaseFunction(ABC):
     def close(self):
         pass
     
-    def save(self, file=None, indent=4):
-        jsondict = json.dumps(self.get_config(), indent=indent)
+    def save(self, file=None, indent=4, zero=1):
+        jsondict = json.dumps(self.get_config(zero=zero), indent=indent)
         f = open(file, "w")
         f.write(jsondict)
         f.close()
@@ -439,8 +439,8 @@ class Subtract(BaseFunction):
     def summary(self):
         super().summary("")
 
-    def get_config(self):
-        return super().get_config()
+    def get_config(self, zero=1):
+        return super().get_config(zero=zero)
                         
     class Factory:
         def create(self): return Subtract()     
@@ -472,8 +472,8 @@ class Proportional(BaseFunction):
     def get_parameters_list(self):
         return [self.gain]        
 
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         config["gain"] = self.gain
         return config
     
@@ -508,8 +508,8 @@ class Variable(BaseFunction):
     def get_parameters_list(self):
         return ['var']
                 
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         return config
 
     def get_suffix(self):
@@ -538,8 +538,8 @@ class PassOn(BaseFunction):
     def summary(self):
         super().summary("")
         
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         return config
     
     class Factory:
@@ -572,8 +572,8 @@ class GreaterThan(BaseFunction):
     def summary(self):
         super().summary(f'threshold {self.threshold} upper {self.upper} lower {self.lower} ')
         
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         
         config["threshold"] = self.threshold
         config["upper"] = self.upper
@@ -600,8 +600,8 @@ class Constant(BaseFunction):
     def summary(self):
         super().summary("")
 
-    def get_config(self):
-        return super().get_config()
+    def get_config(self, zero=1):
+        return super().get_config(zero=zero)
 
     def get_parameters_list(self):
         return [self.value]
@@ -670,8 +670,8 @@ class Step(BaseFunction):
     def summary(self):
         super().summary(f'upper {self.upper} lower {self.lower} delay {self.delay} period {self.period}')
 
-    def get_config(self):        
-        config = super().get_config()
+    def get_config(self, zero=1):        
+        config = super().get_config(zero=zero)
         config["upper"] = self.upper
         config["lower"] = self.lower
         config["delay"] = self.delay
@@ -704,8 +704,8 @@ class Integration(BaseFunction):
     def summary(self):
         super().summary(f'gain {self.gain} slow {self.slow} ')
 
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         config["gain"] = self.gain
         config["slow"] = self.slow
         return config       
@@ -738,8 +738,8 @@ class IntegrationDual(BaseFunction):
     def summary(self):
         super().summary(f'gain {self.gain} slow {self.slow} ')
 
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         config["gain"] = self.gain
         config["slow"] = self.slow
         return config      
@@ -771,8 +771,8 @@ class Sigmoid(BaseFunction):
     def summary(self):
         super().summary(f'range {self.range} scale {self.scale} ')
 
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         config["range"] = self.range
         config["scale"] = self.scale
         return config       
@@ -823,8 +823,8 @@ class WeightedSum(BaseFunction):
     def summary(self):
         super().summary(f'weights {self.weights}')
 
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         if self.usenumpy:
             config["weights"] = self.weights.tolist()
         else:
@@ -975,8 +975,8 @@ class SmoothWeightedSum(BaseFunction):
         return [self.weights, self.smooth_factor]
         
 
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         if self.usenumpy:
             config["weights"] = self.weights.tolist()
         else:
@@ -1063,8 +1063,8 @@ class IndexedParameter(BaseFunction):
     def get_parameters_list(self):
         return [self.index]    
     
-    def get_config(self):
-        config = super().get_config()
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
         config["index"] = self.index
         return config
     

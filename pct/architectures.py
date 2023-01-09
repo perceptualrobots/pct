@@ -445,7 +445,7 @@ class DynamicArchitecture(BaseArchitecture):
             inputs = [i for i in range(num_inputs)]
             
         if env == None:
-            env = EnvironmentFactory.createEnvironment('DummyModel')
+            env = EnvironmentFactory.createEnvironment('DummyModel', seed=1)
         env.reset()
         namespace=env.namespace
         
@@ -733,17 +733,17 @@ def setup_environment(properties, render=False, seed=None, early_termination=Non
         seed = properties['seed']
 
 
-    env = EnvironmentFactory.createEnvironment(env_name)
+    env = EnvironmentFactory.createEnvironment(env_name, seed=seed)
     env.render=render
     env.set_name(env_name)
     env.early_termination = early_termination
                     
     if env == None:
-        env = EnvironmentFactory.createEnvironment('DummyModel')
+        env = EnvironmentFactory.createEnvironment('DummyModel', seed=1)
 
     error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, properties=error_properties)
-    if seed != None:
-        env.set_seed(seed)
+    #if seed != None:
+    #    env.set_seed(seed)
     env.reset()
 
     return env, error_collector

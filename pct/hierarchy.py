@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['FunctionsData', 'PCTHierarchy']
 
-# %% ../nbs/04_hierarchy.ipynb 3
+# %% ../nbs/04_hierarchy.ipynb 4
 #import numpy as np
 import sys
 import uuid
@@ -12,7 +12,7 @@ from .functions import WeightedSum
 from .putils import UniqueNamer, FunctionsList, list_of_ones
 from .functions import BaseFunction
 
-# %% ../nbs/04_hierarchy.ipynb 5
+# %% ../nbs/04_hierarchy.ipynb 6
 class FunctionsData():
     "Data collected for a set of functions"
     def __init__(self):
@@ -39,7 +39,7 @@ class FunctionsData():
     def add_list(self, key, list):
         self.data[key]= list
 
-# %% ../nbs/04_hierarchy.ipynb 6
+# %% ../nbs/04_hierarchy.ipynb 7
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
     def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", 
@@ -146,6 +146,10 @@ class PCTHierarchy():
         
         return output
     
+
+    def set_name(self, name):
+        self.name=name    
+    
     def get_prepost_data (self):
         return self.prepost_data 
     
@@ -179,8 +183,14 @@ class PCTHierarchy():
                 out = self(verbose)
             except Exception as ex:
                 if ex.__str__().startswith('1000'):
+                    self.error_collector.override_value()
+                    if verbose:
+                        print(f'Current score={self.error_collector.error()}')                    
                     return False
                 raise ex
+
+            if verbose:
+                print(f'Current score={self.error_collector.error()}')
             
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
@@ -564,13 +574,13 @@ class PCTHierarchy():
             config = json.load(f)
         return cls.from_config(config, namespace=namespace)
                    
-    def get_config(self):
+    def get_config(self, zero=1):
         config = {"type": type(self).__name__,
                     "name": self.name}        
         
         pre = {}
         for i in range(len(self.preCollection)):
-            pre[f'pre{i}']=self.preCollection[i].get_config()
+            pre[f'pre{i}']=self.preCollection[i].get_config(zero=zero)
         config['pre']=pre
 
         
@@ -580,7 +590,7 @@ class PCTHierarchy():
             columns={}
             for col in range(len(self.hierarchy[lvl])):
                 column={'col':col}
-                nodeconfig = self.hierarchy[lvl][col].get_config()
+                nodeconfig = self.hierarchy[lvl][col].get_config(zero=zero)
                 #print(nodeconfig)
                 column['node']=nodeconfig
                 #print(column)
@@ -591,7 +601,7 @@ class PCTHierarchy():
         
         post = {}
         for i in range(len(self.postCollection)):
-            post[f'post{i}']=self.postCollection[i].get_config()
+            post[f'post{i}']=self.postCollection[i].get_config(zero=zero)
         config['post']=post
         return config       
 
