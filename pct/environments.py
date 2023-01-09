@@ -101,6 +101,9 @@ class OpenAIGym(BaseFunction):
             super().reset()        
         else:
             self.value=0
+            for link in self.links:            
+                link.set_value(0)
+            
         self.really_done = False
         self.done = False
         return self.env.reset(seed=seed)
