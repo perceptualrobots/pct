@@ -96,7 +96,7 @@ class OpenAIGym(BaseFunction):
         
     def reset(self, full=True, seed=None):        
         if seed == None:
-            raise Exception(f'Seed value for environment should be specified {self.__class__.__name__}:{env_name}.')
+            raise Exception(f'Seed value for environment should be specified {self.__class__.__name__}:{self.env_name}.')
         if full:
             super().reset()        
         else:
@@ -467,7 +467,7 @@ class VelocityModel(BaseFunction):
             self.value = [1 for _ in range(self.indexes)]
         
         
-    def reset(self, full=True):
+    def reset(self, full=True, seed=None):
         if full:
             super().reset()        
         else:
@@ -510,5 +510,13 @@ class DummyModel(BaseFunction):
     def get_config(self):
         pass
 
+    def reset(self, full=True, seed=None):
+        if full:
+            super().reset()        
+        else:
+            self.init_value()
+
+        return True
+    
     class Factory:
         def create(self, seed=None): return DummyModel(seed=seed)
