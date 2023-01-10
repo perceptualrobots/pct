@@ -100,7 +100,8 @@ class OpenAIGym(BaseFunction):
         if full:
             super().reset()        
         else:
-            self.value=0
+            self.value=0            
+            self.check_links(len(self.links))
             for link in self.links:            
                 link.set_value(0)
             
