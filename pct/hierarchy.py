@@ -689,7 +689,7 @@ class PCTHierarchy():
 
         return history_data.data            
     
-    def hierarchy_plots(self, title='plot', plot_items={}, figsize=(15,4)):
+    def hierarchy_plots(self, title='plot', plot_items={}, figsize=(15,4), file=None):
         from matplotlib import style
         import matplotlib.pyplot as plt
         history = self.get_history_data()
@@ -705,9 +705,12 @@ class PCTHierarchy():
         for key in plot_items.keys():    
             ax1.plot(x, history[key], label=plot_items[key])
 
-        plt.title(title)
-        plt.legend()
-        plt.show()
+        if file != None:
+            plt.title(title)
+            plt.legend()
+            plt.savefig(file)
+            
+        # plt.show()
 
         return fig
     
