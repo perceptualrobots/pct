@@ -281,6 +281,17 @@ class PCTHierarchy():
             colors.append(color)
         return colors
             
+    def reset(self):
+        for func in self.preCollection:
+            func.set_value(0)               
+
+        for func in self.postCollection:
+            func.set_value(0)
+
+        for level in self.hierarchy:
+            for node in level:
+                node.reset()
+
         
     def reset_checklinks(self, val=True):
         for func in self.postCollection:

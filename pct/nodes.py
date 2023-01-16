@@ -117,6 +117,20 @@ class PCTNode():
             return func 
         
         return func 
+    
+    def reset(self):
+        for func in self.referenceCollection:
+            func.set_value(0)               
+
+        for func in self.perceptionCollection:
+            func.set_value(0)               
+                    
+        for func in self.comparatorCollection:
+            func.set_value(0)               
+
+        for func in self.outputCollection:
+            func.set_value(0)                
+    
 
     def reset_checklinks(self, val=True):
         for func in self.referenceCollection:
