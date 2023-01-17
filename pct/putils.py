@@ -78,14 +78,14 @@ class FunctionsList:
     def getInstance():
         """ Static access method. """
         if FunctionsList.__instance == None:
-         FunctionsList()
+             FunctionsList()
         return FunctionsList.__instance
     def __init__(self):
         """ Virtually private constructor. """
         if FunctionsList.__instance != None:
-         raise Exception("This class is a singleton!")
+             raise Exception("This class is a singleton!")
         else:
-         FunctionsList.__instance = self
+             FunctionsList.__instance = self
         self.functions = {}
 
     def clear(self, namespace=None):

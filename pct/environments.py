@@ -110,8 +110,8 @@ class OpenAIGym(BaseFunction):
         return self.env.reset(seed=seed)
 
 
-    def summary(self):
-        super().summary("")
+    def summary(self, extra=False):
+        super().summary("", extra=extra)
 
     def get_config(self, zero=1):
         "Return the JSON  configuration of the function."
@@ -478,8 +478,8 @@ class VelocityModel(BaseFunction):
     def set_render(self, render):
         pass
     
-    def summary(self):
-        super().summary("")
+    def summary(self, extra=False):
+        super().summary("", extra=extra)
         
     def get_parameters_list(self):
         return ['vm']    
@@ -504,8 +504,8 @@ class DummyModel(BaseFunction):
     def __call__(self, verbose=False):        
         pass
 
-    def summary(self):
-        super().summary("")
+    def summary(self, extra=False):
+        super().summary("", extra=extra)
     
     def get_config(self):
         pass

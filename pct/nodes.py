@@ -267,7 +267,7 @@ class PCTNode():
             self.outputCollection[position] = function
 
             
-    def summary(self, build=True):
+    def summary(self, build=True, extra=False):
         if build:
             if not self.links_built:
                 self.build_links()
@@ -276,19 +276,19 @@ class PCTNode():
         print("----------------------------")
         print("REF:", end=" ")
         for referenceFunction in self.referenceCollection:
-            referenceFunction.summary()   
+            referenceFunction.summary(extra=extra)   
         
         print("PER:", end=" ")
         for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.summary()
+            perceptionFunction.summary(extra=extra)
         
         print("COM:", end=" ")
         for comparatorFunction in self.comparatorCollection:
-            comparatorFunction.summary()
+            comparatorFunction.summary(extra=extra)
         
         print("OUT:", end=" ")
         for outputFunction in self.outputCollection:
-            outputFunction.summary()
+            outputFunction.summary(extra=extra)
         
         print("----------------------------")
         

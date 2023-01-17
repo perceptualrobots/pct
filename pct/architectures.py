@@ -526,7 +526,7 @@ class DynamicArchitecture(BaseArchitecture):
 # %% ../nbs/08_architectures.ipynb 11
 def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, runs=500, history=True, verbose=False, 
         test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,  layout=None, early_termination=False,
-        plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False, hpct_verbose=None,
+        plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False, hpct_verbose=False,
         error_collector_type=None, error_response_type=None):
 
         

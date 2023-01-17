@@ -538,33 +538,33 @@ class PCTHierarchy():
         for _ in range(num_nodes):
             del self.hierarchy[level][-1]
 
-    def summary(self, build=False):
-        print(self.name, type(self).__name__)
-                
+    def summary(self, build=False, extra=False):
         print("**************************")
+        print(self.name, type(self).__name__, self.namespace)                
+        print("--------------------------")
         print("PRE:", end=" ")
         if len(self.preCollection) == 0:
             print("None")
         for func in self.preCollection:
-            func.summary()   
+            func.summary(extra=extra)   
         
             
         if self.order==None:
             for level in range(len(self.hierarchy)):
                 print(f'Level {level} Cols {self.get_columns(level)}')
                 for col in range(len(self.hierarchy[level])):
-                      self.hierarchy[level][col].summary(build=build)
+                      self.hierarchy[level][col].summary(build=build, extra=extra)
         elif self.order=="Down":
             for level in range(len(self.hierarchy)-1, -1, -1):
                 print(f'Level {level} Cols {self.get_columns(level)}')
                 for col in range(len(self.hierarchy[level])-1, -1, -1):
-                      self.hierarchy[level][col].summary(build=build)
+                      self.hierarchy[level][col].summary(build=build, extra=extra)
                                              
         print("POST:", end=" ")
         if len(self.postCollection) == 0:
             print("None")
         for func in self.postCollection:
-            func.summary()   
+            func.summary(extra=extra)   
 
 
         print("**************************")
