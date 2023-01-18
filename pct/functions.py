@@ -300,7 +300,7 @@ class BaseFunction(ABC):
             print(fname, end= " ")
         
         if extra:
-            print([self], self.namespace)
+            print('|', [self], self.namespace)
         else:    
             print()
         

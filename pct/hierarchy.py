@@ -540,7 +540,7 @@ class PCTHierarchy():
 
     def summary(self, build=False, extra=False):
         print("**************************")
-        print(self.name, type(self).__name__, self.namespace)                
+        print(self.name, type(self).__name__, self.get_grid(), self.namespace)                
         print("--------------------------")
         print("PRE:", end=" ")
         if len(self.preCollection) == 0:
