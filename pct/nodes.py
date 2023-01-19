@@ -132,6 +132,20 @@ class PCTNode():
             func.set_value(0)                
     
 
+    
+    def delete_contents(self):
+        for func in self.referenceCollection:
+            FunctionsList.getInstance().delete_function(func.namespace, func.name)
+
+        for func in self.perceptionCollection:
+            FunctionsList.getInstance().delete_function(func.namespace, func.name)
+                    
+        for func in self.comparatorCollection:
+            FunctionsList.getInstance().delete_function(func.namespace, func.name)
+
+        for func in self.outputCollection:
+            FunctionsList.getInstance().delete_function(func.namespace, func.name)
+            
     def reset_checklinks(self, val=True):
         for func in self.referenceCollection:
             func.reset_checklinks(val)               

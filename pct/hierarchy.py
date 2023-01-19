@@ -531,8 +531,14 @@ class PCTHierarchy():
         cols_list=[]
         self.hierarchy.insert(level, cols_list)
         
-    def remove_level(self, level):
-        self.hierarchy.pop(level)
+    def remove_level(self, lvl):
+        level = self.hierarchy.pop(lvl)
+        for node in level:
+            node.delete_contents()
+            del node
+        del level
+        print()
+
 
     def remove_nodes(self, level, num_nodes):        
         for _ in range(num_nodes):

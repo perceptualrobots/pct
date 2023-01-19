@@ -108,8 +108,18 @@ class FunctionsList:
 
     def remove_function(self, namespace=None, name=None):
         if name in self.functions[namespace]:
-            self.functions[namespace].pop(name)
-        
+            func = self.functions[namespace].pop(name)     
+            
+        if self.count(namespace)==0:
+            self.functions.pop(namespace)
+            
+        return func
+    
+    def delete_function(self, namespace=None, name=None):
+        func = self.remove_function(namespace=namespace, name=name)
+        del func
+        print()
+
     def get_function(self, namespace=None, name=None):     
         if  name is None:
             raise Exception(f'The function name must be specified')
@@ -131,7 +141,20 @@ class FunctionsList:
 
         return func
     
+    def count(self, namespace=None):
+        if namespace is None:
+            return len(self.functions)
+        
+        if namespace in self.functions:
+            namespace_list = self.functions[namespace]
+            return len(namespace_list)
+        else:
+            raise Exception(f"Namespace {namespace} not found in report")
+                
+                
+                
     def report(self, namespace=None, name=None):
+        print("--- functions report")
         if namespace is None:
             for namespace, namespace_list in self.functions.items():
                 print(len(namespace_list), 'NAMESPACE', namespace)
