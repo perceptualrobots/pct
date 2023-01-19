@@ -118,7 +118,6 @@ class FunctionsList:
     def delete_function(self, namespace=None, name=None):
         func = self.remove_function(namespace=namespace, name=name)
         del func
-        print()
 
     def get_function(self, namespace=None, name=None):     
         if  name is None:
