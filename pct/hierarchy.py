@@ -537,7 +537,6 @@ class PCTHierarchy():
             node.delete_contents()
             del node
         del level
-        print()
 
 
     def remove_nodes(self, level, num_nodes):        
