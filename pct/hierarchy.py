@@ -268,6 +268,7 @@ class PCTHierarchy():
         
         if file != None:
             plt.title(self.name)
+            plt.tight_layout()
             plt.savefig(file)
 
     def get_colors(self, graph, color_mapping):
