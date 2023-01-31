@@ -128,6 +128,7 @@ class BaseFunction(ABC):
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color=None, 
              color_mapping={'s':'aqua','c':'limegreen','p':'red', 'x':'silver'},
              node_size=500, arrowsize=25, align='horizontal', file=None):
+        import networkx as nx
         graph = self.graph(layer=0, layer_edges=True)
         if node_color==None:
             node_color = self.get_colors(graph, color_mapping)
@@ -160,6 +161,7 @@ class BaseFunction(ABC):
         return colors
         
     def graph(self, layer=None, layer_edges=False):
+        import networkx as nx
         graph = nx.DiGraph()
         
         self.set_graph_data(graph, layer=layer, layer_edges=layer_edges)
