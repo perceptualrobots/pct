@@ -243,9 +243,10 @@ class PCTHierarchy():
         return pos
  
             
-    def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,  
+    def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
-             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, layout={'r':2,'c':1,'p':2, 'o':0}):
+             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, 
+             node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}):
         import networkx as nx
         import matplotlib.pyplot as plt
         self.graphv = self.graph(layout=layout)
@@ -261,10 +262,11 @@ class PCTHierarchy():
         plt.figure(figsize=figsize) 
         if with_edge_labels:
             edge_labels = self.get_edge_labels()
-            nx.draw_networkx_edge_labels(self.graphv, pos=pos, edge_labels=edge_labels, font_size=font_size, font_weight=font_weight, 
-                font_color='red', horizontalalignment='left')
+            nx.draw_networkx_edge_labels(self.graphv, pos=pos, edge_labels=edge_labels, font_size=font_size, 
+                font_weight=font_weight, font_color='red', horizontalalignment='left')
+            
         nx.draw(self.graphv, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight, 
-                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
+                font_color=font_color, node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
         
         if file != None:
             plt.title(self.name)
@@ -368,30 +370,30 @@ class PCTHierarchy():
                   self.hierarchy[level][col].set_graph_data(graph, layer=layer, layout=layout)
             layer+=3
   
-    def draw_nodes(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,  
-         color_mapping={'L':'red', 'I':'silver', 'A':'yellow'},
-         node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):
-        graph = self.graph_nodes()
-        if node_color==None:
-            node_color = self.get_colors(graph, color_mapping)
+#     def draw_nodes(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,  
+#          color_mapping={'L':'red', 'I':'silver', 'A':'yellow'},
+#          node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):
+#         graph = self.graph_nodes()
+#         if node_color==None:
+#             node_color = self.get_colors(graph, color_mapping)
 
-        pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
+#         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
 
-        for key in move.keys():            
-            pos[key][0]+=move[key][0]
-            pos[key][1]+=move[key][1]
+#         for key in move.keys():            
+#             pos[key][0]+=move[key][0]
+#             pos[key][1]+=move[key][1]
 
-        plt.figure(figsize=figsize) 
-        if with_edge_labels:
-            edge_labels = self.get_edge_labels_nodes()
-            nx.draw_networkx_edge_labels(graph, pos=pos, edge_labels=edge_labels, font_size=font_size, font_weight=font_weight, 
-                font_color='red')
-        nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight, 
-                node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
+#         plt.figure(figsize=figsize) 
+#         if with_edge_labels:
+#             edge_labels = self.get_edge_labels_nodes()
+#             nx.draw_networkx_edge_labels(graph, pos=pos, edge_labels=edge_labels, font_size=font_size, font_weight=font_weight, 
+#                 font_color='red')
+#         nx.draw(graph, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight, 
+#                 node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
 
-        if file != None:
-            plt.title(self.name)
-            plt.savefig(file)
+#         if file != None:
+#             plt.title(self.name)
+#             plt.savefig(file)
 
     def get_edge_labels_nodes(self, node_list):
         labels={}
@@ -449,59 +451,59 @@ class PCTHierarchy():
     def get_columns(self, level):
         return len(self.hierarchy[level])
 
-    def graph_nodes(self):
-        graph = nx.DiGraph()
+#     def graph_nodes(self):
+#         graph = nx.DiGraph()
 
-        self.set_graph_data_nodes(graph)
+#         self.set_graph_data_nodes(graph)
 
-        return graph
+#         return graph
 
-    def set_graph_data_nodes(self, graph):
-        layer=0
-        if len(self.preCollection)>0 or len(self.postCollection)>0:
-            layer=1
+#     def set_graph_data_nodes(self, graph):
+#         layer=0
+#         if len(self.preCollection)>0 or len(self.postCollection)>0:
+#             layer=1
 
-        node_list={}
-        for level in range(len(self.hierarchy)):
-            for col in range(len(self.hierarchy[level])-1, -1, -1):
-                node = self.hierarchy[level][col]
-                node.get_node_list(node_list)
+#         node_list={}
+#         for level in range(len(self.hierarchy)):
+#             for col in range(len(self.hierarchy[level])-1, -1, -1):
+#                 node = self.hierarchy[level][col]
+#                 node.get_node_list(node_list)
 
-        for func in self.preCollection:
-            node_list[func.get_name()] = func.get_name()
+#         for func in self.preCollection:
+#             node_list[func.get_name()] = func.get_name()
 
-        for func in self.postCollection:
-            node_list[func.get_name()] = func.get_name()
+#         for func in self.postCollection:
+#             node_list[func.get_name()] = func.get_name()
 
-        for func in self.postCollection:
-            func.set_graph_data_node(graph, layer=0, node_list=node_list)
+#         for func in self.postCollection:
+#             func.set_graph_data_node(graph, layer=0, node_list=node_list)
 
-        for func in self.preCollection:
-            func.set_graph_data_node(graph, layer=0, node_list=node_list)
+#         for func in self.preCollection:
+#             func.set_graph_data_node(graph, layer=0, node_list=node_list)
 
-        edges = []
-        for level in range(len(self.hierarchy)):
-            for col in range(len(self.hierarchy[level])-1, -1, -1):
-                node = self.hierarchy[level][col]
-                graph.add_node(node.get_name(), layer=level+layer)
+#         edges = []
+#         for level in range(len(self.hierarchy)):
+#             for col in range(len(self.hierarchy[level])-1, -1, -1):
+#                 node = self.hierarchy[level][col]
+#                 graph.add_node(node.get_name(), layer=level+layer)
 
-                for func in node.referenceCollection:
-                    for link in func.links:
-                        if isinstance(link, str):
-                            name=link
-                        else:
-                            name = link.get_name()                            
-                        edges.append((node_list[name],node.get_name()))
+#                 for func in node.referenceCollection:
+#                     for link in func.links:
+#                         if isinstance(link, str):
+#                             name=link
+#                         else:
+#                             name = link.get_name()                            
+#                         edges.append((node_list[name],node.get_name()))
 
-                for func in node.perceptionCollection:
-                    for link in func.links:
-                        if isinstance(link, str):
-                            name=link
-                        else:
-                            name = link.get_name()                            
-                        edges.append((node_list[name],node.get_name()))
+#                 for func in node.perceptionCollection:
+#                     for link in func.links:
+#                         if isinstance(link, str):
+#                             name=link
+#                         else:
+#                             name = link.get_name()                            
+#                         edges.append((node_list[name],node.get_name()))
                         
-        graph.add_edges_from(edges)
+#         graph.add_edges_from(edges)
 
     
     def build_links(self):

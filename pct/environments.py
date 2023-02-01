@@ -181,6 +181,8 @@ class OpenAIGym(BaseFunction):
 #         self.env.reset(seed=seed)
         #self.env.seed(seed)
 
+    def get_graph_name(self):
+        return super().get_graph_name() 
                 
     def get_parameters_list(self):
         return [self.name]    
@@ -490,6 +492,9 @@ class VelocityModel(BaseFunction):
         
         return config
 
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
 #     def set_seed(self, seed):
 #         pass
 
@@ -517,6 +522,9 @@ class DummyModel(BaseFunction):
             self.init_value()
 
         return True
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
     
     class Factory:
         def create(self, seed=None): return DummyModel(seed=seed)

@@ -333,6 +333,10 @@ class BaseFunction(ABC):
         config['links']=links
         return config
         
+    @abstractmethod    
+    def get_graph_name(self):
+        return self.name
+        
     def get_name(self):
         return self.name
     
@@ -446,7 +450,10 @@ class Subtract(BaseFunction):
 
     def get_config(self, zero=1):
         return super().get_config(zero=zero)
-                        
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
     class Factory:
         def create(self): return Subtract()     
         
@@ -485,6 +492,9 @@ class Proportional(BaseFunction):
     def get_suffix(self):
         return 'p'
     
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
     class Factory:
         def create(self): 
             return Proportional()       
@@ -520,6 +530,9 @@ class Variable(BaseFunction):
     def get_suffix(self):
         return 'v'
     
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
     class Factory:
         def create(self): return Variable()
 
@@ -546,6 +559,9 @@ class PassOn(BaseFunction):
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
         return config
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
     
     class Factory:
         def create(self): return PassOn()
@@ -584,6 +600,9 @@ class GreaterThan(BaseFunction):
         config["upper"] = self.upper
         config["lower"] = self.lower
         return config
+
+    def get_graph_name(self):
+        return f'{self.name}\n{self.threshold}:{self.lower}:{self.upper}' 
     
     class Factory:
         def create(self): return GreaterThan()
@@ -632,6 +651,9 @@ class Constant(BaseFunction):
         constant = Constant(weights[column], name=f'{prefix}L{thislevel}C{column}c')
         node.replace_function(function, constant, 0)
         """
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
 
     class Factory:
         def create(self): return Constant()
@@ -714,6 +736,9 @@ class Integration(BaseFunction):
         config["gain"] = self.gain
         config["slow"] = self.slow
         return config       
+
+    def get_graph_name(self):
+        return f'{self.name}\n{self.slow}' 
     
     class Factory:
         def create(self): return Integration()
@@ -781,6 +806,9 @@ class Sigmoid(BaseFunction):
         config["range"] = self.range
         config["scale"] = self.scale
         return config       
+
+    def get_graph_name(self):
+        return f'{self.name}\n{self.range}:{self.scale}' 
     
     class Factory:
         def create(self): return Sigmoid()
@@ -926,6 +954,9 @@ class WeightedSum(BaseFunction):
         weights.append(input_weights[column])
         self.weights=weights #np.array(weights)
         
+    def get_graph_name(self):
+        return super().get_graph_name()        
+        
     class Factory:
         def create(self): return WeightedSum()
         
@@ -1044,6 +1075,9 @@ class SmoothWeightedSum(BaseFunction):
         self.weights=weights #np.array(weights)
         self.smooth_factor=input_weights[column][1]
         
+    def get_graph_name(self):
+        return f'{self.name}\n{self.smooth_factor}:{self.scale}' 
+        
     class Factory:
         def create(self): return SmoothWeightedSum()
         
@@ -1076,6 +1110,9 @@ class IndexedParameter(BaseFunction):
         config = super().get_config(zero=zero)
         config["index"] = self.index
         return config
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
     
     class Factory:
         def create(self): return IndexedParameter()

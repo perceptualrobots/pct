@@ -527,7 +527,7 @@ class DynamicArchitecture(BaseArchitecture):
 def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, runs=500, history=True, verbose=False, 
         test=False, move=None,  draw=False, plots_figsize=(15,4), render=True,  layout=None, early_termination=False,
         plots=None, seed=None, print_properties=False, figsize=(12,12), summary=False, hpct_verbose=False,
-        error_collector_type=None, error_response_type=None):
+        error_collector_type=None, error_response_type=None, draw_file=None):
 
         
     properties = load_properties(root_dir, path, file, print_properties=print_properties)    
@@ -558,9 +558,9 @@ def run_from_properties_file(root_dir='.', path='.', file=None, nevals=None, run
             env.close()
             if draw:
                 if layout==None:
-                    hpct.draw(move=move, figsize=figsize, with_edge_labels=True)
+                    hpct.draw(move=move, figsize=figsize, with_edge_labels=True, file=draw_file)
                 else:        
-                    hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout)
+                    hpct.draw(move=move, figsize=figsize, with_edge_labels=True, layout=layout, file=draw_file)
 
             score = hpct.get_error_collector().error()
             score_sum += score
