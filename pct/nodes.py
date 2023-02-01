@@ -352,14 +352,14 @@ class PCTNode():
             outputFunction.change_namespace(namespace)
         
  
-    def set_graph_data_node(self, graph, layer=0):
-        graph.add_node(self.name, layer=layer)
+#     def set_graph_data_node(self, graph, layer=0):
+#         graph.add_node(self.name, layer=layer)
 
-        for referenceFunction in self.referenceCollection:
-            referenceFunction.set_graph_data(graph, layer+2)   
+#         for referenceFunction in self.referenceCollection:
+#             referenceFunction.set_graph_data(graph, layer+2)   
 
-        for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.set_graph_data(graph, layer+2)
+#         for perceptionFunction in self.perceptionCollection:
+#             perceptionFunction.set_graph_data(graph, layer+2)
 
             
     def set_graph_data(self, graph, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
