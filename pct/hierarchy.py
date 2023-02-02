@@ -246,10 +246,10 @@ class PCTHierarchy():
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, 
-             node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}):
+             node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False):
         import networkx as nx
         import matplotlib.pyplot as plt
-        self.graphv = self.graph(layout=layout)
+        self.graphv = self.graph(layout=layout, funcdata=funcdata)
         if node_color==None:
             node_color = self.get_colors(self.graphv, color_mapping)
 
@@ -261,7 +261,7 @@ class PCTHierarchy():
         
         plt.figure(figsize=figsize) 
         if with_edge_labels:
-            edge_labels = self.get_edge_labels()
+            edge_labels = self.get_edge_labels_wrapper(funcdata)
             nx.draw_networkx_edge_labels(self.graphv, pos=pos, edge_labels=edge_labels, font_size=font_size, 
                 font_weight=font_weight, font_color='red', horizontalalignment='left')
             
@@ -307,7 +307,29 @@ class PCTHierarchy():
             for node in level:
                 node.reset_checklinks(val)
                 
+    def get_edge_labels_wrapper(self, funcdata=False):
+        if funcdata:
+            return self.get_edge_labels_funcdata()
+        else:
+            return self.get_edge_labels()
+
+        
+    def get_edge_labels_funcdata(self):
+        labels={}
+       
+        for func in self.postCollection:
+            func.get_weights_labels_funcdata(labels)
+                    
+        for func in self.preCollection:
+            func.get_weights_labels_funcdata(labels)
+            
+        for level in self.hierarchy:
+            for node in level:
+                node.get_edge_labels_funcdata(labels)
                 
+        return labels
+        
+        
     def get_edge_labels(self):
         labels={}
        
@@ -345,13 +367,17 @@ class PCTHierarchy():
     def clear_graph(self):
         self.graphv.clear()
 
-    def graph(self, layout={'r':2,'c':1,'p':2, 'o':0}):
+    def graph(self, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False):
         import networkx as nx
         graph = nx.DiGraph()
         
-        self.set_graph_data(graph, layout=layout)
+        if funcdata:
+            self.set_graph_data_funcdata(graph, layout=layout)
+        else:
+            self.set_graph_data(graph, layout=layout)
                 
         return graph
+    
     
     def set_graph_data(self, graph, layout={'r':2,'c':1,'p':2, 'o':0}):
         layer=0
@@ -369,7 +395,28 @@ class PCTHierarchy():
             #for col in range(len(self.hierarchy[level])):
                   self.hierarchy[level][col].set_graph_data(graph, layer=layer, layout=layout)
             layer+=3
-  
+
+            
+            
+    def set_graph_data_funcdata(self, graph, layout={'r':2,'c':1,'p':2, 'o':0}):
+        layer=0
+        if len(self.preCollection)>0 or len(self.postCollection)>0:
+            layer=1
+            
+        for func in self.postCollection:
+            func.set_graph_data_funcdata(graph, layer=0)  
+
+        for func in self.preCollection:
+            func.set_graph_data_funcdata(graph, layer=0)   
+                    
+        for level in range(len(self.hierarchy)):
+            for col in range(len(self.hierarchy[level])-1, -1, -1):
+            #for col in range(len(self.hierarchy[level])):
+                  self.hierarchy[level][col].set_graph_data_funcdata(graph, layer=layer, layout=layout)
+            layer+=3
+            
+            
+            
 #     def draw_nodes(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', node_color=None,  
 #          color_mapping={'L':'red', 'I':'silver', 'A':'yellow'},
 #          node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}):

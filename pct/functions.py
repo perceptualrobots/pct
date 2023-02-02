@@ -168,33 +168,43 @@ class BaseFunction(ABC):
                 
         return graph
     
-    def set_graph_data(self, graph, layer=None, layer_edges=False, full_name=False):
-        if full_name:
-            node_name = self.get_graph_name()
-        else:
-            node_name = self.name
+
+    def set_graph_data(self, graph, layer=None, layer_edges=False):
+        node_name = self.name
         edges = []
         for link in self.links:            
             func = FunctionsList.getInstance().get_function(self.namespace, link)
             if isinstance(func, str):
                 name = func
             else:
-                if full_name:
-                    name = func.get_graph_name()
-                else:
-                    name = func.get_name()
+                name = func.get_name()
                 
             if layer_edges:
                 graph.add_node(name, layer=layer+1)
                 
-            if full_name:
-                edges.append((name,self.get_graph_name()))
+            edges.append((name,self.name))
+            
+        graph.add_node(node_name, layer=layer)
+        graph.add_edges_from( edges)                
+            
+    def set_graph_data_funcdata(self, graph, layer=None, layer_edges=False):
+        node_name = self.get_graph_name()
+        edges = []
+        for link in self.links:            
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
+            if isinstance(func, str):
+                name = func
             else:
-                edges.append((name,self.name))
+                name = func.get_graph_name()
+                
+            if layer_edges:
+                graph.add_node(name, layer=layer+1)
+                
+            edges.append((name,self.get_graph_name()))
             
         graph.add_node(node_name, layer=layer)
         graph.add_edges_from(edges)    
-        print(edges)
+        #print(edges)
 
         
 #     def set_graph_data_node(self, graph, layer=None, layer_edges=False, node_list=None):
@@ -240,6 +250,32 @@ class BaseFunction(ABC):
                 value = f'{value:4.3}'
             labels[(self.get_name(), name)] = value
 
+            
+    def get_weights_labels_funcdata(self, labels):
+        if hasattr(self, 'weights'):
+            for i in range(len(self.weights)):
+                link = self.get_link(i)
+                if isinstance(link, str):
+                    name=link
+                else:
+                    name = link.get_graph_name()
+                value = self.weights[i]
+                if isinstance(value, float):
+                    value = f'{value:4.3}'
+                labels[(self.get_graph_name(), name)] = value
+
+        if hasattr(self, 'gain'):
+            link = self.get_link(0)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.gain
+            if isinstance(value, float):
+                value = f'{value:4.3}'
+            labels[(self.get_name(), name)] = value
+            
+            
 #     def get_weights_labels_nodes(self, labels, node_list):
 #         if hasattr(self, 'weights'):
 #             for i in range(len(self.weights)):

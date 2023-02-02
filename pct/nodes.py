@@ -375,7 +375,23 @@ class PCTNode():
         
         for outputFunction in self.outputCollection:
             outputFunction.set_graph_data(graph, layer+layout['o'])
+
+            
+    def set_graph_data_funcdata(self, graph, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
         
+        for referenceFunction in self.referenceCollection:
+            referenceFunction.set_graph_data_funcdata(graph, layer+layout['r'])   
+        
+        for comparatorFunction in self.comparatorCollection:
+            comparatorFunction.set_graph_data_funcdata(graph, layer+layout['c'])
+        
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.set_graph_data_funcdata(graph, layer+layout['p'])
+        
+        for outputFunction in self.outputCollection:
+            outputFunction.set_graph_data_funcdata(graph, layer+layout['o'])
+            
+            
     def get_edge_labels(self, labels):
 
         for func in self.referenceCollection:
@@ -389,7 +405,22 @@ class PCTNode():
                     
         for func in self.outputCollection:
             func.get_weights_labels(labels)
-        
+
+    def get_edge_labels_funcdata(self, labels):
+
+        for func in self.referenceCollection:
+            func.get_weights_labels_funcdata(labels)
+
+        for func in self.comparatorCollection:
+            func.get_weights_labels_funcdata(labels)
+                    
+        for func in self.perceptionCollection:
+            func.get_weights_labels_funcdata(labels)
+                    
+        for func in self.outputCollection:
+            func.get_weights_labels_funcdata(labels)
+            
+            
     def get_node_list(self, node_list):
     
         for func in self.referenceCollection:
