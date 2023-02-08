@@ -4,7 +4,7 @@
 __all__ = ['UniqueNamer', 'FunctionsList', 'dynamic_module_import', 'dynamic_class_load', 'get_drive', 'loadjson', 'Counter',
            'stringIntListToListOfInts', 'stringFloatListToListOfFloats', 'stringListToListOfStrings',
            'listNumsToString', 'round_lists', 'floatListsToString', 'sigmoid', 'smooth', 'dot', 'list_of_ones',
-           'show_video', 'wrap_env', 'is_in_notebooks']
+           'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -278,8 +278,8 @@ def floatListsToString(alist, places):
     return f'{flist}'
 
 # %% ../nbs/01_putils.ipynb 23
-def sigmoid(x, range, scale) :
-    return -range / 2 + range / (1 + np.exp(-x * scale / range));
+def sigmoid(x, range, slope) :
+    return -range / 2 + range / (1 + np.exp(-x * slope / range));
 
 # %% ../nbs/01_putils.ipynb 24
 def smooth(new_val, old_val, smooth_factor):
@@ -297,7 +297,16 @@ def list_of_ones(num):
     x = [1 for _ in range(num) ]
     return x
 
-# %% ../nbs/01_putils.ipynb 28
+# %% ../nbs/01_putils.ipynb 27
+def limit_to_range(num, lower, upper):
+    if num < lower:
+        num = abs(num)
+
+    if num > upper:
+        num = num - upper
+    return num
+
+# %% ../nbs/01_putils.ipynb 29
 def show_video():
   mp4list = glob.glob('video/*.mp4')
   if len(mp4list) > 0:
@@ -315,10 +324,10 @@ def wrap_env(env):
   env = Monitor(env, './video', force=True)
   return env
 
-# %% ../nbs/01_putils.ipynb 31
+# %% ../nbs/01_putils.ipynb 32
 import os
 
-# %% ../nbs/01_putils.ipynb 32
+# %% ../nbs/01_putils.ipynb 33
 from pathlib import Path
 
 def is_in_notebooks():
