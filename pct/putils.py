@@ -261,7 +261,10 @@ def listNumsToString(list):
     return str
 
 # %% ../nbs/01_putils.ipynb 21
-def round_lists(alist, formatted, places):
+def round_lists(alist, formatted, places):    
+    if isinstance(alist, float) or isinstance(alist, int):
+        return round(alist,places)
+    
     if isinstance(alist[0], float) or isinstance(alist[0], int):
         # str_list = ['[']
         # str_list.append([f'{num:0.3f}' for num in alist])
