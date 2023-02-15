@@ -831,30 +831,30 @@ class IntegrationDual(BaseFunction):
 
 # %% ../nbs/02_functions.ipynb 19
 class Sigmoid(BaseFunction):
-    "A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and scale (slope) values. Links: One."
-    def __init__(self, range=2, scale=2, value=0, name="sigmoid", links=None, new_name=True, namespace=None, **cargs):
+    "A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and slope values. Links: One."
+    def __init__(self, range=2, slope=2, value=0, name="sigmoid", links=None, new_name=True, namespace=None, **cargs):
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.range = range
-        self.scale = scale
+        self.slope = slope
     
     def __call__(self, verbose=False):
         super().check_links(1)
         input = self.links[0].get_value()
-        self.value = sigmoid(input, self.range, self.scale)
+        self.value = sigmoid(input, self.range, self.slope)
         
         return super().__call__(verbose)
 
     def summary(self, extra=False):
-        super().summary(f'range {self.range} scale {self.scale} ', extra=extra)
+        super().summary(f'range {self.range} slope {self.slope} ', extra=extra)
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
         config["range"] = self.range
-        config["scale"] = self.scale
+        config["slope"] = self.slope
         return config       
 
     def get_graph_name(self):
-        return f'{self.name}\n{self.range}:{self.scale}' 
+        return f'{self.name}\n{self.range}:{self.slope}' 
     
     class Factory:
         def create(self): return Sigmoid()
