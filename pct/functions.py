@@ -567,7 +567,8 @@ class Variable(BaseFunction):
         super().summary("", extra=extra)
         
     def get_parameters_list(self):
-        return ['var']
+        return [self.value]
+    #return ['var']
                 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)

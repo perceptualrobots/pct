@@ -262,6 +262,9 @@ def listNumsToString(list):
 
 # %% ../nbs/01_putils.ipynb 21
 def round_lists(alist, formatted, places):    
+    if isinstance(alist, str):
+        raise Exception(f'Value {alist} should be a number in round_lists.')
+
     if isinstance(alist, float) or isinstance(alist, int):
         return round(alist,places)
     
