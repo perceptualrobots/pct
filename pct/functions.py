@@ -379,6 +379,9 @@ class BaseFunction(ABC):
         config['links']=links
         return config
         
+    def reset_value(self):
+        self.value=0
+
     @abstractmethod    
     def get_graph_name(self):
         return self.name
@@ -571,12 +574,15 @@ class Variable(BaseFunction):
     #return ['var']
                 
     def get_config(self, zero=1):
-        config = super().get_config(zero=zero)
+        config = super().get_config(zero=1)
         return config
 
     def get_suffix(self):
         return 'v'
     
+    def reset_value(self):
+        pass
+
     def get_graph_name(self):
         return super().get_graph_name() 
     
@@ -672,7 +678,7 @@ class Constant(BaseFunction):
         super().summary("", extra=extra)
 
     def get_config(self, zero=1):
-        return super().get_config(zero=zero)
+        return super().get_config(zero=1)
 
     def get_parameters_list(self):
         return [self.value]
@@ -699,6 +705,9 @@ class Constant(BaseFunction):
         node.replace_function(function, constant, 0)
         """
 
+    def reset_value(self):
+        pass
+    
     def get_graph_name(self):
         return super().get_graph_name() 
 

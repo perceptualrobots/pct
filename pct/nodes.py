@@ -120,16 +120,16 @@ class PCTNode():
     
     def reset(self):
         for func in self.referenceCollection:
-            func.set_value(0)               
+            func.reset_value()               
 
         for func in self.perceptionCollection:
-            func.set_value(0)               
+            func.reset_value()               
                     
         for func in self.comparatorCollection:
-            func.set_value(0)               
+            func.reset_value()              
 
         for func in self.outputCollection:
-            func.set_value(0)                
+            func.reset_value()               
     
 
     
