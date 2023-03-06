@@ -2,7 +2,8 @@
 
 # %% auto 0
 __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'CurrentError', 'SmoothError', 'BaseErrorCollector',
-           'TotalError', 'TopError', 'InputsError', 'ReferencedInputsError', 'RewardError', 'ErrorFactory']
+           'TotalError', 'TopError', 'InputsError', 'ReferencedInputsError', 'RewardError', 'ErrorResponseFactory',
+           'ErrorCollectorFactory']
 
 # %% ../nbs/07_errors.ipynb 3
 #import numpy as np
@@ -13,11 +14,16 @@ from .functions import IndexedParameter
 # %% ../nbs/07_errors.ipynb 5
 class BaseErrorType(ABC):
     "Base class of a type error response. This class is not used direclty by developers, but defines the interface common to all."
-    def __init__(self):
-        self.error_response=0
+    def __init__(self, flip_error_response=False):
+        self.factor=1
+        if flip_error_response:
+            self.factor=-1
+        self.error_response=None
         
     def __repr__(self):
-        return f'{self.__class__.__name__} error_response:{self.error_response}'
+        if self.error_response == None:
+            return f': {self.__class__.__name__} error_response:{self.error_response}'
+        return f': {self.__class__.__name__} error_response:{self.error_response * self.factor}'
 
     
     @abstractmethod
@@ -26,23 +32,23 @@ class BaseErrorType(ABC):
     
     @abstractmethod
     def reset(self):
-        pass
+        self.error_response=None
 
     def set_property(self, property_name, property_value):
         exec(f'self.{property_name} = {property_value}')
         
     def get_error_response(self):
-        return self.error_response
+        return self.error_response * self.factor
     
     def set_error_response(self, error):
-        self.error_response = error
-    
+        self.error_response = error * self.factor
+        
 
 # %% ../nbs/07_errors.ipynb 6
 class RootSumSquaredError(BaseErrorType):
     "The square root of the sum of the square of the errors."
-    def __init__(self):
-        super().__init__()
+    def __init__(self, flip_error_response=False):
+        super().__init__(flip_error_response=flip_error_response)
         self.sum=0
         
     def __call__(self, error):
@@ -50,16 +56,17 @@ class RootSumSquaredError(BaseErrorType):
         self.error_response=math.sqrt(self.sum)
 
     def reset(self):
+        super().reset()
         self.sum=0
         
     class Factory:
-        def create(self): return RootSumSquaredError()
+        def create(self, flip_error_response=False): return RootSumSquaredError(flip_error_response=flip_error_response)
 
 # %% ../nbs/07_errors.ipynb 7
 class RootMeanSquareError(BaseErrorType):
     "The square root of the mean of the sum of the square of the errors."
-    def __init__(self):
-        super().__init__()
+    def __init__(self, flip_error_response=False):
+        super().__init__(flip_error_response=flip_error_response)
         self.reset()
         
     def __call__(self, error):
@@ -68,42 +75,43 @@ class RootMeanSquareError(BaseErrorType):
         self.error_response=math.sqrt(self.sum/self.num)
 
     def reset(self):
+        super().reset()
         self.sum=0
         self.num=0
         
     class Factory:
-        def create(self): return RootMeanSquareError()
+        def create(self, flip_error_response=False): return RootMeanSquareError(flip_error_response=flip_error_response)
 
 # %% ../nbs/07_errors.ipynb 8
 class CurrentError(BaseErrorType):
     "The current error, rather than a function of the historical values."
-    def __init__(self):
-        super().__init__()
+    def __init__(self, flip_error_response=False):
+        super().__init__(flip_error_response=flip_error_response)
     
     def __call__(self, error):
         self.error_response=error
 
     def reset(self):
-        pass
+       super().reset()
 
     class Factory:
-        def create(self): return CurrentError()
+        def create(self, flip_error_response=False): return CurrentError(flip_error_response=flip_error_response)
 
 # %% ../nbs/07_errors.ipynb 9
 class SmoothError(BaseErrorType):
     "The exponential smoothed value of the error."
-    def __init__(self):
-        super().__init__()        
+    def __init__(self, flip_error_response=False):
+        super().__init__(flip_error_response=flip_error_response)        
         self.smooth_factor = None
     
     def __call__(self, error):
         self.error_response=smooth(abs(error), self.error_response, self.smooth_factor)
         
     def reset(self):
-        pass
+        super().reset()
 
     class Factory:
-        def create(self): return SmoothError()
+        def create(self, flip_error_response=False): return SmoothError(flip_error_response=flip_error_response)
 
 # %% ../nbs/07_errors.ipynb 10
 class BaseErrorCollector(ABC):
@@ -147,9 +155,9 @@ class BaseErrorCollector(ABC):
         return self.limit_exceeded        
     
     @classmethod
-    def collector(cls, error_response_type, error_collector_type, limit, properties=None):
-        error_response = ErrorFactory.createError(error_response_type)   
-        error_collector = ErrorFactory.createError(error_collector_type)   
+    def collector(cls, error_response_type, error_collector_type, limit, properties=None, flip_error_response=False):
+        error_response = ErrorResponseFactory.createErrorResponse(error_response_type, flip_error_response=flip_error_response)   
+        error_collector = ErrorCollectorFactory.createErrorCollector(error_collector_type)   
         error_collector.set_limit(limit)
         
         if properties != None:
@@ -275,15 +283,29 @@ class RewardError(BaseErrorCollector):
         def create(self): return RewardError()
 
 # %% ../nbs/07_errors.ipynb 16
-class ErrorFactory:
+class ErrorResponseFactory:
     factories = {}
-    def addFactory(id, errorFactory):
-        ErrorFactory.factories.put[id] = errorFactory
-    addFactory = staticmethod(addFactory)
+    def addResponseFactory(id, errorResponseFactory):
+        ErrorResponseFactory.factories.put[id] = errorFactory
+    addResponseFactory = staticmethod(addResponseFactory)
     # A Template Method:
-    def createError(id):
-        if not ErrorFactory.factories.__contains__(id):
-            ErrorFactory.factories[id] = \
+    def createErrorResponse(id, flip_error_response=False):
+        if not ErrorResponseFactory.factories.__contains__(id):
+            ErrorResponseFactory.factories[id] = \
               eval(id + '.Factory()')
-        return ErrorFactory.factories[id].create()
-    createError = staticmethod(createError)
+        return ErrorResponseFactory.factories[id].create(flip_error_response=flip_error_response)
+    createErrorResponse = staticmethod(createErrorResponse)
+
+# %% ../nbs/07_errors.ipynb 17
+class ErrorCollectorFactory:
+    factories = {}
+    def addCollectorFactory(id, errorCollectorFactory):
+        ErrorCollectorFactory.factories.put[id] = errorFactory
+    addCollectorFactory = staticmethod(addCollectorFactory)
+    # A Template Method:
+    def createErrorCollector(id):
+        if not ErrorCollectorFactory.factories.__contains__(id):
+            ErrorCollectorFactory.factories[id] = \
+              eval(id + '.Factory()')
+        return ErrorCollectorFactory.factories[id].create()
+    createErrorCollector = staticmethod(createErrorCollector)
