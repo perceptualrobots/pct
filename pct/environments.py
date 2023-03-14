@@ -587,6 +587,11 @@ class WebotsWrestler(ControlEnvironment):
             print(recv)
                 
         return self.value
+    
+    
+    def get_obs(self, input):
+        return self.env.step(self.input)
+
 
     def early_terminate(self):
         if self.early_termination:
