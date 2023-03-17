@@ -567,7 +567,11 @@ class WebotsWrestler(ControlEnvironment):
                  early_termination=True, namespace=None):    
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.early_termination=early_termination
-        self.client = Client()
+        self.connected=False
+        
+        
+    def connect(self):
+        self.connected=self.client = Client()
         init = {'msg': 'init'}
         self.client.put_dict(init)
         recv = self.client.get_dict()
@@ -575,7 +579,10 @@ class WebotsWrestler(ControlEnvironment):
         self.done=False
         
         
-    def __call__(self, verbose=False):        
+    def __call__(self, verbose=False):     
+        if not self.connected:
+            self.connect()
+            
         super().__call__(verbose)
 
         if self.done:

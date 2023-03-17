@@ -55,7 +55,8 @@ class Client():
         self.buf_size = buf_size
         self.connection = socket.create_connection((host,port))
         self.open=True
-
+        return self.open
+    
     def get(self):
         data = self.connection.recv(self.buf_size)
         return data.decode()
