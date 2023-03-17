@@ -46,11 +46,7 @@ class ControlEnvironment(BaseFunction):
         self.input = self.links[0].get_value()
         self.process_input()
         self.obs = self.get_obs(self.input)
-            
-        self.value = self.obs[0]
-        self.reward = self.obs[1]
-        self.done = self.obs[2]
-        self.info = self.obs[3]
+        self.parse_obs()    
 
         self.process_values()
         out = super().__call__(verbose)
@@ -100,6 +96,12 @@ class OpenAIGym(ControlEnvironment):
             
 #         return out 
 
+    def parse_obs(self):
+        self.value = self.obs[0]
+        self.reward = self.obs[1]
+        self.done = self.obs[2]
+        self.info = self.obs[3]
+            
     def get_obs(self, input):
         return self.env.step(self.input)
     
