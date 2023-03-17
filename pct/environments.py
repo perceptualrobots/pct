@@ -56,6 +56,9 @@ class ControlEnvironment(BaseFunction):
             
         return out 
     
+    def get_parameters_list(self):
+        return [self.name]    
+            
 
 # %% ../nbs/05_environments.ipynb 6
 class OpenAIGym(ControlEnvironment):
@@ -213,9 +216,7 @@ class OpenAIGym(ControlEnvironment):
     def get_graph_name(self):
         return super().get_graph_name() 
                 
-    def get_parameters_list(self):
-        return [self.name]    
-        
+
     def close(self):
         self.env.close()
         
@@ -568,6 +569,12 @@ class WebotsWrestler(ControlEnvironment):
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.early_termination=early_termination
         self.connected=False
+        self.performance=0
+        self.env_name='WebotsWrestler'
+        self.performance = 0
+        self.done = False
+        self.info = {}
+        self.helper = WebotsHelper(name=self.env_name, mode=1)
         
         
     def connect(self):
@@ -578,6 +585,8 @@ class WebotsWrestler(ControlEnvironment):
         print(recv)
         self.done=False
         
+    def init_inputs(self, msg):
+        self.values = self.helper.init_inputs(msg)
         
     def __call__(self, verbose=False):     
         if not self.connected:
