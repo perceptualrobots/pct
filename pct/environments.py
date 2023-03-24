@@ -8,10 +8,12 @@ __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'CartPoleV1'
 import gym
 import math
 import numpy as np
+from abc import abstractmethod
 import pct.putils as vid
 from .functions import BaseFunction
 from .putils import FunctionsList
 from .network import Client
+from .webots import WebotsHelper
 
 # %% ../nbs/05_environments.ipynb 4
 class EnvironmentFactory:
@@ -41,11 +43,11 @@ class EnvironmentFactory:
 class ControlEnvironment(BaseFunction):
     
     def __call__(self, verbose=False):
-        super().check_links(1)
+        super().check_links(self.num_links)
         self.early_terminate()
         self.input = self.links[0].get_value()
-        self.process_input()
-        self.obs = self.get_obs(self.input)
+        self.process_action()
+        self.obs = self.get_obs()
         self.parse_obs()    
 
         self.process_values()
@@ -59,6 +61,13 @@ class ControlEnvironment(BaseFunction):
     def get_parameters_list(self):
         return [self.name]    
             
+        
+        
+    @abstractmethod
+    def process_action(self):
+        pass
+    
+    
 
 # %% ../nbs/05_environments.ipynb 6
 class OpenAIGym(ControlEnvironment):
@@ -78,6 +87,7 @@ class OpenAIGym(ControlEnvironment):
         self.reward = 0
         self.done = False
         self.info = {}
+        self.num_links=1
     
 #     def __call__(self, verbose=False):
 #         super().check_links(1)
@@ -105,7 +115,7 @@ class OpenAIGym(ControlEnvironment):
         self.done = self.obs[2]
         self.info = self.obs[3]
             
-    def get_obs(self, input):
+    def get_obs(self):
         return self.env.step(self.input)
     
     def set_video_wrap(self, video_wrap):
@@ -574,19 +584,22 @@ class WebotsWrestler(ControlEnvironment):
         self.performance = 0
         self.done = False
         self.info = {}
-        self.helper = WebotsHelper(name=self.env_name, mode=1)
+        self.whelper = WebotsHelper(name=self.env_name, mode=1)
+        self.num_links = self.whelper.get_num_links()
         
         
     def connect(self):
-        self.connected=self.client = Client()
+        self.client = Client()
+        self.connected= self.client.isOpen()
         init = {'msg': 'init'}
         self.client.put_dict(init)
         recv = self.client.get_dict()
         print(recv)
+        self.initial_sensors=self.get_sensor_values(recv)
         self.done=False
         
-    def init_inputs(self, msg):
-        self.values = self.helper.init_inputs(msg)
+    def get_sensor_values(self, msg):
+        return self.whelper.get_sensor_values(msg)
         
     def __call__(self, verbose=False):     
         if not self.connected:
@@ -597,17 +610,18 @@ class WebotsWrestler(ControlEnvironment):
         if self.done:
             send = {'msg': 'close'}
             self.client.put_dict(send)
-            self.client.close()
-        else:
-            send = {'msg': 'values'}
-            self.client.put_dict(send)
-            recv = self.client.get_dict()
-            print(recv)
+            self.client.close()          
                 
         return self.value
     
     
-    def get_obs(self, input):
+    def get_obs(self):
+        send = {'msg': 'values'}
+        self.client.put_dict(send)
+        recv = self.client.get_dict()
+        print(recv)
+        if 'msg' in recv and recv['msg']=='done':
+            self.done=True
         return self.env.step(self.input)
 
 

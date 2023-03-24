@@ -10,18 +10,25 @@ class WebotsHelper():
         self.name = name
         self.mode = mode
         if self.mode==1:
-            self.num_inputs=6
+            self.num_sensors=6
+            self.num_links=6
 
-    def get_inputs_indexes(self):
+    def get_sensor_indexes(self):
         if self.mode==1:
-            return [i for i in range(self.num_inputs)]
+            return [i for i in range(self.num_sensors)]
         
         
-    def get_inputs_names(self):
+    def get_sensor_names(self):
         if self.mode==1:
             return [ 'LHipPitch', 'LKneePitch', 'LAnklePitch', 'RHipPitch', 'RKneePitch', 'RAnklePitch']
     
     def get_references(self):
         if self.mode==1:
-            return [i for i in range(self.num_inputs)]
+            return [i for i in range(self.num_sensors)]
+        
+    def get_sensor_values(self, msg):            
+        return msg.values()
+    
+    def get_num_links(self):
+        return self.num_links
         
