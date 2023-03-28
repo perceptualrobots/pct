@@ -45,11 +45,10 @@ class ControlEnvironment(BaseFunction):
     def __call__(self, verbose=False):
         super().check_links(self.num_links)
         self.early_terminate()
-        self.input = self.links[0].get_value()
-        self.process_action()
-        self.obs = self.get_obs()
+        self.process_inputs()
+        self.process_actions()
+        self.obs = self.apply_actions_get_obs()
         self.parse_obs()    
-
         self.process_values()
         out = super().__call__(verbose)
         
@@ -61,12 +60,24 @@ class ControlEnvironment(BaseFunction):
     def get_parameters_list(self):
         return [self.name]    
             
-        
+
+    @abstractmethod
+    def parse_obs(self):
+        pass
+               
+    @abstractmethod
+    def process_inputs(self):
+        pass
+
+#self.input = self.links[0].get_value()
         
     @abstractmethod
-    def process_action(self):
+    def process_actions(self):
         pass
-    
+
+    @abstractmethod
+    def apply_actions_get_obs(self):
+        pass
     
 
 # %% ../nbs/05_environments.ipynb 6
@@ -115,7 +126,7 @@ class OpenAIGym(ControlEnvironment):
         self.done = self.obs[2]
         self.info = self.obs[3]
             
-    def get_obs(self):
+    def apply_actions_get_obs(self):
         return self.env.step(self.input)
     
     def set_video_wrap(self, video_wrap):
@@ -127,11 +138,14 @@ class OpenAIGym(ControlEnvironment):
             if self.done:
                 raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
     
-    def process_input(self):
-        pass
+    def process_inputs(self):
+        raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
+
+    def process_actions(self):
+        raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
     
     def process_values(self):
-        pass
+        raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
 
     def set_render(self, render):
         self.render=render
@@ -254,10 +268,10 @@ class CartPoleV1(OpenAIGym):
         
         return self.value
     
-    def process_values(self):
-        self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
+    def process_inputs(self):    
+        self.input = self.links[0].get_value()    
     
-    def process_input(self):
+    def process_actions(self):
         if self.input<0:
             self.input=0
         elif self.input>0:
@@ -265,6 +279,9 @@ class CartPoleV1(OpenAIGym):
         else:
             self.input=0
 
+    def process_values(self):
+        self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
+                
     class Factory:
         def create(self, seed=None): return CartPoleV1(seed=seed)
     class FactoryWithNamespace:
@@ -292,7 +309,7 @@ class CartPoleDV1(OpenAIGym):
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
         self.value = np.append(self.value, self.env.gravity)
     
-    def process_input(self):
+    def process_actions(self):
         if self.input<0:
             self.input=0
         elif self.input>0:
@@ -321,30 +338,58 @@ class Pendulum(OpenAIGym):
         super().__init__('Pendulum-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, **cargs)
         
-    def __call__(self, verbose=False):
-        super().check_links(1)
+        
+    def __call__(self, verbose=False):        
+        super().__call__(verbose)
+                
+        return self.value
+
+    def process_inputs(self):
         self.input = self.links[0].get_value()
-        self.obs = self.env.step([self.input])
-            
+   
+    def process_actions(self):
+        pass
+    
+    def apply_actions_get_obs(self):
+        return self.env.step([self.input])
+        
+    def parse_obs(self):    
         self.value = self.obs[0]
         self.reward = -self.obs[1]
         self.done = self.obs[2]
         self.info = self.obs[3]
-        
+
+    def process_values(self):
         pi = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])
         self.value = np.append(self.value, pi)
         #x = math.copysign(pi-abs(pi), pi)
         x = 10 + pi
         self.value = np.append(self.value, x)
+    
+#     def __call__(self, verbose=False):
+#         super().check_links(1)
+#         self.input = self.links[0].get_value()
+#         self.obs = self.env.step([self.input])
+            
+#         self.value = self.obs[0]
+#         self.reward = -self.obs[1]
+#         self.done = self.obs[2]
+#         self.info = self.obs[3]
+        
+#         pi = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])
+#         self.value = np.append(self.value, pi)
+#         #x = math.copysign(pi-abs(pi), pi)
+#         x = 10 + pi
+#         self.value = np.append(self.value, x)
         
         
-        if self.render:
-            self.env.render()
+#         if self.render:
+#             self.env.render()
                 
-        if verbose :
-            print(self.output_string())
+#         if verbose :
+#             print(self.output_string())
 
-        return self.value
+#         return self.value
 
     class Factory:
         def create(self, seed=None): return Pendulum(seed=seed)
@@ -367,16 +412,22 @@ class Pendulum_1(OpenAIGym):
         super().__init__('Pendulum-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, **cargs)
         
-    def __call__(self, verbose=False):
-        super().check_links(1)
+    def process_inputs(self):
         self.input = self.links[0].get_value()
-        self.obs = self.env.step([self.input])
-            
+   
+    def process_actions(self):
+        pass
+    
+    def apply_actions_get_obs(self):
+        return self.env.step([self.input])
+        
+    def parse_obs(self):    
         self.value = self.obs[0]
         self.reward = -self.obs[1]
         self.done = self.obs[2]
         self.info = self.obs[3]
-        
+
+    def process_values(self):
         vel = self.obs[0][2]/8.0
         self.value = np.append(self.value, vel)
         x = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])/math.pi
@@ -384,13 +435,30 @@ class Pendulum_1(OpenAIGym):
         theta = 100 - (10 * x)
         self.value = np.append(self.value, theta)
         
-        if self.render:
-            self.env.render()
+#     def __call__(self, verbose=False):
+#         super().check_links(1)
+#         self.input = self.links[0].get_value()
+#         self.obs = self.env.step([self.input])
+            
+#         self.value = self.obs[0]
+#         self.reward = -self.obs[1]
+#         self.done = self.obs[2]
+#         self.info = self.obs[3]
+        
+#         vel = self.obs[0][2]/8.0
+#         self.value = np.append(self.value, vel)
+#         x = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])/math.pi
+#         #theta = 100 - (10 * math.copysign(1-abs(x), x))
+#         theta = 100 - (10 * x)
+#         self.value = np.append(self.value, theta)
+        
+#         if self.render:
+#             self.env.render()
                 
-        if verbose :
-            print(self.output_string())
+#         if verbose :
+#             print(self.output_string())
 
-        return self.value
+#         return self.value
 
     class Factory:
         def create(self, seed=None): return Pendulum_1(seed=seed)
@@ -415,12 +483,15 @@ class MountainCarV0(OpenAIGym):
                 
         return self.value
 
+    def process_inputs(self):
+        self.input = self.links[0].get_value()
+
     def process_values(self):        
         self.reward = -self.obs[1]
         pos = self.value[0] + 1.2
         self.value = np.append(self.value, pos)
 
-    def process_input(self):
+    def process_actions(self):
         if self.input<0:
             self.input=0
         elif self.input>0:
@@ -462,8 +533,11 @@ class MountainCarContinuousV0(OpenAIGym):
             if self.done:
                 self.reward = 0
                 self.really_done = True
+
+    def process_inputs(self):
+        self.input = self.links[0].get_value()
                 
-    def process_input(self):
+    def process_actions(self):
         force = min(max(self.input, self.min_action), self.max_action)
         self.input=[force]
         
