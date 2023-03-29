@@ -666,11 +666,17 @@ class WebotsWrestler(ControlEnvironment):
         self.client = Client()
         self.connected= self.client.isOpen()
         init = {'msg': 'init'}
-        self.client.put_dict(init)
-        recv = self.client.get_dict()
-        print(recv)
-        self.initial_sensors=self.get_sensor_values(recv)
+        self.send(init)
+        recv = self.receive()
+        self.initial_sensors=self.whelper.get_sensor_values(recv)
         self.done=False
+        
+    def send(self, data):
+        self.client.put_dict(data)
+
+    def receive(self):
+        recv = self.client.get_dict()
+        return recv
         
     def get_sensor_values(self, msg):
         return self.whelper.get_sensor_values(msg)
@@ -683,20 +689,12 @@ class WebotsWrestler(ControlEnvironment):
 
         if self.done:
             send = {'msg': 'close'}
-            self.client.put_dict(send)
+            self.send(send)
             self.client.close()          
                 
         return self.value
     
     
-    def get_obs(self):
-        send = {'msg': 'values'}
-        self.client.put_dict(send)
-        recv = self.client.get_dict()
-        print(recv)
-        if 'msg' in recv and recv['msg']=='done':
-            self.done=True
-        return self.env.step(self.input)
 
 
     def early_terminate(self):
@@ -704,8 +702,26 @@ class WebotsWrestler(ControlEnvironment):
             if self.done:
                 self.reward = 0
                 
-    def process_input(self):
-        print('process_input')
+    def process_inputs(self):
+        print('process_inputs')
+        self.input = [ self.links[i].get_value() for i in range(0, len(self.links))]    
+    
+    def process_actions(self):
+        self.actions = self.whelper.get_actions_dict(self.input)
+        
+
+    def apply_actions_get_obs(self):
+        self.send(self.actions)
+        recv = self.receive()
+        if 'msg' in recv and recv['msg']=='done':
+            self.done=True
+        return recv
+
+        
+    def parse_obs(self):
+        self.reward = self.obs['performance']
+        self.done = self.obs['done']
+        self.value = self.whelper.get_sensor_values(self.obs['sensors'])
         
     def process_values(self):
         print('process_values')
