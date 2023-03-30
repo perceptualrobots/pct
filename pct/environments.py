@@ -51,9 +51,6 @@ class ControlEnvironment(BaseFunction):
         self.parse_obs()    
         self.process_values()
         out = super().__call__(verbose)
-        
-        if self.render:
-            self.env.render()
             
         return out 
     
@@ -99,7 +96,15 @@ class OpenAIGym(ControlEnvironment):
         self.done = False
         self.info = {}
         self.num_links=1
-    
+
+    def __call__(self, verbose=False):
+        out = super().__call__(verbose)
+        
+        if self.render:
+            self.env.render()
+            
+        return out 
+
 #     def __call__(self, verbose=False):
 #         super().check_links(1)
 #         self.early_terminate()
@@ -657,25 +662,27 @@ class WebotsWrestler(ControlEnvironment):
         self.env_name='WebotsWrestler'
         self.performance = 0
         self.done = False
-        self.info = {}
-        self.whelper = WebotsHelper(name=self.env_name, mode=1)
+        #self.info = {}
+        self.mode=1
+        self.whelper = WebotsHelper(name=self.env_name, mode=self.mode)
         self.num_links = self.whelper.get_num_links()
         
         
     def connect(self):
         self.client = Client()
         self.connected= self.client.isOpen()
-        init = {'msg': 'init'}
+        init = {'msg': 'init', 'mode': self.mode}
         self.send(init)
         recv = self.receive()
         self.initial_sensors=self.whelper.get_sensor_values(recv)
-        self.done=False
+        
         
     def send(self, data):
         self.client.put_dict(data)
 
     def receive(self):
         recv = self.client.get_dict()
+        print(recv)
         return recv
         
     def get_sensor_values(self, msg):
@@ -694,9 +701,6 @@ class WebotsWrestler(ControlEnvironment):
                 
         return self.value
     
-    
-
-
     def early_terminate(self):
         if self.early_termination:
             if self.done:
@@ -711,20 +715,23 @@ class WebotsWrestler(ControlEnvironment):
         
 
     def apply_actions_get_obs(self):
-        self.send(self.actions)
+        send={'msg': 'values', 'actions': self.actions}
+        self.send(send)
         recv = self.receive()
-        if 'msg' in recv and recv['msg']=='done':
-            self.done=True
+        
         return recv
 
         
     def parse_obs(self):
-        self.reward = self.obs['performance']
-        self.done = self.obs['done']
-        self.value = self.whelper.get_sensor_values(self.obs['sensors'])
+        if self.obs['msg']=='done':
+            self.done=True
+        else:
+            self.reward = self.obs['performance']
+            self.value = self.whelper.get_sensor_values(self.obs['sensors'])
         
     def process_values(self):
         print('process_values')
+        pass
 #         reward = self.obs[1]
 #         if reward > 90:
 #             reward = 0
@@ -762,11 +769,13 @@ class WebotsWrestler(ControlEnvironment):
         
         config['links']=links
 
-        config["env_name"] = self.env_name
+        config['env_name'] = self.env_name
         #config["values"] = self.value
-        config["performance"] = self.performance
-        config["done"] = self.done
-        config["info"] = self.info
+        config['performance'] = self.performance
+        config['done'] = self.done
+        #config['info'] = self.info
+        
+        return config
     
     
     class Factory:
