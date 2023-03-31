@@ -128,6 +128,7 @@ class BaseFunction(ABC):
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color=None, 
              color_mapping={'s':'aqua','c':'limegreen','p':'red', 'x':'silver'},
              node_size=500, arrowsize=25, align='horizontal', file=None):
+        import networkx as nx
         graph = self.graph(layer=0, layer_edges=True)
         if node_color==None:
             node_color = self.get_colors(graph, color_mapping)
@@ -160,12 +161,14 @@ class BaseFunction(ABC):
         return colors
         
     def graph(self, layer=None, layer_edges=False):
+        import networkx as nx
         graph = nx.DiGraph()
         
         self.set_graph_data(graph, layer=layer, layer_edges=layer_edges)
                 
         return graph
     
+
     def set_graph_data(self, graph, layer=None, layer_edges=False):
         node_name = self.name
         edges = []
@@ -182,26 +185,45 @@ class BaseFunction(ABC):
             edges.append((name,self.name))
             
         graph.add_node(node_name, layer=layer)
-        graph.add_edges_from( edges)    
-
-        
-    def set_graph_data_node(self, graph, layer=None, layer_edges=False, node_list=None):
-        node_name = self.name
+        graph.add_edges_from( edges)                
+            
+    def set_graph_data_funcdata(self, graph, layer=None, layer_edges=False):
+        node_name = self.get_graph_name()
         edges = []
         for link in self.links:            
             func = FunctionsList.getInstance().get_function(self.namespace, link)
             if isinstance(func, str):
                 name = func
             else:
-                name = func.get_name()
+                name = func.get_graph_name()
                 
             if layer_edges:
-                graph.add_node(node_list[name], layer=layer+1)
-                        
-            edges.append((node_list[name],self.name))
+                graph.add_node(name, layer=layer+1)
+                
+            edges.append((name,self.get_graph_name()))
             
         graph.add_node(node_name, layer=layer)
-        graph.add_edges_from( edges)    
+        graph.add_edges_from(edges)    
+        #print(edges)
+
+        
+#     def set_graph_data_node(self, graph, layer=None, layer_edges=False, node_list=None):
+#         node_name = self.name
+#         edges = []
+#         for link in self.links:            
+#             func = FunctionsList.getInstance().get_function(self.namespace, link)
+#             if isinstance(func, str):
+#                 name = func
+#             else:
+#                 name = func.get_name()
+                
+#             if layer_edges:
+#                 graph.add_node(node_list[name], layer=layer+1)
+                        
+#             edges.append((node_list[name],self.name))
+            
+#         graph.add_node(node_name, layer=layer)
+#         graph.add_edges_from( edges)    
 
         
     def get_weights_labels(self, labels):
@@ -228,18 +250,19 @@ class BaseFunction(ABC):
                 value = f'{value:4.3}'
             labels[(self.get_name(), name)] = value
 
-    def get_weights_labels_nodes(self, labels, node_list):
+            
+    def get_weights_labels_funcdata(self, labels):
         if hasattr(self, 'weights'):
             for i in range(len(self.weights)):
                 link = self.get_link(i)
                 if isinstance(link, str):
                     name=link
                 else:
-                    name = link.get_name()
+                    name = link.get_graph_name()
                 value = self.weights[i]
                 if isinstance(value, float):
                     value = f'{value:4.3}'
-                labels[(self.get_name(), node_list[name])] = value
+                labels[(self.get_graph_name(), name)] = value
 
         if hasattr(self, 'gain'):
             link = self.get_link(0)
@@ -250,7 +273,32 @@ class BaseFunction(ABC):
             value = self.gain
             if isinstance(value, float):
                 value = f'{value:4.3}'
-            labels[(self.get_name(), node_list[name])] = value
+            labels[(self.get_name(), name)] = value
+            
+            
+#     def get_weights_labels_nodes(self, labels, node_list):
+#         if hasattr(self, 'weights'):
+#             for i in range(len(self.weights)):
+#                 link = self.get_link(i)
+#                 if isinstance(link, str):
+#                     name=link
+#                 else:
+#                     name = link.get_name()
+#                 value = self.weights[i]
+#                 if isinstance(value, float):
+#                     value = f'{value:4.3}'
+#                 labels[(self.get_name(), node_list[name])] = value
+
+#         if hasattr(self, 'gain'):
+#             link = self.get_link(0)
+#             if isinstance(link, str):
+#                 name=link
+#             else:
+#                 name = link.get_name()
+#             value = self.gain
+#             if isinstance(value, float):
+#                 value = f'{value:4.3}'
+#             labels[(self.get_name(), node_list[name])] = value
 
             
     def output_string(self):
@@ -330,6 +378,13 @@ class BaseFunction(ABC):
         
         config['links']=links
         return config
+        
+    def reset_value(self):
+        self.value=0
+
+    @abstractmethod    
+    def get_graph_name(self):
+        return self.name
         
     def get_name(self):
         return self.name
@@ -444,7 +499,10 @@ class Subtract(BaseFunction):
 
     def get_config(self, zero=1):
         return super().get_config(zero=zero)
-                        
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
     class Factory:
         def create(self): return Subtract()     
         
@@ -483,6 +541,9 @@ class Proportional(BaseFunction):
     def get_suffix(self):
         return 'p'
     
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
     class Factory:
         def create(self): 
             return Proportional()       
@@ -509,14 +570,21 @@ class Variable(BaseFunction):
         super().summary("", extra=extra)
         
     def get_parameters_list(self):
-        return ['var']
+        return [self.value]
+    #return ['var']
                 
     def get_config(self, zero=1):
-        config = super().get_config(zero=zero)
+        config = super().get_config(zero=1)
         return config
 
     def get_suffix(self):
         return 'v'
+    
+    def reset_value(self):
+        pass
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
     
     class Factory:
         def create(self): return Variable()
@@ -544,6 +612,9 @@ class PassOn(BaseFunction):
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
         return config
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
     
     class Factory:
         def create(self): return PassOn()
@@ -582,6 +653,9 @@ class GreaterThan(BaseFunction):
         config["upper"] = self.upper
         config["lower"] = self.lower
         return config
+
+    def get_graph_name(self):
+        return f'{self.name}\n{self.threshold}:{self.lower}:{self.upper}' 
     
     class Factory:
         def create(self): return GreaterThan()
@@ -604,7 +678,7 @@ class Constant(BaseFunction):
         super().summary("", extra=extra)
 
     def get_config(self, zero=1):
-        return super().get_config(zero=zero)
+        return super().get_config(zero=1)
 
     def get_parameters_list(self):
         return [self.value]
@@ -630,6 +704,12 @@ class Constant(BaseFunction):
         constant = Constant(weights[column], name=f'{prefix}L{thislevel}C{column}c')
         node.replace_function(function, constant, 0)
         """
+
+    def reset_value(self):
+        pass
+    
+    def get_graph_name(self):
+        return super().get_graph_name() 
 
     class Factory:
         def create(self): return Constant()
@@ -712,6 +792,9 @@ class Integration(BaseFunction):
         config["gain"] = self.gain
         config["slow"] = self.slow
         return config       
+
+    def get_graph_name(self):
+        return f'{self.name}\n{self.slow}' 
     
     class Factory:
         def create(self): return Integration()
@@ -758,27 +841,30 @@ class IntegrationDual(BaseFunction):
 
 # %% ../nbs/02_functions.ipynb 19
 class Sigmoid(BaseFunction):
-    "A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and scale (slope) values. Links: One."
-    def __init__(self, range=2, scale=2, value=0, name="sigmoid", links=None, new_name=True, namespace=None, **cargs):
+    "A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and slope values. Links: One."
+    def __init__(self, range=2, slope=2, value=0, name="sigmoid", links=None, new_name=True, namespace=None, **cargs):
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.range = range
-        self.scale = scale
+        self.slope = slope
     
     def __call__(self, verbose=False):
         super().check_links(1)
         input = self.links[0].get_value()
-        self.value = sigmoid(input, self.range, self.scale)
+        self.value = sigmoid(input, self.range, self.slope)
         
         return super().__call__(verbose)
 
     def summary(self, extra=False):
-        super().summary(f'range {self.range} scale {self.scale} ', extra=extra)
+        super().summary(f'range {self.range} slope {self.slope} ', extra=extra)
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
         config["range"] = self.range
-        config["scale"] = self.scale
+        config["slope"] = self.slope
         return config       
+
+    def get_graph_name(self):
+        return f'{self.name}\n{self.range}:{self.slope}' 
     
     class Factory:
         def create(self): return Sigmoid()
@@ -924,6 +1010,9 @@ class WeightedSum(BaseFunction):
         weights.append(input_weights[column])
         self.weights=weights #np.array(weights)
         
+    def get_graph_name(self):
+        return super().get_graph_name()        
+        
     class Factory:
         def create(self): return WeightedSum()
         
@@ -1042,6 +1131,9 @@ class SmoothWeightedSum(BaseFunction):
         self.weights=weights #np.array(weights)
         self.smooth_factor=input_weights[column][1]
         
+    def get_graph_name(self):
+        return f'{self.name}\n{self.smooth_factor:4.2f}' 
+        
     class Factory:
         def create(self): return SmoothWeightedSum()
         
@@ -1074,6 +1166,9 @@ class IndexedParameter(BaseFunction):
         config = super().get_config(zero=zero)
         config["index"] = self.index
         return config
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
     
     class Factory:
         def create(self): return IndexedParameter()

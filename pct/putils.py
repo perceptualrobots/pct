@@ -3,7 +3,8 @@
 # %% auto 0
 __all__ = ['UniqueNamer', 'FunctionsList', 'dynamic_module_import', 'dynamic_class_load', 'get_drive', 'loadjson', 'Counter',
            'stringIntListToListOfInts', 'stringFloatListToListOfFloats', 'stringListToListOfStrings',
-           'listNumsToString', 'sigmoid', 'smooth', 'dot', 'list_of_ones', 'show_video', 'wrap_env', 'is_in_notebooks']
+           'listNumsToString', 'round_lists', 'floatListsToString', 'sigmoid', 'smooth', 'dot', 'list_of_ones',
+           'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -260,26 +261,58 @@ def listNumsToString(list):
     return str
 
 # %% ../nbs/01_putils.ipynb 21
-def sigmoid(x, range, scale) :
-    return -range / 2 + range / (1 + np.exp(-x * scale / range));
+def round_lists(alist, formatted, places):    
+    if isinstance(alist, str):
+        raise Exception(f'Value {alist} should be a number in round_lists.')
+
+    if isinstance(alist, float) or isinstance(alist, int):
+        return round(alist,places)
+    
+    if isinstance(alist[0], float) or isinstance(alist[0], int):
+        # str_list = ['[']
+        # str_list.append([f'{num:0.3f}' for num in alist])
+        # str_list.append(']')
+        return [round(num,places) for num in alist]
+    else:
+        for item in alist:    
+            formatted.append(round_lists(item, formatted, places))
 
 # %% ../nbs/01_putils.ipynb 22
+def floatListsToString(alist, places):
+    flist = []    
+    round_lists(alist,flist,places)
+    return f'{flist}'
+
+# %% ../nbs/01_putils.ipynb 23
+def sigmoid(x, range, slope) :
+    return -range / 2 + range / (1 + np.exp(-x * slope / range));
+
+# %% ../nbs/01_putils.ipynb 24
 def smooth(new_val, old_val, smooth_factor):
     return old_val * smooth_factor + new_val * (1-smooth_factor)
 
-# %% ../nbs/01_putils.ipynb 23
+# %% ../nbs/01_putils.ipynb 25
 def dot(inputs, weights):
     sum = 0
     for i in range(len(inputs)):
         sum += inputs[i]*weights[i]
     return sum
 
-# %% ../nbs/01_putils.ipynb 24
+# %% ../nbs/01_putils.ipynb 26
 def list_of_ones(num):
     x = [1 for _ in range(num) ]
     return x
 
-# %% ../nbs/01_putils.ipynb 26
+# %% ../nbs/01_putils.ipynb 27
+def limit_to_range(num, lower, upper):
+    if num < lower:
+        num = abs(num)
+
+    if num > upper:
+        num = num - upper
+    return num
+
+# %% ../nbs/01_putils.ipynb 29
 def show_video():
   mp4list = glob.glob('video/*.mp4')
   if len(mp4list) > 0:
@@ -297,10 +330,10 @@ def wrap_env(env):
   env = Monitor(env, './video', force=True)
   return env
 
-# %% ../nbs/01_putils.ipynb 29
+# %% ../nbs/01_putils.ipynb 32
 import os
 
-# %% ../nbs/01_putils.ipynb 30
+# %% ../nbs/01_putils.ipynb 33
 from pathlib import Path
 
 def is_in_notebooks():
