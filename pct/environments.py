@@ -180,9 +180,11 @@ class OpenAIGym(ControlEnvironment):
                     "name": self.name}
         
         if isinstance(self.value, np.ndarray):
-            config["value"] = self.value.tolist() * zero
+            config["value"] = [i  * zero for i in self.value.tolist()]
+        elif isinstance(self.value, list):
+            config["value"] = [i  * zero for i in self.value]
         else:
-            config["value"] = self.value * zero
+            config["value"] = self.value * zero 
         
         ctr=0
         links={}
@@ -201,7 +203,7 @@ class OpenAIGym(ControlEnvironment):
 
         config["env_name"] = self.env_name
         #config["values"] = self.value
-        config["reward"] = self.reward
+        config["reward"] = round(self.reward,  self.decimal_places)
         config["done"] = self.done
         config["info"] = self.info
         
@@ -660,7 +662,7 @@ class WebotsWrestler(ControlEnvironment):
         self.connected=False
         self.performance=0
         self.env_name='WebotsWrestler'
-        self.performance = 0
+        self.reward = 0
         self.done = False
         #self.info = {}
         self.mode=1
@@ -673,8 +675,8 @@ class WebotsWrestler(ControlEnvironment):
         self.connected= self.client.isOpen()
         init = {'msg': 'init', 'mode': self.mode}
         self.send(init)
-        recv = self.receive()
-        self.initial_sensors=self.whelper.get_sensor_values(recv)
+        self.obs = self.receive()
+        pass
         
         
     def send(self, data):
@@ -685,8 +687,8 @@ class WebotsWrestler(ControlEnvironment):
         print(recv)
         return recv
         
-    def get_sensor_values(self, msg):
-        return self.whelper.get_sensor_values(msg)
+#     def get_sensor_values(self, msg):
+#         return self.whelper.get_sensor_values(msg)
         
     def __call__(self, verbose=False):     
         if not self.connected:
@@ -729,17 +731,9 @@ class WebotsWrestler(ControlEnvironment):
             self.done=True
         
     def process_values(self):
-        #print('process_values')
         self.value = self.whelper.get_sensor_values(self.obs['sensors'])
         pass
     
-#         reward = self.obs[1]
-#         if reward > 90:
-#             reward = 0
-#         self.reward = - reward
-#         pos = self.value[0] + 1.2
-#         self.value = np.append(self.value, pos)
-
     def summary(self, extra=False):
         super().summary("", extra=extra)
         
@@ -752,9 +746,11 @@ class WebotsWrestler(ControlEnvironment):
                     "name": self.name}
         
         if isinstance(self.value, np.ndarray):
-            config["value"] = self.value.tolist() * zero
+            config["value"] = [i  * zero for i in self.value.tolist()]
+        elif isinstance(self.value, list):
+            config["value"] = [i  * zero for i in self.value]
         else:
-            config["value"] = self.value * zero
+            config["value"] = self.value * zero 
         
         ctr=0
         links={}
@@ -772,7 +768,7 @@ class WebotsWrestler(ControlEnvironment):
 
         config['env_name'] = self.env_name
         #config["values"] = self.value
-        config['performance'] = self.performance
+        config['performance'] = round(self.reward, self.decimal_places)
         config['done'] = self.done
         #config['info'] = self.info
         

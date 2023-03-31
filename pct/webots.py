@@ -24,7 +24,7 @@ class WebotsHelper():
 
     def get_references(self):
         if self.mode==1:
-            return [i for i in range(self.num_sensors)]
+            return [0.5]#[i for i in range(self.num_sensors)]
         
     def get_sensor_values(self, msg):            
         return list(msg.values())
@@ -35,5 +35,6 @@ class WebotsHelper():
     def get_actions_dict(self, inputs):
         actions = {}
         for i in range(len(inputs)):
-            actions[self.sensor_names[i]]=inputs[i]
+            actions[self.sensor_names[i]]=round(inputs[i], 3)
+                               
         return actions
