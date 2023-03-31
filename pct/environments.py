@@ -694,20 +694,21 @@ class WebotsWrestler(ControlEnvironment):
             
         super().__call__(verbose)
 
-        if self.done:
-            send = {'msg': 'close'}
-            self.send(send)
-            self.client.close()          
+#         if self.done:
+#             send = {'msg': 'close'}
+#             self.send(send)
+#             self.client.close()          
                 
         return self.value
     
     def early_terminate(self):
         if self.early_termination:
             if self.done:
-                self.reward = 0
+                self.reward = 0                
+                raise Exception(f'1000: Env: {self.env_name} has finished.')
                 
     def process_inputs(self):
-        print('process_inputs')
+        #print('process_inputs')
         self.input = [ self.links[i].get_value() for i in range(0, len(self.links))]    
     
     def process_actions(self):
@@ -723,15 +724,15 @@ class WebotsWrestler(ControlEnvironment):
 
         
     def parse_obs(self):
+        self.reward = self.obs['performance']
         if self.obs['msg']=='done':
             self.done=True
-        else:
-            self.reward = self.obs['performance']
-            self.value = self.whelper.get_sensor_values(self.obs['sensors'])
         
     def process_values(self):
-        print('process_values')
+        #print('process_values')
+        self.value = self.whelper.get_sensor_values(self.obs['sensors'])
         pass
+    
 #         reward = self.obs[1]
 #         if reward > 90:
 #             reward = 0
