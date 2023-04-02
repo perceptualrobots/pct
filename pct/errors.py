@@ -120,14 +120,19 @@ class BaseErrorCollector(ABC):
     'limit - the limit of valid error response'
     'error_response - the type of error response'
     
-    def __init__(self, limit,error_response):
+    def __init__(self, limit,error_response, min):
         self.limit=limit
         self.limit_exceeded=False
         self.error_response=error_response
+        self.min=min
+
         
     def __repr__(self):
         return f'{self.__class__.__name__} limit:{self.limit}, limit_exceeded:{self.limit_exceeded}, {self.error_response.__repr__()}'
         
+    def set_min(self, min):
+        self.min=min
+
     def set_limit(self, limit):
         self.limit=limit
         self.limit_exceeded=False
@@ -142,7 +147,7 @@ class BaseErrorCollector(ABC):
         return self.error_response.get_error_response()
 
     def override_value(self):
-        self.error_response.set_error_response(self.error_response.get_error_response()*self.limit)
+        self.error_response.set_error_response(self.error_response.get_error_response()*abs(self.limit))
 
 #     def set_maximum(self):
 #         self.error_response.set_error_response(self.limit)
@@ -155,10 +160,11 @@ class BaseErrorCollector(ABC):
         return self.limit_exceeded        
     
     @classmethod
-    def collector(cls, error_response_type, error_collector_type, limit, properties=None, flip_error_response=False):
+    def collector(cls, error_response_type, error_collector_type, limit, min, properties=None, flip_error_response=False):
         error_response = ErrorResponseFactory.createErrorResponse(error_response_type, flip_error_response=flip_error_response)   
         error_collector = ErrorCollectorFactory.createErrorCollector(error_collector_type)   
         error_collector.set_limit(limit)
+        error_collector.set_min(min)
         
         if properties != None:
             for property in properties:
@@ -172,20 +178,31 @@ class BaseErrorCollector(ABC):
         error_collector.set_error_response(error_response)
         
         return error_collector
+    
+    def check_limit(self):
+        if self.min:
+            if self.error_response.get_error_response() > self.limit:
+                self.limit_exceeded=True
+        else:
+            if self.error_response.get_error_response() < self.limit:
+                self.limit_exceeded=True
+        
+        return self.limit_exceeded
 
 # %% ../nbs/07_errors.ipynb 11
 class TotalError(BaseErrorCollector):
     "A class to collect all the errors of the control system run."            
-    def __init__(self, limit=1000, error_response=None, **cargs):
-        super().__init__(limit, error_response)
+    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+        super().__init__(limit, error_response, min)
 
     def add_data(self, hpct=None):
         for level in range(len(hpct.hierarchy)):
              for col in range(len(hpct.hierarchy[level])):
                 node  = hpct.hierarchy[level][col]
                 self.add_error_data( [node.get_function("comparator").get_value()])
-                if self.error_response.get_error_response() > self.limit:
-                    self.limit_exceeded=True
+                if self.check_limit():
+#                 if self.error_response.get_error_response() > self.limit:
+#                     self.limit_exceeded=True
                     return
     class Factory:
         def create(self): return TotalError()
@@ -193,8 +210,8 @@ class TotalError(BaseErrorCollector):
 # %% ../nbs/07_errors.ipynb 12
 class TopError(BaseErrorCollector):
     "A class to collect all the errors of the top-level nodes."            
-    def __init__(self, limit=1000, error_response=None, **cargs):
-        super().__init__(limit, error_response)
+    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+        super().__init__(limit, error_response, min)
 
     def add_data(self, hpct=None):
         level = len(hpct.hierarchy)-1
@@ -202,8 +219,9 @@ class TopError(BaseErrorCollector):
         for col in range(len(hpct.hierarchy[level])):
             node  = hpct.hierarchy[level][col]
             self.add_error_data( [node.get_function("comparator").get_value()])
-            if self.error_response.get_error_response() > self.limit:
-                self.limit_exceeded=True
+            if self.check_limit():
+#             if self.error_response.get_error_response() > self.limit:
+#                 self.limit_exceeded=True
                 return
             
     class Factory:
@@ -212,8 +230,8 @@ class TopError(BaseErrorCollector):
 # %% ../nbs/07_errors.ipynb 13
 class InputsError(BaseErrorCollector):
     "A class to collect the values of the input values."            
-    def __init__(self, limit=1000, error_response=None, **cargs):
-        super().__init__(limit, error_response)
+    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+        super().__init__(limit, error_response, min)
 
     def add_data(self, hpct=None):
         data = []
@@ -222,8 +240,9 @@ class InputsError(BaseErrorCollector):
             if isinstance(func, IndexedParameter):
                 data.append(func.get_value())
         self.add_error_data( data )
-        if self.error_response.get_error_response() > self.limit:
-            self.limit_exceeded=True
+        if self.check_limit():
+#         if self.error_response.get_error_response() > self.limit:
+#             self.limit_exceeded=True
             return
         
     class Factory:
@@ -232,8 +251,8 @@ class InputsError(BaseErrorCollector):
 # %% ../nbs/07_errors.ipynb 14
 class ReferencedInputsError(BaseErrorCollector):
     "A class to collect the values of the input values subtracted from reference values."                        
-    def __init__(self, limit=1000, error_response=None, **cargs):
-        super().__init__(limit, error_response)
+    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+        super().__init__(limit, error_response, min)
         self.reference_values=None
         self.input_indexes=None        
         
@@ -259,16 +278,18 @@ class ReferencedInputsError(BaseErrorCollector):
             else:
                 raise Exception(f'Function {func.get_name()} is not type IndexedParameter.')
         self.add_error_data( data )
-        if self.error_response.get_error_response() > self.limit:
-            self.limit_exceeded=True
+        if self.check_limit():
+#         if self.error_response.get_error_response() > self.limit:
+#             self.limit_exceeded=True
             return
+
     class Factory:
         def create(self): return ReferencedInputsError()
 
 # %% ../nbs/07_errors.ipynb 15
 class RewardError(BaseErrorCollector):
     "A class that collects the reward value of the control system run."            
-    def __init__(self, limit=1000, error_response=None, **cargs):
+    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
         super().__init__(limit, error_response)
 
     def add_data(self, hpct=None):
@@ -276,8 +297,9 @@ class RewardError(BaseErrorCollector):
         pre = hpct.get_preprocessor()
         data.append(pre[0].get_reward())
         self.add_error_data( data )
-        if self.error_response.get_error_response() > self.limit:
-            self.limit_exceeded=True
+        if self.check_limit():
+#         if self.error_response.get_error_response() > self.limit:
+#             self.limit_exceeded=True
             return
     class Factory:
         def create(self): return RewardError()
