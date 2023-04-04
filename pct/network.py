@@ -82,5 +82,5 @@ class Client():
         
     def close(self):
         self.connection.close()
-        print('Closed client connection')
+        #print('Closed client connection')
 

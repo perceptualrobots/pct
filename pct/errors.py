@@ -10,6 +10,7 @@ __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'Curre
 import math
 from abc import ABC, abstractmethod
 from .functions import IndexedParameter
+from .putils import smooth
 
 # %% ../nbs/07_errors.ipynb 5
 class BaseErrorType(ABC):
@@ -92,7 +93,7 @@ class CurrentError(BaseErrorType):
         self.error_response=error
 
     def reset(self):
-       super().reset()
+        super().reset()
 
     class Factory:
         def create(self, flip_error_response=False): return CurrentError(flip_error_response=flip_error_response)
@@ -103,12 +104,13 @@ class SmoothError(BaseErrorType):
     def __init__(self, flip_error_response=False):
         super().__init__(flip_error_response=flip_error_response)        
         self.smooth_factor = None
+        self.error_response = 0
     
     def __call__(self, error):
         self.error_response=smooth(abs(error), self.error_response, self.smooth_factor)
         
     def reset(self):
-        super().reset()
+        self.error_response = 0
 
     class Factory:
         def create(self, flip_error_response=False): return SmoothError(flip_error_response=flip_error_response)
@@ -290,7 +292,7 @@ class ReferencedInputsError(BaseErrorCollector):
 class RewardError(BaseErrorCollector):
     "A class that collects the reward value of the control system run."            
     def __init__(self, limit=1000, error_response=None, min=None, **cargs):
-        super().__init__(limit, error_response)
+        super().__init__(limit, error_response, min)
 
     def add_data(self, hpct=None):
         data = []

@@ -57,7 +57,14 @@ class ControlEnvironment(BaseFunction):
     def get_parameters_list(self):
         return [self.name]    
             
+    
+    def get_reward(self):
+        return self.reward
 
+    @abstractmethod
+    def reset(self, full=True, seed=None): 
+        pass
+    
     @abstractmethod
     def parse_obs(self):
         pass
@@ -76,6 +83,10 @@ class ControlEnvironment(BaseFunction):
     def apply_actions_get_obs(self):
         pass
     
+    @abstractmethod
+    def close(self):
+        pass
+
 
 # %% ../nbs/05_environments.ipynb 6
 class OpenAIGym(ControlEnvironment):
@@ -208,9 +219,6 @@ class OpenAIGym(ControlEnvironment):
         config["info"] = self.info
         
         return config
-    
-    def get_reward(self):
-        return self.reward
 
     def output_string(self):
         
@@ -678,7 +686,13 @@ class WebotsWrestler(ControlEnvironment):
         self.obs = self.receive()
         pass
         
+
+    def close(self):
+        self.client.close()
+        self.connected= self.client.isOpen()
         
+    
+    
     def send(self, data):
         self.client.put_dict(data)
 
@@ -773,7 +787,12 @@ class WebotsWrestler(ControlEnvironment):
         #config['info'] = self.info
         
         return config
+
+
     
+    
+    def reset(self, full=True, seed=None): 
+        pass
     
     class Factory:
         def create(self, seed=None): return WebotsWrestler(seed=seed)
