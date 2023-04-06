@@ -299,10 +299,8 @@ class RewardError(BaseErrorCollector):
         pre = hpct.get_preprocessor()
         data.append(pre[0].get_reward())
         self.add_error_data( data )
-        if self.check_limit():
-#         if self.error_response.get_error_response() > self.limit:
-#             self.limit_exceeded=True
-            return
+#         if self.check_limit():
+#             return
     class Factory:
         def create(self): return RewardError()
 
