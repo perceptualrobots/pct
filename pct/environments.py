@@ -12,7 +12,7 @@ from abc import abstractmethod
 import pct.putils as vid
 from .functions import BaseFunction
 from .putils import FunctionsList
-from .network import Client
+from .network import ConnectionManager
 from .webots import WebotsHelper
 
 # %% ../nbs/05_environments.ipynb 4
@@ -85,6 +85,10 @@ class ControlEnvironment(BaseFunction):
     
     @abstractmethod
     def close(self):
+        pass
+
+    @abstractmethod
+    def set_render(self, render):
         pass
 
 
@@ -663,7 +667,7 @@ class DummyModel(BaseFunction):
 class WebotsWrestler(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
-    def __init__(self, render=False, value=0, name="Wrestler", seed=None, links=None, new_name=True, 
+    def __init__(self, render=False, value=0, name="WebotsWrestler", seed=None, links=None, new_name=True, 
                  early_termination=True, namespace=None):    
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.early_termination=early_termination
@@ -679,26 +683,26 @@ class WebotsWrestler(ControlEnvironment):
         
         
     def connect(self):
-        self.client = Client()
-        self.connected= self.client.isOpen()
+        ConnectionManager.getInstance().connect()
+        self.connected= ConnectionManager.getInstance().isOpen()
         init = {'msg': 'init', 'mode': self.mode}
-        self.send(init)
-        self.obs = self.receive()
+        ConnectionManager.getInstance().send(init)
+        self.obs = ConnectionManager.getInstance().receive()
         pass
         
 
     def close(self):
-        self.client.close()
-        self.connected= self.client.isOpen()
+        ConnectionManager.getInstance().close()
+        self.connected= ConnectionManager.getInstance().isOpen()
         
     
     
     def send(self, data):
-        self.client.put_dict(data)
+        ConnectionManager.getInstance().send(data)
 
     def receive(self):
-        recv = self.client.get_dict()
-        print(recv)
+        recv = ConnectionManager.getInstance().receive()
+        #print(recv)
         return recv
         
 #     def get_sensor_values(self, msg):
@@ -792,6 +796,9 @@ class WebotsWrestler(ControlEnvironment):
     
     
     def reset(self, full=True, seed=None): 
+        pass
+
+    def set_render(self, render):
         pass
     
     class Factory:
