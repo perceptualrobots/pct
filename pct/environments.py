@@ -738,10 +738,9 @@ class WebotsWrestler(ControlEnvironment):
 
     def apply_actions_get_obs(self):
         send={'msg': 'values', 'actions': self.actions}
-        # print(send)
         self.send(send)
         recv = self.receive()
-        print(recv)
+        
         return recv
 
         
