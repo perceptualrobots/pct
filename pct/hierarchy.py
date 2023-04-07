@@ -187,6 +187,8 @@ class PCTHierarchy():
                     if verbose:
                         print(f'Current score={self.error_collector.error()}')                    
                     return False
+                elif ex.__str__().startswith('1001'):
+                    return False
                 raise ex
 
             if verbose:

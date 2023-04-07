@@ -685,6 +685,7 @@ class WebotsWrestler(ControlEnvironment):
     def connect(self):
         ConnectionManager.getInstance().connect()
         self.connected= ConnectionManager.getInstance().isOpen()
+        #print(f'Connection opened {self.connected}')
         init = {'msg': 'init', 'mode': self.mode}
         ConnectionManager.getInstance().send(init)
         self.obs = ConnectionManager.getInstance().receive()
@@ -694,6 +695,7 @@ class WebotsWrestler(ControlEnvironment):
     def close(self):
         ConnectionManager.getInstance().close()
         self.connected= ConnectionManager.getInstance().isOpen()
+        #print(f'Connection closed {self.connected}')
         
     
     
@@ -724,8 +726,7 @@ class WebotsWrestler(ControlEnvironment):
     def early_terminate(self):
         if self.early_termination:
             if self.done:
-                self.reward = 0                
-                raise Exception(f'1000: Env: {self.env_name} has finished.')
+                raise Exception(f'1001: Env: {self.env_name} has finished.')
                 
     def process_inputs(self):
         #print('process_inputs')
@@ -737,9 +738,10 @@ class WebotsWrestler(ControlEnvironment):
 
     def apply_actions_get_obs(self):
         send={'msg': 'values', 'actions': self.actions}
+        # print(send)
         self.send(send)
         recv = self.receive()
-        
+        print(recv)
         return recv
 
         
@@ -796,7 +798,8 @@ class WebotsWrestler(ControlEnvironment):
     
     
     def reset(self, full=True, seed=None): 
-        pass
+        self.reward = 0
+        self.done = False
 
     def set_render(self, render):
         pass
