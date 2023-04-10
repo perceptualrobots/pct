@@ -29,12 +29,14 @@ class Server():
 
     def get_dict(self):
         data = self.connection.recv(self.buf_size)
+        #print('recv',data)
         dict = eval(data.decode())
         return dict
     
     def put_dict(self, dict):
         json_object = json.dumps(dict, indent = 4) 
         d = str.encode(json_object)
+        #print('send',d)       
         self.connection.sendall(d)
 
     def isOpen(self):
@@ -58,10 +60,12 @@ class Client():
     
     def get(self):
         data = self.connection.recv(self.buf_size)
+        #print('recv',data)
         return data.decode()
     
     def put(self, data):
         d = str.encode(data)
+        #print('send',data)       
         self.connection.sendall(d)
 
     def get_dict(self):
