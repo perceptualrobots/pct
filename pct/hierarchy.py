@@ -805,3 +805,40 @@ class PCTHierarchy():
             hpct.append(level_list)
                 
         return hpct
+    
+    
+    @classmethod
+    def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
+        error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
+        seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
+        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False):
+        "Run an individual from a provided configuration."
+        #if hpct_verbose:
+        #print(config)
+        ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
+        env = ind.get_preprocessor()[0]
+        env.set_render(render)
+        env.early_termination = early_termination
+        env.reset(full=False, seed=seed)
+        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
+
+        ind.set_error_collector(error_collector)
+        if hpct_verbose:
+            ind.summary()
+            print(ind.formatted_config())
+        ind.run(steps, hpct_verbose)
+        env.close()
+        
+        # draw network file
+        move = {} if move == None else move
+        if draw_file is not None:
+            ind.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
+            print(draw_file)
+        
+        if history:
+            for plot in plots:
+                fig = ind.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
+
+        score=ind.get_error_collector().error()
+        
+        return ind, score    

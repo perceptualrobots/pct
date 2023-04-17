@@ -308,6 +308,8 @@ class PCTNode():
         
         
     def graph(self, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
+        import networkx as nx
+
         graph = nx.DiGraph()
         
         self.set_graph_data(graph, layer=layer, layout=layout)
@@ -494,7 +496,8 @@ class PCTNode():
         
     def draw(self, with_labels=True,  font_size=12, font_weight='bold', node_color='red',  
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(5,5), move={}):
-        
+        import networkx as nx        
+        import matplotlib.pyplot as plt
         graph = self.graph()
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)        
         plt.figure(figsize=figsize)

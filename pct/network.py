@@ -29,14 +29,14 @@ class Server():
 
     def get_dict(self):
         data = self.connection.recv(self.buf_size)
-        #print('recv',data)
         dict = eval(data.decode())
+        #print('recv',dict)
         return dict
     
     def put_dict(self, dict):
         json_object = json.dumps(dict, indent = 4) 
+        #print('send',json_object)       
         d = str.encode(json_object)
-        #print('send',d)       
         self.connection.sendall(d)
 
     def isOpen(self):
