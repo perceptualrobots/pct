@@ -101,15 +101,18 @@ class ConnectionManager:
              ConnectionManager()
         return ConnectionManager.__instance
     
-    def __init__(self):
+    def __init__(self, host='localhost', port=6666 , buf_size=1024):
         """ Virtually private constructor. """
         if ConnectionManager.__instance != None:
              raise Exception("This class is a singleton!")
         else:
+             self.host='localhost'
+             self.port=6666
+             self.buf_size=1024
              ConnectionManager.__instance = self
 
-    def connect(self, host='localhost', port=6666 , buf_size=1024):
-         self.client = Client(host=host, port=port, buf_size=buf_size)
+    def connect(self):
+         self.client = Client(host=self.host, port=self.port, buf_size=self.buf_size)
 
     def isOpen(self):
         return self.client.isOpen()
@@ -123,3 +126,6 @@ class ConnectionManager:
     def receive(self):
         recv = self.client.get_dict()
         return recv            
+    
+    def set_port(self, port):
+        self.port=port
