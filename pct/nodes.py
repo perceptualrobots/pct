@@ -541,35 +541,70 @@ class PCTNode():
     def load(cls, file):      
         with open(file) as f:
             config = json.load(f)
-        return cls.from_config(config)
-    
+        return cls.from_config(config, reference=True, comparator=True, perception=True, output=True)
+
     @classmethod
-    def from_config(cls, config, namespace=None, history=False):
-            
-        node = PCTNode(default=False, name=config['name'], namespace=namespace, history=history)
-        namespace= node.namespace 
-        node.referenceCollection = []        
-        collection = node.referenceCollection
-        coll_dict = config['refcoll']
-        PCTNode.collection_from_config(collection, coll_dict, namespace)
+    def from_config(cls, config=None, namespace=None, node=None, reference=False, comparator=False, perception=False, output=False, history=False):
+        "Create a node from JSON dictionary configuration."
+        if node is None:
+            node = PCTNode(default=False, name=config['name'], namespace=namespace, history=history)
 
-        node.perceptionCollection = []
-        collection = node.perceptionCollection
-        coll_dict = config['percoll']
-        PCTNode.collection_from_config(collection, coll_dict, namespace)
-        
-        node.comparatorCollection = []
-        collection = node.comparatorCollection
-        coll_dict = config['comcoll']
-        PCTNode.collection_from_config(collection, coll_dict, namespace)
+        namespace= node.namespace
 
-        node.outputCollection = []
-        collection = node.outputCollection
-        coll_dict = config['outcoll']
-        PCTNode.collection_from_config(collection, coll_dict, namespace)
-        
+        if reference:
+            node.referenceCollection = []
+            collection = node.referenceCollection
+            coll_dict = config['refcoll']
+            PCTNode.collection_from_config(collection, coll_dict, namespace)
+
+        if perception:
+            node.perceptionCollection = []
+            collection = node.perceptionCollection
+            coll_dict = config['percoll']
+            PCTNode.collection_from_config(collection, coll_dict, namespace)
+
+        if comparator:
+            node.comparatorCollection = []
+            collection = node.comparatorCollection
+            coll_dict = config['comcoll']
+            PCTNode.collection_from_config(collection, coll_dict, namespace)
+
+        if output:
+            node.outputCollection = []
+            collection = node.outputCollection
+            coll_dict = config['outcoll']
+            PCTNode.collection_from_config(collection, coll_dict, namespace)
+
         node.links_built = True
         return node
+    
+#     @classmethod
+#     def from_config(cls, config, namespace=None, history=False):
+            
+#         node = PCTNode(default=False, name=config['name'], namespace=namespace, history=history)
+#         namespace= node.namespace 
+#         node.referenceCollection = []        
+#         collection = node.referenceCollection
+#         coll_dict = config['refcoll']
+#         PCTNode.collection_from_config(collection, coll_dict, namespace)
+
+#         node.perceptionCollection = []
+#         collection = node.perceptionCollection
+#         coll_dict = config['percoll']
+#         PCTNode.collection_from_config(collection, coll_dict, namespace)
+        
+#         node.comparatorCollection = []
+#         collection = node.comparatorCollection
+#         coll_dict = config['comcoll']
+#         PCTNode.collection_from_config(collection, coll_dict, namespace)
+
+#         node.outputCollection = []
+#         collection = node.outputCollection
+#         coll_dict = config['outcoll']
+#         PCTNode.collection_from_config(collection, coll_dict, namespace)
+        
+#         node.links_built = True
+#         return node
     
     @classmethod
     def collection_from_config(node, collection, coll_dict, namespace):
@@ -579,7 +614,8 @@ class PCTNode():
             
             fndict = coll_dict[fndict_label]
             #print(fndict)
-            fnname = fndict.pop('type')
+            nname = fndict.pop('type')
+            fnname = nname.replace("EA", "")
             #print(fndict)
             #func = eval(fnname).from_config(fndict, namespace)
             func = FunctionFactory.createFunctionFromConfig(fnname, namespace, fndict)

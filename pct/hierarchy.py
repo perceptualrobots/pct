@@ -11,6 +11,8 @@ from .nodes import PCTNode
 from .functions import WeightedSum
 from .putils import UniqueNamer, FunctionsList, list_of_ones
 from .functions import BaseFunction
+from .environments import EnvironmentFactory
+from .errors import BaseErrorCollector
 
 # %% ../nbs/04_hierarchy.ipynb 6
 class FunctionsData():
@@ -694,7 +696,7 @@ class PCTHierarchy():
         for level_key in config['levels'].keys():
             cols = []
             for nodes_key in config['levels'][level_key]['nodes'].keys():
-                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace)
+                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, reference=True, comparator=True, perception=True, output=True)
                 cols.append(node)
             hpct.hierarchy.append(cols)
         
@@ -806,6 +808,50 @@ class PCTHierarchy():
                 
         return hpct
     
+    @classmethod
+    def from_config_with_environment(cls, config, seed=None, history=False, suffixes=False):
+        "Create an individual from a provided configuration."
+        hpct = PCTHierarchy(history=history)
+        namespace = hpct.namespace
+        #print(namespace)
+        preCollection = []        
+        coll_dict = config['pre']
+        env_dict = coll_dict.pop('pre0')
+
+        env = EnvironmentFactory.createEnvironmentWithNamespace(env_dict['type'], namespace=namespace, seed=seed)
+        for key, link in env_dict['links'].items():
+            env.add_link(link)
+        preCollection.append(env)
+        PCTNode.collection_from_config(preCollection, coll_dict, namespace=namespace)
+        
+        hpct.preCollection=preCollection
+                
+        hpct.hierarchy=[]
+
+        # do in order of perceptions from bottom 
+        # then from top references, comparator and output
+
+        for level_key in config['levels']:
+            cols = []
+            for nodes_key in config['levels'][level_key]['nodes']:
+                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, perception=True, history=history)
+                cols.append(node)
+            hpct.hierarchy.append(cols)
+
+        for level_key, level_value in dict(reversed(list(config['levels'].items()))).items():
+            cols = []
+            for nodes_key, nodes_value in dict(reversed(list(level_value['nodes'].items()))).items():
+                node = hpct.get_node(level_value['level'], nodes_value['col'])
+                PCTNode.from_config(config=nodes_value['node'], namespace=namespace, reference=True, comparator=True,  output=True, node=node, history=history)
+                
+        postCollection = []        
+        coll_dict = config['post']
+        PCTNode.collection_from_config(postCollection, coll_dict, namespace=namespace)
+        hpct.postCollection=postCollection
+
+        if suffixes:
+            hpct.set_suffixes()
+        return hpct
     
     @classmethod
     def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
@@ -813,16 +859,14 @@ class PCTHierarchy():
         seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False):
         "Run an individual from a provided configuration."
-        #if hpct_verbose:
-        #print(config)
-        ind = cls.from_config(config, seed=seed, history=history, suffixes=suffixes)
+        ind = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes)
         env = ind.get_preprocessor()[0]
         env.set_render(render)
         env.early_termination = early_termination
         env.reset(full=False, seed=seed)
-        error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
-
-        ind.set_error_collector(error_collector)
+        if error_collector_type is not None:
+            error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
+            ind.set_error_collector(error_collector)
         if hpct_verbose:
             ind.summary()
             print(ind.formatted_config())
