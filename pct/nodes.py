@@ -614,8 +614,9 @@ class PCTNode():
             
             fndict = coll_dict[fndict_label]
             #print(fndict)
-            nname = fndict.pop('type')
-            fnname = nname.replace("EA", "")
+            fnname = fndict.pop('type')
+            if fnname.startswith("EA"):
+                fnname = fnname.replace("EA", "")
             #print(fndict)
             #func = eval(fnname).from_config(fndict, namespace)
             func = FunctionFactory.createFunctionFromConfig(fnname, namespace, fndict)
