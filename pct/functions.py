@@ -319,7 +319,11 @@ class BaseFunction(ABC):
                 raise Exception(f'Incorrect number of links {len(self.links)} for function {self.name}. {num} expected.')   
 
             self.checklinks = False
-        
+
+    def get_num_links(self):
+        self.num_links =  len(self.links)
+        return self.num_links
+    
     def set_decimal_places(self, dp):
         self.decimal_places = dp
         

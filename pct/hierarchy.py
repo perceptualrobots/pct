@@ -13,6 +13,7 @@ from .putils import UniqueNamer, FunctionsList, list_of_ones
 from .functions import BaseFunction
 from .environments import EnvironmentFactory
 from .errors import BaseErrorCollector
+from .putils import floatListsToString
 
 # %% ../nbs/04_hierarchy.ipynb 6
 class FunctionsData():
@@ -175,7 +176,11 @@ class PCTHierarchy():
         
     def get_postprocessor(self):
         return self.postCollection
- 
+
+    
+    def get_environment(self):
+        return self.get_preprocessor()[0]
+    
     def run(self, steps=1, verbose=False):
         for i in range(steps):
             self.step = i
@@ -247,6 +252,9 @@ class PCTHierarchy():
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
         return pos
  
+    def get_top_level(self):
+        levels = self.get_levels()
+        return self.hierarchy[levels-1]
             
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
@@ -852,6 +860,37 @@ class PCTHierarchy():
         if suffixes:
             hpct.set_suffixes()
         return hpct
+    
+    def formatted_config(self, places=3):
+        str_list=[]
+        hpct = self.get_parameters_list()
+        levels = len(hpct)
+        level = 0
+        str_list.append(f'grid: {self.get_grid()}\n')
+        for lvl in hpct:
+            #print(lvl)
+            if level==0:
+                str_list.append(f'env: {lvl[0]} act: ')
+                str_list.append(floatListsToString(lvl[1],places))                
+                str_list.append('\n')                #str_list.append(f'env: {lvl[0]} act: {lvl[1]:0.3f}\n')
+            else:
+                str_list.append(f'level{level-1} \n')
+                column = 0
+                for col in lvl:
+                    str_list.append(f'col: {column} ')
+                    str_list.append(f'ref: ')
+                    str_list.append(floatListsToString(col[0], places))
+                    str_list.append(f' per: ')
+                    str_list.append(floatListsToString(col[1], places))
+                    str_list.append(f' out: ')
+                    str_list.append(floatListsToString(col[2], places))
+                    if level < levels-1:
+                        str_list.append('\n')
+                    column = column + 1
+            level=level+1
+            
+        return ''.join(str_list)
+    
     
     @classmethod
     def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 

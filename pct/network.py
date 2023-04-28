@@ -34,8 +34,8 @@ class Server():
         return dict
     
     def put_dict(self, dict):
-        json_object = json.dumps(dict, indent = 4) 
-        #print('send',json_object)       
+        #print('send',dict)       
+        json_object = json.dumps(dict) 
         d = str.encode(json_object)
         self.connection.sendall(d)
 
@@ -71,10 +71,12 @@ class Client():
     def get_dict(self):
         data = self.connection.recv(self.buf_size)
         dict = eval(data.decode())
+        #print("get ", dict)
         return dict
     
     def put_dict(self, dict):
-        json_object = json.dumps(dict, indent = 4) 
+        #print("send ", dict)
+        json_object = json.dumps(dict) 
         d = str.encode(json_object)
         self.connection.sendall(d)
 

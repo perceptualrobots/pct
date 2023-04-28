@@ -236,7 +236,13 @@ class PCTNode():
         
     def get_output_function(self):
         return self.outputCollection[-1]
-    
+
+    def get_reference_function(self):
+        return self.referenceCollection[-1]
+
+    def set_reference(self, value):
+        self.referenceCollection[-1].set_value(value)
+
     
     def set_function_name(self, collection, name, position=-1):
         if collection == "reference":
