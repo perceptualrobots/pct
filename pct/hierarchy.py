@@ -5,7 +5,8 @@ __all__ = ['FunctionsData', 'PCTHierarchy']
 
 # %% ../nbs/04_hierarchy.ipynb 4
 #import numpy as np
-import sys, uuid, time
+import sys
+import uuid
 from .nodes import PCTNode
 from .functions import WeightedSum
 from .putils import UniqueNamer, FunctionsList, list_of_ones
@@ -105,10 +106,6 @@ class PCTHierarchy():
         for ctr in range(len(self.preCollection)):
             func = self.preCollection[ctr]
             func(verbose)
-            
-            if ctr==1:
-                tic = time.perf_counter()
-
             if self.prepost_data != None:                
                 self.prepost_data.add_data(func)
                 if ctr == 0 and hasattr(func, 'reward'):
@@ -141,10 +138,6 @@ class PCTHierarchy():
             func(verbose)          
             if self.prepost_data != None:
                 self.prepost_data.add_data(func)
-
-        toc = time.perf_counter()
-        elapsed = toc-tic
-        self.timesum+=elapsed
         
         output = self.get_output_function().get_value()
         
@@ -189,17 +182,13 @@ class PCTHierarchy():
         return self.get_preprocessor()[0]
     
     def run(self, steps=1, verbose=False):
-        self.timesum=0
-
         for i in range(steps):
+            self.step = i
             try:
                 if verbose:
                     print(f'[{i}]', end=' ')
                 out = self(verbose)
-                self.ctr = i+1
             except Exception as ex:
-                loop_time=self.timesum/self.ctr
-                print(f'hpct loop time={loop_time}')
                 if ex.__str__().startswith('1000'):
                     self.error_collector.override_value()
                     if verbose:
@@ -216,10 +205,6 @@ class PCTHierarchy():
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
                     return out
-
-        loop_time=self.timesum/self.ctr
-        print(f'hpct loop time={loop_time}')
-
                     
         return out
     
@@ -832,7 +817,7 @@ class PCTHierarchy():
         return hpct
     
     @classmethod
-    def from_config_with_environment(cls, config, seed=None, history=False, suffixes=False):
+    def from_config_with_environment(cls, config, seed=None, history=False, suffixes=False, environment_properties=None):
         "Create an individual from a provided configuration."
         hpct = PCTHierarchy(history=history)
         namespace = hpct.namespace
@@ -842,6 +827,7 @@ class PCTHierarchy():
         env_dict = coll_dict.pop('pre0')
 
         env = EnvironmentFactory.createEnvironmentWithNamespace(env_dict['type'], namespace=namespace, seed=seed)
+        env.set_properties(environment_properties)
         for key, link in env_dict['links'].items():
             env.add_link(link)
         preCollection.append(env)
@@ -911,9 +897,9 @@ class PCTHierarchy():
     def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
-        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False):
+        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, environment_properties=None):
         "Run an individual from a provided configuration."
-        ind = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes)
+        ind = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes, environment_properties=environment_properties)
         env = ind.get_preprocessor()[0]
         env.set_render(render)
         env.early_termination = early_termination

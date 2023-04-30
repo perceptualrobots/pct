@@ -60,6 +60,16 @@ class ControlEnvironment(BaseFunction):
     
     def get_reward(self):
         return self.reward
+    
+    def set_properties(self, props):
+        "Set the properties on a paramter."
+        if props is None:
+            raise Exception(f'No environment properties provided. Should be empty rather tha None.')
+
+        if props != None:
+            for key, value in props.items():
+                setattr(self, key, value)
+        
 
     @abstractmethod
     def reset(self, full=True, seed=None): 
@@ -677,8 +687,8 @@ class WebotsWrestler(ControlEnvironment):
         self.reward = 0
         self.done = False
         #self.info = {}
-        self.mode=1
-        self.whelper = WebotsHelper(name=self.env_name, mode=self.mode)
+        self.rmode=1
+        self.whelper = WebotsHelper(name=self.env_name, mode=self.rmode)
         self.num_links = self.whelper.get_num_links()
         
         
@@ -686,7 +696,8 @@ class WebotsWrestler(ControlEnvironment):
         ConnectionManager.getInstance().connect()
         self.connected= ConnectionManager.getInstance().isOpen()
         #print(f'Connection opened {self.connected}')
-        init = {'msg': 'init', 'mode': self.mode}
+        init = {'msg': 'init', 'rmode': self.rmode}
+        init.update(self.environment_properties)
         ConnectionManager.getInstance().send(init)
         self.obs = ConnectionManager.getInstance().receive()
         pass
@@ -695,9 +706,6 @@ class WebotsWrestler(ControlEnvironment):
     def close(self):
         ConnectionManager.getInstance().close()
         self.connected= ConnectionManager.getInstance().isOpen()
-        #print(f'Connection closed {self.connected}')
-        
-    
     
     def send(self, data):
         ConnectionManager.getInstance().send(data)
@@ -706,20 +714,12 @@ class WebotsWrestler(ControlEnvironment):
         recv = ConnectionManager.getInstance().receive()
         #print(recv)
         return recv
-        
-#     def get_sensor_values(self, msg):
-#         return self.whelper.get_sensor_values(msg)
-        
+                
     def __call__(self, verbose=False):     
         if not self.connected:
             self.connect()
             
         super().__call__(verbose)
-
-#         if self.done:
-#             send = {'msg': 'close'}
-#             self.send(send)
-#             self.client.close()          
                 
         return self.value
     
@@ -793,6 +793,8 @@ class WebotsWrestler(ControlEnvironment):
         
         return config
 
+    def set_properties(self, props):
+        self.environment_properties = props  
 
     
     
