@@ -5,8 +5,7 @@ __all__ = ['FunctionsData', 'PCTHierarchy']
 
 # %% ../nbs/04_hierarchy.ipynb 4
 #import numpy as np
-import sys
-import uuid
+import sys, uuid, time
 from .nodes import PCTNode
 from .functions import WeightedSum
 from .putils import UniqueNamer, FunctionsList, list_of_ones
@@ -106,6 +105,10 @@ class PCTHierarchy():
         for ctr in range(len(self.preCollection)):
             func = self.preCollection[ctr]
             func(verbose)
+            
+            if ctr==1:
+                tic = time.perf_counter()
+
             if self.prepost_data != None:                
                 self.prepost_data.add_data(func)
                 if ctr == 0 and hasattr(func, 'reward'):
@@ -138,6 +141,10 @@ class PCTHierarchy():
             func(verbose)          
             if self.prepost_data != None:
                 self.prepost_data.add_data(func)
+
+        toc = time.perf_counter()
+        elapsed = toc-tic
+        self.timesum+=elapsed
         
         output = self.get_output_function().get_value()
         
@@ -182,13 +189,17 @@ class PCTHierarchy():
         return self.get_preprocessor()[0]
     
     def run(self, steps=1, verbose=False):
+        self.timesum=0
+
         for i in range(steps):
-            self.step = i
             try:
                 if verbose:
                     print(f'[{i}]', end=' ')
                 out = self(verbose)
+                self.ctr = i+1
             except Exception as ex:
+                loop_time=self.timesum/self.ctr
+                print(f'hpct loop time={loop_time}')
                 if ex.__str__().startswith('1000'):
                     self.error_collector.override_value()
                     if verbose:
@@ -205,6 +216,10 @@ class PCTHierarchy():
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
                     return out
+
+        loop_time=self.timesum/self.ctr
+        print(f'hpct loop time={loop_time}')
+
                     
         return out
     
