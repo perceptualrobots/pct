@@ -64,7 +64,7 @@ class ControlEnvironment(BaseFunction):
     def set_properties(self, props):
         "Set the properties on a paramter."
         if props is None:
-            raise Exception(f'No environment properties provided. Should be empty rather tha None.')
+            raise Exception(f'No environment properties provided. Should be empty rather than None.')
 
         if props != None:
             for key, value in props.items():
