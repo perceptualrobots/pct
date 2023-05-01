@@ -12,7 +12,7 @@ from abc import abstractmethod
 import pct.putils as vid
 from .functions import BaseFunction
 from .putils import FunctionsList
-from .network import ConnectionManager
+from .network import ClientConnectionManager
 from .webots import WebotsHelper
 
 # %% ../nbs/05_environments.ipynb 4
@@ -681,43 +681,44 @@ class WebotsWrestler(ControlEnvironment):
                  early_termination=True, namespace=None):    
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.early_termination=early_termination
-        self.connected=False
+        #self.connected=False
         self.performance=0
         self.env_name='WebotsWrestler'
         self.reward = 0
         self.done = False
-        #self.info = {}
         self.rmode=1
         self.whelper = WebotsHelper(name=self.env_name, mode=self.rmode)
         self.num_links = self.whelper.get_num_links()
+        self.initialised=False
         
         
-    def connect(self):
-        ConnectionManager.getInstance().connect()
-        self.connected= ConnectionManager.getInstance().isOpen()
-        #print(f'Connection opened {self.connected}')
+    def initialise(self):
+#         ConnectionManager.getInstance().connect()
+#         self.connected= ConnectionManager.getInstance().isOpen()
         init = {'msg': 'init', 'rmode': self.rmode}
         init.update(self.environment_properties)
-        ConnectionManager.getInstance().send(init)
-        self.obs = ConnectionManager.getInstance().receive()
-        pass
+        ClientConnectionManager.getInstance().send(init)
+        self.obs = ClientConnectionManager.getInstance().receive()
+        self.initialised=True
+        
         
 
     def close(self):
-        ConnectionManager.getInstance().close()
-        self.connected= ConnectionManager.getInstance().isOpen()
+        pass
+#         ConnectionManager.getInstance().close()
+#         self.connected= ConnectionManager.getInstance().isOpen()
     
     def send(self, data):
-        ConnectionManager.getInstance().send(data)
+        ClientConnectionManager.getInstance().send(data)
 
     def receive(self):
-        recv = ConnectionManager.getInstance().receive()
+        recv = ClientConnectionManager.getInstance().receive()
         #print(recv)
         return recv
                 
     def __call__(self, verbose=False):     
-        if not self.connected:
-            self.connect()
+#         if not self.connected:
+#             self.connect()
             
         super().__call__(verbose)
                 
@@ -737,6 +738,9 @@ class WebotsWrestler(ControlEnvironment):
         
 
     def apply_actions_get_obs(self):
+        if not self.initialised:
+            self.initialise()
+            
         send={'msg': 'values', 'actions': self.actions}
         self.send(send)
         recv = self.receive()
@@ -801,6 +805,7 @@ class WebotsWrestler(ControlEnvironment):
     def reset(self, full=True, seed=None): 
         self.reward = 0
         self.done = False
+        self.initialised=False
 
     def set_render(self, render):
         pass
