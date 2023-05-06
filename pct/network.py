@@ -73,7 +73,7 @@ class Client():
     
     def __init__(self, host='localhost', port=6666 , buf_size=1024):
         self.buf_size = buf_size
-        self.connection = socket.create_connection((host,port))
+        self.connection = socket.create_connection((host,port), timeout=120)
         self.open=True
     
     def get(self):

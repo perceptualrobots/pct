@@ -122,7 +122,7 @@ class BaseErrorCollector(ABC):
     'limit - the limit of valid error response'
     'error_response - the type of error response'
     
-    def __init__(self, limit,error_response, min):
+    def __init__(self, limit,error_response, min=True):
         self.limit=limit
         self.limit_exceeded=False
         self.error_response=error_response
@@ -162,7 +162,7 @@ class BaseErrorCollector(ABC):
         return self.limit_exceeded        
     
     @classmethod
-    def collector(cls, error_response_type, error_collector_type, limit, min, properties=None, flip_error_response=False):
+    def collector(cls, error_response_type, error_collector_type, limit, min=True, properties=None, flip_error_response=False):
         error_response = ErrorResponseFactory.createErrorResponse(error_response_type, flip_error_response=flip_error_response)   
         error_collector = ErrorCollectorFactory.createErrorCollector(error_collector_type)   
         error_collector.set_limit(limit)

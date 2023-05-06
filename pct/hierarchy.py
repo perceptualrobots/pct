@@ -259,9 +259,11 @@ class PCTHierarchy():
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, 
-             node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False):
+             node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False):
         import networkx as nx
         import matplotlib.pyplot as plt
+        if not interactive_mode:
+            plt.switch_backend('agg')
         self.graphv = self.graph(layout=layout, funcdata=funcdata)
         if node_color==None:
             node_color = self.get_colors(self.graphv, color_mapping)
