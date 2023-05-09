@@ -858,6 +858,9 @@ class Bridge(ControlEnvironment):
     def apply_actions_get_obs(self):
         return None
 
+    def set_value(self, value):
+        for i in range(len(self.value)):
+            self.value[i]= value
         
     def parse_obs(self):
         pass
