@@ -1028,7 +1028,7 @@ class WeightedSum(BaseFunction):
 # %% ../nbs/02_functions.ipynb 21
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, weights=[0], smooth_factor=0, value=0, name="smooth_weighted_sum", links=None, 
+    def __init__(self, weights=[0], smooth_factor=0.0, value=0, name="smooth_weighted_sum", links=None, 
                  new_name=True, usenumpy=False, namespace=None, **cargs):
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         if usenumpy:

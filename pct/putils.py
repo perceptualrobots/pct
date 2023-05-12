@@ -269,13 +269,12 @@ def round_lists(alist, formatted, places):
         return round(alist,places)
     
     if isinstance(alist[0], float) or isinstance(alist[0], int):
-        # str_list = ['[']
-        # str_list.append([f'{num:0.3f}' for num in alist])
-        # str_list.append(']')
         return [round(num,places) for num in alist]
     else:
         for item in alist:    
-            formatted.append(round_lists(item, formatted, places))
+            rtd = round_lists(item, formatted, places)
+            if rtd is not None:
+                formatted.append(rtd)
 
 # %% ../nbs/01_putils.ipynb 22
 def floatListsToString(alist, places):
