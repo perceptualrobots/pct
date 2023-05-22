@@ -92,6 +92,21 @@ class PCTNode():
             
         return self.output
     
+    def get_summary(self):
+        
+        for referenceFunction in self.referenceCollection:
+            r= referenceFunction.output_string()               
+
+        for perceptionFunction in self.perceptionCollection:
+            p = perceptionFunction.output_string()
+                    
+        for comparatorFunction in self.comparatorCollection:
+            c = comparatorFunction.output_string()
+
+        for outputFunction in self.outputCollection:
+            o = outputFunction.output_string()
+        
+        return " ".join((r, p, c, o))
     
     def set_name(self, name):
         self.name=name

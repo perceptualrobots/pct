@@ -608,6 +608,38 @@ class PCTHierarchy():
         for _ in range(num_nodes):
             del self.hierarchy[level][-1]
 
+            
+            
+    def get_summary(self):
+        str = "**************************\nPRE: "
+        
+        for func in self.preCollection:
+            str += func.output_string() + " "
+        str += "\n"
+        
+        if self.order==None:
+            for level in range(len(self.hierarchy)):
+                for col in range(len(self.hierarchy[level])):
+                    str += f'L{level}C{col} '
+                    node  = self.hierarchy[level][col]
+                    str += node.get_summary() + " \n"
+        elif self.order=="Down":
+            for level in range(len(self.hierarchy)-1, -1, -1):
+                for col in range(len(self.hierarchy[level])-1, -1, -1):
+                    str += f'L{level}C{col} '
+                    node  = self.hierarchy[level][col]
+                    str += node.get_summary() + " \n"
+        
+        str += "POST: "
+
+        for func in self.postCollection:
+            str += func.output_string()+ " "
+        str += "\n"
+        
+        return str
+                                                 
+            
+            
     def summary(self, build=False, extra=False):
         print("**************************")
         print(self.name, type(self).__name__, self.get_grid(), self.namespace)                

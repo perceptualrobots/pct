@@ -16,6 +16,7 @@ from .putils import smooth
 from .putils import dot
 from .putils import UniqueNamer
 from .putils import FunctionsList
+from .putils import floatListsToString
 
 # %% ../nbs/02_functions.ipynb 5
 class HPCTFUNCTION(IntEnum):
@@ -302,8 +303,11 @@ class BaseFunction(ABC):
 
             
     def output_string(self):
-        if isinstance (self.value, list):
-            return [f'{round(item, self.decimal_places):.{self.decimal_places}f}' for item in self.value]
+        if isinstance (self.value, list):     
+            return f'{self.value}'
+            #print(self.value)
+            #return floatListsToString(self.value, self.decimal_places)
+            #return ' '.join([f'{round(item, self.decimal_places):.{self.decimal_places}f}' for item in self.value])
         
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
     
