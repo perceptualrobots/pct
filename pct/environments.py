@@ -2,7 +2,8 @@
 
 # %% auto 0
 __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'CartPoleV1', 'CartPoleDV1', 'Pendulum', 'Pendulum_1',
-           'MountainCarV0', 'MountainCarContinuousV0', 'VelocityModel', 'DummyModel', 'WebotsWrestler', 'Bridge']
+           'MountainCarV0', 'MountainCarContinuousV0', 'VelocityModel', 'DummyModel', 'WebotsWrestler',
+           'WebotsWrestlerSupervisor', 'Bridge']
 
 # %% ../nbs/05_environments.ipynb 3
 import gym
@@ -11,7 +12,7 @@ import numpy as np
 from abc import abstractmethod
 import pct.putils as vid
 from .functions import BaseFunction
-from .putils import FunctionsList
+from .putils import FunctionsList, SingletonObjects
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 
@@ -681,7 +682,6 @@ class WebotsWrestler(ControlEnvironment):
                  early_termination=True, namespace=None):    
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.early_termination=early_termination
-        #self.connected=False
         self.performance=0
         self.env_name='WebotsWrestler'
         self.reward = 0
@@ -693,20 +693,15 @@ class WebotsWrestler(ControlEnvironment):
         
         
     def initialise(self):
-#         ConnectionManager.getInstance().connect()
-#         self.connected= ConnectionManager.getInstance().isOpen()
         init = {'msg': 'init', 'rmode': self.rmode}
         init.update(self.environment_properties)
         ClientConnectionManager.getInstance().send(init)
         self.obs = ClientConnectionManager.getInstance().receive()
         self.initialised=True
-        
-        
 
     def close(self):
         pass
-#         ConnectionManager.getInstance().close()
-#         self.connected= ConnectionManager.getInstance().isOpen()
+
     
     def send(self, data):
         ClientConnectionManager.getInstance().send(data)
@@ -717,8 +712,6 @@ class WebotsWrestler(ControlEnvironment):
         return recv
                 
     def __call__(self, verbose=False):     
-#         if not self.connected:
-#             self.connect()
             
         super().__call__(verbose)
                 
@@ -817,6 +810,130 @@ class WebotsWrestler(ControlEnvironment):
 
 
 # %% ../nbs/05_environments.ipynb 16
+class WebotsWrestlerSupervisor(ControlEnvironment):
+    "A function that creates and runs a Webots Wrestler robot."
+    
+    def __init__(self, render=False, value=0, name="WebotsWrestlerSupervisor", seed=None, links=None, new_name=True, 
+                 early_termination=True, namespace=None):    
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
+        self.early_termination=early_termination
+#         from controllers.participant.participant import WrestlerSupervisor
+#         SingletonObjects.getInstance().get_object('wrestler').initSupervisor()
+        self.performance=0
+        self.env_name='WebotsWrestlerSupervisor'
+        self.reward = 0
+        self.done = False
+        self.rmode=1
+        self.whelper = WebotsHelper(name=self.env_name, mode=self.rmode)
+        self.num_links = self.whelper.get_num_links()
+        self.initialised=False
+        
+        
+    def initialise(self):
+        SingletonObjects.getInstance().get_object('wrestler').initialise(self.environment_properties)
+        self.initialised=True
+
+    def close(self):
+        pass
+                    
+    def __call__(self, verbose=False):     
+            
+        super().__call__(verbose)
+                
+        return self.value
+    
+    def early_terminate(self):
+        if self.early_termination:
+            if self.done:
+                raise Exception(f'1001: Env: {self.env_name} has finished.')
+                
+    def process_inputs(self):
+        #print('process_inputs')
+        self.input = [ self.links[i].get_value() for i in range(0, len(self.links))]    
+    
+    def process_actions(self):
+        self.actions = self.whelper.get_actions_dict(self.input)
+        
+
+    def apply_actions_get_obs(self):
+        if not self.initialised:
+            self.initialise()
+            
+        # do wrestler step here
+        obs = SingletonObjects.getInstance().get_object('wrestler').rstep(self.actions)
+        
+        return obs
+
+        
+    def parse_obs(self):
+        self.reward = self.obs['performance']
+        self.done=self.obs['done']
+        
+    def process_values(self):
+        self.value = self.whelper.get_sensor_values(self.obs['sensors'])
+        pass
+    
+    def summary(self, extra=False):
+        super().summary("", extra=extra)
+        
+    def get_graph_name(self):
+        return super().get_graph_name() 
+
+    def get_config(self, zero=1):
+        "Return the JSON  configuration of the function."
+        config = {"type": type(self).__name__,
+                    "name": self.name}
+        
+        if isinstance(self.value, np.ndarray):
+            config["value"] = [i  * zero for i in self.value.tolist()]
+        elif isinstance(self.value, list):
+            config["value"] = [i  * zero for i in self.value]
+        else:
+            config["value"] = self.value * zero 
+        
+        ctr=0
+        links={}
+        for link in self.links:
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
+            try:
+                links[ctr]=func.get_name()
+            except AttributeError:
+                print(f'WARN: there is no function called {link}, ensure it exists first.')            
+                links[ctr]=func
+                
+            ctr+=1
+        
+        config['links']=links
+
+        config['env_name'] = self.env_name
+        #config["values"] = self.value
+        config['performance'] = round(self.reward, self.decimal_places)
+        config['done'] = self.done
+        #config['info'] = self.info
+        
+        return config
+
+    def set_properties(self, props):
+        self.environment_properties = props  
+
+    
+    
+    def reset(self, full=True, seed=None): 
+        self.reward = 0
+        self.done = False
+        self.initialised=False
+
+
+    def set_render(self, render):
+        pass
+    
+    class Factory:
+        def create(self, seed=None): return WebotsWrestlerSupervisor(seed=seed)
+    class FactoryWithNamespace:
+        def create(self, namespace=None, seed=None): return WebotsWrestlerSupervisor(namespace=namespace, seed=seed)          
+        
+
+# %% ../nbs/05_environments.ipynb 17
 class Bridge(ControlEnvironment):
     "An environment function with sensors set by external system."
     
