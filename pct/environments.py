@@ -194,7 +194,11 @@ class OpenAIGym(ControlEnvironment):
             
         self.really_done = False
         self.done = False
-        return self.env.reset(seed=seed)
+        # return self.env.reset(seed=seed)
+        self.env.seed(seed)
+        return self.env.reset()
+
+        # return self.env.reset(seed)
 
 
     def summary(self, extra=False):
@@ -259,9 +263,9 @@ class OpenAIGym(ControlEnvironment):
             self.env =  vid.wrap_env(genv)
         else:
             self.env = genv
-        self.env.reset(seed=seed)
-        #self.env.seed(seed)
-        #self.env.reset()
+        # self.env.reset(seed=seed)
+        self.env.seed(seed)
+        self.env.reset()
             
 #     def set_seed(self, seed):
 #         self.env.reset(seed=seed)
