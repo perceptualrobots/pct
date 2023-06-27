@@ -592,7 +592,10 @@ class Variable(BaseFunction):
         pass
 
     def get_graph_name(self):
-        return super().get_graph_name() 
+        return f'{self.name}\n{self.value:4.2f}' 
+    
+#     def get_graph_name(self):
+#         return super().get_graph_name() 
     
     class Factory:
         def create(self): return Variable()
