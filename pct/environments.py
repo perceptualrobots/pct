@@ -544,7 +544,7 @@ class MountainCarContinuousV0(OpenAIGym):
     def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="MountainCarContinuousV0", 
                  seed=None, links=None, new_name=True, early_termination=True, namespace=None, **cargs):        
         super().__init__('MountainCarContinuous-v0', render=render, render_mode=render_mode,  video_wrap=video_wrap, 
-                         value=value, name=name, seed=seed, links=links, new_name=new_name, 
+                         value=value, name=name, seed=seed, links=links, new_name=new_name, namespace=namespace,
                          early_termination=early_termination, **cargs)
         
         self.min_action = -1.0
