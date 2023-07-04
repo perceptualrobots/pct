@@ -359,8 +359,10 @@ class Pendulum(OpenAIGym):
     # 0 cos(theta) - +1 is up, -1 is down, 0 is left and right
     # 1 sin(theta) - +1 is left, -1 is right, 0 is up and down
     # 2 theta dot - +dot is anti-clockwise, -dot is clockwise
+    # New parameters:
     # 3 theta +pi/-pi (added here) 0 is pointing upwards, +pi is anti-clockwise, -pi is clockwise
     # 4 theta +x+pi/x-pi (added here) 0 is pointing downwards, + is anti-clockwise, - is clockwise
+    # from obs[1]
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
     def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="Pendulum", 
