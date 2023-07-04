@@ -328,7 +328,7 @@ class CartPoleDV1(OpenAIGym):
     def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="CartPoleD-v1", 
                  seed=None, links=None, new_name=True, namespace=None, **cargs):
         super().__init__('CartPoleD-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
-                         links=links, new_name=new_name, **cargs)
+                         links=links, new_name=new_name, namespace=namespace, **cargs)
  
     def __call__(self, verbose=False):
         super().__call__(verbose)
@@ -366,7 +366,7 @@ class Pendulum(OpenAIGym):
     def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="Pendulum", 
                  seed=None, links=None, new_name=True, namespace=None,**cargs):        
         super().__init__('Pendulum-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
-                         links=links, new_name=new_name, **cargs)
+                         links=links, new_name=new_name, namespace=namespace, **cargs)
         
         
     def __call__(self, verbose=False):        
@@ -437,10 +437,10 @@ class Pendulum_1(OpenAIGym):
     # 4 theta +1/-1 (added here) 1 is pointing upwards, + is anti-clockwise, - is clockwise
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
-    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="Pendulum-1", 
+    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="Pendulum_1", 
                  seed=None, links=None, new_name=True, namespace=None,**cargs):        
         super().__init__('Pendulum-v1', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
-                         links=links, new_name=new_name, **cargs)
+                         links=links, new_name=new_name, namespace=namespace, **cargs)
         
     def process_inputs(self):
         self.input = self.links[0].get_value()
@@ -506,7 +506,7 @@ class MountainCarV0(OpenAIGym):
     def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name="MountainCarV0", 
                  seed=None, links=None, new_name=True, namespace=None, **cargs):        
         super().__init__('MountainCar-v0', render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
-                         links=links, new_name=new_name, **cargs)
+                         links=links, new_name=new_name, namespace=namespace, **cargs)
         
     def __call__(self, verbose=False):        
         super().__call__(verbose)
