@@ -274,7 +274,8 @@ class PCTHierarchy():
             pos[key][0]+=move[key][0]
             pos[key][1]+=move[key][1]
         
-        plt.figure(figsize=figsize) 
+        if file != None:
+            plt.figure(figsize=figsize) 
         if with_edge_labels:
             edge_labels = self.get_edge_labels_wrapper(funcdata)
             nx.draw_networkx_edge_labels(self.graphv, pos=pos, edge_labels=edge_labels, font_size=font_size, 
