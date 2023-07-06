@@ -361,7 +361,7 @@ class Pendulum(OpenAIGym):
     # 2 theta dot - +dot is anti-clockwise, -dot is clockwise
     # New parameters:
     # 3 theta +pi/-pi (added here) 0 is pointing upwards, +pi is anti-clockwise, -pi is clockwise
-    # 4 theta +x+pi/x-pi (added here) 0 is pointing downwards, + is anti-clockwise, - is clockwise
+    # deprecated 4 theta +x+pi/x-pi (added here) 0 is pointing downwards, + is anti-clockwise, - is clockwise
     # from obs[1]
     # reward - -(theta^2 + 0.1*theta_dt^2 + 0.001*action^2)
 
@@ -392,36 +392,20 @@ class Pendulum(OpenAIGym):
         self.info = self.obs[3]
 
     def process_values(self):
-        pi = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])
-        self.value = np.append(self.value, pi)
-        #x = math.copysign(pi-abs(pi), pi)
-        x = 10 + pi
-        self.value = np.append(self.value, x)
-    
-#     def __call__(self, verbose=False):
-#         super().check_links(1)
-#         self.input = self.links[0].get_value()
-#         self.obs = self.env.step([self.input])
-            
-#         self.value = self.obs[0]
-#         self.reward = -self.obs[1]
-#         self.done = self.obs[2]
-#         self.info = self.obs[3]
+        th = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])
+        self.value = np.append(self.value, th)
         
-#         pi = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])
-#         self.value = np.append(self.value, pi)
-#         #x = math.copysign(pi-abs(pi), pi)
+        if self.reward_type == 'surface1':
+            # =afac*$B3*$B3+ bfac*$B3 /(badd+( C$2 * C$2)) + cfac*(PI()-ABS($B3))*(C$2 * C$2)
+            dt = self.obs[0][2]
+            
+            self.reward = 0.5 *th*th+ 0.5*th /(0.2+( dt * dt)) + 0.001*(math.pi-abs(th))*(dt * dt)
+
+        pass
+        #x = math.copysign(pi-abs(pi), pi)
 #         x = 10 + pi
 #         self.value = np.append(self.value, x)
-        
-        
-#         if self.render:
-#             self.env.render()
-                
-#         if verbose :
-#             print(self.output_string())
-
-#         return self.value
+    
 
     class Factory:
         def create(self, seed=None): return Pendulum(seed=seed)
