@@ -395,11 +395,11 @@ class Pendulum(OpenAIGym):
         th = math.copysign(math.acos(self.obs[0][0]), self.obs[0][1])
         self.value = np.append(self.value, th)
         
-        if self.reward_type == 'surface1':
-            # =afac*$B3*$B3+ bfac*$B3 /(badd+( C$2 * C$2)) + cfac*(PI()-ABS($B3))*(C$2 * C$2)
-            dt = self.obs[0][2]
-            
-            self.reward = 0.5 *th*th+ 0.5*th /(0.2+( dt * dt)) + 0.001*(math.pi-abs(th))*(dt * dt)
+        if hasattr(self, 'reward_type'):
+            if self.reward_type == 'surface1':
+                # =afac*$B3*$B3+ bfac*$B3 /(badd+( C$2 * C$2)) + cfac*(PI()-ABS($B3))*(C$2 * C$2)
+                dt = self.obs[0][2]
+                self.reward = 0.5 *th*th+ 0.5*th /(0.2+( dt * dt)) + 0.001*(math.pi-abs(th))*(dt * dt)
 
         pass
         #x = math.copysign(pi-abs(pi), pi)
