@@ -403,12 +403,10 @@ class Pendulum(OpenAIGym):
             elif self.reward_type == 'surface2':            
                 # = afac*POWER($B10*$B10, apow)+ bfac*POWER((ABS($B10) /(badd+( C$9 * C$9))), bpow) + cfac*POWER((PI()-ABS($B10))*(C$9 * C$9), cpow)
                 self.reward = 0.5 *th*th+ 10*abs(th) /(5+( dt * dt)) + 0.05*(math.pi-abs(th))*(dt * dt)
-            # print(f'PM: th {th:4.3} dt {dt:4.3} rew {self.reward:4.3}')
+            #print(f'PM: th {th:4.3} dt {dt:4.3} rew {self.reward:4.3}')
 
         pass
-        #x = math.copysign(pi-abs(pi), pi)
-#         x = 10 + pi
-#         self.value = np.append(self.value, x)
+
     
 
     class Factory:
