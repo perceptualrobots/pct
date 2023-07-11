@@ -1074,7 +1074,7 @@ class SmoothWeightedSum(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self, extra=False):
-        weights = [float(f'{wt:4.3}') for wt in self.weights]
+        weights = [float(f'{float(wt):4.3}') for wt in self.weights]
         super().summary(f'weights {weights} smooth {self.smooth_factor:4.3}', extra=extra)
         
         
