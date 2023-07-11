@@ -397,15 +397,17 @@ class Pendulum(OpenAIGym):
         self.value = np.append(self.value, th)
         
         if hasattr(self, 'reward_type'):
+            dt = self.obs[0][2]
             if self.reward_type == 'surface1':
                 # =afac*$B3*$B3+ bfac*$B3 /(badd+( C$2 * C$2)) + cfac*(PI()-ABS($B3))*(C$2 * C$2)
-                dt = self.obs[0][2]
-                self.reward = 0.5 *th*th+ 0.5*th /(0.2+( dt * dt)) + 0.001*(math.pi-abs(th))*(dt * dt)
+                self.reward = 0.5 *th*th+ 0.5*abs(th) /(0.2+( dt * dt)) + 0.001*(math.pi-abs(th))*(dt * dt)
+            elif self.reward_type == 'surface2':            
+                # = afac*POWER($B10*$B10, apow)+ bfac*POWER((ABS($B10) /(badd+( C$9 * C$9))), bpow) + cfac*POWER((PI()-ABS($B10))*(C$9 * C$9), cpow)
+                self.reward = 0.5 *th*th+ 10*abs(th) /(5+( dt * dt)) + 0.05*(math.pi-abs(th))*(dt * dt)
+            #print(f'PM: th {th:4.3} dt {dt:4.3} rew {self.reward:4.3}')
 
         pass
-        #x = math.copysign(pi-abs(pi), pi)
-#         x = 10 + pi
-#         self.value = np.append(self.value, x)
+
     
 
     class Factory:
