@@ -383,7 +383,6 @@ class Pendulum(OpenAIGym):
         pass
     
     def apply_actions_get_obs(self):
-        # print(self.input)
         return self.env.step([self.input])
         
     def parse_obs(self):    
