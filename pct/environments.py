@@ -505,49 +505,67 @@ class MountainCarContinuousV0(OpenAIGym):
         def create(self, namespace=None, seed=None): return MountainCarContinuousV0(namespace=namespace, seed=seed)               
 
 # %% ../nbs/05_environments.ipynb 13
-class WindTurbine(YawEnv):
-    "A function that creates and runs the YawEnv environment fro a wind turbine."
+class WindTurbine(ControlEnvironment):
+    "A function that creates and runs the YawEnv environment for a wind turbine."
     
-    def __init__(self, render=False, value=0, name="YawEnv", 
-                 seed=None, links=None, new_name=True, early_termination=True, namespace=None, **cargs):        
-        super().__init__('YawEnv', wind_timeseries,start_index,stop_index,ancestors,filter_duration,yaw_parameters,keep_history=True,
-                         value=value, name=name, links=links, new_name=new_name, namespace=namespace,
-                         early_termination=early_termination, **cargs)
+    def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, **cargs):        
+        super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         
-        self.really_done = False
+        self.num_links=1
+        self.env_name='YawEnv'
+
         
     def __call__(self, verbose=False):        
         super().__call__(verbose)
                 
         return self.value
 
+    def set_properties(self, props):
+        self.initialise(props)
+        # wind_timeseries,start_index,stop_index,ancestors,filter_duration,yaw_parameters,
+
     def early_terminate(self):
-        if self.early_termination:
-            if self.really_done:
-                raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
-            if self.done:
-                self.reward = 0
-                self.really_done = True
+        pass
 
     def process_inputs(self):
         self.input = self.links[0].get_value()
                 
     def process_actions(self):
-        force = min(max(self.input, self.min_action), self.max_action)
-        self.input=[force]
+        raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
         
+    
+    def apply_actions_get_obs(self):
+        return self.env.step([self.input])
+
+    def parse_obs(self):
+        raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
+
     def process_values(self):
-        reward = self.obs[1]
-        if reward > 90:
-            reward = 0
-        self.reward = - reward
-        pos = self.value[0] + 1.2
-        self.value = np.append(self.value, pos)
+        raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
+
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
+        return config
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
+    def set_render(self, render):
+        self.render=render
+        
+    def reset(self, full=True, seed=None):  
+        raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
+
+    def summary(self, extra=False):
+        super().summary("", extra=extra)
+
+    def close(self):
+        self.env.close()
 
     class Factory:
-        def create(self, seed=None): return MountainCarContinuousV0(seed=seed)
+        def create(self, seed=None): return WindTurbine(seed=seed)
     class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return MountainCarContinuousV0(namespace=namespace, seed=seed)        
+        def create(self, namespace=None, seed=None): return WindTurbine(namespace=namespace, seed=seed)        
 
 # %% ../nbs/05_environments.ipynb 14
 class VelocityModel(BaseFunction):

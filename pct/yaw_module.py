@@ -116,16 +116,16 @@ def get_dataset_from_simu(path="dataset.csv", cycle_period=10, rolling_average_d
 
 # %% ../nbs/12_yaw_module.ipynb 7
 class YawEnv(Env):
-    def __init__(
-        self,
-        wind_timeseries,
-        start_index,
-        stop_index,
-        ancestors,
-        filter_duration,
-        params,
-        keep_history=False,
-    ):
+
+    def initialise(self, properties ):
+
+        wind_timeseries=properties['wind_timeseries']
+        start_index=properties['wind_timeseries']
+        stop_index=properties['wind_timeseries']
+        ancestors=properties['wind_timeseries']
+        filter_duration=properties['wind_timeseries']
+        params=properties['wind_timeseries']
+        keep_history=properties['wind_timeseries']
 
         self.wind_timeseries = wind_timeseries
         self.start_index = start_index
@@ -137,6 +137,7 @@ class YawEnv(Env):
         self.yaw_rate_max = params["yaw_rate_max"]
         self.cycle_period = params["cycle_period"]
         self.w2 = params["w2"]
+
         self.episode_len = stop_index - start_index
         self.history = None
         self.ref_speed = params["ref_speed"]
@@ -168,7 +169,6 @@ class YawEnv(Env):
             np.array([[3, 179, 179, 10] for _ in range(self.ancestors)]),
             shape=(self.ancestors, 4),
         )
-
 
     def step(self, action):
         """
@@ -202,8 +202,6 @@ class YawEnv(Env):
         self.state = new_state
         reward = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    \
                 + self.w2 * (self.step_since_last_2 > self.filter_duration and self.step_since_last_0 > self.filter_duration)
-
-
 
 
         if self.keep_history:
