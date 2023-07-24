@@ -513,6 +513,7 @@ class WindTurbine(ControlEnvironment):
         
         self.num_links=1
         self.env_name='YawEnv'
+        self.env = YawEnv()
 
         
     def __call__(self, verbose=False):        
@@ -521,7 +522,7 @@ class WindTurbine(ControlEnvironment):
         return self.value
 
     def set_properties(self, props):
-        self.initialise(props)
+        self.env.initialise(props)
         # wind_timeseries,start_index,stop_index,ancestors,filter_duration,yaw_parameters,
 
     def early_terminate(self):
@@ -531,14 +532,22 @@ class WindTurbine(ControlEnvironment):
         self.input = self.links[0].get_value()
                 
     def process_actions(self):
-        raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
+        if self.input < 0:
+            self.action = 0
+        elif self.input > 0:
+            self.action = 2
+        else:
+            self.action = 1            
         
     
     def apply_actions_get_obs(self):
-        return self.env.step([self.input])
+        return [self.env.step(self.input)]
 
     def parse_obs(self):
-        raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
+        self.value = self.obs[0][1]
+        self.reward = self.obs[1]
+        self.done = self.obs[2]
+        self.info = self.obs[3]
 
     def process_values(self):
         raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
