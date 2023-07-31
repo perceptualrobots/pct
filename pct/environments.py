@@ -506,7 +506,7 @@ class MountainCarContinuousV0(OpenAIGym):
 
 # %% ../nbs/05_environments.ipynb 13
 class WindTurbine(ControlEnvironment):
-    "A function that creates and runs the YawEnv environment for a wind turbine."
+    "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
     
     def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
@@ -541,16 +541,17 @@ class WindTurbine(ControlEnvironment):
         
     
     def apply_actions_get_obs(self):
-        return [self.env.step(self.input)]
+        return self.env.step(self.input)
 
     def parse_obs(self):
-        self.value = self.obs[0][1]
+        self.value = self.obs[0][-1]
         self.reward = self.obs[1]
         self.done = self.obs[2]
         self.info = self.obs[3]
 
     def process_values(self):
-        raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
+        pass
+        # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
@@ -563,10 +564,28 @@ class WindTurbine(ControlEnvironment):
         self.render=render
         
     def reset(self, full=True, seed=None):  
-        raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
+        self.env.reset()
+        # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
 
     def summary(self, extra=False):
         super().summary("", extra=extra)
+
+    def output_string(self):
+        
+        if isinstance(self.value, int):
+            rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
+        else:
+            list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
+            list.append(str(self.reward))
+            list.append(" ")
+            list.append(str(self.done))
+            list.append(" ")
+            list.append(str(self.info))
+            
+            rtn = ''.join(list)
+
+        return rtn
+
 
     def close(self):
         self.env.close()

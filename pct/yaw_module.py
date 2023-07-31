@@ -12,6 +12,7 @@ import math
 import scipy as sc
 from gym import Env
 from gym.spaces import Discrete, Box
+from os import sep
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -122,11 +123,11 @@ def get_properties(properties):
         keep_history=properties['keep_history'] 
 
     if properties['series']=='steady':
-        dataset_file = 'steady_wind.csv'
+        dataset_file = f'testfiles{sep}steady_wind.csv'
     else:
-        dataset_file = 'variable_wind.csv'
+        dataset_file = f'testfiles{sep}variable_wind.csv'
 
-    power_curve = pd.read_excel('power_curve.xlsx')
+    power_curve = pd.read_excel(f'testfiles{sep}power_curve.xlsx')
     (wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,
                                                                     cycle_period=10,
                                                                     rolling_average_duration=20)
@@ -207,6 +208,8 @@ class YawEnv(Env):
             np.array([[3, 179, 179, 10] for _ in range(self.ancestors)]),
             shape=(self.ancestors, 4),
         )
+
+        self.reset()
 
     def step(self, action):
         """
