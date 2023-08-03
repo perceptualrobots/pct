@@ -545,11 +545,12 @@ class WindTurbine(ControlEnvironment):
 
     def parse_obs(self):
         self.value = self.obs[0][-1]
-        self.reward = self.obs[1]
-        self.done = self.obs[2]
-        self.info = self.obs[3]
+        self.reward = self.obs[2]
+        self.done = self.obs[3]
+        self.info = self.obs[4]
 
     def process_values(self):
+        self.value = np.append(self.value, self.obs[1])
         pass
         # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
 

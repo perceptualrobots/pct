@@ -171,6 +171,7 @@ class YawEnv(Env):
         self.stop_index = stop_index
         self.wind_speed_avg = wind_timeseries['wind_speed'][start_index:stop_index].mean()
         self.wind_speed_std = wind_timeseries['wind_speed'][start_index:stop_index].std()
+        # mean=6.688939999999999 std=1.0833884838814778
         self.keep_history = keep_history
         self.filter_duration = filter_duration
         self.yaw_rate_max = params["yaw_rate_max"]
@@ -236,9 +237,12 @@ class YawEnv(Env):
                 action,
                 new_yaw_error,
                 self.wind_timeseries["wind_direction"][self.index_wind_timeseries],
-                (self.wind_timeseries["wind_speed"][self.index_wind_timeseries]-self.wind_speed_avg)/self.wind_speed_std,
+                (self.wind_timeseries["wind_speed"][self.index_wind_timeseries]-self.wind_speed_avg)/self.wind_speed_std
             ]
         )
+
+        # added wind speed
+        wind_speed = self.wind_timeseries["wind_speed"][self.index_wind_timeseries]
 
         self.state = new_state
         reward = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    \
@@ -297,7 +301,7 @@ class YawEnv(Env):
         if self.index_wind_timeseries == self.stop_index - 1:
             done = True
 
-        return self.state, reward, done, {}
+        return self.state, wind_speed, reward, done, {}
     
     
 
