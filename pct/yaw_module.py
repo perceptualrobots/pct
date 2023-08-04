@@ -165,7 +165,6 @@ class YawEnv(Env):
 
         wind_timeseries,start_index,stop_index,ancestors,filter_duration,params,keep_history = get_properties(properties)
         
-
         self.wind_timeseries = wind_timeseries
         self.start_index = start_index
         self.stop_index = stop_index
