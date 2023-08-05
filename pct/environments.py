@@ -508,9 +508,10 @@ class MountainCarContinuousV0(OpenAIGym):
 class WindTurbine(ControlEnvironment):
     "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
     
-    def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, **cargs):        
+    def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         
+        self.zero_threshold = 0
         self.num_links=1
         self.env_name='YawEnv'
         self.env = YawEnv()
@@ -523,7 +524,8 @@ class WindTurbine(ControlEnvironment):
 
     def set_properties(self, props):
         self.env.initialise(props)
-        # wind_timeseries,start_index,stop_index,ancestors,filter_duration,yaw_parameters,
+        if 'zero_threshold' in props:
+            self.zero_threshold = props['zero_threshold']
 
     def early_terminate(self):
         pass
@@ -532,16 +534,16 @@ class WindTurbine(ControlEnvironment):
         self.input = self.links[0].get_value()
                 
     def process_actions(self):
-        if self.input < 0:
+        if abs(self.input)<= self.zero_threshold:        
+            self.action = 1            
+        elif self.input < 0:
             self.action = 0
         elif self.input > 0:
             self.action = 2
-        else:
-            self.action = 1            
-        
+                 
     
     def apply_actions_get_obs(self):
-        return self.env.step(self.input)
+        return self.env.step(self.action)
 
     def parse_obs(self):
         self.value = self.obs[0][-1]
@@ -551,6 +553,7 @@ class WindTurbine(ControlEnvironment):
 
     def process_values(self):
         self.value = np.append(self.value, self.obs[1])
+        self.reward=-(self.reward-self.env.w2)
         pass
         # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
 
@@ -565,6 +568,7 @@ class WindTurbine(ControlEnvironment):
         self.render=render
         
     def reset(self, full=True, seed=None):  
+        self.zero_threshold = 0
         self.env.reset()
         # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
 

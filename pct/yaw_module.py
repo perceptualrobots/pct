@@ -194,7 +194,7 @@ class YawEnv(Env):
         )
 
         self.ancestors = ancestors
-        print(self.episode_len, " points in simulation dataset")
+        # print(self.episode_len, " points in simulation dataset")
         self.action_space = Discrete(3)
 
         # Observation space : Represents environment **after yaw actuation**
