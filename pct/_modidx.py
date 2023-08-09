@@ -980,4 +980,5 @@ d = { 'settings': { 'branch': 'master',
                                 'pct.yaw_module.get_time_yawing': ('yaw_module.html#get_time_yawing', 'pct/yaw_module.py'),
                                 'pct.yaw_module.get_yaw_count': ('yaw_module.html#get_yaw_count', 'pct/yaw_module.py'),
                                 'pct.yaw_module.oriented_angle': ('yaw_module.html#oriented_angle', 'pct/yaw_module.py'),
-                                'pct.yaw_module.test_model_wind': ('yaw_module.html#test_model_wind', 'pct/yaw_module.py')}}}
+                                'pct.yaw_module.test_model_wind': ('yaw_module.html#test_model_wind', 'pct/yaw_module.py'),
+                                'pct.yaw_module.test_trad_control': ('yaw_module.html#test_trad_control', 'pct/yaw_module.py')}}}
