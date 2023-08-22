@@ -2,7 +2,7 @@
 
 # %% auto 0
 __all__ = ['get_yaw_count', 'get_time_yawing', 'oriented_angle', 'get_dataset_from_simu', 'get_properties', 'test_trad_control',
-           'YawEnv', 'get_comparaison_metrics', 'test_model_wind']
+           'YawEnv', 'get_comparaison_metrics', 'test_model_wind', 'test_hpct_wind']
 
 # %% ../nbs/12_yaw_module.ipynb 2
 import warnings
@@ -469,6 +469,76 @@ def test_model_wind(wind_timeseries,start_index,stop_index,ancestors,filter_dura
         observation, reward, done, info = env.step(action)
         score += reward
         print(f'{i} {reward:10.2f} {score:10.2f}')
+
+    fig, ax = plt.subplots(figsize=(15, 5))
+    ax.plot(range(0,len(env.history["wind_direction"])*10,10),env.history["wind_direction"], label="wind direction (deg)")
+    ax.plot(range(0,len(env.history["wind_direction"])*10,10),env.history["yaw angle after actuation"], label="nacelle position (deg)")
+    plt.legend()
+    plotly_fig = tls.mpl_to_plotly(fig)
+    plotly_fig.write_html("res_model.html")
+
+
+    average_yaw_error = env.history["yaw error after actuation"].abs().mean()
+    nacelle_position_diff = oriented_angle(env.history["yaw angle after actuation"].diff(1).dropna())
+    angle_covered = sum(abs(nacelle_position_diff))
+    yaw_count = get_yaw_count(nacelle_position_diff.to_list())
+    time_yawing = get_time_yawing(nacelle_position_diff.to_list())
+    
+    if experiment and datatype=='test' :
+        experiment.log_html(open("res_model.html").read(), clear=True)
+        
+    if experiment :
+        experiment.log_curve(
+        "nacelle_pos_"+datatype,
+        range(0, stop_index-start_index),
+        env.history["yaw angle after actuation"],
+        overwrite = True,
+        )
+        experiment.log_metrics(
+            {
+                "start_index_"+datatype: start_index,
+                "stop_index_"+datatype: stop_index,
+                "power_trad_"+datatype: env.history["power_trad"].sum(),
+                "power_no_loss_"+datatype: env.history["power_no_loss"].sum(),
+                "power_control_"+datatype: env.history["power_control"].sum(),
+                "average yaw error_"+datatype: average_yaw_error,
+                "average reward_"+datatype: score,
+                "angle covered_"+datatype: angle_covered,
+                "yaw count_"+datatype: yaw_count,
+                "time_yawing_"+datatype: time_yawing,
+            }
+        )
+
+
+
+    return {
+        "start_index": start_index,
+        "stop_index": stop_index,
+        "power_trad": env.history["power_trad"].sum(),
+        "power_no_loss": env.history["power_no_loss"].sum(),
+        "power_control": env.history["power_control"].sum(),
+        "average yaw error": average_yaw_error,
+        "average reward": score,
+        "angle covered": angle_covered,
+        "yaw count": yaw_count,
+        "time_yawing": time_yawing,
+        }, \
+        env.history["yaw angle after actuation"].to_list(), \
+        (env.history["power_control"]-env.history["power_trad"])/env.history["power_trad"],  \
+        env.history["power_control"], \
+        env.history["power_trad"],
+    
+
+# %% ../nbs/12_yaw_module.ipynb 12
+def test_hpct_wind(file,plots,history,verbose,outdir,early,start_index,stop_index,experiment=None,datatype='test'):
+    '''
+    test RLYCA
+    '''
+   
+    score, hpct = HPCTIndividual.run_from_file(file, plots=plots, history=history, hpct_verbose= verbose, runs=None, outdir=outdir, early_termination=early)
+    print(f'Score={score:0.3f}')
+
+    env = hpct.env
 
     fig, ax = plt.subplots(figsize=(15, 5))
     ax.plot(range(0,len(env.history["wind_direction"])*10,10),env.history["wind_direction"], label="wind direction (deg)")
