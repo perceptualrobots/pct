@@ -1009,7 +1009,7 @@ class PCTHierarchy():
 
 
     @classmethod
-    def run_from_file(cls, filename, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
+    def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
@@ -1017,8 +1017,10 @@ class PCTHierarchy():
         error_collector_type = prp.db['error_collector_type'].strip()
         error_response_type = prp.db['error_response_type']
         error_limit = eval(prp.db['error_limit'])
-        environment_properties = eval(prp.db['environment_properties'])
-        
+        if env_props is None:
+            environment_properties = eval(prp.db['environment_properties'])
+        else:
+            environment_properties = env_props    
         error_properties = prp.get_error_properties()
    
         if runs==None:
