@@ -535,7 +535,7 @@ def test_hpct_wind(file,plots,history,verbose,outdir,early,start_index,stop_inde
     test RLYCA
     '''
    
-    score, hpct = HPCTIndividual.run_from_file(file, plots=plots, history=history, hpct_verbose= verbose, runs=None, outdir=outdir, early_termination=early)
+    score, hpct = PCTHierarchy.run_from_file(file, plots=plots, history=history, hpct_verbose= verbose, runs=None, outdir=outdir, early_termination=early)
     print(f'Score={score:0.3f}')
 
     env = hpct.env
