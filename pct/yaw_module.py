@@ -4,21 +4,23 @@
 __all__ = ['get_yaw_count', 'get_time_yawing', 'oriented_angle', 'get_dataset_from_simu', 'get_properties', 'test_trad_control',
            'YawEnv', 'get_comparaison_metrics', 'test_model_wind', 'test_hpct_wind']
 
-# %% ../nbs/12_yaw_module.ipynb 2
+# %% ../nbs/12_yaw_module.ipynb 3
 import warnings
 warnings.simplefilter(action="ignore", category=UserWarning)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import math
 import scipy as sc
-from gym import Env
-from gym.spaces import Discrete, Box
-from os import sep
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.tools as tls
+from gym import Env
+from gym.spaces import Discrete, Box
+from os import sep
+#from pct.hierarchy import PCTHierarchy
 
-# %% ../nbs/12_yaw_module.ipynb 3
+
+# %% ../nbs/12_yaw_module.ipynb 4
 def get_yaw_count(nacelle_position_diff):
     '''
 
@@ -44,7 +46,7 @@ def get_yaw_count(nacelle_position_diff):
            
     
 
-# %% ../nbs/12_yaw_module.ipynb 4
+# %% ../nbs/12_yaw_module.ipynb 5
 def get_time_yawing(nacelle_position_diff):
     '''
     Parameters
@@ -64,7 +66,7 @@ def get_time_yawing(nacelle_position_diff):
 
   
 
-# %% ../nbs/12_yaw_module.ipynb 5
+# %% ../nbs/12_yaw_module.ipynb 6
 def oriented_angle(angle):
     '''
     Parameters
@@ -79,7 +81,7 @@ def oriented_angle(angle):
     angle = ((angle + 180) % 360) - 180
     return angle
 
-# %% ../nbs/12_yaw_module.ipynb 6
+# %% ../nbs/12_yaw_module.ipynb 7
 def get_dataset_from_simu(path="dataset.csv", cycle_period=10, rolling_average_duration=20):
     '''
     returns output dataset obtained of CYCA-S
@@ -115,7 +117,7 @@ def get_dataset_from_simu(path="dataset.csv", cycle_period=10, rolling_average_d
     wind_timeseries["time"] = wind_timeseries.index
     return wind_timeseries, wind_timeseries_not_agg
 
-# %% ../nbs/12_yaw_module.ipynb 7
+# %% ../nbs/12_yaw_module.ipynb 8
 def get_properties(properties):
 
     keep_history=False
@@ -158,7 +160,7 @@ def get_properties(properties):
 
     return wind_timeseries,model_params['start_index'], model_params['stop_index'], model_params['ancestors'],    model_params['filter_duration'],yaw_params,keep_history
 
-# %% ../nbs/12_yaw_module.ipynb 8
+# %% ../nbs/12_yaw_module.ipynb 9
 def test_trad_control(wind_timeseries, wind_timeseries_not_agg,agg, start, end, experiment=None,datatype='baseline_simu'):
     '''
     test CYCA-S and CYCA-L
@@ -222,7 +224,7 @@ def test_trad_control(wind_timeseries, wind_timeseries_not_agg,agg, start, end, 
 
 
 
-# %% ../nbs/12_yaw_module.ipynb 9
+# %% ../nbs/12_yaw_module.ipynb 10
 class YawEnv(Env):
 
     def initialise(self, properties ):
@@ -415,7 +417,7 @@ class YawEnv(Env):
 
         return self.state
 
-# %% ../nbs/12_yaw_module.ipynb 10
+# %% ../nbs/12_yaw_module.ipynb 11
 def get_comparaison_metrics(wind_direction,power_control,power_simu,res_model, res_baseline_simu, yaw_rate, yaw_power, width_bin) :
     res_model_diff = pd.Series(res_model).diff(1).fillna(0)
     res_baseline_simu_diff = pd.Series(res_baseline_simu).diff(1).fillna(0)
@@ -451,7 +453,7 @@ def get_comparaison_metrics(wind_direction,power_control,power_simu,res_model, r
         
      
 
-# %% ../nbs/12_yaw_module.ipynb 11
+# %% ../nbs/12_yaw_module.ipynb 12
 def test_model_wind(wind_timeseries,start_index,stop_index,ancestors,filter_duration,yaw_parameters,experiment=None,datatype='test'):
     '''
     test RLYCA
@@ -529,7 +531,7 @@ def test_model_wind(wind_timeseries,start_index,stop_index,ancestors,filter_dura
         env.history["power_trad"],
     
 
-# %% ../nbs/12_yaw_module.ipynb 12
+# %% ../nbs/12_yaw_module.ipynb 13
 def test_hpct_wind(file,plots,history,verbose,outdir,early,start_index,stop_index,experiment=None,datatype='test'):
     '''
     test RLYCA
