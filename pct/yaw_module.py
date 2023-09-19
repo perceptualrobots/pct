@@ -17,7 +17,7 @@ import plotly.tools as tls
 from gym import Env
 from gym.spaces import Discrete, Box
 from os import sep
-#from pct.hierarchy import PCTHierarchy
+from .hierarchy import PCTHierarchy
 
 
 # %% ../nbs/12_yaw_module.ipynb 4
@@ -532,7 +532,7 @@ def test_model_wind(wind_timeseries,start_index,stop_index,ancestors,filter_dura
     
 
 # %% ../nbs/12_yaw_module.ipynb 13
-def test_hpct_wind(file,plots,history,verbose,outdir,early,start_index,stop_index,experiment=None,datatype='test'):
+def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,early=None,start_index=None,stop_index=None,experiment=None,datatype='test'):
     '''
     test RLYCA
     '''

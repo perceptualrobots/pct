@@ -15,7 +15,7 @@ from .functions import BaseFunction
 from .putils import FunctionsList, SingletonObjects
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
-from .yaw_module import YawEnv
+#from pct.yaw_module import YawEnv
 
 # %% ../nbs/05_environments.ipynb 4
 class EnvironmentFactory:
@@ -508,97 +508,6 @@ class MountainCarContinuousV0(OpenAIGym):
 class WindTurbine(ControlEnvironment):
     "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
     
-    def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, **cargs):        
-        super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
-        
-        self.num_links=1
-        self.env_name='YawEnv'
-        self.env = YawEnv()
-
-        
-    def __call__(self, verbose=False):        
-        super().__call__(verbose)
-                
-        return self.value
-
-    def set_properties(self, props):
-        self.env.initialise(props)
-        # wind_timeseries,start_index,stop_index,ancestors,filter_duration,yaw_parameters,
-
-    def early_terminate(self):
-        pass
-
-    def process_inputs(self):
-        self.input = self.links[0].get_value()
-                
-    def process_actions(self):
-        if self.input < 0:
-            self.action = 0
-        elif self.input > 0:
-            self.action = 2
-        else:
-            self.action = 1            
-        
-    
-    def apply_actions_get_obs(self):
-        return self.env.step(self.input)
-
-    def parse_obs(self):
-        self.value = self.obs[0][-1]
-        self.reward = self.obs[1]
-        self.done = self.obs[2]
-        self.info = self.obs[3]
-
-    def process_values(self):
-        pass
-        # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
-
-    def get_config(self, zero=1):
-        config = super().get_config(zero=zero)
-        return config
-
-    def get_graph_name(self):
-        return super().get_graph_name() 
-    
-    def set_render(self, render):
-        self.render=render
-        
-    def reset(self, full=True, seed=None):  
-        self.env.reset()
-        # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
-
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
-
-    def output_string(self):
-        
-        if isinstance(self.value, int):
-            rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
-        else:
-            list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
-            list.append(str(self.reward))
-            list.append(" ")
-            list.append(str(self.done))
-            list.append(" ")
-            list.append(str(self.info))
-            
-            rtn = ''.join(list)
-
-        return rtn
-
-
-    def close(self):
-        self.env.close()
-
-    class Factory:
-        def create(self, seed=None): return WindTurbine(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return WindTurbine(namespace=namespace, seed=seed)        
-
-# %% ../nbs/05_environments.ipynb 16
-class WindTurbine(ControlEnvironment):
-    "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
-    
     def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         
@@ -691,7 +600,7 @@ class WindTurbine(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return WindTurbine(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 18
+# %% ../nbs/05_environments.ipynb 16
 class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
@@ -753,7 +662,7 @@ class VelocityModel(BaseFunction):
     class Factory:
         def create(self, seed=None): return VelocityModel(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 19
+# %% ../nbs/05_environments.ipynb 17
 class DummyModel(BaseFunction):    
     def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
@@ -781,7 +690,7 @@ class DummyModel(BaseFunction):
     class Factory:
         def create(self, seed=None): return DummyModel(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 20
+# %% ../nbs/05_environments.ipynb 18
 class WebotsWrestler(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -916,7 +825,7 @@ class WebotsWrestler(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
 
 
-# %% ../nbs/05_environments.ipynb 21
+# %% ../nbs/05_environments.ipynb 19
 class WebotsWrestlerSupervisor(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -1040,7 +949,7 @@ class WebotsWrestlerSupervisor(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestlerSupervisor(namespace=namespace, seed=seed)          
         
 
-# %% ../nbs/05_environments.ipynb 22
+# %% ../nbs/05_environments.ipynb 20
 class Bridge(ControlEnvironment):
     "An environment function with sensors set by external system."
     
