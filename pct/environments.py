@@ -15,7 +15,7 @@ from .functions import BaseFunction
 from .putils import FunctionsList, SingletonObjects
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
-#from pct.yaw_module import YawEnv
+from .yaw_module import YawEnv
 
 # %% ../nbs/05_environments.ipynb 4
 class EnvironmentFactory:
@@ -72,6 +72,34 @@ class ControlEnvironment(BaseFunction):
             for key, value in props.items():
                 setattr(self, key, value)
         
+    def get_config(self, zero=1):
+        "Return the JSON  configuration of the function."
+        config = {"type": type(self).__name__,
+                    "name": self.name}
+        
+        if isinstance(self.value, np.ndarray):
+            config["value"] = [i  * zero for i in self.value.tolist()]
+        elif isinstance(self.value, list):
+            config["value"] = [i  * zero for i in self.value]
+        else:
+            config["value"] = self.value * zero 
+        
+        ctr=0
+        links={}
+        for link in self.links:
+            func = FunctionsList.getInstance().get_function(self.namespace, link)
+            try:
+                links[ctr]=func.get_name()
+            except AttributeError:
+                print(f'WARN: there is no function called {link}, ensure it exists first.')            
+                links[ctr]=func
+                
+            ctr+=1
+        
+        config['links']=links
+        config['env_name'] = self.env_name
+        
+        return config
 
     @abstractmethod
     def reset(self, full=True, seed=None): 
@@ -512,6 +540,7 @@ class WindTurbine(ControlEnvironment):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         
         self.zero_threshold = 0
+        self.done = False
         self.num_links=1
         self.env_name='YawEnv'
         self.env = YawEnv()
@@ -528,7 +557,8 @@ class WindTurbine(ControlEnvironment):
             self.zero_threshold = props['zero_threshold']
 
     def early_terminate(self):
-        pass
+        if self.done:
+            raise Exception(f'1001: Env: {self.env_name} has finished.')
 
     def process_inputs(self):
         self.input = self.links[0].get_value()
@@ -569,7 +599,8 @@ class WindTurbine(ControlEnvironment):
         
     def reset(self, full=True, seed=None):  
         self.zero_threshold = 0
-        self.env.reset()
+        self.env.reset()        
+        self.done = False
         # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
 
     def summary(self, extra=False):

@@ -978,33 +978,33 @@ class PCTHierarchy():
         seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, environment_properties=None):
         "Run an individual from a provided configuration."
-        ind = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes, environment_properties=environment_properties)
-        env = ind.get_preprocessor()[0]
+        hierarchy = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes, environment_properties=environment_properties)
+        env = hierarchy.get_preprocessor()[0]
         env.set_render(render)
         env.early_termination = early_termination
         env.reset(full=False, seed=seed)
         if error_collector_type is not None:
             error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
-            ind.set_error_collector(error_collector)
+            hierarchy.set_error_collector(error_collector)
         if hpct_verbose:
-            ind.summary()
-            print(ind.formatted_config())
-        ind.run(steps, hpct_verbose)
+            hierarchy.summary()
+            print(hierarchy.formatted_config())
+        hierarchy.run(steps, hpct_verbose)
         env.close()
         
         # draw network file
         move = {} if move == None else move
         if draw_file is not None:
-            ind.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
+            hierarchy.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
             print(draw_file)
         
         if history:
             for plot in plots:
-                fig = ind.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
+                fig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
 
-        score=ind.get_error_collector().error()
+        score=hierarchy.get_error_collector().error()
         
-        return ind, score    
+        return hierarchy, score    
     
 
 
@@ -1032,7 +1032,7 @@ class PCTHierarchy():
         if early_termination is None:
             early_termination = eval(prp.db['early_termination'])
 
-        ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+        hierarchy, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
                                                 suffixes=True, plots_dir=outdir)
@@ -1042,6 +1042,6 @@ class PCTHierarchy():
         #                                             environment_properties=env_props, seed=seed, early_termination=early_termination)
 
         
-        return score 
+        return hierarchy, score 
 
 
