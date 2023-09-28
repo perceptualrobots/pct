@@ -157,8 +157,17 @@ def get_properties(properties):
         'training_steps': 500000,
         }
 
+    start = model_params['start_index']
+    stop = model_params['stop_index']
 
-    return wind_timeseries,model_params['start_index'], model_params['stop_index'], model_params['ancestors'],    model_params['filter_duration'],yaw_params,keep_history
+    if 'range' in properties:
+        if properties['range']=='test':
+            start = model_params['start_index_test']
+            stop = model_params['stop_index_test']
+        elif properties['range']=='all':
+            stop = model_params['stop_index_test']
+
+    return wind_timeseries,start, stop, model_params['ancestors'],    model_params['filter_duration'],yaw_params,keep_history
 
 # %% ../nbs/12_yaw_module.ipynb 9
 def test_trad_control(wind_timeseries, wind_timeseries_not_agg,agg, start, end, experiment=None,datatype='baseline_simu'):
@@ -230,7 +239,7 @@ class YawEnv(Env):
     def initialise(self, properties ):
 
         wind_timeseries,start_index,stop_index,ancestors,filter_duration,params,keep_history = get_properties(properties)
-        
+        print(f'YawEnv start {start_index} stop {stop_index}')
         self.wind_timeseries = wind_timeseries
         self.start_index = start_index
         self.stop_index = stop_index
