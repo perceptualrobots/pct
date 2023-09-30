@@ -1009,7 +1009,7 @@ class PCTHierarchy():
 
 
     @classmethod
-    def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None):
+    def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None, draw_file=None):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
@@ -1028,14 +1028,14 @@ class PCTHierarchy():
         config = eval(prp.db['config'])
         if seed is None:
             seed = eval(prp.db['seed'])
-        print(f'Seed={seed}')
+        # print(f'Seed={seed}')
         if early_termination is None:
             early_termination = eval(prp.db['early_termination'])
 
         hierarchy, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
-                                                suffixes=True, plots_dir=outdir)
+                                                suffixes=True, plots_dir=outdir, draw_file=draw_file)
         
         # ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
         #                                             error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 

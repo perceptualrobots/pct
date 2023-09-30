@@ -601,7 +601,6 @@ class WindTurbine(ControlEnvironment):
         # self.zero_threshold = 0
         self.env.reset()        
         self.done = False
-        # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
 
     def summary(self, extra=False):
         super().summary("", extra=extra)

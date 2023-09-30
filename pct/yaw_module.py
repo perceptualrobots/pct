@@ -550,13 +550,13 @@ def test_model_wind(wind_timeseries,start_index,stop_index,ancestors,filter_dura
     
 
 # %% ../nbs/12_yaw_module.ipynb 13
-def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,early=None,environment_properties=None,start_index=None,stop_index=None,experiment=None,datatype='test'):
+def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,early=None,environment_properties=None,start_index=None,stop_index=None,experiment=None,datatype='test', draw_file=None):
     '''
     test RLYCA
     '''
    
     from pct.hierarchy import PCTHierarchy
-    hierarchy, score = PCTHierarchy.run_from_file(file, env_props=environment_properties, plots=plots, history=history, hpct_verbose= verbose, runs=None, outdir=outdir, early_termination=early)
+    hierarchy, score = PCTHierarchy.run_from_file(file, env_props=environment_properties, plots=plots, history=history, hpct_verbose= verbose, runs=None, outdir=outdir, early_termination=early, draw_file=draw_file)
     print(f'Score={score:0.3f}')
 
     env = hierarchy.get_preprocessor()[0].env
