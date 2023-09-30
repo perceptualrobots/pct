@@ -5,7 +5,7 @@ __all__ = ['FunctionsData', 'PCTRunProperties', 'PCTHierarchy']
 
 # %% ../nbs/04_hierarchy.ipynb 4
 #import numpy as np
-import sys
+from os import sep
 import uuid
 from .nodes import PCTNode
 from .functions import WeightedSum

@@ -195,10 +195,11 @@ def test_trad_control(wind_timeseries, wind_timeseries_not_agg,agg, start, end, 
 
     plt.legend()
     plotly_fig = tls.mpl_to_plotly(fig)
-    plotly_fig.write_html("res.html")
+    plot_file = f'res-{datatype}.html'
+    plotly_fig.write_html(plot_file)
 
     if experiment:
-        experiment.log_html(open("res.html").read())
+        experiment.log_html(open(plot_file).read())
 
     average_yaw_error = (oriented_angle(wind_timeseries["wind_direction"][start:end] - wind_timeseries["nacelle_pos_" + datatype][start:end]).abs().mean())
     nacelle_position_diff = oriented_angle(wind_timeseries["nacelle_pos_" + datatype][start:end].diff(1).dropna())
@@ -239,7 +240,7 @@ class YawEnv(Env):
     def initialise(self, properties ):
 
         wind_timeseries,start_index,stop_index,ancestors,filter_duration,params,keep_history = get_properties(properties)
-        print(f'YawEnv start {start_index} stop {stop_index}')
+        # print(f'YawEnv start {start_index} stop {stop_index}')
         self.wind_timeseries = wind_timeseries
         self.start_index = start_index
         self.stop_index = stop_index
@@ -319,8 +320,16 @@ class YawEnv(Env):
         wind_speed = self.wind_timeseries["wind_speed"][self.index_wind_timeseries]
 
         self.state = new_state
-        reward = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    \
-                + self.w2 * (self.step_since_last_2 > self.filter_duration and self.step_since_last_0 > self.filter_duration)
+        reward1 = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 \
+                * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    
+
+        reward2 = self.w2 * (self.step_since_last_2 > self.filter_duration and self.step_since_last_0 > self.filter_duration)
+
+        reward = reward1 + reward2
+
+        # reward = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 \
+        #         * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    \
+        #         + self.w2 * (self.step_since_last_2 > self.filter_duration and self.step_since_last_0 > self.filter_duration)
 
 
         if self.keep_history:

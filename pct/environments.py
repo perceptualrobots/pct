@@ -585,7 +585,7 @@ class WindTurbine(ControlEnvironment):
         self.value = np.append(self.value, self.obs[1])
         self.reward=-(self.reward-self.env.w2)
         pass
-        # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
+
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
@@ -598,7 +598,7 @@ class WindTurbine(ControlEnvironment):
         self.render=render
         
     def reset(self, full=True, seed=None):  
-        self.zero_threshold = 0
+        # self.zero_threshold = 0
         self.env.reset()        
         self.done = False
         # raise Exception(f'TBD {self.__class__.__name__}:{self.env_name}.')
