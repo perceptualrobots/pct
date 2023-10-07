@@ -28,7 +28,6 @@ def get_yaw_count(nacelle_position_diff):
     ----------
     nacelle_position_diff : Pandas series of nacelle position increment 
         
-
     Returns
     -------
     number of yaw actuations
@@ -77,6 +76,8 @@ def oriented_angle(angle):
     -------
     oriented angle in range [-180,179]
 
+    All values in csv are already in this range, so no effect.
+
     '''
     angle = ((angle + 180) % 360) - 180
     return angle
@@ -85,36 +86,39 @@ def oriented_angle(angle):
 def get_dataset_from_simu(path="dataset.csv", cycle_period=10, rolling_average_duration=20):
     '''
     returns output dataset obtained of CYCA-S
+
+    
+
     '''
     pd.options.plotting.backend = "plotly"
     df = pd.read_csv(path, delimiter=",")
-    df["wind_direction"] = [oriented_angle(ang) for ang in df["wind_direction"]]
-    wind_dir = (df["wind_direction"].rolling(cycle_period).mean().iloc[::cycle_period])
-    df["nacelle position"] = [oriented_angle(ang) for ang in df["nacellePosition"]]
-    df["nacelle position logs"] = [oriented_angle(ang) for ang in df["nacelle position logs"]]
-    nac_pos = (df["nacelle position"].rolling(cycle_period).mean().iloc[::cycle_period])
-    nac_pos_logs = (df["nacelle position logs"].rolling(cycle_period).mean().iloc[::cycle_period])
-    wind_speed = (df["wind_speed"].rolling(cycle_period).mean().iloc[::cycle_period])
+    df["wind_direction"] = [oriented_angle(ang) for ang in df["wind_direction"]] # no change
+    wind_dir = (df["wind_direction"].rolling(cycle_period).mean().iloc[::cycle_period]) # the aggregated mean of every 10 rows
+    df["nacelle position"] = [oriented_angle(ang) for ang in df["nacellePosition"]] # no change
+    df["nacelle position logs"] = [oriented_angle(ang) for ang in df["nacelle position logs"]]  # no change
+    nac_pos = (df["nacelle position"].rolling(cycle_period).mean().iloc[::cycle_period]) # the aggregated mean of every 10 rows
+    nac_pos_logs = (df["nacelle position logs"].rolling(cycle_period).mean().iloc[::cycle_period]) # the aggregated mean of every 10 rows
+    wind_speed = (df["wind_speed"].rolling(cycle_period).mean().iloc[::cycle_period])  # the aggregated mean of every 10 rows
     wind_timeseries = pd.DataFrame(
         {
-            "nacelle_pos_baseline_simu": nac_pos.to_list(),
-            'nacelle_pos_baseline_logs':nac_pos_logs.to_list(),
-            "wind_speed": wind_speed.to_list(),
-            "wind_direction": wind_dir.to_list(),
+            "nacelle_pos_baseline_simu": nac_pos.to_list(), # aggregated simulated direction of turbine 
+            'nacelle_pos_baseline_logs':nac_pos_logs.to_list(), # aggregated logged direction of turbine 
+            "wind_speed": wind_speed.to_list(), # aggregated wind speed
+            "wind_direction": wind_dir.to_list(),  # aggregated wind direction
         }
     )
     
     
     wind_timeseries_not_agg = pd.DataFrame(
         {
-            "nacelle_pos_baseline_simu": df["nacelle position"].to_list(),
-            'nacelle_pos_baseline_logs':df["nacelle position logs"].to_list(),
+            "nacelle_pos_baseline_simu": df["nacelle position"].to_list(),  # raw simulated direction of turbine 
+            'nacelle_pos_baseline_logs':df["nacelle position logs"].to_list(), # raw logged direction of turbine 
         }
     )
     
 
-    wind_timeseries = wind_timeseries.dropna().reset_index(drop=True)
-    wind_timeseries["time"] = wind_timeseries.index
+    wind_timeseries = wind_timeseries.dropna().reset_index(drop=True) # removing null values
+    wind_timeseries["time"] = wind_timeseries.index # 'time' step value equal to data index
     return wind_timeseries, wind_timeseries_not_agg
 
 # %% ../nbs/12_yaw_module.ipynb 8
@@ -167,7 +171,7 @@ def get_properties(properties):
         elif properties['range']=='all':
             stop = model_params['stop_index_test']
 
-    return wind_timeseries,start, stop, model_params['ancestors'],    model_params['filter_duration'],yaw_params,keep_history
+    return wind_timeseries,start, stop, model_params,yaw_params,keep_history
 
 # %% ../nbs/12_yaw_module.ipynb 9
 def test_trad_control(wind_timeseries, wind_timeseries_not_agg,agg, start, end, experiment=None,datatype='baseline_simu'):
@@ -239,7 +243,7 @@ class YawEnv(Env):
 
     def initialise(self, properties ):
 
-        wind_timeseries,start_index,stop_index,ancestors,filter_duration,params,keep_history = get_properties(properties)
+        wind_timeseries,start_index,stop_index,model_params,params,keep_history = get_properties(properties)
         # print(f'YawEnv start {start_index} stop {stop_index}')
         self.wind_timeseries = wind_timeseries
         self.start_index = start_index
@@ -248,7 +252,7 @@ class YawEnv(Env):
         self.wind_speed_std = wind_timeseries['wind_speed'][start_index:stop_index].std()
         # mean=6.688939999999999 std=1.0833884838814778
         self.keep_history = keep_history
-        self.filter_duration = filter_duration
+        self.filter_duration = model_params['filter_duration']
         self.yaw_rate_max = params["yaw_rate_max"]
         self.cycle_period = params["cycle_period"]
         self.w2 = params["w2"]
@@ -262,14 +266,14 @@ class YawEnv(Env):
         self.step_since_last_0 = None
         self.step_since_last_2 = None
         self.index_wind_timeseries = None
-        self.power_curve = sc.interpolate.interp1d(
+        self.power_curve = sc.interpolate.interp1d( # representation of power curve used to interpolate power based on speed
             self.ref_speed,
             self.ref_power,
             bounds_error=False,
             fill_value=(0, self.ref_power[-1]),
         )
 
-        self.ancestors = ancestors
+        self.ancestors = model_params['ancestors']
         # print(self.episode_len, " points in simulation dataset")
         self.action_space = Discrete(3)
 
@@ -295,13 +299,13 @@ class YawEnv(Env):
         # iterate to the next wind direction conditions
         self.index_wind_timeseries += 1
         done = False
-        increment = self.yaw_rate_max * self.cycle_period
+        increment = self.yaw_rate_max * self.cycle_period # amount to move turbine - 0.3 * 10
         yaw_angle_change = 0
 
         if action == 0:
-            yaw_angle_change = -increment
+            yaw_angle_change = -increment # move left
         if action == 2:
-            yaw_angle_change = increment
+            yaw_angle_change = increment  # move right
 
         self.yaw_angle = oriented_angle(self.yaw_angle + yaw_angle_change)
         new_yaw_error = oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries])
@@ -333,7 +337,7 @@ class YawEnv(Env):
 
 
         if self.keep_history:
-            power_control = self.get_power(self.wind_timeseries["wind_speed"][self.index_wind_timeseries],new_yaw_error)
+            power_control = self.get_power(self.wind_timeseries["wind_speed"][self.index_wind_timeseries],new_yaw_error) # power generated by turbine
             power_no_loss = self.get_power(self.wind_timeseries["wind_speed"][self.index_wind_timeseries], 0)
             power_trad = self.get_power(self.wind_timeseries["wind_speed"][self.index_wind_timeseries],oriented_angle(self.wind_timeseries["nacelle_pos_baseline_simu"][self.index_wind_timeseries] - self.wind_timeseries["wind_direction"][self.index_wind_timeseries]), )
             # orig
