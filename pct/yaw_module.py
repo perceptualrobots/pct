@@ -554,7 +554,7 @@ def test_model_wind(wind_timeseries,start_index,stop_index,ancestors,filter_dura
     
 
 # %% ../nbs/12_yaw_module.ipynb 13
-def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,early=None,environment_properties=None,start_index=None,stop_index=None,experiment=None,datatype='test', draw_file=None):
+def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,early=None,environment_properties=None,start_index=None,stop_index=None,experiment=None,datatype='test', draw_file=None, model_file=None):
     '''
     test RLYCA
     '''
@@ -570,7 +570,7 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
     ax.plot(range(0,len(env.history["wind_direction"])*10,10),env.history["yaw angle after actuation"], label="nacelle position (deg)")
     plt.legend()
     plotly_fig = tls.mpl_to_plotly(fig)
-    plotly_fig.write_html("res_model.html")
+    plotly_fig.write_html(model_file)
 
 
     average_yaw_error = env.history["yaw error after actuation"].abs().mean()
@@ -580,7 +580,7 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
     time_yawing = get_time_yawing(nacelle_position_diff.to_list())
     
     if experiment and datatype=='test' :
-        experiment.log_html(open("res_model.html").read(), clear=True)
+        experiment.log_html(open(model_file).read(), clear=True)
         
     if experiment :
         experiment.log_curve(
