@@ -583,7 +583,8 @@ class WindTurbine(ControlEnvironment):
 
     def process_values(self):
         self.value = np.append(self.value, self.obs[1])
-        self.reward=-(self.reward-self.env.w2)
+        # self.reward=-(self.reward-self.env.w2)
+        self.reward=-self.reward
         pass
 
 

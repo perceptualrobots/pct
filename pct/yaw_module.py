@@ -561,7 +561,6 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
    
     from pct.hierarchy import PCTHierarchy
     hierarchy, score = PCTHierarchy.run_from_file(file, env_props=environment_properties, plots=plots, history=history, hpct_verbose= verbose, runs=None, outdir=outdir, early_termination=early, draw_file=draw_file)
-    print(f'Score={score:0.3f}')
 
     env = hierarchy.get_preprocessor()[0].env
 
@@ -604,6 +603,8 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
             }
         )
 
+    power_control = env.history["power_control"].sum()
+    print(f'Score={score:0.3f} power={power_control:0.3f}')
 
 
     return {
