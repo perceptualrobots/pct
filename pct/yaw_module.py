@@ -124,6 +124,10 @@ def get_dataset_from_simu(path="dataset.csv", cycle_period=10, rolling_average_d
 # %% ../nbs/12_yaw_module.ipynb 8
 def get_properties(properties):
 
+    reward_type=False
+    if 'reward_type' in properties:
+        reward_type=properties['reward_type'] 
+
     keep_history=False
     if 'keep_history' in properties:
         keep_history=properties['keep_history'] 
@@ -172,7 +176,7 @@ def get_properties(properties):
     #     elif properties['range']=='all':
     #         stop = model_params['stop_index_test']
 
-    return wind_timeseries,start, stop, model_params,yaw_params,keep_history
+    return wind_timeseries,start, stop, model_params,yaw_params,keep_history, reward_type
 
 # %% ../nbs/12_yaw_module.ipynb 9
 def get_indexes(model_params, properties):
@@ -258,8 +262,9 @@ class YawEnv(Env):
 
     def initialise(self, properties ):
 
-        wind_timeseries,start_index,stop_index,model_params,params,keep_history = get_properties(properties)
+        wind_timeseries,start_index,stop_index,model_params,params,keep_history,reward_type = get_properties(properties)
         # print(f'YawEnv start {start_index} stop {stop_index}')
+        self.reward_type=reward_type
         self.wind_timeseries = wind_timeseries
         self.start_index = start_index
         self.stop_index = stop_index
@@ -337,14 +342,19 @@ class YawEnv(Env):
 
         # added wind speed
         wind_speed = self.wind_timeseries["wind_speed"][self.index_wind_timeseries]
-
+        yaw_error = oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean())
         self.state = new_state
-        reward1 = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 \
-                * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    
 
-        reward2 = self.w2 * (self.step_since_last_2 > self.filter_duration and self.step_since_last_0 > self.filter_duration)
-
-        reward = reward1 + reward2
+        if self.reward_type=='surface2':
+            reward1 = -(yaw_error**3)
+            reward2 = -(yaw_error ** 2 * wind_speed ** 2)
+            reward3 = 1+self.w2 * (self.step_since_last_2 > self.filter_duration and self.step_since_last_0 > self.filter_duration)
+            reward = (reward1 + reward2)/reward3
+        else:    
+            reward1 = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 \
+                    * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    
+            reward2 = self.w2 * (self.step_since_last_2 > self.filter_duration and self.step_since_last_0 > self.filter_duration)
+            reward = reward1 + reward2
 
         # reward = -self.wind_timeseries["wind_speed"][self.index_wind_timeseries]**3 \
         #         * oriented_angle(self.yaw_angle - self.wind_timeseries["wind_direction"][self.index_wind_timeseries:self.index_wind_timeseries+12].mean()) ** 2    \
