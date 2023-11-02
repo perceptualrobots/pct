@@ -1007,6 +1007,14 @@ class PCTHierarchy():
         return hierarchy, score    
     
 
+    @classmethod
+    def get_environment_properties(cls, filename):
+        
+        prp = PCTRunProperties()
+        prp.load_db(filename)
+        environment_properties = eval(prp.db['environment_properties'])
+    
+        return environment_properties
 
     @classmethod
     def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None, draw_file=None):
