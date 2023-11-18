@@ -582,7 +582,16 @@ class WindTurbine(ControlEnvironment):
         self.info = self.obs[4]
 
     def process_values(self):
-        self.value = np.append(self.value, self.obs[1])
+        self.value = np.append(self.value, self.obs[1]) # wind speed
+        self.value = np.append(self.value, self.obs[2]) # steps since last move
+        # observations
+        # 0 - 
+        # 1 - yaw error
+        # 2 - wind direction
+        # 3 - 
+        # 4 - wind speed
+        # 5 - steps since last move
+
         # self.reward=-(self.reward-self.env.w2)
         self.reward=-self.reward
         pass

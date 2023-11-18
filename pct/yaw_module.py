@@ -285,6 +285,7 @@ class YawEnv(Env):
         self.state = None
         self.step_since_last_0 = None
         self.step_since_last_2 = None
+        self.step_since_move = None
         self.index_wind_timeseries = None
         self.power_curve = sc.interpolate.interp1d( # representation of power curve used to interpolate power based on speed
             self.ref_speed,
@@ -396,17 +397,17 @@ class YawEnv(Env):
             # self.history = pd.concat([self.history, new_history], ignore_index=True)
 
         if action == 1:
-
+            self.step_since_move +=1
             self.step_since_last_0 += 1
             self.step_since_last_2 += 1
 
         elif action == 0:
-
+            self.step_since_move =0
             self.step_since_last_0 = 0
             self.step_since_last_2 += 1
 
         elif action == 2:
-
+            self.step_since_move =0
             self.step_since_last_2 = 0
             self.step_since_last_0 += 1
 
@@ -415,7 +416,7 @@ class YawEnv(Env):
         if self.index_wind_timeseries == self.stop_index - 1:
             done = True
 
-        return self.state, wind_speed, reward, done, {}
+        return self.state, wind_speed, self.step_since_move, reward, done, {}
     
     
 
@@ -438,6 +439,7 @@ class YawEnv(Env):
         self.yaw_angle = self.wind_timeseries["nacelle_pos_baseline_simu"][self.index_wind_timeseries]
         self.step_since_last_2 = 0
         self.step_since_last_0 = 0
+        self.step_since_move = 0
 
         # reset state :
 
