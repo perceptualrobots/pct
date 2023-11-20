@@ -1104,6 +1104,8 @@ class SmoothWeightedSum(BaseFunction):
             value = self.weights[i]
             if isinstance(value, float):
                 value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
+            if isinstance(value, int) and value != 0:
+                value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
             labels[(self.get_name(), name)] = value
 
     

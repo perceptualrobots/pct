@@ -280,12 +280,22 @@ class ReferencedInputsError(BaseErrorCollector):
         strarr = properties.split('&')        
         self.reference_values=[]
         self.input_indexes=[]
+        self.weights=[]
 
         for inp in strarr[0].split(';'):
             self.input_indexes.append(eval(inp))
         
         for ref in strarr[1].split(';'):
             self.reference_values.append(eval(ref))
+
+        if len(strarr)>2:
+            for wt in strarr[2].split(';'):
+                self.weights.append(eval(wt))
+        else:
+            for ref in strarr[1].split(';'):
+                self.weights.append(1)
+        pass
+
                 
 
     def add_data(self, hpct=None):
@@ -294,7 +304,7 @@ class ReferencedInputsError(BaseErrorCollector):
         for ctr, index in enumerate(self.input_indexes):
             func = pre[index+1] # add 1 as environment is 0
             if isinstance(func, IndexedParameter):
-                data.append(self.reference_values[ctr]-func.get_value())
+                data.append((self.reference_values[ctr]-func.get_value()) * self.weights[ctr])
             else:
                 raise Exception(f'Function {func.get_name()} is not type IndexedParameter.')
         self.add_error_data( data )

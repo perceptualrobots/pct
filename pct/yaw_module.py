@@ -141,7 +141,11 @@ def get_properties(properties):
     (wind_timeseries, wind_timeseries_not_agg) = get_dataset_from_simu(dataset_file,
                                                                     cycle_period=10,
                                                                     rolling_average_duration=20)
-        
+    
+    w2 = 40
+    if 'w2' in properties:
+        w2 =eval(properties['w2'])
+
     yaw_params = {
         'yaw_rate_max': 0.3,
         'yaw_consumption':18,
@@ -149,7 +153,7 @@ def get_properties(properties):
         'ref_speed': power_curve['ref_v'].to_list(),
         'ref_power': power_curve['ref_P'].to_list(),
         'cycle_period': 10,
-        'w2': 40,
+        'w2': w2,
         }
 
     model_params = {
