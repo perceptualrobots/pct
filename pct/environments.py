@@ -576,24 +576,31 @@ class WindTurbine(ControlEnvironment):
         return self.env.step(self.action)
 
     def parse_obs(self):
+        # obs
+        # 0 - array of sensor values
+        # 1 - wind speed
+        # 2 - steps since last move
+        # 3 - reward
+        # 4 - done
+        # 5 - info
         self.value = self.obs[0][-1]
-        self.reward = self.obs[2]
-        self.done = self.obs[3]
-        self.info = self.obs[4]
+        self.reward = -self.obs[3]
+        self.done = self.obs[4]
+        self.info = self.obs[5]
 
     def process_values(self):
-        self.value = np.append(self.value, self.obs[1]) # wind speed
-        self.value = np.append(self.value, self.obs[2]) # steps since last move
-        # observations
+        # value
         # 0 - 
         # 1 - yaw error
         # 2 - wind direction
         # 3 - 
         # 4 - wind speed
         # 5 - steps since last move
+        self.value = np.append(self.value, self.obs[1]) # wind speed
+        self.value = np.append(self.value, self.obs[2]) # steps since last move
 
         # self.reward=-(self.reward-self.env.w2)
-        self.reward=-self.reward
+        # self.reward=-self.reward
         pass
 
 
