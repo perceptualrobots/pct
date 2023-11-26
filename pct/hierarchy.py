@@ -999,8 +999,9 @@ class PCTHierarchy():
             print(draw_file)
         
         if history:
-            for plot in plots:
-                fig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
+            if plots:
+                for plot in plots:
+                    fig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plots_dir+ sep +plot['title']+'.png')
 
         score=hierarchy.get_error_collector().error()
         

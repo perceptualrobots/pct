@@ -613,7 +613,7 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
     time_yawing = get_time_yawing(nacelle_position_diff.to_list())
     
     if experiment and datatype=='test' :
-        experiment.log_html(open(model_file).read(), clear=True)
+        experiment.log_html(open(model_file, encoding='utf-8').read(), clear=True)
         
     if experiment :
         experiment.log_curve(
