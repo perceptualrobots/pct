@@ -56,7 +56,7 @@ class PCTRunProperties():
     def load_db(self, file):
         "Load properties from file."
         from jproperties import Properties
-
+        skip = ['raw', 'env', 'config', 'col', '', '', '', '', '', '']
         # read properties from file
         configs = Properties()
         #print(file)
@@ -66,6 +66,10 @@ class PCTRunProperties():
         items_view = configs.items()
         self.db = {}
         for item in items_view:
+            if item in skip:
+                continue
+            if item.startswith('level'):
+                continue
             self.db[item[0]] = item[1].data
 
 
@@ -1017,11 +1021,20 @@ class PCTHierarchy():
     
         return environment_properties
 
+    # @classmethod
+    # def parameters_for_experiment(cls, db):
+    #     d = db.copy()
+    #     del d['raw']
+                      
+
     @classmethod
-    def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None, draw_file=None):
+    def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None, draw_file=None, experiment=None):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
+        if experiment:
+            experiment.log_parameters(prp.db)
+          
 
         error_collector_type = prp.db['error_collector_type'].strip()
         error_response_type = prp.db['error_response_type']
