@@ -588,7 +588,7 @@ def test_model_wind(wind_timeseries,start_index,stop_index,ancestors,filter_dura
     
 
 # %% ../nbs/12_yaw_module.ipynb 14
-def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,early=None,environment_properties=None,start_index=None,stop_index=None,experiment=None,datatype='test', draw_file=None, model_file=None):
+def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,early=None,environment_properties=None,start_index=None,stop_index=None,experiment=None,datatype='test', draw_file=None, model_file=None, log_testing_to_experiment=False):
     '''
     test RLYCA
     '''
@@ -614,28 +614,30 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
     
     if experiment and datatype=='test' :
         experiment.log_html(open(model_file, encoding='utf-8').read(), clear=True)
-        
-    if experiment :
-        experiment.log_curve(
-        "nacelle_pos_"+datatype,
-        range(0, stop_index-start_index),
-        env.history["yaw angle after actuation"],
-        overwrite = True,
-        )
-        experiment.log_metrics(
-            {
-                "start_index_"+datatype: start_index,
-                "stop_index_"+datatype: stop_index,
-                "power_trad_"+datatype: env.history["power_trad"].sum(),
-                "power_no_loss_"+datatype: env.history["power_no_loss"].sum(),
-                "power_control_"+datatype: env.history["power_control"].sum(),
-                "average yaw error_"+datatype: average_yaw_error,
-                "average reward_"+datatype: score,
-                "angle covered_"+datatype: angle_covered,
-                "yaw count_"+datatype: yaw_count,
-                "time_yawing_"+datatype: time_yawing,
-            }
-        )
+
+      
+    if log_testing_to_experiment:  
+        if experiment :
+            experiment.log_curve(
+            "nacelle_pos_"+datatype,
+            range(0, stop_index-start_index),
+            env.history["yaw angle after actuation"],
+            overwrite = True,
+            )
+            experiment.log_metrics(
+                {
+                    "start_index_"+datatype: start_index,
+                    "stop_index_"+datatype: stop_index,
+                    "power_trad_"+datatype: env.history["power_trad"].sum(),
+                    "power_no_loss_"+datatype: env.history["power_no_loss"].sum(),
+                    "power_control_"+datatype: env.history["power_control"].sum(),
+                    "average yaw error_"+datatype: average_yaw_error,
+                    "average reward_"+datatype: score,
+                    "angle covered_"+datatype: angle_covered,
+                    "yaw count_"+datatype: yaw_count,
+                    "time_yawing_"+datatype: time_yawing,
+                }
+            )
 
     power_control = env.history["power_control"].sum()
     print(f'Score={score:0.3f} power={power_control:0.3f}')
