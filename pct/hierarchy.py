@@ -307,9 +307,10 @@ class PCTHierarchy():
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
              node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, 
-             node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False):
+             node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None):
         import networkx as nx
         import matplotlib.pyplot as plt
+        import plotly.tools as tls
         if not interactive_mode:
             plt.switch_backend('agg')
         self.graphv = self.graph(layout=layout, funcdata=funcdata)
@@ -323,7 +324,7 @@ class PCTHierarchy():
             pos[key][1]+=move[key][1]
         
         if file != None:
-            plt.figure(figsize=figsize) 
+            fig = plt.figure(figsize=figsize) 
         if with_edge_labels:
             edge_labels = self.get_edge_labels_wrapper(funcdata)
             nx.draw_networkx_edge_labels(self.graphv, pos=pos, edge_labels=edge_labels, font_size=font_size, 
@@ -336,6 +337,16 @@ class PCTHierarchy():
             plt.title(self.name)
             plt.tight_layout()
             plt.savefig(file)
+
+        if experiment:
+            experiment.log_figure(figure_name=self.name,figure=fig)
+                # experiment.log_image(file)
+                # plotly_fig = tls.mpl_to_plotly(fig)
+                # plotly_fig.write_html(file)
+                # experiment.log_html(open(file,encoding='utf-8').read()) # added ,encoding='utf-8'
+
+
+
 
     def get_colors(self, graph, color_mapping):
         colors=[]
