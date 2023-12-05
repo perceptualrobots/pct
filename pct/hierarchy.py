@@ -306,7 +306,7 @@ class PCTHierarchy():
             
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
-             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, 
+             node_size=500, arrowsize=25, align='horizontal', file=False, figsize=(8,8), move={}, 
              node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None):
         import networkx as nx
         import matplotlib.pyplot as plt
@@ -323,8 +323,9 @@ class PCTHierarchy():
             pos[key][0]+=move[key][0]
             pos[key][1]+=move[key][1]
         
-        if file != None:
+        if experiment or file:
             fig = plt.figure(figsize=figsize) 
+
         if with_edge_labels:
             edge_labels = self.get_edge_labels_wrapper(funcdata)
             nx.draw_networkx_edge_labels(self.graphv, pos=pos, edge_labels=edge_labels, font_size=font_size, 
@@ -332,10 +333,12 @@ class PCTHierarchy():
             
         nx.draw(self.graphv, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight, 
                 font_color=font_color, node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
-        
-        if file != None:
+         
+        if experiment or file:
             plt.title(self.name)
             plt.tight_layout()
+
+        if file:
             plt.savefig(file)
 
         if experiment:
@@ -990,8 +993,9 @@ class PCTHierarchy():
     @classmethod
     def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
-        seed=None, draw_file=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
-        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, environment_properties=None):
+        seed=None, draw_file=False, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
+        history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, 
+        environment_properties=None, experiment=None, log_experiment_figure=False):
         "Run an individual from a provided configuration."
         hierarchy = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes, environment_properties=environment_properties)
         env = hierarchy.get_preprocessor()[0]
@@ -1009,9 +1013,13 @@ class PCTHierarchy():
         
         # draw network file
         move = {} if move == None else move
-        if draw_file is not None:
-            hierarchy.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
-            print(draw_file)
+        if experiment or draw_file:
+            if log_experiment_figure:
+                hierarchy.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size, experiment=experiment)
+            else:
+                hierarchy.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
+            if draw_file:
+                print(draw_file)
         
         if history:
             if plots:
@@ -1039,7 +1047,8 @@ class PCTHierarchy():
                       
 
     @classmethod
-    def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, runs=None, outdir=None, early_termination = None, draw_file=None, experiment=None):
+    def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, 
+                      runs=None, outdir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
@@ -1069,12 +1078,7 @@ class PCTHierarchy():
         hierarchy, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
-                                                suffixes=True, plots_dir=outdir, draw_file=draw_file)
-        
-        # ind, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-        #                                             error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
-        #                                             environment_properties=env_props, seed=seed, early_termination=early_termination)
-
+                                                suffixes=True, plots_dir=outdir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure)
         
         return hierarchy, score 
 
