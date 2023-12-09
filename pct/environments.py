@@ -583,17 +583,46 @@ class WindTurbine(ControlEnvironment):
         # 3 - reward
         # 4 - done
         # 5 - info
+
+        # print('self.obs[0]')
+        # print(self.obs[0])
+
+        ye = self.obs[0][0:12,1]
+        ye_mean = ye.mean()
+        # print('ye')
+        # print(ye)
+        # print('ye_mean')
+        # print(ye_mean)
+
+        wd = self.obs[0][0:12,2]
+        wd_mean = wd.mean()
+        # print('wd')
+        # print(wd)
+        # print('wd_mean')
+        # print(wd_mean)
+
+        ws = self.obs[0][0:12,3]
+        ws_mean = ws.mean()
+        # print('ws')
+        # print(ws)
+        # print('ws_mean')
+        # print(ws_mean)
+
         self.value = self.obs[0][-1]
+        self.value[1]=ye_mean
+        self.value[2]=wd_mean
+        self.value[3]=ws_mean
+
         self.reward = -self.obs[3]
         self.done = self.obs[4]
         self.info = self.obs[5]
 
     def process_values(self):
         # value
-        # 0 - 
-        # 1 - yaw error
-        # 2 - wind direction
-        # 3 - 
+        # 0 - action
+        # 1 - yaw error mean
+        # 2 - wind direction mean
+        # 3 - wind speed mean
         # 4 - wind speed
         # 5 - steps since last move
         self.value = np.append(self.value, self.obs[1]) # wind speed
