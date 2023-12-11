@@ -609,9 +609,9 @@ class WindTurbine(ControlEnvironment):
         # print(ws_mean)
 
         self.value = self.obs[0][-1]
-        self.value[1]=ye_mean
-        self.value[2]=wd_mean
-        self.value[3]=ws_mean
+        # self.value[1]=ye_mean
+        # self.value[2]=wd_mean
+        # self.value[3]=ws_mean
 
         self.reward = -self.obs[3]
         self.done = self.obs[4]
