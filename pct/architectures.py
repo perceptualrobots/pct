@@ -21,6 +21,7 @@ from .structure import LevelKey
 from .structure import ArchitectureStructure
 from .putils import stringListToListOfStrings
 from .errors import BaseErrorCollector
+from deprecated import deprecated
 
 # %% ../nbs/08_architectures.ipynb 7
 class BaseArchitecture(ABC):
@@ -235,6 +236,7 @@ class ProportionalArchitecture(BaseArchitecture):
  
 
 # %% ../nbs/08_architectures.ipynb 10
+@deprecated(reason="Superceded by HPCTArchitecture")
 class DynamicArchitecture(BaseArchitecture):
     "Dynamic Architecture"
     def __init__(self, name="dynamic", structure=None, config=None, env=None, input_indexes=None, inputs_names=None,

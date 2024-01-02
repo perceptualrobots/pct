@@ -17,6 +17,7 @@ from .putils import dot
 from .putils import UniqueNamer
 from .putils import FunctionsList
 from .putils import floatListsToString
+from deprecated import deprecated
 
 # %% ../nbs/02_functions.ipynb 5
 class HPCTFUNCTION(IntEnum):
@@ -171,6 +172,7 @@ class BaseFunction(ABC):
     
 
     def set_graph_data(self, graph, layer=None, layer_edges=False):
+        # edge labels for network graph 
         node_name = self.name
         edges = []
         for link in self.links:            
@@ -189,6 +191,7 @@ class BaseFunction(ABC):
         graph.add_edges_from( edges)                
             
     def set_graph_data_funcdata(self, graph, layer=None, layer_edges=False):
+        # edge labels for network graph for enhanced function labels
         node_name = self.get_graph_name()
         edges = []
         for link in self.links:            
@@ -206,28 +209,9 @@ class BaseFunction(ABC):
         graph.add_node(node_name, layer=layer)
         graph.add_edges_from(edges)    
         #print(edges)
-
-        
-#     def set_graph_data_node(self, graph, layer=None, layer_edges=False, node_list=None):
-#         node_name = self.name
-#         edges = []
-#         for link in self.links:            
-#             func = FunctionsList.getInstance().get_function(self.namespace, link)
-#             if isinstance(func, str):
-#                 name = func
-#             else:
-#                 name = func.get_name()
-                
-#             if layer_edges:
-#                 graph.add_node(node_list[name], layer=layer+1)
-                        
-#             edges.append((node_list[name],self.name))
-            
-#         graph.add_node(node_name, layer=layer)
-#         graph.add_edges_from( edges)    
-
         
     def get_weights_labels(self, labels):
+        # labels used on lines in network graph
         if hasattr(self, 'weights'):
             for i in range(len(self.weights)):
                 link = self.get_link(i)
@@ -253,6 +237,7 @@ class BaseFunction(ABC):
 
             
     def get_weights_labels_funcdata(self, labels):
+        # enhanced labels used on lines in network graph
         if hasattr(self, 'weights'):
             for i in range(len(self.weights)):
                 link = self.get_link(i)
@@ -275,32 +260,7 @@ class BaseFunction(ABC):
             if isinstance(value, float):
                 value = f'{value:4.3}'
             labels[(self.get_name(), name)] = value
-            
-            
-#     def get_weights_labels_nodes(self, labels, node_list):
-#         if hasattr(self, 'weights'):
-#             for i in range(len(self.weights)):
-#                 link = self.get_link(i)
-#                 if isinstance(link, str):
-#                     name=link
-#                 else:
-#                     name = link.get_name()
-#                 value = self.weights[i]
-#                 if isinstance(value, float):
-#                     value = f'{value:4.3}'
-#                 labels[(self.get_name(), node_list[name])] = value
-
-#         if hasattr(self, 'gain'):
-#             link = self.get_link(0)
-#             if isinstance(link, str):
-#                 name=link
-#             else:
-#                 name = link.get_name()
-#             value = self.gain
-#             if isinstance(value, float):
-#                 value = f'{value:4.3}'
-#             labels[(self.get_name(), node_list[name])] = value
-
+                    
             
     def output_string(self):
         if isinstance (self.value, list):     
@@ -392,6 +352,7 @@ class BaseFunction(ABC):
 
     @abstractmethod    
     def get_graph_name(self):
+        # name to be used in network diagram
         return self.name
         
     def get_name(self):
@@ -592,10 +553,9 @@ class Variable(BaseFunction):
         pass
 
     def get_graph_name(self):
+        # name including value for display in network graph
         return f'{self.name}\n{self.value:4.2f}' 
     
-#     def get_graph_name(self):
-#         return super().get_graph_name() 
     
     class Factory:
         def create(self): return Variable()
@@ -701,20 +661,14 @@ class Constant(BaseFunction):
     def create_properties(self, thislevel, targetlevel, targetprefix, targetcolumns, inputs):
         self.set_value(inputs[targetcolumns])
 
-    
+    @deprecated(reason="Used by DynamicArchitecture")
     def set_node_function(self, function_type, thislevel, targetlevel, not_used, 
                           column, not_used1, inputs, weights, not_used2, not_used3):
         
         prefix = self.get_capital(function_type)
         self.set_name(f'{prefix}L{thislevel}C{column}')
         self.set_value(weights[column])
-        """
-        print('Literal',inputs)        
-        print('Literal',weights)        
-        prefix = function[0].capitalize()
-        constant = Constant(weights[column], name=f'{prefix}L{thislevel}C{column}c')
-        node.replace_function(function, constant, 0)
-        """
+
 
     def reset_value(self):
         pass
