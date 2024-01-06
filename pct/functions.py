@@ -3,10 +3,11 @@
 # %% auto 0
 __all__ = ['HPCTFUNCTION', 'BaseFunction', 'FunctionFactory', 'Subtract', 'Proportional', 'Variable', 'PassOn', 'GreaterThan',
            'Constant', 'Step', 'Integration', 'IntegrationDual', 'Sigmoid', 'WeightedSum', 'SmoothWeightedSum',
-           'IndexedParameter', 'SigmoidWeightedSum', 'SigmoidSmoothWeightedSum', 'Derivative']
+           'IndexedParameter', 'SigmoidWeightedSum', 'SigmoidSmoothWeightedSum', 'Derivative', 'DerivativeWeightedSum']
 
 # %% ../nbs/02_functions.ipynb 4
 #import numpy as np
+import numpy.testing as npt
 from enum import IntEnum, auto
 import random
 import uuid
@@ -1031,34 +1032,35 @@ class SmoothWeightedSum(BaseFunction):
                 value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
             labels[(self.get_name(), name)] = value
 
-    
-    # def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, 
-    #                       column, num_target_indices, inputs, input_weights, by_column, not_used):
-    #     prefix = self.get_capital(function_type)
-    #     self.set_name(f'{prefix}L{thislevel}C{column}')
+    @deprecated(reason="Used by DynamicArchitecture")
+    def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, 
+                          column, num_target_indices, inputs, input_weights, by_column, not_used):
+        prefix = self.get_capital(function_type)
+        self.set_name(f'{prefix}L{thislevel}C{column}')
 
-    #     weights=[]        
-    #     for inputIndex in range(num_target_indices):
-    #         if inputs==None:
-    #             name=f'{targetprefix}L{targetlevel}C{inputIndex}'
-    #         else:
-    #             name=inputs[inputIndex]
-    #         self.add_link(name)
-    #         #print(name)
-    #         if by_column:
-    #             weights.append(input_weights[column][inputIndex])
-    #         else:
-    #             #print(inputIndex,column)
-    #             weights.append(input_weights[inputIndex][column])                
-    #     self.weights=np.array(weights)
+        weights=[]        
+        for inputIndex in range(num_target_indices):
+            if inputs==None:
+                name=f'{targetprefix}L{targetlevel}C{inputIndex}'
+            else:
+                name=inputs[inputIndex]
+            self.add_link(name)
+            #print(name)
+            if by_column:
+                weights.append(input_weights[column][inputIndex])
+            else:
+                #print(inputIndex,column)
+                weights.append(input_weights[inputIndex][column])                
+        self.weights=np.array(weights)
     
-    # def set_output_function(self, thislevel, column, input_weights):
-    #     self.set_name(f'OL{thislevel}C{column}')
+    @deprecated(reason="Used by DynamicArchitecture")
+    def set_output_function(self, thislevel, column, input_weights):
+        self.set_name(f'OL{thislevel}C{column}')
 
-    #     weights=[]        
-    #     weights.append(input_weights[column][0])
-    #     self.weights=weights #np.array(weights)
-    #     self.smooth_factor=input_weights[column][1]
+        weights=[]        
+        weights.append(input_weights[column][0])
+        self.weights=weights #np.array(weights)
+        self.smooth_factor=input_weights[column][1]
         
     def get_graph_name(self):
         return f'{self.name}\n{self.smooth_factor:4.2f}' 
@@ -1184,8 +1186,7 @@ class SigmoidWeightedSum(BaseFunction):
             if isinstance(value, int) and value != 0:
                 value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
             labels[(self.get_name(), name)] = value
-
-    
+   
         
     def get_graph_name(self):
         return f'{self.name}\n{self.range:4.2f}-{self.slope:4.2f}' 
@@ -1296,43 +1297,43 @@ class SigmoidSmoothWeightedSum(BaseFunction):
 # %% ../nbs/02_functions.ipynb 25
 class Derivative(BaseFunction):
     "A function that provides the difference to previous values of the input signal. Parameter: The weights array. Links: Links to all the input functions."
-    def __init__(self, history=1, value=0, name="derivative", links=None, new_name=True, usenumpy=False, namespace=None, **cargs):
+    def __init__(self, history_length=1, value=0, name="derivative", links=None, new_name=True, usenumpy=False, namespace=None, **cargs):
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
-        self.range = range
-        self.smoothed_value = value
         self.usenumpy=usenumpy
-        self.old_value = None
-        self.ctr = 1
-        self.history = history
+        self.history_length = history_length
+        self.history = []
         
     def __call__(self, verbose=False):
         
         super().check_links(1)
-        
-
-        self.old_value = None
+        input = self.links[0].get_value()
+        self.history.append(input)
+        if len(self.history)>self.history_length:
+            self.history.pop(0)
+            
+        self.value = self.history[0] - self.history[-1]
         
         return super().__call__(verbose)
 
     def summary(self, extra=False):
-        super().summary(f'history {self.history} ', extra=extra)
+        super().summary(f'history_length {self.history_length} ', extra=extra)
         
         
     def get_parameters_list(self):
-        return [self.history]
+        return [self.history_length]
         
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
         
-        config["history"] = self.history
+        config["history_length"] = self.history_length
         return config
     
     def get_suffix(self):
         return 'dv'
 
     def get_weights_labels(self, labels):
-        link = self.get_link(1)
+        link = self.get_link(0)
         if isinstance(link, str):
             name=link
         else:
@@ -1341,7 +1342,7 @@ class Derivative(BaseFunction):
         labels[(self.get_name(), name)] = value
         
     def get_graph_name(self):
-        return f'{self.name}\n{self.history:4.2f}' 
+        return f'{self.name}\n{self.history_length:4.2f}' 
         
     class Factory:
         def create(self): return Derivative()
@@ -1350,3 +1351,96 @@ class Derivative(BaseFunction):
         def create(self, namespace=None): return Derivative(namespace=namespace)
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return Derivative(new_name=new_name, namespace=namespace, **cargs)
+
+# %% ../nbs/02_functions.ipynb 27
+class DerivativeWeightedSum(BaseFunction):
+    "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then takes the difference of with a past value. Parameter: The weights array. Links: Links to all the input functions."
+    def __init__(self, weights=[0], history_length=1,  value=0, name="derivative_weighted_sum", links=None, 
+                 new_name=True, usenumpy=False, namespace=None, **cargs):
+        super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
+        if usenumpy:
+            if isinstance(weights, list): 
+                self.weights = np.array(weights)
+            else:
+                self.weights = weights
+        else:
+            if not isinstance(weights, list):
+                self.weights = weights.tolist()
+            else:
+                self.weights = weights
+        self.history_length = history_length
+        self.history = []
+        self.usenumpy=usenumpy
+        
+    def __call__(self, verbose=False):
+        if self.usenumpy:
+            if len(self.links) != self.weights.size:
+                raise Exception(f'Number of links {len(self.links)} and weights {self.weights.size} for function {self.name} must be the same.')
+        else:
+            if len(self.links) != len(self.weights):
+                raise Exception(f'Number of links {len(self.links)} and weights {len(self.weights)} for function {self.name} must be the same.')
+        
+        super().check_links(len(self.links))
+        if self.usenumpy:
+            inputs = np.array([link.get_value() for link in self.links])
+            weighted_sum = np.dot(inputs, self.weights)
+        else:
+            inputs = [link.get_value() for link in self.links]
+            weighted_sum = dot(inputs, self.weights)
+
+
+        self.history.append(weighted_sum)
+        if len(self.history)>self.history_length:
+            self.history.pop(0)
+            
+        self.value = self.history[0] - self.history[-1]
+                
+        return super().__call__(verbose)
+
+    def summary(self, extra=False):
+        weights = [float(f'{float(wt):4.3}') for wt in self.weights]
+        super().summary(f'weights {weights} history_length {self.history_length}', extra=extra)
+        
+        
+    def get_parameters_list(self):
+        return [self.weights, self.history_length]
+        
+
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
+        if self.usenumpy:
+            config["weights"] = self.weights.tolist()
+        else:
+            config["weights"] = self.weights
+        config["history_length"] = self.history_length
+
+        return config
+    
+    def get_suffix(self):
+        return 'dsm'
+
+    def get_weights_labels(self, labels):
+        for i in range(len(self.weights)):
+            link = self.get_link(i)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.weights[i]
+            if isinstance(value, float):
+                value = f'{value:4.2f}:{self.history_length}'
+            if isinstance(value, int) and value != 0:
+                value = f'{value:4.2f}:{self.history_length}'
+            labels[(self.get_name(), name)] = value
+   
+        
+    def get_graph_name(self):
+        return f'{self.name}\n{self.history_length}' 
+        
+    class Factory:
+        def create(self): return DerivativeWeightedSum()
+        
+    class FactoryWithNamespace:
+        def create(self, namespace=None): return DerivativeWeightedSum(namespace=namespace)
+    class FactoryFromConfig:
+        def create(self, new_name=None, namespace=None, **cargs): return DerivativeWeightedSum(new_name=new_name, namespace=namespace, **cargs)
