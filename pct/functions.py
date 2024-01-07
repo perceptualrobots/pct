@@ -998,7 +998,11 @@ class SmoothWeightedSum(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self, extra=False):
-        weights = [float(f'{float(wt):4.3}') for wt in self.weights]
+        if isinstance(self.weights[0], int):
+            weights = self.weights
+        else:
+            weights = [float(f'{float(wt):4.3}') for wt in self.weights]
+
         super().summary(f'weights {weights} smooth {self.smooth_factor:4.3}', extra=extra)
         
         
@@ -1152,7 +1156,10 @@ class SigmoidWeightedSum(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self, extra=False):
-        weights = [float(f'{float(wt):4.3}') for wt in self.weights]
+        if isinstance(self.weights[0], int):
+            weights = self.weights
+        else:
+            weights = [float(f'{float(wt):4.3}') for wt in self.weights]
         super().summary(f'weights {weights} range {self.range:4.3}  slope {self.slope:4.3}', extra=extra)
         
         
