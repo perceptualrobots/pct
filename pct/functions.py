@@ -1359,7 +1359,7 @@ class Derivative(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return Derivative(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 27
+# %% ../nbs/02_functions.ipynb 26
 class DerivativeWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then takes the difference of with a past value. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=[0], history_length=1,  value=0, name="derivative_weighted_sum", links=None, 
@@ -1397,11 +1397,16 @@ class DerivativeWeightedSum(BaseFunction):
 
 
         self.history.append(weighted_sum)
-        if len(self.history)>self.history_length:
+        if self.history_length > 0:
+            if len(self.history)>self.history_length:
+                self.history.pop(0)
+                
+            self.value = self.history[0] - self.history[-1]
+        
+        if self.history_length == 0 :
+            self.value = self.history[0]
             self.history.pop(0)
             
-        self.value = self.history[0] - self.history[-1]
-                
         return super().__call__(verbose)
 
     def summary(self, extra=False):
