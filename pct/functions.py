@@ -38,8 +38,6 @@ class BaseFunction(ABC):
         if namespace ==None:
             namespace = uuid.uuid1()
         self.namespace=namespace
-
-        
         self.value = value
         self.links = []
         self.handle_links(links)
@@ -339,9 +337,8 @@ class BaseFunction(ABC):
     def reset_value(self):
         self.value=0
 
-    @abstractmethod    
     def get_graph_name(self):
-        # name to be used in network diagram
+        # function name to be used in network diagram circle
         return self.name
         
     def get_name(self):
@@ -457,9 +454,6 @@ class Subtract(BaseFunction):
 
     def get_config(self, zero=1):
         return super().get_config(zero=zero)
-
-    def get_graph_name(self):
-        return super().get_graph_name() 
     
     class Factory:
         def create(self): return Subtract()     
@@ -498,10 +492,7 @@ class Proportional(BaseFunction):
     
     def get_suffix(self):
         return 'p'
-    
-    def get_graph_name(self):
-        return super().get_graph_name() 
-    
+        
     class Factory:
         def create(self): 
             return Proportional()       
@@ -572,9 +563,6 @@ class PassOn(BaseFunction):
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
         return config
-
-    def get_graph_name(self):
-        return super().get_graph_name() 
     
     class Factory:
         def create(self): return PassOn()
@@ -662,9 +650,6 @@ class Constant(BaseFunction):
     def reset_value(self):
         pass
     
-    def get_graph_name(self):
-        return super().get_graph_name() 
-
     class Factory:
         def create(self): return Constant()
 
@@ -946,9 +931,7 @@ class WeightedSum(BaseFunction):
         weights=[]        
         weights.append(input_weights[column])
         self.weights=weights #np.array(weights)
-        
-    def get_graph_name(self):
-        return super().get_graph_name()        
+          
         
     class Factory:
         def create(self): return WeightedSum()
@@ -1102,8 +1085,6 @@ class IndexedParameter(BaseFunction):
         config["index"] = self.index
         return config
 
-    def get_graph_name(self):
-        return super().get_graph_name() 
     
     class Factory:
         def create(self): return IndexedParameter()
@@ -1194,7 +1175,9 @@ class SigmoidWeightedSum(BaseFunction):
                 value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
             labels[(self.get_name(), name)] = value
    
-        
+    def get_weights_labels_funcdata(self, labels):
+        self.get_weights_labels(labels)
+               
     def get_graph_name(self):
         return f'{self.name}\n{self.range:4.2f}-{self.slope:4.2f}' 
         
@@ -1288,7 +1271,9 @@ class SigmoidSmoothWeightedSum(BaseFunction):
                 value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}-{self.smooth_factor:4.2f}'
             labels[(self.get_name(), name)] = value
 
-    
+    def get_weights_labels_funcdata(self, labels):
+        self.get_weights_labels(labels)
+
         
     def get_graph_name(self):
         return f'{self.name}\n{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}' 
@@ -1347,6 +1332,9 @@ class Derivative(BaseFunction):
             name = link.get_name()
         value = f'{self.history}'
         labels[(self.get_name(), name)] = value
+
+    def get_weights_labels_funcdata(self, labels):
+        self.get_weights_labels(labels)
         
     def get_graph_name(self):
         return f'{self.name}\n{self.history_length:4.2f}' 
@@ -1429,7 +1417,7 @@ class DerivativeWeightedSum(BaseFunction):
         return config
     
     def get_suffix(self):
-        return 'dsm'
+        return 'dvws'
 
     def get_weights_labels(self, labels):
         for i in range(len(self.weights)):
@@ -1445,6 +1433,19 @@ class DerivativeWeightedSum(BaseFunction):
                 value = f'{value:4.2f}:{self.history_length}'
             labels[(self.get_name(), name)] = value
    
+    def get_weights_labels_funcdata(self, labels):
+        for i in range(len(self.weights)):
+            link = self.get_link(i)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_graph_name()
+            value = self.weights[i]
+            if isinstance(value, float):
+                value = f'{value:4.2f}:{self.history_length}'
+            if isinstance(value, int) and value != 0:
+                value = f'{value:4.2f}:{self.history_length}'
+            labels[(self.get_graph_name(), name)] = value
         
     def get_graph_name(self):
         return f'{self.name}\n{self.history_length}' 
