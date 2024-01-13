@@ -208,7 +208,7 @@ class BaseFunction(ABC):
                     name = link.get_name()
                 value = self.weights[i]
                 if isinstance(value, float):
-                    value = f'{value:4.3}'
+                    value = f'{value:4.2f}'
                 labels[(self.get_name(), name)] = value
 
         if hasattr(self, 'gain'):
@@ -219,7 +219,7 @@ class BaseFunction(ABC):
                 name = link.get_name()
             value = self.gain
             if isinstance(value, float):
-                value = f'{value:4.3}'
+                value = f'{value:4.2f}'
             labels[(self.get_name(), name)] = value
 
             
@@ -234,7 +234,7 @@ class BaseFunction(ABC):
                     name = link.get_graph_name()
                 value = self.weights[i]
                 if isinstance(value, float):
-                    value = f'{value:4.3}'
+                    value = f'{value:4.2f}'
                 labels[(self.get_graph_name(), name)] = value
 
         if hasattr(self, 'gain'):
@@ -245,7 +245,7 @@ class BaseFunction(ABC):
                 name = link.get_name()
             value = self.gain
             if isinstance(value, float):
-                value = f'{value:4.3}'
+                value = f'{value:4.2f}'
             labels[(self.get_name(), name)] = value
                     
             
@@ -984,9 +984,9 @@ class SmoothWeightedSum(BaseFunction):
         if isinstance(self.weights[0], int):
             weights = self.weights
         else:
-            weights = [float(f'{float(wt):4.3}') for wt in self.weights]
+            weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
 
-        super().summary(f'weights {weights} smooth {self.smooth_factor:4.3}', extra=extra)
+        super().summary(f'weights {weights} smooth {self.smooth_factor:4.2f}', extra=extra)
         
         
     def get_parameters_list(self):
@@ -1005,19 +1005,19 @@ class SmoothWeightedSum(BaseFunction):
     def get_suffix(self):
         return 'sm'
 
-    def get_weights_labels(self, labels):
-        for i in range(len(self.weights)):
-            link = self.get_link(i)
-            if isinstance(link, str):
-                name=link
-            else:
-                name = link.get_name()
-            value = self.weights[i]
-            if isinstance(value, float):
-                value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
-            if isinstance(value, int) and value != 0:
-                value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
-            labels[(self.get_name(), name)] = value
+    # def get_weights_labels(self, labels):
+    #     for i in range(len(self.weights)):
+    #         link = self.get_link(i)
+    #         if isinstance(link, str):
+    #             name=link
+    #         else:
+    #             name = link.get_name()
+    #         value = self.weights[i]
+    #         if isinstance(value, float):
+    #             value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
+    #         if isinstance(value, int) and value != 0:
+    #             value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
+    #         labels[(self.get_name(), name)] = value
 
     @deprecated(reason="Used by DynamicArchitecture")
     def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, 
@@ -1140,8 +1140,8 @@ class SigmoidWeightedSum(BaseFunction):
         if isinstance(self.weights[0], int):
             weights = self.weights
         else:
-            weights = [float(f'{float(wt):4.3}') for wt in self.weights]
-        super().summary(f'weights {weights} range {self.range:4.3}  slope {self.slope:4.3}', extra=extra)
+            weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
+        super().summary(f'weights {weights} range {self.range:4.2f}  slope {self.slope:4.2f}', extra=extra)
         
         
     def get_parameters_list(self):
@@ -1161,22 +1161,22 @@ class SigmoidWeightedSum(BaseFunction):
     def get_suffix(self):
         return 'sg'
 
-    def get_weights_labels(self, labels):
-        for i in range(len(self.weights)):
-            link = self.get_link(i)
-            if isinstance(link, str):
-                name=link
-            else:
-                name = link.get_name()
-            value = self.weights[i]
-            if isinstance(value, float):
-                value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
-            if isinstance(value, int) and value != 0:
-                value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
-            labels[(self.get_name(), name)] = value
+    # def get_weights_labels(self, labels):
+    #     for i in range(len(self.weights)):
+    #         link = self.get_link(i)
+    #         if isinstance(link, str):
+    #             name=link
+    #         else:
+    #             name = link.get_name()
+    #         value = self.weights[i]
+    #         if isinstance(value, float):
+    #             value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
+    #         if isinstance(value, int) and value != 0:
+    #             value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
+    #         labels[(self.get_name(), name)] = value
    
-    def get_weights_labels_funcdata(self, labels):
-        self.get_weights_labels(labels)
+    # def get_weights_labels_funcdata(self, labels):
+    #     self.get_weights_labels(labels)
                
     def get_graph_name(self):
         return f'{self.name}\n{self.range:4.2f}-{self.slope:4.2f}' 
@@ -1234,8 +1234,8 @@ class SigmoidSmoothWeightedSum(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self, extra=False):
-        weights = [float(f'{float(wt):4.3}') for wt in self.weights]
-        super().summary(f'weights {weights} smooth {self.smooth_factor:4.3} range {self.range:4.3}  slope {self.slope:4.3}', extra=extra)
+        weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
+        super().summary(f'weights {weights} smooth {self.smooth_factor:4.2f} range {self.range:4.2f}  slope {self.slope:4.2f}', extra=extra)
         
         
     def get_parameters_list(self):
@@ -1257,22 +1257,22 @@ class SigmoidSmoothWeightedSum(BaseFunction):
     def get_suffix(self):
         return 'sgm'
 
-    def get_weights_labels(self, labels):
-        for i in range(len(self.weights)):
-            link = self.get_link(i)
-            if isinstance(link, str):
-                name=link
-            else:
-                name = link.get_name()
-            value = self.weights[i]
-            if isinstance(value, float):
-                value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}'
-            if isinstance(value, int) and value != 0:
-                value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}-{self.smooth_factor:4.2f}'
-            labels[(self.get_name(), name)] = value
+    # def get_weights_labels(self, labels):
+    #     for i in range(len(self.weights)):
+    #         link = self.get_link(i)
+    #         if isinstance(link, str):
+    #             name=link
+    #         else:
+    #             name = link.get_name()
+    #         value = self.weights[i]
+    #         if isinstance(value, float):
+    #             value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}'
+    #         if isinstance(value, int) and value != 0:
+    #             value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}-{self.smooth_factor:4.2f}'
+    #         labels[(self.get_name(), name)] = value
 
-    def get_weights_labels_funcdata(self, labels):
-        self.get_weights_labels(labels)
+    # def get_weights_labels_funcdata(self, labels):
+    #     self.get_weights_labels(labels)
 
         
     def get_graph_name(self):
@@ -1324,17 +1324,17 @@ class Derivative(BaseFunction):
     def get_suffix(self):
         return 'dv'
 
-    def get_weights_labels(self, labels):
-        link = self.get_link(0)
-        if isinstance(link, str):
-            name=link
-        else:
-            name = link.get_name()
-        value = f'{self.history}'
-        labels[(self.get_name(), name)] = value
+    # def get_weights_labels(self, labels):
+    #     link = self.get_link(0)
+    #     if isinstance(link, str):
+    #         name=link
+    #     else:
+    #         name = link.get_name()
+    #     value = f'{self.history}'
+    #     labels[(self.get_name(), name)] = value
 
-    def get_weights_labels_funcdata(self, labels):
-        self.get_weights_labels(labels)
+    # def get_weights_labels_funcdata(self, labels):
+    #     self.get_weights_labels(labels)
         
     def get_graph_name(self):
         return f'{self.name}\n{self.history_length:4.2f}' 
@@ -1398,7 +1398,7 @@ class DerivativeWeightedSum(BaseFunction):
         return super().__call__(verbose)
 
     def summary(self, extra=False):
-        weights = [float(f'{float(wt):4.3}') for wt in self.weights]
+        weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
         super().summary(f'weights {weights} history_length {self.history_length}', extra=extra)
         
         
@@ -1419,37 +1419,35 @@ class DerivativeWeightedSum(BaseFunction):
     def get_suffix(self):
         return 'dvws'
 
-    def get_weights_labels(self, labels):
-        for i in range(len(self.weights)):
-            link = self.get_link(i)
-            if isinstance(link, str):
-                name=link
-            else:
-                name = link.get_name()
-            value = self.weights[i]
-            if isinstance(value, float):
-                value = f'{value:4.2f}:{self.history_length}'
-            if isinstance(value, int) and value != 0:
-                value = f'{value:4.2f}:{self.history_length}'
-            labels[(self.get_name(), name)] = value
+    # def get_weights_labels(self, labels):
+    #     for i in range(len(self.weights)):
+    #         link = self.get_link(i)
+    #         if isinstance(link, str):
+    #             name=link
+    #         else:
+    #             name = link.get_name()
+    #         value = self.weights[i]
+    #         if isinstance(value, float):
+    #             value = f'{value:4.2f}:{self.history_length}'
+    #         if isinstance(value, int) and value != 0:
+    #             value = f'{value:4.2f}:{self.history_length}'
+    #         labels[(self.get_name(), name)] = value
    
-    def get_weights_labels_funcdata(self, labels):
-        for i in range(len(self.weights)):
-            link = self.get_link(i)
-            if isinstance(link, str):
-                name=link
-            else:
-                name = link.get_graph_name()
-            value = self.weights[i]
-            if isinstance(value, float):
-                value = f'{value:4.2f}:{self.history_length}'
-            if isinstance(value, int) and value != 0:
-                value = f'{value:4.2f}:{self.history_length}'
-            labels[(self.get_graph_name(), name)] = value
+    # def get_weights_labels_funcdata(self, labels):
+    #     for i in range(len(self.weights)):
+    #         link = self.get_link(i)
+    #         if isinstance(link, str):
+    #             name=link
+    #         else:
+    #             name = link.get_graph_name()
+    #         value = self.weights[i]
+    #         if isinstance(value, float):
+    #             value = f'{value:4.2f}:{self.history_length}'
+    #         if isinstance(value, int) and value != 0:
+    #             value = f'{value:4.2f}:{self.history_length}'
+    #         labels[(self.get_graph_name(), name)] = value
         
-    def get_graph_name(self):
-        return f'{self.name}\n{self.history_length}' 
-        
+       
     class Factory:
         def create(self): return DerivativeWeightedSum()
         
