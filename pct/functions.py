@@ -1255,7 +1255,7 @@ class SigmoidSmoothWeightedSum(BaseFunction):
         return config
     
     def get_suffix(self):
-        return 'sgm'
+        return 'sgsm'
 
     # def get_weights_labels(self, labels):
     #     for i in range(len(self.weights)):
