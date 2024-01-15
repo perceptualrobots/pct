@@ -3,8 +3,8 @@
 # %% auto 0
 __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'dynamic_module_import', 'dynamic_class_load', 'get_drive',
            'loadjson', 'Counter', 'stringIntListToListOfInts', 'stringFloatListToListOfFloats',
-           'stringListToListOfStrings', 'listNumsToString', 'round_lists', 'floatListsToString', 'sigmoid', 'smooth',
-           'dot', 'list_of_ones', 'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks']
+           'stringListToListOfStrings', 'listNumsToString', 'round_lists', 'floatListsToString', 'limit_large_float',
+           'sigmoid', 'smooth', 'dot', 'list_of_ones', 'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -317,6 +317,13 @@ def floatListsToString(alist, places):
     return f'{flist}'
 
 # %% ../nbs/01_putils.ipynb 24
+def limit_large_float(val, limit=10000000):
+    if abs(val) > limit:
+        val = - np.sign(val) * limit
+
+    return val
+
+# %% ../nbs/01_putils.ipynb 25
 def sigmoid(x, range, slope) :
     val = 0
     if abs(x) > 10000000:
@@ -332,28 +339,32 @@ def sigmoid(x, range, slope) :
 
     return val
 
-# %% ../nbs/01_putils.ipynb 25
+# %% ../nbs/01_putils.ipynb 26
 def smooth(new_val, old_val, smooth_factor):
+    if smooth_factor > 1 or smooth_factor < 0:
+        raise Exception(f'smooth_factor {smooth_factor} should be between 0 and 1')
     val = 0
+    new_val = limit_large_float(new_val)
+    old_val = limit_large_float(old_val)
     try:
         val = old_val * smooth_factor + new_val * (1-smooth_factor)
     except RuntimeWarning:
         print(f'RuntimeWarning... old_val={old_val} new_val={new_val} smooth_factor={smooth_factor}')
     return val
 
-# %% ../nbs/01_putils.ipynb 26
+# %% ../nbs/01_putils.ipynb 28
 def dot(inputs, weights):
     sum = 0
     for i in range(len(inputs)):
         sum += inputs[i]*weights[i]
     return sum
 
-# %% ../nbs/01_putils.ipynb 27
+# %% ../nbs/01_putils.ipynb 29
 def list_of_ones(num):
     x = [1 for _ in range(num) ]
     return x
 
-# %% ../nbs/01_putils.ipynb 28
+# %% ../nbs/01_putils.ipynb 30
 def limit_to_range(num, lower, upper):
     if num < lower:
         num = abs(num)
@@ -362,7 +373,7 @@ def limit_to_range(num, lower, upper):
         num = num - upper
     return num
 
-# %% ../nbs/01_putils.ipynb 30
+# %% ../nbs/01_putils.ipynb 32
 def show_video():
   mp4list = glob.glob('video/*.mp4')
   if len(mp4list) > 0:
@@ -380,10 +391,10 @@ def wrap_env(env):
   env = Monitor(env, './video', force=True)
   return env
 
-# %% ../nbs/01_putils.ipynb 33
+# %% ../nbs/01_putils.ipynb 35
 import os
 
-# %% ../nbs/01_putils.ipynb 34
+# %% ../nbs/01_putils.ipynb 36
 from pathlib import Path
 
 def is_in_notebooks():
