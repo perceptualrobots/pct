@@ -5,7 +5,7 @@ __all__ = ['BaseArchitecture', 'ProportionalArchitecture', 'DynamicArchitecture'
            'setup_environment', 'create_hierarchy']
 
 # %% ../nbs/08_architectures.ipynb 5
-import os
+import os, warnings
 import numpy as np
 from abc import ABC, abstractmethod
 

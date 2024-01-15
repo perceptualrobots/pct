@@ -11,6 +11,8 @@ import numpy as np
 import sys
 import importlib
 import json
+import warnings
+warnings.filterwarnings("error")
 
 # %% ../nbs/01_putils.ipynb 4
 class SingletonObjects:
@@ -316,11 +318,28 @@ def floatListsToString(alist, places):
 
 # %% ../nbs/01_putils.ipynb 24
 def sigmoid(x, range, slope) :
-    return -range / 2 + range / (1 + np.exp(-x * slope / range));
+    val = 0
+    if abs(x) > 10000000:
+        exv = - np.sign(x) * 10000000
+    else:
+        exv = -x * slope / range
+    if exv > 709:
+        exv = 709
+    try:
+        val = -range / 2 + range / (1 + np.exp(exv))
+    except RuntimeWarning:
+        print(f'RuntimeWarning... exv={exv} x={x} slope={slope} range={range}')
+
+    return val
 
 # %% ../nbs/01_putils.ipynb 25
 def smooth(new_val, old_val, smooth_factor):
-    return old_val * smooth_factor + new_val * (1-smooth_factor)
+    val = 0
+    try:
+        val = old_val * smooth_factor + new_val * (1-smooth_factor)
+    except RuntimeWarning:
+        print(f'RuntimeWarning... old_val={old_val} new_val={new_val} smooth_factor={smooth_factor}')
+    return val
 
 # %% ../nbs/01_putils.ipynb 26
 def dot(inputs, weights):
