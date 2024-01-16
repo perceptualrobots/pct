@@ -9,9 +9,7 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'dynamic_module_i
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
-import sys
-import importlib
-import json
+import sys, importlib, json, math
 import warnings
 warnings.filterwarnings("error")
 
@@ -374,10 +372,12 @@ def list_of_ones(num):
 # %% ../nbs/01_putils.ipynb 30
 def limit_to_range(num, lower, upper):
     if num < lower:
-        num = abs(num)
+        frac, _  = math.modf(num)
+        num = abs(frac)
 
     if num > upper:
-        num = num - upper
+        frac, _ = math.modf(num)
+        num = upper - frac
     return num
 
 # %% ../nbs/01_putils.ipynb 32
