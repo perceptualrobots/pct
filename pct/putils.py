@@ -4,7 +4,8 @@
 __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'dynamic_module_import', 'dynamic_class_load', 'get_drive',
            'loadjson', 'Counter', 'stringIntListToListOfInts', 'stringFloatListToListOfFloats',
            'stringListToListOfStrings', 'listNumsToString', 'round_lists', 'floatListsToString', 'limit_large_float',
-           'sigmoid', 'smooth', 'dot', 'list_of_ones', 'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks']
+           'sigmoid', 'smooth', 'sigmoid_array', 'dot', 'list_of_ones', 'limit_to_range', 'show_video', 'wrap_env',
+           'is_in_notebooks']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -351,6 +352,12 @@ def smooth(new_val, old_val, smooth_factor):
     except RuntimeWarning:
         print(f'RuntimeWarning... old_val={old_val} new_val={new_val} smooth_factor={smooth_factor}')
     return val
+
+# %% ../nbs/01_putils.ipynb 27
+def sigmoid_array(x, range, slope) :
+    exv = -x * slope / range
+    return -range / 2 + range / (1 + np.exp(exv))
+    
 
 # %% ../nbs/01_putils.ipynb 28
 def dot(inputs, weights):
