@@ -72,6 +72,10 @@ class PCTRunProperties():
                 continue
             self.db[item[0]] = item[1].data
 
+        if 'environment_properties' in self.db:            
+            ep = self.db['environment_properties']
+            if 'reward_type' in ep:
+                self.db['reward_type'] = ep['reward_type']
 
     def get_error_properties(self):
         "Get properties of error function from loaded properties list of the form propertyn."
