@@ -1447,6 +1447,8 @@ class DerivativeWeightedSum(BaseFunction):
     #             value = f'{value:4.2f}:{self.history_length}'
     #         labels[(self.get_graph_name(), name)] = value
         
+    def get_graph_name(self):
+        return f'{self.name}\n{self.history_length}' 
        
     class Factory:
         def create(self): return DerivativeWeightedSum()
