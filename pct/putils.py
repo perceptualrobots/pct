@@ -10,8 +10,8 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'dynamic_module_i
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
 import sys, importlib, json, math
-import warnings
-warnings.filterwarnings("error")
+# import warnings
+# warnings.filterwarnings("error")
 
 # %% ../nbs/01_putils.ipynb 4
 class SingletonObjects:
