@@ -564,6 +564,7 @@ class WindTurbine(ControlEnvironment):
         self.input = self.links[0].get_value()
                 
     def process_actions(self):
+        # zero_threshold represents the range either side of zero where no action would take place
         if abs(self.input)<= self.zero_threshold:        
             self.action = 1            
         elif self.input < 0:
