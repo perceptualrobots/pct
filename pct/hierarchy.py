@@ -572,7 +572,6 @@ class PCTHierarchy():
                 if key != name:
                     popped = functionsList.functions[self.namespace].pop(key)
                     functionsList.functions[self.namespace][name] = popped
-                    pass
 
 
     def get_levels(self):
