@@ -284,11 +284,20 @@ class BaseFunction(ABC):
     def get_list(self):
         return []
         
-        
+    def check_namespace(self, higher_namespace=None):
+        "Checks namespace is same."
+        if higher_namespace:
+            if higher_namespace != self.namespace:
+                print(f'{self.name} {type(self).__name__}', end = " ")        
+                print(f'This namespace {self.namespace} does not equal higher namespace {higher_namespace}')
+                raise Exception(f'This namespace {self.namespace} does not equal higher namespace {higher_namespace}')
+
+
+
     @abstractmethod    
-    def summary(self, sstr, extra=False):
-        "Print the summary of the function configuration. No argument required."
-        print(f'{self.name} {type(self).__name__}', end = " ")
+    def summary(self, sstr, extra=False, higher_namespace=None):
+        "Print the summary of the function configuration. Also prints function object and namespace with extra argument. With higher_namespace argument also checks namespace is same."
+        print(f'{self.name} {type(self).__name__}', end = " ")        
         if len(sstr)>0:
             print(f'| {sstr}', end= " ")
         print(f'| {self.value}', end = " ")
@@ -302,7 +311,12 @@ class BaseFunction(ABC):
                 fname = func.get_name()            
             print(fname, end= " ")
         
-        if extra:
+        if higher_namespace:
+            if higher_namespace != self.namespace:
+                print(f'This namespace {self.namespace} does not equal higher namespace {higher_namespace}')
+                raise Exception(f'This namespace {self.namespace} does not equal higher namespace {higher_namespace}')
+
+        if extra:            
             print('|', [self], self.namespace)
         else:    
             print()
@@ -449,8 +463,8 @@ class Subtract(BaseFunction):
 
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):
         return super().get_config(zero=zero)
@@ -479,8 +493,8 @@ class Proportional(BaseFunction):
         self.value = input * self.gain
         return super().__call__(verbose)
     
-    def summary(self, extra=False):
-        super().summary(f'gain {self.gain}', extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary(f'gain {self.gain}', extra=extra, higher_namespace=higher_namespace)
         
     def get_parameters_list(self):
         return [self.gain]        
@@ -515,8 +529,8 @@ class Variable(BaseFunction):
     def __call__(self, verbose=False):
         return super().__call__(verbose)
     
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
         
     def get_parameters_list(self):
         return [self.value]
@@ -557,8 +571,8 @@ class PassOn(BaseFunction):
         self.value = self.links[0].get_value()
         return super().__call__(verbose)
     
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
         
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
@@ -591,8 +605,8 @@ class GreaterThan(BaseFunction):
         
         return super().__call__(verbose)
     
-    def summary(self, extra=False):
-        super().summary(f'threshold {self.threshold} upper {self.upper} lower {self.lower} ', extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary(f'threshold {self.threshold} upper {self.upper} lower {self.lower} ', extra=extra, higher_namespace=higher_namespace)
         
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
@@ -622,8 +636,8 @@ class Constant(BaseFunction):
     def __call__(self, verbose=False):
         return super().__call__(verbose)
     
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):
         return super().get_config(zero=1)
@@ -689,8 +703,8 @@ class Step(BaseFunction):
         self.ctr += 1
         return super().__call__(verbose)
     
-    def summary(self, extra=False):
-        super().summary(f'upper {self.upper} lower {self.lower} delay {self.delay} period {self.period}', extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary(f'upper {self.upper} lower {self.lower} delay {self.delay} period {self.period}', extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):        
         config = super().get_config(zero=zero)
@@ -723,8 +737,8 @@ class Integration(BaseFunction):
         
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
-        super().summary(f'gain {self.gain} slow {self.slow} ', extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary(f'gain {self.gain} slow {self.slow} ', extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
@@ -760,8 +774,8 @@ class IntegrationDual(BaseFunction):
         
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
-        super().summary(f'gain {self.gain} slow {self.slow} ', extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary(f'gain {self.gain} slow {self.slow} ', extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
@@ -793,8 +807,8 @@ class Sigmoid(BaseFunction):
         
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
-        super().summary(f'range {self.range} slope {self.slope} ', extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary(f'range {self.range} slope {self.slope} ', extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
@@ -852,8 +866,8 @@ class WeightedSum(BaseFunction):
 
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
-        super().summary(f'weights {self.weights}', extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary(f'weights {self.weights}', extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):
         config = super().get_config(zero=zero)
@@ -980,13 +994,13 @@ class SmoothWeightedSum(BaseFunction):
         
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
+    def summary(self, extra=False, higher_namespace=None):
         if isinstance(self.weights[0], int):
             weights = self.weights
         else:
             weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
 
-        super().summary(f'weights {weights} smooth {self.smooth_factor:4.2f}', extra=extra)
+        super().summary(f'weights {weights} smooth {self.smooth_factor:4.2f}', extra=extra, higher_namespace=higher_namespace)
         
         
     def get_parameters_list(self):
@@ -1074,8 +1088,8 @@ class IndexedParameter(BaseFunction):
 
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
-        super().summary(f'index {self.index}', extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary(f'index {self.index}', extra=extra, higher_namespace=higher_namespace)
 
     def get_parameters_list(self):
         return [self.index]    
@@ -1136,12 +1150,12 @@ class SigmoidWeightedSum(BaseFunction):
         
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
+    def summary(self, extra=False, higher_namespace=None):
         if isinstance(self.weights[0], int):
             weights = self.weights
         else:
             weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
-        super().summary(f'weights {weights} range {self.range:4.2f}  slope {self.slope:4.2f}', extra=extra)
+        super().summary(f'weights {weights} range {self.range:4.2f}  slope {self.slope:4.2f}', extra=extra, higher_namespace=higher_namespace)
         
         
     def get_parameters_list(self):
@@ -1233,9 +1247,9 @@ class SigmoidSmoothWeightedSum(BaseFunction):
         
         return super().__call__(verbose)
 
-    def summary(self, extra=False):
+    def summary(self, extra=False, higher_namespace=None):
         weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
-        super().summary(f'weights {weights} smooth {self.smooth_factor:4.2f} range {self.range:4.2f}  slope {self.slope:4.2f}', extra=extra)
+        super().summary(f'weights {weights} smooth {self.smooth_factor:4.2f} range {self.range:4.2f}  slope {self.slope:4.2f}', extra=extra, higher_namespace=higher_namespace)
         
         
     def get_parameters_list(self):

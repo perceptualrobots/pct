@@ -226,8 +226,8 @@ class OpenAIGym(ControlEnvironment):
         return self.env.reset(seed=seed)
 
 
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):
         "Return the JSON  configuration of the function."
@@ -649,8 +649,8 @@ class WindTurbine(ControlEnvironment):
         self.env.reset()        
         self.done = False
 
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
 
     def output_string(self):
         
@@ -718,8 +718,8 @@ class VelocityModel(BaseFunction):
     def set_render(self, render):
         pass
     
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
         
     def get_parameters_list(self):
         return ['vm']    
@@ -747,8 +747,8 @@ class DummyModel(BaseFunction):
     def __call__(self, verbose=False):        
         pass
 
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
     
     def get_config(self):
         pass
@@ -843,8 +843,8 @@ class WebotsWrestler(ControlEnvironment):
         self.value = self.whelper.get_sensor_values(self.obs['sensors'])
         pass
     
-    def summary(self, extra=False):
-        super().summary("", extra=extra)
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
         
     def get_graph_name(self):
         return super().get_graph_name() 

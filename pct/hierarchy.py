@@ -572,6 +572,7 @@ class PCTHierarchy():
                 if key != name:
                     popped = functionsList.functions[self.namespace].pop(key)
                     functionsList.functions[self.namespace][name] = popped
+                    pass
 
 
     def get_levels(self):
@@ -704,36 +705,63 @@ class PCTHierarchy():
         str += "\n"
         
         return str
-                                                 
+
+                                      
+    def get_namespace(self):
+        return self.namespace
+
+    def check_namespace(self):
+
+        namespace = self.namespace
+        for func in self.preCollection:
+            func.check_namespace(higher_namespace=namespace)   
+
+        if self.order==None:
+            for level in range(len(self.hierarchy)):
+                for col in range(len(self.hierarchy[level])):
+                      self.hierarchy[level][col].check_namespace(higher_namespace=namespace)
+        elif self.order=="Down":
+            for level in range(len(self.hierarchy)-1, -1, -1):
+                for col in range(len(self.hierarchy[level])-1, -1, -1):
+                      self.hierarchy[level][col].check_namespace(higher_namespace=namespace)
+                                             
+        for func in self.postCollection:
+            func.check_namespace(higher_namespace=namespace) 
+
+
+
             
-            
-    def summary(self, build=False, extra=False):
+    def summary(self, build=False, extra=False, check_namespace=False):
         print("**************************")
         print(self.name, type(self).__name__, self.get_grid(), self.namespace)                
         print("--------------------------")
         print("PRE:", end=" ")
+        if check_namespace:
+            namespace = self.namespace
+        else:
+            namespace = None
         if len(self.preCollection) == 0:
             print("None")
         for func in self.preCollection:
-            func.summary(extra=extra)   
+            func.summary(extra=extra, higher_namespace=namespace)   
         
             
         if self.order==None:
             for level in range(len(self.hierarchy)):
                 print(f'Level {level} Cols {self.get_columns(level)}')
                 for col in range(len(self.hierarchy[level])):
-                      self.hierarchy[level][col].summary(build=build, extra=extra)
+                      self.hierarchy[level][col].summary(build=build, extra=extra, higher_namespace=namespace)
         elif self.order=="Down":
             for level in range(len(self.hierarchy)-1, -1, -1):
                 print(f'Level {level} Cols {self.get_columns(level)}')
                 for col in range(len(self.hierarchy[level])-1, -1, -1):
-                      self.hierarchy[level][col].summary(build=build, extra=extra)
+                      self.hierarchy[level][col].summary(build=build, extra=extra, higher_namespace=namespace)
                                              
         print("POST:", end=" ")
         if len(self.postCollection) == 0:
             print("None")
         for func in self.postCollection:
-            func.summary(extra=extra)   
+            func.summary(extra=extra, higher_namespace=namespace)   
 
 
         print("**************************")

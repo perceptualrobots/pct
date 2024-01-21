@@ -301,29 +301,55 @@ class PCTNode():
         if collection == "output":
             self.outputCollection[position] = function
 
+
+    def check_namespace(self, higher_namespace=None):
+
+        if higher_namespace:
+            if higher_namespace != self.namespace:
+                print(self.name, type(self).__name__)
+                print(f'This namespace {self.namespace} does not equal higher namespace {higher_namespace}')
+                raise Exception(f'This namespace {self.namespace} does not equal higher namespace {higher_namespace}')
+
+        for referenceFunction in self.referenceCollection:
+            referenceFunction.check_namespace(higher_namespace=higher_namespace)   
+        
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.check_namespace(higher_namespace=higher_namespace)
+        
+        for comparatorFunction in self.comparatorCollection:
+            comparatorFunction.check_namespace(higher_namespace=higher_namespace)
+        
+        for outputFunction in self.outputCollection:
+            outputFunction.check_namespace(higher_namespace=higher_namespace)
+
             
-    def summary(self, build=True, extra=False):
+    def summary(self, build=True, extra=False, higher_namespace=None):
         if build:
             if not self.links_built:
                 self.build_links()
 
         print(self.name, type(self).__name__)
         print("----------------------------")
+
+        if higher_namespace:
+            if higher_namespace != self.namespace:
+                raise Exception(f'This namespace {self.namespace} does not equal higher namespace {higher_namespace}')
+
         print("REF:", end=" ")
         for referenceFunction in self.referenceCollection:
-            referenceFunction.summary(extra=extra)   
+            referenceFunction.summary(extra=extra, higher_namespace=higher_namespace)   
         
         print("PER:", end=" ")
         for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.summary(extra=extra)
+            perceptionFunction.summary(extra=extra, higher_namespace=higher_namespace)
         
         print("COM:", end=" ")
         for comparatorFunction in self.comparatorCollection:
-            comparatorFunction.summary(extra=extra)
+            comparatorFunction.summary(extra=extra, higher_namespace=higher_namespace)
         
         print("OUT:", end=" ")
         for outputFunction in self.outputCollection:
-            outputFunction.summary(extra=extra)
+            outputFunction.summary(extra=extra, higher_namespace=higher_namespace)
         
         print("----------------------------")
         
@@ -362,6 +388,7 @@ class PCTNode():
             outputFunction.value  = 0
     
     def change_namespace(self, namespace):
+        self.namespace=namespace
         for referenceFunction in self.referenceCollection:
             referenceFunction.change_namespace(namespace)
         
