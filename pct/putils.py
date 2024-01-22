@@ -72,7 +72,7 @@ class UniqueNamer:
 
             
     def get_name(self, namespace=None, name=None):
-
+        # checks if name is unqiue, if a name is not unique a new one is created, name recored 
         if namespace in self.names:
             namespace_list = self.names[namespace]
         else:
@@ -129,6 +129,7 @@ class FunctionsList:
             self.functions[namespace] = {}
     
     def add_function(self, namespace=None, func=None):
+        # adds a function to a namespace list, by name
         if namespace in self.functions:
             namespace_list = self.functions[namespace]
         else:
@@ -136,6 +137,8 @@ class FunctionsList:
             self.functions[namespace]=namespace_list
 
         name = func.get_name()
+        if name in namespace_list:
+            raise Exception(f'Function {name} is already in namespace list {namespace}')
         namespace_list[name]=func
         
         return name
@@ -191,9 +194,12 @@ class FunctionsList:
         if namespace is None:
             for namespace, namespace_list in self.functions.items():
                 print(len(namespace_list), 'NAMESPACE', namespace)
+                ctr = 1
                 for name, function in namespace_list.items():
-                    print("*** ", name, [function])
+                    print("*** ", ctr, name, [function])
                     print(function)
+                    ctr = ctr + 1
+                print()
         else:   
             if namespace in self.functions:
                 namespace_list = self.functions[namespace]
@@ -202,9 +208,11 @@ class FunctionsList:
 
             if name == None:
                 print(len(namespace_list), 'NAMESPACE', namespace)
+                ctr = 1
                 for name, function in namespace_list.items():
-                    print("*** ", name, [function])
+                    print("*** ", ctr, name, [function])
                     print(function)
+                print()
             else:
                 print("*** ", name, [namespace_list[name]])
                 print(namespace_list[name])          

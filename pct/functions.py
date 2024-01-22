@@ -54,7 +54,10 @@ class BaseFunction(ABC):
         
     def change_namespace(self, namespace):
         self.namespace=namespace
-        UniqueNamer.getInstance().get_name(namespace, self.name)
+        name = self.name
+        newname = UniqueNamer.getInstance().get_name(namespace, self.name)
+        if name != newname:
+            raise Exception(f'Names should not be different {name} {newname}')
         FunctionsList.getInstance().add_function(namespace, self)
         
         
@@ -407,14 +410,14 @@ class BaseFunction(ABC):
         f.close()
         
     @classmethod
-    def load(cls, file, namespace=None):      
+    def load(cls, file, new_name=None, namespace=None):      
         with open(file) as f:
             config = json.load(f)
-        return cls.from_config(config, namespace=namespace)
+        return cls.from_config(config, new_name=new_name, namespace=namespace)
     
     @classmethod
-    def from_config(cls, config=None, namespace=None):
-        func = cls(new_name=False, namespace=namespace, **config)
+    def from_config(cls, config=None, new_name=None, namespace=None):
+        func = cls(new_name=new_name, namespace=namespace, **config)
         return func
 
     def __str__(self):

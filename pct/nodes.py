@@ -92,6 +92,9 @@ class PCTNode():
             
         return self.output
     
+    def __str__(self):
+        return str(self.__dict__)
+    
     def get_summary(self):
         
         for referenceFunction in self.referenceCollection:
@@ -328,7 +331,7 @@ class PCTNode():
             if not self.links_built:
                 self.build_links()
 
-        print(self.name, type(self).__name__)
+        print(self.name, type(self).__name__, self.namespace)
         print("----------------------------")
 
         if higher_namespace:
@@ -389,6 +392,13 @@ class PCTNode():
     
     def change_namespace(self, namespace):
         self.namespace=namespace
+        
+        name = self.name
+        newname = UniqueNamer.getInstance().get_name(namespace, self.name)
+        if name != newname:
+            raise Exception(f'Names should not be different {name} {newname}')
+        FunctionsList.getInstance().add_function(namespace, self)
+
         for referenceFunction in self.referenceCollection:
             referenceFunction.change_namespace(namespace)
         

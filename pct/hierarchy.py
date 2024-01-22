@@ -814,7 +814,7 @@ class PCTHierarchy():
 
     
     @classmethod
-    def from_config(cls, config, namespace=None):
+    def from_config(cls, config, history=False, namespace=None):
         hpct = PCTHierarchy(name=config['name'], namespace=namespace)
         namespace = hpct.namespace
         preCollection = []        
@@ -829,13 +829,30 @@ class PCTHierarchy():
         hpct.postCollection=postCollection
                 
         hpct.hierarchy=[]
-        for level_key in config['levels'].keys():
+
+        # for level_key in config['levels'].keys():
+        #     cols = []
+        #     for nodes_key in config['levels'][level_key]['nodes'].keys():
+        #         node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, reference=True, comparator=True, perception=True, output=True)
+        #         cols.append(node)
+        #     hpct.hierarchy.append(cols)
+        
+        # do in order of perceptions from bottom 
+        # then from top references, comparator and output
+
+        for level_key in config['levels']:
             cols = []
-            for nodes_key in config['levels'][level_key]['nodes'].keys():
-                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, reference=True, comparator=True, perception=True, output=True)
+            for nodes_key in config['levels'][level_key]['nodes']:
+                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, perception=True, history=history)
                 cols.append(node)
             hpct.hierarchy.append(cols)
-        
+
+        for level_key, level_value in dict(reversed(list(config['levels'].items()))).items():
+            cols = []
+            for nodes_key, nodes_value in dict(reversed(list(level_value['nodes'].items()))).items():
+                node = hpct.get_node(level_value['level'], nodes_value['col'])
+                PCTNode.from_config(config=nodes_value['node'], namespace=namespace, reference=True, comparator=True,  output=True, node=node, history=history)
+
     
         return hpct
     
