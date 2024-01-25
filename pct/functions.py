@@ -648,7 +648,11 @@ class Constant(BaseFunction):
     def get_parameters_list(self):
         return [self.value]
     
-    
+
+    def get_graph_name(self):
+        # name including value for display in network graph
+        return f'{self.name}\n{self.value:4.2f}' 
+        
     def get_suffix(self):
         return 'c'
 
