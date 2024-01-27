@@ -12,7 +12,7 @@ import numpy as np
 from abc import abstractmethod
 import pct.putils as vid
 from .functions import BaseFunction
-from .putils import FunctionsList, SingletonObjects
+from .putils import FunctionsList, SingletonObjects, NumberStats
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
@@ -581,9 +581,10 @@ class WindTurbine(ControlEnvironment):
         # 0 - array of sensor values
         # 1 - wind speed
         # 2 - steps since last move
-        # 3 - reward
-        # 4 - done
-        # 5 - info
+        # 3 - power
+        # 4 - reward
+        # 5 - done
+        # 6 - info
 
         # print('self.obs[0]')
         # print(self.obs[0])
@@ -614,9 +615,9 @@ class WindTurbine(ControlEnvironment):
         # self.value[2]=wd_mean
         # self.value[3]=ws_mean
 
-        self.reward = -self.obs[3]
-        self.done = self.obs[4]
-        self.info = self.obs[5]
+        self.reward = -self.obs[4]
+        self.done = self.obs[5]
+        self.info = self.obs[6]
 
     def process_values(self):
         # value
@@ -626,11 +627,13 @@ class WindTurbine(ControlEnvironment):
         # 3 - wind speed mean
         # 4 - wind speed
         # 5 - steps since last move
+        # 6 - power
         self.value = np.append(self.value, self.obs[1]) # wind speed
         self.value = np.append(self.value, self.obs[2]) # steps since last move
+        self.value = np.append(self.value, self.obs[3]) # power
 
-        # self.reward=-(self.reward-self.env.w2)
-        # self.reward=-self.reward
+        NumberStats.getInstance().add(self.obs[3])
+
         pass
 
 
