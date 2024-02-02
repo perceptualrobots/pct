@@ -258,6 +258,9 @@ class PCTNode():
     def get_reference_function(self):
         return self.referenceCollection[-1]
 
+    def get_perception_function(self):
+        return self.perceptionCollection[-1]
+
     def set_reference(self, value):
         self.referenceCollection[-1].set_value(value)
 

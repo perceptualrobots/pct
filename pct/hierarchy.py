@@ -10,7 +10,7 @@ import uuid
 from .nodes import PCTNode
 from .functions import WeightedSum
 from .putils import UniqueNamer, FunctionsList, list_of_ones
-from .functions import BaseFunction
+from .functions import BaseFunction, HPCTFUNCTION
 from .environments import EnvironmentFactory
 from .errors import BaseErrorCollector
 from .putils import floatListsToString
@@ -306,7 +306,8 @@ class PCTHierarchy():
  
     def get_top_level(self):
         levels = self.get_levels()
-        return self.hierarchy[levels-1]
+
+        return [ self.hierarchy[levels-1] ]
             
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
@@ -1041,7 +1042,60 @@ class PCTHierarchy():
             level=level+1
             
         return ''.join(str_list)
-    
+
+    def get_plots_config(self, plots):
+        if isinstance(plots, list):
+            return plots
+        
+        if plots == 'scEdges':
+            plots = []
+            ctr = 1
+            for func in self.get_preprocessor():
+                if ctr == 1:
+                    ctr = ctr + 1
+                    continue
+                plot_item = {}
+                signals = {}
+                name = func.get_name()
+                signals[name] = name
+                plot_item['plot_items'] = signals
+                plot_item['title'] = name
+                plots.append(plot_item)
+
+            for func in self.get_postprocessor():
+                plot_item = {}
+                signals = {}
+                name = func.get_name()
+                signals[name] = name
+                plot_item['plot_items'] = signals
+                plot_item['title'] = name
+                plots.append(plot_item)
+            
+            for level in self.get_top_level():
+                if isinstance(level, list):
+                    for node in level:
+                        rfunc = node.get_reference_function()
+                        pfunc = node.get_perception_function()
+                        plot_item = {}
+                        signals = {}
+                        signals[rfunc.get_name()] = rfunc.get_name()
+                        signals[pfunc.get_name()] = pfunc.get_name()
+                        plot_item['plot_items'] = signals
+                        plot_item['title'] = node.get_name()
+                        plots.append(plot_item)
+                else:
+                    rfunc = level.get_reference_function()
+                    pfunc = level.get_perception_function()
+                    plot_item = {}
+                    signals = {}
+                    signals[rfunc.get_name()] = rfunc.get_name()
+                    signals[pfunc.get_name()] = pfunc.get_name()
+                    plot_item['plot_items'] = signals
+                    plot_item['title'] = node.get_name()
+                    plots.append(plot_item)
+
+
+        return plots    
     
     @classmethod
     def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
@@ -1076,6 +1130,7 @@ class PCTHierarchy():
         
         if history:
             if plots:
+                plots = hierarchy.get_plots_config(plots)
                 for plot in plots:
                     plotfile=None
                     if plots_dir:
