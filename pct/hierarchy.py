@@ -14,6 +14,8 @@ from .functions import BaseFunction, HPCTFUNCTION
 from .environments import EnvironmentFactory
 from .errors import BaseErrorCollector
 from .putils import floatListsToString
+from inspect import isfunction
+
 
 # %% ../nbs/04_hierarchy.ipynb 6
 class FunctionsData():
@@ -1098,12 +1100,16 @@ class PCTHierarchy():
         return plots    
     
     @classmethod
-    def run_from_config(cls, config, min, render=False,  error_collector_type=None, error_response_type=None, 
+    def run_from_config(cls, config, min=None, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=False, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, 
         environment_properties=None, experiment=None, log_experiment_figure=False):
         "Run an individual from a provided configuration."
+
+        if callable(min):
+            raise Exception("min must not be a function")
+
         hierarchy = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes, environment_properties=environment_properties)
         env = hierarchy.get_preprocessor()[0]
         env.set_render(render)
@@ -1158,7 +1164,7 @@ class PCTHierarchy():
                       
 
     @classmethod
-    def run_from_file(cls, filename, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, 
+    def run_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, 
                       runs=None, outdir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False, suffixes=False):
         
         prp = PCTRunProperties()
@@ -1186,7 +1192,7 @@ class PCTHierarchy():
         if early_termination is None:
             early_termination = eval(prp.db['early_termination'])
 
-        hierarchy, score = cls.run_from_config(config, min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+        hierarchy, score = cls.run_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
                                                 suffixes=suffixes, plots_dir=outdir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure)

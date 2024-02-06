@@ -1297,7 +1297,7 @@ class SigmoidSmoothWeightedSum(BaseFunction):
 
         
     def get_graph_name(self):
-        return f'{self.name}\n{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}' 
+        return f'{self.name}\n{self.smooth_factor:4.2f}:{self.range:4.2f}|{self.slope:4.2f}' 
         
     class Factory:
         def create(self): return SigmoidSmoothWeightedSum()
