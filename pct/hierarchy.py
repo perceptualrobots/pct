@@ -243,6 +243,8 @@ class PCTHierarchy():
                     print(f'[{i}]', end=' ')
                 out = self(verbose)
             except Exception as ex:
+                if self.error_collector != None:
+                    print(f'<{i} {self.error_collector.error()}>')
                 if ex.__str__().startswith('1000'):
                     self.error_collector.override_value()
                     if verbose:
@@ -258,8 +260,11 @@ class PCTHierarchy():
             
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
+                    print(f'<{i} {self.error_collector.error()}>')
                     return out
                     
+        if self.error_collector != None:
+            print(f'<{i} {self.error_collector.error()}>')
         return out
     
     def last_step(self):
@@ -1165,7 +1170,7 @@ class PCTHierarchy():
 
     @classmethod
     def run_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, 
-                      runs=None, outdir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False, suffixes=False):
+                      runs=None, plots_dir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False, suffixes=False):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
@@ -1195,7 +1200,7 @@ class PCTHierarchy():
         hierarchy, score = cls.run_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
-                                                suffixes=suffixes, plots_dir=outdir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure)
+                                                suffixes=suffixes, plots_dir=plots_dir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure)
         
         return hierarchy, score 
 

@@ -162,6 +162,8 @@ class BaseErrorCollector(ABC):
     
     def reset(self):
         self.error_response.reset()
+        self.limit_exceeded=False
+
 
     def error(self):
         return self.error_response.get_error_response()
@@ -200,6 +202,12 @@ class BaseErrorCollector(ABC):
         return error_collector
     
     def check_limit(self):
+        if self.limit is None:
+            raise Exception(f': {self.__class__.__name__} requires a limit value')
+
+        if self.min is None:
+            raise Exception(f': {self.__class__.__name__} min must be True or False not None')
+
         if self.min:
             if self.error_response.get_error_response() > self.limit:
                 self.limit_exceeded=True
@@ -212,7 +220,7 @@ class BaseErrorCollector(ABC):
 # %% ../nbs/07_errors.ipynb 12
 class TotalError(BaseErrorCollector):
     "A class to collect all the errors of the control system run."            
-    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+    def __init__(self, limit=None, error_response=None, min=None, **cargs):
         super().__init__(limit, error_response, min)
 
     def add_data(self, hpct=None):
@@ -230,7 +238,7 @@ class TotalError(BaseErrorCollector):
 # %% ../nbs/07_errors.ipynb 13
 class TopError(BaseErrorCollector):
     "A class to collect all the errors of the top-level nodes."            
-    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+    def __init__(self, limit=None, error_response=None, min=None, **cargs):
         super().__init__(limit, error_response, min)
 
     def add_data(self, hpct=None):
@@ -250,7 +258,7 @@ class TopError(BaseErrorCollector):
 # %% ../nbs/07_errors.ipynb 14
 class InputsError(BaseErrorCollector):
     "A class to collect the values of the input values."            
-    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+    def __init__(self, limit=None, error_response=None, min=None, **cargs):
         super().__init__(limit, error_response, min)
 
     def add_data(self, hpct=None):
@@ -271,7 +279,7 @@ class InputsError(BaseErrorCollector):
 # %% ../nbs/07_errors.ipynb 15
 class ReferencedInputsError(BaseErrorCollector):
     "A class to collect the values of the input values subtracted from reference values."                        
-    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+    def __init__(self, limit=None, error_response=None, min=None, **cargs):
         super().__init__(limit, error_response, min)
         self.reference_values=None
         self.input_indexes=None        
@@ -319,7 +327,7 @@ class ReferencedInputsError(BaseErrorCollector):
 # %% ../nbs/07_errors.ipynb 16
 class RewardError(BaseErrorCollector):
     "A class that collects the reward value of the control system run."            
-    def __init__(self, limit=1000, error_response=None, min=None, **cargs):
+    def __init__(self, limit=None, error_response=None, min=None, **cargs):
         super().__init__(limit, error_response, min)
 
     def add_data(self, hpct=None):
