@@ -1254,6 +1254,11 @@ class SigmoidSmoothWeightedSum(BaseFunction):
         
         return super().__call__(verbose)
 
+    def set_value(self, value):
+        super().set_value(value)
+        self.smoothed_value = 0
+        pass
+
     def summary(self, extra=False, higher_namespace=None):
         weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
         super().summary(f'weights {weights} smooth {self.smooth_factor:4.2f} range {self.range:4.2f}  slope {self.slope:4.2f}', extra=extra, higher_namespace=higher_namespace)
