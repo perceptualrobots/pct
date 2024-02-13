@@ -243,8 +243,8 @@ class PCTHierarchy():
                     print(f'[{i}]', end=' ')
                 out = self(verbose)
             except Exception as ex:
-                if self.error_collector != None:
-                    print(f'<{i} {self.error_collector.error()}>')
+                # if self.error_collector != None:
+                #     print(f'<{i} {self.error_collector.error()}>')
                 if ex.__str__().startswith('1000'):
                     self.error_collector.override_value()
                     if verbose:
@@ -260,11 +260,11 @@ class PCTHierarchy():
             
             if self.error_collector != None:
                 if self.error_collector.is_limit_exceeded():
-                    print(f'<{i} {self.error_collector.error()}>')
+                #     print(f'<{i} {self.error_collector.error()}>')
                     return out
                     
-        if self.error_collector != None:
-            print(f'<{i} {self.error_collector.error()}>')
+        # if self.error_collector != None:
+        #     print(f'<{i} {self.error_collector.error()}>')
         return out
     
     def last_step(self):
