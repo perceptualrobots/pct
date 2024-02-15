@@ -442,7 +442,9 @@ class YawEnv(Env):
         if self.index_wind_timeseries == self.stop_index - 1:
             done = True
 
-        return self.state, wind_speed, self.step_since_move, power, reward, done, {}
+        step_since_last_move = min(2, self.step_since_move)
+
+        return self.state, wind_speed, step_since_last_move, power, reward, done, {}
     
     
 
