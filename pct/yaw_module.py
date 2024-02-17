@@ -144,7 +144,10 @@ def get_properties(properties):
     
     w2 = 40
     if 'w2' in properties:
-        w2 =eval(properties['w2'])
+        if isinstance(properties['w2'], str):
+            w2 =eval(properties['w2'])
+        else:
+            w2 =properties['w2']
 
     yaw_params = {
         'yaw_rate_max': 0.3,
