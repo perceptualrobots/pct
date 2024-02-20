@@ -510,25 +510,22 @@ def get_comparaison_metrics(wind_direction,power_control,power_simu,res_model, r
     rel_net_prod_change = []
     yaw_error_rel_change = []
 
-
     for i in range(0,len(power_control),width_bin) :
         power_simu_bin = power_simu[i:i+width_bin].sum()
         power_control_bin = power_control[i:i+width_bin].sum()
-        angle_covered_model = res_model_diff[i:i+width_bin].abs().sum()
-        angle_covered_simu = res_baseline_simu_diff[i:i+width_bin].abs().sum()
-        angle_covered_change = angle_covered_model - angle_covered_simu
-        time_yawing_change = angle_covered_change / yaw_rate 
-        consumption_change = time_yawing_change/3600 * yaw_power
+        angle_covered_model = res_model_diff[i:i+width_bin].abs().sum() # eq 8 - delta_rl
+        angle_covered_simu = res_baseline_simu_diff[i:i+width_bin].abs().sum() # eq 8 - delta_simu
+        angle_covered_change = angle_covered_model - angle_covered_simu # eq 8 - delta_rl - delta_simu
+        time_yawing_change = angle_covered_change / yaw_rate # eq 8 - (delta_rl - delta_simu) / yaw_rate
+        consumption_change = time_yawing_change/3600 * yaw_power # eq 8 - ((delta_rl - delta_simu) / yaw_rate) * yaw_drive
         power_change_bin = (power_control_bin - power_simu_bin)
         power_prod_change.append(power_change_bin)
-        conso_yaw_change.append(consumption_change)
+        conso_yaw_change.append(consumption_change) # eq 8
         net_prod_change.append(power_change_bin-consumption_change)
         rel_net_prod_change.append(100 * (power_change_bin-consumption_change)/power_simu_bin)
         yaw_error_model = abs(oriented_angle(wind_direction[i:i+width_bin]-res_model[i:i+width_bin])).mean()
         yaw_error_simu = abs(oriented_angle(wind_direction[i:i+width_bin]-res_baseline_simu[i:i+width_bin])).mean()
         yaw_error_rel_change.append(100 * (yaw_error_simu-yaw_error_model)/yaw_error_simu)
-
-        
     
     return power_prod_change, conso_yaw_change, net_prod_change,rel_net_prod_change,yaw_error_rel_change
         
