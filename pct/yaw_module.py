@@ -229,7 +229,7 @@ def test_trad_control(wind_timeseries, wind_timeseries_not_agg,agg, start, end, 
     plotly_fig.write_html(plot_file)
 
     if experiment:
-        experiment.log_html(open(plot_file).read())
+        experiment.log_html(open(plot_file, encoding='utf-8').read())
 
     average_yaw_error = (oriented_angle(wind_timeseries["wind_direction"][start:end] - wind_timeseries["nacelle_pos_" + datatype][start:end]).abs().mean())
     nacelle_position_diff = oriented_angle(wind_timeseries["nacelle_pos_" + datatype][start:end].diff(1).dropna())
