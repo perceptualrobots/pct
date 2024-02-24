@@ -224,6 +224,7 @@ def test_trad_control(wind_timeseries, wind_timeseries_not_agg,agg, start, end, 
         )
 
     plt.legend()
+    plt.title(datatype)
     plotly_fig = tls.mpl_to_plotly(fig)
     plot_file = f'{outdir}{sep}res-{datatype}.html'
     plotly_fig.write_html(plot_file)
@@ -629,6 +630,8 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
     fig, ax = plt.subplots(figsize=(15, 5))
     ax.plot(range(0,len(env.history["wind_direction"])*10,10),env.history["wind_direction"], label="wind direction (deg)")
     ax.plot(range(0,len(env.history["wind_direction"])*10,10),env.history["yaw angle after actuation"], label="nacelle position (deg)")
+    
+    plt.title('PCT')
     plt.legend()
     plotly_fig = tls.mpl_to_plotly(fig)
     plotly_fig.write_html(model_file)
