@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'CartPoleV1', 'CartPoleDV1', 'Pendulum', 'MountainCarV0',
            'MountainCarContinuousV0', 'WindTurbine', 'VelocityModel', 'DummyModel', 'WebotsWrestler',
-           'WebotsWrestlerSupervisor', 'Bridge']
+           'WebotsWrestlerSupervisor', 'Bridge', 'MicroGrid']
 
 # %% ../nbs/05_environments.ipynb 3
 import gym
@@ -16,6 +16,8 @@ from .putils import FunctionsList, SingletonObjects, NumberStats
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
+from tcl_env_dqn import MicroGridEnv
+
 
 # %% ../nbs/05_environments.ipynb 4
 class EnvironmentFactory:
@@ -134,7 +136,7 @@ class ControlEnvironment(BaseFunction):
 
 # %% ../nbs/05_environments.ipynb 6
 class OpenAIGym(ControlEnvironment):
-    "A function that creates an runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
+    "A function that creates and runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     def __init__(self, env_name=None, render=False, render_mode= "rgb_array", video_wrap=False, value=0, name="gym", 
                  seed=None, links=None, new_name=True, early_termination=False, namespace=None, **cargs):
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
@@ -680,7 +682,7 @@ class WindTurbine(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return WindTurbine(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 16
+# %% ../nbs/05_environments.ipynb 17
 class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
@@ -742,7 +744,7 @@ class VelocityModel(BaseFunction):
     class Factory:
         def create(self, seed=None): return VelocityModel(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 17
+# %% ../nbs/05_environments.ipynb 18
 class DummyModel(BaseFunction):    
     def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
@@ -770,7 +772,7 @@ class DummyModel(BaseFunction):
     class Factory:
         def create(self, seed=None): return DummyModel(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 18
+# %% ../nbs/05_environments.ipynb 19
 class WebotsWrestler(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -905,7 +907,7 @@ class WebotsWrestler(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
 
 
-# %% ../nbs/05_environments.ipynb 19
+# %% ../nbs/05_environments.ipynb 20
 class WebotsWrestlerSupervisor(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -1029,7 +1031,7 @@ class WebotsWrestlerSupervisor(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestlerSupervisor(namespace=namespace, seed=seed)          
         
 
-# %% ../nbs/05_environments.ipynb 20
+# %% ../nbs/05_environments.ipynb 21
 class Bridge(ControlEnvironment):
     "An environment function with sensors set by external system."
     
@@ -1131,3 +1133,101 @@ class Bridge(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return Bridge(namespace=namespace, seed=seed)          
 
+
+# %% ../nbs/05_environments.ipynb 22
+class MicroGrid(ControlEnvironment):
+    "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
+    
+    def __init__(self, value=0, name="MicroGrid", links=None, new_name=True, namespace=None, seed=None, **cargs):        
+        super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
+        
+        # self.zero_threshold = 0
+        self.done = False
+        self.num_links=4
+        self.env_name='MicroGridEnv'
+        self.env = MicroGridEnv()
+        self.action = [0,0,0,0]
+
+        
+    def __call__(self, verbose=False):        
+        super().__call__(verbose)
+                
+        return self.value
+
+    def set_properties(self, props):
+        self.env.initialise(props)
+        # if 'zero_threshold' in props:
+        #     self.zero_threshold = props['zero_threshold']
+
+    def early_terminate(self):
+        if self.done:
+            raise Exception(f'1001: Env: {self.env_name} has finished.')
+
+    def process_inputs(self):
+        self.input = [ self.links[i].get_value() for i in range(0, len(self.links))]    
+                
+    def process_actions(self):
+
+        for i in range(len(self.input)):
+            self.action[i] = self.input[i]           
+                 
+    
+    def apply_actions_get_obs(self):
+        return self.env.step(self.action)
+
+    def parse_obs(self):
+        # obs
+        # 0 - 
+        # 1 - 
+        # 2 - 
+
+        self.value = self.obs[0]
+        self.reward = -self.obs[1]
+        self.done = self.obs[2]
+
+    def process_values(self):
+        pass
+
+
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
+        return config
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
+    def set_render(self, render):
+        self.render=render
+        
+    def reset(self, full=True, seed=None):  
+        # self.zero_threshold = 0
+        self.env.reset()        
+        self.done = False
+
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
+
+    def output_string(self):
+        
+        if isinstance(self.value, int):
+            rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
+        else:
+            list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
+            list.append(str(self.reward))
+            list.append(" ")
+            list.append(str(self.done))
+            list.append(" ")
+            list.append(str(self.info))
+            
+            rtn = ''.join(list)
+
+        return rtn
+
+
+    def close(self):
+        self.env.close()
+
+    class Factory:
+        def create(self, seed=None): return MicroGrid(seed=seed)
+    class FactoryWithNamespace:
+        def create(self, namespace=None, seed=None): return MicroGrid(namespace=namespace, seed=seed)       
