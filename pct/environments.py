@@ -1239,7 +1239,6 @@ class MicroGrid(ControlEnvironment):
 
         return rtn
 
-
     def close(self):
         self.env.close()
 
