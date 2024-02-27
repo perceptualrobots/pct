@@ -14,8 +14,7 @@ from .functions import BaseFunction, HPCTFUNCTION
 from .environments import EnvironmentFactory
 from .errors import BaseErrorCollector
 from .putils import floatListsToString
-from inspect import isfunction
-
+# from inspect import isfunction
 
 # %% ../nbs/04_hierarchy.ipynb 6
 class FunctionsData():

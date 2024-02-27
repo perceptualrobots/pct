@@ -16,8 +16,7 @@ from .putils import FunctionsList, SingletonObjects, NumberStats
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
-from tcl_env_dqn import MicroGridEnv
-
+from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv
 
 # %% ../nbs/05_environments.ipynb 4
 class EnvironmentFactory:
