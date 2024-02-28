@@ -113,9 +113,7 @@ class ControlEnvironment(BaseFunction):
     @abstractmethod
     def process_inputs(self):
         pass
-
-#self.input = self.links[0].get_value()
-        
+       
     @abstractmethod
     def process_actions(self):
         pass
@@ -124,13 +122,14 @@ class ControlEnvironment(BaseFunction):
     def apply_actions_get_obs(self):
         pass
     
-    @abstractmethod
     def close(self):
-        pass
+        self.env.close()
 
-    @abstractmethod
+    def summary(self, sstr="", extra=False, higher_namespace=None):
+        super().summary(sstr, extra=extra, higher_namespace=higher_namespace)
+
     def set_render(self, render):
-        pass
+        self.render=render
 
 
 # %% ../nbs/05_environments.ipynb 6
@@ -161,25 +160,6 @@ class OpenAIGym(ControlEnvironment):
             
         return out 
 
-#     def __call__(self, verbose=False):
-#         super().check_links(1)
-#         self.early_terminate()
-#         self.input = self.links[0].get_value()
-#         self.process_input()
-#         self.obs = self.env.step(self.input)
-            
-#         self.value = self.obs[0]
-#         self.reward = self.obs[1]
-#         self.done = self.obs[2]
-#         self.info = self.obs[3]
-
-#         self.process_values()
-#         out = super().__call__(verbose)
-        
-#         if self.render:
-#             self.env.render()
-            
-#         return out 
 
     def parse_obs(self):
         self.value = self.obs[0]
@@ -227,8 +207,8 @@ class OpenAIGym(ControlEnvironment):
         return self.env.reset(seed=seed)
 
 
-    def summary(self, extra=False, higher_namespace=None):
-        super().summary("", extra=extra, higher_namespace=higher_namespace)
+    # def summary(self, extra=False, higher_namespace=None):
+    #     super().summary(extra=extra, higher_namespace=higher_namespace)
 
     def get_config(self, zero=1):
         "Return the JSON  configuration of the function."
@@ -1152,19 +1132,22 @@ class GeneralEnv(ControlEnvironment):
 # %% ../nbs/05_environments.ipynb 23
 class MicroGrid(ControlEnvironment):
     "A function that creates and runs the microgrid environment for an energy management system. </br>" \
-    "'Deep reinforcement learning for energy management in a microgrid with flexible demand.' Taha Abdelhalim Nakabi, Pekka Toivanen. </br>" \
+    "'Deep reinforcement learning for energy management in a microgrid with flexible demand.'  </br>" \
+    "Taha Abdelhalim Nakabi, Pekka Toivanen. </br>" \
     "https://doi.org/10.1016/j.segan.2020.100413 </br>" \
     "Inputs - st = [SoCt, BSCt, Cbt, Tt, Gt, Put, Lb,t, t]. </br>" \
-    "0 - ISC - the average SoC (state-of-charge) of the TCLs,"\
-    "1 - IBS - the battery SoC,"\
-    "2 - IPC - the pricing counter,"\
-    "3 - IT - the temparature,"\
-    "4 - IEG - the energy generation,"\
-    "5 - IEP - the electricty prices,"\
-    "6 - IL - the current load value of the daily consumption pattern."\
-    "Actions: "\
-    "0 - " \
-    
+    "0 - ISC - the average SoC (state-of-charge) of the TCLs, </br>"\
+    "1 - IBS - the battery SoC, </br>"\
+    "2 - IPC - the pricing counter, </br>"\
+    "3 - IT - the temparature, </br>"\
+    "4 - IEG - the energy generation, </br>"\
+    "5 - IEP - the electricty prices, </br>"\
+    "6 - IL - the current load value of the daily consumption pattern. </br>"\
+    "Actions:  </br>"\
+    "0 - TCL action, Atcl, </br>" \
+    "1 - price action, Ap, </br>" \
+    "2 - energy deficiency action, Ad, </br>" \
+    "3 - energy excess action, Ae </br>"     
     
     def __init__(self, value=0, name="MicroGrid", links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
@@ -1204,55 +1187,49 @@ class MicroGrid(ControlEnvironment):
         return self.env.step(self.action)
 
     def parse_obs(self):
-        # obs
-        # 0 - 
-        # 1 - 
-        # 2 - 
 
         self.value = self.obs[0]
         self.reward = -self.obs[1]
         self.done = self.obs[2]
 
-    def process_values(self):
-        pass
+    # def process_values(self):
+    #     pass
 
+    # def get_config(self, zero=1):
+    #     config = super().get_config(zero=zero)
+    #     return config
 
-    def get_config(self, zero=1):
-        config = super().get_config(zero=zero)
-        return config
-
-    def get_graph_name(self):
-        return super().get_graph_name() 
+    # def get_graph_name(self):
+    #     return super().get_graph_name() 
     
-    def set_render(self, render):
-        self.render=render
+    # def set_render(self, render):
+    #     self.render=render
         
     def reset(self, full=True, seed=None):  
-        # self.zero_threshold = 0
         self.env.reset()        
         self.done = False
 
-    def summary(self, extra=False, higher_namespace=None):
-        super().summary("", extra=extra, higher_namespace=higher_namespace)
+    # def summary(self, extra=False, higher_namespace=None):
+    #     super().summary("", extra=extra, higher_namespace=higher_namespace)
 
-    def output_string(self):
+    # def output_string(self):
         
-        if isinstance(self.value, int):
-            rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
-        else:
-            list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
-            list.append(str(self.reward))
-            list.append(" ")
-            list.append(str(self.done))
-            list.append(" ")
-            list.append(str(self.info))
+    #     if isinstance(self.value, int):
+    #         rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
+    #     else:
+    #         list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
+    #         list.append(str(self.reward))
+    #         list.append(" ")
+    #         list.append(str(self.done))
+    #         list.append(" ")
+    #         list.append(str(self.info))
             
-            rtn = ''.join(list)
+    #         rtn = ''.join(list)
 
-        return rtn
+    #     return rtn
 
-    def close(self):
-        self.env.close()
+    # def close(self):
+    #     self.env.close()
 
     class Factory:
         def create(self, seed=None): return MicroGrid(seed=seed)
