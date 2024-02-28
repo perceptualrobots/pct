@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'CartPoleV1', 'CartPoleDV1', 'Pendulum', 'MountainCarV0',
            'MountainCarContinuousV0', 'WindTurbine', 'VelocityModel', 'DummyModel', 'WebotsWrestler',
-           'WebotsWrestlerSupervisor', 'Bridge', 'GeneralEnv', 'MicroGrid']
+           'WebotsWrestlerSupervisor', 'Bridge', 'MicroGrid']
 
 # %% ../nbs/05_environments.ipynb 3
 import gym
@@ -1114,22 +1114,6 @@ class Bridge(ControlEnvironment):
 
 
 # %% ../nbs/05_environments.ipynb 22
-class GeneralEnv(ControlEnvironment):
-    "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
-    
-    def __init__(self, value=0, name="MicroGrid", links=None, new_name=True, namespace=None, seed=None, **cargs):        
-        super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
-        
-        # self.zero_threshold = 0
-        self.done = False
-        self.num_links=4
-        self.env_name='MicroGridEnv'
-        self.env = MicroGridEnv()
-        self.action = [0,0,0,0]
-
-       
-
-# %% ../nbs/05_environments.ipynb 23
 class MicroGrid(ControlEnvironment):
     "A function that creates and runs the microgrid environment for an energy management system. </br>" \
     "'Deep reinforcement learning for energy management in a microgrid with flexible demand.'  </br>" \
