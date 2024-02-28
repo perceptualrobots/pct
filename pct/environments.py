@@ -1152,11 +1152,16 @@ class GeneralEnv(ControlEnvironment):
 # %% ../nbs/05_environments.ipynb 23
 class MicroGrid(ControlEnvironment):
     "A function that creates and runs the microgrid environment for an energy management system. " \
-    "'Deep reinforcement learning for energy management in a microgrid with flexible demand.' Taha Abdelhalim Nakabi, Pekka Toivanen" \
-    "https://doi.org/10.1016/j.segan.2020.100413"
-    "Inputs "
+    "\n'Deep reinforcement learning for energy management in a microgrid with flexible demand.' Taha Abdelhalim Nakabi, Pekka Toivanen" \
+    "\nhttps://doi.org/10.1016/j.segan.2020.100413" \
+    "\nInputs - st = [SoCt, BSCt, Cbt, Tt, Gt, Put, Lb,t, t]."
     "0 - ISC - the average SoC (state-of-charge) of the TCLs,"
-    "1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
+    "1 - IBS - the battery SoC,"
+    "2 - IPC - the pricing counter,"
+    "3 - IT - the temparature,"
+    "4 - IEG - the energy generation,"
+    "5 - IEP - the electricty prices,"
+    "6 - IL - the current load value of the daily consumption pattern."
     
     def __init__(self, value=0, name="MicroGrid", links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
