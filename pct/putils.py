@@ -5,7 +5,7 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'Number
            'dynamic_class_load', 'get_drive', 'loadjson', 'Counter', 'stringIntListToListOfInts',
            'stringFloatListToListOfFloats', 'stringListToListOfStrings', 'listNumsToString', 'round_lists',
            'floatListsToString', 'limit_large_float', 'sigmoid', 'smooth', 'sigmoid_array', 'dot', 'list_of_ones',
-           'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime']
+           'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'map_to_int_range']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -492,3 +492,10 @@ def printtime(msg):
     print(f'{datetime.now()} {os.getpid()} {msg}')
     return time.perf_counter()
 
+
+# %% ../nbs/01_putils.ipynb 41
+def map_to_int_range(val=None, inrange=None, outrange=None):
+    a = round(val)
+    b = limit_to_range(a, inrange[0], inrange[1])
+    rtn = b + (int((outrange[1] - outrange[0])/2) + 1)
+    return rtn

@@ -48,7 +48,7 @@ class ControlEnvironment(BaseFunction):
     def __call__(self, verbose=False):
         super().check_links(self.num_links)
         self.early_terminate()
-        self.process_inputs()
+        self.process_hierarchy_values()
         self.process_actions()
         self.obs = self.apply_actions_get_obs()
         self.parse_obs()    
@@ -110,8 +110,11 @@ class ControlEnvironment(BaseFunction):
     def parse_obs(self):
         pass
                
+    def process_values(self):
+        pass
+
     @abstractmethod
-    def process_inputs(self):
+    def process_hierarchy_values(self):
         pass
        
     @abstractmethod
@@ -168,7 +171,7 @@ class OpenAIGym(ControlEnvironment):
         self.info = self.obs[3]
             
     def apply_actions_get_obs(self):
-        return self.env.step(self.input)
+        return self.env.step(self.hierarchy_values)
     
     def set_video_wrap(self, video_wrap):
         self.video_wrap = video_wrap
@@ -179,7 +182,7 @@ class OpenAIGym(ControlEnvironment):
             if self.done:
                 raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
     
-    def process_inputs(self):
+    def process_hierarchy_values(self):
         raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
 
     def process_actions(self):
@@ -308,16 +311,16 @@ class CartPoleV1(OpenAIGym):
         
         return self.value
     
-    def process_inputs(self):    
-        self.input = self.links[0].get_value()    
+    def process_hierarchy_values(self):    
+        self.hierarchy_values = self.links[0].get_value()    
     
     def process_actions(self):
-        if self.input<0:
-            self.input=0
-        elif self.input>0:
-            self.input=1
+        if self.hierarchy_values<0:
+            self.hierarchy_values=0
+        elif self.hierarchy_values>0:
+            self.hierarchy_values=1
         else:
-            self.input=0
+            self.hierarchy_values=0
 
     def process_values(self):
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
@@ -350,12 +353,12 @@ class CartPoleDV1(OpenAIGym):
         self.value = np.append(self.value, self.env.gravity)
     
     def process_actions(self):
-        if self.input<0:
-            self.input=0
-        elif self.input>0:
-            self.input=1
+        if self.hierarchy_values<0:
+            self.hierarchy_values=0
+        elif self.hierarchy_values>0:
+            self.hierarchy_values=1
         else:
-            self.input=0
+            self.hierarchy_values=0
 
     class Factory:
         def create(self, seed=None): return CartPoleDV1(seed=seed)
@@ -386,14 +389,14 @@ class Pendulum(OpenAIGym):
                 
         return self.value
 
-    def process_inputs(self):
-        self.input = self.links[0].get_value()
+    def process_hierarchy_values(self):
+        self.hierarchy_values = self.links[0].get_value()
    
     def process_actions(self):
         pass
     
     def apply_actions_get_obs(self):
-        return self.env.step([self.input])
+        return self.env.step([self.hierarchy_values])
         
     def parse_obs(self):    
         self.value = self.obs[0]
@@ -442,8 +445,8 @@ class MountainCarV0(OpenAIGym):
                 
         return self.value
 
-    def process_inputs(self):
-        self.input = self.links[0].get_value()
+    def process_hierarchy_values(self):
+        self.hierarchy_values = self.links[0].get_value()
 
     def process_values(self):        
         self.reward = -self.obs[1]
@@ -451,12 +454,12 @@ class MountainCarV0(OpenAIGym):
         self.value = np.append(self.value, pos)
 
     def process_actions(self):
-        if self.input<0:
-            self.input=0
-        elif self.input>0:
-            self.input=2
+        if self.hierarchy_values<0:
+            self.hierarchy_values=0
+        elif self.hierarchy_values>0:
+            self.hierarchy_values=2
         else:
-            self.input=1
+            self.hierarchy_values=1
 
     class Factory:
         def create(self, seed=None): return MountainCarV0(seed=seed)
@@ -493,12 +496,12 @@ class MountainCarContinuousV0(OpenAIGym):
                 self.reward = 0
                 self.really_done = True
 
-    def process_inputs(self):
-        self.input = self.links[0].get_value()
+    def process_hierarchy_values(self):
+        self.hierarchy_values = self.links[0].get_value()
                 
     def process_actions(self):
-        force = min(max(self.input, self.min_action), self.max_action)
-        self.input=[force]
+        force = min(max(self.hierarchy_values, self.min_action), self.max_action)
+        self.hierarchy_values=[force]
         
     def process_values(self):
         reward = self.obs[1]
@@ -541,16 +544,16 @@ class WindTurbine(ControlEnvironment):
         if self.done:
             raise Exception(f'1001: Env: {self.env_name} has finished.')
 
-    def process_inputs(self):
-        self.input = self.links[0].get_value()
+    def process_hierarchy_values(self):
+        self.hierarchy_values = self.links[0].get_value()
                 
     def process_actions(self):
         # zero_threshold represents the range either side of zero where no action would take place
-        if abs(self.input)<= self.zero_threshold:        
+        if abs(self.hierarchy_values)<= self.zero_threshold:        
             self.action = 1            
-        elif self.input < 0:
+        elif self.hierarchy_values < 0:
             self.action = 0
-        elif self.input > 0:
+        elif self.hierarchy_values > 0:
             self.action = 2
                  
     
@@ -799,12 +802,12 @@ class WebotsWrestler(ControlEnvironment):
             if self.done:
                 raise Exception(f'1001: Env: {self.env_name} has finished.')
                 
-    def process_inputs(self):
-        #print('process_inputs')
-        self.input = [ self.links[i].get_value() for i in range(0, len(self.links))]    
+    def process_hierarchy_values(self):
+        #print('process_hierarchy_values')
+        self.hierarchy_values = [ self.links[i].get_value() for i in range(0, len(self.links))]    
     
     def process_actions(self):
-        self.actions = self.whelper.get_actions_dict(self.input)
+        self.actions = self.whelper.get_actions_dict(self.hierarchy_values)
         
 
     def apply_actions_get_obs(self):
@@ -924,12 +927,12 @@ class WebotsWrestlerSupervisor(ControlEnvironment):
             if self.done:
                 raise Exception(f'1001: Env: {self.env_name} has finished.')
                 
-    def process_inputs(self):
-        #print('process_inputs')
-        self.input = [ self.links[i].get_value() for i in range(0, len(self.links))]    
+    def process_hierarchy_values(self):
+        #print('process_hierarchy_values')
+        self.hierarchy_values = [ self.links[i].get_value() for i in range(0, len(self.links))]    
     
     def process_actions(self):
-        self.actions = self.whelper.get_actions_dict(self.input)
+        self.actions = self.whelper.get_actions_dict(self.hierarchy_values)
         
 
     def apply_actions_get_obs(self):
@@ -1028,8 +1031,8 @@ class Bridge(ControlEnvironment):
         self.value = obs
         
     def get_actions(self):
-        self.input = [ self.links[i].get_value() for i in range(0, len(self.links))]    
-        self.actions = self.input
+        self.hierarchy_values = [ self.links[i].get_value() for i in range(0, len(self.links))]    
+        self.actions = self.hierarchy_values
         return self.actions
         
     def __call__(self, verbose=False):     
@@ -1043,7 +1046,7 @@ class Bridge(ControlEnvironment):
             if self.done:
                 raise Exception(f'1001: Env: {self.env_name} has finished.')
                 
-    def process_inputs(self):
+    def process_hierarchy_values(self):
         pass
     
     def process_actions(self):
@@ -1118,7 +1121,7 @@ class MicroGrid(ControlEnvironment):
     "A function that creates and runs the microgrid environment for an energy management system. </br>" \
     "'Deep reinforcement learning for energy management in a microgrid with flexible demand.'  </br>" \
     "Taha Abdelhalim Nakabi, Pekka Toivanen. </br>" \
-    "https://doi.org/10.1016/j.segan.2020.100413 </br>" \
+    "https://doi.org/10.1016/j.segan.2020.100413 </br></br>" \
     "Inputs - st = [SoCt, BSCt, Cbt, Tt, Gt, Put, Lb,t, t]. </br>" \
     "0 - ISC - the average SoC (state-of-charge) of the TCLs, </br>"\
     "1 - IBS - the battery SoC, </br>"\
@@ -1150,21 +1153,19 @@ class MicroGrid(ControlEnvironment):
         return self.value
 
     def set_properties(self, props):
-        self.env.initialise(props)
-        # if 'zero_threshold' in props:
-        #     self.zero_threshold = props['zero_threshold']
+        pass
 
     def early_terminate(self):
         if self.done:
             raise Exception(f'1001: Env: {self.env_name} has finished.')
 
-    def process_inputs(self):
-        self.input = [ self.links[i].get_value() for i in range(0, len(self.links))]    
+    def process_hierarchy_values(self):
+        self.hierarchy_values = [ self.links[i].get_value() for i in range(0, len(self.links))]    
                 
     def process_actions(self):
 
-        for i in range(len(self.input)):
-            self.action[i] = self.input[i]           
+        for i in range(len(self.hierarchy_values)):
+            self.action[i] = self.hierarchy_values[i]           
                  
     
     def apply_actions_get_obs(self):
