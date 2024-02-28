@@ -44,7 +44,7 @@ class EnvironmentFactory:
 
 # %% ../nbs/05_environments.ipynb 5
 class ControlEnvironment(BaseFunction):
-    
+    "Abstract ControlEnvironment"
     def __call__(self, verbose=False):
         super().check_links(self.num_links)
         self.early_terminate()
@@ -1151,7 +1151,12 @@ class GeneralEnv(ControlEnvironment):
 
 # %% ../nbs/05_environments.ipynb 23
 class MicroGrid(ControlEnvironment):
-    "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
+    "A function that creates and runs the microgrid environment for an energy management system. " \
+    "'Deep reinforcement learning for energy management in a microgrid with flexible demand.' Taha Abdelhalim Nakabi, Pekka Toivanen" \
+    "https://doi.org/10.1016/j.segan.2020.100413"
+    "Inputs "
+    "0 - ISC - the average SoC (state-of-charge) of the TCLs,"
+    "1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
     
     def __init__(self, value=0, name="MicroGrid", links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)

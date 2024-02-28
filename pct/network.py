@@ -3,11 +3,11 @@
 # %% auto 0
 __all__ = ['Server', 'Client', 'ClientConnectionManager', 'ServerConnectionManager']
 
-# %% ../nbs/11_network.ipynb 2
+# %% ../nbs/11_network.ipynb 3
 import socket
 import json
 
-# %% ../nbs/11_network.ipynb 3
+# %% ../nbs/11_network.ipynb 4
 class Server():
     def __init__(self, host='localhost', port=6666 , buf_size=1024):
         self.buf_size = buf_size
@@ -68,7 +68,7 @@ class Server():
         self.connection.close()
         print('Closed server connection')
 
-# %% ../nbs/11_network.ipynb 4
+# %% ../nbs/11_network.ipynb 5
 class Client():
     
     def __init__(self, host='localhost', port=6666 , buf_size=1024):
@@ -110,7 +110,7 @@ class Client():
         #print('Closed client connection')
 
 
-# %% ../nbs/11_network.ipynb 5
+# %% ../nbs/11_network.ipynb 6
 class ClientConnectionManager:
     "A utility for managing a client socket connection."
     __instance = None
@@ -162,7 +162,7 @@ class ClientConnectionManager:
     def set_host(self, host):
         self.host=host        
 
-# %% ../nbs/11_network.ipynb 6
+# %% ../nbs/11_network.ipynb 7
 class ServerConnectionManager:
     "A utility for managing a client socket connection."
     __instance = None
