@@ -12,13 +12,13 @@ import numpy as np
 from abc import abstractmethod
 import pct.putils as vid
 from .functions import BaseFunction
-from .putils import FunctionsList, SingletonObjects, NumberStats
+from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_even_range, map_to_int_odd_range
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
 from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv
 
-# %% ../nbs/05_environments.ipynb 4
+# %% ../nbs/05_environments.ipynb 5
 class EnvironmentFactory:
     factories = {}
     def addFactory(id, environmentFactory):
@@ -42,7 +42,7 @@ class EnvironmentFactory:
         return EnvironmentFactory.factories[id].create(namespace=namespace, seed=seed)
     createEnvironmentWithNamespace = staticmethod(createEnvironmentWithNamespace)
 
-# %% ../nbs/05_environments.ipynb 5
+# %% ../nbs/05_environments.ipynb 6
 class ControlEnvironment(BaseFunction):
     "Abstract ControlEnvironment"
     def __call__(self, verbose=False):
@@ -135,7 +135,7 @@ class ControlEnvironment(BaseFunction):
         self.render=render
 
 
-# %% ../nbs/05_environments.ipynb 6
+# %% ../nbs/05_environments.ipynb 7
 class OpenAIGym(ControlEnvironment):
     "A function that creates and runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     def __init__(self, env_name=None, render=False, render_mode= "rgb_array", video_wrap=False, value=0, name="gym", 
@@ -293,7 +293,7 @@ class OpenAIGym(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return OpenAIGym(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 7
+# %% ../nbs/05_environments.ipynb 8
 class CartPoleV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -330,7 +330,7 @@ class CartPoleV1(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return CartPoleV1(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 8
+# %% ../nbs/05_environments.ipynb 9
 class CartPoleDV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -365,7 +365,7 @@ class CartPoleDV1(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return CartPoleDV1(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 9
+# %% ../nbs/05_environments.ipynb 10
 class Pendulum(OpenAIGym):
     "A function that creates an runs the Pendulum-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -427,7 +427,7 @@ class Pendulum(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return Pendulum(namespace=namespace, seed=seed)                
 
-# %% ../nbs/05_environments.ipynb 11
+# %% ../nbs/05_environments.ipynb 12
 class MountainCarV0(OpenAIGym):
     "A function that creates and runs the MountainCar-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -466,7 +466,7 @@ class MountainCarV0(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MountainCarV0(namespace=namespace, seed=seed)                
 
-# %% ../nbs/05_environments.ipynb 12
+# %% ../nbs/05_environments.ipynb 13
 class MountainCarContinuousV0(OpenAIGym):
     "A function that creates and runs the MountainCarContinuous-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # 0 Car position - -1.2 to +0.6, reference 0.45 
@@ -516,7 +516,7 @@ class MountainCarContinuousV0(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MountainCarContinuousV0(namespace=namespace, seed=seed)               
 
-# %% ../nbs/05_environments.ipynb 14
+# %% ../nbs/05_environments.ipynb 15
 class WindTurbine(ControlEnvironment):
     "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
     
@@ -664,7 +664,7 @@ class WindTurbine(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return WindTurbine(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 17
+# %% ../nbs/05_environments.ipynb 18
 class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
@@ -726,7 +726,7 @@ class VelocityModel(BaseFunction):
     class Factory:
         def create(self, seed=None): return VelocityModel(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 18
+# %% ../nbs/05_environments.ipynb 19
 class DummyModel(BaseFunction):    
     def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
@@ -754,7 +754,7 @@ class DummyModel(BaseFunction):
     class Factory:
         def create(self, seed=None): return DummyModel(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 19
+# %% ../nbs/05_environments.ipynb 20
 class WebotsWrestler(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -889,7 +889,7 @@ class WebotsWrestler(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
 
 
-# %% ../nbs/05_environments.ipynb 20
+# %% ../nbs/05_environments.ipynb 21
 class WebotsWrestlerSupervisor(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -1013,7 +1013,7 @@ class WebotsWrestlerSupervisor(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestlerSupervisor(namespace=namespace, seed=seed)          
         
 
-# %% ../nbs/05_environments.ipynb 21
+# %% ../nbs/05_environments.ipynb 22
 class Bridge(ControlEnvironment):
     "An environment function with sensors set by external system."
     
@@ -1116,7 +1116,7 @@ class Bridge(ControlEnvironment):
         def create(self, namespace=None, seed=None): return Bridge(namespace=namespace, seed=seed)          
 
 
-# %% ../nbs/05_environments.ipynb 22
+# %% ../nbs/05_environments.ipynb 23
 class MicroGrid(ControlEnvironment):
     "A function that creates and runs the microgrid environment for an energy management system. </br>" \
     "'Deep reinforcement learning for energy management in a microgrid with flexible demand.'  </br>" \
@@ -1153,7 +1153,7 @@ class MicroGrid(ControlEnvironment):
         return self.value
 
     def set_properties(self, props):
-        pass
+        self.day = props['day']
 
     def early_terminate(self):
         if self.done:
@@ -1164,8 +1164,11 @@ class MicroGrid(ControlEnvironment):
                 
     def process_actions(self):
 
-        for i in range(len(self.hierarchy_values)):
-            self.action[i] = self.hierarchy_values[i]           
+        self.action[0] = map_to_int_even_range(self.hierarchy_values[0], [-2, 2], [1,4])           
+        self.action[1] = map_to_int_odd_range(self.hierarchy_values[1], [-2, 2], [1,5])           
+        self.action[2] = 1 if self.hierarchy_values[2] >= 0 else 0           
+        self.action[3] = 1 if self.hierarchy_values[3] >= 0 else 0           
+
                  
     
     def apply_actions_get_obs(self):
@@ -1173,7 +1176,8 @@ class MicroGrid(ControlEnvironment):
 
     def parse_obs(self):
 
-        self.value = self.obs[0]
+        # self.value = self.obs[0]
+        self.value = [ self.obs[0][i] for i in range(0, len(self.obs[0]))]   
         self.reward = -self.obs[1]
         self.done = self.obs[2]
 
@@ -1191,7 +1195,7 @@ class MicroGrid(ControlEnvironment):
     #     self.render=render
         
     def reset(self, full=True, seed=None):  
-        self.env.reset()        
+        self.env.reset(day=self.day)        
         self.done = False
 
     # def summary(self, extra=False, higher_namespace=None):

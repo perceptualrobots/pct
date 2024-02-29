@@ -5,7 +5,8 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'Number
            'dynamic_class_load', 'get_drive', 'loadjson', 'Counter', 'stringIntListToListOfInts',
            'stringFloatListToListOfFloats', 'stringListToListOfStrings', 'listNumsToString', 'round_lists',
            'floatListsToString', 'limit_large_float', 'sigmoid', 'smooth', 'sigmoid_array', 'dot', 'list_of_ones',
-           'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'map_to_int_range']
+           'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'clip_value',
+           'map_to_int_odd_range', 'map_to_int_even_range']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -494,8 +495,21 @@ def printtime(msg):
 
 
 # %% ../nbs/01_putils.ipynb 41
-def map_to_int_range(val=None, inrange=None, outrange=None):
+def clip_value(val, range):
+    rtn = max(min(val, range[1]), range[0])
+    return rtn
+
+
+# %% ../nbs/01_putils.ipynb 42
+def map_to_int_odd_range(val=None, inrange=None, outrange=None):
     a = round(val)
-    b = limit_to_range(a, inrange[0], inrange[1])
+    b = clip_value(a, inrange)
     rtn = b + (int((outrange[1] - outrange[0])/2) + 1)
+    return rtn
+
+def map_to_int_even_range(val=None, inrange=None, outrange=None):
+    b = clip_value(val, inrange)
+    if b == inrange[1]:
+        b = b - 1
+    rtn = math.floor(b) + int((outrange[1] - outrange[0] + 1 )/2) + 1
     return rtn
