@@ -1169,7 +1169,6 @@ class MicroGrid(ControlEnvironment):
         self.action[2] = 1 if self.hierarchy_values[2] >= 0 else 0           
         self.action[3] = 1 if self.hierarchy_values[3] >= 0 else 0           
 
-                 
     
     def apply_actions_get_obs(self):
         return self.env.step(self.action)
@@ -1197,6 +1196,7 @@ class MicroGrid(ControlEnvironment):
     def reset(self, full=True, seed=None):  
         self.env.reset(day=self.day)        
         self.done = False
+        print(f'reset: day {self.day} value={self.value}')
 
     # def summary(self, extra=False, higher_namespace=None):
     #     super().summary("", extra=extra, higher_namespace=higher_namespace)
