@@ -102,6 +102,28 @@ class ControlEnvironment(BaseFunction):
         
         return config
 
+    def action_string(self):
+          list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.actions]
+          rtn = ''.join(list)
+          return rtn
+
+    def output_string(self):
+        act = self.action_string()
+        if isinstance(self.value, int):
+            rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
+        else:
+            list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
+            list.append(str(self.reward))
+            list.append(" ")
+            list.append(str(self.done))
+            list.append(" ")
+            list.append(str(self.info))
+            
+            rtn = ''.join(list)
+
+        return act+'\n'+rtn
+
+
     @abstractmethod
     def reset(self, full=True, seed=None): 
         pass
@@ -550,15 +572,15 @@ class WindTurbine(ControlEnvironment):
     def process_actions(self):
         # zero_threshold represents the range either side of zero where no action would take place
         if abs(self.hierarchy_values)<= self.zero_threshold:        
-            self.action = 1            
+            self.actions = 1            
         elif self.hierarchy_values < 0:
-            self.action = 0
+            self.actions = 0
         elif self.hierarchy_values > 0:
-            self.action = 2
+            self.actions = 2
                  
     
     def apply_actions_get_obs(self):
-        return self.env.step(self.action)
+        return self.env.step(self.actions)
 
     def parse_obs(self):
         # obs
@@ -639,21 +661,21 @@ class WindTurbine(ControlEnvironment):
     def summary(self, extra=False, higher_namespace=None):
         super().summary("", extra=extra, higher_namespace=higher_namespace)
 
-    def output_string(self):
+    # def output_string(self):
         
-        if isinstance(self.value, int):
-            rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
-        else:
-            list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
-            list.append(str(self.reward))
-            list.append(" ")
-            list.append(str(self.done))
-            list.append(" ")
-            list.append(str(self.info))
+    #     if isinstance(self.value, int):
+    #         rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
+    #     else:
+    #         list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
+    #         list.append(str(self.reward))
+    #         list.append(" ")
+    #         list.append(str(self.done))
+    #         list.append(" ")
+    #         list.append(str(self.info))
             
-            rtn = ''.join(list)
+    #         rtn = ''.join(list)
 
-        return rtn
+    #     return rtn
 
 
     def close(self):
@@ -1144,7 +1166,7 @@ class MicroGrid(ControlEnvironment):
         self.num_links=4
         self.env_name='MicroGridEnv'
         self.env = MicroGridEnv()
-        self.action = [0,0,0,0]
+        self.actions = [0,0,0,0]
 
         
     def __call__(self, verbose=False):        
@@ -1164,21 +1186,23 @@ class MicroGrid(ControlEnvironment):
                 
     def process_actions(self):
 
-        self.action[0] = map_to_int_even_range(self.hierarchy_values[0], [-2, 2], [1,4])           
-        self.action[1] = map_to_int_odd_range(self.hierarchy_values[1], [-2, 2], [1,5])           
-        self.action[2] = 1 if self.hierarchy_values[2] >= 0 else 0           
-        self.action[3] = 1 if self.hierarchy_values[3] >= 0 else 0           
+        self.actions[0] = map_to_int_even_range(self.hierarchy_values[0], [-2, 2], [1,4])           
+        self.actions[1] = map_to_int_odd_range(self.hierarchy_values[1], [-2, 2], [1,5])           
+        self.actions[2] = 1 if self.hierarchy_values[2] >= 0 else 0           
+        self.actions[3] = 1 if self.hierarchy_values[3] >= 0 else 0           
 
+                 
     
     def apply_actions_get_obs(self):
-        return self.env.step(self.action)
+        return self.env.step(self.actions)
 
     def parse_obs(self):
 
         # self.value = self.obs[0]
         self.value = [ self.obs[0][i] for i in range(0, len(self.obs[0]))]   
         self.reward = -self.obs[1]
-        self.done = self.obs[2]
+        self.done = self.obs[2]        
+        self.info = 'info'#self.obs[3]
 
     # def process_values(self):
     #     pass
@@ -1196,7 +1220,6 @@ class MicroGrid(ControlEnvironment):
     def reset(self, full=True, seed=None):  
         self.env.reset(day=self.day)        
         self.done = False
-        print(f'reset: day {self.day} value={self.value}')
 
     # def summary(self, extra=False, higher_namespace=None):
     #     super().summary("", extra=extra, higher_namespace=higher_namespace)
