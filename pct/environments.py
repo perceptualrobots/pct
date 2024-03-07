@@ -16,7 +16,7 @@ from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_eve
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
-from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv
+from .microgrid import MicroGridEnvPlus
 
 # %% ../nbs/05_environments.ipynb 5
 class EnvironmentFactory:
@@ -1164,8 +1164,8 @@ class MicroGrid(ControlEnvironment):
         # self.zero_threshold = 0
         self.done = False
         self.num_links=4
-        self.env_name='MicroGridEnv'
-        self.env = MicroGridEnv()
+        self.env_name='MicroGridEnvPlus'
+        self.env = MicroGridEnvPlus()
         self.actions = [0,0,0,0]
 
         
@@ -1174,7 +1174,8 @@ class MicroGrid(ControlEnvironment):
                 
         return self.value
 
-    def set_properties(self, props):
+    def set_properties(self, props):        
+        self.env.initialise(props)
         self.day = props['day']
 
     def early_terminate(self):
