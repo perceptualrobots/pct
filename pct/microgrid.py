@@ -14,10 +14,12 @@ from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv, DEFAULT_ITERATIONS, DEFA
 class MicroGridEnvPlus(MicroGridEnv):
     def __init__(self, **kwargs):
         """
-        Overriding MicroGridEnv.
+        Overriding MicroGridEnv constructor.
         """
 
     def initialise(self, properties=None, **kwargs):
+        self.day0 = 0
+        self.dayN = 10
         if 'initial_seed' in properties:
             random.seed(properties['initial_seed'])
         # Get number of iterations and TCLs from the 
@@ -34,13 +36,20 @@ class MicroGridEnvPlus(MicroGridEnv):
         self.base_load = kwargs.get("base_load", BASE_LOAD)
         self.price_tiers = kwargs.get("price_tiers", PRICE_TIERS)
 
-        # The current day: pick randomly
+        self.day = None
+        if 'day_mode' in properties:
+            self.day_mode = properties['day_mode']
+    
         if 'initial_day' in properties:
             self.day = properties['initial_day']
-        else:
-            self.day = random.randint(0,10)
+        # else:
+        #     # The current day: pick randomly
+        #     self.day = random.randint(0,10)
         # self.day = 8
         # self.day = 55
+
+        self.day = self.get_day(day=self.day)
+
         # The current timestep
         self.time_step = 0
 
@@ -68,7 +77,27 @@ class MicroGridEnvPlus(MicroGridEnv):
         self.observation_space = spaces.Box(low=-100, high=100, dtype=np.float32, 
                     shape=(1  + 7,))
 
-           
+
+    def set_day_list(self, mode=None):
+        self.day_list = []
+        if 'ordered' == mode:
+            self.day_list =  [ i for i in range(self.day0+1, self.dayN, 1)]
+        elif 'random' == mode:
+            self.day_list =  [ i for i in range(self.day0+1, self.dayN, 1)]
+            random.shuffle(self.day_list)
+
+    def get_day(self, day=None):
+        if len(self.day_list) == 0:
+            self.set_day_list(self.day_mode)
+
+        if day is None:
+            day = self.set_day_list[0]
+        self.day_list.remove(day)
+
+        return day
+
+
+
     
 
 # %% ../nbs/13_microgrid.ipynb 5
