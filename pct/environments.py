@@ -1176,7 +1176,7 @@ class MicroGrid(ControlEnvironment):
 
     def set_properties(self, props):        
         self.env.initialise(props)
-        self.day = props['day']
+
 
     def early_terminate(self):
         if self.done:
@@ -1187,8 +1187,8 @@ class MicroGrid(ControlEnvironment):
                 
     def process_actions(self):
 
-        self.actions[0] = map_to_int_even_range(self.hierarchy_values[0], [-2, 2], [1,4])           
-        self.actions[1] = map_to_int_odd_range(self.hierarchy_values[1], [-2, 2], [1,5])           
+        self.actions[0] = map_to_int_even_range(self.hierarchy_values[0], [-2, 2], [1,4]) - 1           
+        self.actions[1] = map_to_int_odd_range(self.hierarchy_values[1], [-2, 2], [1,5]) - 1           
         self.actions[2] = 1 if self.hierarchy_values[2] >= 0 else 0           
         self.actions[3] = 1 if self.hierarchy_values[3] >= 0 else 0           
 
@@ -1219,7 +1219,7 @@ class MicroGrid(ControlEnvironment):
     #     self.render=render
         
     def reset(self, full=True, seed=None):  
-        self.env.reset(day=self.day)        
+        self.env.reset()        
         self.done = False
 
     # def summary(self, extra=False, higher_namespace=None):

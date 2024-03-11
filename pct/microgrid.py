@@ -37,19 +37,18 @@ class MicroGridEnvPlus(MicroGridEnv):
         self.price_tiers = kwargs.get("price_tiers", PRICE_TIERS)
 
         self.day = None
+        self.day_list = []
         if 'day_mode' in properties:
             self.day_mode = properties['day_mode']
+        else:
+            raise Exception('day_mode property for MicroGrid must be defined')
     
         if 'initial_day' in properties:
             self.day = properties['initial_day']
-        # else:
-        #     # The current day: pick randomly
-        #     self.day = random.randint(0,10)
-        # self.day = 8
-        # self.day = 55
-
-        self.day = self.get_day(day=self.day)
-
+            self.set_day_list(mode=self.day_mode)
+        else:
+            self.day = random.randint(0,10)
+            
         # The current timestep
         self.time_step = 0
 
@@ -78,20 +77,57 @@ class MicroGridEnvPlus(MicroGridEnv):
                     shape=(1  + 7,))
 
 
+
+    def reset(self,day=None):
+        """
+        Create new TCLs, and return initial state.
+        Note: Overrides previous TCLs
+        """
+        # if day==None:
+        #     self.day = random.randint(0,10)
+        # else:
+        #     self.day = day
+
+        self.get_day()
+        # print("Day:",self.day)
+        self.time_step = 0
+        self.battery = self._create_battery()
+        self.energy_sold = 0
+        self.energy_bought = 0
+        self.energy_generated = 0
+        self.control=0
+        self.sale_price = PRICE_TIERS[2]
+        self.high_price = 0
+        self.tcls.clear()
+        # initial_tcl_temperature = random.normalvariate(12, 5)
+        initial_tcl_temperature = 12
+
+        for i in range(self.num_tcls):
+            parameters = self.tcls_parameters[i]
+            self.tcls.append(self._create_tcl(parameters[0],parameters[1],parameters[2],parameters[3],initial_tcl_temperature))
+
+        self.loads.clear()
+        for i in range(self.num_loads):
+            parameters = self.loads_parameters[i]
+            self.loads.append(self._create_load(parameters[0],parameters[1]))
+
+        self.battery = self._create_battery()
+        return self._build_state()
+
+
     def set_day_list(self, mode=None):
         self.day_list = []
         if 'ordered' == mode:
-            self.day_list =  [ i for i in range(self.day0+1, self.dayN, 1)]
+            self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
         elif 'random' == mode:
-            self.day_list =  [ i for i in range(self.day0+1, self.dayN, 1)]
+            self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
             random.shuffle(self.day_list)
 
-    def get_day(self, day=None):
+    def get_day(self):
         if len(self.day_list) == 0:
             self.set_day_list(self.day_mode)
 
-        if day is None:
-            day = self.set_day_list[0]
+        day = self.day_list[0]
         self.day_list.remove(day)
 
         return day
