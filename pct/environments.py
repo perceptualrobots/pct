@@ -1201,7 +1201,7 @@ class MicroGrid(ControlEnvironment):
 
         # self.value = self.obs[0]
         self.value = [ self.obs[0][i] for i in range(0, len(self.obs[0]))]   
-        self.reward = -self.obs[1]
+        self.reward = self.obs[1]
         self.done = self.obs[2]        
         self.info = 'info'#self.obs[3]
 

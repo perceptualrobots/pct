@@ -18,8 +18,14 @@ class MicroGridEnvPlus(MicroGridEnv):
         """
 
     def initialise(self, properties=None, **kwargs):
-        self.day0 = 0
+        self.day0 = 1
         self.dayN = 10
+
+        if 'day0' in properties:
+            self.day0 = properties['day0']
+        if 'dayN' in properties:
+            self.dayN = properties['dayN']
+
         if 'initial_seed' in properties:
             random.seed(properties['initial_seed'])
         # Get number of iterations and TCLs from the 
@@ -35,6 +41,10 @@ class MicroGridEnvPlus(MicroGridEnv):
         self.temperatures = kwargs.get("temperatures", DEFAULT_TEMPERATURS)
         self.base_load = kwargs.get("base_load", BASE_LOAD)
         self.price_tiers = kwargs.get("price_tiers", PRICE_TIERS)
+
+        # calculated here rather than repeatedly in _build_state
+        self.temperatures_min = min(self.temperatures)
+        self.temperatures_divisor = max(self.temperatures)-min(self.temperatures)
 
         self.day = None
         self.day_list = []
@@ -64,6 +74,10 @@ class MicroGridEnvPlus(MicroGridEnv):
         self.generation = Generation(MAX_GENERATION)
         self.grid = Grid()
 
+        # calculated here rather than repeatedly in _build_state
+        self.grid_buy_prices_min = min(self.grid.buy_prices)
+        self.grid_buy_prices_divisor = max(self.grid.buy_prices) - min(self.grid.buy_prices)
+
         for i in range(self.num_tcls):
             self.tcls_parameters.append(self._create_tcl_parameters())
 
@@ -77,18 +91,58 @@ class MicroGridEnvPlus(MicroGridEnv):
                     shape=(1  + 7,))
 
 
+    def _build_state(self):
+        """ 
+        Return current state representation as one vector.
+        Returns:
+            state: 1D state vector, containing state-of-charges of all TCLs, Loads, current battery soc, current power generation,
+                   current temperature, current price and current time (hour) of day
+        """
+        # SoCs of all TCLs binned + current temperature + current price + time of day (hour)
+        socs = np.array([tcl.SoC for tcl in self.tcls])
+        # Scaling between -1 and 1
+        socs = (socs+np.ones(shape=socs.shape)*4)/(1+4)
+        socs=np.average(socs)
+
+        # loads = np.array([l.load(self.time_step) for l in self.loads])
+        # loads = sum([l.load(self.time_step) for l in self.loads])
+        # # Scaling loads
+        # loads = (loads-(min(BASE_LOAD)+2)*DEFAULT_NUM_LOADS)/((max(BASE_LOAD)+4-min(BASE_LOAD)-2)*DEFAULT_NUM_LOADS)
+
+        loads = BASE_LOAD[(self.time_step) % 24]
+        loads = (loads - min(BASE_LOAD)) / (max(BASE_LOAD) - min(BASE_LOAD))
+
+
+        current_generation = self.generation.current_generation(self.day+self.time_step)
+        current_generation /= self.generation.max_capacity
+
+        temperature = self.temperatures[self.day+self.time_step]
+        temperature = (temperature-self.temperatures_min)/self.temperatures_divisor
+
+        price = self.grid.buy_prices[self.day+self.time_step]
+        price = (price - self.grid_buy_prices_min) / self.grid_buy_prices_divisor
+
+        high_price = self.high_price/(4 * self.iterations)
+
+        time_step = (self.time_step)/24
+
+        state = np.array([socs, loads, high_price, self.battery.SoC, current_generation,
+                         temperature,
+                         price,
+                         time_step])
+        return state
+
 
     def reset(self,day=None):
         """
         Create new TCLs, and return initial state.
         Note: Overrides previous TCLs
         """
-        # if day==None:
-        #     self.day = random.randint(0,10)
-        # else:
-        #     self.day = day
+        if day==None:
+            self.day = self.get_day()
+        else:
+            self.day = day
 
-        self.get_day()
         # print("Day:",self.day)
         self.time_step = 0
         self.battery = self._create_battery()
@@ -116,11 +170,8 @@ class MicroGridEnvPlus(MicroGridEnv):
 
 
     def set_day_list(self, mode=None):
-        self.day_list = []
-        if 'ordered' == mode:
-            self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
-        elif 'random' == mode:
-            self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
+        self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
+        if 'random' == mode:
             random.shuffle(self.day_list)
 
     def get_day(self):
