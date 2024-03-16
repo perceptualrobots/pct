@@ -1219,6 +1219,7 @@ class MicroGrid(ControlEnvironment):
     #     self.render=render
         
     def reset(self, full=True, seed=None):  
+        self.env.seed(seed)
         self.env.reset()        
         self.done = False
 
