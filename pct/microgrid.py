@@ -16,6 +16,10 @@ class MicroGridEnvPlus(MicroGridEnv):
         """
         Overriding MicroGridEnv constructor.
         """
+        seed = kwargs.get("seed", None)
+        if seed:
+            self.seed(seed)
+        pass
 
     def initialise(self, properties=None, **kwargs):
         self.day0 = 1

@@ -1165,7 +1165,7 @@ class MicroGrid(ControlEnvironment):
         self.done = False
         self.num_links=4
         self.env_name='MicroGridEnvPlus'
-        self.env = MicroGridEnvPlus()
+        self.env = MicroGridEnvPlus(seed=seed)
         self.actions = [0,0,0,0]
 
         
