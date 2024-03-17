@@ -174,9 +174,12 @@ class MicroGridEnvPlus(MicroGridEnv):
 
 
     def set_day_list(self, mode=None):
-        self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
-        if 'random' == mode:
-            random.shuffle(self.day_list)
+        if isinstance(mode, list):
+            self.day_list =  mode.copy()
+        else:
+            self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
+            if 'random' == mode:
+                random.shuffle(self.day_list)
 
     def get_day(self):
         if len(self.day_list) == 0:
