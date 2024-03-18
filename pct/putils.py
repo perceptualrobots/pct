@@ -6,7 +6,7 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'Number
            'stringFloatListToListOfFloats', 'stringListToListOfStrings', 'listNumsToString', 'round_lists',
            'floatListsToString', 'limit_large_float', 'sigmoid', 'smooth', 'sigmoid_array', 'dot', 'list_of_ones',
            'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'clip_value',
-           'map_to_int_odd_range', 'map_to_int_even_range']
+           'map_to_int_odd_range', 'map_to_int_even_range', 'TimerError', 'Timer']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -513,3 +513,44 @@ def map_to_int_even_range(val=None, inrange=None, outrange=None):
         b = b - 1
     rtn = math.floor(b) + int((outrange[1] - outrange[0] + 1 )/2) + 1
     return rtn
+
+# %% ../nbs/01_putils.ipynb 45
+class TimerError(Exception):
+    """A custom exception used to report errors in use of Timer class"""
+
+class Timer:
+    def __init__(self):
+        self._start_time = None
+        self._counter = 0
+        self._total_time = 0
+
+    def start(self):
+        """Start a new timer"""
+        if self._start_time is not None:
+            raise TimerError(f"Timer is running. Use .stop() to stop it")
+
+        self._start_time = time.perf_counter()
+        # print(self._start_time)
+
+    def stop(self):
+        """Stop the timer, and report the elapsed time"""
+        if self._start_time is None:
+            raise TimerError(f"Timer is not running. Use .start() to start it")
+
+        elapsed_time = time.perf_counter() - self._start_time 
+
+        self._total_time = self._total_time + elapsed_time
+        self._start_time = None
+        self._counter += 1
+        
+    def mean(self):
+        mtime = self._total_time / self._counter
+        self._start_time = None
+
+        return mtime
+
+    def total(self):
+        return self._total_time
+    
+    def count(self):
+        return self._counter 
