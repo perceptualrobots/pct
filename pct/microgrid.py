@@ -3,14 +3,14 @@
 # %% auto 0
 __all__ = ['MicroGridEnvPlus']
 
-# %% ../nbs/13_microgrid.ipynb 3
+# %% ../nbs/13_microgrid.ipynb 4
 import random
 import gym.spaces as spaces
 import numpy as np
 from drl_microgrid_ems.tcl_env_dqn import MicroGridEnv, DEFAULT_ITERATIONS, DEFAULT_NUM_TCLS, DEFAULT_NUM_LOADS, DEFAULT_PRICES, DEFAULT_TEMPERATURS, BASE_LOAD, PRICE_TIERS, Generation, Grid, MAX_GENERATION
 
 
-# %% ../nbs/13_microgrid.ipynb 4
+# %% ../nbs/13_microgrid.ipynb 6
 class MicroGridEnvPlus(MicroGridEnv):
     def __init__(self, **kwargs):
         """
@@ -194,7 +194,7 @@ class MicroGridEnvPlus(MicroGridEnv):
 
     
 
-# %% ../nbs/13_microgrid.ipynb 5
+# %% ../nbs/13_microgrid.ipynb 7
 #| export
 
   
