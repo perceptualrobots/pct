@@ -1146,12 +1146,13 @@ class MicroGrid(ControlEnvironment):
     "https://doi.org/10.1016/j.segan.2020.100413 </br></br>" \
     "Inputs - st = [SoCt, BSCt, Cbt, Tt, Gt, Put, Lb,t, t]. </br>" \
     "0 - ISC - the average SoC (state-of-charge) of the TCLs, </br>"\
-    "1 - IBS - the battery SoC, </br>"\
+    "1 - IL - the current load value of the daily consumption pattern. </br>"\
     "2 - IPC - the pricing counter, </br>"\
-    "3 - IT - the temparature, </br>"\
+    "3 - IBS - the battery SoC, </br>"\
     "4 - IEG - the energy generation, </br>"\
-    "5 - IEP - the electricty prices, </br>"\
-    "6 - IL - the current load value of the daily consumption pattern. </br>"\
+    "5 - IT - the temparature, </br>"\
+    "6 - IEP - the electricty prices, </br>"\
+    "7 - ITS - the time step, </br>"\
     "Actions:  </br>"\
     "0 - TCL action, Atcl, </br>" \
     "1 - price action, Ap, </br>" \
