@@ -16,7 +16,7 @@ from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_eve
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
-from .microgrid import MicroGridEnvPlus
+from .microgrid import MicroGridEnv0Plus
 
 # %% ../nbs/05_environments.ipynb 5
 class EnvironmentFactory:
@@ -1165,8 +1165,8 @@ class MicroGrid(ControlEnvironment):
         # self.zero_threshold = 0
         self.done = False
         self.num_links=4
-        self.env_name='MicroGridEnvPlus'
-        self.env = MicroGridEnvPlus(seed=seed)
+        self.env_name='MicroGridEnv0Plus'
+        self.env = MicroGridEnv0Plus(seed=seed)
         self.actions = [0,0,0,0]
 
         
