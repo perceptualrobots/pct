@@ -23,6 +23,163 @@ class MicroGridEnvPlus(mg.MicroGridEnv):
             self.seed(seed)
         pass
 
+    def initialise(self, properties=None, **kwargs):
+        self.day0 = 1
+        self.dayN = 10
+
+        if 'day0' in properties:
+            self.day0 = properties['day0']
+        if 'dayN' in properties:
+            self.dayN = properties['dayN']
+
+        if 'initial_seed' in properties:
+            random.seed(properties['initial_seed'])
+        # Get number of iterations and TCLs from the 
+        # parameters (we have to define it through kwargs because 
+        # of how Gym works...)
+        if 'iterations' in properties:
+            self.iterations = properties['iterations']
+        else:
+            self.iterations = kwargs.get("iterations", mg.DEFAULT_ITERATIONS)
+
+        self.day = None
+        self.day_list = []
+        if 'day_mode' in properties:
+            self.day_mode = properties['day_mode']
+        else:
+            raise Exception('day_mode property for MicroGrid must be defined')
+    
+        if 'initial_day' in properties:
+            self.day = properties['initial_day']
+            self.set_day_list(mode=self.day_mode)
+        else:
+            self.day = random.randint(0,10)
+            
+
+        self.num_tcls = kwargs.get("num_tcls", mg.DEFAULT_NUM_TCLS)
+        print(self.num_tcls)
+        self.avg_tcl_power = kwargs.get("tcl_power", mg.DEFAULT_AVGTCLPOWER)
+        self.tcl_sale_price = kwargs.get("tcl_price", mg.DEFAULT_TCL_SALE_PRICE)
+        self.num_loads = kwargs.get("num_loads", mg.DEFAULT_NUM_LOADS)
+        self.typical_load = kwargs.get("base_load", mg.DEFAULT_BASE_LOAD)
+        self.market_price = kwargs.get("normal_price", mg.DEFAULT_MARKET_PRICE)
+        self.temperatures = kwargs.get("temperatures", mg.DEFAULT_TEMPERATURS)
+        self.price_tiers = kwargs.get("price_tiers", mg.DEFAULT_PRICE_TIERS)
+        self.day0 = kwargs.get("day0", mg.DEFAULT_DAY0)
+        self.dayn = kwargs.get("dayn", self.day0+1)
+        self.power_cost = kwargs.get("power_cost", mg.DEFAULT_WIND_POWER_COST)
+        self.down_reg = kwargs.get("down_reg", mg.DEFAULT_DOWN_REG)
+        self.up_reg = kwargs.get("up_reg", mg.DEFAULT_UP_REG)
+        self.imp_fees = kwargs.get("imp_fees", mg.DEFAULT_TRANSFER_PRICE_IMPORT)
+        self.exp_fees = kwargs.get("exp_fees", mg.DEFAULT_TRANSFER_PRICE_EXPORT)
+        self.bat_capacity = kwargs.get("battery_capacity", mg.DEFAULT_BAT_CAPACITY)
+        self.max_discharge = kwargs.get("max_discharge", mg.DEFAULT_MAX_DISCHARGE)
+        self.max_charge = kwargs.get("max_charge", mg.DEFAULT_MAX_CHARGE)
+
+        # The current timestep
+        self.time_step = 0
+
+        # The cluster of TCLs to be controlled.
+        # These will be created in reset()
+        self.tcls_parameters = []
+        # The cluster of loads.
+        # These will be created in reset()
+        self.loads_parameters = []
+
+        self.generation = mg.Generation(kwargs.get("generation_data", mg.DEFAULT_POWER_GENERATED))
+        self.grid = mg.Grid(down_reg=self.down_reg,up_reg=self.up_reg, exp_fees=self.exp_fees, imp_fees=self.imp_fees)
+        self.battery = mg.Battery(capacity=self.bat_capacity, useD=0.9, dissipation=0.001, rateC=0.9, maxDD=self.max_discharge, chargeE=self.max_charge)
+
+        self.tcls = [self._create_tcl(*self._create_tcl_parameters()) for _ in range(self.num_tcls)]
+        self.loads = [self._create_load(*self._create_load_parameters()) for _ in range(self.num_loads)]
+
+        self.action_space_sep = spaces.Box(low=0, high=1, dtype=np.float32,
+                                       shape=(13,))
+        self.action_space = spaces.Discrete(80)
+
+        # Observations: A vector of TCLs SoCs + loads +battery soc+ power generation + price + temperature + time of day
+        self.observation_space = spaces.Box(low=-100, high=100, dtype=np.float32,
+                                            shape=(self.num_tcls + 7,))
+
+
+    def reset(self,day=None):
+        """
+        Create new TCLs, and return initial state.
+        Note: Overrides previous TCLs
+        """
+        # if day == None:
+        #     self.day= random.randint(self.day0,self.dayn)
+        # else:
+        #     self.day = day
+        # print("Day:", self.day)
+
+        if day==None:
+            self.day = self.get_day()
+        else:
+            self.day = day
+
+
+        self.time_step = 0
+
+        self.high_price = 0
+
+        return self._build_state()
+
+    def reset_all(self,day=None):
+        """
+        Create new TCLs, and return initial state.
+        Note: Overrides previous TCLs
+        """
+        # if day == None:
+        #     # self.day = random.randint(self.day0, self.dayn-1)
+        #     self.day= self.day0
+        # else:
+        #     self.day = day
+        # print("Day:", self.day)
+
+        if day==None:
+            self.day = self.get_day()
+        else:
+            self.day = day
+
+        self.time_step = 0
+        self.battery.reset()
+        self.high_price = 0
+        self.tcls.clear()
+        self.loads.clear()
+        self.tcls = [self._create_tcl(*self._create_tcl_parameters()) for _ in range(self.num_tcls)]
+        self.loads = [self._create_load(*self._create_load_parameters()) for _ in range(self.num_loads)]
+
+
+        return self._build_state()
+
+
+
+    def set_day_list(self, mode=None):
+        if isinstance(mode, list):
+            self.day_list =  mode.copy()
+        else:
+            self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
+            if 'random' == mode:
+                random.shuffle(self.day_list)
+
+    def get_day(self):
+        if len(self.day_list) == 0:
+            self.set_day_list(self.day_mode)
+
+        day = self.day_list[0]
+        self.day_list.remove(day)
+
+        return day
+
+
+    def seed(self, s):
+        """
+        Set the random seed for consistent experiments
+        """
+        self.seedy(s)
+
+
 
 # %% ../nbs/13_microgrid.ipynb 6
 class MicroGridEnv0Plus(mg0.MicroGridEnv0):
@@ -185,6 +342,7 @@ class MicroGridEnv0Plus(mg0.MicroGridEnv0):
 
         self.battery = self._create_battery()
         return self._build_state()
+
 
 
     def set_day_list(self, mode=None):
