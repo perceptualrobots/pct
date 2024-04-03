@@ -641,6 +641,28 @@ class PCTHierarchy():
                         
 #         graph.add_edges_from(edges)
 
+    def validate_links(self):
+        for level in range(len(self.hierarchy)):
+            for col in range(len(self.hierarchy[level])):
+                node = self.hierarchy[level][col]
+                ref = node.get_function_from_collection(HPCTFUNCTION.REFERENCE)
+                ref_name = ref.get_name()
+                target_level = level+1
+                links = ref.get_links()
+                for link in links:
+                    if isinstance(link, str):
+                        link_name = link
+                    else:
+                        link_name = link.get_name()
+                    link_level = link_name[2:3]
+                    if target_level != eval(link_level):
+                        msg = f'Ref {ref_name} link level for {link_name} different to {target_level}'
+                        print(msg)
+                        self.summary()
+                        raise Exception(msg)
+                    
+        return True
+                      
     
     def build_links(self):
         for level in range(len(self.hierarchy)):
