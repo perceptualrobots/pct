@@ -212,6 +212,7 @@ class PCTNode():
         if collection == "output":
             self.outputCollection[-1].add_link(link)
             
+    # build links between each other in a collection, between com and ref/per and from out to com
     def build_links(self):
         if len(self.referenceCollection)>0:
             link = self.referenceCollection[0]
