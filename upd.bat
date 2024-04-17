@@ -1,7 +1,7 @@
 @echo off
 echo %time%
 git add -A
-git commit -m "added reset_value for DerivativeWeightedSum"
+git commit -m update
 git pull
 git push
 echo %time%
