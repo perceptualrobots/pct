@@ -378,7 +378,7 @@ class PCTHierarchy():
             func.set_value(0)               
 
         for func in self.postCollection:
-            func.set_value(0)
+            func.reset_value()
 
         for level in self.hierarchy:
             for node in level:

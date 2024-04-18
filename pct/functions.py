@@ -1259,6 +1259,11 @@ class SigmoidSmoothWeightedSum(BaseFunction):
         self.smoothed_value = 0
         pass
 
+    def reset_value(self):
+        super().set_value(0)
+        self.smoothed_value = 0
+        pass
+
     def summary(self, extra=False, higher_namespace=None):
         weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
         super().summary(f'weights {weights} smooth {self.smooth_factor:4.2f} range {self.range:4.2f}  slope {self.slope:4.2f}', extra=extra, higher_namespace=higher_namespace)
@@ -1332,6 +1337,12 @@ class Derivative(BaseFunction):
         self.value = self.history[0] - self.history[-1]
         
         return super().__call__(verbose)
+
+    def reset_value(self):
+        super().set_value(0)
+        self.history = []
+        pass
+
 
     def summary(self, extra=False):
         super().summary(f'history_length {self.history_length} ', extra=extra)
@@ -1422,6 +1433,12 @@ class DerivativeWeightedSum(BaseFunction):
             self.history.pop(0)
             
         return super().__call__(verbose)
+
+    def reset_value(self):
+        super().set_value(0)
+        self.history = []
+        pass
+
 
     def summary(self, extra=False):
         weights = [float(f'{float(wt):4.2f}') for wt in self.weights]
