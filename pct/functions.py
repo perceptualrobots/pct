@@ -261,6 +261,12 @@ class BaseFunction(ABC):
         
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
     
+    def remove_links(self):
+        remove = []
+        for link in self.links:            
+            if link.get_value() == 0:
+                remove.append(link.get_name())
+
     def check_links(self, num):
         if self.checklinks:
             ctr=0

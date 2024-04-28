@@ -384,6 +384,18 @@ class PCTHierarchy():
             for node in level:
                 node.reset()
 
+
+    def remove_links(self):
+        for func in self.postCollection:
+            func.remove_links()
+                    
+        for func in self.preCollection:
+            func.remove_links()
+            
+        for level in self.hierarchy:
+            for node in level:
+                node.remove_links()
+
         
     def reset_checklinks(self, val=True):
         for func in self.postCollection:
