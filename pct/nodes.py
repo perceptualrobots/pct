@@ -380,6 +380,15 @@ class PCTNode():
         for func in self.perceptionCollection:
             func.validate(num_lower_perceptions)
     
+    def remove_links(self):
+        for referenceFunction in self.referenceCollection:
+            referenceFunction.remove_links()  
+               
+        for perceptionFunction in self.perceptionCollection:
+            perceptionFunction.remove_links()
+        
+        # for outputFunction in self.outputCollection:
+        #     outputFunction.remove_links()
     
     def clear_values(self):
         for referenceFunction in self.referenceCollection:
