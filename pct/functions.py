@@ -262,10 +262,14 @@ class BaseFunction(ABC):
         return f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
     
     def remove_links(self):
-        remove = []
-        for link in self.links:            
-            if link.get_value() == 0:
-                remove.append(link.get_name())
+        if hasattr(self, 'weights'):
+            for ctr in range(len(self.weights)-1, -1, -1):
+                if self.weights[ctr] == 0:
+                    del  self.weights[ctr]
+                    del  self.links[ctr]
+
+            pass
+
 
     def check_links(self, num):
         if self.checklinks:
