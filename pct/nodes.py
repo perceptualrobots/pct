@@ -150,7 +150,34 @@ class PCTNode():
             func.reset_value()               
     
 
-    
+    def delete_output(self):
+        for func in self.outputCollection:
+            FunctionsList.getInstance().delete_function(func.namespace, func.name)
+
+        for ctr in range(len(self.outputCollection)-1, -1, -1):
+            del self.outputCollection[ctr]
+
+        self.outputCollection = None
+
+
+    def delete_comparator(self):
+        for func in self.comparatorCollection:
+            FunctionsList.getInstance().delete_function(func.namespace, func.name)
+
+        for ctr in range(len(self.comparatorCollection)-1, -1, -1):
+            del self.comparatorCollection[ctr]
+
+        self.comparatorCollection = None
+
+    def delete_reference(self):
+        for func in self.referenceCollection:
+            FunctionsList.getInstance().delete_function(func.namespace, func.name)
+
+        for ctr in range(len(self.referenceCollection)-1, -1, -1):
+            del self.referenceCollection[ctr]
+
+        self.referenceCollection = None
+
     def delete_contents(self):
         for func in self.referenceCollection:
             FunctionsList.getInstance().delete_function(func.namespace, func.name)
@@ -389,7 +416,52 @@ class PCTNode():
         
         # for outputFunction in self.outputCollection:
         #     outputFunction.remove_links()
-    
+
+
+    def list_link_names(self, link_names):
+        for func in self.referenceCollection:
+            for link in func.links:
+                if isinstance(link, str):
+                    link_names.append(link)
+                else:
+                    link_names.append(link.get_name())
+                 
+        for func in self.comparatorCollection:
+            for link in func.links:
+                if isinstance(link, str):
+                    link_names.append(link)
+                else:
+                    link_names.append(link.get_name())
+        
+        for func in self.perceptionCollection:
+            for link in func.links:
+                if isinstance(link, str):
+                    link_names.append(link)
+                else:
+                    link_names.append(link.get_name())
+        
+        for func in self.outputCollection:
+            for link in func.links:
+                if isinstance(link, str):
+                    link_names.append(link)
+                else:
+                    link_names.append(link.get_name())
+
+
+    def consolidate(self, link_names):
+        outputFunction = self.outputCollection[-1]
+        name = outputFunction.get_name()
+        if name not in link_names:
+            self.delete_output()
+            self.delete_comparator()
+            self.delete_reference()
+            print(self.outputCollection)
+            print(self.comparatorCollection)
+            print(self.referenceCollection)
+
+        
+
+
     def clear_values(self):
         for referenceFunction in self.referenceCollection:
             referenceFunction.value = 0  
@@ -436,18 +508,18 @@ class PCTNode():
 
             
     def set_graph_data(self, graph, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
-        
-        for referenceFunction in self.referenceCollection:
-            referenceFunction.set_graph_data(graph, layer+layout['r'])   
-        
-        for comparatorFunction in self.comparatorCollection:
-            comparatorFunction.set_graph_data(graph, layer+layout['c'])
-        
-        for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.set_graph_data(graph, layer+layout['p'])
-        
-        for outputFunction in self.outputCollection:
-            outputFunction.set_graph_data(graph, layer+layout['o'])
+        if self.referenceCollection:
+            for referenceFunction in self.referenceCollection:
+                referenceFunction.set_graph_data(graph, layer+layout['r'])   
+        if self.comparatorCollection:
+            for comparatorFunction in self.comparatorCollection:
+                comparatorFunction.set_graph_data(graph, layer+layout['c'])
+        if self.perceptionCollection:
+            for perceptionFunction in self.perceptionCollection:
+                perceptionFunction.set_graph_data(graph, layer+layout['p'])
+        if self.outputCollection:
+            for outputFunction in self.outputCollection:
+                outputFunction.set_graph_data(graph, layer+layout['o'])
 
             
     def set_graph_data_funcdata(self, graph, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
@@ -466,18 +538,18 @@ class PCTNode():
             
             
     def get_edge_labels(self, labels):
-
-        for func in self.referenceCollection:
-            func.get_weights_labels(labels)
-
-        for func in self.comparatorCollection:
-            func.get_weights_labels(labels)
-                    
-        for func in self.perceptionCollection:
-            func.get_weights_labels(labels)
-                    
-        for func in self.outputCollection:
-            func.get_weights_labels(labels)
+        if self.referenceCollection:
+            for func in self.referenceCollection:
+                func.get_weights_labels(labels)
+        if self.referenceCollection:
+            for func in self.comparatorCollection:
+                func.get_weights_labels(labels)
+        if self.referenceCollection:                    
+            for func in self.perceptionCollection:
+                func.get_weights_labels(labels)
+        if self.referenceCollection:                    
+            for func in self.outputCollection:
+                func.get_weights_labels(labels)
 
     def get_edge_labels_funcdata(self, labels):
 
@@ -509,20 +581,24 @@ class PCTNode():
             node_list[func.get_name()] = self.name
 
     def get_parameters_list(self):
-    
+
         ref_list = []
-        for func in self.referenceCollection:
-            ref_list.append(func.get_parameters_list())
+        if self.referenceCollection:
+            for func in self.referenceCollection:
+                ref_list.append(func.get_parameters_list())
 
         per_list = []
-        for func in self.perceptionCollection:
-            per_list.append(func.get_parameters_list())
+        if self.perceptionCollection:
+            for func in self.perceptionCollection:
+                per_list.append(func.get_parameters_list())
 
         out_list = []
-        for func in self.outputCollection:
-            out_list.append(func.get_parameters_list())
-            
-        node_list = [ref_list, per_list, out_list]
+        if self.outputCollection:
+            for func in self.outputCollection:
+                out_list.append(func.get_parameters_list())
+
+
+        node_list = [ref_list,per_list,out_list]
             
         return node_list
         
