@@ -422,11 +422,17 @@ class PCTHierarchy():
     def consolidate(self):
         self.remove_links()
 
-        # linklist = self.list_link_names()
-        # for level in self.hierarchy:
-        #     for node in level:
-        #         node.consolidate(linklist)
+        # for outputs, comparators and references
+        linklist = self.list_link_names()
+        for level in self.hierarchy:
+            for node in level:
+                node.consolidate(linklist)
 
+        # for perceptions
+        linklist = self.list_link_names()
+        for level in self.hierarchy:
+            for node in level:
+                node.consolidate(linklist)
 
         
     def reset_checklinks(self, val=True):

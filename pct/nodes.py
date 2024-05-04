@@ -150,6 +150,16 @@ class PCTNode():
             func.reset_value()               
     
 
+    def delete_perception(self):
+        for func in self.perceptionCollection:
+            FunctionsList.getInstance().delete_function(func.namespace, func.name)
+
+        for ctr in range(len(self.perceptionCollection)-1, -1, -1):
+            del self.perceptionCollection[ctr]
+
+        self.perceptionCollection = None
+
+
     def delete_output(self):
         for func in self.outputCollection:
             FunctionsList.getInstance().delete_function(func.namespace, func.name)
@@ -455,9 +465,15 @@ class PCTNode():
             self.delete_output()
             self.delete_comparator()
             self.delete_reference()
-            print(self.outputCollection)
-            print(self.comparatorCollection)
-            print(self.referenceCollection)
+            # print(self.outputCollection)
+            # print(self.comparatorCollection)
+            # print(self.referenceCollection)
+
+        perceptionFunction = self.perceptionCollection[-1]
+        name = perceptionFunction.get_name()
+        if name not in link_names:
+            self.delete_perception()
+
 
         
 
