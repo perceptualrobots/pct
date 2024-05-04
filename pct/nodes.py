@@ -429,45 +429,47 @@ class PCTNode():
 
 
     def list_link_names(self, link_names):
-        for func in self.referenceCollection:
-            for link in func.links:
-                if isinstance(link, str):
-                    link_names.append(link)
-                else:
-                    link_names.append(link.get_name())
-                 
-        for func in self.comparatorCollection:
-            for link in func.links:
-                if isinstance(link, str):
-                    link_names.append(link)
-                else:
-                    link_names.append(link.get_name())
-        
-        for func in self.perceptionCollection:
-            for link in func.links:
-                if isinstance(link, str):
-                    link_names.append(link)
-                else:
-                    link_names.append(link.get_name())
-        
-        for func in self.outputCollection:
-            for link in func.links:
-                if isinstance(link, str):
-                    link_names.append(link)
-                else:
-                    link_names.append(link.get_name())
+        if self.referenceCollection:
+            for func in self.referenceCollection:
+                for link in func.links:
+                    if isinstance(link, str):
+                        link_names.append(link)
+                    else:
+                        link_names.append(link.get_name())
+        if self.comparatorCollection:
+            for func in self.comparatorCollection:
+                for link in func.links:
+                    if isinstance(link, str):
+                        link_names.append(link)
+                    else:
+                        link_names.append(link.get_name())
+        if self.perceptionCollection:    
+            for func in self.perceptionCollection:
+                for link in func.links:
+                    if isinstance(link, str):
+                        link_names.append(link)
+                    else:
+                        link_names.append(link.get_name())
+        if self.outputCollection:    
+            for func in self.outputCollection:
+                for link in func.links:
+                    if isinstance(link, str):
+                        link_names.append(link)
+                    else:
+                        link_names.append(link.get_name())
 
 
     def consolidate(self, link_names):
-        outputFunction = self.outputCollection[-1]
-        name = outputFunction.get_name()
-        if name not in link_names:
-            self.delete_output()
-            self.delete_comparator()
-            self.delete_reference()
-            # print(self.outputCollection)
-            # print(self.comparatorCollection)
-            # print(self.referenceCollection)
+        if self.outputCollection:    
+            outputFunction = self.outputCollection[-1]
+            name = outputFunction.get_name()
+            if name not in link_names:
+                self.delete_output()
+                self.delete_comparator()
+                self.delete_reference()
+                # print(self.outputCollection)
+                # print(self.comparatorCollection)
+                # print(self.referenceCollection)
 
         perceptionFunction = self.perceptionCollection[-1]
         name = perceptionFunction.get_name()
