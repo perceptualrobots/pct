@@ -95,6 +95,19 @@ class PCTNode():
     def __str__(self):
         return str(self.__dict__)
     
+
+    def is_empty(self):
+        if self.perceptionCollection:
+            return False
+        if self.referenceCollection:
+            return False
+        if self.comparatorCollection:
+            return False
+        if self.outputCollection:
+            return False
+
+        return True
+    
     def get_summary(self):
         
         for referenceFunction in self.referenceCollection:
@@ -673,18 +686,22 @@ class PCTNode():
         config = {"type": type(self).__name__,
                     "name": self.name}        
 
-        coll_name = 'refcoll'
-        collection = self.referenceCollection
-        config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
-        coll_name = 'percoll'
-        collection = self.perceptionCollection
-        config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
-        coll_name = 'comcoll'
-        collection = self.comparatorCollection
-        config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
-        coll_name = 'outcoll'
-        collection = self.outputCollection
-        config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
+        if self.referenceCollection:
+            coll_name = 'refcoll'
+            collection = self.referenceCollection
+            config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
+        if self.perceptionCollection:
+            coll_name = 'percoll'
+            collection = self.perceptionCollection
+            config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
+        if self.comparatorCollection:
+            coll_name = 'comcoll'
+            collection = self.comparatorCollection
+            config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
+        if self.outputCollection:
+            coll_name = 'outcoll'
+            collection = self.outputCollection
+            config[coll_name] = self.get_collection_config(coll_name, collection, zero)       
         
         return config       
 

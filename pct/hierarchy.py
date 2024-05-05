@@ -876,10 +876,12 @@ class PCTHierarchy():
             columns={}
             for col in range(len(self.hierarchy[lvl])):
                 column={'col':col}
-                nodeconfig = self.hierarchy[lvl][col].get_config(zero=zero)
-                #print(nodeconfig)
-                column['node']=nodeconfig
-                #print(column)
+                if not self.hierarchy[lvl][col].is_empty():
+                    nodeconfig = self.hierarchy[lvl][col].get_config(zero=zero)
+                    #print(nodeconfig)
+                    column['node']=nodeconfig
+                    #print(column)
+
                 columns[f'col{col}']=column
             level['nodes']=columns
             levels[f'level{lvl}']=level
