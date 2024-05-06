@@ -65,24 +65,35 @@ class PCTNode():
             
             if build_links:
                 self.build_links()
+        else:
+            self.perceptionCollection = None
+            self.referenceCollection = None
+            self.comparatorCollection = None
+            self.outputCollection = None
+
     
     def __call__(self, verbose=False):
         if not self.links_built:
             self.build_links()
             
-        for referenceFunction in self.referenceCollection:
-            referenceFunction(verbose)               
+        if self.referenceCollection:
+            for referenceFunction in self.referenceCollection:
+                referenceFunction(verbose)               
 
-        for perceptionFunction in self.perceptionCollection:
-            perceptionFunction(verbose)
+        if self.perceptionCollection:
+            for perceptionFunction in self.perceptionCollection:
+                perceptionFunction(verbose)
                     
-        for comparatorFunction in self.comparatorCollection:
-            comparatorFunction(verbose)
+        if self.comparatorCollection:
+            for comparatorFunction in self.comparatorCollection:
+                comparatorFunction(verbose)
 
-        for outputFunction in self.outputCollection:
-            outputFunction(verbose)
-            
-        self.output = self.outputCollection[-1].get_value()
+        if self.outputCollection:
+            for outputFunction in self.outputCollection:
+                outputFunction(verbose)                
+            self.output = self.outputCollection[-1].get_value()
+        else:
+            self.output = 0
         
         if verbose:
             print()
@@ -264,6 +275,10 @@ class PCTNode():
             
     # build links between each other in a collection, between com and ref/per and from out to com
     def build_links(self):
+        if self.is_empty():       
+            self.links_built = True
+            return
+
         if len(self.referenceCollection)>0:
             link = self.referenceCollection[0]
             for i in range (1, len(self.referenceCollection)):
@@ -554,47 +569,50 @@ class PCTNode():
 
             
     def set_graph_data_funcdata(self, graph, layer=0, layout={'r':2,'c':1,'p':2, 'o':0}):
+        if self.referenceCollection:       
+            for referenceFunction in self.referenceCollection:
+                referenceFunction.set_graph_data_funcdata(graph, layer+layout['r'])   
         
-        for referenceFunction in self.referenceCollection:
-            referenceFunction.set_graph_data_funcdata(graph, layer+layout['r'])   
+        if self.comparatorCollection:
+            for comparatorFunction in self.comparatorCollection:
+                comparatorFunction.set_graph_data_funcdata(graph, layer+layout['c'])
         
-        for comparatorFunction in self.comparatorCollection:
-            comparatorFunction.set_graph_data_funcdata(graph, layer+layout['c'])
+        if self.perceptionCollection:
+            for perceptionFunction in self.perceptionCollection:
+                perceptionFunction.set_graph_data_funcdata(graph, layer+layout['p'])
         
-        for perceptionFunction in self.perceptionCollection:
-            perceptionFunction.set_graph_data_funcdata(graph, layer+layout['p'])
-        
-        for outputFunction in self.outputCollection:
-            outputFunction.set_graph_data_funcdata(graph, layer+layout['o'])
+        if self.outputCollection:
+            for outputFunction in self.outputCollection:
+                outputFunction.set_graph_data_funcdata(graph, layer+layout['o'])
             
             
     def get_edge_labels(self, labels):
         if self.referenceCollection:
             for func in self.referenceCollection:
                 func.get_weights_labels(labels)
-        if self.referenceCollection:
+        if self.comparatorCollection:
             for func in self.comparatorCollection:
                 func.get_weights_labels(labels)
-        if self.referenceCollection:                    
+        if self.perceptionCollection:                    
             for func in self.perceptionCollection:
                 func.get_weights_labels(labels)
-        if self.referenceCollection:                    
+        if self.outputCollection:                    
             for func in self.outputCollection:
                 func.get_weights_labels(labels)
 
     def get_edge_labels_funcdata(self, labels):
-
-        for func in self.referenceCollection:
-            func.get_weights_labels_funcdata(labels)
-
-        for func in self.comparatorCollection:
-            func.get_weights_labels_funcdata(labels)
-                    
-        for func in self.perceptionCollection:
-            func.get_weights_labels_funcdata(labels)
-                    
-        for func in self.outputCollection:
-            func.get_weights_labels_funcdata(labels)
+        if self.referenceCollection:
+            for func in self.referenceCollection:
+                func.get_weights_labels_funcdata(labels)
+        if self.comparatorCollection:
+            for func in self.comparatorCollection:
+                func.get_weights_labels_funcdata(labels)                    
+        if self.perceptionCollection:                    
+            for func in self.perceptionCollection:
+                func.get_weights_labels_funcdata(labels)                    
+        if self.outputCollection:                    
+            for func in self.outputCollection:
+                func.get_weights_labels_funcdata(labels)
             
             
     def get_node_list(self, node_list):
@@ -840,12 +858,16 @@ class PCTNodeData():
         
     
     def add_data(self, node):
-        ctr = 0 
-        
-        self.add_collection( node.referenceCollection, "refcoll")
-        self.add_collection( node.perceptionCollection, "percoll")
-        self.add_collection( node.comparatorCollection, "comcoll")
-        self.add_collection( node.outputCollection, "outcoll")
+        if node.is_empty():
+            return
+        if node.referenceCollection:
+            self.add_collection( node.referenceCollection, "refcoll")
+        if node.perceptionCollection:
+            self.add_collection( node.perceptionCollection, "percoll")
+        if node.comparatorCollection:
+            self.add_collection( node.comparatorCollection, "comcoll")
+        if node.outputCollection:
+            self.add_collection( node.outputCollection, "outcoll")
 
     def add_collection(self, collection, collname):
         for func in collection:            

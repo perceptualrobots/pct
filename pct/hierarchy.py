@@ -1074,16 +1074,21 @@ class PCTHierarchy():
         for level_key in config['levels']:
             cols = []
             for nodes_key in config['levels'][level_key]['nodes']:
-                node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, perception=True, history=history)
+                if 'node' in config['levels'][level_key]['nodes'][nodes_key]:
+                    node = PCTNode.from_config(config['levels'][level_key]['nodes'][nodes_key]['node'], namespace=namespace, perception=True, history=history)
+                else:
+                    node = PCTNode(default=False, namespace=namespace, history=history)    
                 cols.append(node)
+
             hpct.hierarchy.append(cols)
 
         for level_key, level_value in dict(reversed(list(config['levels'].items()))).items():
             cols = []
             for nodes_key, nodes_value in dict(reversed(list(level_value['nodes'].items()))).items():
                 node = hpct.get_node(level_value['level'], nodes_value['col'])
-                PCTNode.from_config(config=nodes_value['node'], namespace=namespace, reference=True, comparator=True,  output=True, node=node, history=history)
-                
+                if 'node' in nodes_value:
+                    PCTNode.from_config(config=nodes_value['node'], namespace=namespace, reference=True, comparator=True,  output=True, node=node, history=history)
+                                
         postCollection = []        
         coll_dict = config['post']
         PCTNode.collection_from_config(postCollection, coll_dict, namespace=namespace)
