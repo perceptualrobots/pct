@@ -751,25 +751,25 @@ class PCTNode():
 
         namespace= node.namespace
 
-        if reference:
+        if reference and 'refcoll' in config:
             node.referenceCollection = []
             collection = node.referenceCollection
             coll_dict = config['refcoll']
             PCTNode.collection_from_config(collection, coll_dict, namespace)
 
-        if perception:
+        if perception and 'percoll' in config:
             node.perceptionCollection = []
             collection = node.perceptionCollection
             coll_dict = config['percoll']
             PCTNode.collection_from_config(collection, coll_dict, namespace)
 
-        if comparator:
+        if comparator and 'comcoll' in config:
             node.comparatorCollection = []
             collection = node.comparatorCollection
             coll_dict = config['comcoll']
             PCTNode.collection_from_config(collection, coll_dict, namespace)
 
-        if output:
+        if output and 'outcoll' in config:
             node.outputCollection = []
             collection = node.outputCollection
             coll_dict = config['outcoll']
