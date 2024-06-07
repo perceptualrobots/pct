@@ -11,7 +11,6 @@ import drl_microgrid_ems.tcl_env_dqn as mg0
 import drl_microgrid_ems.tcl_env_dqn_1 as mg
 
 
-
 # %% ../nbs/13_microgrid.ipynb 5
 class MicroGridEnvPlus(mg.MicroGridEnv):
     def __init__(self, **kwargs):
@@ -24,13 +23,8 @@ class MicroGridEnvPlus(mg.MicroGridEnv):
         pass
 
     def initialise(self, properties=None, **kwargs):
-        self.day0 = 1
-        self.dayN = 10
-
-        if 'day0' in properties:
-            self.day0 = properties['day0']
-        if 'dayN' in properties:
-            self.dayN = properties['dayN']
+        # self.day0 = 1
+        # self.dayN = 10
 
         if 'initial_seed' in properties:
             random.seed(properties['initial_seed'])
@@ -75,6 +69,11 @@ class MicroGridEnvPlus(mg.MicroGridEnv):
         self.bat_capacity = kwargs.get("battery_capacity", mg.DEFAULT_BAT_CAPACITY)
         self.max_discharge = kwargs.get("max_discharge", mg.DEFAULT_MAX_DISCHARGE)
         self.max_charge = kwargs.get("max_charge", mg.DEFAULT_MAX_CHARGE)
+
+        if 'day0' in properties:
+            self.day0 = properties['day0']
+        if 'dayN' in properties:
+            self.dayN = properties['dayN']
 
         # The current timestep
         self.time_step = 0
