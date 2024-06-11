@@ -24,17 +24,10 @@ class MicroGridEnvPlus(mg.MicroGridEnv):
 
     def initialise(self, properties=None, **kwargs):
         # self.day0 = 1
-        # self.dayN = 10
+        # self.dayn = 10
 
         if 'initial_seed' in properties:
             random.seed(properties['initial_seed'])
-        # Get number of iterations and TCLs from the 
-        # parameters (we have to define it through kwargs because 
-        # of how Gym works...)
-        if 'iterations' in properties:
-            self.iterations = properties['iterations']
-        else:
-            self.iterations = kwargs.get("iterations", mg.DEFAULT_ITERATIONS)
 
         self.day = None
         self.day_list = []
@@ -42,14 +35,12 @@ class MicroGridEnvPlus(mg.MicroGridEnv):
             self.day_mode = properties['day_mode']
         else:
             raise Exception('day_mode property for MicroGrid must be defined')
-    
-        if 'initial_day' in properties:
-            self.day = properties['initial_day']
-            self.set_day_list(mode=self.day_mode)
-        else:
-            self.day = random.randint(0,10)
-            
+                
+        # Get number of iterations and TCLs from the 
+        # parameters (we have to define it through kwargs because 
+        # of how Gym works...)
 
+        self.iterations = kwargs.get("iterations", mg.DEFAULT_ITERATIONS)
         self.num_tcls = kwargs.get("num_tcls", mg.DEFAULT_NUM_TCLS)
         print(self.num_tcls)
         self.avg_tcl_power = kwargs.get("tcl_power", mg.DEFAULT_AVGTCLPOWER)
@@ -72,8 +63,16 @@ class MicroGridEnvPlus(mg.MicroGridEnv):
 
         if 'day0' in properties:
             self.day0 = properties['day0']
-        if 'dayN' in properties:
-            self.dayN = properties['dayN']
+        if 'dayn' in properties:
+            self.dayn = properties['dayn']
+
+
+        if 'initial_day' in properties:
+            self.day = properties['initial_day']
+            self.set_day_list(mode=self.day_mode)
+        else:
+            self.day = random.randint(0,10)
+
 
         # The current timestep
         self.time_step = 0
@@ -158,7 +157,7 @@ class MicroGridEnvPlus(mg.MicroGridEnv):
         if isinstance(mode, list):
             self.day_list =  mode.copy()
         else:
-            self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
+            self.day_list =  [ i for i in range(self.day0, self.dayn+1, 1)]
             if 'random' == mode:
                 random.shuffle(self.day_list)
 
@@ -192,23 +191,20 @@ class MicroGridEnv0Plus(mg0.MicroGridEnv0):
         pass
 
     def initialise(self, properties=None, **kwargs):
-        self.day0 = 1
-        self.dayN = 10
+        # self.day0 = 1
+        # self.dayn = 10
 
         if 'day0' in properties:
             self.day0 = properties['day0']
-        if 'dayN' in properties:
-            self.dayN = properties['dayN']
+        if 'dayn' in properties:
+            self.dayn = properties['dayn']
 
         if 'initial_seed' in properties:
             random.seed(properties['initial_seed'])
         # Get number of iterations and TCLs from the 
         # parameters (we have to define it through kwargs because 
         # of how Gym works...)
-        if 'iterations' in properties:
-            self.iterations = properties['iterations']
-        else:
-            self.iterations = kwargs.get("iterations", mg0.DEFAULT_ITERATIONS)
+        self.iterations = kwargs.get("iterations", mg0.DEFAULT_ITERATIONS)
         self.num_tcls = kwargs.get("num_tcls", mg0.DEFAULT_NUM_TCLS)
         self.num_loads = kwargs.get("num_loads", mg0.DEFAULT_NUM_LOADS)
         self.prices = kwargs.get("prices", mg0.DEFAULT_PRICES)
@@ -348,7 +344,7 @@ class MicroGridEnv0Plus(mg0.MicroGridEnv0):
         if isinstance(mode, list):
             self.day_list =  mode.copy()
         else:
-            self.day_list =  [ i for i in range(self.day0, self.dayN+1, 1)]
+            self.day_list =  [ i for i in range(self.day0, self.dayn+1, 1)]
             if 'random' == mode:
                 random.shuffle(self.day_list)
 
