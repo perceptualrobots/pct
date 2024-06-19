@@ -3,13 +3,15 @@
 # %% auto 0
 __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'CartPoleV1', 'CartPoleDV1', 'Pendulum', 'MountainCarV0',
            'MountainCarContinuousV0', 'WindTurbine', 'VelocityModel', 'DummyModel', 'WebotsWrestler',
-           'WebotsWrestlerSupervisor', 'Bridge', 'MicroGrid']
+           'WebotsWrestlerSupervisor', 'Bridge', 'MicroGrid', 'ARC']
 
 # %% ../nbs/05_environments.ipynb 3
-import gym
-import math
+import gym, json, math, os
 import numpy as np
 from abc import abstractmethod
+
+
+# %% ../nbs/05_environments.ipynb 4
 import pct.putils as vid
 from .functions import BaseFunction
 from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_even_range, map_to_int_odd_range
@@ -18,7 +20,7 @@ from .webots import WebotsHelper
 from .yaw_module import YawEnv
 from .microgrid import MicroGridEnv0Plus
 
-# %% ../nbs/05_environments.ipynb 5
+# %% ../nbs/05_environments.ipynb 6
 class EnvironmentFactory:
     factories = {}
     def addFactory(id, environmentFactory):
@@ -42,7 +44,7 @@ class EnvironmentFactory:
         return EnvironmentFactory.factories[id].create(namespace=namespace, seed=seed)
     createEnvironmentWithNamespace = staticmethod(createEnvironmentWithNamespace)
 
-# %% ../nbs/05_environments.ipynb 6
+# %% ../nbs/05_environments.ipynb 7
 class ControlEnvironment(BaseFunction):
     "Abstract ControlEnvironment"
     def __call__(self, verbose=False):
@@ -157,7 +159,7 @@ class ControlEnvironment(BaseFunction):
         self.render=render
 
 
-# %% ../nbs/05_environments.ipynb 7
+# %% ../nbs/05_environments.ipynb 8
 class OpenAIGym(ControlEnvironment):
     "A function that creates and runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     def __init__(self, env_name=None, render=False, render_mode= "rgb_array", video_wrap=False, value=0, name="gym", 
@@ -315,7 +317,7 @@ class OpenAIGym(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return OpenAIGym(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 8
+# %% ../nbs/05_environments.ipynb 9
 class CartPoleV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -352,7 +354,7 @@ class CartPoleV1(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return CartPoleV1(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 9
+# %% ../nbs/05_environments.ipynb 10
 class CartPoleDV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -387,7 +389,7 @@ class CartPoleDV1(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return CartPoleDV1(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 10
+# %% ../nbs/05_environments.ipynb 11
 class Pendulum(OpenAIGym):
     "A function that creates an runs the Pendulum-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -449,7 +451,7 @@ class Pendulum(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return Pendulum(namespace=namespace, seed=seed)                
 
-# %% ../nbs/05_environments.ipynb 12
+# %% ../nbs/05_environments.ipynb 13
 class MountainCarV0(OpenAIGym):
     "A function that creates and runs the MountainCar-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -488,7 +490,7 @@ class MountainCarV0(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MountainCarV0(namespace=namespace, seed=seed)                
 
-# %% ../nbs/05_environments.ipynb 13
+# %% ../nbs/05_environments.ipynb 14
 class MountainCarContinuousV0(OpenAIGym):
     "A function that creates and runs the MountainCarContinuous-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # 0 Car position - -1.2 to +0.6, reference 0.45 
@@ -538,7 +540,7 @@ class MountainCarContinuousV0(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MountainCarContinuousV0(namespace=namespace, seed=seed)               
 
-# %% ../nbs/05_environments.ipynb 15
+# %% ../nbs/05_environments.ipynb 16
 class WindTurbine(ControlEnvironment):
     "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
     
@@ -686,7 +688,7 @@ class WindTurbine(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return WindTurbine(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 18
+# %% ../nbs/05_environments.ipynb 19
 class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
@@ -748,7 +750,7 @@ class VelocityModel(BaseFunction):
     class Factory:
         def create(self, seed=None): return VelocityModel(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 19
+# %% ../nbs/05_environments.ipynb 20
 class DummyModel(BaseFunction):    
     def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
@@ -776,7 +778,7 @@ class DummyModel(BaseFunction):
     class Factory:
         def create(self, seed=None): return DummyModel(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 20
+# %% ../nbs/05_environments.ipynb 21
 class WebotsWrestler(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -911,7 +913,7 @@ class WebotsWrestler(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
 
 
-# %% ../nbs/05_environments.ipynb 21
+# %% ../nbs/05_environments.ipynb 22
 class WebotsWrestlerSupervisor(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -1035,7 +1037,7 @@ class WebotsWrestlerSupervisor(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestlerSupervisor(namespace=namespace, seed=seed)          
         
 
-# %% ../nbs/05_environments.ipynb 22
+# %% ../nbs/05_environments.ipynb 23
 class Bridge(ControlEnvironment):
     "An environment function with sensors set by external system."
     
@@ -1138,7 +1140,7 @@ class Bridge(ControlEnvironment):
         def create(self, namespace=None, seed=None): return Bridge(namespace=namespace, seed=seed)          
 
 
-# %% ../nbs/05_environments.ipynb 23
+# %% ../nbs/05_environments.ipynb 24
 class MicroGrid(ControlEnvironment):
     "A function that creates and runs the microgrid environment for an energy management system. </br>" \
     "'Deep reinforcement learning for energy management in a microgrid with flexible demand.'  </br>" \
@@ -1250,3 +1252,160 @@ class MicroGrid(ControlEnvironment):
         def create(self, seed=None): return MicroGrid(seed=seed)
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MicroGrid(namespace=namespace, seed=seed)       
+
+# %% ../nbs/05_environments.ipynb 26
+class ARC(ControlEnvironment):
+    "A function that creates and runs an ARC environment from a file given the rask code."
+    
+    def __init__(self, value=0, name="ARC", links=None, new_name=True, namespace=None, seed=None, **cargs):        
+        super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
+        
+        self.num_links=1
+
+        
+    def __call__(self, verbose=False):        
+        super().__call__(verbose)
+                
+        return self.value
+
+    def set_properties(self, props):
+        file_name = props['code']
+        input_dir = props['dir']
+
+        file_path = os.path.join(input_dir, file_name)
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+
+        heights = []
+        widths = []
+        for train in data['train']:
+            heights.append(len(train['input']))
+            widths.append(len(train['input'][0]))
+
+        # print(data['train'][0]['input'])
+        # print(data['train'][0]['output'])
+
+        print(heights)
+        print(widths)
+
+    def early_terminate(self):
+        if self.done:
+            raise Exception(f'1001: Env: {self.env_name} has finished.')
+
+    def process_hierarchy_values(self):
+        self.hierarchy_values = self.links[0].get_value()
+                
+    def process_actions(self):
+        # zero_threshold represents the range either side of zero where no action would take place
+        if abs(self.hierarchy_values)<= self.zero_threshold:        
+            self.actions = 1            
+        elif self.hierarchy_values < 0:
+            self.actions = 0
+        elif self.hierarchy_values > 0:
+            self.actions = 2
+                 
+    
+    def apply_actions_get_obs(self):
+        return self.env.step(self.actions)
+
+    def parse_obs(self):
+        # obs
+        # 0 - array of sensor values
+        # 1 - wind speed
+        # 2 - steps since last move
+        # 3 - power
+        # 4 - reward
+        # 5 - done
+        # 6 - info
+
+        # print('self.obs[0]')
+        # print(self.obs[0])
+
+        ye = self.obs[0][0:12,1]
+        ye_mean = ye.mean()
+        # print('ye')
+        # print(ye)
+        # print('ye_mean')
+        # print(ye_mean)
+
+        wd = self.obs[0][0:12,2]
+        wd_mean = wd.mean()
+        # print('wd')
+        # print(wd)
+        # print('wd_mean')
+        # print(wd_mean)
+
+        ws = self.obs[0][0:12,3]
+        ws_mean = ws.mean()
+        # print('ws')
+        # print(ws)
+        # print('ws_mean')
+        # print(ws_mean)
+
+        self.value = self.obs[0][-1]
+        # self.value[1]=ye_mean
+        # self.value[2]=wd_mean
+        # self.value[3]=ws_mean
+
+        self.reward = -self.obs[4]
+        self.done = self.obs[5]
+        self.info = self.obs[6]
+
+    def process_values(self):
+        # value
+        # 0 - action
+        # 1 - yaw error mean
+        # 2 - wind direction mean
+        # 3 - wind speed mean
+        # 4 - wind speed
+        # 5 - steps since last move
+        # 6 - power
+        self.value = np.append(self.value, self.obs[1]) # wind speed
+        self.value = np.append(self.value, self.obs[2]) # steps since last move
+        self.value = np.append(self.value, self.obs[3]) # power
+
+        NumberStats.getInstance().add(self.obs[3])
+
+        pass
+
+
+    def get_config(self, zero=1):
+        config = super().get_config(zero=zero)
+        return config
+
+    def get_graph_name(self):
+        return super().get_graph_name() 
+    
+    def set_render(self, render):
+        self.render=render
+        
+    def reset(self, full=True, seed=None):  
+        self.done = False
+
+    def summary(self, extra=False, higher_namespace=None):
+        super().summary("", extra=extra, higher_namespace=higher_namespace)
+
+    # def output_string(self):
+        
+    #     if isinstance(self.value, int):
+    #         rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
+    #     else:
+    #         list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
+    #         list.append(str(self.reward))
+    #         list.append(" ")
+    #         list.append(str(self.done))
+    #         list.append(" ")
+    #         list.append(str(self.info))
+            
+    #         rtn = ''.join(list)
+
+    #     return rtn
+
+
+    def close(self):
+        self.env.close()
+
+    class Factory:
+        def create(self, seed=None): return ARC(seed=seed)
+    class FactoryWithNamespace:
+        def create(self, namespace=None, seed=None): return ARC(namespace=namespace, seed=seed)        
