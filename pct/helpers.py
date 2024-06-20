@@ -122,3 +122,9 @@ class ARCHelper:
         return [input_width, input_height, output_width, output_height]
     
     
+    def get_dimensions_provided_array(self, input_array, output_array):
+        input_height, input_width = self._get_dimensions(input_array)
+        output_height, output_width = self._get_dimensions(output_array)
+
+        return [input_width, input_height, output_width, output_height]
+
