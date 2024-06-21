@@ -9,7 +9,7 @@ __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'CartPoleV1'
 import gym, json, math, os
 import numpy as np
 from abc import abstractmethod
-
+from typing import Any, List, Optional
 
 # %% ../nbs/05_environments.ipynb 4
 import pct.putils as vid
@@ -1258,64 +1258,57 @@ class MicroGrid(ControlEnvironment):
 class ARC(ControlEnvironment):
     "A function that creates and runs an ARC environment from a file given the rask code."
     
-    def __init__(self, value=0, name="ARC", links=None, new_name=True, namespace=None, seed=None, **cargs):        
+    def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, namespace: Optional[str] = None, seed: Optional[int] = None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
-        
-        self.num_links=2
+        self.num_links = 2
+
 
         
-    def __call__(self, verbose=False):        
+    def __call__(self, verbose: bool = False) -> Any:
         super().__call__(verbose)
                 
         return self.value
 
-    def set_properties(self, props):
-        file_name = props['code']
-        input_dir = props['dir']
-
-        file_path = os.path.join(input_dir, file_name)
+    def set_properties(self, props: dict) -> None:
+        file_path = os.path.join(props['dir'], props['code'])
         with open(file_path, 'r') as file:
             data = json.load(file)
 
         self.arc_helper = ARCHelper(data)
-
         self.env = self.arc_helper.clone_train_input(0)
 
-        # print("Train Input Width at Index 0:", arc_helper.get_train_input_width(0))
-        # print("Train Input Height at Index 0:", arc_helper.get_train_input_height(0))
-        # print("Train Output Width at Index 0:", arc_helper.get_train_output_width(0))
-        # print("Train Output Height at Index 0:", arc_helper.get_train_output_height(0))
 
-        self.values = [self.arc_helper.get_train_input_width(0), self.arc_helper.get_train_input_height(0), self.arc_helper.get_train_output_width(0), self.arc_helper.get_train_output_height(0)]
+        self.values = [
+            self.arc_helper.get_train_input_width(0), 
+            self.arc_helper.get_train_input_height(0), 
+            self.arc_helper.get_train_output_width(0), 
+            self.arc_helper.get_train_output_height(0)
+        ]
         self.metric_value = self.arc_helper.metric(0, self.env)
 
-    def early_terminate(self):
+    def early_terminate(self) -> None:
         if self.done:
             raise Exception(f'1001: Env: {self.env_name} has finished.')
 
-    def process_hierarchy_values(self):
-        self.hierarchy_values = [ link.get_value() for link in self.links ]
-                
-    def process_actions(self):
-        # zero_threshold represents the range either side of zero where no action would take place
-        if abs(self.hierarchy_values)<= self.zero_threshold:        
-            self.actions = 1            
-        elif self.hierarchy_values < 0:
+    def process_hierarchy_values(self) -> None:
+        self.hierarchy_values = [link.get_value() for link in self.links]
+
+    def process_actions(self) -> None:
+        if abs(self.hierarchy_values[0]) <= self.zero_threshold:
+            self.actions = 1
+        elif self.hierarchy_values[0] < 0:
             self.actions = 0
-        elif self.hierarchy_values > 0:
+        else:
             self.actions = 2
-                 
-    
-    def apply_actions_get_obs(self):
+
+    def apply_actions_get_obs(self) -> Any:
         return self.env.step(self.actions)
 
-    def parse_obs(self):
-
-
+    def parse_obs(self) -> None:
         if self.metric_value == 1:
             self.done = True
 
-    def process_values(self):
+    def process_values(self) -> None:
         # value
         # 0 - action
         # 1 - yaw error mean
@@ -1333,20 +1326,20 @@ class ARC(ControlEnvironment):
         pass
 
 
-    def get_config(self, zero=1):
+    def get_config(self, zero: int = 1) -> dict:
         config = super().get_config(zero=zero)
         return config
 
-    def get_graph_name(self):
-        return super().get_graph_name() 
-    
-    def set_render(self, render):
-        self.render=render
-        
-    def reset(self, full=True, seed=None):  
+    def get_graph_name(self) -> str:
+        return super().get_graph_name()
+
+    def set_render(self, render: bool) -> None:
+        self.render = render
+
+    def reset(self, full: bool = True, seed: Optional[int] = None) -> None:
         self.done = False
 
-    def summary(self, extra=False, higher_namespace=None):
+    def summary(self, extra: bool = False, higher_namespace: Optional[str] = None) -> None:
         super().summary("", extra=extra, higher_namespace=higher_namespace)
 
     # def output_string(self):
@@ -1366,10 +1359,15 @@ class ARC(ControlEnvironment):
     #     return rtn
 
 
-    def close(self):
+    def close(self) -> None:
         self.env.close()
 
     class Factory:
-        def create(self, seed=None): return ARC(seed=seed)
+        @staticmethod
+        def create(seed: Optional[int] = None) -> 'ARC':
+            return ARC(seed=seed)
+
     class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return ARC(namespace=namespace, seed=seed)        
+        @staticmethod
+        def create(namespace: Optional[str] = None, seed: Optional[int] = None) -> 'ARC':
+            return ARC(namespace=namespace, seed=seed)
