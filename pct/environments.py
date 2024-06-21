@@ -19,6 +19,7 @@ from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
 from .microgrid import MicroGridEnv0Plus
+from .helpers import ARCHelper
 
 # %% ../nbs/05_environments.ipynb 6
 class EnvironmentFactory:
@@ -1260,7 +1261,7 @@ class ARC(ControlEnvironment):
     def __init__(self, value=0, name="ARC", links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         
-        self.num_links=1
+        self.num_links=2
 
         
     def __call__(self, verbose=False):        
@@ -1276,24 +1277,24 @@ class ARC(ControlEnvironment):
         with open(file_path, 'r') as file:
             data = json.load(file)
 
-        heights = []
-        widths = []
-        for train in data['train']:
-            heights.append(len(train['input']))
-            widths.append(len(train['input'][0]))
+        self.arc_helper = ARCHelper(data)
 
-        # print(data['train'][0]['input'])
-        # print(data['train'][0]['output'])
+        self.env = self.arc_helper.clone_train_input(0)
 
-        print(heights)
-        print(widths)
+        # print("Train Input Width at Index 0:", arc_helper.get_train_input_width(0))
+        # print("Train Input Height at Index 0:", arc_helper.get_train_input_height(0))
+        # print("Train Output Width at Index 0:", arc_helper.get_train_output_width(0))
+        # print("Train Output Height at Index 0:", arc_helper.get_train_output_height(0))
+
+        self.values = [self.arc_helper.get_train_input_width(0), self.arc_helper.get_train_input_height(0), self.arc_helper.get_train_output_width(0), self.arc_helper.get_train_output_height(0)]
+        self.metric_value = self.arc_helper.metric(0, self.env)
 
     def early_terminate(self):
         if self.done:
             raise Exception(f'1001: Env: {self.env_name} has finished.')
 
     def process_hierarchy_values(self):
-        self.hierarchy_values = self.links[0].get_value()
+        self.hierarchy_values = [ link.get_value() for link in self.links ]
                 
     def process_actions(self):
         # zero_threshold represents the range either side of zero where no action would take place
@@ -1309,47 +1310,10 @@ class ARC(ControlEnvironment):
         return self.env.step(self.actions)
 
     def parse_obs(self):
-        # obs
-        # 0 - array of sensor values
-        # 1 - wind speed
-        # 2 - steps since last move
-        # 3 - power
-        # 4 - reward
-        # 5 - done
-        # 6 - info
 
-        # print('self.obs[0]')
-        # print(self.obs[0])
 
-        ye = self.obs[0][0:12,1]
-        ye_mean = ye.mean()
-        # print('ye')
-        # print(ye)
-        # print('ye_mean')
-        # print(ye_mean)
-
-        wd = self.obs[0][0:12,2]
-        wd_mean = wd.mean()
-        # print('wd')
-        # print(wd)
-        # print('wd_mean')
-        # print(wd_mean)
-
-        ws = self.obs[0][0:12,3]
-        ws_mean = ws.mean()
-        # print('ws')
-        # print(ws)
-        # print('ws_mean')
-        # print(ws_mean)
-
-        self.value = self.obs[0][-1]
-        # self.value[1]=ye_mean
-        # self.value[2]=wd_mean
-        # self.value[3]=ws_mean
-
-        self.reward = -self.obs[4]
-        self.done = self.obs[5]
-        self.info = self.obs[6]
+        if self.metric_value == 1:
+            self.done = True
 
     def process_values(self):
         # value
