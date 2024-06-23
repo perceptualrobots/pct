@@ -1261,8 +1261,6 @@ class ARC(ControlEnvironment):
     def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, namespace: Optional[str] = None, seed: Optional[int] = None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         self.num_links = 2
-
-
         
     def __call__(self, verbose: bool = False) -> Any:
         super().__call__(verbose)
@@ -1275,7 +1273,6 @@ class ARC(ControlEnvironment):
             data = json.load(file)
 
         self.arc_helper = ARCHelper(data)
-        self.env = self.arc_helper.clone_train_input(0)
 
 
         self.values = [
