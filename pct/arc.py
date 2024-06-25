@@ -25,9 +25,13 @@ class ARCEnv(gym.Env):
         self.done = False
 
         # Render settings
-        self.screen_width = 800
-        self.screen_height = 600
-        self.grid_size = 20
+        self.screen_width = 1000
+        self.screen_height = 400
+        self.cell_size = 30
+        self.left_pad = 20
+        self.height_pad = 20
+        self.grid_down = 50
+        self.symbol_down = 150
         self.screen = None
         self.isopen = True
 
@@ -157,6 +161,8 @@ class ARCEnv(gym.Env):
                     color = tuple(int(c * 255) for c in color)  # Multiply each element by 255
                     pygame.draw.rect(screen, color, (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size))
                     pygame.draw.rect(screen, (255, 255, 255), (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size), 1)
+            # Draw a black line around the grid
+            pygame.draw.rect(screen, (0, 0, 0), (top_left_x, top_left_y, cell_size * len(grid[0]), cell_size * len(grid)), 2)
 
         if self.screen is None:
             pygame.init()
@@ -169,23 +175,47 @@ class ARCEnv(gym.Env):
         output_grid = np.array(self.outputs[self.index])
         env_grid = self.env
 
-        draw_grid(self.screen, input_grid, 50, 50, self.grid_size)
-        draw_grid(self.screen, output_grid, 300, 50, self.grid_size)
-        draw_grid(self.screen, env_grid, 550, 50, self.grid_size)
+        # Top left coordinates
+        input_grid_x = self.left_pad
+        input_grid_y = self.grid_down
+        arrow_img_x = input_grid_x + input_grid.shape[1] * self.cell_size + self.left_pad
+        arrow_img_y = self.symbol_down
+        output_grid_x = arrow_img_x + 50 + self.left_pad
+        output_grid_y = self.grid_down
+        equals_img_x = output_grid_x + output_grid.shape[1] * self.cell_size + self.left_pad
+        equals_img_y = self.symbol_down
+        env_grid_x = equals_img_x + 50 + self.left_pad
+        env_grid_y = self.grid_down
+        fitness_text_x = env_grid_x + env_grid.shape[1] * self.cell_size + self.left_pad
+        fitness_text_y = self.grid_down + self.height_pad
+        fitness_value_y = fitness_text_y + 20 + self.height_pad
+        tick_cross_y = fitness_value_y + 20 + self.height_pad
 
-        arrow_img = pygame.image.load('images/arrow.png')
-        equals_img = pygame.image.load('images/equals.jpg')
-        green_tick_img = pygame.image.load('images/green_tick.png')
-        red_cross_img = pygame.image.load('images/red-cross.png')
+        draw_grid(self.screen, input_grid, input_grid_x, input_grid_y, self.cell_size)
+        draw_grid(self.screen, output_grid, output_grid_x, output_grid_y, self.cell_size)
+        draw_grid(self.screen, env_grid, env_grid_x, env_grid_y, self.cell_size)
 
-        self.screen.blit(arrow_img, (250, 150))
-        self.screen.blit(equals_img, (500, 150))
-        fitness_text = pygame.font.Font(None, 74).render(f"Fitness: {self.fitness:.2f}", True, (0, 0, 0))
-        self.screen.blit(fitness_text, (600, 400))
+        # Load and scale images
+        arrow_img = pygame.transform.scale(pygame.image.load('images/arrow.png'), (50, 50))
+        equals_img = pygame.transform.scale(pygame.image.load('images/equals.jpg'), (50, 50))
+        green_tick_img = pygame.transform.scale(pygame.image.load('images/green_tick.png'), (50, 50))
+        red_cross_img = pygame.transform.scale(pygame.image.load('images/red-cross.png'), (50, 50))
+
+        self.screen.blit(arrow_img, (arrow_img_x, arrow_img_y))
+        self.screen.blit(equals_img, (equals_img_x, equals_img_y))
+
+        # Display fitness text with font size 20 and bold
+        font = pygame.font.Font(None, 20)
+        font.set_bold(True)
+        fitness_label = font.render("Fitness:", True, (0, 0, 0))
+        fitness_value = font.render(f"{self.fitness:.2f}", True, (0, 0, 0))
+        self.screen.blit(fitness_label, (fitness_text_x, fitness_text_y))
+        self.screen.blit(fitness_value, (fitness_text_x, fitness_value_y))
+
         if self.fitness < 1e-6:
-            self.screen.blit(green_tick_img, (600, 500))
+            self.screen.blit(green_tick_img, (fitness_text_x, tick_cross_y))
         else:
-            self.screen.blit(red_cross_img, (600, 500))
+            self.screen.blit(red_cross_img, (fitness_text_x, tick_cross_y))
 
         pygame.display.flip()
 
