@@ -23,11 +23,13 @@ class ARCEnv(gym.Env):
         self.fitness = 0.0
         self.state = []
         self.done = False
-        
+
         # Render settings
         self.screen_width = 800
         self.screen_height = 600
         self.grid_size = 20
+        self.screen = None
+        self.isopen = True
 
         self.cmap = colors.ListedColormap(['#000000', '#0074D9', '#FF4136', '#2ECC40', '#FFDC00',
                                            '#AAAAAA', '#F012BE', '#FF851B', '#7FDBFF', '#870C25'])
@@ -37,7 +39,9 @@ class ARCEnv(gym.Env):
         with open(file_name, 'r') as f:
             data = json.load(f)
         
-        self.index = properties.get('index', 0)
+        for key, value in properties.items():
+            setattr(self, key, value)
+        
         self.train_data = data['train']
         self.test_data = data['test']
         self.inputs = [x['input'] for x in self.train_data]
@@ -55,9 +59,6 @@ class ARCEnv(gym.Env):
 
     def get_element(self, array, row, col):
         return array[row][col]
-
-    def get_dimensions(self):
-        return self.dimensions
 
     def get_index(self):
         return self.index
@@ -80,31 +81,56 @@ class ARCEnv(gym.Env):
 
     def fitness_function(self):
         output = np.array(self.outputs[self.index])
-        self.set_dimensions()
-
+        
         # First metric: Squared difference in dimensions
-        # dim_metric = (self.env.shape[0] - output.shape[0]) ** 2 + (self.env.shape[1] - output.shape[1]) ** 2
-        dim_metric = (self.dimensions[0] - self.dimensions[2]) ** 2 + (self.dimensions[1] - self.dimensions[3]) ** 2
-
+        dim_metric = (self.env.shape[0] - output.shape[0]) ** 2 + (self.env.shape[1] - output.shape[1]) ** 2
+        
         # Second metric: Squared difference in elements
         element_metric = 0
-        for i in range(max(self.env.shape[0], output.shape[0])):
-            for j in range(max(self.env.shape[1], output.shape[1])):
-                env_val = self.env[i, j] if i < self.env.shape[0] and j < self.env.shape[1] else None
-                output_val = output[i, j] if i < output.shape[0] and j < output.shape[1] else None
-                if env_val is None or output_val is None:
-                    element_metric += 25
-                else:
-                    element_metric += (env_val - output_val) ** 2
+        if getattr(self, 'fitness_type', 'full') != 'dim_only':
+            for i in range(max(self.env.shape[0], output.shape[0])):
+                for j in range(max(self.env.shape[1], output.shape[1])):
+                    env_val = self.env[i, j] if i < self.env.shape[0] and j < self.env.shape[1] else None
+                    output_val = output[i, j] if i < output.shape[0] and j < output.shape[1] else None
+                    if env_val is None or output_val is None:
+                        element_metric += 25
+                    else:
+                        element_metric += (env_val - output_val) ** 2
 
-        # temp
-        element_metric = 0
+        # Final metric: Sum of the two metrics or dim_metric only
+        if getattr(self, 'fitness_type', 'full') == 'dim_only':
+            final_metric = dim_metric
+        else:
+            final_metric = dim_metric + element_metric
 
-        # Final metric: Sum of the two metrics
-        final_metric = dim_metric + element_metric
         return final_metric
 
     def step(self, action):
+        self.process_dimensions(action)
+        if getattr(self, 'fitness_type', 'full') != 'dim_only':
+            self.process_remaining_values(action[2:])
+
+        self.fitness = self.fitness_function()
+        if self.fitness < 1e-6:
+            self.done = True
+        
+        self.state = self.env.flatten().tolist()
+        return self.state, self.fitness, self.done
+
+    def reset(self):
+        input_shape = np.array(self.inputs[self.index]).shape
+        self.env = np.zeros(input_shape, dtype=int)
+        self.fitness = self.fitness_function()
+        self.done = False
+        self.state = self.env.flatten().tolist()
+        return self.state
+
+    def get_env_output_dimensions(self):
+        input_shape = np.array(self.env).shape
+        output_shape = np.array(self.outputs[self.index]).shape
+        return input_shape, output_shape
+
+    def process_dimensions(self, action):
         num_rows, num_cols, *values = action
 
         if num_rows > 0:
@@ -116,44 +142,23 @@ class ARCEnv(gym.Env):
             self.add_columns(num_cols)
         elif num_cols < 0:
             self.remove_columns(abs(num_cols))
-        
+
+    def process_remaining_values(self, values):
         for i, value in enumerate(values):
             row, col = divmod(i, self.env.shape[1])
             if row < self.env.shape[0] and col < self.env.shape[1]:
                 self.env[row, col] = value
 
-        self.fitness = self.fitness_function()
-        if self.fitness < 1e-6:
-            self.done = True
-        
-        self.state = self.env.flatten().tolist()
-        return self.state, self.fitness, self.done
-
-    def set_dimensions(self):
-        self.dimensions = [len(self.env[0]), len(self.env), len(self.outputs[self.index][0]), len(self.outputs[self.index])]
-
-
-    def reset(self):
-        self.env = np.array(self.inputs[self.index])
-        self.set_dimensions()
-        self.fitness = self.fitness_function()
-        self.done = False
-        self.state = self.env.flatten().tolist()
-        return self.state
-
     def render(self, mode='human'):
         def draw_grid(screen, grid, top_left_x, top_left_y, cell_size):
             for i, row in enumerate(grid):
                 for j, value in enumerate(row):
-                    # color = self.cmap(self.norm(value))
-
-                    normed = self.norm(value)
-                    color = tuple(255 * elem for elem in self.cmap(normed))
-                    print(value, normed, color, end =" ")
-
+                    color = self.cmap(self.norm(value))[:3]  # Get RGB only, excluding alpha
+                    color = tuple(int(c * 255) for c in color)  # Multiply each element by 255
                     pygame.draw.rect(screen, color, (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size))
+                    pygame.draw.rect(screen, (255, 255, 255), (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size), 1)
 
-        if not hasattr(self, 'screen'):
+        if self.screen is None:
             pygame.init()
             self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
             pygame.display.set_caption('ARC Environment')
@@ -168,27 +173,26 @@ class ARCEnv(gym.Env):
         draw_grid(self.screen, output_grid, 300, 50, self.grid_size)
         draw_grid(self.screen, env_grid, 550, 50, self.grid_size)
 
-        font = pygame.font.Font(None, 74)
-        arrow = font.render(u'\u2192', True, (0, 0, 0))
-        equal = font.render(u'=', True, (0, 0, 0))
-        fitness_text = font.render(f"Fitness: {self.fitness:.2f}", True, (0, 0, 0))
-        indicator_text = font.render(u'\u2713' if self.fitness < 1e-6 else u'\u2717', True, (0, 255, 0) if self.fitness < 1e-6 else (255, 0, 0))
+        arrow_img = pygame.image.load('images/arrow.png')
+        equals_img = pygame.image.load('images/equals.jpg')
+        green_tick_img = pygame.image.load('images/green_tick.png')
+        red_cross_img = pygame.image.load('images/red-cross.png')
 
-        self.screen.blit(arrow, (250, 150))
-        self.screen.blit(equal, (500, 150))
+        self.screen.blit(arrow_img, (250, 150))
+        self.screen.blit(equals_img, (500, 150))
+        fitness_text = pygame.font.Font(None, 74).render(f"Fitness: {self.fitness:.2f}", True, (0, 0, 0))
         self.screen.blit(fitness_text, (600, 400))
-        self.screen.blit(indicator_text, (600, 500))
+        if self.fitness < 1e-6:
+            self.screen.blit(green_tick_img, (600, 500))
+        else:
+            self.screen.blit(red_cross_img, (600, 500))
 
         pygame.display.flip()
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-
     def close(self):
         if self.screen is not None:
-            import pygame
-
             pygame.display.quit()
             pygame.quit()
-            self.isopen = False                
+            self.isopen = False
+
+
