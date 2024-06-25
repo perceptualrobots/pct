@@ -1,7 +1,7 @@
 @echo off
 echo %time%
 git add -A
-git commit -m "added images to display"
+git commit -m "changed image sizes"
 git pull
 git push
 echo %time%
