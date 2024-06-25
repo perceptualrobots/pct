@@ -8,6 +8,9 @@ import json, os
 import numpy as np
 import gym
 from gym import spaces
+from time import sleep
+import pygame
+from matplotlib import colors
 # import copy
 
 # %% ../nbs/15_arc.ipynb 4
@@ -20,6 +23,15 @@ class ARCEnv(gym.Env):
         self.fitness = 0.0
         self.state = []
         self.done = False
+        
+        # Render settings
+        self.screen_width = 800
+        self.screen_height = 600
+        self.grid_size = 20
+
+        self.cmap = colors.ListedColormap(['#000000', '#0074D9', '#FF4136', '#2ECC40', '#FFDC00',
+                                           '#AAAAAA', '#F012BE', '#FF851B', '#7FDBFF', '#870C25'])
+        self.norm = colors.Normalize(vmin=0, vmax=9)
 
     def initialise(self, file_name, properties):
         with open(file_name, 'r') as f:
@@ -129,4 +141,54 @@ class ARCEnv(gym.Env):
         self.state = self.env.flatten().tolist()
         return self.state
 
+    def render(self, mode='human'):
+        def draw_grid(screen, grid, top_left_x, top_left_y, cell_size):
+            for i, row in enumerate(grid):
+                for j, value in enumerate(row):
+                    # color = self.cmap(self.norm(value))
 
+                    normed = self.norm(value)
+                    color = tuple(255 * elem for elem in self.cmap(normed))
+                    print(value, normed, color, end =" ")
+
+                    pygame.draw.rect(screen, color, (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size))
+
+        if not hasattr(self, 'screen'):
+            pygame.init()
+            self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+            pygame.display.set_caption('ARC Environment')
+
+        self.screen.fill((255, 255, 255))
+
+        input_grid = np.array(self.inputs[self.index])
+        output_grid = np.array(self.outputs[self.index])
+        env_grid = self.env
+
+        draw_grid(self.screen, input_grid, 50, 50, self.grid_size)
+        draw_grid(self.screen, output_grid, 300, 50, self.grid_size)
+        draw_grid(self.screen, env_grid, 550, 50, self.grid_size)
+
+        font = pygame.font.Font(None, 74)
+        arrow = font.render(u'\u2192', True, (0, 0, 0))
+        equal = font.render(u'=', True, (0, 0, 0))
+        fitness_text = font.render(f"Fitness: {self.fitness:.2f}", True, (0, 0, 0))
+        indicator_text = font.render(u'\u2713' if self.fitness < 1e-6 else u'\u2717', True, (0, 255, 0) if self.fitness < 1e-6 else (255, 0, 0))
+
+        self.screen.blit(arrow, (250, 150))
+        self.screen.blit(equal, (500, 150))
+        self.screen.blit(fitness_text, (600, 400))
+        self.screen.blit(indicator_text, (600, 500))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+    def close(self):
+        if self.screen is not None:
+            import pygame
+
+            pygame.display.quit()
+            pygame.quit()
+            self.isopen = False                
