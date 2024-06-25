@@ -1,7 +1,7 @@
 @echo off
 echo %time%
 git add -A
-git commit -m "added dynamic positions of elements"
+git commit -m "update"
 git pull
 git push
 echo %time%
