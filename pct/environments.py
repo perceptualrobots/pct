@@ -19,7 +19,7 @@ from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
 from .microgrid import MicroGridEnv0Plus
-from .helpers import ARCHelper
+from .arc import ARCEnv
 
 # %% ../nbs/05_environments.ipynb 6
 class EnvironmentFactory:
@@ -1262,6 +1262,8 @@ class ARC(ControlEnvironment):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         self.num_links = 2
         
+        self.env = ARCEnv()
+        
     def __call__(self, verbose: bool = False) -> Any:
         super().__call__(verbose)
                 
@@ -1269,10 +1271,9 @@ class ARC(ControlEnvironment):
 
     def set_properties(self, props: dict) -> None:
         file_path = os.path.join(props['dir'], props['code'])
-        with open(file_path, 'r') as file:
-            data = json.load(file)
+        self.env.initialise(file_path, props)
 
-        self.arc_helper = ARCHelper(data)
+
 
 
         self.values = [
