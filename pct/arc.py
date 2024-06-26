@@ -20,7 +20,7 @@ class ARCEnv(gym.Env):
         self.index = 0
         self.env = None
         self.dimensions = []
-        self.fitness = 0.0
+        self.fitness = 1000
         self.state = []
         self.done = False
 
@@ -38,6 +38,9 @@ class ARCEnv(gym.Env):
         self.cmap = colors.ListedColormap(['#000000', '#0074D9', '#FF4136', '#2ECC40', '#FFDC00',
                                            '#AAAAAA', '#F012BE', '#FF851B', '#7FDBFF', '#870C25'])
         self.norm = colors.Normalize(vmin=0, vmax=9)
+
+        self.fitness_label_font_size = 20
+        self.fitness_value_font_size = 50
 
     def initialise(self, file_name, properties):
         with open(file_name, 'r') as f:
@@ -153,6 +156,10 @@ class ARCEnv(gym.Env):
             if row < self.env.shape[0] and col < self.env.shape[1]:
                 self.env[row, col] = value
 
+
+    def get_fitness(self):
+        return self.fitness
+
     def render(self, mode='human'):
         def draw_grid(screen, grid, top_left_x, top_left_y, cell_size):
             for i, row in enumerate(grid):
@@ -188,8 +195,16 @@ class ARCEnv(gym.Env):
         env_grid_y = self.grid_down
         fitness_text_x = env_grid_x + env_grid.shape[1] * self.cell_size + self.left_pad
         fitness_text_y = self.grid_down + self.height_pad
-        fitness_value_y = fitness_text_y + 20 + self.height_pad
-        tick_cross_y = fitness_value_y + 20 + self.height_pad
+        fitness_value_y = fitness_text_y + self.fitness_label_font_size + self.height_pad
+        tick_cross_y = fitness_value_y + self.fitness_value_font_size + self.height_pad
+
+        # Adjust screen size if necessary
+        if fitness_text_x + self.fitness_value_font_size > self.screen_width:
+            self.screen_width = fitness_text_x + self.fitness_value_font_size + self.left_pad
+            self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        if env_grid_y + env_grid.shape[0] * self.cell_size > self.screen_height:
+            self.screen_height = env_grid_y + env_grid.shape[0] * self.cell_size + self.height_pad
+            self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
 
         draw_grid(self.screen, input_grid, input_grid_x, input_grid_y, self.cell_size)
         draw_grid(self.screen, output_grid, output_grid_x, output_grid_y, self.cell_size)
@@ -204,11 +219,12 @@ class ARCEnv(gym.Env):
         self.screen.blit(arrow_img, (arrow_img_x, arrow_img_y))
         self.screen.blit(equals_img, (equals_img_x, equals_img_y))
 
-        # Display fitness text with font size 20 and bold
-        font = pygame.font.Font(None, 20)
-        font.set_bold(True)
-        fitness_label = font.render("Fitness:", True, (0, 0, 0))
-        fitness_value = font.render(f"{self.fitness:.2f}", True, (0, 0, 0))
+        # Display fitness text
+        label_font = pygame.font.Font(None, self.fitness_label_font_size)
+        value_font = pygame.font.Font(None, self.fitness_value_font_size)
+        label_font.set_bold(True)
+        fitness_label = label_font.render("Fitness:", True, (0, 0, 0))
+        fitness_value = value_font.render(f"{self.fitness:.2f}", True, (0, 0, 0))
         self.screen.blit(fitness_label, (fitness_text_x, fitness_text_y))
         self.screen.blit(fitness_value, (fitness_text_x, fitness_value_y))
 

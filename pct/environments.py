@@ -1261,7 +1261,7 @@ class ARC(ControlEnvironment):
     def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, namespace: Optional[str] = None, seed: Optional[int] = None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         self.num_links = 2
-        
+        self.done = False
         self.env = ARCEnv()
         
     def __call__(self, verbose: bool = False) -> Any:
@@ -1272,17 +1272,7 @@ class ARC(ControlEnvironment):
     def set_properties(self, props: dict) -> None:
         file_path = os.path.join(props['dir'], props['code'])
         self.env.initialise(file_path, props)
-
-
-
-
-        self.values = [
-            self.arc_helper.get_train_input_width(0), 
-            self.arc_helper.get_train_input_height(0), 
-            self.arc_helper.get_train_output_width(0), 
-            self.arc_helper.get_train_output_height(0)
-        ]
-        self.metric_value = self.arc_helper.metric(0, self.env)
+        self.fitness = self.env.get_fitness()
 
     def early_terminate(self) -> None:
         if self.done:
@@ -1303,25 +1293,14 @@ class ARC(ControlEnvironment):
         return self.env.step(self.actions)
 
     def parse_obs(self) -> None:
-        if self.metric_value == 1:
+        self.value = self.obs[0]
+        self.fitness = self.obs[1]
+
+        if self.fitness == 0:
             self.done = True
 
-    def process_values(self) -> None:
-        # value
-        # 0 - action
-        # 1 - yaw error mean
-        # 2 - wind direction mean
-        # 3 - wind speed mean
-        # 4 - wind speed
-        # 5 - steps since last move
-        # 6 - power
-        self.value = np.append(self.value, self.obs[1]) # wind speed
-        self.value = np.append(self.value, self.obs[2]) # steps since last move
-        self.value = np.append(self.value, self.obs[3]) # power
+    # def process_values(self) -> None:
 
-        NumberStats.getInstance().add(self.obs[3])
-
-        pass
 
 
     def get_config(self, zero: int = 1) -> dict:
