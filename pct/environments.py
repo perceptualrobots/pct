@@ -116,7 +116,12 @@ class ControlEnvironment(BaseFunction):
             rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
         else:
             list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
-            list.append(str(self.reward))
+            if hasattr(self, 'reward'):
+                list.append(str(self.reward))
+            elif hasattr(self, 'fitness'):
+                list.append(str(self.fitness))
+            else:
+                raise Exception("An Environment should have either a reward or fitness property")
             list.append(" ")
             list.append(str(self.done))
             list.append(" ")
@@ -1258,15 +1263,21 @@ class MicroGrid(ControlEnvironment):
 class ARC(ControlEnvironment):
     "A function that creates and runs an ARC environment from a file given the rask code."
     
-    def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, namespace: Optional[str] = None, seed: Optional[int] = None, **cargs: dict):
+    def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, render: bool = False, seed: int = None, namespace: Optional[str] = None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         self.num_links = 2
         self.done = False
         self.env = ARCEnv()
+        self.env_name = "ARC"
+        self.info = "Access to ARC environment files"
+        self.render = render
         
     def __call__(self, verbose: bool = False) -> Any:
         super().__call__(verbose)
-                
+
+        if self.render:
+            self.env.render()
+                            
         return self.value
 
     def set_properties(self, props: dict) -> None:
@@ -1282,26 +1293,22 @@ class ARC(ControlEnvironment):
         self.hierarchy_values = [link.get_value() for link in self.links]
 
     def process_actions(self) -> None:
-        if abs(self.hierarchy_values[0]) <= self.zero_threshold:
-            self.actions = 1
-        elif self.hierarchy_values[0] < 0:
-            self.actions = 0
-        else:
-            self.actions = 2
+        self.actions = self.hierarchy_values
+        # pass
+        # actions is the same as hierarchy_values
+
 
     def apply_actions_get_obs(self) -> Any:
+        # actions is the same as hierarchy_values
         return self.env.step(self.actions)
 
     def parse_obs(self) -> None:
         self.value = self.obs[0]
         self.fitness = self.obs[1]
+        self.done = self.obs[2]
 
         if self.fitness == 0:
             self.done = True
-
-    # def process_values(self) -> None:
-
-
 
     def get_config(self, zero: int = 1) -> dict:
         config = super().get_config(zero=zero)
@@ -1318,23 +1325,6 @@ class ARC(ControlEnvironment):
 
     def summary(self, extra: bool = False, higher_namespace: Optional[str] = None) -> None:
         super().summary("", extra=extra, higher_namespace=higher_namespace)
-
-    # def output_string(self):
-        
-    #     if isinstance(self.value, int):
-    #         rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
-    #     else:
-    #         list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
-    #         list.append(str(self.reward))
-    #         list.append(" ")
-    #         list.append(str(self.done))
-    #         list.append(" ")
-    #         list.append(str(self.info))
-            
-    #         rtn = ''.join(list)
-
-    #     return rtn
-
 
     def close(self) -> None:
         self.env.close()

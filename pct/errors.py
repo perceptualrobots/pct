@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'SummedError', 'CurrentError', 'SmoothError',
            'BaseErrorCollector', 'TotalError', 'TopError', 'InputsError', 'ReferencedInputsError', 'RewardError',
-           'ErrorResponseFactory', 'ErrorCollectorFactory']
+           'FitnessError', 'ErrorResponseFactory', 'ErrorCollectorFactory']
 
 # %% ../nbs/07_errors.ipynb 3
 #import numpy as np
@@ -341,6 +341,22 @@ class RewardError(BaseErrorCollector):
         def create(self): return RewardError()
 
 # %% ../nbs/07_errors.ipynb 17
+class FitnessError(BaseErrorCollector):
+    "A class that collects the fitness value of the control system run."            
+    def __init__(self, limit=None, error_response=None, min=None, **cargs):
+        super().__init__(limit, error_response, min)
+
+    def add_data(self, hpct=None):
+        data = []
+        pre = hpct.get_preprocessor()
+        data.append(pre[0].get_fitness())
+        self.add_error_data( data )
+#         if self.check_limit():
+#             return
+    class Factory:
+        def create(self): return FitnessError()
+
+# %% ../nbs/07_errors.ipynb 18
 class ErrorResponseFactory:
     factories = {}
     def addResponseFactory(id, errorResponseFactory):
@@ -354,7 +370,7 @@ class ErrorResponseFactory:
         return ErrorResponseFactory.factories[id].create(flip_error_response=flip_error_response)
     createErrorResponse = staticmethod(createErrorResponse)
 
-# %% ../nbs/07_errors.ipynb 18
+# %% ../nbs/07_errors.ipynb 19
 class ErrorCollectorFactory:
     factories = {}
     def addCollectorFactory(id, errorCollectorFactory):
