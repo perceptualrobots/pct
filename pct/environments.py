@@ -63,7 +63,13 @@ class ControlEnvironment(BaseFunction):
     def get_parameters_list(self):
         return [self.name]    
             
-    
+    def get_properties(self):
+
+        return {}
+
+    def get_fitness(self):
+        return self.fitness
+
     def get_reward(self):
         return self.reward
     
@@ -1284,6 +1290,14 @@ class ARC(ControlEnvironment):
         file_path = os.path.join(props['dir'], props['code'])
         self.env.initialise(file_path, props)
         self.fitness = self.env.get_fitness()
+
+
+    def get_properties(self):
+        env_inputs_indexes = [i for i in range(4)]
+        env_inputs_names = ['IWI','IHI','IWO','IWO']
+        rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names}
+
+        return rtn
 
     def early_terminate(self) -> None:
         if self.done:
