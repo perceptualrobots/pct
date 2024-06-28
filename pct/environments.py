@@ -1336,6 +1336,7 @@ class ARC(ControlEnvironment):
 
     def reset(self, full: bool = True, seed: Optional[int] = None) -> None:
         self.done = False
+        self.env.reset()
 
     def summary(self, extra: bool = False, higher_namespace: Optional[str] = None) -> None:
         super().summary("", extra=extra, higher_namespace=higher_namespace)
