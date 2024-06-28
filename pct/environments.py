@@ -1289,7 +1289,7 @@ class ARC(ControlEnvironment):
     def set_properties(self, props: dict) -> None:
         file_path = os.path.join(props['dir'], props['code'])
         self.env.initialise(file_path, props)
-        self.fitness = self.env.get_fitness()
+        self.fitness = self.env.fitness
 
 
     def get_properties(self):

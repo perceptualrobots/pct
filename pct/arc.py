@@ -10,7 +10,7 @@ import gym
 from gym import spaces
 from time import sleep
 import pygame
-from matplotlib import colors
+from matplotlib import colors       
 # import copy
 
 # %% ../nbs/15_arc.ipynb 4
@@ -20,7 +20,7 @@ class ARCEnv(gym.Env):
         self.index = 0
         self.env = None
         self.dimensions = []
-        self.fitness = 1000
+        self._fitness = 10000  # Initialize fitness to 10000
         self.state = []
         self.done = False
 
@@ -75,16 +75,28 @@ class ARCEnv(gym.Env):
         self.reset()
 
     def add_rows(self, num_rows):
+        num_rows = round(num_rows)
         self.env = np.pad(self.env, ((0, num_rows), (0, 0)), mode='constant', constant_values=0)
 
     def remove_rows(self, num_rows):
-        self.env = self.env[:-num_rows, :]
+        num_rows = round(num_rows)
+        height = len(self.env)
+        if num_rows >= height:
+             num_rows = height - 1
+        if num_rows>0:
+            self.env = self.env[:-num_rows, :]
 
     def add_columns(self, num_columns):
+        num_columns = round(num_columns)
         self.env = np.pad(self.env, ((0, 0), (0, num_columns)), mode='constant', constant_values=0)
 
     def remove_columns(self, num_columns):
-        self.env = self.env[:, :-num_columns]
+        num_columns = round(num_columns)
+        width = len(self.env[0])
+        if num_columns >= width:
+             num_columns = width - 1
+        if num_columns> 0:
+            self.env = self.env[:, :-num_columns]
 
     def fitness_function(self):
         output = np.array(self.outputs[self.index])
@@ -121,7 +133,8 @@ class ARCEnv(gym.Env):
         if self.fitness < 1e-6:
             self.done = True
         
-        self.state = self.env.flatten().tolist()
+        input_shape, output_shape = self.get_env_output_dimensions()
+        self.state = list(input_shape) + list(output_shape) + self.env.flatten().tolist()
         return self.state, self.fitness, self.done
 
     def reset(self):
@@ -156,27 +169,31 @@ class ARCEnv(gym.Env):
             if row < self.env.shape[0] and col < self.env.shape[1]:
                 self.env[row, col] = value
 
+    @property
+    def fitness(self):
+        return self._fitness
 
-    def get_fitness(self):
-        return self.fitness
+    @fitness.setter
+    def fitness(self, value):
+        self._fitness = value
 
     def render(self, mode='human'):
         def draw_grid(screen, grid, top_left_x, top_left_y, cell_size):
             for i, row in enumerate(grid):
                 for j, value in enumerate(row):
-                    color = self.cmap(self.norm(value))[:3]  # Get RGB only, excluding alpha
-                    color = tuple(int(c * 255) for c in color)  # Multiply each element by 255
-                    pygame.draw.rect(screen, color, (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size))
-                    pygame.draw.rect(screen, (255, 255, 255), (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size), 1)
+                    if top_left_x + j * cell_size < self.screen_width and top_left_y + i * cell_size < self.screen_height:
+                        color = self.cmap(self.norm(value))[:3]  # Get RGB only, excluding alpha
+                        color = tuple(int(c * 255) for c in color)  # Multiply each element by 255
+                        pygame.draw.rect(screen, color, (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size))
+                        pygame.draw.rect(screen, (255, 255, 255), (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size), 1)
             # Draw a black line around the grid
-            pygame.draw.rect(screen, (0, 0, 0), (top_left_x, top_left_y, cell_size * len(grid[0]), cell_size * len(grid)), 2)
+            if top_left_x < self.screen_width and top_left_y < self.screen_height:
+                pygame.draw.rect(screen, (0, 0, 0), (top_left_x, top_left_y, cell_size * len(grid[0]), cell_size * len(grid)), 2)
 
         if self.screen is None:
             pygame.init()
             self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
             pygame.display.set_caption('ARC Environment')
-
-        self.screen.fill((255, 255, 255))
 
         input_grid = np.array(self.inputs[self.index])
         output_grid = np.array(self.outputs[self.index])
@@ -205,6 +222,8 @@ class ARCEnv(gym.Env):
         if env_grid_y + env_grid.shape[0] * self.cell_size > self.screen_height:
             self.screen_height = env_grid_y + env_grid.shape[0] * self.cell_size + self.height_pad
             self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        
+        self.screen.fill((255, 255, 255))  # Clear the screen
 
         draw_grid(self.screen, input_grid, input_grid_x, input_grid_y, self.cell_size)
         draw_grid(self.screen, output_grid, output_grid_x, output_grid_y, self.cell_size)
@@ -216,8 +235,10 @@ class ARCEnv(gym.Env):
         green_tick_img = pygame.transform.scale(pygame.image.load('images/green_tick.png'), (50, 50))
         red_cross_img = pygame.transform.scale(pygame.image.load('images/red-cross.png'), (50, 50))
 
-        self.screen.blit(arrow_img, (arrow_img_x, arrow_img_y))
-        self.screen.blit(equals_img, (equals_img_x, equals_img_y))
+        if arrow_img_x < self.screen_width and arrow_img_y < self.screen_height:
+            self.screen.blit(arrow_img, (arrow_img_x, arrow_img_y))
+        if equals_img_x < self.screen_width and equals_img_y < self.screen_height:
+            self.screen.blit(equals_img, (equals_img_x, equals_img_y))
 
         # Display fitness text
         label_font = pygame.font.Font(None, self.fitness_label_font_size)
@@ -225,13 +246,17 @@ class ARCEnv(gym.Env):
         label_font.set_bold(True)
         fitness_label = label_font.render("Fitness:", True, (0, 0, 0))
         fitness_value = value_font.render(f"{self.fitness:.2f}", True, (0, 0, 0))
-        self.screen.blit(fitness_label, (fitness_text_x, fitness_text_y))
-        self.screen.blit(fitness_value, (fitness_text_x, fitness_value_y))
+        if fitness_text_x < self.screen_width and fitness_text_y < self.screen_height:
+            self.screen.blit(fitness_label, (fitness_text_x, fitness_text_y))
+        if fitness_text_x < self.screen_width and fitness_value_y < self.screen_height:
+            self.screen.blit(fitness_value, (fitness_text_x, fitness_value_y))
 
         if self.fitness < 1e-6:
-            self.screen.blit(green_tick_img, (fitness_text_x, tick_cross_y))
+            if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
+                self.screen.blit(green_tick_img, (fitness_text_x, tick_cross_y))
         else:
-            self.screen.blit(red_cross_img, (fitness_text_x, tick_cross_y))
+            if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
+                self.screen.blit(red_cross_img, (fitness_text_x, tick_cross_y))
 
         pygame.display.flip()
 
@@ -240,5 +265,4 @@ class ARCEnv(gym.Env):
             pygame.display.quit()
             pygame.quit()
             self.isopen = False
-
 
