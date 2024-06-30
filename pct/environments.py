@@ -1294,7 +1294,7 @@ class ARC(ControlEnvironment):
 
     def get_properties(self):
         env_inputs_indexes = [i for i in range(4)]
-        env_inputs_names = ['IWI','IHI','IWO','IWO']
+        env_inputs_names = ['IWI','IHI','IWO','IHO']
         rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names}
 
         return rtn

@@ -351,8 +351,8 @@ class FitnessError(BaseErrorCollector):
         pre = hpct.get_preprocessor()
         data.append(pre[0].get_fitness())
         self.add_error_data( data )
-#         if self.check_limit():
-#             return
+        if self.check_limit():
+            return
     class Factory:
         def create(self): return FitnessError()
 
