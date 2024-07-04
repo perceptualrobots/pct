@@ -2,8 +2,8 @@
 
 # %% auto 0
 __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'SummedError', 'CurrentError', 'SmoothError',
-           'BaseErrorCollector', 'TotalError', 'TopError', 'InputsError', 'ReferencedInputsError', 'RewardError',
-           'FitnessError', 'ErrorResponseFactory', 'ErrorCollectorFactory']
+           'MovingSumError', 'MovingAverageError', 'BaseErrorCollector', 'TotalError', 'TopError', 'InputsError',
+           'ReferencedInputsError', 'RewardError', 'FitnessError', 'ErrorResponseFactory', 'ErrorCollectorFactory']
 
 # %% ../nbs/07_errors.ipynb 3
 #import numpy as np
@@ -134,6 +134,48 @@ class SmoothError(BaseErrorType):
         def create(self, flip_error_response=False): return SmoothError(flip_error_response=flip_error_response)
 
 # %% ../nbs/07_errors.ipynb 11
+class MovingSumError(BaseErrorType):
+    "The exponential smoothed value of the error."
+    def __init__(self, flip_error_response=False):
+        super().__init__(flip_error_response=flip_error_response)        
+        self.error_response = 0
+        self.history = None
+        self.initial = None
+    
+    def __call__(self, error):
+        self.boxcar.append(error)
+        self.boxcar.pop(0)
+        self.error_response=sum(self.boxcar)
+        
+    def reset(self):
+        self.error_response = 0
+        self.boxcar = [self.initial for i in range(1, self.history+1)]
+
+    class Factory:
+        def create(self, flip_error_response=False): return MovingSumError(flip_error_response=flip_error_response)
+
+# %% ../nbs/07_errors.ipynb 12
+class MovingAverageError(BaseErrorType):
+    "The exponential smoothed value of the error."
+    def __init__(self, flip_error_response=False):
+        super().__init__(flip_error_response=flip_error_response)        
+        self.error_response = 0
+        self.history = 5
+        self.initial = 1000
+    
+    def __call__(self, error):
+        self.boxcar.append(error)
+        self.boxcar.pop(0)
+        self.error_response=sum(self.boxcar)/self.history
+        
+    def reset(self):
+        self.error_response = 0
+        self.boxcar = [self.initial for i in range(1, self.history+1)]
+
+    class Factory:
+        def create(self, flip_error_response=False): return MovingAverageError(flip_error_response=flip_error_response)
+
+# %% ../nbs/07_errors.ipynb 13
 class BaseErrorCollector(ABC):
     "Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all."
     'Parameters:'
@@ -193,10 +235,14 @@ class BaseErrorCollector(ABC):
                 if error_response_type == 'SmoothError' and property[0] == 'smooth_factor':
                     error_response.set_property(property[0], property[1])
                     continue
+                if error_response_type == 'MovingSumError' or error_response_type == 'MovingAverageError':
+                    error_response.set_property(property[0], property[1])
+                    continue
                 if error_collector_type == 'ReferencedInputsError' and property[0] == 'referenced_inputs':
                     error_collector.set_reference_properties(property[1])
                     continue
-            
+        
+        error_response.reset()
         error_collector.set_error_response(error_response)
         
         return error_collector
@@ -217,7 +263,7 @@ class BaseErrorCollector(ABC):
         
         return self.limit_exceeded
 
-# %% ../nbs/07_errors.ipynb 12
+# %% ../nbs/07_errors.ipynb 14
 class TotalError(BaseErrorCollector):
     "A class to collect all the errors of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -235,7 +281,7 @@ class TotalError(BaseErrorCollector):
     class Factory:
         def create(self): return TotalError()
 
-# %% ../nbs/07_errors.ipynb 13
+# %% ../nbs/07_errors.ipynb 15
 class TopError(BaseErrorCollector):
     "A class to collect all the errors of the top-level nodes."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -255,7 +301,7 @@ class TopError(BaseErrorCollector):
     class Factory:
         def create(self): return TopError()
 
-# %% ../nbs/07_errors.ipynb 14
+# %% ../nbs/07_errors.ipynb 16
 class InputsError(BaseErrorCollector):
     "A class to collect the values of the input values."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -276,7 +322,7 @@ class InputsError(BaseErrorCollector):
     class Factory:
         def create(self): return InputsError()
 
-# %% ../nbs/07_errors.ipynb 15
+# %% ../nbs/07_errors.ipynb 17
 class ReferencedInputsError(BaseErrorCollector):
     "A class to collect the values of the input values subtracted from reference values."                        
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -324,7 +370,7 @@ class ReferencedInputsError(BaseErrorCollector):
     class Factory:
         def create(self): return ReferencedInputsError()
 
-# %% ../nbs/07_errors.ipynb 16
+# %% ../nbs/07_errors.ipynb 18
 class RewardError(BaseErrorCollector):
     "A class that collects the reward value of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -340,7 +386,7 @@ class RewardError(BaseErrorCollector):
     class Factory:
         def create(self): return RewardError()
 
-# %% ../nbs/07_errors.ipynb 17
+# %% ../nbs/07_errors.ipynb 19
 class FitnessError(BaseErrorCollector):
     "A class that collects the fitness value of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -356,7 +402,7 @@ class FitnessError(BaseErrorCollector):
     class Factory:
         def create(self): return FitnessError()
 
-# %% ../nbs/07_errors.ipynb 18
+# %% ../nbs/07_errors.ipynb 20
 class ErrorResponseFactory:
     factories = {}
     def addResponseFactory(id, errorResponseFactory):
@@ -370,7 +416,7 @@ class ErrorResponseFactory:
         return ErrorResponseFactory.factories[id].create(flip_error_response=flip_error_response)
     createErrorResponse = staticmethod(createErrorResponse)
 
-# %% ../nbs/07_errors.ipynb 19
+# %% ../nbs/07_errors.ipynb 21
 class ErrorCollectorFactory:
     factories = {}
     def addCollectorFactory(id, errorCollectorFactory):
