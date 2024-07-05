@@ -43,7 +43,7 @@ class BaseErrorType(ABC):
     
     def set_error_response(self, error):
         self.error_response = error * self.factor
-        
+    
 
 # %% ../nbs/07_errors.ipynb 6
 class RootSumSquaredError(BaseErrorType):
@@ -135,7 +135,7 @@ class SmoothError(BaseErrorType):
 
 # %% ../nbs/07_errors.ipynb 11
 class MovingSumError(BaseErrorType):
-    "The exponential smoothed value of the error."
+    "The moving sum of the error."
     def __init__(self, flip_error_response=False):
         super().__init__(flip_error_response=flip_error_response)        
         self.error_response = 0
@@ -147,6 +147,15 @@ class MovingSumError(BaseErrorType):
         self.boxcar.pop(0)
         self.error_response=sum(self.boxcar)
         
+        
+    def check_same(self):
+        nTemp = self.boxcar[0]
+        for item in self.boxcar[1:]:
+          if not math.close(nTemp, item):
+            return False
+
+        return True
+
     def reset(self):
         self.error_response = 0
         self.boxcar = [self.initial for i in range(1, self.history+1)]
@@ -156,7 +165,7 @@ class MovingSumError(BaseErrorType):
 
 # %% ../nbs/07_errors.ipynb 12
 class MovingAverageError(BaseErrorType):
-    "The exponential smoothed value of the error."
+    "The moving average of the error."
     def __init__(self, flip_error_response=False):
         super().__init__(flip_error_response=flip_error_response)        
         self.error_response = 0
