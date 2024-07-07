@@ -258,7 +258,7 @@ class PCTHierarchy():
                 print(f'Current score={self.error_collector.error()}')
             
             if self.error_collector != None:
-                if self.error_collector.is_limit_exceeded():
+                if self.error_collector.is_terminated():
                 #     print(f'<{i} {self.error_collector.error()}>')
                     return out
                     

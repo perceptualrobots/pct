@@ -9,8 +9,13 @@ __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'Summe
 #import numpy as np
 import math
 from abc import ABC, abstractmethod
+
+
+# %% ../nbs/07_errors.ipynb 4
 from .functions import IndexedParameter
 from .putils import smooth
+# from pct.hierarchy import PCTHierarchy
+
 
 # %% ../nbs/07_errors.ipynb 5
 class BaseErrorType(ABC):
@@ -20,6 +25,7 @@ class BaseErrorType(ABC):
         if flip_error_response:
             self.factor=-1
         self.error_response=None
+        self.terminate = False
         
     def __repr__(self):
         if self.error_response == None:
@@ -34,6 +40,7 @@ class BaseErrorType(ABC):
     @abstractmethod
     def reset(self):
         self.error_response=None
+        self.terminate = False
 
     def set_property(self, property_name, property_value):
         exec(f'self.{property_name} = {property_value}')
@@ -43,7 +50,9 @@ class BaseErrorType(ABC):
     
     def set_error_response(self, error):
         self.error_response = error * self.factor
-    
+
+    def is_terminated(self):
+        return self.terminate    
 
 # %% ../nbs/07_errors.ipynb 6
 class RootSumSquaredError(BaseErrorType):
@@ -146,17 +155,11 @@ class MovingSumError(BaseErrorType):
         self.boxcar.append(error)
         self.boxcar.pop(0)
         self.error_response=sum(self.boxcar)
+        # self.terminate = ListChecker.check_list_unchanged(self.boxcar)
         
-        
-    def check_same(self):
-        nTemp = self.boxcar[0]
-        for item in self.boxcar[1:]:
-          if not math.close(nTemp, item):
-            return False
-
-        return True
 
     def reset(self):
+        # self.terminate = False
         self.error_response = 0
         self.boxcar = [self.initial for i in range(1, self.history+1)]
 
@@ -229,9 +232,13 @@ class BaseErrorCollector(ABC):
         for datum in data:
             self.error_response(datum)
                   
-    def is_limit_exceeded(self):            
-        return self.limit_exceeded        
-    
+    def is_terminated(self):            
+        if self.limit_exceeded:
+            return True
+        if self.error_response.is_terminated():
+            return True  
+        return False
+
     @classmethod
     def collector(cls, error_response_type, error_collector_type, limit, min=True, properties=None, flip_error_response=False):
         error_response = ErrorResponseFactory.createErrorResponse(error_response_type, flip_error_response=flip_error_response)   
@@ -406,8 +413,8 @@ class FitnessError(BaseErrorCollector):
         pre = hpct.get_preprocessor()
         data.append(pre[0].get_fitness())
         self.add_error_data( data )
-        if self.check_limit():
-            return
+        self.check_limit()
+
     class Factory:
         def create(self): return FitnessError()
 

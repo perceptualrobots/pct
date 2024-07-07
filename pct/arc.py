@@ -42,6 +42,9 @@ class ARCEnv(gym.Env):
         self.fitness_label_font_size = 20
         self.fitness_value_font_size = 50
 
+        self.iteration = 1  # Initialize iteration to 1
+        self.code = ""  # Example property, ensure to set self.code elsewhere in your class
+
     def initialise(self, file_name, properties):
         with open(file_name, 'r') as f:
             data = json.load(f)
@@ -80,11 +83,9 @@ class ARCEnv(gym.Env):
 
     def remove_rows(self, num_rows):
         num_rows = round(num_rows)
-        height = len(self.env)
-        if num_rows >= height:
-             num_rows = height - 1
-        if num_rows>0:
-            self.env = self.env[:-num_rows, :]
+        if num_rows >= self.env.shape[0]:
+            num_rows = self.env.shape[0] - 1
+        self.env = self.env[:-num_rows, :] if self.env.shape[0] > num_rows else self.env
 
     def add_columns(self, num_columns):
         num_columns = round(num_columns)
@@ -92,11 +93,9 @@ class ARCEnv(gym.Env):
 
     def remove_columns(self, num_columns):
         num_columns = round(num_columns)
-        width = len(self.env[0])
-        if num_columns >= width:
-             num_columns = width - 1
-        if num_columns> 0:
-            self.env = self.env[:, :-num_columns]
+        if num_columns >= self.env.shape[1]:
+            num_columns = self.env.shape[1] - 1
+        self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
 
     def fitness_function(self):
         output = np.array(self.outputs[self.index])
@@ -130,11 +129,13 @@ class ARCEnv(gym.Env):
             self.process_remaining_values(action[2:])
 
         self.fitness = self.fitness_function()
-        if self.fitness < 1e-6:
-            self.done = True
+        # if self.fitness < 1e-6:
+        #     self.done = True
         
         input_shape, output_shape = self.get_env_output_dimensions()
         self.state = list(input_shape) + list(output_shape) + self.env.flatten().tolist()
+        
+        self.iteration += 1  # Increment iteration
         return self.state, self.fitness, self.done
 
     def reset(self):
@@ -143,6 +144,7 @@ class ARCEnv(gym.Env):
         self.fitness = self.fitness_function()
         self.done = False
         self.state = self.env.flatten().tolist()
+        self.iteration = 1  # Reset iteration
         return self.state
 
     def get_env_output_dimensions(self):
@@ -214,6 +216,7 @@ class ARCEnv(gym.Env):
         fitness_text_y = self.grid_down + self.height_pad
         fitness_value_y = fitness_text_y + self.fitness_label_font_size + self.height_pad
         tick_cross_y = fitness_value_y + self.fitness_value_font_size + self.height_pad
+        table_y = self.grid_down + max(input_grid.shape[0], output_grid.shape[0], env_grid.shape[0]) * self.cell_size + self.height_pad
 
         # Adjust screen size if necessary
         if fitness_text_x + self.fitness_value_font_size > self.screen_width:
@@ -222,7 +225,7 @@ class ARCEnv(gym.Env):
         if env_grid_y + env_grid.shape[0] * self.cell_size > self.screen_height:
             self.screen_height = env_grid_y + env_grid.shape[0] * self.cell_size + self.height_pad
             self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        
+
         self.screen.fill((255, 255, 255))  # Clear the screen
 
         draw_grid(self.screen, input_grid, input_grid_x, input_grid_y, self.cell_size)
@@ -258,6 +261,19 @@ class ARCEnv(gym.Env):
             if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
                 self.screen.blit(red_cross_img, (fitness_text_x, tick_cross_y))
 
+        # Draw table with Code and Iteration
+        table_font = pygame.font.Font(None, 24)
+        table_labels = ["Code", "Iteration"]
+        table_values = [self.code, self.iteration]
+        table_x = self.left_pad
+        table_y = table_y
+
+        for i, (label, value) in enumerate(zip(table_labels, table_values)):
+            label_surface = table_font.render(label, True, (0, 0, 0))
+            value_surface = table_font.render(str(value), True, (0, 0, 0))
+            self.screen.blit(label_surface, (table_x + i * 200, table_y))
+            self.screen.blit(value_surface, (table_x + i * 200, table_y + 30))
+
         pygame.display.flip()
 
     def close(self):
@@ -265,4 +281,5 @@ class ARCEnv(gym.Env):
             pygame.display.quit()
             pygame.quit()
             self.isopen = False
+
 

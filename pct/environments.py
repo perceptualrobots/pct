@@ -20,6 +20,7 @@ from .webots import WebotsHelper
 from .yaw_module import YawEnv
 from .microgrid import MicroGridEnv0Plus
 from .arc import ARCEnv
+from .helpers import ListChecker
 
 # %% ../nbs/05_environments.ipynb 6
 class EnvironmentFactory:
@@ -1290,6 +1291,10 @@ class ARC(ControlEnvironment):
         file_path = os.path.join(props['dir'], props['code'])
         self.env.initialise(file_path, props)
         self.fitness = self.env.fitness
+        self.history = props['history']
+        self.initial = props['initial']
+        self.boxcar = [self.initial for i in range(1, self.history+1)]
+
 
 
     def get_properties(self):
@@ -1300,8 +1305,9 @@ class ARC(ControlEnvironment):
         return rtn
 
     def early_terminate(self) -> None:
-        if self.done:
-            raise Exception(f'1001: Env: {self.env_name} has finished.')
+        if self.early_termination:
+            if self.done:
+                raise Exception(f'1001: Env: {self.env_name} has finished.')
 
     def process_hierarchy_values(self) -> None:
         self.hierarchy_values = [link.get_value() for link in self.links]
@@ -1320,9 +1326,17 @@ class ARC(ControlEnvironment):
         self.value = self.obs[0]
         self.fitness = self.obs[1]
         self.done = self.obs[2]
+        self.add_to_fitness_history(self.fitness)
+        # if self.fitness == 0:
+        #     self.done = True
 
-        if self.fitness == 0:
-            self.done = True
+    def add_to_fitness_history(self, fitness):
+
+        self.boxcar.append(fitness)
+        self.boxcar.pop(0)
+        self.done = ListChecker.check_list_unchanged(self.boxcar)
+
+
 
     def get_config(self, zero: int = 1) -> dict:
         config = super().get_config(zero=zero)
