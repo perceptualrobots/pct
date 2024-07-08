@@ -1289,6 +1289,11 @@ class ARC(ControlEnvironment):
 
     def set_properties(self, props: dict) -> None:
         file_path = os.path.join(props['dir'], props['code'])
+
+        # with open(file_path, 'r') as f:
+        #     data = json.load(f)
+
+
         self.env.initialise(file_path, props)
         self.fitness = self.env.fitness
         self.history = props['history']

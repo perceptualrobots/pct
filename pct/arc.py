@@ -139,8 +139,9 @@ class ARCEnv(gym.Env):
         return self.state, self.fitness, self.done
 
     def reset(self):
-        input_shape = np.array(self.inputs[self.index]).shape
-        self.env = np.zeros(input_shape, dtype=int)
+        # input_shape = np.array(self.inputs[self.index]).shape
+        # self.env = np.zeros(input_shape, dtype=int)
+        self.env = np.array(self.inputs[self.index])
         self.fitness = self.fitness_function()
         self.done = False
         self.state = self.env.flatten().tolist()
