@@ -33,6 +33,8 @@ class ListChecker:
 
 
 # %% ../nbs/14_helpers.ipynb 6
+import numpy as np
+
 class ARCDataProcessor:
     def __init__(self, config_dict, arc_dict):
         self.grid_shape = config_dict.get('grid_shape')
@@ -41,11 +43,11 @@ class ARCDataProcessor:
         
         self.input_set = config_dict.get('input_set', 'both')
         if self.input_set not in {'env_only', 'inputs_only', 'both'}:
-            raise ValueError("input_set must be 'env_only', 'inputs_only', or 'both'")
+            raise ValueError("input_set must be 'env_only', 'inputs_only', 'both'")
         
         self.action_set = config_dict.get('action_set', None)
-        if self.action_set not in {'dim_only', None}:
-            raise ValueError("action_set must be 'dim_only' or None")
+        if self.action_set not in {'dims_only', None}:
+            raise ValueError("action_set must be 'dims_only' or None")
         
         self.index = config_dict.get('index', 0)
         self.initial_index = self.index if 'index' in config_dict else None
@@ -88,7 +90,6 @@ class ARCDataProcessor:
 
     def create_env(self):
         self.env = np.array(self.arc_dict['train'][self.index]['input'])
-        pass
 
     def process_dimensions(self, actions):
         if len(actions) == 2:
@@ -115,7 +116,6 @@ class ARCDataProcessor:
         return np.array(self.arc_dict['train'][self.index]['output']).shape
 
     def get_env_dimensions(self):
-        print(self.env.shape)
         return self.env.shape
 
     def apply_actions(self, actions):
@@ -127,7 +127,7 @@ class ARCDataProcessor:
             self.process_dimensions(actions[:2])
             value_index = 2
         
-        if self.action_set != 'dim_only':
+        if self.action_set != 'dims_only':
             self.process_remaining_values(actions[value_index:])
 
     def get_state(self):
@@ -139,14 +139,11 @@ class ARCDataProcessor:
             if self.input_set in {'env_only', 'both'}:
                 values.append(self.get_env_dimensions()[1])
                 info['dims'] += 1
-                print(values)
             if self.input_set in {'inputs_only', 'both'}:
                 values.append(self.get_input_dimensions()[1])
                 info['dims'] += 1
-                print(values)
             values.append(self.get_output_dimensions()[1])
             info['dims'] += 1
-
         elif self.grid_shape == 'unequal':
             if self.input_set in {'env_only', 'both'}:
                 values.extend(self.get_env_dimensions())
@@ -167,9 +164,11 @@ class ARCDataProcessor:
             values.extend(flattened_input)
             info['inputs'] = len(flattened_input)
 
-        flattened_output = self.get_array('train', self.index, 'output')
-        values.extend(flattened_output)
-        info['outputs'] = len(flattened_output)
+        if self.action_set != 'dims_only':
+            flattened_output = self.get_array('train', self.index, 'output')
+            values.extend(flattened_output)
+            info['outputs'] = len(flattened_output)
 
         return values, info
+
 
