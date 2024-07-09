@@ -14,6 +14,14 @@ from matplotlib import colors
 # import copy
 
 # %% ../nbs/15_arc.ipynb 4
+import json
+import numpy as np
+import gym
+from gym import spaces
+import pygame
+from matplotlib import colors
+import os
+
 class ARCEnv(gym.Env):
     def __init__(self):
         super(ARCEnv, self).__init__()
@@ -26,7 +34,7 @@ class ARCEnv(gym.Env):
 
         # Render settings
         self.screen_width = 1000
-        self.screen_height = 400
+        self.screen_height = 500
         self.cell_size = 30
         self.left_pad = 20
         self.height_pad = 20
@@ -44,60 +52,94 @@ class ARCEnv(gym.Env):
 
         self.iteration = 1  # Initialize iteration to 1
         self.code = ""  # Example property, ensure to set self.code elsewhere in your class
+        self.data = None  # Placeholder for data
 
-    def initialise(self, file_name, properties):
-        with open(file_name, 'r') as f:
-            data = json.load(f)
-        
+    def initialise(self, properties):
+        """
+        Initialize the environment with properties and data.
+        """
         for key, value in properties.items():
             setattr(self, key, value)
         
-        self.train_data = data['train']
-        self.test_data = data['test']
+        self.train_data = self.data['train']
+        self.test_data = self.data['test']
         self.inputs = [x['input'] for x in self.train_data]
         self.outputs = [x.get('output', []) for x in self.train_data]
         self.reset()
 
     def get_train_array(self, idx):
+        """
+        Get the training array at the specified index.
+        """
         return self.train_data[idx]
 
     def get_input_array(self, idx):
+        """
+        Get the input array at the specified index.
+        """
         return self.inputs[idx]
 
     def get_output_array(self, idx):
+        """
+        Get the output array at the specified index.
+        """
         return self.outputs[idx]
 
     def get_element(self, array, row, col):
+        """
+        Get the element from the array at the specified row and column.
+        """
         return array[row][col]
 
     def get_index(self):
+        """
+        Get the current index.
+        """
         return self.index
 
     def set_index(self, index):
+        """
+        Set the current index and reset the environment.
+        """
         self.index = index
         self.reset()
 
     def add_rows(self, num_rows):
+        """
+        Add rows to the environment.
+        """
         num_rows = round(num_rows)
         self.env = np.pad(self.env, ((0, num_rows), (0, 0)), mode='constant', constant_values=0)
 
     def remove_rows(self, num_rows):
+        """
+        Remove rows from the environment.
+        """
         num_rows = round(num_rows)
         if num_rows >= self.env.shape[0]:
             num_rows = self.env.shape[0] - 1
         self.env = self.env[:-num_rows, :] if self.env.shape[0] > num_rows else self.env
 
     def add_columns(self, num_columns):
+        """
+        Add columns to the environment.
+        """
         num_columns = round(num_columns)
         self.env = np.pad(self.env, ((0, 0), (0, num_columns)), mode='constant', constant_values=0)
 
     def remove_columns(self, num_columns):
+        """
+        Remove columns from the environment.
+        """
         num_columns = round(num_columns)
         if num_columns >= self.env.shape[1]:
             num_columns = self.env.shape[1] - 1
         self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
 
     def fitness_function(self):
+        """
+        Calculate the fitness of the current state.
+        """
         output = np.array(self.outputs[self.index])
         
         # First metric: Squared difference in dimensions
@@ -124,13 +166,14 @@ class ARCEnv(gym.Env):
         return final_metric
 
     def step(self, action):
+        """
+        Take a step in the environment.
+        """
         self.process_dimensions(action)
         if getattr(self, 'fitness_type', 'full') != 'dim_only':
             self.process_remaining_values(action[2:])
 
         self.fitness = self.fitness_function()
-        # if self.fitness < 1e-6:
-        #     self.done = True
         
         input_shape, output_shape = self.get_env_output_dimensions()
         self.state = list(input_shape) + list(output_shape) + self.env.flatten().tolist()
@@ -139,9 +182,11 @@ class ARCEnv(gym.Env):
         return self.state, self.fitness, self.done
 
     def reset(self):
-        # input_shape = np.array(self.inputs[self.index]).shape
-        # self.env = np.zeros(input_shape, dtype=int)
-        self.env = np.array(self.inputs[self.index])
+        """
+        Reset the environment to the initial state.
+        """
+        input_shape = np.array(self.inputs[self.index]).shape
+        self.env = np.zeros(input_shape, dtype=int)
         self.fitness = self.fitness_function()
         self.done = False
         self.state = self.env.flatten().tolist()
@@ -149,11 +194,17 @@ class ARCEnv(gym.Env):
         return self.state
 
     def get_env_output_dimensions(self):
+        """
+        Get the dimensions of the environment and output arrays.
+        """
         input_shape = np.array(self.env).shape
         output_shape = np.array(self.outputs[self.index]).shape
         return input_shape, output_shape
 
     def process_dimensions(self, action):
+        """
+        Process the dimensions based on the action.
+        """
         num_rows, num_cols, *values = action
 
         if num_rows > 0:
@@ -167,6 +218,9 @@ class ARCEnv(gym.Env):
             self.remove_columns(abs(num_cols))
 
     def process_remaining_values(self, values):
+        """
+        Process the remaining values based on the action.
+        """
         for i, value in enumerate(values):
             row, col = divmod(i, self.env.shape[1])
             if row < self.env.shape[0] and col < self.env.shape[1]:
@@ -174,13 +228,22 @@ class ARCEnv(gym.Env):
 
     @property
     def fitness(self):
+        """
+        Get the current fitness value.
+        """
         return self._fitness
 
     @fitness.setter
     def fitness(self, value):
+        """
+        Set the current fitness value.
+        """
         self._fitness = value
 
     def render(self, mode='human'):
+        """
+        Render the environment using Pygame.
+        """
         def draw_grid(screen, grid, top_left_x, top_left_y, cell_size):
             for i, row in enumerate(grid):
                 for j, value in enumerate(row):
@@ -265,7 +328,7 @@ class ARCEnv(gym.Env):
         # Draw table with Code and Iteration
         table_font = pygame.font.Font(None, 24)
         table_labels = ["Code", "Iteration"]
-        table_values = [self.code, self.iteration]
+        table_values = [os.path.splitext(self.code)[0], self.iteration]  # Display code without file extension
         table_x = self.left_pad
         table_y = table_y
 
@@ -278,7 +341,16 @@ class ARCEnv(gym.Env):
         pygame.display.flip()
 
     def close(self):
+        """
+        Close the environment, save the screen to an HTML and an image file.
+        """
         if self.screen is not None:
+            pygame.image.save(self.screen, "screen_image.png")
+            
+            # Save the screen image to an HTML format
+            with open("screen_image.html", "w") as f:
+                f.write(f"<html><body><img src='screen_image.png'></body></html>")
+
             pygame.display.quit()
             pygame.quit()
             self.isopen = False

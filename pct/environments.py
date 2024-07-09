@@ -13,7 +13,7 @@ from typing import Any, List, Optional
 
 # %% ../nbs/05_environments.ipynb 4
 import pct.putils as vid
-from .functions import BaseFunction
+from .functions import BaseFunction, Constant
 from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_even_range, map_to_int_odd_range
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
@@ -1277,7 +1277,8 @@ class ARC(ControlEnvironment):
         self.env = ARCEnv()
         self.env_name = "ARC"
         self.info = "Access to ARC environment files"
-        self.render = render
+        self.render = render        
+        self.early_termination=False
         
     def __call__(self, verbose: bool = False) -> Any:
         super().__call__(verbose)
@@ -1288,16 +1289,16 @@ class ARC(ControlEnvironment):
         return self.value
 
     def set_properties(self, props: dict) -> None:
-        file_path = os.path.join(props['dir'], props['code'])
+        file_name = os.path.join(props['dir'], props['code'])
 
-        # with open(file_path, 'r') as f:
-        #     data = json.load(f)
+        with open(file_name, 'r') as f:
+            data = json.load(f)
 
-
-        self.env.initialise(file_path, props)
+        props['data']=data
+        self.env.initialise(props)
         self.fitness = self.env.fitness
-        self.history = props['history']
-        self.initial = props['initial']
+        self.history = props.get('history', 5)
+        self.initial = props.get('initial', 1000)
         self.boxcar = [self.initial for i in range(1, self.history+1)]
 
 
