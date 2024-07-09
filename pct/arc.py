@@ -14,14 +14,9 @@ from matplotlib import colors
 # import copy
 
 # %% ../nbs/15_arc.ipynb 4
-import json
-import numpy as np
-import gym
-from gym import spaces
-import pygame
-from matplotlib import colors
-import os
+from .helpers import ARCDataProcessor
 
+# %% ../nbs/15_arc.ipynb 5
 class ARCEnv(gym.Env):
     def __init__(self):
         super(ARCEnv, self).__init__()
@@ -53,130 +48,24 @@ class ARCEnv(gym.Env):
         self.iteration = 1  # Initialize iteration to 1
         self.code = ""  # Example property, ensure to set self.code elsewhere in your class
         self.data = None  # Placeholder for data
+        self.arc_data = None  # Placeholder for ARCDataProcessor
 
-    def initialise(self, properties):
+    def initialise(self, properties, arc_dict):
         """
-        Initialize the environment with properties and data.
+        Initialize the environment with properties and arc_dict.
         """
-        for key, value in properties.items():
-            setattr(self, key, value)
-        
-        self.train_data = self.data['train']
-        self.test_data = self.data['test']
-        self.inputs = [x['input'] for x in self.train_data]
-        self.outputs = [x.get('output', []) for x in self.train_data]
+        self.arc_data = ARCDataProcessor(properties, arc_dict)
         self.reset()
 
-    def get_train_array(self, idx):
-        """
-        Get the training array at the specified index.
-        """
-        return self.train_data[idx]
-
-    def get_input_array(self, idx):
-        """
-        Get the input array at the specified index.
-        """
-        return self.inputs[idx]
-
-    def get_output_array(self, idx):
-        """
-        Get the output array at the specified index.
-        """
-        return self.outputs[idx]
-
-    def get_element(self, array, row, col):
-        """
-        Get the element from the array at the specified row and column.
-        """
-        return array[row][col]
-
-    def get_index(self):
-        """
-        Get the current index.
-        """
-        return self.index
-
-    def set_index(self, index):
-        """
-        Set the current index and reset the environment.
-        """
-        self.index = index
-        self.reset()
-
-    def add_rows(self, num_rows):
-        """
-        Add rows to the environment.
-        """
-        num_rows = round(num_rows)
-        self.env = np.pad(self.env, ((0, num_rows), (0, 0)), mode='constant', constant_values=0)
-
-    def remove_rows(self, num_rows):
-        """
-        Remove rows from the environment.
-        """
-        num_rows = round(num_rows)
-        if num_rows >= self.env.shape[0]:
-            num_rows = self.env.shape[0] - 1
-        self.env = self.env[:-num_rows, :] if self.env.shape[0] > num_rows else self.env
-
-    def add_columns(self, num_columns):
-        """
-        Add columns to the environment.
-        """
-        num_columns = round(num_columns)
-        self.env = np.pad(self.env, ((0, 0), (0, num_columns)), mode='constant', constant_values=0)
-
-    def remove_columns(self, num_columns):
-        """
-        Remove columns from the environment.
-        """
-        num_columns = round(num_columns)
-        if num_columns >= self.env.shape[1]:
-            num_columns = self.env.shape[1] - 1
-        self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
-
-    def fitness_function(self):
-        """
-        Calculate the fitness of the current state.
-        """
-        output = np.array(self.outputs[self.index])
-        
-        # First metric: Squared difference in dimensions
-        dim_metric = (self.env.shape[0] - output.shape[0]) ** 2 + (self.env.shape[1] - output.shape[1]) ** 2
-        
-        # Second metric: Squared difference in elements
-        element_metric = 0
-        if getattr(self, 'fitness_type', 'full') != 'dim_only':
-            for i in range(max(self.env.shape[0], output.shape[0])):
-                for j in range(max(self.env.shape[1], output.shape[1])):
-                    env_val = self.env[i, j] if i < self.env.shape[0] and j < self.env.shape[1] else None
-                    output_val = output[i, j] if i < output.shape[0] and j < output.shape[1] else None
-                    if env_val is None or output_val is None:
-                        element_metric += 25
-                    else:
-                        element_metric += (env_val - output_val) ** 2
-
-        # Final metric: Sum of the two metrics or dim_metric only
-        if getattr(self, 'fitness_type', 'full') == 'dim_only':
-            final_metric = dim_metric
-        else:
-            final_metric = dim_metric + element_metric
-
-        return final_metric
-
-    def step(self, action):
+    def step(self, actions):
         """
         Take a step in the environment.
         """
-        self.process_dimensions(action)
-        if getattr(self, 'fitness_type', 'full') != 'dim_only':
-            self.process_remaining_values(action[2:])
+        self.arc_data.apply_actions(actions)
 
-        self.fitness = self.fitness_function()
+        self.fitness = self.arc_data.fitness_function()
         
-        input_shape, output_shape = self.get_env_output_dimensions()
-        self.state = list(input_shape) + list(output_shape) + self.env.flatten().tolist()
+        self.state, self.info = self.arc_data.get_state()
         
         self.iteration += 1  # Increment iteration
         return self.state, self.fitness, self.done
@@ -185,46 +74,17 @@ class ARCEnv(gym.Env):
         """
         Reset the environment to the initial state.
         """
-        input_shape = np.array(self.inputs[self.index]).shape
-        self.env = np.zeros(input_shape, dtype=int)
-        self.fitness = self.fitness_function()
+        self.arc_data.reset()
+        self.fitness = self.arc_data.fitness_function()
         self.done = False
-        self.state = self.env.flatten().tolist()
+        self.state, self.info = self.arc_data.get_state()
         self.iteration = 1  # Reset iteration
-        return self.state
 
-    def get_env_output_dimensions(self):
+    def next(self):
         """
-        Get the dimensions of the environment and output arrays.
+        Move to the next state in arc_dict.
         """
-        input_shape = np.array(self.env).shape
-        output_shape = np.array(self.outputs[self.index]).shape
-        return input_shape, output_shape
-
-    def process_dimensions(self, action):
-        """
-        Process the dimensions based on the action.
-        """
-        num_rows, num_cols, *values = action
-
-        if num_rows > 0:
-            self.add_rows(num_rows)
-        elif num_rows < 0:
-            self.remove_rows(abs(num_rows))
-        
-        if num_cols > 0:
-            self.add_columns(num_cols)
-        elif num_cols < 0:
-            self.remove_columns(abs(num_cols))
-
-    def process_remaining_values(self, values):
-        """
-        Process the remaining values based on the action.
-        """
-        for i, value in enumerate(values):
-            row, col = divmod(i, self.env.shape[1])
-            if row < self.env.shape[0] and col < self.env.shape[1]:
-                self.env[row, col] = value
+        return self.arc_data.next()
 
     @property
     def fitness(self):
@@ -261,9 +121,9 @@ class ARCEnv(gym.Env):
             self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
             pygame.display.set_caption('ARC Environment')
 
-        input_grid = np.array(self.inputs[self.index])
-        output_grid = np.array(self.outputs[self.index])
-        env_grid = self.env
+        input_grid = np.array(self.arc_data.get_train_input())
+        output_grid = np.array(self.arc_data.get_train_output())
+        env_grid = self.arc_data.env
 
         # Top left coordinates
         input_grid_x = self.left_pad
@@ -325,10 +185,10 @@ class ARCEnv(gym.Env):
             if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
                 self.screen.blit(red_cross_img, (fitness_text_x, tick_cross_y))
 
-        # Draw table with Code and Iteration
+        # Draw table with Code, Iteration, and Index
         table_font = pygame.font.Font(None, 24)
-        table_labels = ["Code", "Iteration"]
-        table_values = [os.path.splitext(self.code)[0], self.iteration]  # Display code without file extension
+        table_labels = ["Code", "Iteration", "Index"]
+        table_values = [os.path.splitext(self.code)[0], self.iteration, self.arc_data.index]  # Display code without file extension
         table_x = self.left_pad
         table_y = table_y
 
@@ -345,14 +205,17 @@ class ARCEnv(gym.Env):
         Close the environment, save the screen to an HTML and an image file.
         """
         if self.screen is not None:
-            pygame.image.save(self.screen, "screen_image.png")
+            os.makedirs("c:/tmp/arc/", exist_ok=True)
+            pygame.image.save(self.screen, "c:/tmp/arc/screen_image.png")
             
             # Save the screen image to an HTML format
-            with open("screen_image.html", "w") as f:
+            with open("c:/tmp/arc/screen_image.html", "w") as f:
                 f.write(f"<html><body><img src='screen_image.png'></body></html>")
 
             pygame.display.quit()
             pygame.quit()
             self.isopen = False
+
+
 
 

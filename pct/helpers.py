@@ -33,8 +33,6 @@ class ListChecker:
 
 
 # %% ../nbs/14_helpers.ipynb 6
-import numpy as np
-
 class ARCDataProcessor:
     def __init__(self, config_dict, arc_dict):
         self.grid_shape = config_dict.get('grid_shape')
@@ -85,7 +83,17 @@ class ARCDataProcessor:
         return np.array(self.arc_dict[key][index][sub_key]).flatten()
 
     def next(self):
+        if self.initial_index is not None:
+            return False
         self.index += 1
+        self.create_env()
+        return True
+
+    def reset(self):
+        if self.initial_index is None:
+            self.index = 0
+        else:
+            self.index = self.initial_index
         self.create_env()
 
     def create_env(self):
@@ -154,21 +162,56 @@ class ARCDataProcessor:
             values.extend(self.get_output_dimensions())
             info['dims'] += 2
 
-        if self.input_set in {'env_only', 'both'}:
-            flattened_env = self.env.flatten()
-            values.extend(flattened_env)
-            info['env'] = len(flattened_env)
-        
-        if self.input_set in {'inputs_only', 'both'}:
-            flattened_input = self.get_array('train', self.index, 'input')
-            values.extend(flattened_input)
-            info['inputs'] = len(flattened_input)
-
         if self.action_set != 'dims_only':
+            if self.input_set in {'env_only', 'both'}:
+                flattened_env = self.env.flatten()
+                values.extend(flattened_env)
+                info['env'] = len(flattened_env)
+            
+            if self.input_set in {'inputs_only', 'both'}:
+                flattened_input = self.get_array('train', self.index, 'input')
+                values.extend(flattened_input)
+                info['inputs'] = len(flattened_input)
+
             flattened_output = self.get_array('train', self.index, 'output')
             values.extend(flattened_output)
             info['outputs'] = len(flattened_output)
 
         return values, info
+
+    def fitness_function(self):
+        output_array = np.array(self.arc_dict['train'][self.index]['output'])
+        env_array = self.env
+
+        # First metric: square of the difference between the dimensions
+        dim_metric = (env_array.shape[0] - output_array.shape[0]) ** 2 + (env_array.shape[1] - output_array.shape[1]) ** 2
+
+        # Second metric: square of the difference between each element in the arrays
+        element_metric = 0
+        for i in range(max(env_array.shape[0], output_array.shape[0])):
+            for j in range(max(env_array.shape[1], output_array.shape[1])):
+                env_value = env_array[i, j] if i < env_array.shape[0] and j < env_array.shape[1] else None
+                output_value = output_array[i, j] if i < output_array.shape[0] and j < output_array.shape[1] else None
+                if env_value is None or output_value is None:
+                    element_metric += 25
+                else:
+                    element_metric += (env_value - output_value) ** 2
+
+        # Final metric
+        if self.action_set == 'dims_only':
+            final_metric = dim_metric
+        else:
+            final_metric = dim_metric + element_metric
+
+        return final_metric
+
+    def get_train_input(self):
+        return np.array(self.arc_dict['train'][self.index]['input'])
+
+    def get_train_output(self):
+        return np.array(self.arc_dict['train'][self.index]['output'])
+
+    def get_test_input(self):
+        return np.array(self.arc_dict['test'][0]['input'])  # Assuming only one test case as per the provided format
 
 

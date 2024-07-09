@@ -1294,8 +1294,8 @@ class ARC(ControlEnvironment):
         with open(file_name, 'r') as f:
             data = json.load(f)
 
-        props['data']=data
-        self.env.initialise(props)
+        # props['data']=data
+        self.env.initialise(props, data)
         self.fitness = self.env.fitness
         self.history = props.get('history', 5)
         self.initial = props.get('initial', 1000)
@@ -1313,7 +1313,8 @@ class ARC(ControlEnvironment):
     def early_terminate(self) -> None:
         if self.early_termination:
             if self.done:
-                raise Exception(f'1001: Env: {self.env_name} has finished.')
+                if not self.env.next():
+                    raise Exception(f'1001: Env: {self.env_name} has finished.')
 
     def process_hierarchy_values(self) -> None:
         self.hierarchy_values = [link.get_value() for link in self.links]
