@@ -1272,7 +1272,7 @@ class ARC(ControlEnvironment):
     
     def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, render: bool = False, seed: int = None, namespace: Optional[str] = None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
-        self.num_links = 2
+        self.num_links = None
         self.done = False
         self.env = ARCEnv()
         self.env_name = "ARC"
@@ -1302,21 +1302,13 @@ class ARC(ControlEnvironment):
         self.grid_shape = props.get('grid_shape', None)
         self.input_set = props.get('input_set', None)
         self.boxcar = [self.initial for i in range(1, self.history+1)]
-        info = self.env.get_info()
-        self.num_links = info['num_actions']
-
-
+        self.num_links = self.env.get_num_actions()
 
     def get_properties(self):
-        ninputs = 4
-        env_inputs_names = ['IWI','IHI','IWO','IHO']
-        if self.grid_shape and self.grid_shape == 'equal':
-            if self.input_set == 'env_only':
-                env_inputs_names = ['IWI', 'IWO']
-                ninputs = 2
+        env_inputs_names = self.get_env_inputs_names()
 
-        env_inputs_indexes = [i for i in range(ninputs)]
-        rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names}
+        env_inputs_indexes = self.get_env_inputs_indexes()
+        rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names, 'num_actions': self.num_links}
 
         return rtn
 

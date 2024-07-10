@@ -33,15 +33,19 @@ class ListChecker:
 
 
 # %% ../nbs/14_helpers.ipynb 6
+import numpy as np
+
 class ARCDataProcessor:
     def __init__(self, config_dict, arc_dict):
-        self.grid_shape = config_dict.get('grid_shape')
-        if self.grid_shape not in {'equal', 'unequal', None}:
-            raise ValueError("grid_shape must be 'equal', 'unequal', or None")
+        self.arc_dict = arc_dict
+        self.grid_shape = self.determine_grid_shape()
         
-        self.input_set = config_dict.get('input_set', 'both')
-        if self.input_set not in {'env_only', 'inputs_only', 'both'}:
-            raise ValueError("input_set must be 'env_only', 'inputs_only', 'both'")
+        if 'grid_shape' in config_dict:
+            self.grid_shape = config_dict.get('grid_shape')
+        
+        self.input_set = config_dict.get('input_set', None)
+        if self.input_set not in {'env_only', 'inputs_only', 'both', None}:
+            raise ValueError("input_set must be 'env_only', 'inputs_only', 'both', or None")
         
         self.action_set = config_dict.get('action_set', None)
         if self.action_set not in {'dims_only', None}:
@@ -50,13 +54,15 @@ class ARCDataProcessor:
         self.index = config_dict.get('index', 0)
         self.initial_index = self.index if 'index' in config_dict else None
 
-        self.arc_dict = arc_dict
+        if self.action_set == 'dims_only':
+            if self.grid_shape is None:
+                raise ValueError("grid_shape cannot be None when action_set is 'dims_only'")
+            if self.input_set is not None:
+                raise ValueError("input_set must be None when action_set is 'dims_only'")
+
         self.create_env()
         self.info = self.create_info()
 
-    def get_info(self):
-        return self.info
-    
     def add_rows(self, num_rows):
         num_rows = round(num_rows)
         self.env = np.pad(self.env, ((0, num_rows), (0, 0)), mode='constant', constant_values=0)
@@ -142,7 +148,6 @@ class ARCDataProcessor:
         if self.action_set != 'dims_only':
             self.process_remaining_values(actions[value_index:])
 
-
     def create_info(self):
         info = {}
         info['dims'] = 0
@@ -178,6 +183,59 @@ class ARCDataProcessor:
             info['outputs'] = len(flattened_output)
 
         return info
+
+# {'dims': 3, 'num_actions': 10, 'grid_shape': 'equal', 'env': 9, 'inputs': 9, 'outputs': 81}
+# {'dims': 6, 'num_actions': 11, 'grid_shape': 'unequal', 'env': 9, 'inputs': 9, 'outputs': 81}
+    def get_env_inputs_names(self):
+        input_names = []
+        if 'dims' in self.info:
+            if self.info['dims']==2:
+                input_names = input_names+ ['IWE','IWO']
+            elif self.info['dims']==3:
+                input_names = input_names+ ['IWE','IWI','IWO']
+            elif self.info['dims']==4:
+                input_names = input_names+ ['IWE','IHE','IWO','IHO']
+            elif self.info['dims']==6:
+                input_names = input_names+ ['IWE','IHE','IWI','IHI','IWO','IHO']
+            
+        if 'env' in self.info:
+            num = self.info['env']
+            for i in range(num):
+                input_names.append(f'IE{i+1:03}')
+            
+        if 'inputs' in self.info:
+            num = self.info['inputs']
+            for i in range(num):
+                input_names.append(f'II{i+1:03}')
+
+        if 'outputs' in self.info:
+            num = self.info['outputs']
+            for i in range(num):
+                input_names.append(f'IO{i+1:03}')
+            
+        return input_names
+
+
+    def get_env_inputs_indexes(self):
+        ninputs = 0
+
+        if 'dims' in self.info:
+            ninputs += self.info['dims']
+
+        if 'env' in self.info:
+            ninputs += self.info['env']
+
+        if 'inputs' in self.info:
+            ninputs += self.info['inputs']
+
+        if 'outputs' in self.info:
+            ninputs += self.info['outputs']
+
+        env_inputs_indexes = [i for i in range(ninputs)]
+
+        return env_inputs_indexes
+
+
 
     def get_state(self):
         values = []
@@ -247,5 +305,19 @@ class ARCDataProcessor:
 
     def get_test_input(self):
         return np.array(self.arc_dict['test'][0]['input'])  # Assuming only one test case as per the provided format
+
+    def get_info(self):
+        return self.info
+
+    def determine_grid_shape(self):
+        output_dims = [np.array(task['output']).shape for task in self.arc_dict['train']]
+        input_dims = [np.array(task['input']).shape for task in self.arc_dict['train']]
+
+        if len(set(output_dims)) == 1:
+            if len(set(input_dims)) == 1 and output_dims[0] == input_dims[0]:
+                return None
+            return 'equal'
+        return 'unequal'
+
 
 
