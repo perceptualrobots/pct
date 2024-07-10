@@ -1299,13 +1299,23 @@ class ARC(ControlEnvironment):
         self.fitness = self.env.fitness
         self.history = props.get('history', 5)
         self.initial = props.get('initial', 1000)
+        self.grid_shape = props.get('grid_shape', None)
+        self.input_set = props.get('input_set', None)
         self.boxcar = [self.initial for i in range(1, self.history+1)]
+        info = self.env.get_info()
+        self.num_links = info['num_actions']
 
 
 
     def get_properties(self):
-        env_inputs_indexes = [i for i in range(4)]
+        ninputs = 4
         env_inputs_names = ['IWI','IHI','IWO','IHO']
+        if self.grid_shape and self.grid_shape == 'equal':
+            if self.input_set == 'env_only':
+                env_inputs_names = ['IWI', 'IWO']
+                ninputs = 2
+
+        env_inputs_indexes = [i for i in range(ninputs)]
         rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names}
 
         return rtn

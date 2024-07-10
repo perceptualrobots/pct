@@ -52,7 +52,11 @@ class ARCDataProcessor:
 
         self.arc_dict = arc_dict
         self.create_env()
+        self.info = self.create_info()
 
+    def get_info(self):
+        return self.info
+    
     def add_rows(self, num_rows):
         num_rows = round(num_rows)
         self.env = np.pad(self.env, ((0, num_rows), (0, 0)), mode='constant', constant_values=0)
@@ -138,46 +142,76 @@ class ARCDataProcessor:
         if self.action_set != 'dims_only':
             self.process_remaining_values(actions[value_index:])
 
-    def get_state(self):
-        values = []
+
+    def create_info(self):
         info = {}
         info['dims'] = 0
+        info['num_actions'] = 0
+        info['grid_shape'] = self.grid_shape
 
         if self.grid_shape == 'equal':
+            info['num_actions'] = 1
             if self.input_set in {'env_only', 'both'}:
-                values.append(self.get_env_dimensions()[1])
                 info['dims'] += 1
             if self.input_set in {'inputs_only', 'both'}:
-                values.append(self.get_input_dimensions()[1])
                 info['dims'] += 1
-            values.append(self.get_output_dimensions()[1])
             info['dims'] += 1
         elif self.grid_shape == 'unequal':
+            info['num_actions'] = 2
             if self.input_set in {'env_only', 'both'}:
-                values.extend(self.get_env_dimensions())
                 info['dims'] += 2
             if self.input_set in {'inputs_only', 'both'}:
-                values.extend(self.get_input_dimensions())
                 info['dims'] += 2
-            values.extend(self.get_output_dimensions())
             info['dims'] += 2
 
         if self.action_set != 'dims_only':
             if self.input_set in {'env_only', 'both'}:
                 flattened_env = self.env.flatten()
-                values.extend(flattened_env)
                 info['env'] = len(flattened_env)
+                info['num_actions'] += len(flattened_env)
+            
+            if self.input_set in {'inputs_only', 'both'}:
+                flattened_input = self.get_array('train', self.index, 'input')
+                info['inputs'] = len(flattened_input)
+
+            flattened_output = self.get_array('train', self.index, 'output')
+            info['outputs'] = len(flattened_output)
+
+        return info
+
+    def get_state(self):
+        values = []
+        self.info['num_actions'] = 0
+        if self.grid_shape == 'equal':
+            self.info['num_actions'] = 1
+            if self.input_set in {'env_only', 'both'}:
+                values.append(self.get_env_dimensions()[1])
+            if self.input_set in {'inputs_only', 'both'}:
+                values.append(self.get_input_dimensions()[1])
+            values.append(self.get_output_dimensions()[1])
+        elif self.grid_shape == 'unequal':
+            self.info['num_actions'] = 2
+            if self.input_set in {'env_only', 'both'}:
+                values.extend(self.get_env_dimensions())
+            if self.input_set in {'inputs_only', 'both'}:
+                values.extend(self.get_input_dimensions())
+            values.extend(self.get_output_dimensions())
+
+        if self.action_set != 'dims_only':
+            if self.input_set in {'env_only', 'both'}:
+                flattened_env = self.env.flatten()
+                values.extend(flattened_env)
+                self.info['env'] = len(flattened_env)
+                self.info['num_actions'] += self.info['env'] 
             
             if self.input_set in {'inputs_only', 'both'}:
                 flattened_input = self.get_array('train', self.index, 'input')
                 values.extend(flattened_input)
-                info['inputs'] = len(flattened_input)
 
             flattened_output = self.get_array('train', self.index, 'output')
             values.extend(flattened_output)
-            info['outputs'] = len(flattened_output)
 
-        return values, info
+        return values, self.info
 
     def fitness_function(self):
         output_array = np.array(self.arc_dict['train'][self.index]['output'])
