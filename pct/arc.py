@@ -68,8 +68,11 @@ class ARCEnv(gym.Env):
         self.state, self.info = self.arc_data.get_state()
         
         self.iteration += 1  # Increment iteration
-        return self.state, self.fitness, self.done
+        return self.state, self.fitness, self.done, self.info
 
+    def get_num_actions(self):
+        return self.num_actions
+    
     def reset(self):
         """
         Reset the environment to the initial state.
@@ -79,6 +82,7 @@ class ARCEnv(gym.Env):
         self.done = False
         self.state, self.info = self.arc_data.get_state()
         self.iteration = 1  # Reset iteration
+        self.num_actions = self.info['num_actions']
 
     def next(self):
         """

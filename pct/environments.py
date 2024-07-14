@@ -1272,7 +1272,7 @@ class ARC(ControlEnvironment):
     
     def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, render: bool = False, seed: int = None, namespace: Optional[str] = None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
-        self.num_links = 2
+        self.num_links = None
         self.done = False
         self.env = ARCEnv()
         self.env_name = "ARC"
@@ -1299,16 +1299,24 @@ class ARC(ControlEnvironment):
         self.fitness = self.env.fitness
         self.history = props.get('history', 5)
         self.initial = props.get('initial', 1000)
+        self.grid_shape = props.get('grid_shape', None)
+        self.input_set = props.get('input_set', None)
         self.boxcar = [self.initial for i in range(1, self.history+1)]
-
-
+        self.num_links = self.env.get_num_actions()
 
     def get_properties(self):
-        env_inputs_indexes = [i for i in range(4)]
-        env_inputs_names = ['IWI','IHI','IWO','IHO']
-        rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names}
+        env_inputs_names = self.get_env_inputs_names()
+
+        env_inputs_indexes = self.get_env_inputs_indexes()
+        rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names, 'num_actions': self.num_links}
 
         return rtn
+
+    def get_env_inputs_names(self):
+        return self.arc_data. get_env_inputs_names()
+    
+    def get_env_inputs_indexes(self):
+        return self.arc_data. get_env_inputs_indexes()
 
     def early_terminate(self) -> None:
         if self.early_termination:
