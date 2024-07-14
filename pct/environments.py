@@ -1313,10 +1313,10 @@ class ARC(ControlEnvironment):
         return rtn
 
     def get_env_inputs_names(self):
-        return self.arc_data. get_env_inputs_names()
+        return self.env.get_env_inputs_names()
     
     def get_env_inputs_indexes(self):
-        return self.arc_data. get_env_inputs_indexes()
+        return self.env.get_env_inputs_indexes()
 
     def early_terminate(self) -> None:
         if self.early_termination:

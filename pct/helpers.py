@@ -33,8 +33,6 @@ class ListChecker:
 
 
 # %% ../nbs/14_helpers.ipynb 6
-import numpy as np
-
 class ARCDataProcessor:
     def __init__(self, config_dict, arc_dict):
         self.arc_dict = arc_dict
@@ -53,6 +51,7 @@ class ARCDataProcessor:
         
         self.index = config_dict.get('index', 0)
         self.initial_index = self.index if 'index' in config_dict else None
+        self.output_set = config_dict.get('output_set', True)
 
         if self.action_set == 'dims_only':
             if self.grid_shape is None:
@@ -90,7 +89,7 @@ class ARCDataProcessor:
                 self.env[row, col] = value
 
     def get_array(self, key, index, sub_key):
-        return np.array(self.arc_dict[key][index][sub_key]).flatten()
+        return np.array(self.arc_dict[key][index][sub_key])
 
     def next(self):
         if self.initial_index is not None:
@@ -176,98 +175,43 @@ class ARCDataProcessor:
                 info['num_actions'] += len(flattened_env)
             
             if self.input_set in {'inputs_only', 'both'}:
-                flattened_input = self.get_array('train', self.index, 'input')
+                flattened_input = self.get_array('train', self.index, 'input').flatten()
                 info['inputs'] = len(flattened_input)
 
-            flattened_output = self.get_array('train', self.index, 'output')
+            flattened_output = self.get_array('train', self.index, 'output').flatten()
             info['outputs'] = len(flattened_output)
 
         return info
 
-# {'dims': 3, 'num_actions': 10, 'grid_shape': 'equal', 'env': 9, 'inputs': 9, 'outputs': 81}
-# {'dims': 6, 'num_actions': 11, 'grid_shape': 'unequal', 'env': 9, 'inputs': 9, 'outputs': 81}
-    def get_env_inputs_names(self):
-        input_names = []
-        if 'dims' in self.info:
-            if self.info['dims']==2:
-                input_names = input_names+ ['IWE','IWO']
-            elif self.info['dims']==3:
-                input_names = input_names+ ['IWE','IWI','IWO']
-            elif self.info['dims']==4:
-                input_names = input_names+ ['IWE','IHE','IWO','IHO']
-            elif self.info['dims']==6:
-                input_names = input_names+ ['IWE','IHE','IWI','IHI','IWO','IHO']
-            
-        if 'env' in self.info:
-            num = self.info['env']
-            for i in range(num):
-                input_names.append(f'IE{i+1:03}')
-            
-        if 'inputs' in self.info:
-            num = self.info['inputs']
-            for i in range(num):
-                input_names.append(f'II{i+1:03}')
-
-        if 'outputs' in self.info:
-            num = self.info['outputs']
-            for i in range(num):
-                input_names.append(f'IO{i+1:03}')
-            
-        return input_names
-
-
-    def get_env_inputs_indexes(self):
-        ninputs = 0
-
-        if 'dims' in self.info:
-            ninputs += self.info['dims']
-
-        if 'env' in self.info:
-            ninputs += self.info['env']
-
-        if 'inputs' in self.info:
-            ninputs += self.info['inputs']
-
-        if 'outputs' in self.info:
-            ninputs += self.info['outputs']
-
-        env_inputs_indexes = [i for i in range(ninputs)]
-
-        return env_inputs_indexes
-
-
-
     def get_state(self):
-        values = []
+        values = {}
         self.info['num_actions'] = 0
         if self.grid_shape == 'equal':
             self.info['num_actions'] = 1
             if self.input_set in {'env_only', 'both'}:
-                values.append(self.get_env_dimensions()[1])
+                values['env_dims'] = self.get_env_dimensions()[1]
             if self.input_set in {'inputs_only', 'both'}:
-                values.append(self.get_input_dimensions()[1])
-            values.append(self.get_output_dimensions()[1])
+                values['input_dims'] = self.get_input_dimensions()[1]
+            values['output_dims'] = self.get_output_dimensions()[1]
         elif self.grid_shape == 'unequal':
             self.info['num_actions'] = 2
             if self.input_set in {'env_only', 'both'}:
-                values.extend(self.get_env_dimensions())
+                values['env_dims'] = self.get_env_dimensions()
             if self.input_set in {'inputs_only', 'both'}:
-                values.extend(self.get_input_dimensions())
-            values.extend(self.get_output_dimensions())
+                values['input_dims'] = self.get_input_dimensions()
+            values['output_dims'] = self.get_output_dimensions()
 
         if self.action_set != 'dims_only':
             if self.input_set in {'env_only', 'both'}:
-                flattened_env = self.env.flatten()
-                values.extend(flattened_env)
-                self.info['env'] = len(flattened_env)
-                self.info['num_actions'] += self.info['env'] 
+                values['env'] = self.env
+                self.info['env'] = self.env.size
+                self.info['num_actions'] += self.env.size
             
             if self.input_set in {'inputs_only', 'both'}:
-                flattened_input = self.get_array('train', self.index, 'input')
-                values.extend(flattened_input)
-
-            flattened_output = self.get_array('train', self.index, 'output')
-            values.extend(flattened_output)
+                values['input'] = self.get_array('train', self.index, 'input')
+            
+            if self.output_set:
+                values['output'] = self.get_array('train', self.index, 'output')
 
         return values, self.info
 
@@ -319,5 +263,52 @@ class ARCDataProcessor:
             return 'equal'
         return 'unequal'
 
+    def get_env_inputs_names(self):
+        input_names = []
+        if 'dims' in self.info:
+            if self.info['dims'] == 2:
+                input_names += ['IWE', 'IWO']
+            elif self.info['dims'] == 3:
+                input_names += ['IWE', 'IWI', 'IWO']
+            elif self.info['dims'] == 4:
+                input_names += ['IWE', 'IHE', 'IWO', 'IHO']
+            elif self.info['dims'] == 6:
+                input_names += ['IWE', 'IHE', 'IWI', 'IHI', 'IWO', 'IHO']
+            
+        if 'env' in self.info:
+            num = self.info['env']
+            for i in range(num):
+                input_names.append(f'IE{i+1:03}')
+            
+        if 'inputs' in self.info:
+            num = self.info['inputs']
+            for i in range(num):
+                input_names.append(f'II{i+1:03}')
+
+        if 'outputs' in self.info:
+            num = self.info['outputs']
+            for i in range(num):
+                input_names.append(f'IO{i+1:03}')
+            
+        return input_names
+
+    def get_env_inputs_indexes(self):
+        ninputs = 0
+
+        if 'dims' in self.info:
+            ninputs += self.info['dims']
+
+        if 'env' in self.info:
+            ninputs += self.info['env']
+
+        if 'inputs' in self.info:
+            ninputs += self.info['inputs']
+
+        if 'outputs' in self.info:
+            ninputs += self.info['outputs']
+
+        env_inputs_indexes = [i for i in range(ninputs)]
+
+        return env_inputs_indexes
 
 
