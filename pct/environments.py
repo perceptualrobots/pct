@@ -1273,6 +1273,7 @@ class ARC(ControlEnvironment):
     def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, render: bool = False, seed: int = None, namespace: Optional[str] = None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         self.num_links = None
+
         self.done = False
         self.env = ARCEnv()
         self.env_name = "ARC"
@@ -1308,9 +1309,13 @@ class ARC(ControlEnvironment):
         env_inputs_names = self.get_env_inputs_names()
 
         env_inputs_indexes = self.get_env_inputs_indexes()
+
         rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names, 'num_actions': self.num_links}
 
         return rtn
+
+    def get_num_actions(self):
+        return self.env.get_num_actions()
 
     def get_env_inputs_names(self):
         return self.env.get_env_inputs_names()
@@ -1338,12 +1343,26 @@ class ARC(ControlEnvironment):
         return self.env.step(self.actions)
 
     def parse_obs(self) -> None:
-        self.value = self.obs[0]
         self.fitness = self.obs[1]
         self.done = self.obs[2]
+        self.info = self.obs[3]
         self.add_to_fitness_history(self.fitness)
         # if self.fitness == 0:
         #     self.done = True
+
+
+    def process_values(self):
+        self.value=[]
+        for dim in self.obs[0]['env_dims']:
+            self.value.append(dim)
+
+        for dim in self.obs[0]['input_dims']:
+            self.value.append(dim)
+
+        for dim in self.obs[0]['output_dims']:
+            self.value.append(dim)
+
+
 
     def add_to_fitness_history(self, fitness):
 
@@ -1364,7 +1383,8 @@ class ARC(ControlEnvironment):
         self.render = render
 
     def reset(self, full: bool = True, seed: Optional[int] = None) -> None:
-        self.done = False
+        self.done = False        
+        self.boxcar = [self.initial for i in range(1, self.history+1)]
         self.env.reset()
 
     def summary(self, extra: bool = False, higher_namespace: Optional[str] = None) -> None:
@@ -1372,6 +1392,8 @@ class ARC(ControlEnvironment):
 
     def close(self) -> None:
         self.env.close()
+
+
 
     class Factory:
         @staticmethod

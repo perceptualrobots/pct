@@ -160,8 +160,9 @@ class MovingSumError(BaseErrorType):
 
     def reset(self):
         # self.terminate = False
-        self.error_response = 0
+        # self.error_response = 0
         self.boxcar = [self.initial for i in range(1, self.history+1)]
+        self.error_response=sum(self.boxcar)
 
     class Factory:
         def create(self, flip_error_response=False): return MovingSumError(flip_error_response=flip_error_response)
@@ -181,8 +182,9 @@ class MovingAverageError(BaseErrorType):
         self.error_response=sum(self.boxcar)/self.history
         
     def reset(self):
-        self.error_response = 0
+        # self.error_response = 0
         self.boxcar = [self.initial for i in range(1, self.history+1)]
+        self.error_response=sum(self.boxcar)/self.history
 
     class Factory:
         def create(self, flip_error_response=False): return MovingAverageError(flip_error_response=flip_error_response)

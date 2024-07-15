@@ -49,6 +49,7 @@ class ARCEnv(gym.Env):
         self.code = ""  # Example property, ensure to set self.code elsewhere in your class
         self.data = None  # Placeholder for data
         self.arc_data = None  # Placeholder for ARCDataProcessor
+        self.num_actions = 0  # Initialize num_actions
 
     def initialise(self, properties, arc_dict):
         """
@@ -70,9 +71,6 @@ class ARCEnv(gym.Env):
         self.iteration += 1  # Increment iteration
         return self.state, self.fitness, self.done, self.info
 
-    def get_num_actions(self):
-        return self.num_actions
-    
     def reset(self):
         """
         Reset the environment to the initial state.
@@ -82,13 +80,31 @@ class ARCEnv(gym.Env):
         self.done = False
         self.state, self.info = self.arc_data.get_state()
         self.iteration = 1  # Reset iteration
-        self.num_actions = self.info['num_actions']
+        self.num_actions = self.info['num_actions']  # Set num_actions
 
     def next(self):
         """
         Move to the next state in arc_dict.
         """
         return self.arc_data.next()
+
+    def get_num_actions(self):
+        """
+        Get the number of actions.
+        """
+        return self.num_actions
+
+    def get_env_inputs_names(self):
+        """
+        Get the environment input names.
+        """
+        return self.arc_data.get_env_inputs_names()
+
+    def get_env_inputs_indexes(self):
+        """
+        Get the environment input indexes.
+        """
+        return self.arc_data.get_env_inputs_indexes()
 
     @property
     def fitness(self):
@@ -219,7 +235,5 @@ class ARCEnv(gym.Env):
             pygame.display.quit()
             pygame.quit()
             self.isopen = False
-
-
 
 

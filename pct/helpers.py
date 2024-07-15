@@ -66,11 +66,13 @@ class ARCDataProcessor:
         num_rows = round(num_rows)
         self.env = np.pad(self.env, ((0, num_rows), (0, 0)), mode='constant', constant_values=0)
 
+    
     def remove_rows(self, num_rows):
         num_rows = round(num_rows)
-        if num_rows >= self.env.shape[0]:
+        if num_rows > self.env.shape[0]:
             num_rows = self.env.shape[0] - 1
-        self.env = self.env[:-num_rows, :] if self.env.shape[0] > num_rows else self.env
+        if num_rows > 0 and  self.env.shape[0] > num_rows:
+            self.env = self.env[:-num_rows, :] 
 
     def add_columns(self, num_columns):
         num_columns = round(num_columns)
@@ -78,9 +80,11 @@ class ARCDataProcessor:
 
     def remove_columns(self, num_columns):
         num_columns = round(num_columns)
-        if num_columns >= self.env.shape[1]:
+        if num_columns > self.env.shape[1]:
             num_columns = self.env.shape[1] - 1
-        self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
+        if num_columns > 0 and self.env.shape[1] > num_columns :
+            self.env = self.env[:, :-num_columns] 
+        
 
     def process_remaining_values(self, values):
         for i, value in enumerate(values):
@@ -155,18 +159,10 @@ class ARCDataProcessor:
 
         if self.grid_shape == 'equal':
             info['num_actions'] = 1
-            if self.input_set in {'env_only', 'both'}:
-                info['dims'] += 1
-            if self.input_set in {'inputs_only', 'both'}:
-                info['dims'] += 1
-            info['dims'] += 1
+            info['dims'] = 3
         elif self.grid_shape == 'unequal':
             info['num_actions'] = 2
-            if self.input_set in {'env_only', 'both'}:
-                info['dims'] += 2
-            if self.input_set in {'inputs_only', 'both'}:
-                info['dims'] += 2
-            info['dims'] += 2
+            info['dims'] = 6
 
         if self.action_set != 'dims_only':
             if self.input_set in {'env_only', 'both'}:
@@ -188,17 +184,13 @@ class ARCDataProcessor:
         self.info['num_actions'] = 0
         if self.grid_shape == 'equal':
             self.info['num_actions'] = 1
-            if self.input_set in {'env_only', 'both'}:
-                values['env_dims'] = self.get_env_dimensions()[1]
-            if self.input_set in {'inputs_only', 'both'}:
-                values['input_dims'] = self.get_input_dimensions()[1]
-            values['output_dims'] = self.get_output_dimensions()[1]
+            values['env_dims'] = (self.get_env_dimensions()[1],)
+            values['input_dims'] = (self.get_input_dimensions()[1],)
+            values['output_dims'] = (self.get_output_dimensions()[1],)
         elif self.grid_shape == 'unequal':
             self.info['num_actions'] = 2
-            if self.input_set in {'env_only', 'both'}:
-                values['env_dims'] = self.get_env_dimensions()
-            if self.input_set in {'inputs_only', 'both'}:
-                values['input_dims'] = self.get_input_dimensions()
+            values['env_dims'] = self.get_env_dimensions()
+            values['input_dims'] = self.get_input_dimensions()
             values['output_dims'] = self.get_output_dimensions()
 
         if self.action_set != 'dims_only':
