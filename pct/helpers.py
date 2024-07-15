@@ -67,24 +67,38 @@ class ARCDataProcessor:
         self.env = np.pad(self.env, ((0, num_rows), (0, 0)), mode='constant', constant_values=0)
 
     
+    # def remove_rows(self, num_rows):
+    #     num_rows = round(num_rows)
+    #     if num_rows >= self.env.shape[0]:
+    #         num_rows = self.env.shape[0] - 1
+    #     if num_rows > 0 and  self.env.shape[0] > num_rows:
+    #         self.env = self.env[:-num_rows, :] 
+
     def remove_rows(self, num_rows):
         num_rows = round(num_rows)
-        if num_rows > self.env.shape[0]:
+        if num_rows >= self.env.shape[0]:
             num_rows = self.env.shape[0] - 1
-        if num_rows > 0 and  self.env.shape[0] > num_rows:
-            self.env = self.env[:-num_rows, :] 
+        self.env = self.env[:-num_rows, :] if self.env.shape[0] > num_rows else self.env
+
 
     def add_columns(self, num_columns):
         num_columns = round(num_columns)
         self.env = np.pad(self.env, ((0, 0), (0, num_columns)), mode='constant', constant_values=0)
 
+    # def remove_columns(self, num_columns):
+    #     num_columns = round(num_columns)
+    #     if num_columns >= self.env.shape[1]:
+    #         num_columns = self.env.shape[1] - 1
+    #     if num_columns > 0 and self.env.shape[1] > num_columns :
+    #         self.env = self.env[:, :-num_columns] 
+
+
     def remove_columns(self, num_columns):
         num_columns = round(num_columns)
-        if num_columns > self.env.shape[1]:
+        if num_columns >= self.env.shape[1]:
             num_columns = self.env.shape[1] - 1
-        if num_columns > 0 and self.env.shape[1] > num_columns :
-            self.env = self.env[:, :-num_columns] 
-        
+        self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
+
 
     def process_remaining_values(self, values):
         for i, value in enumerate(values):
