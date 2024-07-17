@@ -133,7 +133,7 @@ class ARCEnv(gym.Env):
                         pygame.draw.rect(screen, color, (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size))
                         pygame.draw.rect(screen, (255, 255, 255), (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size), 1)
             # Draw a black line around the grid
-            if top_left_x < self.screen_width and top_left_y < self.screen_height and len(grid)>0:
+            if top_left_x < self.screen_width and top_left_y < self.screen_height:
                 pygame.draw.rect(screen, (0, 0, 0), (top_left_x, top_left_y, cell_size * len(grid[0]), cell_size * len(grid)), 2)
 
         if self.screen is None:
