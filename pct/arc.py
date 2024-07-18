@@ -13,7 +13,7 @@ import pygame
 from matplotlib import colors       
 # import copy
 
-# %% ../nbs/15_arc.ipynb 5
+# %% ../nbs/15_arc.ipynb 4
 class ARCDataProcessor:
     def __init__(self, config_dict, arc_dict):
         self.arc_dict = arc_dict
@@ -33,7 +33,9 @@ class ARCDataProcessor:
         self.index = config_dict.get('index', 0)
         self.initial_index = self.index if 'index' in config_dict else None
         self.output_set = config_dict.get('output_set', True)
-        self.dataset = config_dict.get('dataset', 'train')
+        self.dataset = config_dict.get('dataset', None)
+        if self.dataset is None:
+            raise Exception("Dataset must be defined in environment properties as either 'train' or 'test'.")
 
         if self.action_set == 'dims_only':
             if self.grid_shape is None:
@@ -282,7 +284,7 @@ class ARCDataProcessor:
 
 
 
-# %% ../nbs/15_arc.ipynb 7
+# %% ../nbs/15_arc.ipynb 6
 class ARCEnv(gym.Env):
     def __init__(self):
         super(ARCEnv, self).__init__()
