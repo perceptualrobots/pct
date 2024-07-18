@@ -34,8 +34,9 @@ class ARCDataProcessor:
         self.initial_index = self.index if 'index' in config_dict else None
         self.output_set = config_dict.get('output_set', True)
         self.dataset = config_dict.get('dataset', None)
+
         if self.dataset is None:
-            raise Exception("Dataset must be defined in environment properties as either 'train' or 'test'.")
+            raise ValueError("dataset must be provided in config_dict")
 
         if self.action_set == 'dims_only':
             if self.grid_shape is None:
@@ -76,11 +77,11 @@ class ARCDataProcessor:
         return np.array(self.arc_dict[key][index][sub_key])
 
     def next(self):
+        if self.index >= len(self.arc_dict[self.dataset]):
+            return False
         if self.initial_index is not None:
             return False
         self.index += 1
-        if self.index > len(self.arc_dict[self.dataset]):
-            return False
         self.create_env()
         return True
 
@@ -189,10 +190,7 @@ class ARCDataProcessor:
 
         return values, self.info
 
-    def fitness_function(self):
-        output_array = np.array(self.arc_dict[self.dataset][self.index]['output'])
-        env_array = self.env
-
+    def fitness_function_arrays(self, output_array, env_array):
         # First metric: square of the difference between the dimensions
         dim_metric = (env_array.shape[0] - output_array.shape[0]) ** 2 + (env_array.shape[1] - output_array.shape[1]) ** 2
 
@@ -214,6 +212,11 @@ class ARCDataProcessor:
             final_metric = dim_metric + element_metric
 
         return final_metric
+
+    def fitness_function(self):
+        output_array = np.array(self.arc_dict[self.dataset][self.index]['output'])
+        env_array = self.env
+        return self.fitness_function_arrays(output_array, env_array)
 
     def get_input(self, dataset):
         return np.array(self.arc_dict[dataset][self.index]['input'])
@@ -282,6 +285,9 @@ class ARCDataProcessor:
 
         return env_inputs_indexes
 
+    def get_env_array(self):
+        return self.env
+
 
 
 # %% ../nbs/15_arc.ipynb 6
@@ -336,8 +342,9 @@ class ARCEnv(gym.Env):
         """
         self.arc_data.apply_actions(actions)
 
-        self.fitness = self.arc_data.fitness_function()
-        
+        if self.dataset == 'train':
+            self.fitness = self.arc_data.fitness_function()
+
         self.state, self.info = self.arc_data.get_state()
         
         self.iteration += 1  # Increment iteration
@@ -348,7 +355,10 @@ class ARCEnv(gym.Env):
         Reset the environment to the initial state.
         """
         self.arc_data.reset()
-        self.fitness = self.arc_data.fitness_function()
+        if self.dataset == 'train':
+            self.fitness = self.arc_data.fitness_function()
+        else:
+            self.fitness = 10000  # or some default value
         self.done = False
         self.state, self.info = self.arc_data.get_state()
         self.iteration = 1  # Reset iteration
@@ -384,6 +394,18 @@ class ARCEnv(gym.Env):
         """
         self.dataset = dataset
         self.arc_data.set_dataset(dataset)
+
+    def call_fitness_function_arrays(self):
+        """
+        Call fitness_function_arrays on arc_data.
+        """
+        return self.arc_data.fitness_function_arrays()
+
+    def get_env_array(self):
+        """
+        Get the environment array from arc_data.
+        """
+        return self.arc_data.get_env_array()
 
     @property
     def fitness(self):

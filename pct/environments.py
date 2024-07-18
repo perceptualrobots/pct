@@ -1314,6 +1314,11 @@ class ARC(ControlEnvironment):
 
         return rtn
 
+
+    def get_env_array(self):
+        return self.env.get_env_array()
+
+
     def get_num_actions(self):
         return self.env.get_num_actions()
 
