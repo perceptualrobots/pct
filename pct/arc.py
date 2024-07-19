@@ -22,27 +22,23 @@ class ARCDataProcessor:
         if 'grid_shape' in config_dict:
             self.grid_shape = config_dict.get('grid_shape')
         
-        self.input_set = config_dict.get('input_set', None)
-        if self.input_set not in {'env_only', 'inputs_only', 'both', None}:
-            raise ValueError("input_set must be 'env_only', 'inputs_only', 'both', or None")
+        self.input_set = config_dict.get('input_set', [])
+        if not all(item in {'dims', 'cells'} for item in self.input_set):
+            raise ValueError("input_set must be a list containing 'dims' and/or 'cells'")
         
-        self.action_set = config_dict.get('action_set', None)
-        if self.action_set not in {'dims_only', None}:
-            raise ValueError("action_set must be 'dims_only' or None")
+        self.control_set = config_dict.get('control_set', [])
+        if not all(item in {'env', 'inputs', 'outputs'} for item in self.control_set):
+            raise ValueError("control_set must be a list containing 'env', 'inputs', and/or 'outputs'")
         
         self.index = config_dict.get('index', 0)
         self.initial_index = self.index if 'index' in config_dict else None
-        self.output_set = config_dict.get('output_set', True)
         self.dataset = config_dict.get('dataset', None)
 
         if self.dataset is None:
             raise ValueError("dataset must be provided in config_dict")
 
-        if self.action_set == 'dims_only':
-            if self.grid_shape is None:
-                raise ValueError("grid_shape cannot be None when action_set is 'dims_only'")
-            if self.input_set is not None:
-                raise ValueError("input_set must be None when action_set is 'dims_only'")
+        if 'dims' in self.control_set and self.grid_shape is None:
+            raise ValueError("grid_shape cannot be None when 'dims' is in control_set")
 
         self.create_env()
         self.info = self.create_info()
@@ -131,7 +127,7 @@ class ARCDataProcessor:
             self.process_dimensions(actions[:2])
             value_index = 2
         
-        if self.action_set != 'dims_only':
+        if 'cells' in self.control_set:
             self.process_remaining_values(actions[value_index:])
 
     def create_info(self):
@@ -147,48 +143,57 @@ class ARCDataProcessor:
             info['num_actions'] = 2
             info['dims'] = 6
 
-        if self.action_set != 'dims_only':
-            if self.input_set in {'env_only', 'both'}:
+        if 'cells' in self.control_set:
+            if 'env' in self.input_set:
                 flattened_env = self.env.flatten()
-                info['env'] = len(flattened_env)
+                info['env'] = self.get_env_dimensions()
                 info['num_actions'] += len(flattened_env)
             
-            if self.input_set in {'inputs_only', 'both'}:
+            if 'inputs' in self.input_set:
                 flattened_input = self.get_array(self.dataset, self.index, 'input').flatten()
-                info['inputs'] = len(flattened_input)
+                info['inputs'] = self.get_input_dimensions()
+                info['num_actions'] += len(flattened_input)
 
-            flattened_output = self.get_array(self.dataset, self.index, 'output').flatten()
-            info['outputs'] = len(flattened_output)
+            if 'outputs' in self.input_set:
+                flattened_output = self.get_array(self.dataset, self.index, 'output').flatten()
+                info['outputs'] = self.get_output_dimensions()
+                info['num_actions'] += len(flattened_output)
 
         return info
 
     def get_state(self):
-        values = {}
+        state = {}
         self.info['num_actions'] = 0
-        if self.grid_shape == 'equal':
-            self.info['num_actions'] = 1
-            values['env_dims'] = (self.get_env_dimensions()[1],)
-            values['input_dims'] = (self.get_input_dimensions()[1],)
-            values['output_dims'] = (self.get_output_dimensions()[1],)
-        elif self.grid_shape == 'unequal':
-            self.info['num_actions'] = 2
-            values['env_dims'] = self.get_env_dimensions()
-            values['input_dims'] = self.get_input_dimensions()
-            values['output_dims'] = self.get_output_dimensions()
 
-        if self.action_set != 'dims_only':
-            if self.input_set in {'env_only', 'both'}:
-                values['env'] = self.env
-                self.info['env'] = self.env.size
-                self.info['num_actions'] += self.env.size
-            
-            if self.input_set in {'inputs_only', 'both'}:
-                values['input'] = self.get_array(self.dataset, self.index, 'input')
-            
-            if self.output_set:
-                values['output'] = self.get_array(self.dataset, self.index, 'output')
+        def set_state_dimensions(state_key, dimensions):
+            if state_key in self.input_set:
+                state[state_key] = dimensions
+                # self.info['num_actions'] += 1
 
-        return values, self.info
+        if 'dims' in self.control_set:
+            if self.grid_shape == 'equal':
+                set_state_dimensions('env', (self.get_env_dimensions()[1],))
+                set_state_dimensions('inputs', (self.get_input_dimensions()[1],))
+                set_state_dimensions('outputs', (self.get_output_dimensions()[1],))
+            elif self.grid_shape == 'unequal':
+                self.info['num_actions'] = 2  # increment twice for unequal grid shape
+                set_state_dimensions('env', self.get_env_dimensions())
+                set_state_dimensions('inputs', self.get_input_dimensions())
+                set_state_dimensions('outputs', self.get_output_dimensions())
+
+        if 'cells' in self.control_set:
+            if 'env' in self.input_set:
+                state['env'] = self.env
+                self.info['env'] = self.get_env_dimensions()
+                self.info['num_actions'] += self.get_num_elements(self.dataset, 'env')
+
+            if 'inputs' in self.input_set:
+                state['inputs'] = self.get_array(self.dataset, self.index, 'input')
+
+            if 'outputs' in self.input_set:
+                state['outputs'] = self.get_array(self.dataset, self.index, 'output')
+
+        return state, self.info
 
     def fitness_function_arrays(self, output_array, env_array):
         # First metric: square of the difference between the dimensions
@@ -206,7 +211,7 @@ class ARCDataProcessor:
                     element_metric += (env_value - output_value) ** 2
 
         # Final metric
-        if self.action_set == 'dims_only':
+        if 'dims' in self.control_set and len(self.control_set) == 1:
             final_metric = dim_metric
         else:
             final_metric = dim_metric + element_metric
@@ -223,6 +228,9 @@ class ARCDataProcessor:
 
     def get_output(self, dataset):
         return np.array(self.arc_dict[dataset][self.index]['output'])
+
+    def get_num_elements(self, dataset, array_key):
+        return np.array(self.arc_dict[dataset][self.index][array_key]).size
 
     def get_info(self):
         return self.info
