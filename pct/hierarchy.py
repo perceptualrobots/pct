@@ -1256,7 +1256,11 @@ class PCTHierarchy():
             config = prp.db.pop('config')
             experiment.log_parameters(prp.db)
             prp.db['config'] = config
-          
+            if 'environment_properties' in prp.db:
+                if 'history' in  prp.db['environment_properties']:
+                    ep = eval(prp.db['environment_properties'])
+                    experiment.log_metric('history', ep['history'])
+
         error_collector_type = prp.db['error_collector_type'].strip()
         error_response_type = prp.db['error_response_type']
         error_limit = eval(prp.db['error_limit'])
