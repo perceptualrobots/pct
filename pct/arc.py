@@ -22,13 +22,16 @@ class ARCDataProcessor:
         if 'grid_shape' in config_dict:
             self.grid_shape = config_dict.get('grid_shape')
         
-        self.input_set = config_dict.get('input_set', [])
-        if not all(item in {'dims', 'cells'} for item in self.input_set):
-            raise ValueError("input_set must be a list containing 'dims' and/or 'cells'")
+        self.input_set = config_dict.get('input_set', ['default'])
+        if not all(item in {'env', 'inputs', 'outputs'} for item in self.input_set):
+            raise ValueError("input_set must be a list containing 'env', 'inputs', and/or 'outputs'")
         
-        self.control_set = config_dict.get('control_set', [])
-        if not all(item in {'env', 'inputs', 'outputs'} for item in self.control_set):
-            raise ValueError("control_set must be a list containing 'env', 'inputs', and/or 'outputs'")
+        if 'env' not in self.input_set:
+            raise ValueError("input_set must contain 'env' at least.")
+        
+        self.control_set = config_dict.get('control_set', ['default'])
+        if not all(item in {'dims', 'cells'} for item in self.control_set):
+            raise ValueError("control_set must be a list containing 'dims' and/or 'cells'")
         
         self.index = config_dict.get('index', 0)
         self.initial_index = self.index if 'index' in config_dict else None
@@ -64,10 +67,12 @@ class ARCDataProcessor:
         self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
 
     def process_remaining_values(self, values):
+        if len(values) != self.env.shape[0] * self.env.shape[1]:
+            raise Exception("Mismatch in number of elements in actions and env.")
         for i, value in enumerate(values):
             row, col = divmod(i, self.env.shape[1])
             if row < self.env.shape[0] and col < self.env.shape[1]:
-                self.env[row, col] = value
+                self.env[row, col] += value
 
     def get_array(self, key, index, sub_key):
         return np.array(self.arc_dict[key][index][sub_key])
@@ -119,79 +124,89 @@ class ARCDataProcessor:
         return self.env.shape
 
     def apply_actions(self, actions):
+        if len(actions) != self.info['num_actions']:
+            raise Exception(f'Number of actions from hierarchy {len(actions)} should equal expected actions {self.info["num_actions"]}.')
         value_index = 0
-        if self.grid_shape == 'equal':
-            self.process_dimensions(actions[:1])
-            value_index = 1
-        elif self.grid_shape == 'unequal':
-            self.process_dimensions(actions[:2])
-            value_index = 2
+        if 'dims' in self.control_set:
+            if self.grid_shape == 'equal':
+                self.process_dimensions(actions[:1])
+                value_index = 1
+            elif self.grid_shape == 'unequal':
+                self.process_dimensions(actions[:2])
+                value_index = 2
         
         if 'cells' in self.control_set:
             self.process_remaining_values(actions[value_index:])
 
     def create_info(self):
         info = {}
-        info['dims'] = 0
         info['num_actions'] = 0
-        info['grid_shape'] = self.grid_shape
 
-        if self.grid_shape == 'equal':
-            info['num_actions'] = 1
-            info['dims'] = 3
-        elif self.grid_shape == 'unequal':
-            info['num_actions'] = 2
-            info['dims'] = 6
+        if 'dims' in self.control_set:
+            info['grid_shape'] = self.grid_shape
+
+            if self.grid_shape == 'equal':
+                info['num_actions'] = 1
+                info['dims'] = len(self.input_set)
+            elif self.grid_shape == 'unequal':
+                info['num_actions'] = 2
+                info['dims'] = len(self.input_set)*2
 
         if 'cells' in self.control_set:
             if 'env' in self.input_set:
-                flattened_env = self.env.flatten()
-                info['env'] = self.get_env_dimensions()
-                info['num_actions'] += len(flattened_env)
+                edims = self.get_env_dimensions()
+                info['env'] = edims
+                info['num_actions'] += edims[0]*edims[1]
             
             if 'inputs' in self.input_set:
-                flattened_input = self.get_array(self.dataset, self.index, 'input').flatten()
-                info['inputs'] = self.get_input_dimensions()
-                info['num_actions'] += len(flattened_input)
+                idims = self.get_input_dimensions()
+                info['inputs'] = idims
+                # info['num_actions'] += idims[0]*idims[1]
 
             if 'outputs' in self.input_set:
-                flattened_output = self.get_array(self.dataset, self.index, 'output').flatten()
-                info['outputs'] = self.get_output_dimensions()
-                info['num_actions'] += len(flattened_output)
+                odims =  self.get_output_dimensions()
+                info['outputs'] = odims
+                # info['num_actions'] +=  odims[0]*odims[1]
 
         return info
 
     def get_state(self):
-        state = {}
+        state = {'inputs':{}}
         self.info['num_actions'] = 0
 
-        def set_state_dimensions(state_key, dimensions):
+        def set_state_dimensions(dic, state_key, dimensions):
             if state_key in self.input_set:
-                state[state_key] = dimensions
+                dic[state_key] = dimensions
                 # self.info['num_actions'] += 1
 
         if 'dims' in self.control_set:
+            dims = {}
             if self.grid_shape == 'equal':
-                set_state_dimensions('env', (self.get_env_dimensions()[1],))
-                set_state_dimensions('inputs', (self.get_input_dimensions()[1],))
-                set_state_dimensions('outputs', (self.get_output_dimensions()[1],))
+                self.info['num_actions'] = 1
+                set_state_dimensions(dims, 'env', (self.get_env_dimensions()[1],))
+                set_state_dimensions(dims, 'inputs', (self.get_input_dimensions()[1],))
+                set_state_dimensions(dims, 'outputs', (self.get_output_dimensions()[1],))
             elif self.grid_shape == 'unequal':
                 self.info['num_actions'] = 2  # increment twice for unequal grid shape
-                set_state_dimensions('env', self.get_env_dimensions())
-                set_state_dimensions('inputs', self.get_input_dimensions())
-                set_state_dimensions('outputs', self.get_output_dimensions())
+                set_state_dimensions(dims, 'env', self.get_env_dimensions())
+                set_state_dimensions(dims, 'inputs', self.get_input_dimensions())
+                set_state_dimensions(dims, 'outputs', self.get_output_dimensions())
+            state['inputs']['dims']=dims
 
         if 'cells' in self.control_set:
+            cells={}
             if 'env' in self.input_set:
-                state['env'] = self.env
-                self.info['env'] = self.get_env_dimensions()
-                self.info['num_actions'] += self.get_num_elements(self.dataset, 'env')
+                cells['env'] = self.env
+                dims = self.get_env_dimensions()
+                self.info['env'] = dims
+                self.info['num_actions'] += dims[0]*dims[1]
 
             if 'inputs' in self.input_set:
-                state['inputs'] = self.get_array(self.dataset, self.index, 'input')
+                cells['inputs'] = self.get_array(self.dataset, self.index, 'input')
 
             if 'outputs' in self.input_set:
-                state['outputs'] = self.get_array(self.dataset, self.index, 'output')
+                cells['outputs'] = self.get_array(self.dataset, self.index, 'output')
+            state['inputs']['cells']=cells
 
         return state, self.info
 
@@ -244,35 +259,43 @@ class ARCDataProcessor:
                 return None
             return 'equal'
         return 'unequal'
+    
 
     def get_env_inputs_names(self):
         input_names = []
-        if 'dims' in self.info:
-            if self.info['dims'] == 2:
-                input_names += ['IWE', 'IWO']
-            elif self.info['dims'] == 3:
-                input_names += ['IWE', 'IWI', 'IWO']
-            elif self.info['dims'] == 4:
-                input_names += ['IWE', 'IHE', 'IWO', 'IHO']
-            elif self.info['dims'] == 6:
-                input_names += ['IWE', 'IHE', 'IWI', 'IHI', 'IWO', 'IHO']
-            
+        dfactor = 1 if self.grid_shape == 'equal' else 2
+        if 'dims' in self.control_set:
+            if 'env' in self.input_set:
+                input_names.append('IWE')
+                if dfactor ==2 : input_names.append('IHE')
+            if 'inputs' in self.input_set:
+                input_names.append('IWI')
+                if dfactor ==2 : input_names.append('IHI')
+            if 'outputs' in self.input_set:
+                input_names.append('IW0')
+                if dfactor ==2 : input_names.append('IHO')
+
         if 'env' in self.info:
-            num = self.info['env']
+            dims = self.info['env']
+            num = dims[0]*dims[1]
             for i in range(num):
                 input_names.append(f'IE{i+1:03}')
             
         if 'inputs' in self.info:
-            num = self.info['inputs']
+            dims = self.info['inputs']
+            num = dims[0]*dims[1]
             for i in range(num):
                 input_names.append(f'II{i+1:03}')
 
         if 'outputs' in self.info:
-            num = self.info['outputs']
+            dims = self.info['outputs']
+            num = dims[0]*dims[1]
             for i in range(num):
                 input_names.append(f'IO{i+1:03}')
             
         return input_names
+
+
 
     def get_env_inputs_indexes(self):
         ninputs = 0
@@ -281,13 +304,13 @@ class ARCDataProcessor:
             ninputs += self.info['dims']
 
         if 'env' in self.info:
-            ninputs += self.info['env']
+            ninputs += self.info['env'][0]*self.info['env'][1]
 
         if 'inputs' in self.info:
-            ninputs += self.info['inputs']
+            ninputs += self.info['inputs'][0]*self.info['inputs'][1]
 
         if 'outputs' in self.info:
-            ninputs += self.info['outputs']
+            ninputs += self.info['outputs'][0]*self.info['outputs'][1]
 
         env_inputs_indexes = [i for i in range(ninputs)]
 
@@ -298,7 +321,7 @@ class ARCDataProcessor:
 
 
 
-# %% ../nbs/15_arc.ipynb 6
+# %% ../nbs/15_arc.ipynb 8
 class ARCEnv(gym.Env):
     def __init__(self):
         super(ARCEnv, self).__init__()

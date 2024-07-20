@@ -1358,23 +1358,37 @@ class ARC(ControlEnvironment):
 
     def process_values(self):
         self.value=[]
-        for dim in self.obs[0]['env_dims']:
-            self.value.append(dim)
 
-        for dim in self.obs[0]['input_dims']:
-            self.value.append(dim)
+        if 'dims' in self.obs[0]['inputs']:
+            for dim in self.obs[0]['inputs']['dims']['env']:
+                self.value.append(dim)
 
-        for dim in self.obs[0]['output_dims']:
-            self.value.append(dim)
+            if 'inputs' in self.obs[0]['inputs']['dims']:
+                for dim in self.obs[0]['inputs']['dims']['inputs']:
+                    self.value.append(dim)
 
+            if 'outputs' in self.obs[0]['inputs']['dims']:
+                for dim in self.obs[0]['inputs']['dims']['outputs']:
+                    self.value.append(dim)
 
+        if 'cells' in self.obs[0]['inputs']:
+            if 'env' in self.obs[0]['inputs']['cells']:
+                arr = self.obs[0]['inputs']['cells']['env']
+                self.value += np.array(arr).flatten()
+
+            if 'inputs' in self.obs[0]['inputs']['cells']:
+                arr = self.obs[0]['inputs']['cells']['inputs']
+                self.value += np.array(arr).flatten()
+
+            if 'outputs' in self.obs[0]['inputs']['cells']:
+                arr = self.obs[0]['inputs']['cells']['outputs']
+                self.value += np.array(arr).flatten()
 
     def add_to_fitness_history(self, fitness):
 
         self.boxcar.append(fitness)
         self.boxcar.pop(0)
         self.done = ListChecker.check_list_unchanged(self.boxcar)
-        pass
 
 
 
