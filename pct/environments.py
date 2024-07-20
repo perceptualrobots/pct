@@ -1369,6 +1369,7 @@ class ARC(ControlEnvironment):
         self.boxcar.append(fitness)
         self.boxcar.pop(0)
         self.done = ListChecker.check_list_unchanged(self.boxcar)
+        pass
 
 
 
