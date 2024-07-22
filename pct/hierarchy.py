@@ -310,6 +310,11 @@ class PCTHierarchy():
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
         return pos
  
+    def get_level(self, level):
+
+        return [ self.hierarchy[level] ]
+
+    
     def get_top_level(self):
         levels = self.get_levels()
 
@@ -1128,59 +1133,132 @@ class PCTHierarchy():
             
         return ''.join(str_list)
 
+
     def get_plots_config(self, plots):
         if isinstance(plots, list):
             return plots
+
+        def create_plot_item(func1, func2=None, ptitle=None):
+            plot_item = {}
+            signals = {}
+            if func2:
+                signals[func1.get_name()] = func1.get_name()
+                signals[func2.get_name()] = func2.get_name()
+            else:
+                signals[func1.get_name()] = func1.get_name()
+            plot_item['plot_items'] = signals
+            title = ptitle if ptitle else func1.get_name()
+            plot_item['title'] =  title
+            return plot_item
+
+        plots_list = []
+
+        plot_items = plots.split(',')
+        for plot_item in plot_items:
+            if plot_item == 'scEdges':
+                for func in self.get_preprocessor()[1:]:
+                    plots_list.append(create_plot_item(func))
+
+                for func in self.get_postprocessor():
+                    plots_list.append(create_plot_item(func))
+
+                for level in self.get_top_level():
+                    if isinstance(level, list):
+                        for node in level:
+                            plots_list.append(create_plot_item(node.get_reference_function(), node.get_perception_function(), node.get_name()))
+                    else:
+                        plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
+
+            if plot_item == 'scZero':
+                for level in self.get_level(0):
+                    if isinstance(level, list):
+                        for node in level:
+                            if node.has_reference_function():
+                                plots_list.append(create_plot_item(node.get_reference_function(), node.get_perception_function(), node.get_name()))
+                    else:
+                        if level.has_reference_function():
+                            plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
+
+        return plots_list
+
+
+
+    # def get_plots_config(self, plots):
+    #     if isinstance(plots, list):
+    #         return plots
         
-        if plots == 'scEdges':
-            plots = []
-            ctr = 1
-            for func in self.get_preprocessor():
-                if ctr == 1:
-                    ctr = ctr + 1
-                    continue
-                plot_item = {}
-                signals = {}
-                name = func.get_name()
-                signals[name] = name
-                plot_item['plot_items'] = signals
-                plot_item['title'] = name
-                plots.append(plot_item)
+    #     plots_list = []
+    #     if plots == 'scEdges':
+    #         ctr = 1
+    #         for func in self.get_preprocessor():
+    #             if ctr == 1:
+    #                 ctr = ctr + 1
+    #                 continue
+    #             plot_item = {}
+    #             signals = {}
+    #             name = func.get_name()
+    #             signals[name] = name
+    #             plot_item['plot_items'] = signals
+    #             plot_item['title'] = name
+    #             plots_list.append(plot_item)
 
-            for func in self.get_postprocessor():
-                plot_item = {}
-                signals = {}
-                name = func.get_name()
-                signals[name] = name
-                plot_item['plot_items'] = signals
-                plot_item['title'] = name
-                plots.append(plot_item)
+    #         for func in self.get_postprocessor():
+    #             plot_item = {}
+    #             signals = {}
+    #             name = func.get_name()
+    #             signals[name] = name
+    #             plot_item['plot_items'] = signals
+    #             plot_item['title'] = name
+    #             plots_list.append(plot_item)
             
-            for level in self.get_top_level():
-                if isinstance(level, list):
-                    for node in level:
-                        rfunc = node.get_reference_function()
-                        pfunc = node.get_perception_function()
-                        plot_item = {}
-                        signals = {}
-                        signals[rfunc.get_name()] = rfunc.get_name()
-                        signals[pfunc.get_name()] = pfunc.get_name()
-                        plot_item['plot_items'] = signals
-                        plot_item['title'] = node.get_name()
-                        plots.append(plot_item)
-                else:
-                    rfunc = level.get_reference_function()
-                    pfunc = level.get_perception_function()
-                    plot_item = {}
-                    signals = {}
-                    signals[rfunc.get_name()] = rfunc.get_name()
-                    signals[pfunc.get_name()] = pfunc.get_name()
-                    plot_item['plot_items'] = signals
-                    plot_item['title'] = node.get_name()
-                    plots.append(plot_item)
+    #         for level in self.get_top_level():
+    #             if isinstance(level, list):
+    #                 for node in level:
+    #                     rfunc = node.get_reference_function()
+    #                     pfunc = node.get_perception_function()
+    #                     plot_item = {}
+    #                     signals = {}
+    #                     signals[rfunc.get_name()] = rfunc.get_name()
+    #                     signals[pfunc.get_name()] = pfunc.get_name()
+    #                     plot_item['plot_items'] = signals
+    #                     plot_item['title'] = node.get_name()
+    #                     plots_list.append(plot_item)
+    #             else:
+    #                 rfunc = level.get_reference_function()
+    #                 pfunc = level.get_perception_function()
+    #                 plot_item = {}
+    #                 signals = {}
+    #                 signals[rfunc.get_name()] = rfunc.get_name()
+    #                 signals[pfunc.get_name()] = pfunc.get_name()
+    #                 plot_item['plot_items'] = signals
+    #                 plot_item['title'] = node.get_name()
+    #                 plots_list.append(plot_item)
 
+    #     if plots_list == 'scZero':
+    #         for level in self.get_level(0):
+    #             if isinstance(level, list):
+    #                 for node in level:
+    #                     rfunc = node.get_reference_function()
+    #                     pfunc = node.get_perception_function()
+    #                     plot_item = {}
+    #                     signals = {}
+    #                     signals[rfunc.get_name()] = rfunc.get_name()
+    #                     signals[pfunc.get_name()] = pfunc.get_name()
+    #                     plot_item['plot_items'] = signals
+    #                     plot_item['title'] = node.get_name()
+    #                     plots_list.append(plot_item)
+    #             else:
+    #                 rfunc = level.get_reference_function()
+    #                 pfunc = level.get_perception_function()
+    #                 plot_item = {}
+    #                 signals = {}
+    #                 signals[rfunc.get_name()] = rfunc.get_name()
+    #                 signals[pfunc.get_name()] = pfunc.get_name()
+    #                 plot_item['plot_items'] = signals
+    #                 plot_item['title'] = node.get_name()
+    #                 plots_list.append(plot_item)
 
-        return plots    
+    #     return plots_list    
     
     @classmethod
     def run_from_config(cls, config, min=None, render=False,  error_collector_type=None, error_response_type=None, 

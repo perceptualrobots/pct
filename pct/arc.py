@@ -14,6 +14,9 @@ from matplotlib import colors
 # import copy
 
 # %% ../nbs/15_arc.ipynb 4
+from .putils import limit_large_float
+
+# %% ../nbs/15_arc.ipynb 5
 class ARCDataProcessor:
     def __init__(self, config_dict, arc_dict):
         self.arc_dict = arc_dict
@@ -103,6 +106,9 @@ class ARCDataProcessor:
             num_rows = num_cols = actions[0]
         else:
             raise ValueError("Actions must have one or two values")
+
+        num_rows = limit_large_float(num_rows, 10000)
+        num_cols = limit_large_float(num_cols, 10000)
 
         if num_rows > 0:
             self.add_rows(num_rows)
@@ -214,16 +220,18 @@ class ARCDataProcessor:
         # First metric: square of the difference between the dimensions
         dim_metric = (env_array.shape[0] - output_array.shape[0]) ** 2 + (env_array.shape[1] - output_array.shape[1]) ** 2
 
-        # Second metric: square of the difference between each element in the arrays
-        element_metric = 0
-        for i in range(max(env_array.shape[0], output_array.shape[0])):
-            for j in range(max(env_array.shape[1], output_array.shape[1])):
-                env_value = env_array[i, j] if i < env_array.shape[0] and j < env_array.shape[1] else None
-                output_value = output_array[i, j] if i < output_array.shape[0] and j < output_array.shape[1] else None
-                if env_value is None or output_value is None:
-                    element_metric += 25
-                else:
-                    element_metric += (env_value - output_value) ** 2
+
+        if 'cells' in self.control_set :
+            # Second metric: square of the difference between each element in the arrays
+            element_metric = 0
+            for i in range(max(env_array.shape[0], output_array.shape[0])):
+                for j in range(max(env_array.shape[1], output_array.shape[1])):
+                    env_value = env_array[i, j] if i < env_array.shape[0] and j < env_array.shape[1] else None
+                    output_value = output_array[i, j] if i < output_array.shape[0] and j < output_array.shape[1] else None
+                    if env_value is None or output_value is None:
+                        element_metric += 25
+                    else:
+                        element_metric += (env_value - output_value) ** 2
 
         # Final metric
         if 'dims' in self.control_set and len(self.control_set) == 1:
@@ -321,7 +329,7 @@ class ARCDataProcessor:
 
 
 
-# %% ../nbs/15_arc.ipynb 8
+# %% ../nbs/15_arc.ipynb 9
 class ARCEnv(gym.Env):
     def __init__(self):
         super(ARCEnv, self).__init__()

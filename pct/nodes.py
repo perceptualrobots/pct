@@ -321,6 +321,11 @@ class PCTNode():
     def get_output_function(self):
         return self.outputCollection[-1]
 
+    def has_reference_function(self):
+        if self.referenceCollection is None:
+            return False
+        return True
+
     def get_reference_function(self):
         return self.referenceCollection[-1]
 
