@@ -95,7 +95,7 @@ class PCTRunProperties():
         return error_properties
 
 
-# %% ../nbs/04_hierarchy.ipynb 8
+# %% ../nbs/04_hierarchy.ipynb 9
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
     def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", 
@@ -322,8 +322,11 @@ class PCTHierarchy():
             
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
              color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
-             node_size=500, arrowsize=25, align='horizontal', file=False, figsize=(8,8), move={}, 
+             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, draw_fig=True,
              node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None):
+        
+        if not draw_fig :
+            return None
         import networkx as nx
         import matplotlib.pyplot as plt
         import plotly.tools as tls
@@ -339,8 +342,7 @@ class PCTHierarchy():
             pos[key][0]+=move[key][0]
             pos[key][1]+=move[key][1]
         
-        if experiment or file:
-            fig = plt.figure(figsize=figsize) 
+        fig = plt.figure(figsize=figsize) 
 
         if with_edge_labels:
             edge_labels = self.get_edge_labels_wrapper(funcdata)
@@ -350,9 +352,8 @@ class PCTHierarchy():
         nx.draw(self.graphv, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight, 
                 font_color=font_color, node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
          
-        if experiment or file:
-            plt.title(self.name)
-            plt.tight_layout()
+        plt.title(self.name)
+        plt.tight_layout()
 
         if file:
             plt.savefig(file)
@@ -364,7 +365,7 @@ class PCTHierarchy():
                 # plotly_fig.write_html(file)
                 # experiment.log_html(open(file,encoding='utf-8').read()) # added ,encoding='utf-8'
 
-
+        return fig
 
 
     def get_colors(self, graph, color_mapping):
@@ -1015,10 +1016,9 @@ class PCTHierarchy():
         for key in plot_items.keys():    
             ax1.plot(x, history[key], label=plot_items[key])
 
-
-        if experiment or file:
-            plt.title(title)
-            plt.legend()
+        # if experiment or file:
+        plt.title(title)
+        plt.legend()
 
         if file != None:
             plt.savefig(file)
@@ -1152,10 +1152,11 @@ class PCTHierarchy():
             return plot_item
 
         plots_list = []
-
+        top_done=False
         plot_items = plots.split(',')
         for plot_item in plot_items:
             if plot_item == 'scEdges':
+                top_done=True
                 for func in self.get_preprocessor()[1:]:
                     plots_list.append(create_plot_item(func))
 
@@ -1170,14 +1171,15 @@ class PCTHierarchy():
                         plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
 
             if plot_item == 'scZero':
-                for level in self.get_level(0):
-                    if isinstance(level, list):
-                        for node in level:
-                            if node.has_reference_function():
-                                plots_list.append(create_plot_item(node.get_reference_function(), node.get_perception_function(), node.get_name()))
-                    else:
-                        if level.has_reference_function():
-                            plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
+                if self.get_levels() == 1 and not top_done:
+                    for level in self.get_level(0):
+                        if isinstance(level, list):
+                            for node in level:
+                                if node.has_reference_function():
+                                    plots_list.append(create_plot_item(node.get_reference_function(), node.get_perception_function(), node.get_name()))
+                        else:
+                            if level.has_reference_function():
+                                plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
 
         return plots_list
 
@@ -1298,6 +1300,7 @@ class PCTHierarchy():
         if history:
             if plots:
                 plots = hierarchy.get_plots_config(plots)
+                
                 for plot in plots:
                     plotfile=None
                     if plots_dir:
@@ -1323,7 +1326,7 @@ class PCTHierarchy():
     #     d = db.copy()
     #     del d['raw']
                       
-
+    ## run_from_file
     @classmethod
     def run_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, 
                       runs=None, plots_dir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False, suffixes=False):
@@ -1365,3 +1368,99 @@ class PCTHierarchy():
         return hierarchy, score 
 
 
+    @classmethod
+    def load_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, runs=None, early_termination = False, experiment=None,  hpct_verbose= False, history=False):
+        
+        prp = PCTRunProperties()
+        prp.load_db(filename)
+        if experiment:
+            config = prp.db.pop('config')
+            experiment.log_parameters(prp.db)
+            prp.db['config'] = config
+            if 'environment_properties' in prp.db:
+                if 'history' in  prp.db['environment_properties']:
+                    ep = eval(prp.db['environment_properties'])
+                    experiment.log_metric('history', ep['history'])
+
+        error_collector_type = prp.db['error_collector_type'].strip()
+        error_response_type = prp.db['error_response_type']
+        error_limit = eval(prp.db['error_limit'])
+        if env_props is None:
+            environment_properties = eval(prp.db['environment_properties'])
+        else:
+            environment_properties = env_props    
+        error_properties = prp.get_error_properties()
+   
+        if runs==None:
+            runs = eval(prp.db['runs'])
+        config = eval(prp.db['config'])
+        if seed is None:
+            seed = eval(prp.db['seed'])
+        # print(f'Seed={seed}')
+        if early_termination is None:
+            early_termination = eval(prp.db['early_termination'])
+
+        hierarchy = cls.load_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+                                                error_properties=error_properties, error_limit=error_limit, hpct_verbose=hpct_verbose,  history=history,
+                                                environment_properties=environment_properties, seed=seed, early_termination=early_termination)
+        
+        return hierarchy 
+
+
+    @classmethod
+    def load_from_config(cls, config, min=None, render=False,  error_collector_type=None, error_response_type=None, 
+        error_properties=None, error_limit=100, hpct_verbose=False, early_termination=None, 
+        seed=None, history=False, suffixes=False, flip_error_response=False, environment_properties=None):
+        "Load an individual from a provided configuration."
+
+        if callable(min):
+            raise Exception("min must not be a function")
+
+        hierarchy = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes, environment_properties=environment_properties)
+        env = hierarchy.get_preprocessor()[0]
+        env.set_render(render)
+        env.early_termination = early_termination
+        env.reset(full=False, seed=seed)
+        if error_collector_type is not None:
+            error_collector = BaseErrorCollector.collector(error_response_type, error_collector_type, error_limit, min, properties=error_properties, flip_error_response=flip_error_response)
+            hierarchy.set_error_collector(error_collector)
+        if hpct_verbose:
+            hierarchy.summary()
+            print(hierarchy.formatted_config())
+        
+        return hierarchy, env    
+
+
+    @classmethod
+    def run_and_draw_hierarchy(cls, hierarchy, env, steps=500, hpct_verbose=False, draw_file=False, draw_filename=None, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
+        history=False, plots_figsize=(15,4), plots_dir=None, experiment=None, log_experiment_figure=False, funcdata=True, draw_figsize=(8,8)):
+
+        hierarchy.run(steps, hpct_verbose)
+        env.close()
+        
+        # draw network file
+        move = {} if move == None else move
+        dfig = None
+        if experiment or draw_file:
+            if log_experiment_figure:
+                dfig = hierarchy.draw(file=draw_filename, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size, experiment=experiment, funcdata=funcdata, figsize=draw_figsize)
+            else:
+                dfig = hierarchy.draw(file=draw_filename, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size, funcdata=funcdata, figsize=draw_figsize)
+            if draw_filename:
+                print(draw_filename)
+        
+        pfigs=None
+        if history:
+            if plots:
+                plots = hierarchy.get_plots_config(plots)
+                pfigs = []
+                for plot in plots:
+                    plotfile=None
+                    if plots_dir:
+                        plotfile = plots_dir+ sep +plot['title']+'.png'
+                    pfig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, experiment=experiment)
+                    pfigs.append(pfig)
+
+        score=hierarchy.get_error_collector().error()
+
+        return score, dfig, pfigs
