@@ -15,6 +15,7 @@ from matplotlib import colors
 
 # %% ../nbs/15_arc.ipynb 4
 from .putils import limit_large_float
+from .helpers import ChallengesDataManager
 
 # %% ../nbs/15_arc.ipynb 5
 class ARCDataProcessor:
@@ -47,6 +48,8 @@ class ARCDataProcessor:
             raise ValueError("grid_shape cannot be None when 'dims' is in control_set")
 
         self.test_output_array = None
+        if self.dataset == 'test':
+            self.test_output_array = np.array( config_dict['test_output_array'])
         self.create_env()
         self.info = self.create_info()
 
@@ -125,6 +128,11 @@ class ARCDataProcessor:
         return np.array(self.arc_dict[self.dataset][self.index]['input']).shape
 
     def get_output_dimensions(self):
+        if self.dataset == 'test':
+            if self.test_output_array is None:
+                raise ValueError("test_output_array is not defined")
+            return self.test_output_array.shape
+
         return np.array(self.arc_dict[self.dataset][self.index]['output']).shape
 
     def get_env_dimensions(self):

@@ -20,7 +20,7 @@ from .webots import WebotsHelper
 from .yaw_module import YawEnv
 from .microgrid import MicroGridEnv0Plus
 from .arc import ARCEnv
-from .helpers import ListChecker
+from .helpers import ListChecker, ChallengesDataManager
 
 # %% ../nbs/05_environments.ipynb 6
 class EnvironmentFactory:
@@ -1290,10 +1290,8 @@ class ARC(ControlEnvironment):
         return self.value
 
     def set_properties(self, props: dict) -> None:
-        file_name = os.path.join(props['dir'], props['code'])
 
-        with open(file_name, 'r') as f:
-            data = json.load(f)
+        data = props['data']
 
         # props['data']=data
         self.env.initialise(props, data)
