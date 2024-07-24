@@ -25,17 +25,17 @@ class ARCDataProcessor:
         if 'grid_shape' in config_dict:
             self.grid_shape = config_dict.get('grid_shape')
         
-        self.input_set = config_dict.get('input_set', ['default'])
+        self.input_set = config_dict.get('input_set', ['env'])
         if not all(item in {'env', 'inputs', 'outputs'} for item in self.input_set):
             raise ValueError("input_set must be a list containing 'env', 'inputs', and/or 'outputs'")
-        
-        if 'env' not in self.input_set:
-            raise ValueError("input_set must contain 'env' at least.")
         
         self.control_set = config_dict.get('control_set', ['default'])
         if not all(item in {'dims', 'cells'} for item in self.control_set):
             raise ValueError("control_set must be a list containing 'dims' and/or 'cells'")
         
+        if 'env' not in self.input_set:
+            self.input_set.append('env')
+
         self.index = config_dict.get('index', 0)
         self.initial_index = self.index if 'index' in config_dict else None
         self.dataset = config_dict.get('dataset', None)
@@ -46,6 +46,7 @@ class ARCDataProcessor:
         if 'dims' in self.control_set and self.grid_shape is None:
             raise ValueError("grid_shape cannot be None when 'dims' is in control_set")
 
+        self.test_output_array = None
         self.create_env()
         self.info = self.create_info()
 
@@ -70,8 +71,8 @@ class ARCDataProcessor:
         self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
 
     def process_remaining_values(self, values):
-        if len(values) != self.env.shape[0] * self.env.shape[1]:
-            raise Exception("Mismatch in number of elements in actions and env.")
+        if len(values) != self.env.size:
+            raise ValueError(f"The number of elements in values ({len(values)}) must equal the number of elements in self.env ({self.env.size})")
         for i, value in enumerate(values):
             row, col = divmod(i, self.env.shape[1])
             if row < self.env.shape[0] and col < self.env.shape[1]:
@@ -106,7 +107,7 @@ class ARCDataProcessor:
             num_rows = num_cols = actions[0]
         else:
             raise ValueError("Actions must have one or two values")
-
+        
         num_rows = limit_large_float(num_rows, 10000)
         num_cols = limit_large_float(num_cols, 10000)
 
@@ -156,28 +157,145 @@ class ARCDataProcessor:
                 info['dims'] = len(self.input_set)
             elif self.grid_shape == 'unequal':
                 info['num_actions'] = 2
-                info['dims'] = len(self.input_set)*2
+                info['dims'] = len(self.input_set) * 2
 
         if 'cells' in self.control_set:
             if 'env' in self.input_set:
                 edims = self.get_env_dimensions()
                 info['env'] = edims
-                info['num_actions'] += edims[0]*edims[1]
+                info['num_actions'] += edims[0] * edims[1]
             
             if 'inputs' in self.input_set:
                 idims = self.get_input_dimensions()
                 info['inputs'] = idims
-                # info['num_actions'] += idims[0]*idims[1]
+                # info['num_actions'] += idims[0] * idims[1]
 
             if 'outputs' in self.input_set:
-                odims =  self.get_output_dimensions()
+                odims = self.get_output_dimensions()
                 info['outputs'] = odims
-                # info['num_actions'] +=  odims[0]*odims[1]
+                # info['num_actions'] += odims[0] * odims[1]
 
         return info
 
+    def set_test_output_array(self, array):
+        self.test_output_array = array
+
+    def get_output(self, dataset):
+        if dataset == 'test':
+            if self.test_output_array is None:
+                raise ValueError("test_output_array is not defined")
+            return self.test_output_array
+        return np.array(self.arc_dict[dataset][self.index]['output'])
+
+    def fitness_function_arrays(self, output_array, env_array):
+        # First metric: square of the difference between the dimensions
+        dim_metric = (env_array.shape[0] - output_array.shape[0]) ** 2 + (env_array.shape[1] - output_array.shape[1]) ** 2
+
+        # Second metric: square of the difference between each element in the arrays
+        element_metric = 0
+        if 'cells' in self.control_set:
+            for i in range(max(env_array.shape[0], output_array.shape[0])):
+                for j in range(max(env_array.shape[1], output_array.shape[1])):
+                    env_value = env_array[i, j] if i < env_array.shape[0] and j < env_array.shape[1] else None
+                    output_value = output_array[i, j] if i < output_array.shape[0] and j < output_array.shape[1] else None
+                    if env_value is None or output_value is None:
+                        element_metric += 25
+                    else:
+                        element_metric += (env_value - output_value) ** 2
+
+        # Final metric
+        if 'dims' in self.control_set and len(self.control_set) == 1:
+            final_metric = dim_metric
+        else:
+            final_metric = dim_metric + element_metric
+
+        return final_metric
+
+    def fitness_function(self):
+        output_array = self.get_output(self.dataset)
+        env_array = self.env
+        return self.fitness_function_arrays(output_array, env_array)
+
+    def get_input(self, dataset):
+        return np.array(self.arc_dict[dataset][self.index]['input'])
+
+    def get_num_elements(self, dataset, array_key):
+        return np.array(self.arc_dict[dataset][self.index][array_key]).size
+
+    def get_info(self):
+        return self.info
+
+    def determine_grid_shape(self):
+        output_dims = [np.array(task['output']).shape for task in self.arc_dict['train']]
+        input_dims = [np.array(task['input']).shape for task in self.arc_dict['train']]
+
+        if len(set(output_dims)) == 1:
+            if len(set(input_dims)) == 1 and output_dims[0] == input_dims[0]:
+                return None
+            return 'equal'
+        return 'unequal'
+
+    def get_env_inputs_names(self):
+        input_names = []
+        if 'dims' in self.control_set:
+            dfactor = 2 if self.grid_shape == 'unequal' else 1
+            if 'env' in self.input_set:
+                input_names.append('IWE')
+                if dfactor == 2:
+                    input_names.append('IHE')
+            if 'inputs' in self.input_set:
+                input_names.append('IWI')
+                if dfactor == 2:
+                    input_names.append('IHI')
+            if 'outputs' in self.input_set:
+                input_names.append('IW0')
+                if dfactor == 2:
+                    input_names.append('IHO')
+            
+        if 'env' in self.info:
+            dims = self.info['env']
+            num = dims[0] * dims[1]
+            for i in range(num):
+                input_names.append(f'IE{i+1:03}')
+            
+        if 'inputs' in self.info:
+            dims = self.info['inputs']
+            num = dims[0] * dims[1]
+            for i in range(num):
+                input_names.append(f'II{i+1:03}')
+
+        if 'outputs' in self.info:
+            dims = self.info['outputs']
+            num = dims[0] * dims[1]
+            for i in range(num):
+                input_names.append(f'IO{i+1:03}')
+            
+        return input_names
+
+    def get_env_inputs_indexes(self):
+        ninputs = 0
+
+        if 'dims' in self.info:
+            ninputs += self.info['dims']
+
+        if 'env' in self.info:
+            ninputs += self.info['env'][0] * self.info['env'][1]
+
+        if 'inputs' in self.info:
+            ninputs += self.info['inputs'][0] * self.info['inputs'][1]
+
+        if 'outputs' in self.info:
+            ninputs += self.info['outputs'][0] * self.info['outputs'][1]
+
+        env_inputs_indexes = [i for i in range(ninputs)]
+
+        return env_inputs_indexes
+
+    def get_env_array(self):
+        return self.env
+
     def get_state(self):
-        state = {'inputs':{}}
+        state = {'inputs': {}}
         self.info['num_actions'] = 0
 
         def set_state_dimensions(dic, state_key, dimensions):
@@ -197,135 +315,25 @@ class ARCDataProcessor:
                 set_state_dimensions(dims, 'env', self.get_env_dimensions())
                 set_state_dimensions(dims, 'inputs', self.get_input_dimensions())
                 set_state_dimensions(dims, 'outputs', self.get_output_dimensions())
-            state['inputs']['dims']=dims
+            state['inputs']['dims'] = dims
 
         if 'cells' in self.control_set:
-            cells={}
+            cells = {}
             if 'env' in self.input_set:
                 cells['env'] = self.env
                 dims = self.get_env_dimensions()
                 self.info['env'] = dims
-                self.info['num_actions'] += dims[0]*dims[1]
+                self.info['num_actions'] += dims[0] * dims[1]
 
             if 'inputs' in self.input_set:
                 cells['inputs'] = self.get_array(self.dataset, self.index, 'input')
 
             if 'outputs' in self.input_set:
                 cells['outputs'] = self.get_array(self.dataset, self.index, 'output')
-            state['inputs']['cells']=cells
+            state['inputs']['cells'] = cells
 
         return state, self.info
 
-    def fitness_function_arrays(self, output_array, env_array):
-        # First metric: square of the difference between the dimensions
-        dim_metric = (env_array.shape[0] - output_array.shape[0]) ** 2 + (env_array.shape[1] - output_array.shape[1]) ** 2
-
-
-        if 'cells' in self.control_set :
-            # Second metric: square of the difference between each element in the arrays
-            element_metric = 0
-            for i in range(max(env_array.shape[0], output_array.shape[0])):
-                for j in range(max(env_array.shape[1], output_array.shape[1])):
-                    env_value = env_array[i, j] if i < env_array.shape[0] and j < env_array.shape[1] else None
-                    output_value = output_array[i, j] if i < output_array.shape[0] and j < output_array.shape[1] else None
-                    if env_value is None or output_value is None:
-                        element_metric += 25
-                    else:
-                        element_metric += (env_value - output_value) ** 2
-
-        # Final metric
-        if 'dims' in self.control_set and len(self.control_set) == 1:
-            final_metric = dim_metric
-        else:
-            final_metric = dim_metric + element_metric
-
-        return final_metric
-
-    def fitness_function(self):
-        output_array = np.array(self.arc_dict[self.dataset][self.index]['output'])
-        env_array = self.env
-        return self.fitness_function_arrays(output_array, env_array)
-
-    def get_input(self, dataset):
-        return np.array(self.arc_dict[dataset][self.index]['input'])
-
-    def get_output(self, dataset):
-        return np.array(self.arc_dict[dataset][self.index]['output'])
-
-    def get_num_elements(self, dataset, array_key):
-        return np.array(self.arc_dict[dataset][self.index][array_key]).size
-
-    def get_info(self):
-        return self.info
-
-    def determine_grid_shape(self):
-        output_dims = [np.array(task['output']).shape for task in self.arc_dict['train']]
-        input_dims = [np.array(task['input']).shape for task in self.arc_dict['train']]
-
-        if len(set(output_dims)) == 1:
-            if len(set(input_dims)) == 1 and output_dims[0] == input_dims[0]:
-                return None
-            return 'equal'
-        return 'unequal'
-    
-
-    def get_env_inputs_names(self):
-        input_names = []
-        dfactor = 1 if self.grid_shape == 'equal' else 2
-        if 'dims' in self.control_set:
-            if 'env' in self.input_set:
-                input_names.append('IWE')
-                if dfactor ==2 : input_names.append('IHE')
-            if 'inputs' in self.input_set:
-                input_names.append('IWI')
-                if dfactor ==2 : input_names.append('IHI')
-            if 'outputs' in self.input_set:
-                input_names.append('IW0')
-                if dfactor ==2 : input_names.append('IHO')
-
-        if 'env' in self.info:
-            dims = self.info['env']
-            num = dims[0]*dims[1]
-            for i in range(num):
-                input_names.append(f'IE{i+1:03}')
-            
-        if 'inputs' in self.info:
-            dims = self.info['inputs']
-            num = dims[0]*dims[1]
-            for i in range(num):
-                input_names.append(f'II{i+1:03}')
-
-        if 'outputs' in self.info:
-            dims = self.info['outputs']
-            num = dims[0]*dims[1]
-            for i in range(num):
-                input_names.append(f'IO{i+1:03}')
-            
-        return input_names
-
-
-
-    def get_env_inputs_indexes(self):
-        ninputs = 0
-
-        if 'dims' in self.info:
-            ninputs += self.info['dims']
-
-        if 'env' in self.info:
-            ninputs += self.info['env'][0]*self.info['env'][1]
-
-        if 'inputs' in self.info:
-            ninputs += self.info['inputs'][0]*self.info['inputs'][1]
-
-        if 'outputs' in self.info:
-            ninputs += self.info['outputs'][0]*self.info['outputs'][1]
-
-        env_inputs_indexes = [i for i in range(ninputs)]
-
-        return env_inputs_indexes
-
-    def get_env_array(self):
-        return self.env
 
 
 
