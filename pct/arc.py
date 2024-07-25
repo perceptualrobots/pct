@@ -397,8 +397,8 @@ class ARCEnv(gym.Env):
         """
         self.arc_data.apply_actions(actions)
 
-        if self.dataset == 'train':
-            self.fitness = self.arc_data.fitness_function()
+        # if self.dataset == 'train':
+        self.fitness = self.arc_data.fitness_function()
 
         self.state, self.info = self.arc_data.get_state()
         
@@ -410,10 +410,10 @@ class ARCEnv(gym.Env):
         Reset the environment to the initial state.
         """
         self.arc_data.reset()
-        if self.dataset == 'train':
-            self.fitness = self.arc_data.fitness_function()
-        else:
-            self.fitness = 10000  # or some default value
+        # if self.dataset == 'train':
+        self.fitness = self.arc_data.fitness_function()
+        # else:
+        #     self.fitness = 10000  # or some default value
         self.done = False
         self.state, self.info = self.arc_data.get_state()
         self.iteration = 1  # Reset iteration

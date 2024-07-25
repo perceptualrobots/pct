@@ -12,7 +12,7 @@ from collections import Counter
 from typing import Any, Dict, List, Tuple
 
 
-# %% ../nbs/14_helpers.ipynb 4
+# %% ../nbs/14_helpers.ipynb 5
 class ListChecker:
     @staticmethod
     def check_list_unchanged(float_list, rel_tol=1e-6, abs_tol=0.0):
@@ -35,7 +35,7 @@ class ListChecker:
         return True
 
 
-# %% ../nbs/14_helpers.ipynb 6
+# %% ../nbs/14_helpers.ipynb 7
 class JSONDataManager:
     def __init__(self, path: str):
         self.data = self.load_json(path)
@@ -55,7 +55,7 @@ class JSONDataManager:
 
 
 
-# %% ../nbs/14_helpers.ipynb 7
+# %% ../nbs/14_helpers.ipynb 8
 class ChallengesDataManager(JSONDataManager):
     
     @JSONDataManager.timing_decorator
@@ -111,7 +111,7 @@ class ChallengesDataManager(JSONDataManager):
 
 
 
-# %% ../nbs/14_helpers.ipynb 8
+# %% ../nbs/14_helpers.ipynb 9
 class SolutionsDataManager(JSONDataManager):
     
     @JSONDataManager.timing_decorator
@@ -124,7 +124,8 @@ class SolutionsDataManager(JSONDataManager):
     
     @JSONDataManager.timing_decorator
     def get_data_for_key(self, key: str) -> Dict[str, Any]:
-        return self.data.get(key, {})
+        rtn = self.data.get(key, {})
+        return rtn[0]
     
     @JSONDataManager.timing_decorator
     def get_arrays_for_key(self, key: str, array_type: str) -> List:

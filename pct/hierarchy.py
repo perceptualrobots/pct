@@ -7,6 +7,9 @@ __all__ = ['FunctionsData', 'PCTRunProperties', 'PCTHierarchy']
 #import numpy as np
 from os import sep
 import uuid
+
+
+# %% ../nbs/04_hierarchy.ipynb 5
 from .nodes import PCTNode
 from .functions import WeightedSum
 from .putils import UniqueNamer, FunctionsList, list_of_ones
@@ -14,9 +17,9 @@ from .functions import BaseFunction, HPCTFUNCTION
 from .environments import EnvironmentFactory
 from .errors import BaseErrorCollector
 from .putils import floatListsToString
-# from inspect import isfunction
+from .environment_processing import EnvironmentProcessingFactory
 
-# %% ../nbs/04_hierarchy.ipynb 6
+# %% ../nbs/04_hierarchy.ipynb 7
 class FunctionsData():
     "Data collected for a set of functions"
     def __init__(self):
@@ -43,7 +46,7 @@ class FunctionsData():
     def add_list(self, key, list):
         self.data[key]= list
 
-# %% ../nbs/04_hierarchy.ipynb 7
+# %% ../nbs/04_hierarchy.ipynb 8
 class PCTRunProperties():
     
     # def __init__(self):
@@ -95,7 +98,7 @@ class PCTRunProperties():
         return error_properties
 
 
-# %% ../nbs/04_hierarchy.ipynb 9
+# %% ../nbs/04_hierarchy.ipynb 10
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
     def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", 
@@ -1267,11 +1270,12 @@ class PCTHierarchy():
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=False, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, 
-        environment_properties=None, experiment=None, log_experiment_figure=False):
+        environment_properties=None, experiment=None, log_experiment_figure=False, environment_processing=None):
         "Run an individual from a provided configuration."
 
         if callable(min):
             raise Exception("min must not be a function")
+
 
         hierarchy = cls.from_config_with_environment(config, seed=seed, history=history, suffixes=suffixes, environment_properties=environment_properties)
         env = hierarchy.get_preprocessor()[0]
@@ -1350,7 +1354,8 @@ class PCTHierarchy():
         else:
             environment_properties = env_props    
         error_properties = prp.get_error_properties()
-   
+        env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{prp.db["env_name"]}EnvironmentProcessing')
+        env_proc.enhance_environment_properties(environment_properties=environment_properties)
         if runs==None:
             runs = eval(prp.db['runs'])
         config = eval(prp.db['config'])
@@ -1363,7 +1368,8 @@ class PCTHierarchy():
         hierarchy, score = cls.run_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
-                                                suffixes=suffixes, plots_dir=plots_dir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure)
+                                                suffixes=suffixes, plots_dir=plots_dir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure,
+                                                environment_processing=env_proc)
         
         return hierarchy, score 
 
