@@ -6,7 +6,7 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'Number
            'stringFloatListToListOfFloats', 'stringListToListOfStrings', 'listNumsToString', 'round_lists',
            'floatListsToString', 'limit_large_float', 'sigmoid', 'smooth', 'sigmoid_array', 'dot', 'list_of_ones',
            'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'clip_value',
-           'map_to_int_odd_range', 'map_to_int_even_range', 'TimerError', 'Timer']
+           'map_to_int_odd_range', 'map_to_int_even_range', 'TimerError', 'Timer', 'PCTRunProperties']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -555,3 +555,82 @@ class Timer:
     
     def count(self):
         return self._counter 
+
+# %% ../nbs/01_putils.ipynb 48
+class PCTRunProperties():
+
+    @classmethod
+    def get_environment_properties(cls, root=None, env=None, property_dir=None, property_file=None):
+
+        filename=env + os.sep + property_dir + os.sep + property_file
+        file = root  + os.sep + 'data' + os.sep + 'ga' + os.sep + filename
+
+        environment_properties = PCTRunProperties.get_environment_properties_from_filename(file)
+
+        return environment_properties
+
+    @classmethod
+    def get_environment_properties_from_filename(cls, filename):
+        
+        prp = PCTRunProperties()
+        prp.load_db(filename)
+        environment_properties = eval(prp.db['environment_properties'])
+    
+        return environment_properties
+        
+    def load_db(self, file):
+        "Load properties from file."
+        from jproperties import Properties
+        skip = ['raw', 'env', 'col', '', '', '', '', '', '']
+        # read properties from file
+        configs = Properties()
+        #print(file)
+        with open(file, 'rb') as config_file:
+            configs.load(config_file)
+
+        items_view = configs.items()
+        self.db = {}
+        for item in items_view:
+            if item[0] in skip:
+                continue
+            if item[0].startswith('level'):
+                continue
+            self.db[item[0]] = item[1].data
+
+        if 'environment_properties' in self.db:                    
+            ep = eval(self.db['environment_properties'])
+            if 'reward_type' in ep:
+                self.db['reward_type'] = ep['reward_type']
+
+    def get_error_properties(self):
+        "Get properties of error function from loaded properties list of the form propertyn."
+        error_properties = []
+        for property in range(1, 100):
+            property_key = f'property{property}'
+            if property_key in self.db:
+                property_string = self.db[property_key]
+                strarr = property_string.split(':')
+                if strarr[0] == 'error':
+                    parr = strarr[1].split(',')
+                    prop=[]
+                    prop.append(parr[0])
+                    prop.append(parr[1])
+                    error_properties.append(prop)
+
+        return error_properties
+    
+    @classmethod
+    def get_file_props(self, filepath):
+        index1=filepath.rindex(os.sep)
+        file = filepath[index1+1:]
+        index2=filepath.rindex(os.sep, 0, index1)
+        property_dir=filepath[index2+1:index1]
+
+        index1=filepath.index(os.sep)
+        index2=filepath[index1+1:].index(os.sep)
+
+        drive=filepath[0:index2+index1+1]
+
+        return drive, property_dir, file
+        
+
