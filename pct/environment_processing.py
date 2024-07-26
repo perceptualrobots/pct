@@ -402,7 +402,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
         enhanced_environment_properties = self.enhanced_environment_properties(environment_properties=environment_properties)
 
-        verbose= True 
+        verbose= False 
         min= not self.args['max']
         history=True
 
