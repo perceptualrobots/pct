@@ -1122,7 +1122,9 @@ class PCTHierarchy():
                         plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
 
             if plot_item == 'scZero':
-                if self.get_levels() == 1 and not top_done:
+                if self.get_levels() == 1 and top_done:
+                    pass
+                else:
                     for level in self.get_level(0):
                         if isinstance(level, list):
                             for node in level:
