@@ -138,6 +138,8 @@ class ControlEnvironment(BaseFunction):
 
         return act+'\n'+rtn
 
+    def get_details(self):
+        return None
 
     @abstractmethod
     def reset(self, full=True, seed=None): 
@@ -1388,7 +1390,8 @@ class ARC(ControlEnvironment):
         self.boxcar.pop(0)
         self.done = ListChecker.check_list_unchanged(self.boxcar)
 
-
+    def get_fitness_list(self):
+        return self.env.fitness_list
 
     def get_config(self, zero: int = 1) -> dict:
         config = super().get_config(zero=zero)
@@ -1411,7 +1414,8 @@ class ARC(ControlEnvironment):
     def close(self) -> None:
         self.env.close()
 
-
+    def get_details(self):
+        return {'fitness_list' : self.env.fitness_list}
 
     class Factory:
         @staticmethod

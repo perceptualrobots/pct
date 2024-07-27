@@ -4,10 +4,10 @@
 __all__ = ['ARCDataProcessor', 'ARCEnv']
 
 # %% ../nbs/15_arc.ipynb 3
-import json, os
+import os, math
 import numpy as np
 import gym
-from gym import spaces
+# from gym import spaces
 from time import sleep
 import pygame
 from matplotlib import colors       
@@ -85,11 +85,11 @@ class ARCDataProcessor:
         return np.array(self.arc_dict[key][index][sub_key])
 
     def next(self):
+        self.index += 1
         if self.index >= len(self.arc_dict[self.dataset]):
             return False
         if self.initial_index is not None:
             return False
-        self.index += 1
         self.create_env()
         return True
 
@@ -410,19 +410,20 @@ class ARCEnv(gym.Env):
         Reset the environment to the initial state.
         """
         self.arc_data.reset()
-        # if self.dataset == 'train':
         self.fitness = self.arc_data.fitness_function()
-        # else:
-        #     self.fitness = 10000  # or some default value
         self.done = False
         self.state, self.info = self.arc_data.get_state()
         self.iteration = 1  # Reset iteration
         self.num_actions = self.info['num_actions']  # Set num_actions
+        self.fitness_list = []
 
     def next(self):
         """
         Move to the next state in arc_dict.
         """
+        self.fitness_list.append(self.fitness)
+        if not math.isclose(self.fitness, 0):
+            return False
         return self.arc_data.next()
 
     def get_num_actions(self):
@@ -563,8 +564,8 @@ class ARCEnv(gym.Env):
 
         # Draw table with Code, Iteration, and Index
         table_font = pygame.font.Font(None, 24)
-        table_labels = ["Code", "Iteration", "Index"]
-        table_values = [os.path.splitext(self.code)[0], self.iteration, self.arc_data.index]  # Display code without file extension
+        table_labels = ["Code", "Iteration", "Index", "Dataset"]
+        table_values = [os.path.splitext(self.code)[0], self.iteration, self.arc_data.index, self.dataset]  # Display code without file extension
         table_x = self.left_pad
         table_y = table_y
 

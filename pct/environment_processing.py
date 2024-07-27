@@ -202,10 +202,14 @@ class BaseEnvironmentProcessing(ABC):
         self.env_processing_details={}
 
     def get_file_props(self, filepath):
-        index1=filepath.rindex(sep)
-        file = filepath[index1+1:]
-        index2=filepath.rindex(sep, 0, index1)
-        property_dir=filepath[index2+1:index1]
+        if filepath.find(sep) < 0:
+            file = filepath
+            property_dir = ""
+        else:
+            index1=filepath.rindex(sep)
+            file = filepath[index1+1:]
+            index2=filepath.rindex(sep, 0, index1)
+            property_dir=filepath[index2+1:index1]
         drive=self.args['drive']
 
         return drive, property_dir, file
@@ -213,6 +217,9 @@ class BaseEnvironmentProcessing(ABC):
     def add_processing_detail(self, key, value):
         self.env_processing_details[key]=value
 
+    def add_details(self, details):
+        for key, value in details.items():
+            self.env_processing_details[key]=value
 
     def enhanced_environment_properties(self, environment_properties=None):
         pass
@@ -402,12 +409,12 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
         enhanced_environment_properties = self.enhanced_environment_properties(environment_properties=environment_properties)
 
-        verbose= False 
+        verbose= self.args['verbosed']['hpct_verbose'] 
         min= not self.args['max']
         history=True
 
-        hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
-                                                  runs=None,   experiment=experiment, min=min, enhanced_environment_properties=enhanced_environment_properties)
+        hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, render=self.args['verbosed']['display_env'],
+                                                  runs=None, experiment=experiment, min=min, enhanced_environment_properties=enhanced_environment_properties)
 
         # hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, plots=plots, history=history, hpct_verbose= verbose, 
         #                                           runs=None, plots_dir=outdir, early_termination=early, draw_file=draw_file, experiment=experiment, 
@@ -420,6 +427,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         print('Test score',score)
 
         if experiment:         
+            experiment.log_metric('fitness_list', str( self.env_processing_details['fitness_list']))
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('test_score', score)
 
