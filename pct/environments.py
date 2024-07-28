@@ -1412,7 +1412,13 @@ class ARC(ControlEnvironment):
         self.env.close()
 
     def get_details(self):
-        return {'fitness_list' : self.env.fitness_list, 'fitness' : max(self.env.fitness_list)}
+        
+        if len(self.env.fitness_list) > 0:
+            fit = max(self.env.fitness_list)
+        else:
+            fit = self.env.fitness
+
+        return {'fitness_list' : self.env.fitness_list, 'fitness' : fit}
 
     class Factory:
         @staticmethod
