@@ -218,8 +218,9 @@ class BaseEnvironmentProcessing(ABC):
         self.env_processing_details[key]=value
 
     def add_details(self, details):
-        for key, value in details.items():
-            self.env_processing_details[key]=value
+        if details is not None:
+            for key, value in details.items():
+                self.env_processing_details[key]=value
 
     def enhanced_environment_properties(self, environment_properties=None):
         pass
@@ -429,6 +430,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         if experiment:         
             experiment.log_metric('fitness_list', str( self.env_processing_details['fitness_list']))
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
+            experiment.log_metric('fitness', self.env_processing_details['fitness'])
             experiment.log_metric('test_score', score)
 
         return {}

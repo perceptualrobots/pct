@@ -1352,9 +1352,6 @@ class ARC(ControlEnvironment):
         self.done = self.obs[2]
         self.info = self.obs[3]
         self.add_to_fitness_history(self.fitness)
-        # if self.fitness == 0:
-        #     self.done = True
-
 
     def process_values(self):
         self.value=[]
@@ -1415,7 +1412,7 @@ class ARC(ControlEnvironment):
         self.env.close()
 
     def get_details(self):
-        return {'fitness_list' : self.env.fitness_list}
+        return {'fitness_list' : self.env.fitness_list, 'fitness' : max(self.env.fitness_list)}
 
     class Factory:
         @staticmethod
