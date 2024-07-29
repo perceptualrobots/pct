@@ -1371,15 +1371,15 @@ class ARC(ControlEnvironment):
         if 'cells' in self.obs[0]['inputs']:
             if 'env' in self.obs[0]['inputs']['cells']:
                 arr = self.obs[0]['inputs']['cells']['env']
-                self.value += np.array(arr).flatten()
+                self.value += list(arr.flatten())
 
             if 'inputs' in self.obs[0]['inputs']['cells']:
                 arr = self.obs[0]['inputs']['cells']['inputs']
-                self.value += np.array(arr).flatten()
+                self.value += list(arr.flatten())
 
             if 'outputs' in self.obs[0]['inputs']['cells']:
                 arr = self.obs[0]['inputs']['cells']['outputs']
-                self.value += np.array(arr).flatten()
+                self.value += list(arr.flatten())
 
     def add_to_fitness_history(self, fitness):
 
