@@ -1294,11 +1294,10 @@ class PCTHierarchy():
             environment_properties = env_props    
         error_properties = prp.get_error_properties()
 
-        # env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{prp.db["env_name"]}EnvironmentProcessing')
-        # env_proc.enhance_environment_properties(environment_properties=environment_properties)
-
         if enhanced_environment_properties is not None:
             environment_properties = environment_properties | enhanced_environment_properties 
+            if environment_properties['dataset'] == 'test':
+                error_properties[1][1] = environment_properties['initial']
 
         if runs==None:
             runs = eval(prp.db['runs'])

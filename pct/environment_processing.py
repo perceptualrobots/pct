@@ -298,7 +298,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
         root = self.args['root_path']
         pfile = root + self.args['configs_dir'] + env_name +sep+ filename + ".properties"
 
-        ep = PCTRunProperties.get_environment_properties_from_filename(pfile)
+        ep, en = PCTRunProperties.get_environment_properties_from_filename(pfile)
         ex_name = ep['series']
         self.args['experiment_name']= ex_name
         self.args['project_name'] = self.args['project_name']+"-" + ex_name
@@ -325,7 +325,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
         drive, property_dir, file = self.get_file_props(filepath=filepath)
 
         if environment_properties is None:
-            environment_properties = PCTRunProperties.get_environment_properties(root=drive, env='WindTurbine', property_dir=property_dir, property_file=file)
+            environment_properties, en = PCTRunProperties.get_environment_properties(root=drive, env='WindTurbine', property_dir=property_dir, property_file=file)
             environment_properties['keep_history'] = True
             environment_properties['range'] = 'test'
             print(environment_properties)
@@ -404,7 +404,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         environment_properties=None
         drive, property_dir, file = self.get_file_props(filepath=filepath)
         if environment_properties is None:
-            environment_properties = PCTRunProperties.get_environment_properties(root=drive, env='ARC', property_dir=property_dir, property_file=file)
+            environment_properties, en = PCTRunProperties.get_environment_properties(root=drive, env='ARC', property_dir=property_dir, property_file=file)
             environment_properties['dataset'] = 'test'
             print(environment_properties)
 

@@ -197,7 +197,8 @@ class ARCDataProcessor:
 
     def fitness_function_arrays(self, output_array, env_array):
         # First metric: square of the difference between the dimensions
-        dim_metric = (env_array.shape[0] - output_array.shape[0]) ** 2 + (env_array.shape[1] - output_array.shape[1]) ** 2
+        if 'dims' in self.control_set and len(self.control_set) == 1:
+            dim_metric = (env_array.shape[0] - output_array.shape[0]) ** 2 + (env_array.shape[1] - output_array.shape[1]) ** 2
 
         # Second metric: square of the difference between each element in the arrays
         element_metric = 0
@@ -214,6 +215,8 @@ class ARCDataProcessor:
         # Final metric
         if 'dims' in self.control_set and len(self.control_set) == 1:
             final_metric = dim_metric
+        elif 'cells' in self.control_set and len(self.control_set) == 1:
+            final_metric = element_metric
         else:
             final_metric = dim_metric + element_metric
 

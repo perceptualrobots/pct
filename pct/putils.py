@@ -556,7 +556,7 @@ class Timer:
     def count(self):
         return self._counter 
 
-# %% ../nbs/01_putils.ipynb 48
+# %% ../nbs/01_putils.ipynb 50
 class PCTRunProperties():
 
     @classmethod
@@ -565,9 +565,9 @@ class PCTRunProperties():
         filename=env + os.sep + property_dir + os.sep + property_file
         file = root  + os.sep + 'data' + os.sep + 'ga' + os.sep + filename
 
-        environment_properties = PCTRunProperties.get_environment_properties_from_filename(file)
+        environment_properties, env_name = PCTRunProperties.get_environment_properties_from_filename(file)
 
-        return environment_properties
+        return environment_properties, env_name
 
     @classmethod
     def get_environment_properties_from_filename(cls, filename):
@@ -576,7 +576,7 @@ class PCTRunProperties():
         prp.load_db(filename)
         environment_properties = eval(prp.db['environment_properties'])
     
-        return environment_properties
+        return environment_properties, prp.db['env_name']
         
     def load_db(self, file):
         "Load properties from file."
