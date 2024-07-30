@@ -1093,8 +1093,8 @@ class PCTHierarchy():
             plot_item = {}
             signals = {}
             if func2:
-                signals[func1.get_name()] = func1.get_name()
                 signals[func2.get_name()] = func2.get_name()
+                signals[func1.get_name()] = func1.get_name()
             else:
                 signals[func1.get_name()] = func1.get_name()
             plot_item['plot_items'] = signals
@@ -1258,7 +1258,7 @@ class PCTHierarchy():
                 for plot in plots:
                     plotfile=None
                     if plots_dir:
-                        plotfile = plots_dir+ sep +plot['title']+'.png'
+                        plotfile = plots_dir + sep + plot['title'] + '-' + str(hierarchy.get_namespace()) + '.png'
                     fig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, experiment=experiment)
 
         score=hierarchy.get_error_collector().error()

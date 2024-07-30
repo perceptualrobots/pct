@@ -17,7 +17,7 @@ from matplotlib import colors
 from .putils import limit_large_float
 from .helpers import ChallengesDataManager
 
-# %% ../nbs/15_arc.ipynb 5
+# %% ../nbs/15_arc.ipynb 6
 class ARCDataProcessor:
     def __init__(self, config_dict, arc_dict):
         self.arc_dict = arc_dict
@@ -47,9 +47,11 @@ class ARCDataProcessor:
         if 'dims' in self.control_set and self.grid_shape is None:
             raise ValueError("grid_shape cannot be None when 'dims' is in control_set")
 
-        self.test_output_array = None
         if self.dataset == 'test':
-            self.test_output_array = np.array( config_dict['test_output_array'])
+            self.test_output_array = np.array(config_dict['test_output_array'])
+        else:
+            self.test_output_array = None
+
         self.create_env()
         self.info = self.create_info()
 
@@ -74,12 +76,13 @@ class ARCDataProcessor:
         self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
 
     def process_remaining_values(self, values):
+        values = np.clip(values, -9, 9)
         if len(values) != self.env.size:
             raise ValueError(f"The number of elements in values ({len(values)}) must equal the number of elements in self.env ({self.env.size})")
         for i, value in enumerate(values):
             row, col = divmod(i, self.env.shape[1])
             if row < self.env.shape[0] and col < self.env.shape[1]:
-                self.env[row, col] += value
+                self.env[row, col] = np.clip(self.env[row, col] + value, 0, 9)
 
     def get_array(self, key, index, sub_key):
         return np.array(self.arc_dict[key][index][sub_key])
@@ -110,9 +113,9 @@ class ARCDataProcessor:
             num_rows = num_cols = actions[0]
         else:
             raise ValueError("Actions must have one or two values")
-        
-        num_rows = limit_large_float(num_rows, 10000)
-        num_cols = limit_large_float(num_cols, 10000)
+
+        num_rows = limit_large_float(num_rows, 100)
+        num_cols = limit_large_float(num_cols, 100)
 
         if num_rows > 0:
             self.add_rows(num_rows)
@@ -197,6 +200,7 @@ class ARCDataProcessor:
 
     def fitness_function_arrays(self, output_array, env_array):
         # First metric: square of the difference between the dimensions
+        dim_metric = 0
         if 'dims' in self.control_set and len(self.control_set) == 1:
             dim_metric = (env_array.shape[0] - output_array.shape[0]) ** 2 + (env_array.shape[1] - output_array.shape[1]) ** 2
 
@@ -347,10 +351,9 @@ class ARCDataProcessor:
 
 
 
-
-# %% ../nbs/15_arc.ipynb 9
+# %% ../nbs/15_arc.ipynb 11
 class ARCEnv(gym.Env):
-    def __init__(self):
+    def __init__(self, namespace=""):
         super(ARCEnv, self).__init__()
         self.index = 0
         self.env = None
@@ -361,6 +364,8 @@ class ARCEnv(gym.Env):
 
         # Class variables
         self.dataset = None
+        self.namespace = namespace
+        self.fitness_list = []
 
         # Render settings
         self.screen_width = 1000
@@ -400,7 +405,6 @@ class ARCEnv(gym.Env):
         """
         self.arc_data.apply_actions(actions)
 
-        # if self.dataset == 'train':
         self.fitness = self.arc_data.fitness_function()
 
         self.state, self.info = self.arc_data.get_state()
@@ -413,12 +417,14 @@ class ARCEnv(gym.Env):
         Reset the environment to the initial state.
         """
         self.arc_data.reset()
+
         self.fitness = self.arc_data.fitness_function()
+
         self.done = False
         self.state, self.info = self.arc_data.get_state()
         self.iteration = 1  # Reset iteration
         self.num_actions = self.info['num_actions']  # Set num_actions
-        self.fitness_list = []
+        self.fitness_list = []  # Initialize an empty list for fitness
 
     def next(self):
         """
@@ -565,7 +571,7 @@ class ARCEnv(gym.Env):
             if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
                 self.screen.blit(red_cross_img, (fitness_text_x, tick_cross_y))
 
-        # Draw table with Code, Iteration, and Index
+        # Draw table with Code, Iteration, Index, and Dataset
         table_font = pygame.font.Font(None, 24)
         table_labels = ["Code", "Iteration", "Index", "Dataset"]
         table_values = [os.path.splitext(self.code)[0], self.iteration, self.arc_data.index, self.dataset]  # Display code without file extension
@@ -575,8 +581,8 @@ class ARCEnv(gym.Env):
         for i, (label, value) in enumerate(zip(table_labels, table_values)):
             label_surface = table_font.render(label, True, (0, 0, 0))
             value_surface = table_font.render(str(value), True, (0, 0, 0))
-            self.screen.blit(label_surface, (table_x + i * 200, table_y))
-            self.screen.blit(value_surface, (table_x + i * 200, table_y + 30))
+            self.screen.blit(label_surface, (table_x + i * 150, table_y))
+            self.screen.blit(value_surface, (table_x + i * 150, table_y + 30))
 
         pygame.display.flip()
 
@@ -586,11 +592,14 @@ class ARCEnv(gym.Env):
         """
         if self.screen is not None:
             os.makedirs("c:/tmp/arc/", exist_ok=True)
-            pygame.image.save(self.screen, "c:/tmp/arc/screen_image.png")
+            image_filename = f"c:/tmp/arc/screen_image_{self.namespace}.png"
+            html_filename = f"c:/tmp/arc/screen_image_{self.namespace}.html"
+            
+            pygame.image.save(self.screen, image_filename)
             
             # Save the screen image to an HTML format
-            with open("c:/tmp/arc/screen_image.html", "w") as f:
-                f.write(f"<html><body><img src='screen_image.png'></body></html>")
+            with open(html_filename, "w") as f:
+                f.write(f"<html><body><img src='screen_image_{self.namespace}.png'></body></html>")
 
             pygame.display.quit()
             pygame.quit()

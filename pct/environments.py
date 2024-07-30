@@ -1277,7 +1277,7 @@ class ARC(ControlEnvironment):
         self.num_links = None
 
         self.done = False
-        self.env = ARCEnv()
+        self.env = ARCEnv(namespace=namespace)
         self.env_name = "ARC"
         self.info = "Access to ARC environment files"
         self.render = render        

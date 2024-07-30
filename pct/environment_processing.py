@@ -428,7 +428,9 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         print('Test score',score)
 
         if experiment:         
-            experiment.log_metric('fitness_list', str( self.env_processing_details['fitness_list']))
+            
+            experiment.log_other('LxC', str( hierarchy.get_grid()))
+            experiment.log_other('fitness_list', str( self.env_processing_details['fitness_list']))
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('fitness', self.env_processing_details['fitness'])
             experiment.log_metric('test_score', score)
