@@ -104,7 +104,7 @@ class ARCDataProcessor:
         self.create_env()
 
     def create_env(self):
-        self.env = np.array(self.arc_dict[self.dataset][self.index]['input'])
+        self.env = np.array(self.arc_dict[self.dataset][self.index]['input'], dtype='float32')
 
     def process_dimensions(self, actions):
         if len(actions) == 2:
@@ -507,8 +507,8 @@ class ARCEnv(gym.Env):
             self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
             pygame.display.set_caption('ARC Environment')
 
-        input_grid = np.array(self.arc_data.get_input(self.dataset))
-        output_grid = np.array(self.arc_data.get_output(self.dataset))
+        input_grid = self.arc_data.get_input(self.dataset)
+        output_grid = self.arc_data.get_output(self.dataset)
         env_grid = self.arc_data.env
 
         # Top left coordinates
