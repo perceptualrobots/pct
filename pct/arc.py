@@ -431,8 +431,9 @@ class ARCEnv(gym.Env):
         Move to the next state in arc_dict.
         """
         self.fitness_list.append(self.fitness)
-        if not math.isclose(self.fitness, 0):
+        if not math.isclose(self.fitness, 0, abs_tol=1e-3):
             return False
+        self.iteration = 1
         return self.arc_data.next()
 
     def get_num_actions(self):

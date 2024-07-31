@@ -173,8 +173,8 @@ class MovingAverageError(BaseErrorType):
     def __init__(self, flip_error_response=False):
         super().__init__(flip_error_response=flip_error_response)        
         self.error_response = 0
-        self.history = 5
-        self.initial = 1000
+        self.history = None
+        self.initial = None
     
     def __call__(self, error):
         self.boxcar.append(error)
