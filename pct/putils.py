@@ -5,8 +5,8 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'Number
            'dynamic_class_load', 'get_drive', 'loadjson', 'Counter', 'stringIntListToListOfInts',
            'stringFloatListToListOfFloats', 'stringListToListOfStrings', 'listNumsToString', 'round_lists',
            'floatListsToString', 'limit_large_float', 'sigmoid', 'smooth', 'sigmoid_array', 'dot', 'list_of_ones',
-           'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'clip_value',
-           'map_to_int_odd_range', 'map_to_int_even_range', 'TimerError', 'Timer', 'PCTRunProperties']
+           'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'clip_value', 'get_abs_tol',
+           'get_rel_tol', 'map_to_int_odd_range', 'map_to_int_even_range', 'TimerError', 'Timer', 'PCTRunProperties']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
@@ -502,6 +502,24 @@ def clip_value(val, range):
 
 
 # %% ../nbs/01_putils.ipynb 43
+def get_abs_tol(key):
+    dic = {'evolve': 0.01, 'ARC-evolve' : 0.01}
+
+    if key in dic:
+        return dic[key]
+    
+    return 0.001
+
+# %% ../nbs/01_putils.ipynb 44
+def get_rel_tol(key):
+    dic = { 'ARC-change' : 1e-3}
+
+    if key in dic:
+        return dic[key]
+    
+    return 1e-6
+
+# %% ../nbs/01_putils.ipynb 45
 def map_to_int_odd_range(val=None, inrange=None, outrange=None):
     a = round(val)
     b = clip_value(a, inrange)
@@ -515,7 +533,7 @@ def map_to_int_even_range(val=None, inrange=None, outrange=None):
     rtn = math.floor(b) + int((outrange[1] - outrange[0] + 1 )/2) + 1
     return rtn
 
-# %% ../nbs/01_putils.ipynb 46
+# %% ../nbs/01_putils.ipynb 48
 class TimerError(Exception):
     """A custom exception used to report errors in use of Timer class"""
 

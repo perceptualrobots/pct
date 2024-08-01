@@ -185,6 +185,9 @@ class PCTHierarchy():
     def get_environment(self):
         return self.get_preprocessor()[0]
     
+    def get_environment_name(self):
+        return self.get_preprocessor()[0].get_name()
+
     def run(self, steps=1, verbose=False):
         for i in range(steps):
             self.step = i

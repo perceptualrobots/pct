@@ -14,7 +14,7 @@ from typing import Any, List, Optional
 # %% ../nbs/05_environments.ipynb 4
 import pct.putils as vid
 from .functions import BaseFunction, Constant
-from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_even_range, map_to_int_odd_range
+from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_even_range, map_to_int_odd_range, get_rel_tol
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
@@ -1385,7 +1385,7 @@ class ARC(ControlEnvironment):
 
         self.boxcar.append(fitness)
         self.boxcar.pop(0)
-        self.done = ListChecker.check_list_unchanged(self.boxcar)
+        self.done = ListChecker.check_list_unchanged(self.boxcar, rel_tol = get_rel_tol('ARC-change'))
 
     def get_fitness_list(self):
         return self.env.fitness_list

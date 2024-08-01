@@ -14,7 +14,7 @@ from matplotlib import colors
 # import copy
 
 # %% ../nbs/15_arc.ipynb 4
-from .putils import limit_large_float
+from .putils import limit_large_float, get_abs_tol
 from .helpers import ChallengesDataManager
 
 # %% ../nbs/15_arc.ipynb 6
@@ -431,7 +431,7 @@ class ARCEnv(gym.Env):
         Move to the next state in arc_dict.
         """
         self.fitness_list.append(self.fitness)
-        if not math.isclose(self.fitness, 0, abs_tol=1e-3):
+        if not math.isclose(self.fitness, 0, abs_tol=get_abs_tol('arc')):
             return False
         self.iteration = 1
         return self.arc_data.next()
