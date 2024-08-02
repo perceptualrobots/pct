@@ -42,7 +42,7 @@ class ARCDataProcessor:
         self.dataset = config_dict.get('dataset', None)
 
         if self.dataset is None:
-            raise ValueError("dataset must be provided in config_dict")
+            raise ValueError("Dataset must be defined in environment properties as either 'train' or 'test'.")
 
         if 'dims' in self.control_set and self.grid_shape is None:
             raise ValueError("grid_shape cannot be None when 'dims' is in control_set")
@@ -57,23 +57,29 @@ class ARCDataProcessor:
 
     def add_rows(self, num_rows):
         num_rows = round(num_rows)
+        if num_rows == 0:
+            return
         self.env = np.pad(self.env, ((0, num_rows), (0, 0)), mode='constant', constant_values=0)
 
     def remove_rows(self, num_rows):
         num_rows = round(num_rows)
-        if num_rows >= self.env.shape[0]:
+        if num_rows > self.env.shape[0]:
             num_rows = self.env.shape[0] - 1
-        self.env = self.env[:-num_rows, :] if self.env.shape[0] > num_rows else self.env
+        if num_rows > 0 and self.env.shape[0] > num_rows:
+            self.env = self.env[:-num_rows, :]
 
     def add_columns(self, num_columns):
         num_columns = round(num_columns)
+        if num_columns == 0:
+            return
         self.env = np.pad(self.env, ((0, 0), (0, num_columns)), mode='constant', constant_values=0)
 
     def remove_columns(self, num_columns):
         num_columns = round(num_columns)
-        if num_columns >= self.env.shape[1]:
+        if num_columns > self.env.shape[1]:
             num_columns = self.env.shape[1] - 1
-        self.env = self.env[:, :-num_columns] if self.env.shape[1] > num_columns else self.env
+        if num_columns > 0 and self.env.shape[1] > num_columns:
+            self.env = self.env[:, :-num_columns]
 
     def process_remaining_values(self, values):
         values = np.clip(values, -9, 9)
@@ -104,9 +110,10 @@ class ARCDataProcessor:
         self.create_env()
 
     def create_env(self):
-        self.env = np.array(self.arc_dict[self.dataset][self.index]['input'], dtype='float32')
+        self.env = np.array(self.arc_dict[self.dataset][self.index]['input'], dtype=np.float32)
 
     def process_dimensions(self, actions):
+
         if len(actions) == 2:
             num_rows, num_cols = actions
         elif len(actions) == 1:
@@ -405,6 +412,7 @@ class ARCEnv(gym.Env):
         """
         self.arc_data.apply_actions(actions)
 
+        # Always calculate fitness regardless of dataset type
         self.fitness = self.arc_data.fitness_function()
 
         self.state, self.info = self.arc_data.get_state()
@@ -418,6 +426,7 @@ class ARCEnv(gym.Env):
         """
         self.arc_data.reset()
 
+        # Always calculate fitness
         self.fitness = self.arc_data.fitness_function()
 
         self.done = False
@@ -429,11 +438,12 @@ class ARCEnv(gym.Env):
     def next(self):
         """
         Move to the next state in arc_dict.
+        Returns False if the current fitness is not close to zero.
         """
         self.fitness_list.append(self.fitness)
-        if not math.isclose(self.fitness, 0, abs_tol=get_abs_tol('arc')):
+        self.iteration = 1  # Reset iteration to 1
+        if not math.isclose(self.fitness, 0, abs_tol=get_abs_tol('ARC')):
             return False
-        self.iteration = 1
         return self.arc_data.next()
 
     def get_num_actions(self):
@@ -515,11 +525,11 @@ class ARCEnv(gym.Env):
         # Top left coordinates
         input_grid_x = self.left_pad
         input_grid_y = self.grid_down
-        arrow_img_x = input_grid_x + input_grid.shape[1] * self.cell_size + self.left_pad
+        arrow_img_x = input_grid_x + len(input_grid[0]) * self.cell_size + self.left_pad
         arrow_img_y = self.symbol_down
         output_grid_x = arrow_img_x + 50 + self.left_pad
         output_grid_y = self.grid_down
-        equals_img_x = output_grid_x + output_grid.shape[1] * self.cell_size + self.left_pad
+        equals_img_x = output_grid_x + len(output_grid[0]) * self.cell_size + self.left_pad
         equals_img_y = self.symbol_down
         env_grid_x = equals_img_x + 50 + self.left_pad
         env_grid_y = self.grid_down
@@ -527,7 +537,7 @@ class ARCEnv(gym.Env):
         fitness_text_y = self.grid_down + self.height_pad
         fitness_value_y = fitness_text_y + self.fitness_label_font_size + self.height_pad
         tick_cross_y = fitness_value_y + self.fitness_value_font_size + self.height_pad
-        table_y = self.grid_down + max(input_grid.shape[0], output_grid.shape[0], env_grid.shape[0]) * self.cell_size + self.height_pad
+        table_y = self.grid_down + max(len(input_grid), len(output_grid), env_grid.shape[0]) * self.cell_size + self.height_pad
 
         # Adjust screen size if necessary
         if fitness_text_x + self.fitness_value_font_size > self.screen_width:
@@ -565,7 +575,8 @@ class ARCEnv(gym.Env):
         if fitness_text_x < self.screen_width and fitness_value_y < self.screen_height:
             self.screen.blit(fitness_value, (fitness_text_x, fitness_value_y))
 
-        if self.fitness < 1e-6:
+        # Change fitness test to use math.isclose
+        if math.isclose(self.fitness, 0, abs_tol=get_abs_tol('ARC-display')):
             if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
                 self.screen.blit(green_tick_img, (fitness_text_x, tick_cross_y))
         else:
