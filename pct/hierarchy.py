@@ -43,6 +43,15 @@ class FunctionsData():
             self.data[name]=dlist
             self.data[name].append(func.get_reward())
             
+    def add_fitness(self, func):
+        name = 'fitness'
+        if name in self.data.keys():
+            self.data[name].append(func.get_fitness())
+        else:
+            dlist=[]
+            self.data[name]=dlist
+            self.data[name].append(func.get_fitness())
+
     def add_list(self, key, list):
         self.data[key]= list
 
@@ -112,8 +121,11 @@ class PCTHierarchy():
             func(verbose)
             if self.prepost_data != None:                
                 self.prepost_data.add_data(func)
-                if ctr == 0 and hasattr(func, 'reward'):
-                    self.prepost_data.add_reward(func)
+                if ctr == 0:
+                    if hasattr(func, 'reward') :
+                        self.prepost_data.add_reward(func)
+                    if hasattr(func, 'fitness'):
+                        self.prepost_data.add_fitness(func)
 
         if verbose:
             print()

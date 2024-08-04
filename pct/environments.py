@@ -1385,7 +1385,7 @@ class ARC(ControlEnvironment):
 
         self.boxcar.append(fitness)
         self.boxcar.pop(0)
-        self.done = ListChecker.check_list_unchanged(self.boxcar, rel_tol = get_rel_tol('ARC-change'))
+        self.done = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=0)
 
     def get_fitness_list(self):
         return self.env.fitness_list
