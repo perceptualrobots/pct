@@ -503,21 +503,22 @@ def clip_value(val, range):
 
 # %% ../nbs/01_putils.ipynb 43
 def get_abs_tol(key):
-    dic = {'evolve': 0.01, 'ARC-evolve' : 0.01, 'ARC-display': 0.01, 'ARC': 0.01}
+    # dic = {'evolve': 0.01, 'ARC-evolve' : 0.01, 'ARC-display': 0.01, 'ARC': 0.01}
+    dic = { 'ARC-evolve' : 0.001, 'ARC-display': 0.01, 'ARC': 0.01}
 
-    if key in dic:
-        return dic[key]
+    # if key in dic:
+    return dic[key]
     
-    return 0.001
+    # return 0.001
 
 # %% ../nbs/01_putils.ipynb 44
 def get_rel_tol(key):
-    dic = { 'ARC-change' : 1e-3}
+    dic = {   'ARC-change' : 1e-3}
 
-    if key in dic:
-        return dic[key]
+    # if key in dic:
+    return dic[key]
     
-    return 1e-6
+    # return 1e-6
 
 # %% ../nbs/01_putils.ipynb 45
 def map_to_int_odd_range(val=None, inrange=None, outrange=None):

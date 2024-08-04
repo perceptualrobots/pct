@@ -430,6 +430,10 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         if experiment:         
             grid = hierarchy.get_grid()
             experiment.log_other('LxC', f'{len(grid)}x{max(grid)}')
+            indstr = 'all'
+            if 'index' in environment_properties:
+                indstr = str(environment_properties['index'])
+            experiment.log_other('index', indstr)
             experiment.log_other('fitness_list', str( self.env_processing_details['fitness_list']))
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('fitness', self.env_processing_details['fitness'])
