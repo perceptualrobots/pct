@@ -15,24 +15,45 @@ from typing import Any, Dict, List, Tuple
 # %% ../nbs/14_helpers.ipynb 5
 class ListChecker:
     @staticmethod
-    def check_list_unchanged(float_list, rel_tol=1e-6, abs_tol=0.0):
-        if not float_list:  # Check if the list is empty
-            return True
-        first_value = float_list[0]
-        for value in float_list[1:]:
-            if not math.isclose(value, first_value, rel_tol=rel_tol, abs_tol=abs_tol):
-                return False
-        return True
+    def check_list_unchanged(float_list, rel_tol=1e-9, abs_tol=0.0):
+        """
+        Checks if the list values are unchanged by calculating their gradient, mean, and standard deviation.
+
+        Returns:
+            bool: True if the list values are close to each other within the specified tolerance.
+            dict: A dictionary containing the gradient, mean, and standard deviation of the list values.
+        """
+        if not float_list:
+            return True, {"gradient": None, "mean": None, "std_dev": None}
+
+        gradient = np.gradient(float_list)
+        mean_value = np.mean(float_list)
+        std_dev = np.std(float_list)
+
+        # Check if all values are close to the mean
+        all_close_to_mean = all(
+            math.isclose(value, mean_value, rel_tol=rel_tol, abs_tol=abs_tol)
+            for value in float_list
+        )
+
+        return all_close_to_mean, {"gradient": gradient, "mean": mean_value, "std_dev": std_dev}
 
     @staticmethod
     def check_integer_list_unchanged(int_list):
-        if not int_list:  # Check if the list is empty
+        """
+        Checks if all integers in the list are unchanged (i.e., equal).
+
+        Returns:
+            bool: True if all integers are the same.
+        """
+        if not int_list:
             return True
         first_value = int_list[0]
-        for value in int_list[1:]:
+        for value in int_list:
             if value != first_value:
                 return False
         return True
+
 
 
 # %% ../nbs/14_helpers.ipynb 7

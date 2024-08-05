@@ -1268,7 +1268,7 @@ class MicroGrid(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MicroGrid(namespace=namespace, seed=seed)       
 
-# %% ../nbs/05_environments.ipynb 26
+# %% ../nbs/05_environments.ipynb 27
 class ARC(ControlEnvironment):
     "A function that creates and runs an ARC environment from a file given the rask code."
     
@@ -1385,7 +1385,8 @@ class ARC(ControlEnvironment):
 
         self.boxcar.append(fitness)
         self.boxcar.pop(0)
-        self.done = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=0)
+        self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=0)
+        pass
 
     def get_fitness_list(self):
         return self.env.fitness_list

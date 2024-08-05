@@ -1104,6 +1104,15 @@ class PCTHierarchy():
         if isinstance(plots, list):
             return plots
 
+        def create_named_plot_item(name=None, ptitle=None):
+            plot_item = {}
+            signals = {}
+            signals[name] = name
+            plot_item['plot_items'] = signals
+            title = ptitle if ptitle else name
+            plot_item['title'] =  title
+            return plot_item
+
         def create_plot_item(func1, func2=None, ptitle=None):
             plot_item = {}
             signals = {}
@@ -1148,6 +1157,9 @@ class PCTHierarchy():
                         else:
                             if level.has_reference_function():
                                 plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
+
+            if plot_item == 'scFitness':
+                plots_list.append(create_named_plot_item('fitness', 'Fitness'))
 
         return plots_list
 
