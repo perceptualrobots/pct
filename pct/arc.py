@@ -404,6 +404,7 @@ class ARCEnv(gym.Env):
         """
         self.dataset = properties.get('dataset', None)
         self.arc_data = ARCDataProcessor(properties, arc_dict)
+        self.runs = properties.get('runs', len(arc_dict['train'])) if 'index' in properties else properties.get('runs', 1) / len(arc_dict['train'])
         self.reset()
 
     def step(self, actions):
@@ -418,6 +419,10 @@ class ARCEnv(gym.Env):
         self.state, self.info = self.arc_data.get_state()
         
         self.iteration += 1  # Increment iteration
+        if self.iteration > self.runs:
+            print(self.iteration, self.index)
+            self.iteration = 1
+            self.done = True
         return self.state, self.fitness, self.done, self.info
 
     def reset(self):
