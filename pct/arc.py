@@ -99,6 +99,7 @@ class ARCDataProcessor:
             return False
         if self.initial_index is not None:
             return False
+        print('index', self.index)
         self.create_env()
         return True
 

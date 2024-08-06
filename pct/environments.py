@@ -6,7 +6,7 @@ __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'CartPoleV1'
            'WebotsWrestlerSupervisor', 'Bridge', 'MicroGrid', 'ARC']
 
 # %% ../nbs/05_environments.ipynb 3
-import gym, json, math, os
+import gym, math, os
 import numpy as np
 from abc import abstractmethod
 from typing import Any, List, Optional
@@ -14,7 +14,7 @@ from typing import Any, List, Optional
 # %% ../nbs/05_environments.ipynb 4
 import pct.putils as vid
 from .functions import BaseFunction, Constant
-from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_even_range, map_to_int_odd_range, get_rel_tol
+from .putils import FunctionsList, SingletonObjects, NumberStats, map_to_int_even_range, map_to_int_odd_range, get_rel_tol, get_abs_tol
 from .network import ClientConnectionManager
 from .webots import WebotsHelper
 from .yaw_module import YawEnv
@@ -1331,6 +1331,7 @@ class ARC(ControlEnvironment):
     def early_terminate(self) -> None:
         if self.early_termination:
             if self.done:
+                self.env_done = False
                 if not self.env.next():
                     raise Exception(f'1001: Env: {self.env_name} has finished.')
 
@@ -1349,7 +1350,7 @@ class ARC(ControlEnvironment):
 
     def parse_obs(self) -> None:
         self.fitness = self.obs[1]
-        self.done = self.obs[2]
+        self.env_done = self.obs[2]
         self.info = self.obs[3]
         self.add_to_fitness_history(self.fitness)
 
@@ -1385,7 +1386,10 @@ class ARC(ControlEnvironment):
 
         self.boxcar.append(fitness)
         self.boxcar.pop(0)
-        self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=0)
+        if self.env_done:
+            self.done = self.env_done
+        else:
+            self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'))
         pass
 
     def get_fitness_list(self):
