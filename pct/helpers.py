@@ -14,6 +14,9 @@ from typing import Any, Dict, List, Tuple
 
 # %% ../nbs/14_helpers.ipynb 5
 class ListChecker:
+
+
+    
     @staticmethod
     def check_list_unchanged(float_list, rel_tol=1e-9, abs_tol=0.0):
         """
@@ -29,14 +32,31 @@ class ListChecker:
         gradient = np.gradient(float_list)
         mean_value = np.mean(float_list)
         std_dev = np.std(float_list)
-
+        first_value = float_list[0]
         # Check if all values are close to the mean
         all_close_to_mean = all(
-            math.isclose(value, mean_value, rel_tol=rel_tol, abs_tol=abs_tol)
-            for value in float_list
+            math.isclose(value, first_value, rel_tol=rel_tol, abs_tol=abs_tol)
+            for value in float_list[1:]
         )
 
         return all_close_to_mean, {"gradient": gradient, "mean": mean_value, "std_dev": std_dev}
+
+    @staticmethod
+    def check_float_list_close_to_zero(float_list, rel_tol=1e-9, abs_tol=0.0):
+        """
+        Checks if the values in the float list are close to zero within the specified tolerance.
+
+        Returns:
+            bool: True if all values are close to zero within the specified tolerance.
+        """
+        if not float_list:
+            return True
+        return all(
+            math.isclose(value, 0, rel_tol=rel_tol, abs_tol=abs_tol)
+            for value in float_list
+        )
+
+
 
     @staticmethod
     def check_integer_list_unchanged(int_list):
@@ -56,7 +76,10 @@ class ListChecker:
 
 
 
-# %% ../nbs/14_helpers.ipynb 7
+
+
+
+# %% ../nbs/14_helpers.ipynb 8
 class JSONDataManager:
     def __init__(self, path: str, show_timing: bool = False):
         self.data = self.load_json(path)
@@ -77,6 +100,8 @@ class JSONDataManager:
         return timed_method
 
 
+
+# %% ../nbs/14_helpers.ipynb 10
 class ChallengesDataManager(JSONDataManager):
     
     @JSONDataManager.timing_decorator
@@ -167,6 +192,8 @@ class ChallengesDataManager(JSONDataManager):
         }
 
 
+
+# %% ../nbs/14_helpers.ipynb 12
 class SolutionsDataManager(JSONDataManager):
     
     @JSONDataManager.timing_decorator
@@ -188,61 +215,5 @@ class SolutionsDataManager(JSONDataManager):
             return []
         return self.data[key][array_type]
 
-
-
-
-# %% ../nbs/14_helpers.ipynb 9
-# class ChallengesDataManager(JSONDataManager):
-    
-#     @JSONDataManager.timing_decorator
-#     def get_all_keys(self) -> List[str]:
-#         return list(self.data.keys())
-    
-#     @JSONDataManager.timing_decorator
-#     def count_all_keys(self) -> int:
-#         return len(self.data)
-    
-#     @JSONDataManager.timing_decorator
-#     def get_keys_with_equal_size_input_output(self) -> Tuple[List[str], int]:
-#         equal_keys = [
-#             key for key, value in self.data.items()
-#             if all(len(value['train'][iter]['input']) == len(value['train'][iter]['output']) for iter in range(len(value['train'])))
-#         ]
-#         return equal_keys, len(equal_keys)
-    
-#     @JSONDataManager.timing_decorator
-#     def get_keys_with_inconsistent_input_output_sizes(self) -> Tuple[List[str], int]:
-#         inconsistent_keys = []
-#         for key, value in self.data.items():
-#             input_sizes = [len(value['train'][iter]['input']) for iter in range(len(value['train']))]
-#             output_sizes = [len(value['train'][iter]['output']) for iter in range(len(value['train']))]
-#             if len(set(input_sizes)) == 1 and len(set(output_sizes)) == 1 and input_sizes[0] < output_sizes[0]:
-#                 inconsistent_keys.append(key)
-#         return inconsistent_keys, len(inconsistent_keys)
-    
-#     @JSONDataManager.timing_decorator
-#     def get_keys_with_variable_input_sizes(self) -> Tuple[List[str], int]:
-#         variable_keys = [
-#             key for key, value in self.data.items()
-#             if len(set(len(value['train'][iter]['input']) for iter in range(len(value['train'])))) > 1
-#             # if len(set(len(arr) for arr in value['train']['input'])) > 1
-#         ]
-#         return variable_keys, len(variable_keys)
-    
-#     @JSONDataManager.timing_decorator
-#     def get_input_array_histogram(self) -> Dict[int, int]:
-#         counts = Counter(len(value['train']) for value in self.data.values())
-#         return dict(counts)
-    
-#     @JSONDataManager.timing_decorator
-#     def get_data_for_key(self, key: str) -> Dict[str, Any]:
-#         return self.data.get(key, {})
-    
-#     @JSONDataManager.timing_decorator
-#     def get_arrays_for_key(self, key: str, array_type: str) -> List:
-#         if key not in self.data or 'train' not in self.data[key] or array_type not in self.data[key]['train']:
-#             return []
-#         return self.data[key]['train'][array_type]
-    
 
 

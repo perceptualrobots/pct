@@ -1390,6 +1390,14 @@ class ARC(ControlEnvironment):
             self.done = self.env_done
         else:
             self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'))
+            self.env.fitness_isclose_to_zero = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'))
+            if self.done:
+                if self.env.fitness_isclose_to_zero:
+                    pass
+                    # print('zero', self.boxcar)
+                else:
+                    pass
+                    # print('done', self.boxcar)
         pass
 
     def get_fitness_list(self):

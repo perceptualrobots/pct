@@ -99,7 +99,7 @@ class ARCDataProcessor:
             return False
         if self.initial_index is not None:
             return False
-        print('index', self.index)
+        # print(f"Index: {self.index}")
         self.create_env()
         return True
 
@@ -421,7 +421,7 @@ class ARCEnv(gym.Env):
         
         self.iteration += 1  # Increment iteration
         if self.iteration > self.runs:
-            print(self.iteration, self.index)
+            # print(self.iteration, self.index)
             self.iteration = 1
             self.done = True
         return self.state, self.fitness, self.done, self.info
@@ -447,8 +447,10 @@ class ARCEnv(gym.Env):
         Returns False if the current fitness is not close to zero.
         """
         self.fitness_list.append(self.fitness)
+        # print('next', self.iteration, self.fitness_list)
         self.iteration = 1  # Reset iteration to 1
-        if not math.isclose(self.fitness, 0, abs_tol=get_abs_tol('ARC')):
+        # if not math.isclose(self.fitness, 0, abs_tol=get_abs_tol('ARC-next')):
+        if not self.fitness_isclose_to_zero:
             return False
         return self.arc_data.next()
 
