@@ -29,7 +29,7 @@ class ListChecker:
         if not float_list:
             return True, {"gradient": None, "mean": None, "std_dev": None}
 
-        gradient = np.gradient(float_list)
+        gradient = np.gradient(float_list).mean()
         mean_value = np.mean(float_list)
         std_dev = np.std(float_list)
         first_value = float_list[0]
