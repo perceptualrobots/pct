@@ -61,6 +61,9 @@ class ControlEnvironment(BaseFunction):
             
         return out 
     
+    def is_environment_terminated(self):
+        return False
+    
     def get_parameters_list(self):
         return [self.name]    
             

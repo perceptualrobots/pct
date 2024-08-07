@@ -166,6 +166,9 @@ class PCTHierarchy():
         return output
     
 
+    def is_environment_terminated(self):
+        return self.get_environment().is_environment_terminated()
+
     def set_name(self, name):
         self.name=name    
     
