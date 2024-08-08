@@ -426,6 +426,8 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
 
         print('Test score',score)
+        fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
+        print('fitness_list', fitness_list)
 
         if experiment:         
             grid = hierarchy.get_grid()
@@ -434,7 +436,6 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             if 'index' in environment_properties:
                 indstr = str(environment_properties['index'])
             experiment.log_other('index', indstr)
-            fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
             experiment.log_other('fitness_list', fitness_list)
             input_set = environment_properties['input_set']
             experiment.log_other('input_set', str(input_set))

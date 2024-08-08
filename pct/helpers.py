@@ -61,12 +61,17 @@ class ListChecker:
         if len(float_list) == 1:
             return values_close_to_zero
         
-        gradients_close_to_zero = all(
-            math.isclose(float_list[i] - float_list[i - 1], 0, rel_tol=0, abs_tol=gradient_abs_tol)
-            for i in range(1, len(float_list))
+        gradients = np.gradient(float_list)
+        gradient_mean = np.mean(gradients)
+        
+        gradients_close_to_mean = all(
+            math.isclose(gradient, gradient_mean, rel_tol=0, abs_tol=gradient_abs_tol)
+            for gradient in gradients
         )
         
-        return values_close_to_zero and gradients_close_to_zero
+        return values_close_to_zero and gradients_close_to_mean, gradient_mean, gradients
+        
+
 
     @staticmethod
     def check_float_list_close_to_zero1(float_list, rel_tol=1e-9, abs_tol=0.0):
