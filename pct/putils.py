@@ -15,7 +15,7 @@ from datetime import datetime
 # import warnings
 # warnings.filterwarnings("error")
 
-# %% ../nbs/01_putils.ipynb 4
+# %% ../nbs/01_putils.ipynb 5
 class SingletonObjects:
     "A utility for refrencing objects that should only be declared once."
     __instance = None
@@ -47,7 +47,7 @@ class SingletonObjects:
             self.objects[key]=value
 
 
-# %% ../nbs/01_putils.ipynb 5
+# %% ../nbs/01_putils.ipynb 7
 class UniqueNamer:
     "A utility for ensuring the names of functions are unique."
     __instance = None
@@ -106,7 +106,7 @@ class UniqueNamer:
                 else:
                     print("*** ", name, namespace_list[name])
 
-# %% ../nbs/01_putils.ipynb 6
+# %% ../nbs/01_putils.ipynb 9
 class FunctionsList:
     "A utility for storing functions created, keyed on the function name."
     __instance = None
@@ -220,7 +220,7 @@ class FunctionsList:
                 print(namespace_list[name])          
             
 
-# %% ../nbs/01_putils.ipynb 7
+# %% ../nbs/01_putils.ipynb 11
 class Memory:
     "A utility for recording global values."
     __instance = None
@@ -254,7 +254,7 @@ class Memory:
 
 
 
-# %% ../nbs/01_putils.ipynb 8
+# %% ../nbs/01_putils.ipynb 13
 class NumberStats:
     "A utility for calculating the statistice of a number."
     __instance = None
@@ -287,17 +287,17 @@ class NumberStats:
         print(f'Min: {self.min:4.3f}')
             
 
-# %% ../nbs/01_putils.ipynb 14
+# %% ../nbs/01_putils.ipynb 19
 def dynamic_module_import(modulename, package=None):
     if modulename not in sys.modules:
         importlib.import_module(modulename, package)     
 
-# %% ../nbs/01_putils.ipynb 15
+# %% ../nbs/01_putils.ipynb 20
 def dynamic_class_load(modulename, classname):
     module = importlib.import_module(modulename) 
     my_class = getattr(module, classname)
 
-# %% ../nbs/01_putils.ipynb 17
+# %% ../nbs/01_putils.ipynb 22
 def get_drive():
     if os.name == 'nt':
         drive = os.path.abspath(os.sep)
@@ -305,13 +305,13 @@ def get_drive():
         drive = os.path.abspath(os.sep)+'mnt'+os.sep+'c'+os.sep    
     return drive
 
-# %% ../nbs/01_putils.ipynb 19
+# %% ../nbs/01_putils.ipynb 24
 def loadjson(file):      
     with open(file) as f:
         rtn = json.load(f)
     return rtn
 
-# %% ../nbs/01_putils.ipynb 21
+# %% ../nbs/01_putils.ipynb 27
 class Counter(object):
 
   def __init__(self, limit=1000, init=0, step=1, print=100, pause=False, display=10):
@@ -336,7 +336,7 @@ class Counter(object):
   def set_limit(self, limit):
       self.limit=limit
 
-# %% ../nbs/01_putils.ipynb 22
+# %% ../nbs/01_putils.ipynb 28
 def stringIntListToListOfInts(strList, delimiter):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -345,7 +345,7 @@ def stringIntListToListOfInts(strList, delimiter):
         result.append(int(item))
     return result
 
-# %% ../nbs/01_putils.ipynb 23
+# %% ../nbs/01_putils.ipynb 29
 def stringFloatListToListOfFloats(strList, delimiter):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -354,7 +354,7 @@ def stringFloatListToListOfFloats(strList, delimiter):
         result.append(float(item))
     return result
 
-# %% ../nbs/01_putils.ipynb 24
+# %% ../nbs/01_putils.ipynb 30
 def stringListToListOfStrings(strList, delimiter=','):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -363,14 +363,14 @@ def stringListToListOfStrings(strList, delimiter=','):
         result.append(item.strip())
     return result
 
-# %% ../nbs/01_putils.ipynb 25
+# %% ../nbs/01_putils.ipynb 31
 def listNumsToString(list):
     str = ""
     for item in list:
         str += f'{item}'
     return str
 
-# %% ../nbs/01_putils.ipynb 26
+# %% ../nbs/01_putils.ipynb 32
 def round_lists(alist, formatted, places):    
     if isinstance(alist, str):
         raise Exception(f'Value {alist} should be a number in round_lists.')
@@ -386,21 +386,21 @@ def round_lists(alist, formatted, places):
             if rtd is not None:
                 formatted.append(rtd)
 
-# %% ../nbs/01_putils.ipynb 27
+# %% ../nbs/01_putils.ipynb 33
 def floatListsToString(alist, places):
     flist = []    
     if len(alist)>0:
         round_lists(alist,flist,places)
     return f'{flist}'
 
-# %% ../nbs/01_putils.ipynb 28
+# %% ../nbs/01_putils.ipynb 34
 def limit_large_float(val, limit=10000000):
     if abs(val) > limit:
         val = - np.sign(val) * limit
 
     return val
 
-# %% ../nbs/01_putils.ipynb 29
+# %% ../nbs/01_putils.ipynb 35
 def sigmoid(x, range, slope) :
     val = 0
     if abs(x) > 10000000:
@@ -416,7 +416,7 @@ def sigmoid(x, range, slope) :
 
     return val
 
-# %% ../nbs/01_putils.ipynb 30
+# %% ../nbs/01_putils.ipynb 36
 def smooth(new_val, old_val, smooth_factor):
     if smooth_factor > 1 or smooth_factor < 0:
         raise Exception(f'smooth_factor {smooth_factor} should be between 0 and 1')
@@ -429,25 +429,25 @@ def smooth(new_val, old_val, smooth_factor):
         print(f'RuntimeWarning... old_val={old_val} new_val={new_val} smooth_factor={smooth_factor}')
     return val
 
-# %% ../nbs/01_putils.ipynb 31
+# %% ../nbs/01_putils.ipynb 37
 def sigmoid_array(x, range, slope) :
     exv = -x * slope / range
     return -range / 2 + range / (1 + np.exp(exv))
     
 
-# %% ../nbs/01_putils.ipynb 32
+# %% ../nbs/01_putils.ipynb 38
 def dot(inputs, weights):
     sum = 0
     for i in range(len(inputs)):
         sum += inputs[i]*weights[i]
     return sum
 
-# %% ../nbs/01_putils.ipynb 33
+# %% ../nbs/01_putils.ipynb 39
 def list_of_ones(num):
     x = [1 for _ in range(num) ]
     return x
 
-# %% ../nbs/01_putils.ipynb 34
+# %% ../nbs/01_putils.ipynb 40
 def limit_to_range(num, lower, upper):
     if num < lower:
         frac, _  = math.modf(num)
@@ -458,7 +458,7 @@ def limit_to_range(num, lower, upper):
         num = upper - frac
     return num
 
-# %% ../nbs/01_putils.ipynb 36
+# %% ../nbs/01_putils.ipynb 42
 def show_video():
   mp4list = glob.glob('video/*.mp4')
   if len(mp4list) > 0:
@@ -476,10 +476,10 @@ def wrap_env(env):
   env = Monitor(env, './video', force=True)
   return env
 
-# %% ../nbs/01_putils.ipynb 39
+# %% ../nbs/01_putils.ipynb 45
 import os
 
-# %% ../nbs/01_putils.ipynb 40
+# %% ../nbs/01_putils.ipynb 46
 from pathlib import Path
 
 def is_in_notebooks():
@@ -489,29 +489,29 @@ def is_in_notebooks():
     
     return False
 
-# %% ../nbs/01_putils.ipynb 41
+# %% ../nbs/01_putils.ipynb 47
 def printtime(msg):
     print(f'{datetime.now()} {os.getpid()} {msg}')
     return time.perf_counter()
 
 
-# %% ../nbs/01_putils.ipynb 42
+# %% ../nbs/01_putils.ipynb 48
 def clip_value(val, range):
     rtn = max(min(val, range[1]), range[0])
     return rtn
 
 
-# %% ../nbs/01_putils.ipynb 43
+# %% ../nbs/01_putils.ipynb 50
 def get_abs_tol(key):
     # dic = {'evolve': 0.01, 'ARC-evolve' : 0.01, 'ARC-display': 0.01, 'ARC': 0.01}
-    dic = { 'ARC-evolve' : 0.01, 'ARC-display': 0.1, 'ARC-change' : 0.01, 'ARC-zero': 0.01}
+    dic = { 'ARC-evolve' : 0.01, 'ARC-display': 0.1, 'ARC-change' : 0.01, 'ARC-zero': 0.01, 'ARC-gradient': 0.005}
 
     # if key in dic:
     return dic[key]
     
     # return 0.001
 
-# %% ../nbs/01_putils.ipynb 44
+# %% ../nbs/01_putils.ipynb 52
 def get_rel_tol(key):
     dic = { 'ARC-change' : 1e-3}
 
@@ -520,7 +520,7 @@ def get_rel_tol(key):
     
     # return 1e-6
 
-# %% ../nbs/01_putils.ipynb 45
+# %% ../nbs/01_putils.ipynb 53
 def map_to_int_odd_range(val=None, inrange=None, outrange=None):
     a = round(val)
     b = clip_value(a, inrange)
@@ -534,7 +534,7 @@ def map_to_int_even_range(val=None, inrange=None, outrange=None):
     rtn = math.floor(b) + int((outrange[1] - outrange[0] + 1 )/2) + 1
     return rtn
 
-# %% ../nbs/01_putils.ipynb 48
+# %% ../nbs/01_putils.ipynb 56
 class TimerError(Exception):
     """A custom exception used to report errors in use of Timer class"""
 
@@ -575,7 +575,7 @@ class Timer:
     def count(self):
         return self._counter 
 
-# %% ../nbs/01_putils.ipynb 50
+# %% ../nbs/01_putils.ipynb 59
 class PCTRunProperties():
 
     @classmethod
@@ -652,4 +652,3 @@ class PCTRunProperties():
 
         return drive, property_dir, file
         
-

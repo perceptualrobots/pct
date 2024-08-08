@@ -61,7 +61,10 @@ class ControlEnvironment(BaseFunction):
             
         return out 
     
-    def is_environment_terminated(self):
+    # def is_environment_terminated(self):
+    #     return False
+    
+    def is_fitness_close_to_zero(self):
         return False
     
     def get_parameters_list(self):
@@ -1393,7 +1396,16 @@ class ARC(ControlEnvironment):
             self.done = self.env_done
         else:
             self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'))
-            self.env.fitness_isclose_to_zero = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'))
+            # self.env.fitness_isclose_to_zero = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
+            self.env.fitness_isclose_to_zero = self.is_fitness_close_to_zero()
+
+
+            # self.env.fitness_isclose_to_zero, gradient_mean, gradient = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'))
+            # if self.boxcar[0]<0.01 and self.boxcar[9]<0.01:
+            #     print('fitness_isclose_to_zero', self.env.fitness_isclose_to_zero)
+            #     print(self.boxcar)
+            #     print('---> ', gradient_mean, gradient)
+
             if self.done:
                 if self.env.fitness_isclose_to_zero:
                     pass
@@ -1402,6 +1414,10 @@ class ARC(ControlEnvironment):
                     pass
                     # print('done', self.boxcar)
         pass
+
+    def is_fitness_close_to_zero(self):
+        return ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
+
 
     def get_fitness_list(self):
         return self.env.fitness_list

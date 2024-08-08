@@ -42,7 +42,34 @@ class ListChecker:
         return all_close_to_mean, {"gradient": gradient, "mean": mean_value, "std_dev": std_dev}
 
     @staticmethod
-    def check_float_list_close_to_zero(float_list, rel_tol=1e-9, abs_tol=0.0):
+    def check_float_list_close_to_zero(float_list, rel_tol=1e-9, abs_tol=0.0, gradient_abs_tol=0.0):
+        """
+        Checks if the values in the float list are close to zero within the specified tolerance
+        and if the gradient (difference between consecutive values) is close to zero within the specified gradient tolerance.
+
+        Returns:
+            bool: True if all values are close to zero within the specified tolerance and the gradient of all consecutive values is close to zero within the specified gradient tolerance.
+        """
+        if not float_list:
+            return True
+        
+        values_close_to_zero = all(
+            math.isclose(value, 0, rel_tol=rel_tol, abs_tol=abs_tol)
+            for value in float_list
+        )
+        
+        if len(float_list) == 1:
+            return values_close_to_zero
+        
+        gradients_close_to_zero = all(
+            math.isclose(float_list[i] - float_list[i - 1], 0, rel_tol=0, abs_tol=gradient_abs_tol)
+            for i in range(1, len(float_list))
+        )
+        
+        return values_close_to_zero and gradients_close_to_zero
+
+    @staticmethod
+    def check_float_list_close_to_zero1(float_list, rel_tol=1e-9, abs_tol=0.0):
         """
         Checks if the values in the float list are close to zero within the specified tolerance.
 
@@ -51,11 +78,16 @@ class ListChecker:
         """
         if not float_list:
             return True
-        return all(
+
+        gradient = np.gradient(float_list)    
+        gradient_mean = gradient.mean()        
+
+        values_close_to_zero = all(
             math.isclose(value, 0, rel_tol=rel_tol, abs_tol=abs_tol)
             for value in float_list
         )
 
+        return values_close_to_zero, gradient_mean, gradient
 
 
     @staticmethod
@@ -79,7 +111,7 @@ class ListChecker:
 
 
 
-# %% ../nbs/14_helpers.ipynb 8
+# %% ../nbs/14_helpers.ipynb 12
 class JSONDataManager:
     def __init__(self, path: str, show_timing: bool = False):
         self.data = self.load_json(path)
@@ -101,7 +133,7 @@ class JSONDataManager:
 
 
 
-# %% ../nbs/14_helpers.ipynb 10
+# %% ../nbs/14_helpers.ipynb 14
 class ChallengesDataManager(JSONDataManager):
     
     @JSONDataManager.timing_decorator
@@ -193,7 +225,7 @@ class ChallengesDataManager(JSONDataManager):
 
 
 
-# %% ../nbs/14_helpers.ipynb 12
+# %% ../nbs/14_helpers.ipynb 16
 class SolutionsDataManager(JSONDataManager):
     
     @JSONDataManager.timing_decorator
