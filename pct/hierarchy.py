@@ -169,7 +169,9 @@ class PCTHierarchy():
     def is_fitness_close_to_zero(self):
         return self.get_environment().is_fitness_close_to_zero()
 
-
+    def get_environment_score(self):
+        return self.get_environment().get_environment_score()
+    
     # def is_environment_terminated(self):
     #     return self.get_environment().is_environment_terminated()
 
@@ -200,6 +202,8 @@ class PCTHierarchy():
     def get_postprocessor(self):
         return self.postCollection
 
+    def is_environment_resolved(self):
+        return self.get_environment().is_environment_resolved()
     
     def get_environment(self):
         return self.get_preprocessor()[0]
@@ -1295,8 +1299,9 @@ class PCTHierarchy():
                         plotfile = plots_dir + sep + plot['title'] + '-' + str(hierarchy.get_namespace()) + '.png'
                     fig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, experiment=experiment)
 
-        score=hierarchy.get_error_collector().error()
-        
+        # score=hierarchy.get_error_collector().error()
+        score = hierarchy.get_environment_score() if hierarchy.get_environment_score() is not None else hierarchy.get_error_collector().error()
+
         return hierarchy, score    
     
 
@@ -1443,6 +1448,7 @@ class PCTHierarchy():
                     pfig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, experiment=experiment)
                     pfigs.append(pfig)
 
-        score=hierarchy.get_error_collector().error()
+        # score=hierarchy.get_error_collector().error()
+        score = hierarchy.get_environment_score() if hierarchy.get_environment_score() is not None else hierarchy.get_error_collector().error()
 
         return score, dfig, pfigs

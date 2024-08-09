@@ -99,7 +99,7 @@ class ARCDataProcessor:
             return False
         if self.initial_index is not None:
             return False
-        print(f"Index: {self.index}")
+        # print(f"Index: {self.index}")
         self.create_env()
         return True
 
@@ -422,7 +422,7 @@ class ARCEnv(gym.Env):
         self.iteration += 1  # Increment iteration
         if self.iteration > self.runs:
             # print(self.iteration, self.index)
-            self.iteration = 1
+            # self.iteration = 1
             self.done = True
         return self.state, self.fitness, self.done, self.info
 
@@ -440,6 +440,7 @@ class ARCEnv(gym.Env):
         self.iteration = 1  # Reset iteration
         self.num_actions = self.info['num_actions']  # Set num_actions
         self.fitness_list = []  # Initialize an empty list for fitness
+        self.fitness_isclose_to_zero = False
 
     def next(self):
         """
@@ -452,6 +453,17 @@ class ARCEnv(gym.Env):
         if not self.fitness_isclose_to_zero:
             return False
         return self.arc_data.next()
+
+    def add_to_fitness_list(self, fitness): 
+        """
+        Add the provided fitness to the fitness list.
+        """
+        self.fitness_list.append(fitness)
+
+    def is_environment_resolved(self):
+        max_fitness = max(self.fitness_list)
+        return max_fitness < 0.01
+
 
     def get_environment_score(self):
         """

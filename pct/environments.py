@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'CartPoleV1', 'CartPoleDV1', 'Pendulum', 'MountainCarV0',
            'MountainCarContinuousV0', 'WindTurbine', 'VelocityModel', 'DummyModel', 'WebotsWrestler',
-           'WebotsWrestlerSupervisor', 'Bridge', 'MicroGrid']
+           'WebotsWrestlerSupervisor', 'Bridge', 'MicroGrid', 'ARC']
 
 # %% ../nbs/05_environments.ipynb 3
 import gym, math, os
@@ -1394,6 +1394,9 @@ class ARC(ControlEnvironment):
                 self.value += list(arr.flatten())
 
 
+    def is_environment_resolved(self):
+        return self.env.is_environment_resolved()
+
     def get_environment_score(self):
         return self.env.get_environment_score()
 
@@ -1404,29 +1407,30 @@ class ARC(ControlEnvironment):
         if self.env_done:
             self.done = self.env_done
         else:
-            self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'))
+            self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
             # self.env.fitness_isclose_to_zero = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
-            self.env.add_to_fitness_list(sum(self.boxcar) / len(self.boxcar))
+
+        gradient_mean=0
+        gradients=0
+        if self.done:
+            self.env.add_to_fitness_list(max(self.boxcar) )
             self.env.fitness_isclose_to_zero, gradient_mean, gradients = self.is_fitness_close_to_zero()
 
+        # if self.boxcar[0]<0.01 and self.boxcar[9]<0.01:
+        #     print('fitness_isclose_to_zero', self.env.fitness_isclose_to_zero)
+        #     print(self.boxcar)
+        #     print('---> ', gradient_mean, gradients)
 
-            # self.env.fitness_isclose_to_zero, gradient_mean, gradient = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'))
-            if self.boxcar[0]<0.01 and self.boxcar[9]<0.01:
-                print('fitness_isclose_to_zero', self.env.fitness_isclose_to_zero)
-                print(self.boxcar)
-                print('---> ', gradient_mean, gradients)
-
-            if self.done:
-                if self.env.fitness_isclose_to_zero:
-                    pass
-                    # print('zero', self.boxcar)
-                else:
-                    pass
-                    # print('done', self.boxcar)
-        pass
+        if self.done:
+            if self.env.fitness_isclose_to_zero:
+                pass
+                # print('zero', self.boxcar)
+            else:
+                pass
+                # print('done', self.boxcar)
 
     def is_fitness_close_to_zero(self):
-        should this be max of fitness list
+        # should this be max of fitness list
         return ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
 
 
