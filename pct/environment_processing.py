@@ -390,8 +390,12 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         file_name = path.join(dir, file_prefix) + 'challenges.json' 
         challenges_manager = ChallengesDataManager(file_name)
         data = challenges_manager.get_data_for_key(environment_properties['code'])
+        
+        self.number_of_challenges = 1
+        if 'index' not in environment_properties:
+            self.number_of_challenges = len(data['train'])
+                
         enhanced_environment_properties['data']=data
-
         solutions_file = path.join(environment_properties['dir'], environment_properties['file_prefix']) + 'solutions.json' 
         solutions_manager = SolutionsDataManager(solutions_file)
         test_output_array = solutions_manager.get_data_for_key(environment_properties['code'])
@@ -414,17 +418,14 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         min= not self.args['max']
         history=True
 
-        hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, render=self.args['verbosed']['display_env'],
-                                                  runs=None, experiment=experiment, min=min, enhanced_environment_properties=enhanced_environment_properties)
+        title_prefix="Test_"
+        plots='scFitness,scEdges,scZero'
+        runs = int(environment_properties['runs']/self.number_of_challenges)
+        hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
+                render=self.args['verbosed']['display_env'], runs=runs, experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
+                enhanced_environment_properties=enhanced_environment_properties, title_prefix=title_prefix, early_termination=False)
 
-        # hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, plots=plots, history=history, hpct_verbose= verbose, 
-        #                                           runs=None, plots_dir=outdir, early_termination=early, draw_file=draw_file, experiment=experiment, 
-        #                                           log_experiment_figure=log_experiment_figure, min=min)
-
-        # hierarchy, env = PCTHierarchy.load_from_file(filepath, min=min, render=False, history=history, env_props=environment_properties, hpct_verbose= verbose)
-        # score, dfig, pfigs = PCTHierarchy.run_and_draw_hierarchy(hierarchy, env, draw_file=True, draw_figsize=(5,5), history = history, plots="scEdges,scZero", steps=5)#, draw_file='/tmp/tmp.png')
-
-
+        score = round(score ** 0.5)
         print('Test score',score)
         fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
         print('fitness_list', fitness_list)
