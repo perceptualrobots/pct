@@ -1410,6 +1410,9 @@ class ARC(ControlEnvironment):
             self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
             # self.env.fitness_isclose_to_zero = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
 
+        if self.env.iteration > 248 and self.env.iteration < 253:
+            print(self.env.iteration, self.done, self.obs[0]['inputs']['cells']['inputs'])
+
         gradient_mean=0
         gradients=0
         if self.done:
