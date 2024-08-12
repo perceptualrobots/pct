@@ -99,7 +99,7 @@ class ARCDataProcessor:
             return False
         if self.initial_index is not None:
             return False
-        print(f"Index: {self.index}")
+        # print(f"Index: {self.index}")
         self.create_env()
         return True
 
@@ -359,7 +359,7 @@ class ARCDataProcessor:
 
 
 
-# %% ../nbs/15_arc.ipynb 11
+# %% ../nbs/15_arc.ipynb 12
 class ARCEnv(gym.Env):
     def __init__(self, namespace=""):
         super(ARCEnv, self).__init__()
@@ -448,9 +448,298 @@ class ARCEnv(gym.Env):
         Returns False if the current fitness is not close to zero.
         """
         # self.fitness_list.append(self.fitness)
-        if self.iteration > 248:
-            print('next', self.iteration, self.fitness_list)
+        # print('next', self.iteration, self.fitness_list)
         self.iteration = 1  # Reset iteration to 1
+        self.done = False
+        
+        # uncomment the following lines to check if fitness is close to zero discontinue processing the next index in the environment        
+        # if not self.fitness_isclose_to_zero:
+        #     return False
+        return self.arc_data.next()
+
+    def add_to_fitness_list(self, fitness): 
+        """
+        Add the provided fitness to the fitness list.
+        """
+        self.fitness_list.append(fitness)
+
+    def is_environment_resolved(self):
+        max_fitness = max(self.fitness_list)
+        return max_fitness < 0.01
+
+
+    def get_environment_score(self):
+        """
+        Get the environment score.
+        """
+        return max(self.fitness_list)
+
+
+    def get_num_actions(self):
+        """
+        Get the number of actions.
+        """
+        return self.num_actions
+
+    def get_env_inputs_names(self):
+        """
+        Get the environment input names.
+        """
+        return self.arc_data.get_env_inputs_names()
+
+    def get_env_inputs_indexes(self):
+        """
+        Get the environment input indexes.
+        """
+        return self.arc_data.get_env_inputs_indexes()
+
+    def set_dataset(self, dataset):
+        """
+        Set the dataset and update the value in arc_data.
+        """
+        self.dataset = dataset
+        self.arc_data.set_dataset(dataset)
+
+    def call_fitness_function_arrays(self):
+        """
+        Call fitness_function_arrays on arc_data.
+        """
+        return self.arc_data.fitness_function_arrays()
+
+    def get_env_array(self):
+        """
+        Get the environment array from arc_data.
+        """
+        return self.arc_data.get_env_array()
+
+    @property
+    def fitness(self):
+        """
+        Get the current fitness value.
+        """
+        return self._fitness
+
+    @fitness.setter
+    def fitness(self, value):
+        """
+        Set the current fitness value.
+        """
+        self._fitness = value
+
+    def render(self, mode='human'):
+        """
+        Render the environment using Pygame.
+        """
+        def draw_grid(screen, grid, top_left_x, top_left_y, cell_size):
+            for i, row in enumerate(grid):
+                for j, value in enumerate(row):
+                    if top_left_x + j * cell_size < self.screen_width and top_left_y + i * cell_size < self.screen_height:
+                        color = self.cmap(self.norm(value))[:3]  # Get RGB only, excluding alpha
+                        color = tuple(int(c * 255) for c in color)  # Multiply each element by 255
+                        pygame.draw.rect(screen, color, (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size))
+                        pygame.draw.rect(screen, (255, 255, 255), (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size), 1)
+            # Draw a black line around the grid
+            if top_left_x < self.screen_width and top_left_y < self.screen_height:
+                pygame.draw.rect(screen, (0, 0, 0), (top_left_x, top_left_y, cell_size * len(grid[0]), cell_size * len(grid)), 2)
+
+        if self.screen is None:
+            pygame.init()
+            self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+            pygame.display.set_caption('ARC Environment')
+
+        input_grid = self.arc_data.get_input(self.dataset)
+        output_grid = self.arc_data.get_output(self.dataset)
+        env_grid = self.arc_data.env
+
+        # Top left coordinates
+        input_grid_x = self.left_pad
+        input_grid_y = self.grid_down
+        arrow_img_x = input_grid_x + len(input_grid[0]) * self.cell_size + self.left_pad
+        arrow_img_y = self.symbol_down
+        output_grid_x = arrow_img_x + 50 + self.left_pad
+        output_grid_y = self.grid_down
+        equals_img_x = output_grid_x + len(output_grid[0]) * self.cell_size + self.left_pad
+        equals_img_y = self.symbol_down
+        env_grid_x = equals_img_x + 50 + self.left_pad
+        env_grid_y = self.grid_down
+        fitness_text_x = env_grid_x + env_grid.shape[1] * self.cell_size + self.left_pad
+        fitness_text_y = self.grid_down + self.height_pad
+        fitness_value_y = fitness_text_y + self.fitness_label_font_size + self.height_pad
+        tick_cross_y = fitness_value_y + self.fitness_value_font_size + self.height_pad
+        table_y = self.grid_down + max(len(input_grid), len(output_grid), env_grid.shape[0]) * self.cell_size + self.height_pad
+
+        # Adjust screen size if necessary
+        if fitness_text_x + self.fitness_value_font_size > self.screen_width:
+            self.screen_width = fitness_text_x + self.fitness_value_font_size + self.left_pad
+            self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        if env_grid_y + env_grid.shape[0] * self.cell_size > self.screen_height:
+            self.screen_height = env_grid_y + env_grid.shape[0] * self.cell_size + self.height_pad
+            self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+
+        self.screen.fill((255, 255, 255))  # Clear the screen
+
+        draw_grid(self.screen, input_grid, input_grid_x, input_grid_y, self.cell_size)
+        draw_grid(self.screen, output_grid, output_grid_x, output_grid_y, self.cell_size)
+        draw_grid(self.screen, env_grid, env_grid_x, env_grid_y, self.cell_size)
+
+        # Load and scale images
+        arrow_img = pygame.transform.scale(pygame.image.load('images/arrow.png'), (50, 50))
+        equals_img = pygame.transform.scale(pygame.image.load('images/equals.jpg'), (50, 50))
+        green_tick_img = pygame.transform.scale(pygame.image.load('images/green_tick.png'), (50, 50))
+        red_cross_img = pygame.transform.scale(pygame.image.load('images/red-cross.png'), (50, 50))
+
+        if arrow_img_x < self.screen_width and arrow_img_y < self.screen_height:
+            self.screen.blit(arrow_img, (arrow_img_x, arrow_img_y))
+        if equals_img_x < self.screen_width and equals_img_y < self.screen_height:
+            self.screen.blit(equals_img, (equals_img_x, equals_img_y))
+
+        # Display fitness text
+        label_font = pygame.font.Font(None, self.fitness_label_font_size)
+        value_font = pygame.font.Font(None, self.fitness_value_font_size)
+        label_font.set_bold(True)
+        fitness_label = label_font.render("Fitness:", True, (0, 0, 0))
+        fitness_value = value_font.render(f"{self.fitness:.2f}", True, (0, 0, 0))
+        if fitness_text_x < self.screen_width and fitness_text_y < self.screen_height:
+            self.screen.blit(fitness_label, (fitness_text_x, fitness_text_y))
+        if fitness_text_x < self.screen_width and fitness_value_y < self.screen_height:
+            self.screen.blit(fitness_value, (fitness_text_x, fitness_value_y))
+
+        # Change fitness test to use math.isclose
+        if math.isclose(self.fitness, 0, abs_tol=get_abs_tol('ARC-display')):
+            if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
+                self.screen.blit(green_tick_img, (fitness_text_x, tick_cross_y))
+        else:
+            if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
+                self.screen.blit(red_cross_img, (fitness_text_x, tick_cross_y))
+
+        # Draw table with Code, Iteration, Index, and Dataset
+        table_font = pygame.font.Font(None, 24)
+        table_labels = ["Code", "Iteration", "Index", "Dataset"]
+        table_values = [os.path.splitext(self.code)[0], self.iteration, self.arc_data.index, self.dataset]  # Display code without file extension
+        table_x = self.left_pad
+        table_y = table_y
+
+        for i, (label, value) in enumerate(zip(table_labels, table_values)):
+            label_surface = table_font.render(label, True, (0, 0, 0))
+            value_surface = table_font.render(str(value), True, (0, 0, 0))
+            self.screen.blit(label_surface, (table_x + i * 150, table_y))
+            self.screen.blit(value_surface, (table_x + i * 150, table_y + 30))
+
+        pygame.display.flip()
+
+    def close(self):
+        """
+        Close the environment, save the screen to an HTML and an image file.
+        """
+        if self.screen is not None:
+            os.makedirs("c:/tmp/arc/", exist_ok=True)
+            image_filename = f"c:/tmp/arc/screen_image_{self.namespace}.png"
+            html_filename = f"c:/tmp/arc/screen_image_{self.namespace}.html"
+            
+            pygame.image.save(self.screen, image_filename)
+            
+            # Save the screen image to an HTML format
+            with open(html_filename, "w") as f:
+                f.write(f"<html><body><img src='screen_image_{self.namespace}.png'></body></html>")
+
+            pygame.display.quit()
+            pygame.quit()
+            self.isopen = False
+
+
+
+# %% ../nbs/15_arc.ipynb 14
+class ARCEnv(gym.Env):
+    def __init__(self, namespace=""):
+        super(ARCEnv, self).__init__()
+        self.index = 0
+        self.env = None
+        self.dimensions = []
+        self._fitness = 10000  # Initialize fitness to 10000
+        self.state = []
+        self.done = False
+
+        # Class variables
+        self.dataset = None
+        self.namespace = namespace
+        self.fitness_list = []
+
+        # Render settings
+        self.screen_width = 1000
+        self.screen_height = 500
+        self.cell_size = 30
+        self.left_pad = 20
+        self.height_pad = 20
+        self.grid_down = 50
+        self.symbol_down = 150
+        self.screen = None
+        self.isopen = True
+
+        self.cmap = colors.ListedColormap(['#000000', '#0074D9', '#FF4136', '#2ECC40', '#FFDC00',
+                                           '#AAAAAA', '#F012BE', '#FF851B', '#7FDBFF', '#870C25'])
+        self.norm = colors.Normalize(vmin=0, vmax=9)
+
+        self.fitness_label_font_size = 20
+        self.fitness_value_font_size = 50
+
+        self.iteration = 1  # Initialize iteration to 1
+        self.code = ""  # Example property, ensure to set self.code elsewhere in your class
+        self.data = None  # Placeholder for data
+        self.arc_data = None  # Placeholder for ARCDataProcessor
+        self.num_actions = 0  # Initialize num_actions
+
+    def initialise(self, properties, arc_dict):
+        """
+        Initialize the environment with properties and arc_dict.
+        """
+        self.dataset = properties.get('dataset', None)
+        self.arc_data = ARCDataProcessor(properties, arc_dict)
+        self.runs = properties.get('runs', len(arc_dict['train'])) if 'index' in properties else properties.get('runs', 1) / len(arc_dict['train'])
+        self.reset()
+
+    def step(self, actions):
+        """
+        Take a step in the environment.
+        """
+        self.arc_data.apply_actions(actions)
+
+        # Always calculate fitness regardless of dataset type
+        self.fitness = self.arc_data.fitness_function()
+
+        self.state, self.info = self.arc_data.get_state()
+        
+        self.iteration += 1  # Increment iteration
+        if self.iteration > self.runs:
+            # print(self.iteration, self.index)
+            # self.iteration = 1
+            self.done = True
+        return self.state, self.fitness, self.done, self.info
+
+    def reset(self):
+        """
+        Reset the environment to the initial state.
+        """
+        self.arc_data.reset()
+
+        # Always calculate fitness
+        self.fitness = self.arc_data.fitness_function()
+
+        self.done = False
+        self.state, self.info = self.arc_data.get_state()
+        self.iteration = 1  # Reset iteration
+        self.num_actions = self.info['num_actions']  # Set num_actions
+        self.fitness_list = []  # Initialize an empty list for fitness
+        self.fitness_isclose_to_zero = False
+
+    def next(self):
+        """
+        Move to the next state in arc_dict.
+        Returns False if the current fitness is not close to zero.
+        """
+        # self.fitness_list.append(self.fitness)
+        # print('next', self.iteration, self.fitness_list)
+        self.iteration = 1  # Reset iteration to 1
+        self.done = False
 
         # uncomment the following lines to check if fitness is close to zero discontinue processing the next index in the environment        
         # if not self.fitness_isclose_to_zero:
