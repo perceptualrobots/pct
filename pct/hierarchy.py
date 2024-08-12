@@ -58,62 +58,63 @@ class FunctionsData():
 # %% ../nbs/04_hierarchy.ipynb 11
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
+    
     def __init__(self, levels=0, cols=0, pre=None, post=None, name="pcthierarchy", clear_names=True, links="single", 
-                 history=False, build=True, error_collector=None, namespace=None, **pargs):
-        if namespace ==None:
-            namespace = uuid.uuid1()
-        self.namespace=namespace
+                    history=False, build=True, error_collector=None, namespace=None, **pargs):
+            if namespace ==None:
+                namespace = uuid.uuid1()
+            self.namespace=namespace
 
-        self.error_collector=error_collector
-        self.links_built = False
-        self.order=None
-        self.history=history
-        if clear_names:
-            UniqueNamer.getInstance().clear(namespace=namespace)
-        self.name=UniqueNamer.getInstance().get_name(namespace=namespace, name=name)
-        if pre==None:
-            self.preCollection=[]
-        else:            
-            self.preCollection=pre
-        if post==None:
-            self.postCollection=[]
-        else:                 
-            self.postCollection=post
-        self.hierarchy = []
-        self.prepost_data = None
-        if history:
-            self.prepost_data = FunctionsData()
-            
-        for r in range(levels):
-            col_list=[]
-            for c in range(cols):
-                if links == "dense":
-                    if r > 0:
-                        perc = WeightedSum(weights=list_of_ones(cols), namespace=namespace)
-                    if r < levels-1:
-                        ref = WeightedSum(weights=list_of_ones(cols), namespace=namespace)
-                    if r == 0:
-                        if levels > 1:
-                            node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history, namespace=namespace)      
-                        else:
-                            node = PCTNode(name=f'level{r}col{c}', history=history, namespace=namespace)                              
-                    if r > 0 and r == levels-1:                        
-                        node = PCTNode(perception=perc, name=f'level{r}col{c}', history=history, namespace=namespace)
-                    if r > 0 and r < levels-1:
-                        node = PCTNode(perception=perc, reference=ref, history=history, name=f'level{r}col{c}', namespace=namespace)
+            self.error_collector=error_collector
+            self.links_built = False
+            self.order=None
+            self.history=history
+            if clear_names:
+                UniqueNamer.getInstance().clear(namespace=namespace)
+            self.name=UniqueNamer.getInstance().get_name(namespace=namespace, name=name)
+            if pre==None:
+                self.preCollection=[]
+            else:            
+                self.preCollection=pre
+            if post==None:
+                self.postCollection=[]
+            else:                 
+                self.postCollection=post
+            self.hierarchy = []
+            self.prepost_data = None
+            if history:
+                self.prepost_data = FunctionsData()
+                
+            for r in range(levels):
+                col_list=[]
+                for c in range(cols):
+                    if links == "dense":
+                        if r > 0:
+                            perc = WeightedSum(weights=list_of_ones(cols), namespace=namespace)
+                        if r < levels-1:
+                            ref = WeightedSum(weights=list_of_ones(cols), namespace=namespace)
+                        if r == 0:
+                            if levels > 1:
+                                node = PCTNode(reference=ref, name=f'level{r}col{c}', history=history, namespace=namespace)      
+                            else:
+                                node = PCTNode(name=f'level{r}col{c}', history=history, namespace=namespace)                              
+                        if r > 0 and r == levels-1:                        
+                            node = PCTNode(perception=perc, name=f'level{r}col{c}', history=history, namespace=namespace)
+                        if r > 0 and r < levels-1:
+                            node = PCTNode(perception=perc, reference=ref, history=history, name=f'level{r}col{c}', namespace=namespace)
 
-                else:
-                    node = PCTNode(name=f'level{r}col{c}', history=history, namespace=namespace)
-                
-                if build:
-                    node.build_links()                    
-                    self.handle_perception_links(node, r, c, links)
-                    self.handle_reference_links(node, r, c, links)
-                col_list.append(node)
-                
-            self.hierarchy.append(col_list)
-    
-    
+                    else:
+                        node = PCTNode(name=f'level{r}col{c}', history=history, namespace=namespace)
+                    
+                    if build:
+                        node.build_links()                    
+                        self.handle_perception_links(node, r, c, links)
+                        self.handle_reference_links(node, r, c, links)
+                    col_list.append(node)
+                    
+                self.hierarchy.append(col_list)
+        
+        
     def __call__(self, verbose=False):
 
         for ctr in range(len(self.preCollection)):
@@ -164,7 +165,7 @@ class PCTHierarchy():
             print()
         
         return output
-    
+        
 
     def is_fitness_close_to_zero(self):
         return self.get_environment().is_fitness_close_to_zero()
@@ -195,7 +196,7 @@ class PCTHierarchy():
         
     def add_postprocessor(self, func):
         self.postCollection.append(func)
- 
+
     def get_preprocessor(self):
         return self.preCollection
         
@@ -286,7 +287,7 @@ class PCTHierarchy():
         graph = self.graph()
         pos = nx.multipartite_layout(graph, subset_key="layer", align=align)
         return pos
- 
+
     def get_level(self, level):
 
         return [ self.hierarchy[level] ]
@@ -298,9 +299,9 @@ class PCTHierarchy():
         return [ self.hierarchy[levels-1] ]
             
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
-             color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
-             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, draw_fig=True,
-             node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None):
+            color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
+            node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, draw_fig=True,
+            node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None):
         
         if not draw_fig :
             return None
@@ -328,7 +329,7 @@ class PCTHierarchy():
             
         nx.draw(self.graphv, pos=pos, with_labels=with_labels, font_size=font_size, font_weight=font_weight, 
                 font_color=font_color, node_color=node_color,  node_size=node_size, arrowsize=arrowsize)
-         
+        
         plt.title(self.name)
         plt.tight_layout()
 
@@ -417,7 +418,7 @@ class PCTHierarchy():
             for node in level:
                 node.consolidate(linklist)
 
-        
+            
     def reset_checklinks(self, val=True):
         for func in self.postCollection:
             func.reset_checklinks(val)
@@ -438,7 +439,7 @@ class PCTHierarchy():
         
     def get_edge_labels_funcdata(self):
         labels={}
-       
+    
         for func in self.postCollection:
             func.get_weights_labels_funcdata(labels)
                     
@@ -454,7 +455,7 @@ class PCTHierarchy():
         
     def get_edge_labels(self):
         labels={}
-       
+    
         for func in self.postCollection:
             func.get_weights_labels(labels)
                     
@@ -515,7 +516,7 @@ class PCTHierarchy():
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])-1, -1, -1):
             #for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].set_graph_data(graph, layer=layer, layout=layout)
+                self.hierarchy[level][col].set_graph_data(graph, layer=layer, layout=layout)
             layer+=3
 
             
@@ -534,7 +535,7 @@ class PCTHierarchy():
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])-1, -1, -1):
             #for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].set_graph_data_funcdata(graph, layer=layer, layout=layout)
+                self.hierarchy[level][col].set_graph_data_funcdata(graph, layer=layer, layout=layout)
             layer+=3
             
             
@@ -588,7 +589,7 @@ class PCTHierarchy():
 
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].change_link_name(old_name, new_name)
+                self.hierarchy[level][col].change_link_name(old_name, new_name)
         
     def set_suffixes(self):
         functionsList = FunctionsList.getInstance()
@@ -695,12 +696,12 @@ class PCTHierarchy():
                         raise Exception(msg)
                     
         return True
-                      
+                    
     
     def build_links(self):
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].build_links()
+                self.hierarchy[level][col].build_links()
         
 
     def clear_values(self):
@@ -712,12 +713,12 @@ class PCTHierarchy():
                     
         for level in range(len(self.hierarchy)):
             for col in range(len(self.hierarchy[level])):
-                  self.hierarchy[level][col].clear_values()
+                self.hierarchy[level][col].clear_values()
 
     def error(self):
         error = 0
         for level in range(len(self.hierarchy)):
-             for col in range(len(self.hierarchy[level])):
+            for col in range(len(self.hierarchy[level])):
                     error += self.hierarchy[level][col].get_function("comparator").get_value()
         return error
 
@@ -767,7 +768,7 @@ class PCTHierarchy():
         
         return str
 
-                                      
+                                    
     def get_namespace(self):
         return self.namespace
 
@@ -780,12 +781,12 @@ class PCTHierarchy():
         if self.order==None:
             for level in range(len(self.hierarchy)):
                 for col in range(len(self.hierarchy[level])):
-                      self.hierarchy[level][col].check_namespace(higher_namespace=namespace)
+                    self.hierarchy[level][col].check_namespace(higher_namespace=namespace)
         elif self.order=="Down":
             for level in range(len(self.hierarchy)-1, -1, -1):
                 for col in range(len(self.hierarchy[level])-1, -1, -1):
-                      self.hierarchy[level][col].check_namespace(higher_namespace=namespace)
-                                             
+                    self.hierarchy[level][col].check_namespace(higher_namespace=namespace)
+                                            
         for func in self.postCollection:
             func.check_namespace(higher_namespace=namespace) 
 
@@ -811,13 +812,13 @@ class PCTHierarchy():
             for level in range(len(self.hierarchy)):
                 print(f'Level {level} Cols {self.get_columns(level)}')
                 for col in range(len(self.hierarchy[level])):
-                      self.hierarchy[level][col].summary(build=build, extra=extra, higher_namespace=namespace)
+                    self.hierarchy[level][col].summary(build=build, extra=extra, higher_namespace=namespace)
         elif self.order=="Down":
             for level in range(len(self.hierarchy)-1, -1, -1):
                 print(f'Level {level} Cols {self.get_columns(level)}')
                 for col in range(len(self.hierarchy[level])-1, -1, -1):
-                      self.hierarchy[level][col].summary(build=build, extra=extra, higher_namespace=namespace)
-                                             
+                    self.hierarchy[level][col].summary(build=build, extra=extra, higher_namespace=namespace)
+                                            
         print("POST:", end=" ")
         if len(self.postCollection) == 0:
             print("None")
@@ -842,7 +843,7 @@ class PCTHierarchy():
         with open(file) as f:
             config = json.load(f)
         return cls.from_config(config, namespace=namespace)
-                   
+                
     def get_config(self, zero=1):
         config = {"type": type(self).__name__,
                     "name": self.name}        
@@ -888,7 +889,7 @@ class PCTHierarchy():
         postCollection = []        
         coll_dict = config['post']
         PCTNode.collection_from_config(postCollection, coll_dict, namespace=namespace)
-     
+    
         hpct.preCollection=preCollection
         hpct.postCollection=postCollection
                 
@@ -1111,7 +1112,7 @@ class PCTHierarchy():
         return ''.join(str_list)
 
 
-    def get_plots_config(self, plots):
+    def get_plots_config(self, plots, title_prefix=""):
         if isinstance(plots, list):
             return plots
 
@@ -1121,7 +1122,7 @@ class PCTHierarchy():
             signals[name] = name
             plot_item['plot_items'] = signals
             title = ptitle if ptitle else name
-            plot_item['title'] =  title
+            plot_item['title'] =  f'{title_prefix}{title}'
             return plot_item
 
         def create_plot_item(func1, func2=None, ptitle=None):
@@ -1134,7 +1135,7 @@ class PCTHierarchy():
                 signals[func1.get_name()] = func1.get_name()
             plot_item['plot_items'] = signals
             title = ptitle if ptitle else func1.get_name()
-            plot_item['title'] =  title
+            plot_item['title'] =  f'{title_prefix}{title}'
             return plot_item
 
         plots_list = []
@@ -1174,91 +1175,13 @@ class PCTHierarchy():
 
         return plots_list
 
-
-
-    # def get_plots_config(self, plots):
-    #     if isinstance(plots, list):
-    #         return plots
-        
-    #     plots_list = []
-    #     if plots == 'scEdges':
-    #         ctr = 1
-    #         for func in self.get_preprocessor():
-    #             if ctr == 1:
-    #                 ctr = ctr + 1
-    #                 continue
-    #             plot_item = {}
-    #             signals = {}
-    #             name = func.get_name()
-    #             signals[name] = name
-    #             plot_item['plot_items'] = signals
-    #             plot_item['title'] = name
-    #             plots_list.append(plot_item)
-
-    #         for func in self.get_postprocessor():
-    #             plot_item = {}
-    #             signals = {}
-    #             name = func.get_name()
-    #             signals[name] = name
-    #             plot_item['plot_items'] = signals
-    #             plot_item['title'] = name
-    #             plots_list.append(plot_item)
-            
-    #         for level in self.get_top_level():
-    #             if isinstance(level, list):
-    #                 for node in level:
-    #                     rfunc = node.get_reference_function()
-    #                     pfunc = node.get_perception_function()
-    #                     plot_item = {}
-    #                     signals = {}
-    #                     signals[rfunc.get_name()] = rfunc.get_name()
-    #                     signals[pfunc.get_name()] = pfunc.get_name()
-    #                     plot_item['plot_items'] = signals
-    #                     plot_item['title'] = node.get_name()
-    #                     plots_list.append(plot_item)
-    #             else:
-    #                 rfunc = level.get_reference_function()
-    #                 pfunc = level.get_perception_function()
-    #                 plot_item = {}
-    #                 signals = {}
-    #                 signals[rfunc.get_name()] = rfunc.get_name()
-    #                 signals[pfunc.get_name()] = pfunc.get_name()
-    #                 plot_item['plot_items'] = signals
-    #                 plot_item['title'] = node.get_name()
-    #                 plots_list.append(plot_item)
-
-    #     if plots_list == 'scZero':
-    #         for level in self.get_level(0):
-    #             if isinstance(level, list):
-    #                 for node in level:
-    #                     rfunc = node.get_reference_function()
-    #                     pfunc = node.get_perception_function()
-    #                     plot_item = {}
-    #                     signals = {}
-    #                     signals[rfunc.get_name()] = rfunc.get_name()
-    #                     signals[pfunc.get_name()] = pfunc.get_name()
-    #                     plot_item['plot_items'] = signals
-    #                     plot_item['title'] = node.get_name()
-    #                     plots_list.append(plot_item)
-    #             else:
-    #                 rfunc = level.get_reference_function()
-    #                 pfunc = level.get_perception_function()
-    #                 plot_item = {}
-    #                 signals = {}
-    #                 signals[rfunc.get_name()] = rfunc.get_name()
-    #                 signals[pfunc.get_name()] = pfunc.get_name()
-    #                 plot_item['plot_items'] = signals
-    #                 plot_item['title'] = node.get_name()
-    #                 plots_list.append(plot_item)
-
-    #     return plots_list    
     
     @classmethod
     def run_from_config(cls, config, min=None, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=False, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, 
-        environment_properties=None, experiment=None, log_experiment_figure=False):
+        environment_properties=None, experiment=None, log_experiment_figure=False, title_prefix=""):
         "Run an individual from a provided configuration."
 
         if callable(min):
@@ -1291,7 +1214,7 @@ class PCTHierarchy():
         
         if history:
             if plots:
-                plots = hierarchy.get_plots_config(plots)
+                plots = hierarchy.get_plots_config(plots, title_prefix)
                 
                 for plot in plots:
                     plotfile=None
@@ -1306,12 +1229,12 @@ class PCTHierarchy():
     
 
 
-                      
+                    
     ## run_from_file
     @classmethod
     def run_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, 
-                      runs=None, plots_dir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False, suffixes=False,
-                      enhanced_environment_properties=None):
+                    runs=None, plots_dir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False, suffixes=False,
+                    enhanced_environment_properties=None, title_prefix=""):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
@@ -1350,7 +1273,8 @@ class PCTHierarchy():
         hierarchy, score = cls.run_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
-                                                suffixes=suffixes, plots_dir=plots_dir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure)
+                                                suffixes=suffixes, plots_dir=plots_dir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure, 
+                                                title_prefix = title_prefix)
         
         return hierarchy, score 
 
@@ -1377,7 +1301,7 @@ class PCTHierarchy():
         else:
             environment_properties = env_props    
         error_properties = prp.get_error_properties()
-   
+
         if runs==None:
             runs = eval(prp.db['runs'])
         config = eval(prp.db['config'])
@@ -1452,3 +1376,4 @@ class PCTHierarchy():
         score = hierarchy.get_environment_score() if hierarchy.get_environment_score() is not None else hierarchy.get_error_collector().error()
 
         return score, dfig, pfigs
+

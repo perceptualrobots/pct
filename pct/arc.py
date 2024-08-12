@@ -450,8 +450,10 @@ class ARCEnv(gym.Env):
         # self.fitness_list.append(self.fitness)
         # print('next', self.iteration, self.fitness_list)
         self.iteration = 1  # Reset iteration to 1
-        if not self.fitness_isclose_to_zero:
-            return False
+
+        # uncomment the following lines to check if fitness is close to zero discontinue processing the next index in the environment        
+        # if not self.fitness_isclose_to_zero:
+        #     return False
         return self.arc_data.next()
 
     def add_to_fitness_list(self, fitness): 
