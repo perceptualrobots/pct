@@ -6,12 +6,15 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'Number
            'stringFloatListToListOfFloats', 'stringListToListOfStrings', 'listNumsToString', 'round_lists',
            'floatListsToString', 'limit_large_float', 'sigmoid', 'smooth', 'sigmoid_array', 'dot', 'list_of_ones',
            'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'clip_value', 'get_abs_tol',
-           'get_rel_tol', 'map_to_int_odd_range', 'map_to_int_even_range', 'TimerError', 'Timer', 'PCTRunProperties']
+           'get_rel_tol', 'map_to_int_odd_range', 'map_to_int_even_range', 'TimerError', 'Timer', 'PCTRunProperties',
+           'get_ram_mb']
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
+import psutil
 import sys, importlib, json, math, os, time, math
 from datetime import datetime
+
 # import warnings
 # warnings.filterwarnings("error")
 
@@ -652,3 +655,14 @@ class PCTRunProperties():
 
         return drive, property_dir, file
         
+
+# %% ../nbs/01_putils.ipynb 61
+def get_ram_mb():
+    # Get the current process ID
+    pid = os.getpid()
+
+    # Get the memory usage of the current process
+    process = psutil.Process(pid)
+    memory_usage = process.memory_info().rss / 1024 ** 2
+
+    return memory_usage

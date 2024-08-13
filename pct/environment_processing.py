@@ -16,7 +16,7 @@ import time
 
 # %% ../nbs/16_environment_processing.ipynb 4
 from .yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
-from .putils import printtime, NumberStats, PCTRunProperties
+from .putils import printtime, NumberStats, PCTRunProperties, get_ram_mb
 from .helpers import SolutionsDataManager, ChallengesDataManager
 from .hierarchy import PCTHierarchy
 
@@ -419,8 +419,8 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         history=True
 
         title_prefix="Test_"
-        plots='scFitness,scEdges,scZero'
-        runs = int(environment_properties['runs']/self.number_of_challenges)
+        plots=self.args['hierarchy_plots'] 
+        runs = int(1.5*environment_properties['runs']/self.number_of_challenges)
         hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
                 render=self.args['verbosed']['display_env'], runs=runs, experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
                 enhanced_environment_properties=enhanced_environment_properties, title_prefix=title_prefix, early_termination=False)
@@ -429,7 +429,8 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         print('Test score',score)
         fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
         print('fitness_list', fitness_list)
-
+        ram = round(get_ram_mb())
+        print('RAM', ram)
         if experiment:         
             grid = hierarchy.get_grid()
             experiment.log_other('LxC', f'{len(grid)}x{max(grid)}')
@@ -442,6 +443,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             experiment.log_other('input_set', str(input_set))
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('fitness', self.env_processing_details['fitness'])
+            experiment.log_metric('RAM', ram)   
             experiment.log_other('test_score', f'{score:4.3f}')
 
         return {}

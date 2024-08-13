@@ -1372,8 +1372,9 @@ class PCTHierarchy():
                     pfig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, experiment=experiment)
                     pfigs.append(pfig)
 
-        # score=hierarchy.get_error_collector().error()
-        score = hierarchy.get_environment_score() if hierarchy.get_environment_score() is not None else hierarchy.get_error_collector().error()
+        error_score=hierarchy.get_error_collector().error()
+        environment_score = hierarchy.get_environment_score()
+        score = environment_score if environment_score is not None else error_score
 
         return score, dfig, pfigs
 
