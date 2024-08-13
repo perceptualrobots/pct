@@ -743,6 +743,8 @@ class VelocityModel(BaseFunction):
         if self.indexes>0:
             self.value = [1 for _ in range(self.indexes)]
         
+    def get_environment_score(self):
+        return None
         
     def reset(self, full=True, seed=None):
         if full:
@@ -1285,6 +1287,7 @@ class ARC(ControlEnvironment):
     
     def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, render: bool = False, seed: int = None, namespace: Optional[str] = None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
+        self.debug = False
         self.num_links = None
 
         self.done = False
@@ -1410,24 +1413,23 @@ class ARC(ControlEnvironment):
             self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
             # self.env.fitness_isclose_to_zero = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
 
-        gradient_mean=0
-        gradients=0
         if self.done:
             self.env.add_to_fitness_list(max(self.boxcar) )
-            self.env.fitness_isclose_to_zero, gradient_mean, gradients = self.is_fitness_close_to_zero()
+            self.env.fitness_isclose_to_zero, _, _ = self.is_fitness_close_to_zero()
 
         # if self.boxcar[0]<0.01 and self.boxcar[9]<0.01:
         #     print('fitness_isclose_to_zero', self.env.fitness_isclose_to_zero)
         #     print(self.boxcar)
         #     print('---> ', gradient_mean, gradients)
 
-        if self.done:
-            if self.env.fitness_isclose_to_zero:
-                pass
-                # print('zero', self.boxcar)
-            else:
-                pass
-                # print('done', self.boxcar)
+        if self.debug:
+            if self.done:
+                if self.env.fitness_isclose_to_zero:
+                    pass
+                    print('zero', self.boxcar)
+                else:
+                    pass
+                    print('done', self.boxcar)
 
     def is_fitness_close_to_zero(self):
         # should this be max of fitness list

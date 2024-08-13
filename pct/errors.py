@@ -326,8 +326,9 @@ class InputsError(BaseErrorCollector):
     def add_data(self, hpct=None):
         data = []
         pre = hpct.get_preprocessor()
-        for func in pre:
-            if isinstance(func, IndexedParameter):
+        for count, func in enumerate(pre):
+            # if isinstance(func, IndexedParameter):
+            if count > 0:
                 data.append(func.get_value())
         self.add_error_data( data )
         if self.check_limit():
