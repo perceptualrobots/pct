@@ -1411,16 +1411,20 @@ class ARC(ControlEnvironment):
             self.done = self.env_done
         else:
             self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
+            if self.done:
+                self.env.add_to_gradient_list(details['gradient_range']) 
             # self.env.fitness_isclose_to_zero = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
 
         if self.done:
             self.env.add_to_fitness_list(max(self.boxcar) )
-            self.env.fitness_isclose_to_zero, _, _ = self.is_fitness_close_to_zero()
+            self.env.fitness_isclose_to_zero = self.is_fitness_close_to_zero()
 
-        # if self.boxcar[0]<0.01 and self.boxcar[9]<0.01:
-        #     print('fitness_isclose_to_zero', self.env.fitness_isclose_to_zero)
-        #     print(self.boxcar)
-        #     print('---> ', gradient_mean, gradients)
+            # if self.env.fitness_isclose_to_zero:
+            #     print(self.env.iteration)
+            #     print('gradient ', abs(max(gradients) - min(gradients)),  max(abs(gradients)), gradient_mean, [  f'{g:4.4f}' for g in gradients] )
+            #     print('fitness, ', self.boxcar)
+            #     print('flist', self.env.fitness_list)
+
 
         if self.debug:
             if self.done:
@@ -1433,7 +1437,7 @@ class ARC(ControlEnvironment):
 
     def is_fitness_close_to_zero(self):
         # should this be max of fitness list
-        return ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
+        return ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'))
 
 
     def get_fitness_list(self):
@@ -1467,7 +1471,7 @@ class ARC(ControlEnvironment):
         else:
             fit = self.env.fitness
 
-        return {'fitness_list' : self.env.fitness_list, 'fitness' : fit}
+        return {'fitness_list' : self.env.fitness_list, 'fitness' : fit, 'gradient_list' : self.env.gradient_list}
 
     class Factory:
         @staticmethod

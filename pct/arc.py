@@ -375,7 +375,7 @@ class ARCEnv(gym.Env):
         self.dataset = None
         self.namespace = namespace
         self.fitness_list = []
-
+        self.gradient_list = []
         # Render settings
         self.screen_width = 1000
         self.screen_height = 500
@@ -442,6 +442,7 @@ class ARCEnv(gym.Env):
         self.iteration = 1  # Reset iteration
         self.num_actions = self.info['num_actions']  # Set num_actions
         self.fitness_list = []  # Initialize an empty list for fitness
+        self.gradient_list = []  # Initialize an empty list for gradient
         self.fitness_isclose_to_zero = False
 
     def next(self):
@@ -466,6 +467,13 @@ class ARCEnv(gym.Env):
         Add the provided fitness to the fitness list.
         """
         self.fitness_list.append(fitness)
+
+    def add_to_gradient_list(self, gradient): 
+        """
+        Add the provided gradient to the gradient list.
+        """
+        self.gradient_list.append(gradient) 
+
 
     def is_environment_resolved(self):
         max_fitness = max(self.fitness_list)

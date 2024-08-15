@@ -425,10 +425,14 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
                 render=self.args['verbosed']['display_env'], runs=runs, experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
                 enhanced_environment_properties=enhanced_environment_properties, title_prefix=title_prefix, early_termination=False)
 
-        score = round(score ** 0.5)
+        score = round(score ** 0.5, 1)
         print('Test score',score)
         fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
         print('fitness_list', fitness_list)
+
+        gradient_list = str( [f'{i:4.5f}' for i in  self.env_processing_details['gradient_list']])
+        print('gradient_list', gradient_list)
+
         ram = round(get_ram_mb())
         print('RAM', ram)
         if experiment:         
@@ -439,12 +443,14 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
                 indstr = str(environment_properties['index'])
             experiment.log_other('index', indstr)
             experiment.log_other('fitness_list', fitness_list)
+            experiment.log_other('gradient_list', gradient_list)
             input_set = environment_properties['input_set']
             experiment.log_other('input_set', str(input_set))
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('fitness', self.env_processing_details['fitness'])
             experiment.log_metric('RAM', ram)   
             experiment.log_other('test_score', f'{score:4.3f}')
+            experiment.log_other('code', environment_properties['code'])
 
         return {}
 

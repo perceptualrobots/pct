@@ -29,9 +29,6 @@ class ListChecker:
         if not float_list:
             return True, {"gradient": None, "mean": None, "std_dev": None}
 
-        gradient = np.gradient(float_list)
-        mean_value = np.mean(float_list)
-        std_dev = np.std(float_list)
         first_value = float_list[0]
 
 
@@ -40,13 +37,17 @@ class ListChecker:
             for value in float_list[1:]
         )
 
-        sum_abs_gradient_close_to_zero = math.isclose(sum(abs(gradient)), 0, rel_tol=0, abs_tol=gradient_abs_tol)
+        gradients = np.gradient(float_list)
+        mean_value = np.mean(float_list)
+        std_dev = np.std(float_list)
 
+        gradient_range = abs(max(gradients) - min(gradients))        
+        gradient_range_close_to_zero = math.isclose(gradient_range, 0, rel_tol=0, abs_tol=gradient_abs_tol)
 
-        return all_close_to_first and sum_abs_gradient_close_to_zero, {"gradient": gradient, "mean": mean_value, "std_dev": std_dev}
+        return all_close_to_first and gradient_range_close_to_zero, {"gradient_range": gradient_range, "mean": mean_value, "std_dev": std_dev}
 
     @staticmethod
-    def check_float_list_close_to_zero(float_list, rel_tol=1e-9, abs_tol=0.0, gradient_abs_tol=0.0):
+    def check_float_list_close_to_zero(float_list, rel_tol=1e-9, abs_tol=0.0):
         """
         Checks if the values in the float list are close to zero within the specified tolerance
         and if the gradient (difference between consecutive values) is close to zero within the specified gradient tolerance.
@@ -61,22 +62,8 @@ class ListChecker:
             math.isclose(value, 0, rel_tol=rel_tol, abs_tol=abs_tol)
             for value in float_list
         )
-        
-        # mean_value = np.mean(float_list)
-        # mean_close_to_zero = math.isclose(mean_value, 0, rel_tol=rel_tol, abs_tol=abs_tol)
-        
-        if len(float_list) == 1:
-            return values_close_to_zero
-        
-        gradients = np.gradient(float_list)
-        gradient_mean = np.mean(gradients)
-        
-        # gradients_close_to_mean = all(
-        #     math.isclose(gradient, gradient_mean, rel_tol=0, abs_tol=gradient_abs_tol)
-        #     for gradient in gradients
-        # )
-        
-        return values_close_to_zero, gradient_mean, gradients
+            
+        return values_close_to_zero
         
 
 
