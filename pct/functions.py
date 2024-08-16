@@ -31,7 +31,7 @@ class HPCTFUNCTION(IntEnum):
     
 
 
-# %% ../nbs/02_functions.ipynb 6
+# %% ../nbs/02_functions.ipynb 8
 class BaseFunction(ABC):
     "Base class of a PCT function. This class is not used directly by developers, but defines the functionality common to all."
     def __init__(self, name=None, value=None, links=None, new_name=True, namespace=None):
@@ -433,7 +433,7 @@ class BaseFunction(ABC):
     def __str__(self):
         return str(self.__dict__)
 
-# %% ../nbs/02_functions.ipynb 7
+# %% ../nbs/02_functions.ipynb 9
 class FunctionFactory:
     factories = {}
     def addFactory(id, functionFactory):
@@ -463,7 +463,7 @@ class FunctionFactory:
     createFunctionFromConfig = staticmethod(createFunctionFromConfig)
     
 
-# %% ../nbs/02_functions.ipynb 10
+# %% ../nbs/02_functions.ipynb 13
 class Subtract(BaseFunction):
     "A function that subtracts one value from another. Parameter: None. Links: Two links required to each the values to be subtracted."
     def __init__(self, value=0, name="subtract", links=None, new_name=True, namespace=None, **cargs):
@@ -493,7 +493,7 @@ class Subtract(BaseFunction):
         
         
 
-# %% ../nbs/02_functions.ipynb 11
+# %% ../nbs/02_functions.ipynb 14
 class Proportional(BaseFunction):
     "A proportion of the input value as defined by the gain parameter. Parameters: The gain value. Links: One."
     def __init__(self, gain=1, value=0, name="proportional", links=None, new_name=True, namespace=None, **cargs):
@@ -533,7 +533,7 @@ class Proportional(BaseFunction):
             return Proportional(new_name=new_name, namespace=namespace, **cargs)
         
 
-# %% ../nbs/02_functions.ipynb 12
+# %% ../nbs/02_functions.ipynb 15
 class Variable(BaseFunction):
     "A function that returns a variable value. Parameter: The variable value. Links: None"
     def __init__(self,  value=0, name="variable", links=None, new_name=True, namespace=None, **cargs):
@@ -573,7 +573,7 @@ class Variable(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return Variable(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 13
+# %% ../nbs/02_functions.ipynb 16
 class PassOn(BaseFunction):
     "A function that passes on a variable value from a linked function. Parameter: None. Links: One"
     def __init__(self,  value=0, name="variable", links=None, new_name=True, namespace=None, **cargs):
@@ -599,7 +599,7 @@ class PassOn(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return PassOn(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 14
+# %% ../nbs/02_functions.ipynb 17
 class GreaterThan(BaseFunction):
     "One of two supplied values is returned if the input is greater than supplied threshold.</br> Parameters: The threshold and upper and lower value. Links: One"
     def __init__(self, threshold=0, upper=1, lower=0, value=0, name="greaterthan", links=None, new_name=True, namespace=None, **cargs):
@@ -640,7 +640,7 @@ class GreaterThan(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return GreaterThan(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 15
+# %% ../nbs/02_functions.ipynb 18
 class Constant(BaseFunction):
     "A function that returns a constant value. Parameter: The constant value. Links: None"
     def __init__(self, value=0, name="constant", new_name=True, namespace=None, **cargs):
@@ -690,7 +690,7 @@ class Constant(BaseFunction):
         def create(self, new_name=None, namespace=None, **cargs): return Constant(new_name=new_name, namespace=namespace, **cargs)
         
 
-# %% ../nbs/02_functions.ipynb 16
+# %% ../nbs/02_functions.ipynb 19
 class Step(BaseFunction):
     "A function that returns an alternating signal. Parameter: The upper and lower values, and a delay value. Links: None"
     def __init__(self, upper=None, lower=None, delay=None, period=None, value=0, name="step", new_name=True, namespace=None, **cargs):
@@ -739,7 +739,7 @@ class Step(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return Step(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 17
+# %% ../nbs/02_functions.ipynb 20
 class Integration(BaseFunction):
     "A leaky integrating function. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: One."
     def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, namespace=None, **cargs):
@@ -774,7 +774,7 @@ class Integration(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return Integration(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 18
+# %% ../nbs/02_functions.ipynb 21
 class IntegrationDual(BaseFunction):
     "A leaky integrating function, applying one signal to another. Equivalent of a exponential smoothing function, of the amplified input. Parameters: The gain and slow values. Links: Two."
     def __init__(self, gain=1, slow=2, value=0, name="integration", links=None, new_name=True, namespace=None, **cargs):
@@ -809,7 +809,7 @@ class IntegrationDual(BaseFunction):
         def create(self, new_name=None, namespace=None, **cargs): return IntegrationDual(new_name=new_name, namespace=namespace, **cargs)
         
 
-# %% ../nbs/02_functions.ipynb 19
+# %% ../nbs/02_functions.ipynb 22
 class Sigmoid(BaseFunction):
     "A sigmoid function. Similar to a proportional function, but kept within a limit (+/- half the range). Parameters: The range and slope values. Links: One."
     def __init__(self, range=2, slope=10, value=0, name="sigmoid", links=None, new_name=True, namespace=None, **cargs):
@@ -844,7 +844,7 @@ class Sigmoid(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return Sigmoid(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 20
+# %% ../nbs/02_functions.ipynb 23
 class WeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=[0], value=0, name="weighted_sum", links=None, new_name=True, usenumpy=False, namespace=None, **cargs):
@@ -972,7 +972,7 @@ class WeightedSum(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return WeightedSum(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 21
+# %% ../nbs/02_functions.ipynb 24
 class SmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then smooths the result. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=[0], smooth_factor=0.0, value=0, name="smooth_weighted_sum", links=None, 
@@ -1092,7 +1092,7 @@ class SmoothWeightedSum(BaseFunction):
         def create(self, new_name=None, namespace=None, **cargs): return SmoothWeightedSum(new_name=new_name, namespace=namespace, **cargs)
        
 
-# %% ../nbs/02_functions.ipynb 22
+# %% ../nbs/02_functions.ipynb 25
 class IndexedParameter(BaseFunction):
     "A function that returns a parameter from a linked function, indexed by number. Parameter: The index. Links: One."
     def __init__(self, index=None, value=0, name="indexed_parameter", links=None, new_name=True, namespace=None, **cargs):
@@ -1126,7 +1126,7 @@ class IndexedParameter(BaseFunction):
         def create(self, new_name=None, namespace=None, **cargs): return IndexedParameter(new_name=new_name, namespace=namespace, **cargs)
         
 
-# %% ../nbs/02_functions.ipynb 23
+# %% ../nbs/02_functions.ipynb 27
 class SigmoidWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then limits the output by squashing with a sigmoid function. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=[0], range=2.0, slope=10.0,  value=0, name="sigmoid_weighted_sum", links=None, 
@@ -1220,7 +1220,7 @@ class SigmoidWeightedSum(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return SigmoidWeightedSum(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 24
+# %% ../nbs/02_functions.ipynb 29
 class SigmoidSmoothWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. It then smooths the result and then limits the output by squashing with a sigmoid function. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=[0], smooth_factor=0.0, range=2.0, slope=10.0, value=0, name="sigmoid_smooth_weighted_sum", links=None, 
@@ -1327,7 +1327,7 @@ class SigmoidSmoothWeightedSum(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return SigmoidSmoothWeightedSum(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 25
+# %% ../nbs/02_functions.ipynb 30
 class Derivative(BaseFunction):
     "A function that provides the difference to previous values of the input signal. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, history_length=1, value=0, name="derivative", links=None, new_name=True, usenumpy=False, namespace=None, **cargs):
@@ -1394,7 +1394,7 @@ class Derivative(BaseFunction):
     class FactoryFromConfig:
         def create(self, new_name=None, namespace=None, **cargs): return Derivative(new_name=new_name, namespace=namespace, **cargs)
 
-# %% ../nbs/02_functions.ipynb 26
+# %% ../nbs/02_functions.ipynb 31
 class DerivativeWeightedSum(BaseFunction):
     "A function that combines a set of inputs by multiplying each by a weight and then adding them up. And then takes the difference of with a past value. Parameter: The weights array. Links: Links to all the input functions."
     def __init__(self, weights=[0], history_length=1,  value=0, name="derivative_weighted_sum", links=None, 
