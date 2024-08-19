@@ -1316,7 +1316,8 @@ class ARC(ControlEnvironment):
         self.initial = props.get('initial', 1000)
         self.grid_shape = props.get('grid_shape', None)
         self.input_set = props.get('input_set', None)
-        self.boxcar = [self.initial for i in range(1, self.history+1)]
+        # self.boxcar = [self.initial for i in range(1, self.history+1)]
+        self.reset_boxcar()
         self.num_links = self.env.get_num_actions()
 
     def get_properties(self):
@@ -1348,6 +1349,8 @@ class ARC(ControlEnvironment):
                 self.env_done = False
                 if not self.env.next():
                     raise Exception(f'1001: Env: {self.env_name} has finished.')
+                else:
+                    self.reset_boxcar()
 
     def process_hierarchy_values(self) -> None:
         self.hierarchy_values = [link.get_value() for link in self.links]
@@ -1455,8 +1458,13 @@ class ARC(ControlEnvironment):
 
     def reset(self, full: bool = True, seed: Optional[int] = None) -> None:
         self.done = False        
-        self.boxcar = [self.initial for i in range(1, self.history+1)]
+        # self.boxcar = [self.initial for i in range(1, self.history+1)]
+        self.reset_boxcar()
         self.env.reset()
+
+    def reset_boxcar(self):
+        self.boxcar = [self.initial for i in range(1, self.history+1)]
+
 
     def summary(self, extra: bool = False, higher_namespace: Optional[str] = None) -> None:
         super().summary("", extra=extra, higher_namespace=higher_namespace)
