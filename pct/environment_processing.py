@@ -410,6 +410,8 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         if environment_properties is None:
             environment_properties, en = PCTRunProperties.get_environment_properties(root=drive, env='ARC', property_dir=property_dir, property_file=file)
             environment_properties['dataset'] = 'test'
+            if 'index' in environment_properties:
+                environment_properties['index'] = 0
             print(environment_properties)
 
         enhanced_environment_properties = self.enhanced_environment_properties(environment_properties=environment_properties)
