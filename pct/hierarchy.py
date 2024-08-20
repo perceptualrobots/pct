@@ -1221,6 +1221,8 @@ class PCTHierarchy():
                     if plots_dir:
                         plotfile = plots_dir + sep + plot['title'] + '-' + str(hierarchy.get_namespace()) + '.png'
                     fig = hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, experiment=experiment)
+                    import matplotlib.pyplot as plt
+                    plt.close(fig)  # Close the figure here
 
         # score=hierarchy.get_error_collector().error()
         score = hierarchy.get_environment_score() if hierarchy.get_environment_score() is not None else hierarchy.get_error_collector().error()
