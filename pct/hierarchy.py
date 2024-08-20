@@ -417,6 +417,18 @@ class PCTHierarchy():
         for level in self.hierarchy:
             for node in level:
                 node.consolidate(linklist)
+        
+        for level in self.hierarchy:
+            invalid_nodes = []
+            ctr = 0
+            for node in level:
+                if node.is_empty():
+                    invalid_nodes.append(ctr)
+                ctr+=1
+            for node_ctr in reversed(invalid_nodes):    
+                del level[node_ctr]
+
+
 
             
     def reset_checklinks(self, val=True):
@@ -738,7 +750,8 @@ class PCTHierarchy():
         for _ in range(num_nodes):
             del self.hierarchy[level][-1]
 
-            
+    def remove_node(self, level, num):        
+        del self.hierarchy[level][num]
             
     def get_summary(self):
         str = "**************************\nPRE: "
