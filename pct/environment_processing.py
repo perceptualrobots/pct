@@ -6,16 +6,16 @@ __all__ = ['wind_turbine_results', 'EnvironmentProcessingFactory', 'BaseEnvironm
 
 # %% ../nbs/16_environment_processing.ipynb 3
 from abc import ABC, abstractmethod
-from comet_ml import Experiment, api
-from comet_ml import Artifact
+# from comet_ml import Experiment, api
+# from comet_ml import Artifact
 from os import sep, makedirs, path
-import matplotlib.pyplot as plt
-from matplotlib.ticker import FuncFormatter
+# import matplotlib.pyplot as plt
+# from matplotlib.ticker import FuncFormatter
 import time
 
 
 # %% ../nbs/16_environment_processing.ipynb 4
-from .yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
+# from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
 from .putils import printtime, NumberStats, PCTRunProperties, get_ram_mb
 from .helpers import SolutionsDataManager, ChallengesDataManager
 from .hierarchy import PCTHierarchy
@@ -235,6 +235,7 @@ class BaseEnvironmentProcessing(ABC):
 
             final_ex_name = self.get_experiment_name()
             if not self.args['overwrite']:
+                from comet_ml import api
                 capi = api.API(api_key=self.args['api_key'])
                 while True:
                     connected = False
@@ -254,7 +255,7 @@ class BaseEnvironmentProcessing(ABC):
                     print("Experiment", final_ex_name, "already exists in", self.args['project_name'])
                     return None, True
 
-
+            from comet_ml import Experiment
             experiment = Experiment(api_key=self.args['api_key'],
                                     project_name=self.args['project_name'],
                                     workspace=self.args['workspace'], display_summary_level=0)

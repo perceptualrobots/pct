@@ -11,7 +11,7 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'Number
 
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
-import psutil
+#import psutil
 import sys, importlib, json, math, os, time, math
 from datetime import datetime
 
@@ -450,7 +450,7 @@ def list_of_ones(num):
     x = [1 for _ in range(num) ]
     return x
 
-# %% ../nbs/01_putils.ipynb 40
+# %% ../nbs/01_putils.ipynb 41
 def limit_to_range(num, lower, upper):
     if num < lower:
         frac, _  = math.modf(num)
@@ -461,7 +461,7 @@ def limit_to_range(num, lower, upper):
         num = upper - frac
     return num
 
-# %% ../nbs/01_putils.ipynb 42
+# %% ../nbs/01_putils.ipynb 43
 def show_video():
   mp4list = glob.glob('video/*.mp4')
   if len(mp4list) > 0:
@@ -479,12 +479,9 @@ def wrap_env(env):
   env = Monitor(env, './video', force=True)
   return env
 
-# %% ../nbs/01_putils.ipynb 45
-import os
-
-# %% ../nbs/01_putils.ipynb 46
+# %% ../nbs/01_putils.ipynb 47
 from pathlib import Path
-
+import os
 def is_in_notebooks():
     term = os.getenv('TERM') 
     if term == 'xterm-color':
@@ -492,19 +489,19 @@ def is_in_notebooks():
     
     return False
 
-# %% ../nbs/01_putils.ipynb 47
+# %% ../nbs/01_putils.ipynb 48
 def printtime(msg):
     print(f'{datetime.now()} {os.getpid()} {msg}')
     return time.perf_counter()
 
 
-# %% ../nbs/01_putils.ipynb 48
+# %% ../nbs/01_putils.ipynb 49
 def clip_value(val, range):
     rtn = max(min(val, range[1]), range[0])
     return rtn
 
 
-# %% ../nbs/01_putils.ipynb 50
+# %% ../nbs/01_putils.ipynb 51
 def get_abs_tol(key):
     # dic = {'evolve': 0.01, 'ARC-evolve' : 0.01, 'ARC-display': 0.01, 'ARC': 0.01}
     dic = { 'ARC-evolve' : 0.01, 'ARC-display': 0.1, 'ARC-change' : 0.01, 'ARC-zero': 0.01, 'ARC-gradient': 0.0001}
@@ -514,7 +511,7 @@ def get_abs_tol(key):
     
     # return 0.001
 
-# %% ../nbs/01_putils.ipynb 52
+# %% ../nbs/01_putils.ipynb 53
 def get_rel_tol(key):
     dic = { 'ARC-change' : 1e-3}
 
@@ -523,7 +520,7 @@ def get_rel_tol(key):
     
     # return 1e-6
 
-# %% ../nbs/01_putils.ipynb 53
+# %% ../nbs/01_putils.ipynb 54
 def map_to_int_odd_range(val=None, inrange=None, outrange=None):
     a = round(val)
     b = clip_value(a, inrange)
@@ -537,7 +534,7 @@ def map_to_int_even_range(val=None, inrange=None, outrange=None):
     rtn = math.floor(b) + int((outrange[1] - outrange[0] + 1 )/2) + 1
     return rtn
 
-# %% ../nbs/01_putils.ipynb 56
+# %% ../nbs/01_putils.ipynb 57
 class TimerError(Exception):
     """A custom exception used to report errors in use of Timer class"""
 
@@ -578,7 +575,7 @@ class Timer:
     def count(self):
         return self._counter 
 
-# %% ../nbs/01_putils.ipynb 59
+# %% ../nbs/01_putils.ipynb 60
 class PCTRunProperties():
 
     @classmethod
@@ -656,8 +653,9 @@ class PCTRunProperties():
         return drive, property_dir, file
         
 
-# %% ../nbs/01_putils.ipynb 61
+# %% ../nbs/01_putils.ipynb 62
 def get_ram_mb():
+    import psutil
     # Get the current process ID
     pid = os.getpid()
 

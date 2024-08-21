@@ -7,11 +7,8 @@ __all__ = ['ARCDataProcessor', 'ARCEnv']
 import os, math
 import numpy as np
 import gym
-# from gym import spaces
 from time import sleep
-import pygame
-from matplotlib import colors       
-# import copy
+
 
 # %% ../nbs/15_arc.ipynb 4
 from .putils import limit_large_float, get_abs_tol
@@ -387,6 +384,8 @@ class ARCEnv(gym.Env):
         self.screen = None
         self.isopen = True
 
+        from matplotlib import colors       
+
         self.cmap = colors.ListedColormap(['#000000', '#0074D9', '#FF4136', '#2ECC40', '#FFDC00',
                                            '#AAAAAA', '#F012BE', '#FF851B', '#7FDBFF', '#870C25'])
         self.norm = colors.Normalize(vmin=0, vmax=9)
@@ -544,6 +543,8 @@ class ARCEnv(gym.Env):
         """
         Render the environment using Pygame.
         """
+        import pygame
+
         def draw_grid(screen, grid, top_left_x, top_left_y, cell_size):
             for i, row in enumerate(grid):
                 for j, value in enumerate(row):
