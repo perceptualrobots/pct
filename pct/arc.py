@@ -646,6 +646,7 @@ class ARCEnv(gym.Env):
         """
         Close the environment, save the screen to an HTML and an image file.
         """
+        import pygame
         if self.screen is not None:
             os.makedirs("c:/tmp/arc/", exist_ok=True)
             image_filename = f"c:/tmp/arc/screen_image_{self.namespace}.png"

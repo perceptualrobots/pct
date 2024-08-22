@@ -571,6 +571,7 @@ class WindTurbine(ControlEnvironment):
     
     def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
+        from pct.yaw_module import YawEnv
         
         self.zero_threshold = 0
         self.done = False

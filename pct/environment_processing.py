@@ -24,6 +24,7 @@ from .hierarchy import PCTHierarchy
 def wind_turbine_results(environment_properties=None, experiment=None, root=None, wt='WindTurbine', verbose=None, early=None, min=None,
                          comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None, plots=None, log_testing_to_experiment=False):
 
+    from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
     prefix = property_file[:property_file.find(".properties")]
     filename=wt+sep+property_dir+sep+property_file
     file = root + 'data'+sep+'ga'+sep+ filename
