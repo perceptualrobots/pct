@@ -106,6 +106,11 @@ class PCTNode():
     def __str__(self):
         return str(self.__dict__)
     
+    def is_reference_empty(self):
+        if self.referenceCollection:
+            return False
+
+        return True
 
     def is_empty(self):
         if self.perceptionCollection:

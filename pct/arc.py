@@ -356,7 +356,7 @@ class ARCDataProcessor:
 
 
 
-# %% ../nbs/15_arc.ipynb 12
+# %% ../nbs/15_arc.ipynb 11
 class ARCEnv(gym.Env):
     def __init__(self, namespace=""):
         super(ARCEnv, self).__init__()

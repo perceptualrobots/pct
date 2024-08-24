@@ -418,18 +418,25 @@ class PCTHierarchy():
             for node in level:
                 node.consolidate(linklist)
         
+        level_ctr = 0
         for level in self.hierarchy:
             invalid_nodes = []
             ctr = 0
             for node in level:
                 if node.is_empty():
                     invalid_nodes.append(ctr)
+                else:   
+                    if level_ctr == self.get_levels()-1 :
+                        if  node.is_reference_empty():
+                            invalid_nodes.append(ctr)
+
                 ctr+=1
             for node_ctr in reversed(invalid_nodes):    
                 del level[node_ctr]
 
-
-
+            level_ctr+=1
+            
+    
             
     def reset_checklinks(self, val=True):
         for func in self.postCollection:
