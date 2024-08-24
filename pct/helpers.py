@@ -14,8 +14,6 @@ from typing import Any, Dict, List, Tuple
 
 # %% ../nbs/14_helpers.ipynb 5
 class ListChecker:
-
-
     
     @staticmethod
     def check_list_unchanged(float_list, rel_tol=1e-9, abs_tol=0.0, gradient_abs_tol=0.0):
@@ -110,11 +108,12 @@ class ListChecker:
 
 
 
-# %% ../nbs/14_helpers.ipynb 12
+# %% ../nbs/14_helpers.ipynb 17
 class JSONDataManager:
     def __init__(self, path: str, show_timing: bool = False):
         self.data = self.load_json(path)
         self.show_timing = show_timing
+    
     
     def load_json(self, path: str) -> Dict:
         with open(path, 'r') as file:
@@ -130,11 +129,17 @@ class JSONDataManager:
             return result
         return timed_method
 
+    def reload_data(self, path: str):
+        self.data = self.load_json(path)
 
-
-# %% ../nbs/14_helpers.ipynb 14
+# %% ../nbs/14_helpers.ipynb 21
 class ChallengesDataManager(JSONDataManager):
     
+    @JSONDataManager.timing_decorator
+    def __init__(self, path: str, show_timing: bool = False):
+        super().__init__(path, show_timing)
+    
+
     @JSONDataManager.timing_decorator
     def get_all_keys(self) -> List[str]:
         return list(self.data.keys())
@@ -174,9 +179,11 @@ class ChallengesDataManager(JSONDataManager):
         counts = Counter(len(value['train']) for value in self.data.values())
         return dict(counts)
     
-    @JSONDataManager.timing_decorator
+    # @JSONDataManager.timing_decorator
     def get_data_for_key(self, key: str) -> Dict[str, Any]:
-        return self.data.get(key, {})
+        if key not in self.data:
+            raise KeyError(f"Key '{key}' not found in data.")
+        return self.data[key]
     
     @JSONDataManager.timing_decorator
     def get_arrays_for_key(self, key: str, array_type: str) -> List:
@@ -223,10 +230,19 @@ class ChallengesDataManager(JSONDataManager):
         }
 
 
+    @JSONDataManager.timing_decorator
+    def reload_data(self, path: str):
+        super().reload_data(path)
 
-# %% ../nbs/14_helpers.ipynb 16
+
+# %% ../nbs/14_helpers.ipynb 23
 class SolutionsDataManager(JSONDataManager):
+
+    @JSONDataManager.timing_decorator
+    def __init__(self, path: str, show_timing: bool = False):
+        super().__init__(path, show_timing)
     
+
     @JSONDataManager.timing_decorator
     def get_all_keys(self) -> List[str]:
         return list(self.data.keys())
@@ -235,39 +251,55 @@ class SolutionsDataManager(JSONDataManager):
     def count_all_keys(self) -> int:
         return len(self.data)
     
-    @JSONDataManager.timing_decorator
+    # @JSONDataManager.timing_decorator
     def get_data_for_key(self, key: str) -> Dict[str, Any]:
-        data = self.data.get(key, [])
-        return data[0] if data else {}
-    
+        if key not in self.data:
+            raise KeyError(f"Key '{key}' not found in data.")
+        return self.data[key][0]    
+
     @JSONDataManager.timing_decorator
     def get_arrays_for_key(self, key: str, array_type: str) -> List:
         if key not in self.data or array_type not in self.data[key]:
             return []
         return self.data[key][array_type]
 
+    @JSONDataManager.timing_decorator
+    def reload_data(self, path: str):
+        super().reload_data(path)
 
 
-
-# %% ../nbs/14_helpers.ipynb 19
+# %% ../nbs/14_helpers.ipynb 26
 class DataManagerSingleton:
     _instance = None
 
     @staticmethod
-    def get_instance():
+    def get_instance(folder: str = None, prefix: str = None, show_timing: bool = False):
         if DataManagerSingleton._instance is None:
-            DataManagerSingleton._instance = DataManagerSingleton()
+            if folder is None or prefix is None:
+                raise ValueError("folder and prefix must be provided for the first instantiation")
+            DataManagerSingleton._instance = DataManagerSingleton(folder, prefix, show_timing)
         return DataManagerSingleton._instance
 
-    def __init__(self, folder: str, prefix: str):
+    def __init__(self, folder: str, prefix: str, show_timing: bool = False):
+        if DataManagerSingleton._instance is not None:
+            raise Exception("This class is a singleton!")
         self.folder = folder
         self.prefix = prefix
-        self.challenges_manager = ChallengesDataManager(f"{self.folder}/{self.prefix}_challenges.json")
-        self.solutions_manager = SolutionsDataManager(f"{self.folder}/{self.prefix}_solutions.json")
-        self.code = None
+        self.challenges_manager = ChallengesDataManager(f"{self.folder}/{self.prefix}challenges.json", show_timing=show_timing)
+        self.solutions_manager = SolutionsDataManager(f"{self.folder}/{self.prefix}solutions.json", show_timing=show_timing)
 
-    def load_data_for_code(self, code: str):
-        self.code = code
+    def get_data_for_code(self, code: str):
         data = self.challenges_manager.get_data_for_key(code)
-        # Process the data as needed
         return data
+    
+    def get_solutions_for_code(self, code: str):
+        solutions = self.solutions_manager.get_data_for_key(code)
+        return solutions
+
+
+    def reload_data(self, folder: str, prefix: str):        
+        self.folder = folder
+        self.prefix = prefix
+        self.challenges_manager.reload_data(f"{self.folder}/{self.prefix}challenges.json")
+        self.solutions_manager.reload_data(f"{self.folder}/{self.prefix}solutions.json")
+

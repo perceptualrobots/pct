@@ -223,8 +223,8 @@ class BaseEnvironmentProcessing(ABC):
             for key, value in details.items():
                 self.env_processing_details[key]=value
 
-    def enhanced_environment_properties(self, environment_properties=None):
-        pass
+    # def enhanced_environment_properties(self, environment_properties=None):
+    #     pass
 
 
     def get_experiment(self):
@@ -375,35 +375,35 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
     def get_workspace(self):
         return 'arc-challenge'
     
-    def enhanced_environment_properties(self, environment_properties=None):
-        enhanced_environment_properties = {}
-        if 'dir' in environment_properties:
-            dir = environment_properties['dir']
-        else:
-            dir = 'C:\\packages\\arc-prize-2024'
-            environment_properties['dir'] = dir 
+    # def enhanced_environment_properties(self, environment_properties=None):
+    #     enhanced_environment_properties = {}
+    #     if 'dir' in environment_properties:
+    #         dir = environment_properties['dir']
+    #     else:
+    #         dir = 'C:\\packages\\arc-prize-2024'
+    #         environment_properties['dir'] = dir 
 
-        if 'file_prefix' in environment_properties:
-            file_prefix = environment_properties['file_prefix']
-        else:
-            file_prefix = 'arc-agi_training_'
-            environment_properties['file_prefix'] = file_prefix
+    #     if 'file_prefix' in environment_properties:
+    #         file_prefix = environment_properties['file_prefix']
+    #     else:
+    #         file_prefix = 'arc-agi_training_'
+    #         environment_properties['file_prefix'] = file_prefix
 
-        file_name = path.join(dir, file_prefix) + 'challenges.json' 
-        challenges_manager = ChallengesDataManager(file_name)
-        data = challenges_manager.get_data_for_key(environment_properties['code'])
+    #     file_name = path.join(dir, file_prefix) + 'challenges.json' 
+    #     challenges_manager = ChallengesDataManager(file_name)
+    #     data = challenges_manager.get_data_for_key(environment_properties['code'])
         
-        self.number_of_challenges = 1
-        if 'index' not in environment_properties:
-            self.number_of_challenges = len(data['train'])
+    #     self.number_of_challenges = 1
+    #     if 'index' not in environment_properties:
+    #         self.number_of_challenges = len(data['train'])
                 
-        enhanced_environment_properties['data']=data
-        solutions_file = path.join(environment_properties['dir'], environment_properties['file_prefix']) + 'solutions.json' 
-        solutions_manager = SolutionsDataManager(solutions_file)
-        test_output_array = solutions_manager.get_data_for_key(environment_properties['code'])
-        enhanced_environment_properties['test_output_array']=test_output_array
+    #     enhanced_environment_properties['data']=data
+    #     solutions_file = path.join(environment_properties['dir'], environment_properties['file_prefix']) + 'solutions.json' 
+    #     solutions_manager = SolutionsDataManager(solutions_file)
+    #     test_output_array = solutions_manager.get_data_for_key(environment_properties['code'])
+    #     enhanced_environment_properties['test_output_array']=test_output_array
 
-        return enhanced_environment_properties
+    #     return enhanced_environment_properties
     
     def results(self, filepath=None, experiment=None):
         print(filepath)
@@ -416,7 +416,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
                 environment_properties['index'] = 0
             print(environment_properties)
 
-        enhanced_environment_properties = self.enhanced_environment_properties(environment_properties=environment_properties)
+        # enhanced_environment_properties = self.enhanced_environment_properties(environment_properties=environment_properties)
 
         verbose= self.args['verbosed']['hpct_verbose'] 
         min= not self.args['max']
@@ -427,7 +427,9 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         runs = int(1.5*environment_properties['runs']/self.number_of_challenges)
         hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
                 render=self.args['verbosed']['display_env'], runs=runs, experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
-                enhanced_environment_properties=enhanced_environment_properties, title_prefix=title_prefix, early_termination=False)
+                title_prefix=title_prefix, early_termination=False
+                # ,enhanced_environment_properties=enhanced_environment_properties
+                )
 
         score = round(score ** 0.5, 1)
         print('Test score',score)
