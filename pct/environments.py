@@ -19,7 +19,7 @@ from .network import ClientConnectionManager
 from .webots import WebotsHelper
 # from pct.yaw_module import YawEnv
 from .arc import ARCEnv
-from .helpers import ListChecker, ChallengesDataManager
+from .helpers import ListChecker, DataManagerSingleton
 
 # %% ../nbs/05_environments.ipynb 6
 class EnvironmentFactory:
@@ -1307,9 +1307,12 @@ class ARC(ControlEnvironment):
 
     def set_properties(self, props: dict) -> None:
 
-        data = props['data']
+        # data = props['data']
 
-        # props['data']=data
+        data_mgr = DataManagerSingleton.get_instance(folder = 'c:/tmp/arc-prize-2024', prefix = 'arc-agi_simple_', show_timing=True)
+        data = data_mgr.get_data_for_code(props['code'])
+        props['test_output_array'] = data_mgr.get_solutions_for_code(props['code'])
+
         self.env.initialise(props, data)
         self.fitness = self.env.fitness
         self.history = props.get('history', 5)
@@ -1416,7 +1419,6 @@ class ARC(ControlEnvironment):
             self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
             if self.done:
                 self.env.add_to_gradient_list(details['gradient_range']) 
-            # self.env.fitness_isclose_to_zero = ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
 
         if self.done:
             self.env.add_to_fitness_list(max(self.boxcar) )
