@@ -876,10 +876,9 @@ class WeightedSum(BaseFunction):
         else:
             inputs = [link.get_value() for link in self.links]
             self.value = dot(inputs, self.weights)
-            if verbose > 0:
-                out = [self.value, inputs, self.weights]
-                print(out, end=' ')
-
+            # if verbose > 0:
+            #     out = [self.value, inputs, self.weights]
+            #     print(out, end=' ')
 
         return super().__call__(verbose)
 

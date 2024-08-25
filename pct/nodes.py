@@ -418,20 +418,23 @@ class PCTNode():
                 raise Exception(f'This namespace {self.namespace} does not equal higher namespace {higher_namespace}')
 
         print("REF:", end=" ")
-        for referenceFunction in self.referenceCollection:
-            referenceFunction.summary(extra=extra, higher_namespace=higher_namespace)   
+        if self.referenceCollection:
+            for referenceFunction in self.referenceCollection:
+                referenceFunction.summary(extra=extra, higher_namespace=higher_namespace)   
         
         print("PER:", end=" ")
         for perceptionFunction in self.perceptionCollection:
             perceptionFunction.summary(extra=extra, higher_namespace=higher_namespace)
         
         print("COM:", end=" ")
-        for comparatorFunction in self.comparatorCollection:
-            comparatorFunction.summary(extra=extra, higher_namespace=higher_namespace)
+        if self.comparatorCollection:     
+            for comparatorFunction in self.comparatorCollection:
+                comparatorFunction.summary(extra=extra, higher_namespace=higher_namespace)      
         
         print("OUT:", end=" ")
-        for outputFunction in self.outputCollection:
-            outputFunction.summary(extra=extra, higher_namespace=higher_namespace)
+        if self.outputCollection:
+            for outputFunction in self.outputCollection:
+                outputFunction.summary(extra=extra, higher_namespace=higher_namespace)
         
         print("----------------------------")
         
