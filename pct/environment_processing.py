@@ -17,7 +17,7 @@ import time
 # %% ../nbs/16_environment_processing.ipynb 4
 # from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
 from .putils import printtime, NumberStats, PCTRunProperties, get_ram_mb
-from .helpers import SolutionsDataManager, ChallengesDataManager
+from .helpers import DataManagerSingleton
 from .hierarchy import PCTHierarchy
 
 # %% ../nbs/16_environment_processing.ipynb 7
@@ -424,7 +424,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
         title_prefix="Test_"
         plots=self.args['hierarchy_plots'] 
-        runs = int(1.5*environment_properties['runs']/self.number_of_challenges)
+        runs = int(1.5*environment_properties['runs']/DataManagerSingleton.get_instance().get_num_arrays_for_code(environment_properties['code']))
         hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
                 render=self.args['verbosed']['display_env'], runs=runs, experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
                 title_prefix=title_prefix, early_termination=False

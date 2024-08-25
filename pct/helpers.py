@@ -280,6 +280,11 @@ class DataManagerSingleton:
             DataManagerSingleton._instance = DataManagerSingleton(folder, prefix, show_timing)
         return DataManagerSingleton._instance
 
+    # def get_instance():
+    #     if DataManagerSingleton._instance is None:
+    #         raise ValueError("DataManagerSingleton instance has not been created. Use get_instance(folder, prefix, show_timing) method to create an instance.")
+    #     return DataManagerSingleton._instance
+
     def __init__(self, folder: str, prefix: str, show_timing: bool = False):
         if DataManagerSingleton._instance is not None:
             raise Exception("This class is a singleton!")
@@ -296,6 +301,12 @@ class DataManagerSingleton:
         solutions = self.solutions_manager.get_data_for_key(code)
         return solutions
 
+    def get_num_arrays_for_code(self, code: str) -> int:
+        num_arrays = 0
+        data = self.get_data_for_code(code)
+        if 'train' in data:
+            num_arrays += len(data['train'])
+        return num_arrays
 
     def reload_data(self, folder: str, prefix: str):        
         self.folder = folder
