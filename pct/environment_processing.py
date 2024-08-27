@@ -44,6 +44,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     model_file = outdir + 'res_model.html'
 
     if experiment:
+        from comet_ml import Artifact
         artifact = Artifact(property_file, "Properties file")
         artifact.add(file)
         experiment.log_artifact(artifact)
@@ -441,7 +442,16 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
         ram = round(get_ram_mb())
         print('RAM', ram)
+
+
         if experiment:         
+            from comet_ml import Artifact
+            index = filepath.rfind('ga-')
+            print(filepath[index:])
+            artifact = Artifact(filepath[index:], "Properties file")
+            artifact.add(filepath)
+            experiment.log_artifact(artifact)
+
             grid = hierarchy.get_grid()
             experiment.log_other('LxC', f'{len(grid)}x{max(grid)}')
             indstr = 'all'
