@@ -1309,7 +1309,7 @@ class ARC(ControlEnvironment):
 
         # data = props['data']
 
-        data_mgr = DataManagerSingleton.get_instance(folder = 'c:/tmp/arc-prize-2024', prefix = 'arc-agi_simple_', show_timing=True)
+        data_mgr = DataManagerSingleton.get_instance(folder = props['dir'], prefix = props['file_prefix'], show_timing=True)
         data = data_mgr.get_data_for_code(props['code'])
         props['test_output_array'] = data_mgr.get_solutions_for_code(props['code'])
 
