@@ -16,11 +16,11 @@ import time
 
 # %% ../nbs/16_environment_processing.ipynb 4
 # from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
-from .putils import printtime, NumberStats, PCTRunProperties, get_ram_mb
+from .putils import printtime, NumberStats, PCTRunProperties
 from .helpers import DataManagerSingleton
 from .hierarchy import PCTHierarchy
 
-# %% ../nbs/16_environment_processing.ipynb 7
+# %% ../nbs/16_environment_processing.ipynb 6
 def wind_turbine_results(environment_properties=None, experiment=None, root=None, wt='WindTurbine', verbose=None, early=None, min=None,
                          comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None, plots=None, log_testing_to_experiment=False):
 
@@ -177,7 +177,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
 
 
 
-# %% ../nbs/16_environment_processing.ipynb 10
+# %% ../nbs/16_environment_processing.ipynb 9
 class EnvironmentProcessingFactory:
     factories = {}
     def addFactory(id, environmentProcessingFactory):
@@ -194,7 +194,7 @@ class EnvironmentProcessingFactory:
     createEnvironmentProcessing = staticmethod(createEnvironmentProcessing)       
 
 
-# %% ../nbs/16_environment_processing.ipynb 12
+# %% ../nbs/16_environment_processing.ipynb 11
 class BaseEnvironmentProcessing(ABC):
     "Base class of environment processing."
     # def __init__(self):
@@ -290,7 +290,7 @@ class BaseEnvironmentProcessing(ABC):
 
 
 
-# %% ../nbs/16_environment_processing.ipynb 14
+# %% ../nbs/16_environment_processing.ipynb 13
 class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
     "WindTurbine environment processing."
     # def __init__(self):
@@ -354,7 +354,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return WindTurbineEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 15
+# %% ../nbs/16_environment_processing.ipynb 14
 class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     "Dummy environment processing."
 
@@ -369,7 +369,7 @@ class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return DummyEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 17
+# %% ../nbs/16_environment_processing.ipynb 16
 class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
     "ARC environment processing."
 
@@ -440,10 +440,6 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
         gradient_list = str( [f'{i:4.5f}' for i in  self.env_processing_details['gradient_list']])
         print('gradient_list', gradient_list)
 
-        ram = round(get_ram_mb())
-        print('RAM', ram)
-
-
         if experiment:         
             from comet_ml import Artifact
             index = filepath.rfind('ga-')
@@ -464,11 +460,23 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             experiment.log_other('input_set', str(input_set))
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('fitness', self.env_processing_details['fitness'])
-            experiment.log_metric('RAM', ram)   
             experiment.log_other('test_score', f'{score:4.3f}')
             experiment.log_other('code', environment_properties['code'])
+            success = self.success(gradient_list, self.env_processing_details['fitness'], score)    
+            experiment.log_metric('success', success)
 
         return {}
+
+    def success(self, gradient_list, fitness, test_score):
+        if len(gradient_list) == 0:
+            return False        
+        
+        if fitness < 0.1:   
+            if test_score < 0.5:
+                return True
+            
+        return False
+    
 
 
     def get_experiment_name(self):
