@@ -157,6 +157,15 @@ class ChallengesDataManager(JSONDataManager):
         return equal_keys, len(equal_keys)
     
     @JSONDataManager.timing_decorator
+    def get_keys_with_equal_size_input_output_sorted(self) -> List[Tuple[str, int]]:
+        equal_keys = [
+            (key, len(value['train'][0]['input'])) for key, value in self.data.items()
+            if all(len(value['train'][iter]['input']) == len(value['train'][iter]['output']) for iter in range(len(value['train'])))
+        ]
+        equal_keys_sorted = sorted(equal_keys, key=lambda x: x[1])
+        return equal_keys_sorted
+
+    @JSONDataManager.timing_decorator
     def get_keys_with_inconsistent_input_output_sizes(self) -> Tuple[List[str], int]:
         inconsistent_keys = []
         for key, value in self.data.items():
