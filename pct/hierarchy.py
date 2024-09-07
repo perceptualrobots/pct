@@ -1282,7 +1282,7 @@ class PCTHierarchy():
             environment_properties = environment_properties | enhanced_environment_properties 
             if environment_properties['dataset'] == 'test':
                 error_properties[1][1] = environment_properties['initial']
-
+        print(environment_properties)
         if runs==None:
             runs = eval(prp.db['runs'])
         config = eval(prp.db['config'])
