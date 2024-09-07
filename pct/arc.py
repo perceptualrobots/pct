@@ -212,14 +212,10 @@ class ARCDataProcessor:
         # Second metric: square of the difference between each element in the arrays
         element_metric = 0
         if 'cells' in self.control_set:
-            for i in range(max(env_array.shape[0], output_array.shape[0])):
-                for j in range(max(env_array.shape[1], output_array.shape[1])):
-                    env_value = env_array[i, j] if i < env_array.shape[0] and j < env_array.shape[1] else None
-                    output_value = output_array[i, j] if i < output_array.shape[0] and j < output_array.shape[1] else None
-                    if env_value is None or output_value is None:
-                        element_metric += 25
-                    else:
-                        element_metric += (env_value - output_value) ** 2
+            diff = env_array[:output_array.shape[0], :output_array.shape[1]] - output_array
+            diff = np.where(np.isnan(diff), 0, diff)
+            diff = np.where(np.isnan(env_array[:output_array.shape[0], :output_array.shape[1]]), 10, diff)
+            element_metric = np.sum(diff ** 2)
 
         # Final metric
         if 'dims' in self.control_set and len(self.control_set) == 1:
@@ -404,6 +400,7 @@ class ARCEnv(gym.Env):
         Initialize the environment with properties and arc_dict.
         """
         self.dataset = properties.get('dataset', None)
+        self.code = properties.get('code', "")
         self.arc_data = ARCDataProcessor(properties, arc_dict)
         self.runs = properties.get('runs', len(arc_dict['train'])) if 'index' in properties else properties.get('runs', 1) / len(arc_dict['train'])
         self.reset()
@@ -549,7 +546,8 @@ class ARCEnv(gym.Env):
             for i, row in enumerate(grid):
                 for j, value in enumerate(row):
                     if top_left_x + j * cell_size < self.screen_width and top_left_y + i * cell_size < self.screen_height:
-                        color = self.cmap(self.norm(value))[:3]  # Get RGB only, excluding alpha
+                        rvalue = round(value)
+                        color = self.cmap(self.norm(rvalue))[:3]  # Get RGB only, excluding alpha
                         color = tuple(int(c * 255) for c in color)  # Multiply each element by 255
                         pygame.draw.rect(screen, color, (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size))
                         pygame.draw.rect(screen, (255, 255, 255), (top_left_x + j * cell_size, top_left_y + i * cell_size, cell_size, cell_size), 1)
@@ -640,7 +638,8 @@ class ARCEnv(gym.Env):
             self.screen.blit(label_surface, (table_x + i * 150, table_y))
             self.screen.blit(value_surface, (table_x + i * 150, table_y + 30))
 
-        pygame.display.flip()
+        pygame.display.flip()    
+        pygame.event.pump()  # Handle Pygame events to keep the window responsive
 
     def close(self):
         """

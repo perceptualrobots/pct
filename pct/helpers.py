@@ -277,7 +277,7 @@ class SolutionsDataManager(JSONDataManager):
         super().reload_data(path)
 
 
-# %% ../nbs/14_helpers.ipynb 26
+# %% ../nbs/14_helpers.ipynb 28
 class DataManagerSingleton:
     _instance = None
 
