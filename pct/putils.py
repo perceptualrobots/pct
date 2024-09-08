@@ -505,6 +505,7 @@ def clip_value(val, range):
 def get_abs_tol(key):
     # dic = {'evolve': 0.01, 'ARC-evolve' : 0.01, 'ARC-display': 0.01, 'ARC': 0.01}
     dic = { 'ARC-evolve' : 0.01, 'ARC-display': 0.1, 'ARC-change' : 0.01, 'ARC-zero': 0.01, 'ARC-gradient': 0.0001}
+    dic = {}
 
     # if key in dic:
     return dic[key]
@@ -513,7 +514,8 @@ def get_abs_tol(key):
 
 # %% ../nbs/01_putils.ipynb 53
 def get_rel_tol(key):
-    dic = { 'ARC-change' : 1e-3}
+    # dic = { 'ARC-change' : 1e-3}
+    dic = { }
 
     # if key in dic:
     return dic[key]

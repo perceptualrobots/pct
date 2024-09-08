@@ -432,8 +432,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
                 # ,enhanced_environment_properties=enhanced_environment_properties
                 )
 
-        score = round(score ** 0.5, 1)
-        print('Test score',score)
+        print(f'Test score = {score:4.3f}')
         fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
         print('fitness_list', fitness_list)
 
@@ -460,7 +459,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             experiment.log_other('input_set', str(input_set))
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('fitness', self.env_processing_details['fitness'])
-            experiment.log_other('test_score', f'{score:4.3f}')
+            experiment.log_metric('test_score', round(score, 3))
             experiment.log_other('code', environment_properties['code'])
             success = self.success(gradient_list, self.env_processing_details['fitness'], score)    
             experiment.log_metric('success', success)

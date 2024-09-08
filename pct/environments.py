@@ -1306,22 +1306,22 @@ class ARC(ControlEnvironment):
         return self.value
 
     def set_properties(self, props: dict) -> None:
-
-        # data = props['data']
-
         data_mgr = DataManagerSingleton.get_instance(folder = props['dir'], prefix = props['file_prefix'], show_timing=True)
         data = data_mgr.get_data_for_code(props['code'])
         props['test_output_array'] = data_mgr.get_solutions_for_code(props['code'])
-
         self.env.initialise(props, data)
         self.fitness = self.env.fitness
         self.history = props.get('history', 5)
         self.initial = props.get('initial', 1000)
         self.grid_shape = props.get('grid_shape', None)
         self.input_set = props.get('input_set', None)
-        # self.boxcar = [self.initial for i in range(1, self.history+1)]
         self.reset_boxcar()
         self.num_links = self.env.get_num_actions()
+        self.rel_tol_ARC_change = props['tolerances']['rtARCchange']
+        self.abs_tol_ARC_change = props['tolerances']['atARCchange']
+        self.abs_tol_ARC_gradient = props['tolerances']['atARCgradient']
+        self.abs_tol_ARC_zero = props['tolerances']['atARCzero']
+
 
     def get_properties(self):
         env_inputs_names = self.get_env_inputs_names()
@@ -1416,7 +1416,7 @@ class ARC(ControlEnvironment):
         if self.env_done:
             self.done = self.env_done
         else:
-            self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =get_rel_tol('ARC-change'), abs_tol=get_abs_tol('ARC-change'), gradient_abs_tol=get_abs_tol('ARC-gradient'))
+            self.done, details = ListChecker.check_list_unchanged(self.boxcar, rel_tol =self.rel_tol_ARC_change, abs_tol=self.abs_tol_ARC_change, gradient_abs_tol=self.abs_tol_ARC_gradient)
             if self.done:
                 self.env.add_to_gradient_list(details['gradient_range']) 
 
@@ -1442,7 +1442,7 @@ class ARC(ControlEnvironment):
 
     def is_fitness_close_to_zero(self):
         # should this be max of fitness list
-        return ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=get_abs_tol('ARC-zero'))
+        return ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=self.abs_tol_ARC_zero)
 
 
     def get_fitness_list(self):
