@@ -476,6 +476,11 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             input_array = data['test'][0]['input']
             env_array = hierarchy.get_environment().get_env_array()
             print('env_array', env_array)
+            import numpy as np
+            a = np.array(env_array) 
+            b = a.round()
+            env_array = b.tolist() 
+            print('env_array', env_array)
             image_file = pas.to_image("/tmp/ARC", input_array, task_solution, env_array, 'test', environment_properties['code'])
             experiment.log_image(image_file)
 
