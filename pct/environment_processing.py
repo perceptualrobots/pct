@@ -475,6 +475,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             pas = PlotArrays()
             input_array = data['test'][0]['input']
             env_array = hierarchy.get_environment().get_env_array()
+            print('env_array', env_array)
             image_file = pas.to_image("/tmp/ARC", input_array, task_solution, env_array, 'test', environment_properties['code'])
             experiment.log_image(image_file)
 
