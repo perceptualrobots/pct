@@ -17,7 +17,7 @@ import time
 # %% ../nbs/16_environment_processing.ipynb 4
 # from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
 from .putils import printtime, NumberStats, PCTRunProperties
-from .helpers import DataManagerSingleton
+from .helpers import DataManagerSingleton, PlotArrays
 from .hierarchy import PCTHierarchy
 
 # %% ../nbs/16_environment_processing.ipynb 6
@@ -434,12 +434,16 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
         print(f'Test score = {score:4.3f}')
         fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
-        print('fitness_list', fitness_list)
+        # print('fitness_list', fitness_list)
 
         gradient_list = str( [f'{i:4.5f}' for i in  self.env_processing_details['gradient_list']])
-        print('gradient_list', gradient_list)
+        # print('gradient_list', gradient_list)
+        # success = self.success(gradient_list, self.env_processing_details['fitness'], score)    
+        success = hierarchy.get_environment().success(gradient_list, self.env_processing_details['fitness'], score)    
+        print(f'Success = {success}')
 
         if experiment:         
+            # artifact - properties file
             from comet_ml import Artifact
             index = filepath.rfind('ga-')
             print(filepath[index:])
@@ -447,6 +451,8 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             artifact.add(filepath)
             experiment.log_artifact(artifact)
 
+            # other metrics
+            code = environment_properties['code']
             grid = hierarchy.get_grid()
             experiment.log_other('LxC', f'{len(grid)}x{max(grid)}')
             indstr = 'all'
@@ -460,23 +466,29 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('fitness', self.env_processing_details['fitness'])
             experiment.log_metric('test_score', round(score, 3))
-            experiment.log_other('code', environment_properties['code'])
-            success = self.success(gradient_list, self.env_processing_details['fitness'], score)    
+            experiment.log_other('code', code)
             experiment.log_metric('success', success)
+
+            # html_file
+            data = DataManagerSingleton.get_instance().get_data_for_code(code)
+            task_solution = DataManagerSingleton.get_instance().get_solutions_for_code(code)
+            pas = PlotArrays()
+            input_array = data['test'][0]['input']
+            env_array = hierarchy.get_environment().get_env_array()
+            image_file = pas.to_image("/tmp/ARC", input_array, task_solution, env_array, 'test', environment_properties['code'])
+            experiment.log_image(image_file)
 
         return {}
 
-    def success(self, gradient_list, fitness, test_score):
-        if len(gradient_list) == 0:
-            return False        
+    # def success(self, gradient_list, fitness, test_score):
+    #     if len(gradient_list) == 0:
+    #         return False        
         
-        if fitness < 0.1:   
-            if test_score < 0.5:
-                return True
+    #     if fitness < self.abs_tol_ARC_resolved: # was 0.1
+    #         if test_score < self.abs_tol_ARC_resolved: # was 0.5
+    #             return True
             
-        return False
-    
-
+    #     return False
 
     def get_experiment_name(self):
         filename=self.args['file']

@@ -497,7 +497,8 @@ class ARCEnv(gym.Env):
         self.code = properties.get('code', "")
         self.arc_data = ARCDataProcessor(properties, arc_dict)
         self.runs = properties.get('runs', len(arc_dict['train'])) if 'index' in properties else properties.get('runs', 1) / len(arc_dict['train'])
-        self.abs_tol_ARC_evolve = properties['tolerances']['atARCevolve']
+        self.abs_tol_ARC_resolved = properties['tolerances'].get('atARCresolved', 0.01)
+        self.abs_tol_ARC_display = properties['tolerances'].get('atARCdisplay', 0.1)
 
         self.reset()
 
@@ -569,7 +570,7 @@ class ARCEnv(gym.Env):
 
     def is_environment_resolved(self):
         max_fitness = max(self.fitness_list)
-        return max_fitness < self.abs_tol_ARC_evolve  
+        return max_fitness < self.abs_tol_ARC_resolved  
 
 
     def get_environment_score(self):
@@ -714,7 +715,7 @@ class ARCEnv(gym.Env):
             self.screen.blit(fitness_value, (fitness_text_x, fitness_value_y))
 
         # Change fitness test to use math.isclose
-        if math.isclose(self.fitness, 0, abs_tol=get_abs_tol('ARC-display')):
+        if math.isclose(self.fitness, 0, abs_tol=self.abs_tol_ARC_display):
             if fitness_text_x < self.screen_width and tick_cross_y < self.screen_height:
                 self.screen.blit(green_tick_img, (fitness_text_x, tick_cross_y))
         else:

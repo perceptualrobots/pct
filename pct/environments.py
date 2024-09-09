@@ -1317,11 +1317,11 @@ class ARC(ControlEnvironment):
         self.input_set = props.get('input_set', None)
         self.reset_boxcar()
         self.num_links = self.env.get_num_actions()
-        self.rel_tol_ARC_change = props['tolerances']['rtARCchange']
-        self.abs_tol_ARC_change = props['tolerances']['atARCchange']
-        self.abs_tol_ARC_gradient = props['tolerances']['atARCgradient']
-        self.abs_tol_ARC_zero = props['tolerances']['atARCzero']
-
+        self.rel_tol_ARC_change = props['tolerances'].get('rtARCchange', 0.001)
+        self.abs_tol_ARC_change = props['tolerances'].get('atARCchange', 0.01)
+        self.abs_tol_ARC_gradient = props['tolerances'].get('atARCgradient', 0.0001)
+        self.abs_tol_ARC_zero = props['tolerances'].get('atARCzero', 0.01)
+        self.abs_tol_ARC_resolved  = props['tolerances'].get('atARCresolved', 0.01)
 
     def get_properties(self):
         env_inputs_names = self.get_env_inputs_names()
@@ -1422,14 +1422,7 @@ class ARC(ControlEnvironment):
 
         if self.done:
             self.env.add_to_fitness_list(max(self.boxcar) )
-            self.env.fitness_isclose_to_zero = self.is_fitness_close_to_zero()
-
-            # if self.env.fitness_isclose_to_zero:
-            #     print(self.env.iteration)
-            #     print('gradient ', abs(max(gradients) - min(gradients)),  max(abs(gradients)), gradient_mean, [  f'{g:4.4f}' for g in gradients] )
-            #     print('fitness, ', self.boxcar)
-            #     print('flist', self.env.fitness_list)
-
+            self.env.fitness_isclose_to_zero = self.is_fitness_close_to_zero() # Is this used?
 
         if self.debug:
             if self.done:
@@ -1441,7 +1434,7 @@ class ARC(ControlEnvironment):
                     print('done', self.boxcar)
 
     def is_fitness_close_to_zero(self):
-        # should this be max of fitness list
+        # Is this used?
         return ListChecker.check_float_list_close_to_zero(self.boxcar, rel_tol = 0, abs_tol=self.abs_tol_ARC_zero)
 
 
@@ -1482,6 +1475,16 @@ class ARC(ControlEnvironment):
             fit = self.env.fitness
 
         return {'fitness_list' : self.env.fitness_list, 'fitness' : fit, 'gradient_list' : self.env.gradient_list}
+
+    def success(self, gradient_list, fitness, test_score):
+        if len(gradient_list) == 0:
+            return False        
+        
+        if fitness < self.abs_tol_ARC_resolved: # was 0.1
+            if test_score < self.abs_tol_ARC_resolved: # was 0.5
+                return True
+            
+        return False
 
     class Factory:
         @staticmethod
