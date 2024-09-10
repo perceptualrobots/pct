@@ -17,7 +17,8 @@ import time
 # %% ../nbs/16_environment_processing.ipynb 4
 # from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
 from .putils import printtime, NumberStats, PCTRunProperties
-from .helpers import DataManagerSingleton, PlotArrays
+from .helpers import DataManagerSingleton
+from .plot import PlotARCArrays
 from .hierarchy import PCTHierarchy
 
 # %% ../nbs/16_environment_processing.ipynb 6
@@ -415,7 +416,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             environment_properties['dataset'] = 'test'
             if 'index' in environment_properties:
                 environment_properties['index'] = 0
-            print(environment_properties)
+            # print(environment_properties)
 
         # enhanced_environment_properties = self.enhanced_environment_properties(environment_properties=environment_properties)
 
@@ -434,12 +435,9 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
         print(f'Test score = {score:4.3f}')
         fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
-        # print('fitness_list', fitness_list)
-
-        gradient_list = str( [f'{i:4.5f}' for i in  self.env_processing_details['gradient_list']])
-        # print('gradient_list', gradient_list)
-        # success = self.success(gradient_list, self.env_processing_details['fitness'], score)    
-        success = hierarchy.get_environment().success(gradient_list, self.env_processing_details['fitness'], score)    
+        glist = self.env_processing_details['gradient_list']
+        success = hierarchy.get_environment().success(glist, self.env_processing_details['fitness'], score)    
+        gradient_list = str( [f'{i:4.5f}' for i in  glist])
         print(f'Success = {success}')
 
         if experiment:         
@@ -472,15 +470,9 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             # html_file
             data = DataManagerSingleton.get_instance().get_data_for_code(code)
             task_solution = DataManagerSingleton.get_instance().get_solutions_for_code(code)
-            pas = PlotArrays()
+            pas = PlotARCArrays()
             input_array = data['test'][0]['input']
             env_array = hierarchy.get_environment().get_env_array()
-            print('env_array', env_array)
-            import numpy as np
-            a = np.array(env_array) 
-            b = a.round()
-            env_array = b.tolist() 
-            print('env_array', env_array)
             image_file = pas.to_image("/tmp/ARC", input_array, task_solution, env_array, 'test', environment_properties['code'])
             experiment.log_image(image_file)
 

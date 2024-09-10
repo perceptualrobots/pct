@@ -1477,8 +1477,8 @@ class ARC(ControlEnvironment):
         return {'fitness_list' : self.env.fitness_list, 'fitness' : fit, 'gradient_list' : self.env.gradient_list}
 
     def success(self, gradient_list, fitness, test_score):
-        if len(gradient_list) == 0:
-            return False        
+        # if len(gradient_list) == 0:
+        #     return False        
         
         if fitness < self.abs_tol_ARC_resolved: # was 0.1
             if test_score < self.abs_tol_ARC_resolved: # was 0.5
