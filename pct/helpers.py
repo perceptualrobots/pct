@@ -151,7 +151,11 @@ class ChallengesDataManager(JSONDataManager):
     def get_keys_with_equal_size_input_output(self) -> Tuple[List[str], int]:
         equal_keys = [
             key for key, value in self.data.items()
-            if all(len(value['train'][iter]['input']) == len(value['train'][iter]['output']) for iter in range(len(value['train'])))
+            if all(
+                np.array(value['train'][iter]['input']).shape == np.array(value['train'][iter]['output']).shape and
+                np.array(value['train'][iter]['input']).shape[0] == np.array(value['train'][iter]['input']).shape[1]
+                for iter in range(len(value['train']))
+            )
         ]
         return equal_keys, len(equal_keys)
     
@@ -159,7 +163,10 @@ class ChallengesDataManager(JSONDataManager):
     def get_keys_with_equal_size_input_output_sorted(self) -> List[Tuple[str, int]]:
         equal_keys = [
             (key, len(value['train'][0]['input'])) for key, value in self.data.items()
-            if all(len(value['train'][iter]['input']) == len(value['train'][iter]['output']) for iter in range(len(value['train'])))
+            if all(
+                np.array(value['train'][iter]['input']).shape == np.array(value['train'][iter]['output']).shape and
+                np.array(value['train'][iter]['input']).shape[0] == np.array(value['train'][iter]['input']).shape[1]
+                for iter in range(len(value['train'])))
         ]
         equal_keys_sorted = sorted(equal_keys, key=lambda x: x[1])
         return equal_keys_sorted
