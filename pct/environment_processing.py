@@ -281,7 +281,7 @@ class BaseEnvironmentProcessing(ABC):
         return final_ex_name
     
     @abstractmethod
-    def results(self, filepath=None, experiment=None):
+    def results(self, filepath=None, experiment=None, environment_properties=None):
         return None
 
     @abstractmethod
@@ -315,8 +315,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
     def get_workspace(self):
         return 'wind-turbine'
     
-    def results(self, filepath=None, experiment=None):
-        environment_properties=None
+    def results(self, filepath=None, experiment=None, environment_properties=None):
         plots=None
         early=None
 
@@ -362,7 +361,7 @@ class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     def get_workspace(self):
         return 'dummy'
     
-    def results(self, filepath=None, experiment=None):
+    def results(self, filepath=None, experiment=None, environment_properties=None):
 
         return {}
 
@@ -407,9 +406,9 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
     #     return enhanced_environment_properties
     
-    def results(self, filepath=None, experiment=None):
+    def results(self, filepath=None, experiment=None, environment_properties=None):
         print(filepath)
-        environment_properties=None
+        
         drive, property_dir, file = self.get_file_props(filepath=filepath)
         if environment_properties is None:
             environment_properties, en = PCTRunProperties.get_environment_properties(root=drive, env='ARC', property_dir=property_dir, property_file=file)
