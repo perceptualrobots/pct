@@ -344,7 +344,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
         end = printtime('End')	
         elapsed = end-self.start        
         print(f'Elapsed time: {elapsed:4.2f}')
-        NumberStats.getInstance().report()
+        # NumberStats.getInstance().report()
         if experiment:
             experiment.end()
 
