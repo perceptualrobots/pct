@@ -29,7 +29,7 @@ def run_wind_turbine(target, drive, filepath):
 
 
 
-# %% ../nbs/18_applications.ipynb 5
+# %% ../nbs/18_applications.ipynb 6
 # controller trained on steady dataset applied to steady dataset
 run_wind_turbine('steady', "testfiles\\", "ga--1362.401-s003-4x3-m005-WT0538-bddf277b0f729cc630efacf91b9f494f.properties")
 # controller trained on steady dataset applied to variable dataset
