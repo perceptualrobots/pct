@@ -1162,6 +1162,15 @@ class PCTHierarchy():
         top_done=False
         plot_items = plots.split(',')
         for plot_item in plot_items:
+            if plot_item == 'scTop':
+                top_done=True
+                for level in self.get_top_level():
+                    if isinstance(level, list):
+                        for node in level:
+                            plots_list.append(create_plot_item(node.get_reference_function(), node.get_perception_function(), node.get_name()))
+                    else:
+                        plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
+
             if plot_item == 'scEdges':
                 top_done=True
                 for func in self.get_preprocessor()[1:]:
