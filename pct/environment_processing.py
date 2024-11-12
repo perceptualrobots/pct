@@ -464,7 +464,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
             experiment.log_metric('fitness', self.env_processing_details['fitness'])
             experiment.log_metric('test_score', round(score, 3))
             experiment.log_other('code', code)
-            experiment.log_metric('success', success)
+            experiment.log_other('success', success)
 
             # html_file
             data = DataManagerSingleton.get_instance().get_data_for_code(code)
