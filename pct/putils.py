@@ -2,7 +2,7 @@
 
 # %% auto 0
 __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'NumberStats', 'dynamic_module_import',
-           'dynamic_class_load', 'get_drive', 'loadjson', 'Counter', 'stringIntListToListOfInts',
+           'dynamic_class_load', 'get_drive', 'loadjson', 'Counter', 'set_dirs', 'stringIntListToListOfInts',
            'stringFloatListToListOfFloats', 'stringListToListOfStrings', 'listNumsToString', 'round_lists',
            'floatListsToString', 'limit_large_float', 'sigmoid', 'smooth', 'sigmoid_array', 'dot', 'list_of_ones',
            'limit_to_range', 'show_video', 'wrap_env', 'is_in_notebooks', 'printtime', 'clip_value', 'get_abs_tol',
@@ -339,7 +339,31 @@ class Counter(object):
   def set_limit(self, limit):
       self.limit=limit
 
-# %% ../nbs/01_putils.ipynb 28
+# %% ../nbs/01_putils.ipynb 29
+def set_dirs(dirs):
+	if dirs is None:
+		out = {}
+	else:
+		out = eval(dirs)
+
+	if 'drive' not in out:
+		out['drive'] = 'G:/My Drive/'
+	if 'root_path' not in out:
+		out['root_path'] = 'C:/Users/ruper/'
+	if 'configs_dir' not in out:
+		out['configs_dir'] = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
+	if 'plots_dir' not in out:
+		out['plots_dir'] = '/tmp/ARC'
+
+	# Create the directory if it doesn't exist
+	if not os.path.exists(out['plots_dir']):
+		os.makedirs(out['plots_dir'])
+	
+	return out
+
+
+
+# %% ../nbs/01_putils.ipynb 30
 def stringIntListToListOfInts(strList, delimiter):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -348,7 +372,7 @@ def stringIntListToListOfInts(strList, delimiter):
         result.append(int(item))
     return result
 
-# %% ../nbs/01_putils.ipynb 29
+# %% ../nbs/01_putils.ipynb 31
 def stringFloatListToListOfFloats(strList, delimiter):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -357,7 +381,7 @@ def stringFloatListToListOfFloats(strList, delimiter):
         result.append(float(item))
     return result
 
-# %% ../nbs/01_putils.ipynb 30
+# %% ../nbs/01_putils.ipynb 32
 def stringListToListOfStrings(strList, delimiter=','):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -366,14 +390,14 @@ def stringListToListOfStrings(strList, delimiter=','):
         result.append(item.strip())
     return result
 
-# %% ../nbs/01_putils.ipynb 31
+# %% ../nbs/01_putils.ipynb 33
 def listNumsToString(list):
     str = ""
     for item in list:
         str += f'{item}'
     return str
 
-# %% ../nbs/01_putils.ipynb 32
+# %% ../nbs/01_putils.ipynb 34
 def round_lists(alist, formatted, places):    
     if isinstance(alist, str):
         raise Exception(f'Value {alist} should be a number in round_lists.')
@@ -389,21 +413,21 @@ def round_lists(alist, formatted, places):
             if rtd is not None:
                 formatted.append(rtd)
 
-# %% ../nbs/01_putils.ipynb 33
+# %% ../nbs/01_putils.ipynb 35
 def floatListsToString(alist, places):
     flist = []    
     if len(alist)>0:
         round_lists(alist,flist,places)
     return f'{flist}'
 
-# %% ../nbs/01_putils.ipynb 34
+# %% ../nbs/01_putils.ipynb 36
 def limit_large_float(val, limit=10000000):
     if abs(val) > limit:
         val = - np.sign(val) * limit
 
     return val
 
-# %% ../nbs/01_putils.ipynb 35
+# %% ../nbs/01_putils.ipynb 37
 def sigmoid(x, range, slope) :
     val = 0
     if abs(x) > 10000000:
@@ -419,7 +443,7 @@ def sigmoid(x, range, slope) :
 
     return val
 
-# %% ../nbs/01_putils.ipynb 36
+# %% ../nbs/01_putils.ipynb 38
 def smooth(new_val, old_val, smooth_factor):
     if smooth_factor > 1 or smooth_factor < 0:
         raise Exception(f'smooth_factor {smooth_factor} should be between 0 and 1')
@@ -432,25 +456,25 @@ def smooth(new_val, old_val, smooth_factor):
         print(f'RuntimeWarning... old_val={old_val} new_val={new_val} smooth_factor={smooth_factor}')
     return val
 
-# %% ../nbs/01_putils.ipynb 37
+# %% ../nbs/01_putils.ipynb 39
 def sigmoid_array(x, range, slope) :
     exv = -x * slope / range
     return -range / 2 + range / (1 + np.exp(exv))
     
 
-# %% ../nbs/01_putils.ipynb 38
+# %% ../nbs/01_putils.ipynb 40
 def dot(inputs, weights):
     sum = 0
     for i in range(len(inputs)):
         sum += inputs[i]*weights[i]
     return sum
 
-# %% ../nbs/01_putils.ipynb 39
+# %% ../nbs/01_putils.ipynb 41
 def list_of_ones(num):
     x = [1 for _ in range(num) ]
     return x
 
-# %% ../nbs/01_putils.ipynb 41
+# %% ../nbs/01_putils.ipynb 43
 def limit_to_range(num, lower, upper):
     if num < lower:
         frac, _  = math.modf(num)
@@ -461,7 +485,7 @@ def limit_to_range(num, lower, upper):
         num = upper - frac
     return num
 
-# %% ../nbs/01_putils.ipynb 43
+# %% ../nbs/01_putils.ipynb 45
 def show_video():
   mp4list = glob.glob('video/*.mp4')
   if len(mp4list) > 0:
@@ -479,9 +503,10 @@ def wrap_env(env):
   env = Monitor(env, './video', force=True)
   return env
 
-# %% ../nbs/01_putils.ipynb 47
+# %% ../nbs/01_putils.ipynb 49
 from pathlib import Path
 import os
+
 def is_in_notebooks():
     term = os.getenv('TERM') 
     if term == 'xterm-color':
@@ -489,19 +514,19 @@ def is_in_notebooks():
     
     return False
 
-# %% ../nbs/01_putils.ipynb 48
+# %% ../nbs/01_putils.ipynb 50
 def printtime(msg):
     print(f'{datetime.now()} {os.getpid()} {msg}')
     return time.perf_counter()
 
 
-# %% ../nbs/01_putils.ipynb 49
+# %% ../nbs/01_putils.ipynb 51
 def clip_value(val, range):
     rtn = max(min(val, range[1]), range[0])
     return rtn
 
 
-# %% ../nbs/01_putils.ipynb 51
+# %% ../nbs/01_putils.ipynb 53
 def get_abs_tol(key):
     # dic = {'evolve': 0.01, 'ARC-evolve' : 0.01, 'ARC-display': 0.01, 'ARC': 0.01}
     dic = { 'ARC-evolve' : 0.01, 'ARC-display': 0.1, 'ARC-change' : 0.01, 'ARC-zero': 0.01, 'ARC-gradient': 0.0001}
@@ -512,7 +537,7 @@ def get_abs_tol(key):
     
     # return 0.001
 
-# %% ../nbs/01_putils.ipynb 53
+# %% ../nbs/01_putils.ipynb 55
 def get_rel_tol(key):
     # dic = { 'ARC-change' : 1e-3}
     dic = { }
@@ -522,7 +547,7 @@ def get_rel_tol(key):
     
     # return 1e-6
 
-# %% ../nbs/01_putils.ipynb 54
+# %% ../nbs/01_putils.ipynb 56
 def map_to_int_odd_range(val=None, inrange=None, outrange=None):
     a = round(val)
     b = clip_value(a, inrange)
@@ -536,7 +561,7 @@ def map_to_int_even_range(val=None, inrange=None, outrange=None):
     rtn = math.floor(b) + int((outrange[1] - outrange[0] + 1 )/2) + 1
     return rtn
 
-# %% ../nbs/01_putils.ipynb 57
+# %% ../nbs/01_putils.ipynb 59
 class TimerError(Exception):
     """A custom exception used to report errors in use of Timer class"""
 
@@ -577,7 +602,7 @@ class Timer:
     def count(self):
         return self._counter 
 
-# %% ../nbs/01_putils.ipynb 60
+# %% ../nbs/01_putils.ipynb 62
 class PCTRunProperties():
 
     @classmethod
@@ -655,7 +680,7 @@ class PCTRunProperties():
         return drive, property_dir, file
         
 
-# %% ../nbs/01_putils.ipynb 62
+# %% ../nbs/01_putils.ipynb 64
 def get_ram_mb():
     import psutil
     # Get the current process ID
