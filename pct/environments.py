@@ -123,9 +123,14 @@ class ControlEnvironment(BaseFunction):
         return config
 
     def action_string(self):
-          list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.actions]
-          rtn = ''.join(list)
-          return rtn
+        if isinstance(self.actions, list):
+            alist = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.actions]
+            rtn = ''.join(alist)
+        elif isinstance(self.actions, float):
+            rtn = f'{round(self.actions, self.decimal_places):.{self.decimal_places}f}'
+        elif isinstance(self.actions, int):
+            rtn = f'{self.actions}'
+        return rtn
 
     def output_string(self):
         act = self.action_string()

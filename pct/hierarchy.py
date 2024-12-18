@@ -19,7 +19,7 @@ from .errors import BaseErrorCollector
 from .putils import floatListsToString, PCTRunProperties
 
 
-# %% ../nbs/04_hierarchy.ipynb 8
+# %% ../nbs/04_hierarchy.ipynb 9
 class FunctionsData():
     "Data collected for a set of functions"
     def __init__(self):
@@ -55,7 +55,7 @@ class FunctionsData():
     def add_list(self, key, list):
         self.data[key]= list
 
-# %% ../nbs/04_hierarchy.ipynb 11
+# %% ../nbs/04_hierarchy.ipynb 12
 class PCTHierarchy():
     "A hierarchical perceptual control system, of PCTNodes."
     
@@ -998,10 +998,11 @@ class PCTHierarchy():
 
         return history_data.data            
     
-    def hierarchy_plots(self, title='plot', plot_items={}, figsize=(15,4), file=None, experiment=None):
+    def hierarchy_plots(self, title='plot', plot_items={}, figsize=(15,4), file=None, experiment=None, history=None):
         from matplotlib import style
         import matplotlib.pyplot as plt
-        history = self.get_history_data()
+        if history == None:
+            history = self.get_history_data()
 
         num_items = len(history[list(history.keys())[0]])
         #x = np.linspace(0, num_items-1, num_items)
@@ -1026,7 +1027,38 @@ class PCTHierarchy():
             experiment.log_figure(figure_name=title,figure=fig)
 
         return fig
-    
+
+    def hierarchy_plot(self, title='plot', plot_items={}, figsize=(15,4), file=None, experiment=None, history=None):
+        from matplotlib import style
+        import matplotlib.pyplot as plt
+        if history == None:
+            history = self.get_history_data()
+
+        num_items = len(history[list(history.keys())[0]])
+        #x = np.linspace(0, num_items-1, num_items)
+        x =  [i for i in range(num_items)]
+        style.use('fivethirtyeight')
+
+        fig = plt.figure(figsize=figsize)
+        ax1 = fig.add_subplot(1,1,1)
+
+        for key in plot_items.keys():    
+            ax1.plot(x, history[key], label=plot_items[key])
+
+        # if experiment or file:
+        plt.title(title)
+        plt.legend()
+
+        if file != None:
+            plt.savefig(file)
+            
+        # plt.show()
+        if experiment:
+            experiment.log_figure(figure_name=title,figure=fig)
+
+        return fig
+
+
     def get_parameters_list(self):
 
         pre = []
@@ -1342,11 +1374,11 @@ class PCTHierarchy():
         if early_termination is None:
             early_termination = eval(prp.db['early_termination'])
 
-        hierarchy = cls.load_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+        hierarchy, env = cls.load_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, hpct_verbose=hpct_verbose,  history=history,
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination)
         
-        return hierarchy 
+        return hierarchy, env 
 
 
     @classmethod
