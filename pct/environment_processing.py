@@ -8,7 +8,7 @@ __all__ = ['wind_turbine_results', 'EnvironmentProcessingFactory', 'BaseEnvironm
 from abc import ABC, abstractmethod
 # from comet_ml import Experiment, api
 # from comet_ml import Artifact
-from os import sep, makedirs, path
+from os import sep, makedirs, getenv
 # import matplotlib.pyplot as plt
 # from matplotlib.ticker import FuncFormatter
 import time
@@ -235,11 +235,11 @@ class BaseEnvironmentProcessing(ABC):
             # filename=self.args['file']
             # root = self.args['root_path']
             # pfile = root + self.args['configs_dir'] + env_name +sep+ filename + ".properties"
-
+            api_key=getenv('COMET_API_KEY')
             final_ex_name = self.get_experiment_name()
             if not self.args['overwrite']:
                 from comet_ml import api
-                capi = api.API(api_key=self.args['api_key'])
+                capi = api.API(api_key=api_key)
                 while True:
                     connected = False
                     try:
@@ -259,7 +259,7 @@ class BaseEnvironmentProcessing(ABC):
                     return None, True
 
             from comet_ml import Experiment
-            experiment = Experiment(api_key=self.args['api_key'],
+            experiment = Experiment(api_key=api_key,
                                     project_name=self.args['project_name'],
                                     workspace=self.args['workspace'], display_summary_level=0)
 
