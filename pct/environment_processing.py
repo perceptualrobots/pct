@@ -23,7 +23,7 @@ from .hierarchy import PCTHierarchy
 
 # %% ../nbs/16_environment_processing.ipynb 6
 def wind_turbine_results(environment_properties=None, experiment=None, root=None, wt='WindTurbine', verbose=None, early=None, min=None,
-                         comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None, plots=None, log_testing_to_experiment=False):
+                         comparisons=False, comparisons_print_plots=False, property_dir=None, property_file=None, plots=None, log_testing_to_experiment=False, hierarchy=None):
 
     from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
     prefix = property_file[:property_file.find(".properties")]
@@ -57,7 +57,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
         stop_index=model_params['stop_index_test'],
         experiment=experiment,
         datatype='test',
-        log_testing_to_experiment=log_testing_to_experiment, min=min
+        log_testing_to_experiment=log_testing_to_experiment, min=min, hierarchy=hierarchy
         )
 
     if comparisons:
@@ -281,7 +281,7 @@ class BaseEnvironmentProcessing(ABC):
         return final_ex_name
     
     @abstractmethod
-    def results(self, filepath=None, experiment=None, environment_properties=None):
+    def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
         return None
 
     @abstractmethod
@@ -315,7 +315,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
     def get_workspace(self):
         return 'wind-turbine'
     
-    def results(self, filepath=None, experiment=None, environment_properties=None):
+    def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
         plots=None
         early=None
 
@@ -336,7 +336,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
         energy_gain, net_energy_gain, _ , _, _, _,_,_ = wind_turbine_results(environment_properties=environment_properties, experiment=experiment, root=drive, 
                             verbose=self.args['verbosed']['hpct_verbose'], early=early, comparisons=self.args['comparisons'], 
                             comparisons_print_plots=self.args['comparisons_print_plots'], min= not self.args['max'],
-                            property_dir=property_dir, property_file=file, plots=plots, log_testing_to_experiment=log_testing_to_experiment)
+                            property_dir=property_dir, property_file=file, plots=plots, log_testing_to_experiment=log_testing_to_experiment, hierarchy=hierarchy)
 
         print(f'energy_gain = {energy_gain:4.2f}')
         print(f'net_energy_gain = {net_energy_gain:4.2f}')
@@ -361,7 +361,7 @@ class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     def get_workspace(self):
         return 'dummy'
     
-    def results(self, filepath=None, experiment=None, environment_properties=None):
+    def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
 
         return {}
 
@@ -406,7 +406,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
     #     return enhanced_environment_properties
     
-    def results(self, filepath=None, experiment=None, environment_properties=None):
+    def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
         print(filepath)
         
         drive, property_dir, file = self.get_file_props(filepath=filepath)
