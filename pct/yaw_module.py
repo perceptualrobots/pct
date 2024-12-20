@@ -626,8 +626,10 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
                                                       runs=None, plots_dir=outdir, early_termination=early, draw_file=draw_file, experiment=experiment, 
                                                       log_experiment_figure=log_experiment_figure, min=min)
     else:
-        hierarchy.run(steps=None, verbose=verbose)
-        score = hierarchy.get_error_collector().error()
+        score = hierarchy.run_hierarchy(render=False, hpct_verbose=verbose, steps=1000)
+
+        # hierarchy.run(steps=None, verbose=verbose)
+        # score = hierarchy.get_error_collector().error()
     
     env = hierarchy.get_preprocessor()[0].env
 

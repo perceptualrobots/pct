@@ -269,7 +269,7 @@ class BaseEnvironmentProcessing(ABC):
         else:
             experiment = None
 
-        self.start = printtime('Start')
+
         return experiment, None
 
     def get_experiment_name(self):
@@ -318,7 +318,8 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
     def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
         plots=None
         early=None
-
+        self.start = printtime('Start')
+        
         if 'log_testing_to_experiment' in self.args:
             log_testing_to_experiment =  self.args['log_testing_to_experiment']
         else:

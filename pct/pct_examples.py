@@ -12,6 +12,7 @@ import networkx as nx
 
 # %% ../nbs/19_pct_examples.ipynb 4
 from .hierarchy import PCTHierarchy
+from .environment_processing import EnvironmentProcessingFactory
 
 # %% ../nbs/19_pct_examples.ipynb 6
 class PCTExamples:
@@ -24,11 +25,12 @@ class PCTExamples:
         env (Environment): The environment associated with the PCT hierarchy.
     """
 
-    def __init__(self, config_file, min=True, early_termination=False, history=False):
+    def __init__(self, config_file, min=True, early_termination=False, history=False, additional_props=None):
         """
         Initializes the PCTExamples instance by loading the hierarchy from the given configuration file.
         """
-        self.hierarchy, self.env = PCTHierarchy.load_from_file(config_file, min=min, early_termination=early_termination, history=history)
+        self.config_file = config_file
+        self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(config_file, min=min, early_termination=early_termination, history=history, additional_props=additional_props)
         self.history_data = None
         self.history = history
 
@@ -62,7 +64,16 @@ class PCTExamples:
         """
         self.hierarchy.get_preprocessor()[0].set_render(render)
         return self.hierarchy.run(steps, verbose)
-    
+
+    def results(self, verbose=False, args=None, environment_properties=None):
+        print(self.environment_properties)
+        env_name = self.env.get_name()
+        env_proc = EnvironmentProcessingFactory.createEnvironmentProcessing(f'{env_name}EnvironmentProcessing')
+        allargs={'drive':'', 'verbosed':{'hpct_verbose':verbose}, 'max': False} | args
+        env_proc.set_properties(allargs)
+        env_proc.results(filepath=self.config_file, environment_properties=self.environment_properties|environment_properties, hierarchy=self.hierarchy)
+
+
     def close(self):
         """
         Closes the environment.

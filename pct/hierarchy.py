@@ -1202,6 +1202,95 @@ class PCTHierarchy():
         return plots_list
 
     
+
+
+                    
+    ## run_from_file
+    @classmethod
+    def run_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, 
+                    runs=None, plots_dir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False, suffixes=False,
+                    enhanced_environment_properties=None, title_prefix=""):
+        
+        prp = PCTRunProperties()
+        prp.load_db(filename)
+        if experiment:
+            config = prp.db.pop('config')
+            experiment.log_parameters(prp.db)
+            prp.db['config'] = config
+            if 'environment_properties' in prp.db:
+                if 'history' in  prp.db['environment_properties']:
+                    ep = eval(prp.db['environment_properties'])
+                    experiment.log_metric('history', ep['history'])
+
+        error_collector_type = prp.db['error_collector_type'].strip()
+        error_response_type = prp.db['error_response_type']
+        error_limit = eval(prp.db['error_limit'])
+        if env_props is None:
+            environment_properties = eval(prp.db['environment_properties'])
+        else:
+            environment_properties = env_props    
+        error_properties = prp.get_error_properties()
+
+        if enhanced_environment_properties is not None:
+            environment_properties = environment_properties | enhanced_environment_properties 
+            if environment_properties['dataset'] == 'test':
+                error_properties[1][1] = environment_properties['initial']
+        # print(environment_properties)
+        if runs==None:
+            runs = eval(prp.db['runs'])
+        config = eval(prp.db['config'])
+        if seed is None:
+            seed = eval(prp.db['seed'])
+        # print(f'Seed={seed}')
+        if early_termination is None:
+            early_termination = eval(prp.db['early_termination'])
+
+        hierarchy, score = cls.run_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
+                                                error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
+                                                environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
+                                                suffixes=suffixes, plots_dir=plots_dir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure, 
+                                                title_prefix = title_prefix)
+        
+        return hierarchy, score 
+
+    def run_hierarchy(self, render=False, steps=500, hpct_verbose=False):
+        env = self.get_preprocessor()[0]
+        env.set_render(render)
+        if hpct_verbose:
+            self.summary()
+            print(self.formatted_config())
+        self.run(steps, hpct_verbose)
+        env.close()
+
+        score = self.get_environment_score() if self.get_environment_score() is not None else self.get_error_collector().error()
+
+        return score    
+ 
+    def draw_hierarchy(self,  draw_file=False, move=None, with_edge_labels=True, font_size=6, node_size=100, experiment=None, log_experiment_figure=False):
+        # draw network file
+        move = {} if move == None else move
+        if experiment or draw_file:
+            if log_experiment_figure:
+                self.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size, experiment=experiment)
+            else:
+                self.draw(file=draw_file, move=move, with_edge_labels=with_edge_labels, font_size=font_size, node_size=node_size)
+            if draw_file:
+                print(draw_file)
+
+    def plot_hierarchy(self, plots=None,
+        history=False, plots_figsize=(15,4), plots_dir=None, experiment=None, title_prefix=""):
+        if history:
+            if plots:
+                plots = self.get_plots_config(plots, title_prefix)
+                
+                for plot in plots:
+                    plotfile=None
+                    if plots_dir:
+                        plotfile = plots_dir + sep + plot['title'] + '-' + str(self.get_namespace()) + '.png'
+                    fig = self.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, experiment=experiment)
+                    import matplotlib.pyplot as plt
+                    plt.close(fig)  # Close the figure here
+
     @classmethod
     def run_from_config(cls, config, min=None, render=False,  error_collector_type=None, error_response_type=None, 
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
@@ -1256,13 +1345,8 @@ class PCTHierarchy():
         return hierarchy, score    
     
 
-
-                    
-    ## run_from_file
     @classmethod
-    def run_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, history=False, move=None, plots=None, hpct_verbose= False, 
-                    runs=None, plots_dir=None, early_termination = None, draw_file=None, experiment=None, log_experiment_figure=False, suffixes=False,
-                    enhanced_environment_properties=None, title_prefix=""):
+    def load_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, runs=None, early_termination = False, experiment=None,  hpct_verbose= False, history=False, additional_props=None):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
@@ -1283,53 +1367,8 @@ class PCTHierarchy():
         else:
             environment_properties = env_props    
         error_properties = prp.get_error_properties()
-
-        if enhanced_environment_properties is not None:
-            environment_properties = environment_properties | enhanced_environment_properties 
-            if environment_properties['dataset'] == 'test':
-                error_properties[1][1] = environment_properties['initial']
-        # print(environment_properties)
-        if runs==None:
-            runs = eval(prp.db['runs'])
-        config = eval(prp.db['config'])
-        if seed is None:
-            seed = eval(prp.db['seed'])
-        # print(f'Seed={seed}')
-        if early_termination is None:
-            early_termination = eval(prp.db['early_termination'])
-
-        hierarchy, score = cls.run_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
-                                                error_properties=error_properties, error_limit=error_limit, steps=runs, hpct_verbose=hpct_verbose, history=history, 
-                                                environment_properties=environment_properties, seed=seed, early_termination=early_termination, move=move, plots=plots, 
-                                                suffixes=suffixes, plots_dir=plots_dir, draw_file=draw_file, experiment=experiment, log_experiment_figure=log_experiment_figure, 
-                                                title_prefix = title_prefix)
-        
-        return hierarchy, score 
-
-
-    @classmethod
-    def load_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, runs=None, early_termination = False, experiment=None,  hpct_verbose= False, history=False):
-        
-        prp = PCTRunProperties()
-        prp.load_db(filename)
-        if experiment:
-            config = prp.db.pop('config')
-            experiment.log_parameters(prp.db)
-            prp.db['config'] = config
-            if 'environment_properties' in prp.db:
-                if 'history' in  prp.db['environment_properties']:
-                    ep = eval(prp.db['environment_properties'])
-                    experiment.log_metric('history', ep['history'])
-
-        error_collector_type = prp.db['error_collector_type'].strip()
-        error_response_type = prp.db['error_response_type']
-        error_limit = eval(prp.db['error_limit'])
-        if env_props is None:
-            environment_properties = eval(prp.db['environment_properties'])
-        else:
-            environment_properties = env_props    
-        error_properties = prp.get_error_properties()
-
+        if additional_props:
+            environment_properties.update(additional_props)
         if runs==None:
             runs = eval(prp.db['runs'])
         config = eval(prp.db['config'])
@@ -1343,7 +1382,7 @@ class PCTHierarchy():
                                                 error_properties=error_properties, error_limit=error_limit, hpct_verbose=hpct_verbose,  history=history,
                                                 environment_properties=environment_properties, seed=seed, early_termination=early_termination)
         
-        return hierarchy, env 
+        return hierarchy, env, environment_properties
 
 
     @classmethod
