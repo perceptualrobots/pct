@@ -12,3 +12,4 @@ website:
       - 07_errors.ipynb
       - 08_architectures.ipynb
       - 09_plotting.ipynb
+      - 19_pct_examples.ipynb
