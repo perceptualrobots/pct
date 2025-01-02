@@ -640,6 +640,9 @@ def test_hpct_wind(file=None,plots=None,history=None,verbose=None,outdir=None,ea
     plt.title('PCT')
     plt.legend()
     plotly_fig = tls.mpl_to_plotly(fig)
+    model_file_image = f'{outdir}{sep}res-{datatype}.png'
+    fig.savefig(model_file_image)
+    # print(f'Image saved to {model_file_image}')
     plotly_fig.write_html(model_file)
 
 
