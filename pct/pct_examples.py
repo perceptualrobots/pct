@@ -108,8 +108,13 @@ class PCTExamples:
 
         return None
 
-                
-    
+    def get_config_file_contents(self):
+        """
+        Reads and returns the contents of the config file.
+        """
+        with open(self.config_file, 'r') as file:
+            return file.read()
+
     def plot_history(self, plots=None, title_prefix='', plots_dir=None, plots_figsize=(12, 6), history_data=None):
         """
         Plots the history of the hierarchy.
@@ -135,12 +140,14 @@ class PCTExamples:
         Plot one item of the history of the hierarchy.
         """
 
-        from os import sep
+        from os import sep, path, makedirs
 
         plotfile=None
         if plots_dir:
-            plotfile = plots_dir + sep + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
-        fig = self.hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
+            if not path.exists(plots_dir):
+                makedirs(plots_dir)
+            plotfile = plots_dir + sep + title_prefix + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
+        fig = self.hierarchy.hierarchy_plots(title=title_prefix + plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
             # import matplotlib.pyplot as plt
             # plt.close(fig)  # Close the figure here
     
