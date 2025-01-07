@@ -4,17 +4,10 @@
 __all__ = ['PCTExamples']
 
 # %% ../nbs/19_pctexamples.ipynb 3
-# import json
-# import matplotlib.pyplot as plt
-# import networkx as nx
-
-
-
-# %% ../nbs/19_pctexamples.ipynb 4
 from .hierarchy import PCTHierarchy
 from .environment_processing import EnvironmentProcessingFactory
 
-# %% ../nbs/19_pctexamples.ipynb 6
+# %% ../nbs/19_pctexamples.ipynb 5
 class PCTExamples:
     """
     PCTExamples class provides methods to load a PCT hierarchy from a configuration file, 
@@ -25,12 +18,13 @@ class PCTExamples:
         env (Environment): The environment associated with the PCT hierarchy.
     """
 
-    def __init__(self, config_file, min=True, early_termination=False, history=False, additional_props=None):
+    def __init__(self, config_file, min=True, early_termination=False, history=False, additional_props=None, render = False):
         """
         Initializes the PCTExamples instance by loading the hierarchy from the given configuration file.
         """
         self.config_file = config_file
-        self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(config_file, min=min, early_termination=early_termination, history=history, additional_props=additional_props)
+        self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(config_file, min=min, early_termination=early_termination, 
+                                                                                            history=history, additional_props=additional_props, render=render)
         self.history_data = None
         self.history = history
 
@@ -58,11 +52,11 @@ class PCTExamples:
         
         return fig
 
-    def run(self, steps=1, verbose=False, render=False):
+    def run(self, steps=1, verbose=False):#, render=False):
         """
         Runs the hierarchy for the specified number of steps and returns the result.
         """
-        self.hierarchy.get_preprocessor()[0].set_render(render)
+        # self.hierarchy.get_preprocessor()[0].set_render(render)
         return self.hierarchy.run(steps, verbose)
 
     def results(self, verbose=False, args=None, environment_properties=None):
