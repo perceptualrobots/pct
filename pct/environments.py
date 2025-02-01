@@ -335,10 +335,9 @@ class OpenAIGym(ControlEnvironment):
         self.env.close()
         
     class Factory:
-        def create(self): return OpenAIGym()
-        
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return OpenAIGym(namespace=namespace, seed=seed)        
+        def create(self, namespace=None, seed=None, gym_name=None): return OpenAIGym(namespace=namespace, seed=seed, gym_name=gym_name)        
+
+
 
 # %% ../nbs/05_environments.ipynb 12
 class GenericGym(OpenAIGym):
@@ -373,9 +372,9 @@ class GenericGym(OpenAIGym):
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
                 
     class Factory:
-        def create(self, seed=None): return GenericGym(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return GenericGym(namespace=namespace, seed=seed)        
+        def create(self, namespace=None, seed=None, gym_name=None): return GenericGym(namespace=namespace, seed=seed, gym_name=gym_name)        
+
+
 
 # %% ../nbs/05_environments.ipynb 14
 class CartPoleV1(OpenAIGym):
@@ -957,9 +956,8 @@ class WebotsWrestler(ControlEnvironment):
         pass
     
     class Factory:
-        def create(self, seed=None): return WebotsWrestler(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
+        def create(self, namespace=None, seed=None, gym_name=None): return WebotsWrestler(namespace=namespace, seed=seed, gym_name=gym_name)        
+
 
 
 # %% ../nbs/05_environments.ipynb 29
@@ -1081,9 +1079,8 @@ class WebotsWrestlerSupervisor(ControlEnvironment):
         pass
     
     class Factory:
-        def create(self, seed=None): return WebotsWrestlerSupervisor(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return WebotsWrestlerSupervisor(namespace=namespace, seed=seed)          
+        def create(self, namespace=None, seed=None, gym_name=None): return WebotsWrestlerSupervisor(namespace=namespace, seed=seed, gym_name=gym_name)        
+
         
 
 # %% ../nbs/05_environments.ipynb 31
@@ -1184,9 +1181,8 @@ class Bridge(ControlEnvironment):
         pass
     
     class Factory:
-        def create(self, seed=None): return Bridge(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return Bridge(namespace=namespace, seed=seed)          
+        def create(self, namespace=None, seed=None, gym_name=None): return Bridge(namespace=namespace, seed=seed, gym_name=gym_name)        
+
 
 
 # %% ../nbs/05_environments.ipynb 33
@@ -1298,15 +1294,14 @@ class MicroGrid(ControlEnvironment):
     #     self.env.close()
 
     class Factory:
-        def create(self, seed=None): return MicroGrid(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return MicroGrid(namespace=namespace, seed=seed)       
+        def create(self, namespace=None, seed=None, gym_name=None): return MicroGrid(namespace=namespace, seed=seed, gym_name=gym_name)        
+
 
 # %% ../nbs/05_environments.ipynb 36
 class ARC(ControlEnvironment):
     "A function that creates and runs an ARC environment from a file given the rask code."
     
-    def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, render: bool = False, seed: int = None, namespace: Optional[str] = None, **cargs: dict):
+    def __init__(self, value: float = 0, name: str = "ARC", links: Optional[List] = None, new_name: bool = True, render: bool = False, seed: int = None, namespace: Optional[str] = None, gym_name=None, **cargs: dict):
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         self.debug = False
         self.num_links = None
@@ -1508,11 +1503,6 @@ class ARC(ControlEnvironment):
         return False
 
     class Factory:
-        @staticmethod
-        def create(seed: Optional[int] = None) -> 'ARC':
-            return ARC(seed=seed)
+        def create(self, namespace=None, seed=None, gym_name=None): return ARC(namespace=namespace, seed=seed, gym_name=gym_name)        
 
-    class FactoryWithNamespace:
-        @staticmethod
-        def create(namespace: Optional[str] = None, seed: Optional[int] = None) -> 'ARC':
-            return ARC(namespace=namespace, seed=seed)
+
