@@ -1057,7 +1057,7 @@ class PCTHierarchy():
         coll_dict = config['pre']
         env_dict = coll_dict.pop('pre0')
 
-        env = EnvironmentFactory.createEnvironmentWithNamespace(env_dict['type'], namespace=namespace, seed=seed)
+        env = EnvironmentFactory.createEnvironment(env_dict['type'], namespace=namespace, seed=seed)
         env.set_properties(environment_properties)
         for key, link in env_dict['links'].items():
             env.add_link(link)

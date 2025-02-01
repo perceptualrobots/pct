@@ -29,23 +29,16 @@ class EnvironmentFactory:
     addFactory = staticmethod(addFactory)
     
     # A Template Method:
-    def createEnvironment(id, seed=None):
-        if not EnvironmentFactory.factories.__contains__(id):
-            EnvironmentFactory.factories[id] = \
-              eval(id + '.Factory()')
-        return EnvironmentFactory.factories[id].create(seed=seed)
+    def createEnvironment(id, namespace=None, seed=None, gym_name=None):
+        factory_id = id + ('.Factory()' if namespace else '.Factory()')
+        if not EnvironmentFactory.factories.__contains__(factory_id):
+            EnvironmentFactory.factories[factory_id] = eval(factory_id)
+        return EnvironmentFactory.factories[factory_id].create(namespace=namespace, seed=seed, gym_name=gym_name)
     
-    createEnvironment = staticmethod(createEnvironment)       
-    
-    
-    def createEnvironmentWithNamespace(sid, namespace=None, seed=None):
-        id = sid + f'.FactoryWithNamespace()'                
-        if not EnvironmentFactory.factories.__contains__(id):
-            EnvironmentFactory.factories[id] = eval(id)
-        return EnvironmentFactory.factories[id].create(namespace=namespace, seed=seed)
-    createEnvironmentWithNamespace = staticmethod(createEnvironmentWithNamespace)
+    createEnvironment = staticmethod(createEnvironment)
 
-# %% ../nbs/05_environments.ipynb 7
+
+# %% ../nbs/05_environments.ipynb 8
 class ControlEnvironment(BaseFunction):
     "Abstract ControlEnvironment"
     def __call__(self, verbose=False):
@@ -189,7 +182,7 @@ class ControlEnvironment(BaseFunction):
         self.render=render
 
 
-# %% ../nbs/05_environments.ipynb 8
+# %% ../nbs/05_environments.ipynb 10
 class OpenAIGym(ControlEnvironment):
     "A function that creates and runs an environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     def __init__(self, env_name=None, render=False, render_mode= "rgb_array", video_wrap=False, value=0, name="gym", 
@@ -347,7 +340,7 @@ class OpenAIGym(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return OpenAIGym(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 9
+# %% ../nbs/05_environments.ipynb 12
 class GenericGym(OpenAIGym):
     "A function that creates an runs the GenericGym environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -384,7 +377,7 @@ class GenericGym(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return GenericGym(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 10
+# %% ../nbs/05_environments.ipynb 14
 class CartPoleV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -417,11 +410,11 @@ class CartPoleV1(OpenAIGym):
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
                 
     class Factory:
-        def create(self, seed=None): return CartPoleV1(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return CartPoleV1(namespace=namespace, seed=seed)        
+        def create(self, namespace=None, seed=None, gym_name=None): return CartPoleV1(namespace=namespace, seed=seed, gym_name=gym_name)        
 
-# %% ../nbs/05_environments.ipynb 11
+
+
+# %% ../nbs/05_environments.ipynb 15
 class CartPoleDV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -456,7 +449,7 @@ class CartPoleDV1(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return CartPoleDV1(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 12
+# %% ../nbs/05_environments.ipynb 17
 class Pendulum(OpenAIGym):
     "A function that creates an runs the Pendulum-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -514,11 +507,11 @@ class Pendulum(OpenAIGym):
     
 
     class Factory:
-        def create(self, seed=None): return Pendulum(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return Pendulum(namespace=namespace, seed=seed)                
+        def create(self, namespace=None, seed=None, gym_name=None): return Pendulum(namespace=namespace, seed=seed, gym_name=gym_name)        
 
-# %% ../nbs/05_environments.ipynb 14
+
+
+# %% ../nbs/05_environments.ipynb 20
 class MountainCarV0(OpenAIGym):
     "A function that creates and runs the MountainCar-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -553,11 +546,11 @@ class MountainCarV0(OpenAIGym):
             self.hierarchy_values=1
 
     class Factory:
-        def create(self, seed=None): return MountainCarV0(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return MountainCarV0(namespace=namespace, seed=seed)                
+        def create(self, namespace=None, seed=None, gym_name=None): return MountainCarV0(namespace=namespace, seed=seed, gym_name=gym_name)        
 
-# %% ../nbs/05_environments.ipynb 15
+
+
+# %% ../nbs/05_environments.ipynb 21
 class MountainCarContinuousV0(OpenAIGym):
     "A function that creates and runs the MountainCarContinuous-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # 0 Car position - -1.2 to +0.6, reference 0.45 
@@ -603,15 +596,15 @@ class MountainCarContinuousV0(OpenAIGym):
         self.value = np.append(self.value, pos)
 
     class Factory:
-        def create(self, seed=None): return MountainCarContinuousV0(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return MountainCarContinuousV0(namespace=namespace, seed=seed)               
+        def create(self, namespace=None, seed=None, gym_name=None): return MountainCarContinuousV0(namespace=namespace, seed=seed, gym_name=gym_name)        
 
-# %% ../nbs/05_environments.ipynb 17
+
+
+# %% ../nbs/05_environments.ipynb 23
 class WindTurbine(ControlEnvironment):
     "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
     
-    def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, seed=None, **cargs):        
+    def __init__(self, value=0, name="WindTurbine", links=None, new_name=True, namespace=None, seed=None, gym_name=None, **cargs):        
         super().__init__(value=value, links=links, name=name, new_name=new_name, namespace=namespace, **cargs)
         from pct.yaw_module import YawEnv
         
@@ -731,32 +724,16 @@ class WindTurbine(ControlEnvironment):
     def summary(self, extra=False, higher_namespace=None):
         super().summary("", extra=extra, higher_namespace=higher_namespace)
 
-    # def output_string(self):
-        
-    #     if isinstance(self.value, int):
-    #         rtn = f'{round(self.value, self.decimal_places):.{self.decimal_places}f}'
-    #     else:
-    #         list = [f'{round(val, self.decimal_places):.{self.decimal_places}f} ' for val in self.value]
-    #         list.append(str(self.reward))
-    #         list.append(" ")
-    #         list.append(str(self.done))
-    #         list.append(" ")
-    #         list.append(str(self.info))
-            
-    #         rtn = ''.join(list)
-
-    #     return rtn
-
-
     def close(self):
         self.env.close()
 
-    class Factory:
-        def create(self, seed=None): return WindTurbine(seed=seed)
-    class FactoryWithNamespace:
-        def create(self, namespace=None, seed=None): return WindTurbine(namespace=namespace, seed=seed)        
+    # class Factory:
+    #     def create(self, seed=None): return WindTurbine(seed=seed)
 
-# %% ../nbs/05_environments.ipynb 20
+    class Factory:
+        def create(self, namespace=None, seed=None, gym_name=None): return WindTurbine(namespace=namespace, seed=seed, gym_name=gym_name)        
+
+# %% ../nbs/05_environments.ipynb 25
 class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
@@ -818,9 +795,10 @@ class VelocityModel(BaseFunction):
 #         pass
 
     class Factory:
-        def create(self, seed=None): return VelocityModel(seed=seed)
+        def create(self, namespace=None, seed=None, gym_name=None): return VelocityModel(namespace=namespace, seed=seed, gym_name=gym_name)        
+        # def create(self, seed=None): return VelocityModel(seed=seed)?
 
-# %% ../nbs/05_environments.ipynb 21
+# %% ../nbs/05_environments.ipynb 26
 class DummyModel(BaseFunction):    
     def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
@@ -846,9 +824,10 @@ class DummyModel(BaseFunction):
         return super().get_graph_name() 
     
     class Factory:
-        def create(self, seed=None): return DummyModel(seed=seed)
+        # def create(self, seed=None): return DummyModel(seed=seed)
+        def create(self, namespace=None, seed=None, gym_name=None): return DummyModel(namespace=namespace, seed=seed, gym_name=gym_name)        
 
-# %% ../nbs/05_environments.ipynb 22
+# %% ../nbs/05_environments.ipynb 28
 class WebotsWrestler(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -983,7 +962,7 @@ class WebotsWrestler(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestler(namespace=namespace, seed=seed)          
 
 
-# %% ../nbs/05_environments.ipynb 23
+# %% ../nbs/05_environments.ipynb 29
 class WebotsWrestlerSupervisor(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -1107,7 +1086,7 @@ class WebotsWrestlerSupervisor(ControlEnvironment):
         def create(self, namespace=None, seed=None): return WebotsWrestlerSupervisor(namespace=namespace, seed=seed)          
         
 
-# %% ../nbs/05_environments.ipynb 24
+# %% ../nbs/05_environments.ipynb 31
 class Bridge(ControlEnvironment):
     "An environment function with sensors set by external system."
     
@@ -1210,7 +1189,7 @@ class Bridge(ControlEnvironment):
         def create(self, namespace=None, seed=None): return Bridge(namespace=namespace, seed=seed)          
 
 
-# %% ../nbs/05_environments.ipynb 25
+# %% ../nbs/05_environments.ipynb 33
 class MicroGrid(ControlEnvironment):
     "A function that creates and runs the microgrid environment for an energy management system. </br>" \
     "'Deep reinforcement learning for energy management in a microgrid with flexible demand.'  </br>" \
@@ -1323,7 +1302,7 @@ class MicroGrid(ControlEnvironment):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return MicroGrid(namespace=namespace, seed=seed)       
 
-# %% ../nbs/05_environments.ipynb 28
+# %% ../nbs/05_environments.ipynb 36
 class ARC(ControlEnvironment):
     "A function that creates and runs an ARC environment from a file given the rask code."
     
