@@ -347,9 +347,9 @@ class GenericGym(OpenAIGym):
     # 0 cart_position
     # 3 pole_velocity
     # 2 pole_angle
-    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, name=None, 
+    def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, gym_name=None, 
                  seed=None, links=None, new_name=True, namespace=None, **cargs):
-        super().__init__(env_name=name, render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
+        super().__init__(env_name=gym_name, render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=gym_name, seed=seed, 
                          links=links, new_name=new_name, namespace=namespace, **cargs)
  
     def __call__(self, verbose=False):
