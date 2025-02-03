@@ -2,7 +2,8 @@
 
 # %% auto 0
 __all__ = ['wind_turbine_results', 'EnvironmentProcessingFactory', 'BaseEnvironmentProcessing',
-           'WindTurbineEnvironmentProcessing', 'DummyEnvironmentProcessing', 'ARCEnvironmentProcessing']
+           'WindTurbineEnvironmentProcessing', 'DummyEnvironmentProcessing', 'GenericEnvironmentProcessing',
+           'ARCEnvironmentProcessing']
 
 # %% ../nbs/16_environment_processing.ipynb 3
 from abc import ABC, abstractmethod
@@ -370,7 +371,22 @@ class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return DummyEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 16
+# %% ../nbs/16_environment_processing.ipynb 15
+class GenericEnvironmentProcessing(BaseEnvironmentProcessing):
+    "Generic environment processing."
+
+    def get_workspace(self):
+        return self.args['env_name']
+    
+    def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
+
+        return {}
+
+
+    class Factory:
+        def create(self): return DummyEnvironmentProcessing()
+
+# %% ../nbs/16_environment_processing.ipynb 17
 class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
     "ARC environment processing."
 
