@@ -349,9 +349,12 @@ class GenericGym(OpenAIGym):
         
         return self.value
     
-    # def process_hierarchy_values(self):    
-    #     self.hierarchy_values = self.links[0].get_value()    
-    
+    def process_hierarchy_values(self):    
+        if self.num_links == 1:
+            self.hierarchy_values = self.links[0].get_value()    
+        else:
+            self.hierarchy_values = [ self.links[i].get_value() for i in range(0, len(self.links))] 
+
     # def process_actions(self):
     #     if self.hierarchy_values<0:
     #         self.hierarchy_values=0
@@ -364,11 +367,11 @@ class GenericGym(OpenAIGym):
     #     self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
 
     def get_properties(self):
-        meta = GymMetaData(self.env)
+        self.meta = GymMetaData(self.env)
         
-        env_inputs_names = meta.get_env_inputs_names()
-        env_inputs_indexes = meta.get_env_inputs_indexes()
-        num_actions = meta.get_num_actions()
+        env_inputs_names = self.meta.get_env_inputs_names()
+        env_inputs_indexes = self.meta.get_env_inputs_indexes()
+        num_actions = self.meta.get_num_actions()
 
         rtn ={'env_inputs_indexes': env_inputs_indexes, 'env_inputs_names':env_inputs_names, 'num_actions': num_actions}
 
