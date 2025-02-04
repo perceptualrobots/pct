@@ -340,8 +340,8 @@ class GenericGym(OpenAIGym):
     "A function that creates an runs the GenericGym environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
 
     def __init__(self, render=False, render_mode="rgb_array", video_wrap=False, value=0, gym_name=None, 
-                 seed=None, links=None, new_name=True, namespace=None, **cargs):
-        super().__init__(env_name=gym_name, render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=gym_name, seed=seed, 
+                 name="GenericGym", seed=None, links=None, new_name=True, namespace=None, **cargs):
+        super().__init__(env_name=gym_name, render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, namespace=namespace, **cargs)
  
     def __call__(self, verbose=False):
@@ -349,19 +349,19 @@ class GenericGym(OpenAIGym):
         
         return self.value
     
-    def process_hierarchy_values(self):    
-        self.hierarchy_values = self.links[0].get_value()    
+    # def process_hierarchy_values(self):    
+    #     self.hierarchy_values = self.links[0].get_value()    
     
-    def process_actions(self):
-        if self.hierarchy_values<0:
-            self.hierarchy_values=0
-        elif self.hierarchy_values>0:
-            self.hierarchy_values=1
-        else:
-            self.hierarchy_values=0
+    # def process_actions(self):
+    #     if self.hierarchy_values<0:
+    #         self.hierarchy_values=0
+    #     elif self.hierarchy_values>0:
+    #         self.hierarchy_values=1
+    #     else:
+    #         self.hierarchy_values=0
 
-    def process_values(self):
-        self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
+    # def process_values(self):
+    #     self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
 
     def get_properties(self):
         meta = GymMetaData(self.env)
