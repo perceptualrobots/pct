@@ -309,6 +309,8 @@ class OpenAIGym(ControlEnvironment):
 
     
     def create_env(self, seed):
+        if self.env_name == None:
+            raise Exception(f'Gym environment name not specified {self.__class__.__name__}.')
         genv = gym.make(self.env_name) #, render_mode=self.render_mode)
         genv._max_episode_steps = self.max_episode_steps
         if self.video_wrap:
