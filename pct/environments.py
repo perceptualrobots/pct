@@ -393,9 +393,9 @@ class GymMetaData:
         if isinstance(action_space, gym.spaces.discrete.Discrete):
             con = action_space.contains(values)
             if action_space.n == 2:
-                return np.where(values > 0.5, 1, 0)
+                return np.where(values > 0, 1, 0)
             elif action_space.n == 3:
-                return np.where(values > 0.5, 1, np.where(values < -0.5, -1, 0))
+                return np.where(values > 0, 1, np.where(values < 0, -1, 0))
 
 
 
