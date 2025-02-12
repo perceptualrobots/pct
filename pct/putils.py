@@ -375,7 +375,7 @@ class Counter(object):
   def set_limit(self, limit):
       self.limit=limit
 
-# %% ../nbs/01_putils.ipynb 30
+# %% ../nbs/01_putils.ipynb 31
 def set_dirs(dirs):
 	if dirs is None:
 		out = {}
@@ -385,7 +385,8 @@ def set_dirs(dirs):
 	if 'drive' not in out:
 		out['drive'] = 'G:/My Drive/'
 	if 'root_path' not in out:
-		out['root_path'] = 'C:/Users/ruper/'
+		# out['root_path'] = 'C:/Users/ruper/'
+		out['root_path'] = os.path.expanduser('~')+os.sep
 	if 'configs_dir' not in out:
 		out['configs_dir'] = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
 	if 'plots_dir' not in out:
@@ -399,7 +400,7 @@ def set_dirs(dirs):
 
 
 
-# %% ../nbs/01_putils.ipynb 31
+# %% ../nbs/01_putils.ipynb 32
 def stringIntListToListOfInts(strList, delimiter):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -408,7 +409,7 @@ def stringIntListToListOfInts(strList, delimiter):
         result.append(int(item))
     return result
 
-# %% ../nbs/01_putils.ipynb 32
+# %% ../nbs/01_putils.ipynb 33
 def stringFloatListToListOfFloats(strList, delimiter):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -417,7 +418,7 @@ def stringFloatListToListOfFloats(strList, delimiter):
         result.append(float(item))
     return result
 
-# %% ../nbs/01_putils.ipynb 33
+# %% ../nbs/01_putils.ipynb 34
 def stringListToListOfStrings(strList, delimiter=','):
     #listRes = list(strList.split(","))
     #print(listRes)
@@ -426,14 +427,14 @@ def stringListToListOfStrings(strList, delimiter=','):
         result.append(item.strip())
     return result
 
-# %% ../nbs/01_putils.ipynb 34
+# %% ../nbs/01_putils.ipynb 35
 def listNumsToString(list):
     str = ""
     for item in list:
         str += f'{item}'
     return str
 
-# %% ../nbs/01_putils.ipynb 35
+# %% ../nbs/01_putils.ipynb 36
 def round_lists(alist, formatted, places):    
     if isinstance(alist, str):
         raise Exception(f'Value {alist} should be a number in round_lists.')
@@ -449,21 +450,21 @@ def round_lists(alist, formatted, places):
             if rtd is not None:
                 formatted.append(rtd)
 
-# %% ../nbs/01_putils.ipynb 36
+# %% ../nbs/01_putils.ipynb 37
 def floatListsToString(alist, places):
     flist = []    
     if len(alist)>0:
         round_lists(alist,flist,places)
     return f'{flist}'
 
-# %% ../nbs/01_putils.ipynb 37
+# %% ../nbs/01_putils.ipynb 38
 def limit_large_float(val, limit=10000000):
     if abs(val) > limit:
         val = - np.sign(val) * limit
 
     return val
 
-# %% ../nbs/01_putils.ipynb 38
+# %% ../nbs/01_putils.ipynb 39
 def sigmoid(x, range, slope) :
     val = 0
     if abs(x) > 10000000:
@@ -479,7 +480,7 @@ def sigmoid(x, range, slope) :
 
     return val
 
-# %% ../nbs/01_putils.ipynb 39
+# %% ../nbs/01_putils.ipynb 40
 def smooth(new_val, old_val, smooth_factor):
     if smooth_factor > 1 or smooth_factor < 0:
         raise Exception(f'smooth_factor {smooth_factor} should be between 0 and 1')
@@ -492,25 +493,25 @@ def smooth(new_val, old_val, smooth_factor):
         print(f'RuntimeWarning... old_val={old_val} new_val={new_val} smooth_factor={smooth_factor}')
     return val
 
-# %% ../nbs/01_putils.ipynb 40
+# %% ../nbs/01_putils.ipynb 41
 def sigmoid_array(x, range, slope) :
     exv = -x * slope / range
     return -range / 2 + range / (1 + np.exp(exv))
     
 
-# %% ../nbs/01_putils.ipynb 41
+# %% ../nbs/01_putils.ipynb 42
 def dot(inputs, weights):
     sum = 0
     for i in range(len(inputs)):
         sum += inputs[i]*weights[i]
     return sum
 
-# %% ../nbs/01_putils.ipynb 42
-def list_of_ones(num):
-    x = [1 for _ in range(num) ]
+# %% ../nbs/01_putils.ipynb 43
+def list_of_ones(numx):
+    x = [1 for i in range(numx) ]
     return x
 
-# %% ../nbs/01_putils.ipynb 44
+# %% ../nbs/01_putils.ipynb 45
 def limit_to_range(num, lower, upper):
     if num < lower:
         frac, _  = math.modf(num)

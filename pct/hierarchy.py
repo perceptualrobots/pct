@@ -169,8 +169,12 @@ class PCTHierarchy():
         return self.postCollection
 
     def is_environment_resolved(self):
-        return self.get_environment().is_environment_resolved()
-    
+        environment = self.get_environment()
+        if hasattr( environment, 'is_environment_resolved' ) and callable( environment.is_environment_resolved ):
+            return self.get_environment().is_environment_resolved()
+
+        return None
+
     def get_environment(self):
         return self.get_preprocessor()[0]
     
@@ -1233,8 +1237,9 @@ class PCTHierarchy():
 
         if enhanced_environment_properties is not None:
             environment_properties = environment_properties | enhanced_environment_properties 
-            if environment_properties['dataset'] == 'test':
-                error_properties[1][1] = environment_properties['initial']
+            if 'dataset' in environment_properties:
+                if environment_properties['dataset'] == 'test':
+                    error_properties[1][1] = environment_properties['initial']
         # print(environment_properties)
         if runs==None:
             runs = eval(prp.db['runs'])
