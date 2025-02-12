@@ -239,7 +239,8 @@ class BaseErrorCollector(ABC):
         return self.error_response.get_error_response()
 
     def override_value(self):
-        self.error_response.set_error_response(self.error_response.get_error_response()*abs(self.limit))
+        if self.limit is not None:
+            self.error_response.set_error_response(self.error_response.get_error_response()*abs(self.limit))
 
     
     def add_error_data(self, data=[]):

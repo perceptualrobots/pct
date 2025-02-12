@@ -356,7 +356,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return WindTurbineEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 14
+# %% ../nbs/16_environment_processing.ipynb 15
 class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     "Dummy environment processing."
 
@@ -371,7 +371,7 @@ class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return DummyEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 15
+# %% ../nbs/16_environment_processing.ipynb 17
 class GenericEnvironmentProcessing(BaseEnvironmentProcessing):
     "Generic environment processing."
 
@@ -384,9 +384,42 @@ class GenericEnvironmentProcessing(BaseEnvironmentProcessing):
 
 
     class Factory:
-        def create(self): return DummyEnvironmentProcessing()
+        def create(self): return GenericEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 17
+# %% ../nbs/16_environment_processing.ipynb 19
+# class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
+#     "GenericGym environment processing."
+
+#     def get_workspace(self):
+#         return self.args['env_name']
+    
+#     def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
+
+#         print(filepath)
+        
+#         drive, property_dir, file = self.get_file_props(filepath=filepath)
+#         if environment_properties is None:
+#             environment_properties, en = PCTRunProperties.get_environment_properties(root=drive, env='GenericGym', property_dir=property_dir, property_file=file)
+
+#         verbose= self.args['verbosed']['hpct_verbose'] 
+#         min= not self.args['max']
+#         history=True
+
+#         title_prefix="Test_"
+#         plots=self.args['hierarchy_plots'] 
+
+#         hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
+#                 render=self.args['verbosed']['display_env'],  experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
+#                 title_prefix=title_prefix) 
+
+#         print(f'Test score = {score:4.3f}')
+        
+#         return {}
+
+#     class Factory:
+#         def create(self): return GenericGymEnvironmentProcessing()
+
+# %% ../nbs/16_environment_processing.ipynb 21
 class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
     "ARC environment processing."
 
@@ -450,6 +483,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
                 )
 
         print(f'Test score = {score:4.3f}')
+        
         fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
         glist = self.env_processing_details['gradient_list']
         success = hierarchy.get_environment().success(glist, self.env_processing_details['fitness'], score)    
