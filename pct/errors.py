@@ -2,8 +2,8 @@
 
 # %% auto 0
 __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'SummedError', 'CurrentError', 'SmoothError',
-           'MovingSumError', 'MovingAverageError', 'BaseErrorCollector', 'TotalError', 'TopError', 'InputsError',
-           'ReferencedInputsError', 'RewardError', 'FitnessError', 'ErrorResponseFactory', 'ErrorCollectorFactory']
+           'MovingSumError', 'MovingAverageError', 'ErrorResponseFactory', 'BaseErrorCollector', 'TotalError',
+           'TopError', 'InputsError', 'ReferencedInputsError', 'RewardError', 'FitnessError', 'ErrorCollectorFactory']
 
 # %% ../nbs/07_errors.ipynb 3
 #import numpy as np
@@ -17,7 +17,7 @@ from .putils import smooth
 # from pct.hierarchy import PCTHierarchy
 
 
-# %% ../nbs/07_errors.ipynb 6
+# %% ../nbs/07_errors.ipynb 7
 class BaseErrorType(ABC):
     "Base class of a type error response. This class is not used direclty by developers, but defines the interface common to all."
     def __init__(self, flip_error_response=False):
@@ -54,7 +54,7 @@ class BaseErrorType(ABC):
     def is_terminated(self):
         return self.terminate    
 
-# %% ../nbs/07_errors.ipynb 8
+# %% ../nbs/07_errors.ipynb 9
 class RootSumSquaredError(BaseErrorType):
     "The square root of the sum of the square of the errors."
     def __init__(self, flip_error_response=False):
@@ -72,7 +72,7 @@ class RootSumSquaredError(BaseErrorType):
     class Factory:
         def create(self, flip_error_response=False): return RootSumSquaredError(flip_error_response=flip_error_response)
 
-# %% ../nbs/07_errors.ipynb 10
+# %% ../nbs/07_errors.ipynb 11
 class RootMeanSquareError(BaseErrorType):
     "The square root of the mean of the sum of the square of the errors."
     def __init__(self, flip_error_response=False):
@@ -92,7 +92,7 @@ class RootMeanSquareError(BaseErrorType):
     class Factory:
         def create(self, flip_error_response=False): return RootMeanSquareError(flip_error_response=flip_error_response)
 
-# %% ../nbs/07_errors.ipynb 12
+# %% ../nbs/07_errors.ipynb 13
 class SummedError(BaseErrorType):
     "Sum of all errors."
     def __init__(self, flip_error_response=False):
@@ -110,7 +110,7 @@ class SummedError(BaseErrorType):
     class Factory:
         def create(self, flip_error_response=False): return SummedError(flip_error_response=flip_error_response)
 
-# %% ../nbs/07_errors.ipynb 14
+# %% ../nbs/07_errors.ipynb 15
 class CurrentError(BaseErrorType):
     "The current error, rather than a function of the historical values."
     def __init__(self, flip_error_response=False):
@@ -125,7 +125,7 @@ class CurrentError(BaseErrorType):
     class Factory:
         def create(self, flip_error_response=False): return CurrentError(flip_error_response=flip_error_response)
 
-# %% ../nbs/07_errors.ipynb 16
+# %% ../nbs/07_errors.ipynb 17
 class SmoothError(BaseErrorType):
     "The exponential smoothed value of the error."
     def __init__(self, flip_error_response=False):
@@ -142,7 +142,7 @@ class SmoothError(BaseErrorType):
     class Factory:
         def create(self, flip_error_response=False): return SmoothError(flip_error_response=flip_error_response)
 
-# %% ../nbs/07_errors.ipynb 18
+# %% ../nbs/07_errors.ipynb 19
 class MovingSumError(BaseErrorType):
     "The moving sum of the error."
     def __init__(self, flip_error_response=False):
@@ -167,7 +167,7 @@ class MovingSumError(BaseErrorType):
     class Factory:
         def create(self, flip_error_response=False): return MovingSumError(flip_error_response=flip_error_response)
 
-# %% ../nbs/07_errors.ipynb 20
+# %% ../nbs/07_errors.ipynb 21
 class MovingAverageError(BaseErrorType):
     "The moving average of the error."
     def __init__(self, flip_error_response=False):
@@ -189,7 +189,21 @@ class MovingAverageError(BaseErrorType):
     class Factory:
         def create(self, flip_error_response=False): return MovingAverageError(flip_error_response=flip_error_response)
 
-# %% ../nbs/07_errors.ipynb 22
+# %% ../nbs/07_errors.ipynb 23
+class ErrorResponseFactory:
+    factories = {}
+    def addResponseFactory(id, errorResponseFactory):
+        ErrorResponseFactory.factories.put[id] = errorFactory
+    addResponseFactory = staticmethod(addResponseFactory)
+    # A Template Method:
+    def createErrorResponse(id, flip_error_response=False):
+        if not ErrorResponseFactory.factories.__contains__(id):
+            ErrorResponseFactory.factories[id] = \
+              eval(id + '.Factory()')
+        return ErrorResponseFactory.factories[id].create(flip_error_response=flip_error_response)
+    createErrorResponse = staticmethod(createErrorResponse)
+
+# %% ../nbs/07_errors.ipynb 26
 class BaseErrorCollector(ABC):
     "Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all."
     'Parameters:'
@@ -279,7 +293,7 @@ class BaseErrorCollector(ABC):
         
         return self.limit_exceeded
 
-# %% ../nbs/07_errors.ipynb 24
+# %% ../nbs/07_errors.ipynb 28
 class TotalError(BaseErrorCollector):
     "A class to collect all the errors of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -297,7 +311,7 @@ class TotalError(BaseErrorCollector):
     class Factory:
         def create(self): return TotalError()
 
-# %% ../nbs/07_errors.ipynb 26
+# %% ../nbs/07_errors.ipynb 30
 class TopError(BaseErrorCollector):
     "A class to collect all the errors of the top-level nodes."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -317,7 +331,7 @@ class TopError(BaseErrorCollector):
     class Factory:
         def create(self): return TopError()
 
-# %% ../nbs/07_errors.ipynb 28
+# %% ../nbs/07_errors.ipynb 32
 class InputsError(BaseErrorCollector):
     "A class to collect the values of the input values."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -339,7 +353,7 @@ class InputsError(BaseErrorCollector):
     class Factory:
         def create(self): return InputsError()
 
-# %% ../nbs/07_errors.ipynb 30
+# %% ../nbs/07_errors.ipynb 34
 class ReferencedInputsError(BaseErrorCollector):
     "A class to collect the values of the input values subtracted from reference values."                        
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -387,7 +401,7 @@ class ReferencedInputsError(BaseErrorCollector):
     class Factory:
         def create(self): return ReferencedInputsError()
 
-# %% ../nbs/07_errors.ipynb 32
+# %% ../nbs/07_errors.ipynb 36
 class RewardError(BaseErrorCollector):
     "A class that collects the reward value of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -403,7 +417,7 @@ class RewardError(BaseErrorCollector):
     class Factory:
         def create(self): return RewardError()
 
-# %% ../nbs/07_errors.ipynb 34
+# %% ../nbs/07_errors.ipynb 38
 class FitnessError(BaseErrorCollector):
     "A class that collects the fitness value of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -419,21 +433,7 @@ class FitnessError(BaseErrorCollector):
     class Factory:
         def create(self): return FitnessError()
 
-# %% ../nbs/07_errors.ipynb 36
-class ErrorResponseFactory:
-    factories = {}
-    def addResponseFactory(id, errorResponseFactory):
-        ErrorResponseFactory.factories.put[id] = errorFactory
-    addResponseFactory = staticmethod(addResponseFactory)
-    # A Template Method:
-    def createErrorResponse(id, flip_error_response=False):
-        if not ErrorResponseFactory.factories.__contains__(id):
-            ErrorResponseFactory.factories[id] = \
-              eval(id + '.Factory()')
-        return ErrorResponseFactory.factories[id].create(flip_error_response=flip_error_response)
-    createErrorResponse = staticmethod(createErrorResponse)
-
-# %% ../nbs/07_errors.ipynb 38
+# %% ../nbs/07_errors.ipynb 40
 class ErrorCollectorFactory:
     factories = {}
     def addCollectorFactory(id, errorCollectorFactory):
