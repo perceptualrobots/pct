@@ -3,17 +3,16 @@
 # %% auto 0
 __all__ = ['wind_turbine_results', 'EnvironmentProcessingFactory', 'BaseEnvironmentProcessing',
            'WindTurbineEnvironmentProcessing', 'DummyEnvironmentProcessing', 'GenericEnvironmentProcessing',
-           'ARCEnvironmentProcessing']
+           'GenericGymEnvironmentProcessing', 'ARCEnvironmentProcessing']
 
 # %% ../nbs/16_environment_processing.ipynb 3
 from abc import ABC, abstractmethod
-# from comet_ml import Experiment, api
-# from comet_ml import Artifact
 from os import sep, makedirs, getenv
-# import matplotlib.pyplot as plt
-# from matplotlib.ticker import FuncFormatter
 import time
 
+# Ignore deprecation warnings
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # %% ../nbs/16_environment_processing.ipynb 4
 # from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
@@ -387,37 +386,51 @@ class GenericEnvironmentProcessing(BaseEnvironmentProcessing):
         def create(self): return GenericEnvironmentProcessing()
 
 # %% ../nbs/16_environment_processing.ipynb 19
-# class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
-#     "GenericGym environment processing."
+class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
+    "GenericGym environment processing."
 
-#     def get_workspace(self):
-#         return self.args['env_name']
+
+
+    def set_properties(self, args):
+        self.args = args
+        self.env_processing_details={}
+        root = self.args['root_path']
+        configs_dir = self.args['configs_dir']
+        env_name = self.args['env_name']
+        filename = self.args['file'] + ".properties"
+        pfile = root + configs_dir + env_name + sep + filename
+
+        props = PCTRunProperties.get_properties_from_filename(pfile)
+        self.args['gym_name'] = props['gym_name']
+
+    def get_workspace(self):
+        return self.args['gym_name']
     
-#     def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
+    def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
 
-#         print(filepath)
+        # print(filepath)
         
-#         drive, property_dir, file = self.get_file_props(filepath=filepath)
-#         if environment_properties is None:
-#             environment_properties, en = PCTRunProperties.get_environment_properties(root=drive, env='GenericGym', property_dir=property_dir, property_file=file)
+        # drive, property_dir, file = self.get_file_props(filepath=filepath)
+        # if environment_properties is None:
+        #     environment_properties, en = PCTRunProperties.get_environment_properties(root=drive, env='GenericGym', property_dir=property_dir, property_file=file)
 
-#         verbose= self.args['verbosed']['hpct_verbose'] 
-#         min= not self.args['max']
-#         history=True
+        # verbose= self.args['verbosed']['hpct_verbose'] 
+        # min= not self.args['max']
+        # history=True
 
-#         title_prefix="Test_"
-#         plots=self.args['hierarchy_plots'] 
+        # title_prefix="Test_"
+        # plots=self.args['hierarchy_plots'] 
 
-#         hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
-#                 render=self.args['verbosed']['display_env'],  experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
-#                 title_prefix=title_prefix) 
+        # hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
+        #         render=self.args['verbosed']['display_env'],  experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
+        #         title_prefix=title_prefix) 
 
-#         print(f'Test score = {score:4.3f}')
+        # print(f'Test score = {score:4.3f}')
         
-#         return {}
+        return {}
 
-#     class Factory:
-#         def create(self): return GenericGymEnvironmentProcessing()
+    class Factory:
+        def create(self): return GenericGymEnvironmentProcessing()
 
 # %% ../nbs/16_environment_processing.ipynb 21
 class ARCEnvironmentProcessing(BaseEnvironmentProcessing):

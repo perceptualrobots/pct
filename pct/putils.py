@@ -660,7 +660,20 @@ class PCTRunProperties():
         environment_properties = eval(prp.db['environment_properties'])
     
         return environment_properties, prp.db['env_name']
+
+
+    @classmethod
+    def get_properties_from_filename(cls, filename):
         
+        prp = PCTRunProperties()
+        prp.load_db(filename)
+        props={}
+
+        props['gym_name'] = prp.db['gym_name']
+    
+        return props
+
+
     def load_db(self, file):
         "Load properties from file."
         from jproperties import Properties
