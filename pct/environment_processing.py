@@ -228,6 +228,15 @@ class BaseEnvironmentProcessing(ABC):
     # def enhanced_environment_properties(self, environment_properties=None):
     #     pass
 
+    def log_properties_file(self, experiment, filepath):
+        # artifact - properties file
+        from comet_ml import Artifact
+        index = filepath.rfind('ga-')
+        print(filepath[index:])
+        artifact = Artifact(filepath[index:], "Properties file")
+        artifact.add(filepath)
+        experiment.log_artifact(artifact)
+
 
     def get_experiment(self):
         if self.args and 'project_name' in self.args and self.args['project_name']:
@@ -408,24 +417,17 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
     
     def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
 
-        # print(filepath)
-        
-        # drive, property_dir, file = self.get_file_props(filepath=filepath)
-        # if environment_properties is None:
-        #     environment_properties, en = PCTRunProperties.get_environment_properties(root=drive, env='GenericGym', property_dir=property_dir, property_file=file)
 
-        # verbose= self.args['verbosed']['hpct_verbose'] 
-        # min= not self.args['max']
-        # history=True
+        if experiment:         
+            # artifact - properties file
+            self.log_properties_file(experiment, filepath)
 
-        # title_prefix="Test_"
-        # plots=self.args['hierarchy_plots'] 
+            # other metrics
+            grid = hierarchy.get_grid()
+            experiment.log_other('LxC', f'{len(grid)}x{max(grid)}')
+            experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
+            experiment.log_metric('score', self.env_processing_details['score'])
 
-        # hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
-        #         render=self.args['verbosed']['display_env'],  experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
-        #         title_prefix=title_prefix) 
-
-        # print(f'Test score = {score:4.3f}')
         
         return {}
 
@@ -505,12 +507,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
         if experiment:         
             # artifact - properties file
-            from comet_ml import Artifact
-            index = filepath.rfind('ga-')
-            print(filepath[index:])
-            artifact = Artifact(filepath[index:], "Properties file")
-            artifact.add(filepath)
-            experiment.log_artifact(artifact)
+            self.log_properties_file(experiment, filepath)
 
             # other metrics
             code = environment_properties['code']
