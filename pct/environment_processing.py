@@ -423,8 +423,7 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
             self.log_properties_file(experiment, filepath)
 
             # other metrics
-            grid = hierarchy.get_grid()
-            experiment.log_other('LxC', f'{len(grid)}x{max(grid)}')
+            experiment.log_other('LxC', self.env_processing_details['LxC'])
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('score', self.env_processing_details['score'])
 
