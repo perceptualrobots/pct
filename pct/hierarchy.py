@@ -1203,6 +1203,8 @@ class PCTHierarchy():
             if plot_item == 'scFitness':
                 plots_list.append(create_named_plot_item('fitness', 'Fitness'))
 
+            if plot_item == 'scReward':
+                plots_list.append(create_named_plot_item('reward', 'Reward'))
         return plots_list
 
     

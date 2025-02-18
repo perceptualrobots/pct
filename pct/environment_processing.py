@@ -422,6 +422,13 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
             # artifact - properties file
             self.log_properties_file(experiment, filepath)
 
+            #     hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
+            # render=self.args['verbosed']['display_env'], runs=runs, experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
+            # title_prefix=title_prefix, early_termination=False
+            # # ,enhanced_environment_properties=enhanced_environment_properties
+            # )
+
+
             # other metrics
             experiment.log_other('LxC', self.env_processing_details['LxC'])
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
