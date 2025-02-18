@@ -204,6 +204,9 @@ class PCTHierarchy():
             if verbose:
                 print(f'Current score={self.error_collector.error()}')
             
+            if self.history:
+                self.prepost_data.add_value('Error', self.error_collector.error())
+            
             if self.error_collector != None:
                 if self.error_collector.is_terminated():
                 #     print(f'<{i} {self.error_collector.error()}>')
@@ -1205,6 +1208,11 @@ class PCTHierarchy():
 
             if plot_item == 'scReward':
                 plots_list.append(create_named_plot_item('reward', 'Reward'))
+
+            if plot_item == 'scError':
+                plots_list.append(create_named_plot_item('error', 'Error'))
+
+
         return plots_list
 
     

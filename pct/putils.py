@@ -323,6 +323,15 @@ class FunctionsData():
             self.data[name]=dlist
             self.data[name].append(func.get_fitness())
 
+    def add_value(self, name, value):
+        if name in self.data.keys():
+            self.data[name].append(value)
+        else:
+            dlist=[]
+            self.data[name]=dlist
+            self.data[name].append(value)
+
+
     def add_list(self, key, list):
         self.data[key]= list
 
