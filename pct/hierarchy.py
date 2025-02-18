@@ -201,13 +201,13 @@ class PCTHierarchy():
 
                 raise ex
 
-            if verbose:
-                print(f'Current score={self.error_collector.error()}')
+            if self.error_collector:
+                if verbose:
+                    print(f'Current score={self.error_collector.error()}')
             
-            if self.history:
-                self.prepost_data.add_value('Error', self.error_collector.error())
+                if self.history :
+                    self.prepost_data.add_value('error', self.error_collector.error())
             
-            if self.error_collector != None:
                 if self.error_collector.is_terminated():
                 #     print(f'<{i} {self.error_collector.error()}>')
                     return out
