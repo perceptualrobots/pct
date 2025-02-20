@@ -340,6 +340,7 @@ class OpenAIGym(ControlEnvironment):
 # %% ../nbs/05_environments.ipynb 13
 class GymMetaData:
     def __init__(self, env):
+        self.env_name = env.spec.id
         self.action_space =  env.action_space
         self.observation_space = env.observation_space
         self.num_actions = self.get_num_actions()
@@ -349,7 +350,10 @@ class GymMetaData:
 
     def get_env_inputs_names(self):
         ninputs = self.observation_space.shape[0]
-        env_inputs_names = [f"I{i}" for i in range(ninputs)]
+        if self.env_name == 'CartPole-v1':
+            env_inputs_names = ['ICP', 'ICV', 'IPA', 'IPV']
+        else:
+            env_inputs_names = [f"I{i}" for i in range(ninputs)]
         return env_inputs_names
 
     def get_env_inputs_indexes(self):
@@ -398,7 +402,6 @@ class GymMetaData:
                 return np.where(values > 0, 1, 0)
             elif action_space.n == 3:
                 return np.where(values > 0, 1, np.where(values < 0, -1, 0))
-
 
 
 
