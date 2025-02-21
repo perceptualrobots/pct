@@ -340,8 +340,9 @@ class OpenAIGym(ControlEnvironment):
 # %% ../nbs/05_environments.ipynb 13
 class GymMetaData:
     def __init__(self, env):
+        import copy
         self.env_name = env.spec.id
-        self.action_space =  env.action_space
+        self.action_space =  copy.deepcopy(env.action_space)
         self.observation_space = env.observation_space
         self.num_actions = self.get_num_actions()
         self.action_array = True
@@ -395,6 +396,7 @@ class GymMetaData:
     def map_values_to_action_space(cls, action_space, values):
         if isinstance(action_space, gym.spaces.box.Box):
             vals = np.clip(values, action_space.low, action_space.high)
+            print(values, vals)
             return vals
         if isinstance(action_space, gym.spaces.discrete.Discrete):
             con = action_space.contains(values)
@@ -413,6 +415,7 @@ class GenericGym(OpenAIGym):
                  name="GenericGym", seed=None, links=None, new_name=True, namespace=None, **cargs):
         super().__init__(env_name=gym_name, render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, namespace=namespace, **cargs)
+        self.actions = 666
  
     def __call__(self, verbose=False):
         super().__call__(verbose)
@@ -426,7 +429,8 @@ class GenericGym(OpenAIGym):
             self.hierarchy_values = [ self.links[i].get_value() for i in range(0, len(self.links))] 
 
     def process_actions(self):
-        self.actions = GymMetaData.map_values_to_action_space(self.env.action_space, self.hierarchy_values)
+        self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
+        print(self.namespace, self.hierarchy_values, self.actions)
 
     def apply_actions_get_obs(self):
         return self.env.step(self.actions)
