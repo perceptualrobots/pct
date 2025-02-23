@@ -352,6 +352,8 @@ class GymMetaData:
         ninputs = self.observation_space.shape[0]
         if self.env_name == 'CartPole-v1':
             env_inputs_names = ['ICP', 'ICV', 'IPA', 'IPV']
+        elif self.env_name == 'LunarLanderContinuous-v2':
+            env_inputs_names = ['IX', 'IY', 'IVX', 'IVY', 'IA', 'IAV', 'ILC', 'IRC']
         else:
             env_inputs_names = [f"I{i}" for i in range(ninputs)]
         return env_inputs_names
@@ -413,7 +415,9 @@ class GenericGym(OpenAIGym):
                  name="GenericGym", seed=None, links=None, new_name=True, namespace=None, **cargs):
         super().__init__(env_name=gym_name, render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, namespace=namespace, **cargs)
- 
+        self.meta = GymMetaData(self.env)
+        self.num_links = self.meta.get_num_actions()
+
     def __call__(self, verbose=False):
         super().__call__(verbose)
         
@@ -435,7 +439,6 @@ class GenericGym(OpenAIGym):
         pass
 
     def get_properties(self):
-        self.meta = GymMetaData(self.env)
         
         env_inputs_names = self.meta.get_env_inputs_names()
         env_inputs_indexes = self.meta.get_env_inputs_indexes()
