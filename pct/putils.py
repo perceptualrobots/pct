@@ -399,7 +399,7 @@ def set_dirs(dirs):
 	if 'configs_dir' not in out:
 		out['configs_dir'] = 'Versioning/PCTSoftware/Libraries/python/pctlocal/tests/ga/pctobject/configs/'
 	if 'plots_dir' not in out:
-		out['plots_dir'] = '/tmp/ARC'
+		out['plots_dir'] = '/tmp/plots'
 
 	# Create the directory if it doesn't exist
 	if not os.path.exists(out['plots_dir']):
