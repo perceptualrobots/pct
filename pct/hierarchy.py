@@ -169,8 +169,12 @@ class PCTHierarchy():
         return self.postCollection
 
     def is_environment_resolved(self):
-        return self.get_environment().is_environment_resolved()
-    
+        environment = self.get_environment()
+        if hasattr( environment, 'is_environment_resolved' ) and callable( environment.is_environment_resolved ):
+            return self.get_environment().is_environment_resolved()
+
+        return None
+
     def get_environment(self):
         return self.get_preprocessor()[0]
     
@@ -197,10 +201,13 @@ class PCTHierarchy():
 
                 raise ex
 
-            if verbose:
-                print(f'Current score={self.error_collector.error()}')
+            if self.error_collector:
+                if verbose:
+                    print(f'Current score={self.error_collector.error()}')
             
-            if self.error_collector != None:
+                if self.history :
+                    self.prepost_data.add_value('error', self.error_collector.error())
+            
                 if self.error_collector.is_terminated():
                 #     print(f'<{i} {self.error_collector.error()}>')
                     return out
@@ -1199,6 +1206,13 @@ class PCTHierarchy():
             if plot_item == 'scFitness':
                 plots_list.append(create_named_plot_item('fitness', 'Fitness'))
 
+            if plot_item == 'scReward':
+                plots_list.append(create_named_plot_item('reward', 'Reward'))
+
+            if plot_item == 'scError':
+                plots_list.append(create_named_plot_item('error', 'Error'))
+
+
         return plots_list
 
     
@@ -1233,8 +1247,9 @@ class PCTHierarchy():
 
         if enhanced_environment_properties is not None:
             environment_properties = environment_properties | enhanced_environment_properties 
-            if environment_properties['dataset'] == 'test':
-                error_properties[1][1] = environment_properties['initial']
+            if 'dataset' in environment_properties:
+                if environment_properties['dataset'] == 'test':
+                    error_properties[1][1] = environment_properties['initial']
         # print(environment_properties)
         if runs==None:
             runs = eval(prp.db['runs'])

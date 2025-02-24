@@ -6,7 +6,7 @@ __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'GymMetaData
            'WebotsWrestler', 'WebotsWrestlerSupervisor', 'Bridge', 'MicroGrid', 'ARC']
 
 # %% ../nbs/05_environments.ipynb 3
-import gym, math, os
+import gym, math, copy
 import numpy as np
 from abc import abstractmethod
 from typing import Any, List, Optional
@@ -309,6 +309,8 @@ class OpenAIGym(ControlEnvironment):
 
     
     def create_env(self, seed):
+        if self.env_name == None:
+            raise Exception(f'Gym environment name not specified {self.__class__.__name__}.')
         genv = gym.make(self.env_name) #, render_mode=self.render_mode)
         genv._max_episode_steps = self.max_episode_steps
         if self.video_wrap:
@@ -338,7 +340,8 @@ class OpenAIGym(ControlEnvironment):
 # %% ../nbs/05_environments.ipynb 13
 class GymMetaData:
     def __init__(self, env):
-        self.action_space =  env.action_space
+        self.env_name = env.spec.id
+        self.action_space =  copy.deepcopy(env.action_space)
         self.observation_space = env.observation_space
         self.num_actions = self.get_num_actions()
         self.action_array = True
@@ -347,7 +350,12 @@ class GymMetaData:
 
     def get_env_inputs_names(self):
         ninputs = self.observation_space.shape[0]
-        env_inputs_names = [f"I{i}" for i in range(ninputs)]
+        if self.env_name == 'CartPole-v1':
+            env_inputs_names = ['ICP', 'ICV', 'IPA', 'IPV']
+        elif self.env_name == 'LunarLanderContinuous-v2':
+            env_inputs_names = ['IX', 'IY', 'IVX', 'IVY', 'IA', 'IAV', 'ILC', 'IRC']
+        else:
+            env_inputs_names = [f"I{i}" for i in range(ninputs)]
         return env_inputs_names
 
     def get_env_inputs_indexes(self):
@@ -393,10 +401,9 @@ class GymMetaData:
         if isinstance(action_space, gym.spaces.discrete.Discrete):
             con = action_space.contains(values)
             if action_space.n == 2:
-                return np.where(values > 0.5, 1, 0)
+                return np.where(values > 0, 1, 0)
             elif action_space.n == 3:
-                return np.where(values > 0.5, 1, np.where(values < -0.5, -1, 0))
-
+                return np.where(values > 0, 1, np.where(values < 0, -1, 0))
 
 
 
@@ -408,7 +415,9 @@ class GenericGym(OpenAIGym):
                  name="GenericGym", seed=None, links=None, new_name=True, namespace=None, **cargs):
         super().__init__(env_name=gym_name, render=render, render_mode=render_mode, video_wrap=video_wrap, value=value, name=name, seed=seed, 
                          links=links, new_name=new_name, namespace=namespace, **cargs)
- 
+        self.meta = GymMetaData(self.env)
+        self.num_links = self.meta.get_num_actions()
+
     def __call__(self, verbose=False):
         super().__call__(verbose)
         
@@ -421,7 +430,7 @@ class GenericGym(OpenAIGym):
             self.hierarchy_values = [ self.links[i].get_value() for i in range(0, len(self.links))] 
 
     def process_actions(self):
-        self.actions = GymMetaData.map_values_to_action_space(self.env.action_space, self.hierarchy_values)
+        self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
 
     def apply_actions_get_obs(self):
         return self.env.step(self.actions)
@@ -430,7 +439,6 @@ class GenericGym(OpenAIGym):
         pass
 
     def get_properties(self):
-        self.meta = GymMetaData(self.env)
         
         env_inputs_names = self.meta.get_env_inputs_names()
         env_inputs_indexes = self.meta.get_env_inputs_indexes()

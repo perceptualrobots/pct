@@ -3,17 +3,16 @@
 # %% auto 0
 __all__ = ['wind_turbine_results', 'EnvironmentProcessingFactory', 'BaseEnvironmentProcessing',
            'WindTurbineEnvironmentProcessing', 'DummyEnvironmentProcessing', 'GenericEnvironmentProcessing',
-           'ARCEnvironmentProcessing']
+           'GenericGymEnvironmentProcessing', 'ARCEnvironmentProcessing']
 
 # %% ../nbs/16_environment_processing.ipynb 3
 from abc import ABC, abstractmethod
-# from comet_ml import Experiment, api
-# from comet_ml import Artifact
 from os import sep, makedirs, getenv
-# import matplotlib.pyplot as plt
-# from matplotlib.ticker import FuncFormatter
 import time
 
+# Ignore deprecation warnings
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # %% ../nbs/16_environment_processing.ipynb 4
 # from pct.yaw_module import get_comparaison_metrics, test_trad_control, test_hpct_wind, get_properties, get_indexes
@@ -229,6 +228,15 @@ class BaseEnvironmentProcessing(ABC):
     # def enhanced_environment_properties(self, environment_properties=None):
     #     pass
 
+    def log_properties_file(self, experiment, filepath):
+        # artifact - properties file
+        from comet_ml import Artifact
+        index = filepath.rfind('ga-')
+        print(filepath[index:])
+        artifact = Artifact(filepath[index:], "Properties file")
+        artifact.add(filepath)
+        experiment.log_artifact(artifact)
+
 
     def get_experiment(self):
         if self.args and 'project_name' in self.args and self.args['project_name']:
@@ -356,7 +364,7 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return WindTurbineEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 14
+# %% ../nbs/16_environment_processing.ipynb 15
 class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     "Dummy environment processing."
 
@@ -371,7 +379,7 @@ class DummyEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return DummyEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 15
+# %% ../nbs/16_environment_processing.ipynb 17
 class GenericEnvironmentProcessing(BaseEnvironmentProcessing):
     "Generic environment processing."
 
@@ -384,9 +392,55 @@ class GenericEnvironmentProcessing(BaseEnvironmentProcessing):
 
 
     class Factory:
-        def create(self): return DummyEnvironmentProcessing()
+        def create(self): return GenericEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 17
+# %% ../nbs/16_environment_processing.ipynb 19
+class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
+    "GenericGym environment processing."
+
+
+
+    def set_properties(self, args):
+        self.args = args
+        self.env_processing_details={}
+        root = self.args['root_path']
+        configs_dir = self.args['configs_dir']
+        env_name = self.args['env_name']
+        filename = self.args['file'] + ".properties"
+        pfile = root + configs_dir + env_name + sep + filename
+
+        props = PCTRunProperties.get_properties_from_filename(pfile)
+        self.args['gym_name'] = props['gym_name']
+
+    def get_workspace(self):
+        return self.args['gym_name']
+    
+    def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
+
+
+        if experiment:         
+            # artifact - properties file
+            self.log_properties_file(experiment, filepath)
+
+            #     hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
+            # render=self.args['verbosed']['display_env'], runs=runs, experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
+            # title_prefix=title_prefix, early_termination=False
+            # # ,enhanced_environment_properties=enhanced_environment_properties
+            # )
+
+
+            # other metrics
+            experiment.log_other('LxC', self.env_processing_details['LxC'])
+            experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
+            experiment.log_metric('score', self.env_processing_details['score'])
+
+        
+        return {}
+
+    class Factory:
+        def create(self): return GenericGymEnvironmentProcessing()
+
+# %% ../nbs/16_environment_processing.ipynb 21
 class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
     "ARC environment processing."
 
@@ -450,6 +504,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
                 )
 
         print(f'Test score = {score:4.3f}')
+        
         fitness_list = str( [f'{i:4.3f}' for i in  self.env_processing_details['fitness_list']])
         glist = self.env_processing_details['gradient_list']
         success = hierarchy.get_environment().success(glist, self.env_processing_details['fitness'], score)    
@@ -458,12 +513,7 @@ class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
 
         if experiment:         
             # artifact - properties file
-            from comet_ml import Artifact
-            index = filepath.rfind('ga-')
-            print(filepath[index:])
-            artifact = Artifact(filepath[index:], "Properties file")
-            artifact.add(filepath)
-            experiment.log_artifact(artifact)
+            self.log_properties_file(experiment, filepath)
 
             # other metrics
             code = environment_properties['code']
