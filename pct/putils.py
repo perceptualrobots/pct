@@ -709,9 +709,12 @@ class PCTRunProperties():
 
 
     def get_error_properties(self):
-       error_properties = eval(self.db['error_properties']) if self.db['error_properties'] is not None else None
+        if 'error_properties' in self.db and self.db['error_properties'] is not None:
+            error_properties = eval(self.db['error_properties'])
+        else:
+            error_properties = None
 
-       return error_properties
+        return error_properties
      
     # def get_error_properties(self):
     #     "Get properties of error function from loaded properties list of the form propertyn."
