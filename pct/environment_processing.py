@@ -443,6 +443,7 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
             experiment.log_other('LxC', self.env_processing_details['LxC'])
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('score', self.env_processing_details['score'])
+            experiment.log_metric('last_step', self.env_processing_details['last_step'])
 
         
         return {}
