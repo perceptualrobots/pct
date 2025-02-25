@@ -707,22 +707,28 @@ class PCTRunProperties():
             if 'reward_type' in ep:
                 self.db['reward_type'] = ep['reward_type']
 
-    def get_error_properties(self):
-        "Get properties of error function from loaded properties list of the form propertyn."
-        error_properties = []
-        for property in range(1, 100):
-            property_key = f'property{property}'
-            if property_key in self.db:
-                property_string = self.db[property_key]
-                strarr = property_string.split(':')
-                if strarr[0] == 'error':
-                    parr = strarr[1].split(',')
-                    prop=[]
-                    prop.append(parr[0])
-                    prop.append(parr[1])
-                    error_properties.append(prop)
 
-        return error_properties
+    def get_error_properties(self):
+       error_properties = eval(self.db['error_properties']) if self.db['error_properties'] is not None else None
+
+       return error_properties
+     
+    # def get_error_properties(self):
+    #     "Get properties of error function from loaded properties list of the form propertyn."
+    #     error_properties = []
+    #     for property in range(1, 100):
+    #         property_key = f'property{property}'
+    #         if property_key in self.db:
+    #             property_string = self.db[property_key]
+    #             strarr = property_string.split(':')
+    #             if strarr[0] == 'error':
+    #                 parr = strarr[1].split(',')
+    #                 prop=[]
+    #                 prop.append(parr[0])
+    #                 prop.append(parr[1])
+    #                 error_properties.append(prop)
+
+    #     return error_properties
     
     @classmethod
     def get_file_props(self, filepath):

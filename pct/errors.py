@@ -2,8 +2,9 @@
 
 # %% auto 0
 __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'SummedError', 'CurrentError', 'SmoothError',
-           'MovingSumError', 'MovingAverageError', 'ErrorResponseFactory', 'BaseErrorCollector', 'TotalError',
-           'TopError', 'InputsError', 'ReferencedInputsError', 'RewardError', 'FitnessError', 'ErrorCollectorFactory']
+           'MovingSumError', 'MovingAverageError', 'ErrorResponseFactory', 'ErrorCollectorFactory',
+           'BaseErrorCollector', 'TotalError', 'TopError', 'InputsError', 'ReferencedInputsError', 'RewardError',
+           'FitnessError']
 
 # %% ../nbs/07_errors.ipynb 3
 #import numpy as np
@@ -42,8 +43,12 @@ class BaseErrorType(ABC):
         self.error_response=None
         self.terminate = False
 
-    def set_property(self, property_name, property_value):
-        exec(f'self.{property_name} = {property_value}')
+    def set_properties(self, properties):
+        for property_name, property_value in properties.items():
+            setattr(self, property_name, property_value)
+
+    # def set_property(self, property_name, property_value):
+    #     exec(f'self.{property_name} = {property_value}')
         
     def get_error_response(self):
         return self.error_response * self.factor
@@ -133,6 +138,10 @@ class SmoothError(BaseErrorType):
         self.smooth_factor = None
         self.error_response = 0
     
+    def set_properties(self, properties):
+        if 'smooth_factor' in properties:
+            super().set_properties(properties)
+
     def __call__(self, error):
         self.error_response=smooth(abs(error), self.error_response, self.smooth_factor)
         
@@ -150,6 +159,10 @@ class MovingSumError(BaseErrorType):
         self.error_response = 0
         self.history = None
         self.initial = None
+
+    def set_properties(self, properties):
+        if 'history' in properties:
+            super().set_properties(properties)
     
     def __call__(self, error):
         self.boxcar.append(error)
@@ -175,7 +188,11 @@ class MovingAverageError(BaseErrorType):
         self.error_response = 0
         self.history = None
         self.initial = None
-    
+
+    def set_properties(self, properties):
+        if 'history' in properties:
+            super().set_properties(properties)
+
     def __call__(self, error):
         self.boxcar.append(error)
         self.boxcar.pop(0)
@@ -193,7 +210,7 @@ class MovingAverageError(BaseErrorType):
 class ErrorResponseFactory:
     factories = {}
     def addResponseFactory(id, errorResponseFactory):
-        ErrorResponseFactory.factories.put[id] = errorFactory
+        ErrorResponseFactory.factories.put[id] = errorResponseFactory
     addResponseFactory = staticmethod(addResponseFactory)
     # A Template Method:
     def createErrorResponse(id, flip_error_response=False):
@@ -204,6 +221,20 @@ class ErrorResponseFactory:
     createErrorResponse = staticmethod(createErrorResponse)
 
 # %% ../nbs/07_errors.ipynb 26
+class ErrorCollectorFactory:
+    factories = {}
+    def addCollectorFactory(id, errorCollectorFactory):
+        ErrorCollectorFactory.factories.put[id] = errorCollectorFactory
+    addCollectorFactory = staticmethod(addCollectorFactory)
+    # A Template Method:
+    def createErrorCollector(id):
+        if not ErrorCollectorFactory.factories.__contains__(id):
+            ErrorCollectorFactory.factories[id] = \
+              eval(id + '.Factory()')
+        return ErrorCollectorFactory.factories[id].create()
+    createErrorCollector = staticmethod(createErrorCollector)
+
+# %% ../nbs/07_errors.ipynb 28
 class BaseErrorCollector(ABC):
     "Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all."
     'Parameters:'
@@ -234,6 +265,9 @@ class BaseErrorCollector(ABC):
         self.error_response.reset()
         self.limit_exceeded=False
 
+    def set_properties(self, properties):
+        for property_name, property_value in properties.items():
+            setattr(self, property_name, property_value)
 
     def error(self):
         return self.error_response.get_error_response()
@@ -241,7 +275,6 @@ class BaseErrorCollector(ABC):
     def override_value(self):
         if self.limit is not None:
             self.error_response.set_error_response(self.error_response.get_error_response()*abs(self.limit))
-
     
     def add_error_data(self, data=[]):
         for datum in data:
@@ -261,17 +294,23 @@ class BaseErrorCollector(ABC):
         error_collector.set_limit(limit)
         error_collector.set_min(min)
         
-        if properties != None:
-            for property in properties:
-                if error_response_type == 'SmoothError' and property[0] == 'smooth_factor':
-                    error_response.set_property(property[0], property[1])
-                    continue
-                if error_response_type == 'MovingSumError' or error_response_type == 'MovingAverageError':
-                    error_response.set_property(property[0], property[1])
-                    continue
-                if error_collector_type == 'ReferencedInputsError' and property[0] == 'referenced_inputs':
-                    error_collector.set_reference_properties(property[1])
-                    continue
+        if properties:
+            if 'error_response' in properties:
+                error_response.set_properties(properties['error_response'])
+            if 'error_collector' in properties:     
+                error_collector.set_properties(properties['error_collector'])   
+
+        # if properties != None:
+        #     for property in properties:
+        #         if error_response_type == 'SmoothError' and property[0] == 'smooth_factor':
+        #             error_response.set_property(property[0], property[1])
+        #             continue
+        #         if error_response_type == 'MovingSumError' or error_response_type == 'MovingAverageError':
+        #             error_response.set_property(property[0], property[1])
+        #             continue
+        #         if error_collector_type == 'ReferencedInputsError' and property[0] == 'referenced_inputs':
+        #             error_collector.set_reference_properties(property[1])
+        #             continue
         
         error_response.reset()
         error_collector.set_error_response(error_response)
@@ -294,7 +333,7 @@ class BaseErrorCollector(ABC):
         
         return self.limit_exceeded
 
-# %% ../nbs/07_errors.ipynb 28
+# %% ../nbs/07_errors.ipynb 30
 class TotalError(BaseErrorCollector):
     "A class to collect all the errors of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -312,7 +351,7 @@ class TotalError(BaseErrorCollector):
     class Factory:
         def create(self): return TotalError()
 
-# %% ../nbs/07_errors.ipynb 30
+# %% ../nbs/07_errors.ipynb 32
 class TopError(BaseErrorCollector):
     "A class to collect all the errors of the top-level nodes."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -332,7 +371,7 @@ class TopError(BaseErrorCollector):
     class Factory:
         def create(self): return TopError()
 
-# %% ../nbs/07_errors.ipynb 32
+# %% ../nbs/07_errors.ipynb 34
 class InputsError(BaseErrorCollector):
     "A class to collect the values of the input values."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -341,20 +380,16 @@ class InputsError(BaseErrorCollector):
     def add_data(self, hpct=None):
         data = []
         pre = hpct.get_preprocessor()
-        for count, func in enumerate(pre):
-            # if isinstance(func, IndexedParameter):
-            if count > 0:
-                data.append(func.get_value())
+        for func in pre[1:]:
+            data.append(func.get_value())
         self.add_error_data( data )
         if self.check_limit():
-#         if self.error_response.get_error_response() > self.limit:
-#             self.limit_exceeded=True
             return
         
     class Factory:
         def create(self): return InputsError()
 
-# %% ../nbs/07_errors.ipynb 34
+# %% ../nbs/07_errors.ipynb 36
 class ReferencedInputsError(BaseErrorCollector):
     "A class to collect the values of the input values subtracted from reference values."                        
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -362,26 +397,11 @@ class ReferencedInputsError(BaseErrorCollector):
         self.reference_values=None
         self.input_indexes=None        
         
-    def set_reference_properties(self, properties):
-        strarr = properties.split('&')        
-        self.reference_values=[]
-        self.input_indexes=[]
-        self.weights=[]
-
-        for inp in strarr[0].split(';'):
-            self.input_indexes.append(eval(inp))
-        
-        for ref in strarr[1].split(';'):
-            self.reference_values.append(eval(ref))
-
-        if len(strarr)>2:
-            for wt in strarr[2].split(';'):
-                self.weights.append(eval(wt))
-        else:
-            for ref in strarr[1].split(';'):
-                self.weights.append(1)
-        pass
-
+    def set_properties(self, properties):
+        ref_inputs = properties.get('referenced_inputs', {})
+        self.input_indexes = ref_inputs.get('indexes', [])
+        self.reference_values = ref_inputs.get('refs', [])
+        self.weights = ref_inputs.get('weights', [1] * len(self.reference_values))
                 
 
     def add_data(self, hpct=None):
@@ -402,7 +422,7 @@ class ReferencedInputsError(BaseErrorCollector):
     class Factory:
         def create(self): return ReferencedInputsError()
 
-# %% ../nbs/07_errors.ipynb 36
+# %% ../nbs/07_errors.ipynb 38
 class RewardError(BaseErrorCollector):
     "A class that collects the reward value of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -418,7 +438,7 @@ class RewardError(BaseErrorCollector):
     class Factory:
         def create(self): return RewardError()
 
-# %% ../nbs/07_errors.ipynb 38
+# %% ../nbs/07_errors.ipynb 40
 class FitnessError(BaseErrorCollector):
     "A class that collects the fitness value of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -433,17 +453,3 @@ class FitnessError(BaseErrorCollector):
 
     class Factory:
         def create(self): return FitnessError()
-
-# %% ../nbs/07_errors.ipynb 40
-class ErrorCollectorFactory:
-    factories = {}
-    def addCollectorFactory(id, errorCollectorFactory):
-        ErrorCollectorFactory.factories.put[id] = errorFactory
-    addCollectorFactory = staticmethod(addCollectorFactory)
-    # A Template Method:
-    def createErrorCollector(id):
-        if not ErrorCollectorFactory.factories.__contains__(id):
-            ErrorCollectorFactory.factories[id] = \
-              eval(id + '.Factory()')
-        return ErrorCollectorFactory.factories[id].create()
-    createErrorCollector = staticmethod(createErrorCollector)

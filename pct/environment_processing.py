@@ -87,6 +87,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
 
     rel_net_prod_change=[]
     net_prod_change=[]
+    power_prod_change, conso_yaw_change, net_prod_change, rel_net_prod_change,yaw_error_rel_change = None, None, None, None, None
     if comparisons :
         power_prod_change, conso_yaw_change, net_prod_change, rel_net_prod_change,yaw_error_rel_change = get_comparaison_metrics(wind_dir,power_control,power_simu,nac_pos_model, nac_pos_baseline_simu, yaw_params['yaw_rate_max'], yaw_params['yaw_consumption'], 50)    
 
@@ -162,7 +163,7 @@ def wind_turbine_results(environment_properties=None, experiment=None, root=None
     print(f'average_yaw_error_decrease_simu={average_yaw_error_decrease_simu:4.2f}')
 
     energy_gain =  100*(res_model['power_control']/res_model['power_trad']-1)
-    net_energy_gain = ( ( (sum(net_prod_change) + res_model['power_trad'])/res_model['power_trad'])-1) * 100
+    net_energy_gain = ((sum(net_prod_change) + res_model['power_trad']) / res_model['power_trad'] - 1) * 100 if net_prod_change else None
 
     if experiment:
         experiment.log_metric('pc_test_result', res_model['power_control'])
@@ -343,13 +344,22 @@ class WindTurbineEnvironmentProcessing(BaseEnvironmentProcessing):
             environment_properties['range'] = 'test'
             print(environment_properties)
 
+        if 'comparisons_print_plots' not in self.args:
+            self.args['comparisons_print_plots'] = False
+            print("Warning: 'comparisons_print_plots' not found in args, setting to False. Comparisons with baseline will not be computed.")
+
+        if 'comparisons' not in self.args:
+            self.args['comparisons'] = False
+            print("Warning: 'comparisons' not found in args, setting to False. Comparisons with baseline will not be computed.")
+
         energy_gain, net_energy_gain, _ , _, _, _,_,_ = wind_turbine_results(environment_properties=environment_properties, experiment=experiment, root=drive, 
                             verbose=self.args['verbosed']['hpct_verbose'], early=early, comparisons=self.args['comparisons'], 
                             comparisons_print_plots=self.args['comparisons_print_plots'], min= not self.args['max'],
                             property_dir=property_dir, property_file=file, plots=plots, log_testing_to_experiment=log_testing_to_experiment, hierarchy=hierarchy)
 
         print(f'energy_gain = {energy_gain:4.2f}')
-        print(f'net_energy_gain = {net_energy_gain:4.2f}')
+        if net_energy_gain:
+            print(f'net_energy_gain = {net_energy_gain:4.2f}')
 
         end = printtime('End')	
         elapsed = end-self.start        
