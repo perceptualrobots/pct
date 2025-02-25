@@ -376,13 +376,21 @@ class InputsError(BaseErrorCollector):
     "A class to collect the values of the input values."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
         super().__init__(limit, error_response, min)
+        self.indexes = []
+
+    def set_properties(self, properties):
+        self.indexes = properties.get('indexes', [])
 
     def add_data(self, hpct=None):
         data = []
         pre = hpct.get_preprocessor()
-        for func in pre[1:]:
-            data.append(func.get_value())
-        self.add_error_data( data )
+        for i, func in enumerate(pre[1:], start=1):
+            if len(self.indexes) > 0 :
+                if (i - 1) in self.indexes:
+                    data.append(func.get_value())
+            else:
+                data.append(func.get_value())
+        self.add_error_data(data)
         if self.check_limit():
             return
         
