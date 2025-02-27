@@ -77,6 +77,9 @@ class ControlEnvironment(BaseFunction):
     def get_reward(self):
         return self.reward
     
+    def get_reward_sum(self):
+        return self.reward_sum
+
     def set_properties(self, props):
         "Set the properties on a paramter."
         if props is None:
@@ -198,6 +201,7 @@ class OpenAIGym(ControlEnvironment):
         self.create_env(seed)
         self.render = render
         self.reward = 0
+        self.reward_sum = 0
         self.done = False
         self.info = {}
         self.num_links=1
@@ -213,7 +217,8 @@ class OpenAIGym(ControlEnvironment):
 
     def parse_obs(self):
         self.value = self.obs[0]
-        self.reward = self.obs[1]
+        self.reward = self.obs[1]        
+        self.reward_sum += self.reward
         self.done = self.obs[2]
         self.info = self.obs[3]
             

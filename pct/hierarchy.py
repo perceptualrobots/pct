@@ -88,6 +88,8 @@ class PCTHierarchy():
             if self.prepost_data != None:                
                 self.prepost_data.add_data(func)
                 if ctr == 0:
+                    if hasattr(func, 'reward_sum') :
+                        self.prepost_data.add_reward_sum(func)
                     if hasattr(func, 'reward') :
                         self.prepost_data.add_reward(func)
                     if hasattr(func, 'fitness'):
@@ -1208,6 +1210,7 @@ class PCTHierarchy():
 
             if plot_item == 'scReward':
                 plots_list.append(create_named_plot_item('reward', 'Reward'))
+                plots_list.append(create_named_plot_item('reward_sum', 'RewardSum'))
 
             if plot_item == 'scError':
                 plots_list.append(create_named_plot_item('error', 'Error'))
