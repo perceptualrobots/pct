@@ -214,6 +214,11 @@ class OpenAIGym(ControlEnvironment):
             
         return out 
 
+    def process_hierarchy_values(self):
+        raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
+
+    def process_actions(self):
+        raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
 
     def parse_obs(self):
         self.value = self.obs[0]
@@ -221,9 +226,9 @@ class OpenAIGym(ControlEnvironment):
         self.reward_sum += self.reward
         self.done = self.obs[2]
         self.info = self.obs[3]
-            
+
     def apply_actions_get_obs(self):
-        return self.env.step(self.hierarchy_values)
+        return self.env.step(self.actions)
     
     def set_video_wrap(self, video_wrap):
         self.video_wrap = video_wrap
@@ -234,11 +239,7 @@ class OpenAIGym(ControlEnvironment):
             if self.done:
                 raise Exception(f'1000: OpenAIGym Env: {self.env_name} has terminated.')
     
-    def process_hierarchy_values(self):
-        raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
 
-    def process_actions(self):
-        raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
     
     def process_values(self):
         raise Exception(f'Must be implemented in sub-class {self.__class__.__name__}:{self.env_name}.')
@@ -437,10 +438,10 @@ class GenericGym(OpenAIGym):
     def process_actions(self):
         self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
 
-    def apply_actions_get_obs(self):
-        return self.env.step(self.actions)
 
     def process_values(self):
+        if self.values[6]+self.values[7] == 2:
+            print(self.values, self.reward)
         pass
 
     def get_properties(self):
@@ -479,7 +480,7 @@ class CartPoleV1(OpenAIGym):
         self.hierarchy_values = self.links[0].get_value()    
     
     def process_actions(self):
-        self.hierarchy_values = 0 if self.hierarchy_values <= 0 else 1
+        self.actions = 0 if self.hierarchy_values <= 0 else 1
 
     def process_values(self):
         self.value = np.append(self.value, self.obs[0][0]+math.sin(self.obs[0][2]))
