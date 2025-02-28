@@ -171,9 +171,8 @@ class ControlEnvironment(BaseFunction):
     def process_actions(self):
         pass
 
-    @abstractmethod
     def apply_actions_get_obs(self):
-        pass
+        return self.env.step(self.actions)
     
     def close(self):
         self.env.close()
@@ -227,8 +226,6 @@ class OpenAIGym(ControlEnvironment):
         self.done = self.obs[2]
         self.info = self.obs[3]
 
-    def apply_actions_get_obs(self):
-        return self.env.step(self.actions)
     
     def set_video_wrap(self, video_wrap):
         self.video_wrap = video_wrap
@@ -439,8 +436,8 @@ class GenericGym(OpenAIGym):
         self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
 
     def process_values(self):
-        if self.values[6]+self.values[7] == 2:
-            print(self.values, self.reward)
+        # if self.values[6]+self.values[7] == 2:
+        #     print(self.values, self.reward)
         pass
 
     def get_properties(self):
@@ -1306,7 +1303,10 @@ class MicroGrid(ControlEnvironment):
 
     def process_hierarchy_values(self):
         self.hierarchy_values = [ self.links[i].get_value() for i in range(0, len(self.links))]    
-                
+
+    def apply_actions_get_obs(self):
+        return self.env.step(self.actions)
+
     def process_actions(self):
 
         self.actions[0] = map_to_int_even_range(self.hierarchy_values[0], [-2, 2], [1,4]) - 1           
