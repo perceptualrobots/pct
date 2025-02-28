@@ -436,8 +436,8 @@ class GenericGym(OpenAIGym):
         self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
 
     def process_values(self):
-        # if self.values[6]+self.values[7] == 2:
-        #     print(self.values, self.reward)
+        if self.values[6]+self.values[7] == 2:
+            print(self.values, self.reward)
         pass
 
     def get_properties(self):
