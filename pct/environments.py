@@ -438,7 +438,6 @@ class GenericGym(OpenAIGym):
     def process_actions(self):
         self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
 
-
     def process_values(self):
         if self.values[6]+self.values[7] == 2:
             print(self.values, self.reward)
@@ -718,8 +717,6 @@ class WindTurbine(ControlEnvironment):
             self.actions = 2
                  
     
-    def apply_actions_get_obs(self):
-        return self.env.step(self.actions)
 
     def parse_obs(self):
         # obs
@@ -1319,9 +1316,6 @@ class MicroGrid(ControlEnvironment):
 
                  
     
-    def apply_actions_get_obs(self):
-        return self.env.step(self.actions)
-
     def parse_obs(self):
 
         # self.value = self.obs[0]
