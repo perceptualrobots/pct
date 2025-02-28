@@ -356,7 +356,7 @@ class GymMetaData:
         if self.env_name == 'CartPole-v1':
             env_inputs_names = ['ICP', 'ICV', 'IPA', 'IPV']
         elif self.env_name == 'LunarLanderContinuous-v2':
-            env_inputs_names = ['IX', 'IY', 'IVX', 'IVY', 'IA', 'IAV', 'ILC', 'IRC']
+            env_inputs_names = ['IX', 'IY', 'IVX', 'IVY', 'IA', 'IVA', 'ILC', 'IRC']
         else:
             env_inputs_names = [f"I{i}" for i in range(ninputs)]
         return env_inputs_names
@@ -410,7 +410,7 @@ class GymMetaData:
 
 
 
-# %% ../nbs/05_environments.ipynb 14
+# %% ../nbs/05_environments.ipynb 15
 class GenericGym(OpenAIGym):
     "A function that creates an runs the GenericGym environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
 
@@ -436,8 +436,8 @@ class GenericGym(OpenAIGym):
         self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
 
     def process_values(self):
-        if self.values[6]+self.values[7] == 2:
-            print(self.values, self.reward)
+        if self.value[6]+self.value[7] == 2:
+            print(f'x {self.value[0]:4.3f} y {self.value[1]:4.3f} vx {self.value[2]:4.3f} vy {self.value[3]:4.3f} a {self.value[4]:4.3f} va {self.value[5]:4.3f} {self.reward:4.3f} {self.env.lander.awake}')
         pass
 
     def get_properties(self):
@@ -454,7 +454,7 @@ class GenericGym(OpenAIGym):
         def create(self, namespace=None, seed=None, gym_name=None): return GenericGym(namespace=namespace, seed=seed, gym_name=gym_name)        
 
 
-# %% ../nbs/05_environments.ipynb 17
+# %% ../nbs/05_environments.ipynb 18
 class CartPoleV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -486,7 +486,7 @@ class CartPoleV1(OpenAIGym):
 
 
 
-# %% ../nbs/05_environments.ipynb 18
+# %% ../nbs/05_environments.ipynb 19
 class CartPoleDV1(OpenAIGym):
     "A function that creates an runs the CartPole-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -521,7 +521,7 @@ class CartPoleDV1(OpenAIGym):
     class FactoryWithNamespace:
         def create(self, namespace=None, seed=None): return CartPoleDV1(namespace=namespace, seed=seed)        
 
-# %% ../nbs/05_environments.ipynb 20
+# %% ../nbs/05_environments.ipynb 21
 class Pendulum(OpenAIGym):
     "A function that creates an runs the Pendulum-v1 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -583,7 +583,7 @@ class Pendulum(OpenAIGym):
 
 
 
-# %% ../nbs/05_environments.ipynb 23
+# %% ../nbs/05_environments.ipynb 24
 class MountainCarV0(OpenAIGym):
     "A function that creates and runs the MountainCar-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # from obs[0], indices
@@ -622,7 +622,7 @@ class MountainCarV0(OpenAIGym):
 
 
 
-# %% ../nbs/05_environments.ipynb 24
+# %% ../nbs/05_environments.ipynb 25
 class MountainCarContinuousV0(OpenAIGym):
     "A function that creates and runs the MountainCarContinuous-v0 environment from OpenAI Gym. Parameter: The environment name. Flag to display environment. Links: Link to the action function."
     # 0 Car position - -1.2 to +0.6, reference 0.45 
@@ -672,7 +672,7 @@ class MountainCarContinuousV0(OpenAIGym):
 
 
 
-# %% ../nbs/05_environments.ipynb 26
+# %% ../nbs/05_environments.ipynb 27
 class WindTurbine(ControlEnvironment):
     "A function that creates and runs the YawEnv environment for a wind turbine. Indexes 0 - action, 1 - yaw error, 2 - wind direction, 3 - wind speed (ignore 0)."
     
@@ -803,7 +803,7 @@ class WindTurbine(ControlEnvironment):
     class Factory:
         def create(self, namespace=None, seed=None, gym_name=None): return WindTurbine(namespace=namespace, seed=seed, gym_name=gym_name)        
 
-# %% ../nbs/05_environments.ipynb 28
+# %% ../nbs/05_environments.ipynb 29
 class VelocityModel(BaseFunction):
     "A simple model of a moving object of a particular mass. Parameters: The environment name, mass. Links: Link to the action function."
     # from obs[0], indices
@@ -868,7 +868,7 @@ class VelocityModel(BaseFunction):
         def create(self, namespace=None, seed=None, gym_name=None): return VelocityModel(namespace=namespace, seed=seed, gym_name=gym_name)        
         # def create(self, seed=None): return VelocityModel(seed=seed)?
 
-# %% ../nbs/05_environments.ipynb 29
+# %% ../nbs/05_environments.ipynb 30
 class DummyModel(BaseFunction):    
     def __init__(self, name="World", value=0, links=None, new_name=True, namespace=None, seed=None, **cargs):        
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
@@ -897,7 +897,7 @@ class DummyModel(BaseFunction):
         # def create(self, seed=None): return DummyModel(seed=seed)
         def create(self, namespace=None, seed=None, gym_name=None): return DummyModel(namespace=namespace, seed=seed, gym_name=gym_name)        
 
-# %% ../nbs/05_environments.ipynb 31
+# %% ../nbs/05_environments.ipynb 32
 class WebotsWrestler(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -1031,7 +1031,7 @@ class WebotsWrestler(ControlEnvironment):
 
 
 
-# %% ../nbs/05_environments.ipynb 32
+# %% ../nbs/05_environments.ipynb 33
 class WebotsWrestlerSupervisor(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
@@ -1154,7 +1154,7 @@ class WebotsWrestlerSupervisor(ControlEnvironment):
 
         
 
-# %% ../nbs/05_environments.ipynb 34
+# %% ../nbs/05_environments.ipynb 35
 class Bridge(ControlEnvironment):
     "An environment function with sensors set by external system."
     
@@ -1256,7 +1256,7 @@ class Bridge(ControlEnvironment):
 
 
 
-# %% ../nbs/05_environments.ipynb 36
+# %% ../nbs/05_environments.ipynb 37
 class MicroGrid(ControlEnvironment):
     "A function that creates and runs the microgrid environment for an energy management system. </br>" \
     "'Deep reinforcement learning for energy management in a microgrid with flexible demand.'  </br>" \
@@ -1368,7 +1368,7 @@ class MicroGrid(ControlEnvironment):
         def create(self, namespace=None, seed=None, gym_name=None): return MicroGrid(namespace=namespace, seed=seed, gym_name=gym_name)        
 
 
-# %% ../nbs/05_environments.ipynb 39
+# %% ../nbs/05_environments.ipynb 40
 class ARC(ControlEnvironment):
     "A function that creates and runs an ARC environment from a file given the rask code."
     
