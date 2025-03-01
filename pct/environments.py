@@ -151,6 +151,16 @@ class ControlEnvironment(BaseFunction):
 
     def get_details(self):
         return None
+    
+    def get_metrics(self):
+        return None
+
+
+    def get_metrics_other(self):
+        return None
+    
+    def add_specific_metrics(self, other=False, metrics=None):
+        None
 
     @abstractmethod
     def reset(self, full=True, seed=None): 
@@ -439,6 +449,24 @@ class GenericGym(OpenAIGym):
         # if self.value[6]+self.value[7] == 2:
         #     print(f'x {self.value[0]:4.3f} y {self.value[1]:4.3f} vx {self.value[2]:4.3f} vy {self.value[3]:4.3f} a {self.value[4]:4.3f} va {self.value[5]:4.3f} {self.reward:4.3f} {self.env.lander.awake}')
         pass
+
+    def get_metrics(self):
+        metrics =  {'reward_sum' : self.reward_sum, 'reward' : self.reward}
+        self.add_specific_metrics(metrics=metrics)
+        return metrics
+
+    def get_metrics_other(self):
+        metrics =  {}
+        self.add_specific_metrics(other=True, metrics=metrics)
+        return metrics
+    
+    def add_specific_metrics(self, other=False, metrics=None):
+        if self.env_name == 'LunarLanderContinuous-v2':
+            if other:
+                metrics['state'] = f'{self.value[2]:+0.2f}-{self.value[3]:+0.2f}-{self.value[4]:+0.2f}-{self.value[5]:+0.2f}'
+            else:
+                metrics['x'] = self.value[0]
+                metrics['y'] = self.value[1]
 
     def get_properties(self):
         
