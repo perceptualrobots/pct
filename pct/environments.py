@@ -463,7 +463,7 @@ class GenericGym(OpenAIGym):
     def add_specific_metrics(self, other=False, metrics=None):
         if self.env_name == 'LunarLanderContinuous-v2':
             if other:
-                metrics['state'] = f'{self.value[2]:+0.2f}-{self.value[3]:+0.2f}-{self.value[4]:+0.2f}-{self.value[5]:+0.2f}'
+                metrics['state'] = f'{self.value[2]:+0.2f}|{self.value[3]:+0.2f}|{self.value[4]:+0.2f}|{self.value[5]:+0.2f}'
             else:
                 metrics['x'] = self.value[0]
                 metrics['y'] = self.value[1]

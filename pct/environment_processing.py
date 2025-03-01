@@ -461,8 +461,8 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
             experiment.log_other('LxC', self.env_processing_details['LxC'])
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('score', self.env_processing_details['score'])
-            experiment.log_metrics(self.env_processing_details.get_metrics())
-            experiment.log_others(self.env_processing_details.get_others())
+            experiment.log_metrics(self.get_metrics())
+            experiment.log_others(self.get_metrics_other())
 
         
         return {}
