@@ -218,16 +218,37 @@ class BaseEnvironmentProcessing(ABC):
 
         return drive, property_dir, file
 
+    # deprecated
     def add_processing_detail(self, key, value):
         self.env_processing_details[key]=value
 
+    # deprecated
     def add_details(self, details):
         if details is not None:
             for key, value in details.items():
                 self.env_processing_details[key]=value
 
-    # def enhanced_environment_properties(self, environment_properties=None):
-    #     pass
+    def add_metrics(self, metrics):
+        if not metrics or len(metrics) == 0:
+            return
+        if not hasattr(self, 'metrics') or self.metrics is None:
+            self.metrics = {}
+
+        self.metrics.update(metrics)
+ 
+    def add_metrics_other(self, metrics):
+        if not metrics or len(metrics) == 0:
+            return
+        if not hasattr(self, 'metrics_other') or self.metrics_other is None:
+            self.metrics_other = {}
+
+        self.metrics_other.update(metrics)
+ 
+    def get_metrics(self):
+        return self.metrics
+    
+    def get_metrics_other(self):
+        return self.metrics_other
 
     def log_properties_file(self, experiment, filepath):
         # artifact - properties file
@@ -408,8 +429,6 @@ class GenericEnvironmentProcessing(BaseEnvironmentProcessing):
 class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
     "GenericGym environment processing."
 
-
-
     def set_properties(self, args):
         self.args = args
         self.env_processing_details={}
@@ -427,7 +446,6 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
     
     def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
 
-
         if experiment:         
             # artifact - properties file
             self.log_properties_file(experiment, filepath)
@@ -443,6 +461,8 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
             experiment.log_other('LxC', self.env_processing_details['LxC'])
             experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
             experiment.log_metric('score', self.env_processing_details['score'])
+            experiment.log_metrics(self.get_metrics())
+            experiment.log_others(self.get_metrics_other())
             experiment.log_metric('last_step', self.env_processing_details['last_step'])
 
         
