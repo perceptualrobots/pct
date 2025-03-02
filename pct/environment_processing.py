@@ -425,51 +425,7 @@ class GenericEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return GenericEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 20
-class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
-    "GenericGym environment processing."
-
-    def set_properties(self, args):
-        self.args = args
-        self.env_processing_details={}
-        root = self.args['root_path']
-        configs_dir = self.args['configs_dir']
-        env_name = self.args['env_name']
-        filename = self.args['file'] + ".properties"
-        pfile = root + configs_dir + env_name + sep + filename
-
-        props = PCTRunProperties.get_properties_from_filename(pfile)
-        self.args['gym_name'] = props['gym_name']
-
-    def get_workspace(self):
-        return self.args['gym_name']
-    
-    def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
-
-        if experiment:         
-            # artifact - properties file
-            self.log_properties_file(experiment, filepath)
-
-            #     hierarchy, score = PCTHierarchy.run_from_file(filepath, env_props=environment_properties, history=history, hpct_verbose= verbose, 
-            # render=self.args['verbosed']['display_env'], runs=runs, experiment=experiment, min=min, plots=plots, plots_dir=self.args['plots_dir'],
-            # title_prefix=title_prefix, early_termination=False
-            # # ,enhanced_environment_properties=enhanced_environment_properties
-            # )
-
-
-            # other metrics
-            experiment.log_other('LxC', self.env_processing_details['LxC'])
-            experiment.log_metric('last_gen', self.env_processing_details['last_gen'])
-            experiment.log_metric('score', self.env_processing_details['score'])
-            experiment.log_metric('last_step', self.env_processing_details['last_step'])
-
-        
-        return {}
-
-    class Factory:
-        def create(self): return GenericGymEnvironmentProcessing()
-
-# %% ../nbs/16_environment_processing.ipynb 22
+# %% ../nbs/16_environment_processing.ipynb 19
 class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
     "GenericGym environment processing."
 
@@ -515,7 +471,7 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
     class Factory:
         def create(self): return GenericGymEnvironmentProcessing()
 
-# %% ../nbs/16_environment_processing.ipynb 25
+# %% ../nbs/16_environment_processing.ipynb 21
 class ARCEnvironmentProcessing(BaseEnvironmentProcessing):
     "ARC environment processing."
 
