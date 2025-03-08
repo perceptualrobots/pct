@@ -92,7 +92,7 @@ class RootMeanSquareError(BaseErrorType):
         norms = np.linalg.norm(error)
         self.sum+=norms**2
         self.error_response=np.sqrt(self.sum/self.num)
-
+        pass
         # self.sum+=error*error
         # self.error_response=math.sqrt(self.sum/self.num)
 
@@ -144,7 +144,8 @@ class CurrentRMSError(BaseErrorType):
         super().__init__(flip_error_response=flip_error_response)
     
     def __call__(self, errors):
-        self.error_response = math.sqrt(sum(e**2 for e in errors) / len(errors))
+        self.error_response = np.sqrt(np.mean(np.square(errors)))
+
 
     def reset(self):
         super().reset()
@@ -165,7 +166,10 @@ class SmoothError(BaseErrorType):
             super().set_properties(properties)
 
     def __call__(self, error):
-        self.error_response=smooth(abs(error), self.error_response, self.smooth_factor)
+        # Compute the Euclidean norm of the error array
+        norm = np.linalg.norm(error)
+        self.error_response=smooth(norm, self.error_response, self.smooth_factor)
+        pass
         
     def reset(self):
         self.error_response = 0
@@ -446,7 +450,7 @@ class ReferencedInputsError(BaseErrorCollector):
                 data.append((self.reference_values[ctr]-func.get_value()) * self.weights[ctr])
             else:
                 raise Exception(f'Function {func.get_name()} is not type IndexedParameter.')
-        self.add_error_data( data )
+        self.add_error_data_array( data )
         if self.check_limit():
 #         if self.error_response.get_error_response() > self.limit:
 #             self.limit_exceeded=True
