@@ -33,8 +33,6 @@ class BaseErrorType(ABC):
             return f': {self.__class__.__name__} error_response:{self.error_response}'
         return f': {self.__class__.__name__} error_response:{self.error_response * self.factor}'
 
-    def aggregate(self, errors):
-        raise NotImplementedError
         
     @abstractmethod
     def __call__(self):
@@ -287,6 +285,9 @@ class BaseErrorCollector(ABC):
     def set_error_response(self, error_response):
         self.error_response=error_response
     
+    def get_error_response(self):
+        return self.error_response
+
     def reset(self):
         self.error_response.reset()
         self.limit_exceeded=False
