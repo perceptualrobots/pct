@@ -10,6 +10,8 @@ import gym, math, copy
 import numpy as np
 from abc import abstractmethod
 from typing import Any, List, Optional
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # %% ../nbs/05_environments.ipynb 4
 import pct.putils as vid
