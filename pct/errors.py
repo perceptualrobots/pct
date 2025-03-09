@@ -452,7 +452,7 @@ class ReferencedInputsError(BaseErrorCollector):
             else:
                 raise Exception(f'Function {func.get_name()} is not type IndexedParameter.')
         self.add_error_data_array( data )
-        if self.check_limit():
+        if self.limit and self.check_limit():
 #         if self.error_response.get_error_response() > self.limit:
 #             self.limit_exceeded=True
             return
