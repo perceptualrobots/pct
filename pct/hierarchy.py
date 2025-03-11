@@ -1314,7 +1314,7 @@ class PCTHierarchy():
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=False, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, 
-        environment_properties=None, experiment=None, log_experiment_figure=False, title_prefix="", nevals=3    ):
+        environment_properties=None, experiment=None, log_experiment_figure=False, title_prefix="", nevals=1    ):
         "Run an individual from a provided configuration."
 
         if callable(min):
