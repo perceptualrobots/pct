@@ -1314,7 +1314,7 @@ class PCTHierarchy():
         error_properties=None, error_limit=100, steps=500, hpct_verbose=False, early_termination=False, 
         seed=None, draw_file=False, move=None, with_edge_labels=True, font_size=6, node_size=100, plots=None,
         history=False, suffixes=False, plots_figsize=(15,4), plots_dir=None, flip_error_response=False, 
-        environment_properties=None, experiment=None, log_experiment_figure=False, title_prefix=""):
+        environment_properties=None, experiment=None, log_experiment_figure=False, title_prefix="", nevals=3    ):
         "Run an individual from a provided configuration."
 
         if callable(min):
@@ -1332,9 +1332,25 @@ class PCTHierarchy():
         if hpct_verbose:
             hierarchy.summary()
             print(hierarchy.formatted_config())
-        hierarchy.run(steps, hpct_verbose)
+        score = 0
+
+        for i in range(nevals):
+            hierarchy.reset()
+            env.reset(full=False, seed=seed+i)
+            hierarchy.get_error_collector().reset()
+
+            hierarchy.run(steps, hpct_verbose)
+    
+            # error_score=hierarchy.get_error_collector().error()
+            # environment_score = hierarchy.get_environment_score()
+            # current_error = environment_score if environment_score is not None else error_score
+            current_error = hierarchy.get_environment_score() if hierarchy.get_environment_score() is not None else hierarchy.get_error_collector().error()
+
+            score += current_error
+
+
         env.close()
-        
+        score = score / nevals
         # draw network file
         move = {} if move == None else move
         if experiment or draw_file:
@@ -1357,8 +1373,7 @@ class PCTHierarchy():
                     import matplotlib.pyplot as plt
                     plt.close(fig)  # Close the figure here
 
-        # score=hierarchy.get_error_collector().error()
-        score = hierarchy.get_environment_score() if hierarchy.get_environment_score() is not None else hierarchy.get_error_collector().error()
+
 
         return hierarchy, score    
     
