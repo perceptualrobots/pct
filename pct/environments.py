@@ -8,6 +8,7 @@ __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'GymMetaData
 # %% ../nbs/05_environments.ipynb 3
 import gym, math, copy
 import numpy as np
+from collections import deque
 from abc import abstractmethod
 from typing import Any, List, Optional
 import warnings
@@ -432,6 +433,7 @@ class GenericGym(OpenAIGym):
                          links=links, new_name=new_name, namespace=namespace, **cargs)
         self.meta = GymMetaData(self.env)
         self.num_links = self.meta.get_num_actions()
+        self.state = deque(maxlen=2) # used for LunarLanderContinuous-v2    
 
     def __call__(self, verbose=False):
         super().__call__(verbose)
@@ -448,6 +450,7 @@ class GenericGym(OpenAIGym):
         self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
 
     def process_values(self):
+        self.state.append(self.value)
         # if self.value[6]+self.value[7] == 2:
         #     print(f'x {self.value[0]:4.3f} y {self.value[1]:4.3f} vx {self.value[2]:4.3f} vy {self.value[3]:4.3f} a {self.value[4]:4.3f} va {self.value[5]:4.3f} {self.reward:4.3f} {self.env.lander.awake}')
         pass
@@ -465,7 +468,8 @@ class GenericGym(OpenAIGym):
     def add_specific_metrics(self, other=False, metrics=None):
         if self.env_name == 'LunarLanderContinuous-v2':
             if other:
-                metrics['state'] = f'{self.value[2]:+0.2f}|{self.value[3]:+0.2f}|{self.value[4]:+0.2f}|{self.value[5]:+0.2f}'
+                state = self.state[-2] if self.reward == -100 else self.state[-1]
+                metrics['state'] = f'{state[2]:+0.2f}|{state[3]:+0.2f}|{state[4]:+0.2f}|{state[5]:+0.2f}'
             else:
                 metrics['x'] = self.value[0]
                 metrics['y'] = self.value[1]
