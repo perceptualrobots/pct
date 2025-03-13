@@ -166,17 +166,21 @@ class PCTNode():
         return func 
     
     def reset(self):
-        for func in self.referenceCollection:
-            func.reset_value()               
+        if self.referenceCollection:
+            for func in self.referenceCollection:
+                func.reset_value()               
 
-        for func in self.perceptionCollection:
-            func.reset_value()               
-                    
-        for func in self.comparatorCollection:
-            func.reset_value()              
+        if self.perceptionCollection:
+            for func in self.perceptionCollection:
+                func.reset_value()               
 
-        for func in self.outputCollection:
-            func.reset_value()               
+        if self.comparatorCollection:
+            for func in self.comparatorCollection:
+                func.reset_value()              
+
+        if self.outputCollection:
+            for func in self.outputCollection:
+                func.reset_value()               
     
 
     def delete_perception(self):
