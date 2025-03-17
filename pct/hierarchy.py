@@ -5,19 +5,17 @@ __all__ = ['PCTHierarchy']
 
 # %% ../nbs/04_hierarchy.ipynb 4
 #import numpy as np
+import uuid, json
 from os import sep
-import uuid
-import json
 
 
 # %% ../nbs/04_hierarchy.ipynb 5
-from .nodes import PCTNode
-from .functions import WeightedSum
-from .putils import UniqueNamer, FunctionsList, list_of_ones
-from .functions import BaseFunction, HPCTFUNCTION
-from .environments import EnvironmentFactory
+from .putils import UniqueNamer
+from .functions import BaseFunction, HPCTFUNCTION, WeightedSum
+from .environments import EnvironmentFactory, ControlEnvironment
 from .errors import BaseErrorCollector
-from .putils import floatListsToString, PCTRunProperties, FunctionsData
+from .putils import floatListsToString, PCTRunProperties, FunctionsData, FunctionsList, list_of_ones
+from .nodes import PCTNode
 
 
 # %% ../nbs/04_hierarchy.ipynb 8
@@ -180,15 +178,32 @@ class PCTHierarchy():
     def get_environment(self):
         return self.get_preprocessor()[0]
     
+    def has_environment(self):
+        return len(self.preCollection) > 0 and isinstance(self.preCollection[0], ControlEnvironment)
+
     def get_environment_name(self):
         return self.get_preprocessor()[0].get_name()
 
+    def set_run_steps(self, steps):
+        if self.has_environment():
+            env = self.get_environment()
+            if hasattr(env, 'set_run_steps'):
+                env.set_run_steps(steps)
+
+    def set_current_step(self, step):
+        if self.has_environment():
+            env = self.get_environment()
+            if hasattr(env, 'set_current_step'):
+                env.set_current_step(step)
+
     def run(self, steps=1, verbose=False):
+        self.set_run_steps(steps)
         for i in range(steps):
             self.step = i
             try:
                 if verbose:
                     print(f'[{i}]', end=' ')
+                self.set_current_step(i)
                 out = self(verbose)
             except Exception as ex:
                 # if self.error_collector != None:

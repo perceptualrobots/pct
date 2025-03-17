@@ -197,6 +197,11 @@ class ControlEnvironment(BaseFunction):
     def set_render(self, render):
         self.render=render
 
+    def set_run_steps(self, steps):
+        self.run_steps = steps
+
+    def set_current_step(self, step):
+        self.current_step = step
 
 # %% ../nbs/05_environments.ipynb 10
 class OpenAIGym(ControlEnvironment):
@@ -356,7 +361,7 @@ class OpenAIGym(ControlEnvironment):
 
 # %% ../nbs/05_environments.ipynb 14
 class BaseEnvironmentRuntime(ABC):
-    def process_values(self, value=None, reward=None):
+    def process_values(self, value=None, reward=None, run_steps=None, current_step=None):
         pass
 
     def get_env_inputs_names(self):
@@ -373,13 +378,17 @@ class LunarLanderContinuousV2Runtime(BaseEnvironmentRuntime):
     def __init__(self):
         self.state = deque(maxlen=2)
 
-    def process_values(self, value=None, reward=None):
+    def process_values(self, value=None, reward=None, run_steps=None, current_step=None):
         """
         Process the values by appending the current value to the state deque.
         """
         self.state.append(value)
         if reward == -100:
             value[:] = 10 * self.state[-2][:]
+
+        if current_step + 1 == run_steps and reward != 100:
+            value[:] = 100 * self.state[-1][:]
+
         pass
 
     def get_env_inputs_names(self):
@@ -550,7 +559,7 @@ class GenericGym(OpenAIGym):
         self.actions = GymMetaData.map_values_to_action_space(self.meta.action_space, self.hierarchy_values)
 
     def process_values(self):
-        self.runtime.process_values(self.value, self.reward)
+        self.runtime.process_values(value=self.value, reward=self.reward, run_steps=self.run_steps, current_step=self.current_step)
         # self.state.append(self.value)
         # if self.value[6]+self.value[7] == 2:
         #     print(f'x {self.value[0]:4.3f} y {self.value[1]:4.3f} vx {self.value[2]:4.3f} vy {self.value[3]:4.3f} a {self.value[4]:4.3f} va {self.value[5]:4.3f} {self.reward:4.3f} {self.env.lander.awake}')
