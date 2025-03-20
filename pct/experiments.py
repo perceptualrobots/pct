@@ -4,68 +4,97 @@
 __all__ = ['CometExperimentManager']
 
 # %% ../nbs/20_experiments.ipynb 3
-import os
-import csv
-from comet_ml import API, APIExperiment
-from .hierarchy import PCTHierarchy  # Assuming PCTHierarchy is defined elsewhere
-
+import os, json, csv
+from comet_ml import API, APIExperiment, start
+from .hierarchy import PCTHierarchy  
+from comet_ml.query import Metric
 
 # %% ../nbs/20_experiments.ipynb 4
 class CometExperimentManager:
-    def __init__(self, api_key: str, workspace: str):
+    def __init__(self, api_key: str = None, workspace: str = None):
         self.api = API(api_key)
         self.workspace = workspace
 
-    def get_all_artifacts_sorted(self):
+    def get_all_artifacts_indexed(self):
         """Retrieve all artifacts and sort them by source experiment key."""
-        artifacts = self.api.get_artifacts(workspace=self.workspace)
-        return sorted(artifacts, key=lambda artifact: artifact['source_experiment_key'])
+        filename = '/tmp/artifacts/artifacts_results.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as file:
+                return json.load(file)
+            
+        artifacts = self.api.get_artifact_list(workspace=self.workspace)
+        experiment = start(workspace=self.workspace)
+        results = {}
+        for artifact_dict in artifacts['artifacts']:
+            id = artifact_dict['name']
+            try:
+                logged_artifact = experiment.get_artifact(id)
+                print(logged_artifact.source_experiment_key, id)
+                results[logged_artifact.source_experiment_key] = id
+            except Exception as e:
+                print(f"Error retrieving artifact {id}: {e}")
+
+        # Save results to a file
+        with open(filename, "w") as file:
+            json.dump(results, file, indent=4)
+        experiment.end()
+        return results
 
     def get_experiments_by_metrics(self, project_name: str, score_threshold: float, reward_threshold: float):
         """
         Retrieve experiments for a project where the metric 'score' is less than
         score_threshold and 'reward' is greater than or equal to reward_threshold.
         """
-        experiments = self.api.get(project_name=project_name, workspace=self.workspace)
-        filtered_experiments = [
-            exp for exp in experiments
-            if exp.get_metrics_summary('score') < score_threshold and
-               exp.get_metrics_summary('reward') >= reward_threshold
-        ]
-        return filtered_experiments
+        # experiments = self.api.query(self.workspace, project_name, Metric("score") < score_threshold & Metric("reward") >= reward_threshold)
+        experiments = self.api.query(self.workspace, project_name, Metric("score") < score_threshold )
+ 
+        return experiments
 
     def get_artifact_name(self, experiment: APIExperiment):
         """Retrieve the name of an artifact from an experiment."""
         artifacts = experiment.get_artifacts()
         return artifacts[0]['artifact_name'] if artifacts else None
 
-    def download_and_run_artifact(self, artifact_name: str, num_runs: int, seeds: list[int]):
+    def download_and_run_artifact(self, artifact_name: str, seeds: list[int]):
         """
         Download an artifact to '/tmp/artifacts/' and run PCTHierarchy.run_from_file
         with the artifact filename, returning the score value for each run.
         """
-        artifact_path = f"/tmp/artifacts/{artifact_name}"
-        os.makedirs(os.path.dirname(artifact_path), exist_ok=True)
-        self.api.download_artifact(artifact_name, artifact_path)
-
+        download_path = f"/tmp/artifacts/"
+        os.makedirs(os.path.dirname(download_path), exist_ok=True)
+ 
+        full_path = os.path.join(download_path, artifact_name)
+        if os.path.exists(full_path):
+            pass
+        else:
+            experiment = start(workspace=self.workspace)
+            logged_artifact  = experiment.get_artifact(artifact_name)
+            # print(logged_artifact.source_experiment_key)
+            # local_artifact = logged_artifact.download(download_path)
+            logged_artifact.download(download_path)
+            # filename = f"{local_artifact.download_local_path}{artifact_name}"
+            experiment.end()
+    
         scores = []
         for seed in seeds:
-            score = PCTHierarchy.run_from_file(artifact_path, seed=seed)
+            h, score = PCTHierarchy.run_from_file(full_path, seed=seed)
             scores.append(score)
+
         return scores
 
-    def run_experiments_and_record_results(self, experiments: list[APIExperiment], num_runs: int, output_csv: str):
+    def run_experiments_and_record_results(self, experiments: list[APIExperiment] = None, artifact_results: dict  = None, num_runs: int =0, output_csv: str = None):
         """
         Run each experiment a given number of times and record the score and the
         number of times the reward is 100, -100, or something else. Save results to a CSV file.
         """
         results = []
         for experiment in experiments:
-            artifact_name = self.get_artifact_name(experiment)
+            artifact_name = artifact_results[experiment.id] 
+            print(f"Running experiment {experiment.id} with artifact {artifact_name}")
             if not artifact_name:
                 continue
 
-            scores = self.download_and_run_artifact(artifact_name, num_runs, seeds=range(num_runs))
+            scores = self.download_and_run_artifact(artifact_name, seeds=range(num_runs))
             reward_counts = {'100': 0, '-100': 0, 'other': 0}
 
             for score in scores:
