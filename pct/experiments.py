@@ -128,12 +128,12 @@ class CometExperimentManager:
             print(f"Rewards: {reward_counts}")
             results.append({
                 'name': metrics['name'],
-                'score': metrics['score'],
+                'score': round(metrics['score'], 5),
                 'mode': metrics['mode'],
                 'reward_100': reward_counts['100'],
                 'reward_-100': reward_counts['-100'],
                 'reward_other': reward_counts['other'],
-                'experiment_key': '/'.join(("https://www.comet.com",self.workspace, project_name, experiment.id)),
+                'experiment_key': '/'.join(("https://www.comet.com", self.workspace, project_name, experiment.id)),
                 'artifact_name': artifact_name
             })
         # Sort results by 'reward_100' in descending order, then by 'reward_other' in descending order
