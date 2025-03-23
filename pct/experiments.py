@@ -40,7 +40,7 @@ class CometExperimentManager:
         experiment.end()
         return results
 
-    def get_experiments_by_metrics(self, project_name: str, score_threshold: float, reward_threshold: float):
+    def get_experiments_by_metrics(self, project_name: str = None, score_threshold: float = None, reward_threshold: float = None):
         """
         Retrieve experiments for a project where the metric 'score' is less than
         score_threshold and 'reward' is greater than or equal to reward_threshold.
@@ -50,12 +50,12 @@ class CometExperimentManager:
  
         return experiments
 
-    def get_artifact_name(self, experiment: APIExperiment):
+    def get_artifact_name(self, experiment: APIExperiment = None):
         """Retrieve the name of an artifact from an experiment."""
         artifacts = experiment.get_artifacts()
         return artifacts[0]['artifact_name'] if artifacts else None
 
-    def download_and_run_artifact(self, artifact_name: str, seeds: list[int]):
+    def download_and_run_artifact(self, artifact_name: str = None, seeds: list[int] = None):
         """
         Download an artifact to '/tmp/artifacts/' and run PCTHierarchy.run_from_file
         with the artifact filename, returning the score value for each run.
@@ -83,17 +83,35 @@ class CometExperimentManager:
             rewards.append(metrics['reward'])
 
 
+
         return rewards
 
-    def run_experiments_and_record_results(self, experiments: list[APIExperiment] = None, artifact_results: dict  = None, num_runs: int =0, output_csv: str = None):
+    def get_original_metrics(self, experiment: APIExperiment = None):
+        """Retrieve the metrics for an experiment."""
+        metrics = {}
+        metrics['score'] = eval(experiment.get_metrics("score")[0]['metricValue'])
+        hyperparameters = experiment.get_parameters_summary()
+
+        for param in hyperparameters:
+            if param['name'] == 'mode':
+                metrics['mode'] = param['valueCurrent']
+                break
+
+        metrics['name'] = experiment.name
+        return metrics
+
+    def run_experiments_and_record_results(self, project_name: str = None, experiments: list[APIExperiment] = None, artifact_results: dict = None, num_runs: int = 0, output_csv: str = None):
         """
-        Run each experiment a given number of times and record the score and the
+        Run each experiment for a given project a specified number of times and record the score and the
         number of times the reward is 100, -100, or something else. Save results to a CSV file.
         """
         results = []
         for experiment in experiments:
-            artifact_name = artifact_results[experiment.id] 
-            print(f"Running experiment {experiment.id} with artifact {artifact_name}")
+            artifact_name = artifact_results[experiment.id]
+
+            metrics = self.get_original_metrics(experiment)
+
+            print(f"Running experiment {experiment.id} in project {project_name} with artifact {artifact_name}")
             if not artifact_name:
                 continue
 
@@ -109,15 +127,19 @@ class CometExperimentManager:
                     reward_counts['other'] += 1
             print(f"Rewards: {reward_counts}")
             results.append({
-                'experiment_key': experiment.id,
-                'artifact_name': artifact_name,
+                'name': metrics['name'],
+                'score': metrics['score'],
+                'mode': metrics['mode'],
                 'reward_100': reward_counts['100'],
                 'reward_-100': reward_counts['-100'],
-                'reward_other': reward_counts['other']
+                'reward_other': reward_counts['other'],
+                'experiment_key': '/'.join(("https://www.comet.com",self.workspace, project_name, experiment.id)),
+                'artifact_name': artifact_name
             })
-
+        # Sort results by 'reward_100' in descending order, then by 'reward_other' in descending order
+        results.sort(key=lambda x: (-x['reward_100'], -x['reward_other']))
         # Save results to CSV
         with open(output_csv, mode='w', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=['experiment_key', 'artifact_name', 'scores', 'reward_100', 'reward_-100', 'reward_other'])
+            writer = csv.DictWriter(csvfile, fieldnames=['name', 'score', 'mode', 'reward_100', 'reward_-100', 'reward_other', 'experiment_key', 'artifact_name'])
             writer.writeheader()
             writer.writerows(results)
