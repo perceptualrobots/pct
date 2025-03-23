@@ -107,7 +107,11 @@ class CometExperimentManager:
         """
         results = []
         for experiment in experiments:
-            artifact_name = artifact_results[experiment.id]
+            try:
+                artifact_name = artifact_results[experiment.id]
+            except KeyError:
+                print(f"WARNING: Artifact not found for experiment {experiment.id}")
+                continue
 
             metrics = self.get_original_metrics(experiment)
 
