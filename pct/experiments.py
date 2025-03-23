@@ -75,12 +75,15 @@ class CometExperimentManager:
             # filename = f"{local_artifact.download_local_path}{artifact_name}"
             experiment.end()
     
-        scores = []
+        rewards = []
         for seed in seeds:
-            h, score = PCTHierarchy.run_from_file(full_path, seed=seed)
-            scores.append(score)
+            hierarchy, score = PCTHierarchy.run_from_file(full_path, seed=seed)
+            metrics = hierarchy.get_environment().get_metrics()
+            # print(f'Score={score:0.3f} {metrics}')
+            rewards.append(metrics['reward'])
 
-        return scores
+
+        return rewards
 
     def run_experiments_and_record_results(self, experiments: list[APIExperiment] = None, artifact_results: dict  = None, num_runs: int =0, output_csv: str = None):
         """
@@ -94,21 +97,20 @@ class CometExperimentManager:
             if not artifact_name:
                 continue
 
-            scores = self.download_and_run_artifact(artifact_name, seeds=range(num_runs))
+            rewards = self.download_and_run_artifact(artifact_name, seeds=range(num_runs))
             reward_counts = {'100': 0, '-100': 0, 'other': 0}
 
-            for score in scores:
-                if score == 100:
+            for reward in rewards:
+                if reward == 100:
                     reward_counts['100'] += 1
-                elif score == -100:
+                elif reward == -100:
                     reward_counts['-100'] += 1
                 else:
                     reward_counts['other'] += 1
-
+            print(f"Rewards: {reward_counts}")
             results.append({
                 'experiment_key': experiment.id,
                 'artifact_name': artifact_name,
-                'scores': scores,
                 'reward_100': reward_counts['100'],
                 'reward_-100': reward_counts['-100'],
                 'reward_other': reward_counts['other']
