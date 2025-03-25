@@ -40,13 +40,17 @@ class CometExperimentManager:
         experiment.end()
         return results
 
-    def get_experiments_by_metrics(self, project_name: str = None, score_threshold: float = None, reward_threshold: float = None):
+    def get_experiments_by_metrics(self, project_name: str = None, score_threshold: float = None, reward_threshold: float = None, max : bool = False):
         """
         Retrieve experiments for a project where the metric 'score' is less than
         score_threshold and 'reward' is greater than or equal to reward_threshold.
         """
+        if max:
+            # experiments = self.api.query(self.workspace, project_name, Metric("score") < score_threshold & Metric("reward") >= reward_threshold)
+            experiments = self.api.query(self.workspace, project_name, Metric("score") > score_threshold )
+        else:
         # experiments = self.api.query(self.workspace, project_name, Metric("score") < score_threshold & Metric("reward") >= reward_threshold)
-        experiments = self.api.query(self.workspace, project_name, Metric("score") < score_threshold )
+            experiments = self.api.query(self.workspace, project_name, Metric("score") < score_threshold )
  
         return experiments
 
