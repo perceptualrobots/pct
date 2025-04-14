@@ -8,6 +8,7 @@ __all__ = ['EnvironmentFactory', 'ControlEnvironment', 'OpenAIGym', 'BaseEnviron
 
 # %% ../nbs/05_environments.ipynb 3
 import gym, math, copy
+import imageio
 import numpy as np
 from collections import deque
 from abc import ABC, abstractmethod
@@ -64,6 +65,19 @@ class ControlEnvironment(BaseFunction):
     # def is_environment_terminated(self):
     #     return False
     
+    def env_render(self):
+        if self.render:
+            if hasattr(self, 'frames') and self.frames is not None:
+                self.frames.append(self.env.render(mode='rgb_array'))
+            else:
+                self.env.render(mode='human')
+
+    def save_video(self, video_name=None, fps=30):
+        if self.video:
+            if video_name is None:
+                video_name = self.name.replace(" ", "_") + ".mp4"
+            imageio.mimsave(video_name, self.frames, fps=30)
+            print(f"Video saved as {video_name}")
 
     def is_fitness_close_to_zero(self):
         return False
@@ -92,6 +106,9 @@ class ControlEnvironment(BaseFunction):
         if props != None:
             for key, value in props.items():
                 setattr(self, key, value)
+
+        if hasattr(self, 'video') and self.video is not None:
+            self.frames = []
         
     def get_config(self, zero=1):
         "Return the JSON  configuration of the function."
@@ -189,6 +206,8 @@ class ControlEnvironment(BaseFunction):
         return self.env.step(self.actions)
     
     def close(self):
+        if hasattr(self, 'frames') and self.frames is not None:
+            self.save_video()
         self.env.close()
 
     def summary(self, sstr="", extra=False, higher_namespace=None):
@@ -227,8 +246,7 @@ class OpenAIGym(ControlEnvironment):
     def __call__(self, verbose=False):
         out = super().__call__(verbose)
         
-        if self.render:
-            self.env.render()
+        self.env_render()
             
         return out 
 
@@ -273,7 +291,10 @@ class OpenAIGym(ControlEnvironment):
             self.check_links(len(self.links))
             for link in self.links:            
                 link.set_value(0)
-            
+
+        if hasattr(self, 'video') and self.video is not None:
+            self.frames = []
+
         self.really_done = False
         self.done = False
         return self.env.reset(seed=seed)
@@ -351,8 +372,8 @@ class OpenAIGym(ControlEnvironment):
         return super().get_graph_name() 
                 
 
-    def close(self):
-        self.env.close()
+    # def close(self):
+    #     self.env.close()
         
     class Factory:
         def create(self, namespace=None, seed=None, gym_name=None): return OpenAIGym(namespace=namespace, seed=seed, gym_name=gym_name)        
@@ -1535,8 +1556,7 @@ class ARC(ControlEnvironment):
     def __call__(self, verbose: bool = False) -> Any:
         super().__call__(verbose)
 
-        if self.render:
-            self.env.render()
+        self.env_render()
                             
         return self.value
 
@@ -1699,8 +1719,8 @@ class ARC(ControlEnvironment):
     def summary(self, extra: bool = False, higher_namespace: Optional[str] = None) -> None:
         super().summary("", extra=extra, higher_namespace=higher_namespace)
 
-    def close(self) -> None:
-        self.env.close()
+    # def close(self) -> None:
+    #     self.env.close()
 
     def get_details(self):
         
