@@ -201,9 +201,12 @@ class BaseEnvironmentProcessing(ABC):
     "Base class of environment processing."
     # def __init__(self):
 
-    def set_properties(self, args):
+    def init_properties(self, args):
         self.args = args
         self.env_processing_details={}
+
+    def set_properties(self, args):
+        self.init_properties(args)
 
     def get_file_props(self, filepath):
         if filepath.find(sep) < 0:
