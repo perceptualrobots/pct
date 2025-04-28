@@ -445,7 +445,11 @@ class GenericGymEnvironmentProcessing(BaseEnvironmentProcessing):
         self.args['gym_name'] = props['gym_name']
 
     def get_workspace(self):
-        return self.args['gym_name']
+        ws = self.args['gym_name']
+        if 'workspace' in self.args and self.args['workspace'] != ws:
+            raise ValueError(f"Workspace mismatch: existing workspace is '{self.args['workspace']}', but new workspace is '{ws}'")
+        self.args['workspace'] = ws
+        return ws
     
     def results(self, filepath=None, experiment=None, environment_properties=None, hierarchy=None):
 
