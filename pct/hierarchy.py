@@ -1183,7 +1183,9 @@ class PCTHierarchy():
         top_done=False
         plot_items = plots.split(',')
         for plot_item in plot_items:
+            valid_plot_item = False
             if plot_item == 'scTop':
+                valid_plot_item = True
                 top_done=True
                 for level in self.get_top_level():
                     if isinstance(level, list):
@@ -1193,6 +1195,7 @@ class PCTHierarchy():
                         plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
 
             if plot_item == 'scEdges':
+                valid_plot_item = True
                 top_done=True
                 for func in self.get_preprocessor()[1:]:
                     plots_list.append(create_plot_item(func))
@@ -1208,6 +1211,7 @@ class PCTHierarchy():
                         plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
 
             if plot_item == 'scZero':
+                valid_plot_item = True
                 if self.get_levels() == 1 and top_done:
                     pass
                 else:
@@ -1221,15 +1225,20 @@ class PCTHierarchy():
                                 plots_list.append(create_plot_item(level.get_reference_function(), level.get_perception_function(), level.get_name()))
 
             if plot_item == 'scFitness':
+                valid_plot_item = True
                 plots_list.append(create_named_plot_item('fitness', 'Fitness'))
 
             if plot_item == 'scReward':
+                valid_plot_item = True
                 plots_list.append(create_named_plot_item('reward', 'Reward'))
                 plots_list.append(create_named_plot_item('reward_sum', 'RewardSum'))
 
             if plot_item == 'scError':
+                valid_plot_item = True
                 plots_list.append(create_named_plot_item('error', 'Error'))
 
+            if not valid_plot_item:
+                raise Exception(f'Invalid plot item: {plot_item}')
 
         return plots_list
 
