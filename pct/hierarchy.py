@@ -1255,9 +1255,12 @@ class PCTHierarchy():
         prp = PCTRunProperties()
         prp.load_db(filename)
         if experiment:
-            config = prp.db.pop('config')
-            experiment.log_parameters(prp.db)
-            prp.db['config'] = config
+            if 'config' in prp.db:
+                config = prp.db.pop('config')
+                experiment.log_parameters(prp.db)
+                prp.db['config'] = config
+            else:
+                experiment.log_parameters(prp.db)
             if 'environment_properties' in prp.db:
                 if 'history' in  prp.db['environment_properties']:
                     ep = eval(prp.db['environment_properties'])
