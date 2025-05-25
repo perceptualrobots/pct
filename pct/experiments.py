@@ -18,6 +18,10 @@ class CometExperimentManager:
     def get_all_artifacts_indexed(self):
         """Retrieve all artifacts and sort them by source experiment key."""
         filename = '/tmp/artifacts/artifacts_results.json'
+        
+        # Create directory if it doesn't exist
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        
         if os.path.exists(filename):
             with open(filename, 'r') as file:
                 return json.load(file)
