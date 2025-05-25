@@ -14,7 +14,9 @@ class CometExperimentManager:
     def __init__(self, api_key: str = None, workspace: str = None):
         self.api = API(api_key)
         self.workspace = workspace
+        ## do nowt
 
+        
     def get_all_artifacts_indexed(self):
         """Retrieve all artifacts and sort them by source experiment key."""
         filename = '/tmp/artifacts/artifacts_results.json'
