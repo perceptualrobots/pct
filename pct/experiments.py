@@ -18,6 +18,10 @@ class CometExperimentManager:
     def get_all_artifacts_indexed(self):
         """Retrieve all artifacts and sort them by source experiment key."""
         filename = '/tmp/artifacts/artifacts_results.json'
+        
+        # Create directory if it doesn't exist
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        
         if os.path.exists(filename):
             with open(filename, 'r') as file:
                 return json.load(file)
@@ -151,3 +155,15 @@ class CometExperimentManager:
             writer = csv.DictWriter(csvfile, fieldnames=['name', 'score', 'mode', 'reward_100', 'reward_-100', 'reward_other', 'experiment_key', 'artifact_name'])
             writer.writeheader()
             writer.writerows(results)
+
+    def get_workspace_projects(self):
+        """
+        Get all projects from the current workspace.
+        
+        Returns:
+            list: A list of project names in the workspace
+        """
+        api = API()
+        projects = api.get_projects(workspace=self.workspace)
+        return projects
+        # return [project['name'] for project in projects]
