@@ -147,5 +147,160 @@ class PCTExamples:
     
         return fig
     
+    def run_from_config(self, config):
+        """
+        Run the hierarchy with configuration options.
+        
+        Args:
+            config (dict): Configuration dictionary with options:
+                - steps (int): Number of timesteps to run (default: 1000)
+                - verbose (bool): Enable logging for debugging (default: False)
+                - render (bool): Render the environment during execution (default: False)
+                - video_file (str): Save video recording to specified file path
+                - draw_file (str): Export hierarchy visualization to given path
+                - size (bool): Return the size of the PCT network (default: False)
+                - usage (bool): Print help message explaining config options (default: False)
+        
+        Returns:
+            dict: Results containing any requested outputs (size, etc.)
+        """
+        results = {}
+        
+        # Print usage if requested
+        if config.get('usage', False):
+            self._print_usage()
+            return results
+        
+        # Get configuration values with defaults
+        steps = config.get('steps', 1000)
+        verbose = config.get('verbose', False)
+        render = config.get('render', False)
+        video_file = config.get('video_file')
+        draw_file = config.get('draw_file')
+        return_size = config.get('size', False)
+        
+        # Calculate and return size if requested
+        if return_size:
+            size_info = self._calculate_size()
+            results['size'] = size_info
+            if verbose:
+                print(f"PCT Network Size: {size_info}")
+        
+        # Set up video recording if requested
+        original_env = None
+        if video_file:
+            try:
+                from gym.wrappers import Monitor
+                import os
+                # Create video directory if it doesn't exist
+                video_dir = os.path.dirname(video_file) or './video'
+                os.makedirs(video_dir, exist_ok=True)
+                # Wrap environment for video recording
+                original_env = self.env
+                self.env = Monitor(self.env, video_dir, force=True, video_callable=lambda episode_id: True)
+                if verbose:
+                    print(f"Video recording enabled: {video_file}")
+            except ImportError:
+                if verbose:
+                    print("Warning: gym.wrappers.Monitor not available, skipping video recording")
+            except Exception as e:
+                if verbose:
+                    print(f"Warning: Could not set up video recording: {e}")
+        
+        # Run the hierarchy
+        if verbose:
+            print(f"Running hierarchy for {steps} steps with verbose={verbose}, render={render}")
+        
+        try:
+            result = self.run(steps=steps, verbose=verbose)
+            results['run_result'] = result
+            
+            if verbose:
+                print(f"Hierarchy run completed successfully")
+                
+        except Exception as e:
+            if verbose:
+                print(f"Error during hierarchy run: {e}")
+            results['error'] = str(e)
+        
+        # Restore original environment if video recording was used
+        if original_env is not None:
+            self.env.close()
+            self.env = original_env
+            
+            # Rename video file if custom name was specified
+            if video_file and video_file != './video':
+                try:
+                    import glob
+                    import shutil
+                    video_files = glob.glob(os.path.join(video_dir, '*.mp4'))
+                    if video_files:
+                        latest_video = max(video_files, key=os.path.getctime)
+                        if os.path.dirname(video_file) != video_dir:
+                            shutil.move(latest_video, video_file)
+                            if verbose:
+                                print(f"Video saved to: {video_file}")
+                        else:
+                            if verbose:
+                                print(f"Video saved to: {latest_video}")
+                except Exception as e:
+                    if verbose:
+                        print(f"Warning: Could not move video file: {e}")
+        
+        # Generate drawing if requested
+        if draw_file:
+            try:
+                fig = self.draw(file=draw_file)
+                results['draw_result'] = f"Drawing saved to: {draw_file}"
+                if verbose:
+                    print(f"Hierarchy drawing saved to: {draw_file}")
+            except Exception as e:
+                if verbose:
+                    print(f"Warning: Could not save drawing: {e}")
+                results['draw_error'] = str(e)
+        
+        return results
+    
+    def _calculate_size(self):
+        """Calculate the size of the PCT network."""
+        size_info = {
+            'levels': self.hierarchy.get_levels(),
+            'total_nodes': 0,
+            'nodes_per_level': []
+        }
+        
+        for level in range(self.hierarchy.get_levels()):
+            level_nodes = self.hierarchy.get_columns(level)
+            size_info['nodes_per_level'].append(level_nodes)
+            size_info['total_nodes'] += level_nodes
+            
+        return size_info
+    
+    def _print_usage(self):
+        """Print usage information for the run_from_config method."""
+        usage_text = """
+PCT Examples Configuration Options:
+
+Configuration dictionary keys:
+  steps (int):       Number of timesteps to run the hierarchy (default: 1000)
+  verbose (bool):    Enable logging for debugging and insight (default: False)
+  render (bool):     Render the environment during execution (default: False)
+  video_file (str):  Save a video recording of the run to the specified file path
+  draw_file (str):   Export a visualization of the hierarchy to the given path
+  size (bool):       Return the size (number of nodes, levels) of the PCT network (default: False)
+  usage (bool):      Print this help message (default: False)
+
+Example usage:
+  config = {
+      'steps': 500,
+      'verbose': True,
+      'render': True,
+      'video_file': './my_run.mp4',
+      'draw_file': './hierarchy.png',
+      'size': True
+  }
+  results = pct_example.run_from_config(config)
+        """
+        print(usage_text)
 
     
