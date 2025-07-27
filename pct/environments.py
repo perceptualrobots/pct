@@ -588,7 +588,14 @@ class GenericGym(OpenAIGym):
 
     def get_metrics(self):
         metrics =  {'reward_sum' : self.reward_sum, 'reward' : self.reward}
-        # self.add_specific_metrics(metrics=metrics)
+
+        if hasattr(self, 'reward_avg'):
+            metrics['reward_avg'] = self.reward_avg
+        if hasattr(self, 'reward_min'):
+            metrics['reward_min'] = self.reward_min
+        if hasattr(self, 'reward_max'):
+            metrics['reward_max'] = self.reward_max
+
         data = {'value': self.value}
         self.runtime.add_specific_metrics(metrics=metrics, data=data)
         return metrics
