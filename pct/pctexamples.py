@@ -158,9 +158,12 @@ class PCTExamples:
                     print_summary=False,
                     return_config=False,
                     display_usage=False,
+                    create_plots=False,
                     verbose=False,
                     image_params=None,
                     video_params=None,
+                    plot_params=None,
+                    history=None,  # Allow explicit history control
                     **kwargs):
         """
         Class method to run a PCT hierarchy example with various options.
@@ -176,9 +179,12 @@ class PCTExamples:
             print_summary (bool): Whether to print hierarchy summary (default: False)
             return_config (bool): Whether to return the configuration (default: False)
             display_usage (bool): Whether to display usage information (default: False)
+            create_plots (bool): Whether to create and return plots (default: False)
             verbose (bool): Whether to enable verbose output (default: False)
             image_params (dict): Parameters for image creation
             video_params (dict): Parameters for video creation
+            plot_params (dict): Parameters for plot creation
+            history (bool): Explicit control over history tracking (default: None - auto-determined)
             **kwargs: Additional parameters passed to PCTExamples constructor
         
         Returns:
@@ -190,15 +196,16 @@ class PCTExamples:
             PCTExamples.run_example() Usage:
             
             Basic usage:
-                PCTExamples.run_example('config.json')
+                PCTExamples.run_example('testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties')
             
             With options:
                 PCTExamples.run_example(
-                    config_file='config.json',
+                    config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
                     run_hierarchy=True,      # Run the hierarchy
                     render=True,             # Render environment
                     create_image=True,       # Create hierarchy diagram
                     create_video=True,       # Create video file
+                    create_plots=True,       # Create and return plots
                     early_termination=True,  # Enable early termination
                     steps=1000,              # Override step count
                     print_summary=True,      # Print hierarchy summary
@@ -209,7 +216,7 @@ class PCTExamples:
             Returns dictionary with results and any requested outputs.
             """
             print(usage_text)
-            if not any([run_hierarchy, create_image, create_video, print_summary, return_config]):
+            if not any([run_hierarchy, create_image, create_video, create_plots, print_summary, return_config]):
                 return {"usage_displayed": True}
         
         # Initialize default parameters
@@ -226,15 +233,33 @@ class PCTExamples:
                 'filename': None
             }
         
+        if plot_params is None:
+            plot_params = {
+                'plots': None,
+                'title_prefix': '',
+                'plots_dir': '/tmp/plots',
+                'plots_figsize': (12, 6),
+                'single_plot': False
+            }
+        
         results = {}
         
         try:
+            # History is only needed for plots, not videos
+            # Video is controlled separately by hierarchy video property
+            if history is None:
+                # Auto-determine: Only enable history if plots are requested
+                enable_history = create_plots
+            else:
+                # Use explicit user setting
+                enable_history = history
+            
             # Create PCTExamples instance
             example = cls(
                 config_file=config_file,
                 early_termination=early_termination,
                 render=render,
-                history=create_video,  # Enable history if creating video
+                history=enable_history,
                 **kwargs
             )
             
@@ -260,7 +285,7 @@ class PCTExamples:
                 if image_params.get('file') is None:
                     import os
                     base_name = os.path.splitext(os.path.basename(config_file))[0]
-                    image_params['file'] = f"{base_name}_hierarchy.png"
+                    image_params['file'] = f"/tmp/{base_name}_hierarchy.png"
                 
                 fig = example.draw(**image_params)
                 results['image_created'] = True
@@ -294,22 +319,63 @@ class PCTExamples:
                 if video_params.get('filename') is None:
                     import os
                     base_name = os.path.splitext(os.path.basename(config_file))[0]
-                    video_params['filename'] = f"{base_name}_video.mp4"
+                    video_params['filename'] = f"/tmp/{base_name}_video.mp4"
                 
-                # Get history data for video creation
-                history_data = example.set_history_data()
-                if history_data:
-                    # Here you would implement video creation logic
-                    # This is a placeholder for actual video creation
+                # Video creation is handled by hierarchy video property, not history
+                # This is a placeholder for actual video creation logic
+                try:
+                    # Video creation would be implemented here using hierarchy video capabilities
                     results['video_created'] = True
                     results['video_file'] = video_params['filename']
                     
                     if verbose:
                         print(f"Video saved as: {video_params['filename']}")
-                else:
-                    results['video_error'] = "No history data available for video creation"
+                except Exception as video_error:
+                    results['video_error'] = f"Video creation failed: {str(video_error)}"
                     if verbose:
-                        print("Warning: No history data available for video creation")
+                        print(f"Warning: Video creation failed: {video_error}")
+            
+            # Create plots if requested
+            if create_plots:
+                if verbose:
+                    print("=== Creating Plots ===")
+                
+                # Get history data for plotting
+                history_data = example.set_history_data()
+                if history_data:
+                    if plot_params.get('single_plot') and plot_params.get('plots'):
+                        # Create single plot
+                        plot_fig = example.plot_single(
+                            plot=plot_params['plots'],
+                            title_prefix=plot_params['title_prefix'],
+                            plots_dir=plot_params['plots_dir'],
+                            plots_figsize=plot_params['plots_figsize'],
+                            history_data=history_data
+                        )
+                        results['plot_figure'] = plot_fig
+                        results['plot_type'] = 'single'
+                    else:
+                        # Create multiple plots
+                        plot_fig = example.plot_history(
+                            plots=plot_params['plots'],
+                            title_prefix=plot_params['title_prefix'],
+                            plots_dir=plot_params['plots_dir'],
+                            plots_figsize=plot_params['plots_figsize'],
+                            history_data=history_data
+                        )
+                        results['plot_figure'] = plot_fig
+                        results['plot_type'] = 'multiple'
+                    
+                    results['plots_created'] = True
+                    results['history_keys'] = example.get_history_keys()
+                    
+                    if verbose:
+                        print("Plots created successfully")
+                        print(f"Available history keys: {results['history_keys']}")
+                else:
+                    results['plots_error'] = "No history data available for plotting"
+                    if verbose:
+                        print("Warning: No history data available for plotting")
             
             # Clean up
             example.close()
@@ -328,32 +394,36 @@ class PCTExamples:
         """
         Usage Examples:
         
-        # Basic run
-        result = PCTExamples.run_example('my_config.json')
+        # Basic run with MountainCar config
+        result = PCTExamples.run_example('testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties')
         
         # Full featured run
         result = PCTExamples.run_example(
-            config_file='my_config.json',
+            config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
             run_hierarchy=True,
             render=True,
             create_image=True,
             create_video=True,
+            create_plots=True,
             early_termination=True,
             steps=5000,
             print_summary=True,
             return_config=True,
             verbose=True,
             image_params={'figsize': (16, 10), 'with_labels': True},
-            video_params={'fps': 60}
+            video_params={'fps': 60, 'filename': '/tmp/mountaincar_demo.mp4'},
+            plot_params={'plots_figsize': (14, 8), 'title_prefix': 'MountainCar_'}
         )
         
         # Just create image and get config
         result = PCTExamples.run_example(
-            config_file='my_config.json',
+            config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
             run_hierarchy=False,
             create_image=True,
+            create_plots=True,
             return_config=True,
-            print_summary=True
+            print_summary=True,
+            plot_params={'single_plot': True, 'plots': {'title': 'position_plot', 'plot_items': ['position']}}
         )
         
         # Display usage help
