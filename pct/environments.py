@@ -833,7 +833,7 @@ class MountainCarContinuousV0(OpenAIGym):
                 
     def process_actions(self):
         force = min(max(self.hierarchy_values, self.min_action), self.max_action)
-        self.hierarchy_values=[force]
+        self.actions=[force]
         
     def process_values(self):
         reward = self.obs[1]

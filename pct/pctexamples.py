@@ -67,7 +67,6 @@ class PCTExamples:
         env_proc.set_properties(allargs)
         env_proc.results(filepath=self.config_file, environment_properties=self.environment_properties|environment_properties, hierarchy=self.hierarchy)
 
-
     def close(self):
         """
         Closes the environment.
@@ -124,11 +123,8 @@ class PCTExamples:
             if plots_dir:
                 plotfile = plots_dir + sep + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
             fig = self.hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
-            # import matplotlib.pyplot as plt
-            # plt.close(fig)  # Close the figure here
-    
         return fig
-    
+
     def plot_single(self, plot=None, title_prefix='', plots_dir=None, plots_figsize=(12, 6), history_data=None):
         """
         Plot one item of the history of the hierarchy.
@@ -142,23 +138,17 @@ class PCTExamples:
                 makedirs(plots_dir)
             plotfile = plots_dir + sep + title_prefix + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
         fig = self.hierarchy.hierarchy_plots(title=title_prefix + plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
-            # import matplotlib.pyplot as plt
-            # plt.close(fig)  # Close the figure here
-    
         return fig
-    
+
     @classmethod
     def run_example(cls, config_file, 
                     run_hierarchy=True,
                     render=False, 
-                    create_image=False,
-                    create_video=False,
                     early_termination=False,
                     steps=None,
                     print_summary=False,
                     return_config=False,
                     display_usage=False,
-                    create_plots=False,
                     verbose=False,
                     image_params=None,
                     video_params=None,
@@ -172,18 +162,15 @@ class PCTExamples:
             config_file (str): Path to the configuration file
             run_hierarchy (bool): Whether to run the hierarchy (default: True)
             render (bool): Whether to render the environment (default: False)
-            create_image (bool): Whether to create hierarchy image (default: False)
-            create_video (bool): Whether to create video file (default: False)
             early_termination (bool): Whether to enable early termination (default: False)
             steps (int): Number of steps to run (overrides config if specified)
             print_summary (bool): Whether to print hierarchy summary (default: False)
             return_config (bool): Whether to return the configuration (default: False)
             display_usage (bool): Whether to display usage information (default: False)
-            create_plots (bool): Whether to create and return plots (default: False)
             verbose (bool): Whether to enable verbose output (default: False)
-            image_params (dict): Parameters for image creation
-            video_params (dict): Parameters for video creation
-            plot_params (dict): Parameters for plot creation
+            image_params (dict or None): If not None, parameters for image creation (triggers image creation)
+            video_params (dict or None): If not None, parameters for video creation (triggers video creation)
+            plot_params (dict or None): If not None, parameters for plot creation (triggers plot creation)
             history (bool): Explicit control over history tracking (default: None - auto-determined)
             **kwargs: Additional parameters passed to PCTExamples constructor
         
@@ -203,9 +190,9 @@ class PCTExamples:
                     config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
                     run_hierarchy=True,      # Run the hierarchy
                     render=True,             # Render environment
-                    create_image=True,       # Create hierarchy diagram
-                    create_video=True,       # Create video file
-                    create_plots=True,       # Create and return plots
+                    image_params={...},      # Create hierarchy diagram if not None
+                    video_params={...},      # Create video if not None
+                    plot_params={...},       # Create plots if not None
                     early_termination=True,  # Enable early termination
                     steps=1000,              # Override step count
                     print_summary=True,      # Print hierarchy summary
@@ -216,43 +203,25 @@ class PCTExamples:
             Returns dictionary with results and any requested outputs.
             """
             print(usage_text)
-            if not any([run_hierarchy, create_image, create_video, create_plots, print_summary, return_config]):
+            if not any([run_hierarchy, image_params is not None, video_params is not None, plot_params is not None, print_summary, return_config]):
                 return {"usage_displayed": True}
         
-        # Initialize default parameters
-        if image_params is None:
-            image_params = {
-                'with_labels': True,
-                'figsize': (12, 8),
-                'file': None
-            }
-        
-        if video_params is None:
-            video_params = {
-                'fps': 30,
-                'filename': None
-            }
-        
-        if plot_params is None:
-            plot_params = {
-                'plots': None,
-                'title_prefix': '',
-                'plots_dir': '/tmp/plots',
-                'plots_figsize': (12, 6),
-                'single_plot': False
-            }
+        # Set default params if None
+        if video_params is None and plot_params is None and image_params is None:
+            video_params = None
+            plot_params = None
+            image_params = None
         
         results = {}
         
         try:
             # History is only needed for plots, not videos
             # Video is controlled separately by hierarchy video property
-            if history is None:
-                # Auto-determine: Only enable history if plots are requested
-                enable_history = create_plots
-            else:
-                # Use explicit user setting
+            enable_history = False
+            if history is not None:
                 enable_history = history
+            elif plot_params is not None:
+                enable_history = True
             
             # Create PCTExamples instance
             example = cls(
@@ -276,8 +245,8 @@ class PCTExamples:
                 if verbose:
                     print("=== Configuration Retrieved ===")
             
-            # Create hierarchy image if requested
-            if create_image:
+            # Create hierarchy image if image_params is not None
+            if image_params is not None:
                 if verbose:
                     print("=== Creating Hierarchy Image ===")
                 
@@ -310,8 +279,8 @@ class PCTExamples:
                 if verbose:
                     print(f"Hierarchy completed {run_steps} steps")
             
-            # Create video if requested
-            if create_video:
+            # Create video if video_params is not None
+            if video_params is not None:
                 if verbose:
                     print("=== Creating Video ===")
                 
@@ -335,8 +304,8 @@ class PCTExamples:
                     if verbose:
                         print(f"Warning: Video creation failed: {video_error}")
             
-            # Create plots if requested
-            if create_plots:
+            # Create plots if plot_params is not None
+            if plot_params is not None:
                 if verbose:
                     print("=== Creating Plots ===")
                 
@@ -402,32 +371,27 @@ class PCTExamples:
             config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
             run_hierarchy=True,
             render=True,
-            create_image=True,
-            create_video=True,
-            create_plots=True,
+            image_params={'figsize': (16, 10), 'with_labels': True},
+            video_params={'fps': 60, 'filename': '/tmp/mountaincar_demo.mp4'},
+            plot_params={'plots_figsize': (14, 8), 'title_prefix': 'MountainCar_'},
             early_termination=True,
             steps=5000,
             print_summary=True,
             return_config=True,
-            verbose=True,
-            image_params={'figsize': (16, 10), 'with_labels': True},
-            video_params={'fps': 60, 'filename': '/tmp/mountaincar_demo.mp4'},
-            plot_params={'plots_figsize': (14, 8), 'title_prefix': 'MountainCar_'}
+            verbose=True
         )
         
         # Just create image and get config
         result = PCTExamples.run_example(
             config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
             run_hierarchy=False,
-            create_image=True,
-            create_plots=True,
+            image_params={'figsize': (16, 10), 'with_labels': True},
+            plot_params={'single_plot': True, 'plots': {'title': 'position_plot', 'plot_items': ['position']}},
             return_config=True,
-            print_summary=True,
-            plot_params={'single_plot': True, 'plots': {'title': 'position_plot', 'plot_items': ['position']}}
+            print_summary=True
         )
         
         # Display usage help
         PCTExamples.run_example('', display_usage=True)
         """
         pass
-    
