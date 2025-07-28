@@ -3,13 +3,13 @@
 # %% auto 0
 __all__ = ['CometExperimentManager']
 
-# %% ../nbs/20_experiments.ipynb 3
+# %% ../nbs/20_experiments.ipynb 4
 import os, json, csv
 from comet_ml import API, APIExperiment, start
 from .hierarchy import PCTHierarchy  
 from comet_ml.query import Metric
 
-# %% ../nbs/20_experiments.ipynb 4
+# %% ../nbs/20_experiments.ipynb 5
 class CometExperimentManager:
     def __init__(self, api_key: str = None, workspace: str = None):
         self.api = API(api_key)
