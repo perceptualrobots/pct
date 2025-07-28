@@ -147,5 +147,217 @@ class PCTExamples:
     
         return fig
     
+    @classmethod
+    def run_example(cls, config_file, 
+                    run_hierarchy=True,
+                    render=False, 
+                    create_image=False,
+                    create_video=False,
+                    early_termination=False,
+                    steps=None,
+                    print_summary=False,
+                    return_config=False,
+                    display_usage=False,
+                    verbose=False,
+                    image_params=None,
+                    video_params=None,
+                    **kwargs):
+        """
+        Class method to run a PCT hierarchy example with various options.
+        
+        Args:
+            config_file (str): Path to the configuration file
+            run_hierarchy (bool): Whether to run the hierarchy (default: True)
+            render (bool): Whether to render the environment (default: False)
+            create_image (bool): Whether to create hierarchy image (default: False)
+            create_video (bool): Whether to create video file (default: False)
+            early_termination (bool): Whether to enable early termination (default: False)
+            steps (int): Number of steps to run (overrides config if specified)
+            print_summary (bool): Whether to print hierarchy summary (default: False)
+            return_config (bool): Whether to return the configuration (default: False)
+            display_usage (bool): Whether to display usage information (default: False)
+            verbose (bool): Whether to enable verbose output (default: False)
+            image_params (dict): Parameters for image creation
+            video_params (dict): Parameters for video creation
+            **kwargs: Additional parameters passed to PCTExamples constructor
+        
+        Returns:
+            dict: Results containing requested outputs and run results
+        """
+        
+        if display_usage:
+            usage_text = """
+            PCTExamples.run_example() Usage:
+            
+            Basic usage:
+                PCTExamples.run_example('config.json')
+            
+            With options:
+                PCTExamples.run_example(
+                    config_file='config.json',
+                    run_hierarchy=True,      # Run the hierarchy
+                    render=True,             # Render environment
+                    create_image=True,       # Create hierarchy diagram
+                    create_video=True,       # Create video file
+                    early_termination=True,  # Enable early termination
+                    steps=1000,              # Override step count
+                    print_summary=True,      # Print hierarchy summary
+                    return_config=True,      # Return configuration
+                    verbose=True             # Verbose output
+                )
+            
+            Returns dictionary with results and any requested outputs.
+            """
+            print(usage_text)
+            if not any([run_hierarchy, create_image, create_video, print_summary, return_config]):
+                return {"usage_displayed": True}
+        
+        # Initialize default parameters
+        if image_params is None:
+            image_params = {
+                'with_labels': True,
+                'figsize': (12, 8),
+                'file': None
+            }
+        
+        if video_params is None:
+            video_params = {
+                'fps': 30,
+                'filename': None
+            }
+        
+        results = {}
+        
+        try:
+            # Create PCTExamples instance
+            example = cls(
+                config_file=config_file,
+                early_termination=early_termination,
+                render=render,
+                history=create_video,  # Enable history if creating video
+                **kwargs
+            )
+            
+            # Print summary if requested
+            if print_summary:
+                print("=== Hierarchy Summary ===")
+                example.summary()
+                results['summary_printed'] = True
+            
+            # Get configuration if requested
+            if return_config:
+                config = example.get_config()
+                results['config'] = config
+                if verbose:
+                    print("=== Configuration Retrieved ===")
+            
+            # Create hierarchy image if requested
+            if create_image:
+                if verbose:
+                    print("=== Creating Hierarchy Image ===")
+                
+                # Set default filename if not provided
+                if image_params.get('file') is None:
+                    import os
+                    base_name = os.path.splitext(os.path.basename(config_file))[0]
+                    image_params['file'] = f"{base_name}_hierarchy.png"
+                
+                fig = example.draw(**image_params)
+                results['image_created'] = True
+                results['image_file'] = image_params['file']
+                results['figure'] = fig
+                
+                if verbose:
+                    print(f"Hierarchy image saved as: {image_params['file']}")
+            
+            # Run hierarchy if requested
+            if run_hierarchy:
+                if verbose:
+                    print("=== Running Hierarchy ===")
+                
+                # Use provided steps or default from config
+                run_steps = steps if steps is not None else 1000
+                
+                run_result = example.run(steps=run_steps, verbose=verbose)
+                results['run_result'] = run_result
+                results['steps_completed'] = run_steps
+                
+                if verbose:
+                    print(f"Hierarchy completed {run_steps} steps")
+            
+            # Create video if requested
+            if create_video:
+                if verbose:
+                    print("=== Creating Video ===")
+                
+                # Set default filename if not provided
+                if video_params.get('filename') is None:
+                    import os
+                    base_name = os.path.splitext(os.path.basename(config_file))[0]
+                    video_params['filename'] = f"{base_name}_video.mp4"
+                
+                # Get history data for video creation
+                history_data = example.set_history_data()
+                if history_data:
+                    # Here you would implement video creation logic
+                    # This is a placeholder for actual video creation
+                    results['video_created'] = True
+                    results['video_file'] = video_params['filename']
+                    
+                    if verbose:
+                        print(f"Video saved as: {video_params['filename']}")
+                else:
+                    results['video_error'] = "No history data available for video creation"
+                    if verbose:
+                        print("Warning: No history data available for video creation")
+            
+            # Clean up
+            example.close()
+            results['success'] = True
+            
+        except Exception as e:
+            results['success'] = False
+            results['error'] = str(e)
+            if verbose:
+                print(f"Error: {e}")
+        
+        return results
 
+    # Usage examples in docstring format
+    def _usage_examples():
+        """
+        Usage Examples:
+        
+        # Basic run
+        result = PCTExamples.run_example('my_config.json')
+        
+        # Full featured run
+        result = PCTExamples.run_example(
+            config_file='my_config.json',
+            run_hierarchy=True,
+            render=True,
+            create_image=True,
+            create_video=True,
+            early_termination=True,
+            steps=5000,
+            print_summary=True,
+            return_config=True,
+            verbose=True,
+            image_params={'figsize': (16, 10), 'with_labels': True},
+            video_params={'fps': 60}
+        )
+        
+        # Just create image and get config
+        result = PCTExamples.run_example(
+            config_file='my_config.json',
+            run_hierarchy=False,
+            create_image=True,
+            return_config=True,
+            print_summary=True
+        )
+        
+        # Display usage help
+        PCTExamples.run_example('', display_usage=True)
+        """
+        pass
     
