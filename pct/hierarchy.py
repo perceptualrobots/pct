@@ -1409,7 +1409,8 @@ class PCTHierarchy():
     
 
     @classmethod
-    def load_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, runs=None, early_termination = False, experiment=None,  hpct_verbose= False, history=False, additional_props=None):
+    def load_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, runs=None, early_termination = False, 
+                       experiment=None,  hpct_verbose= False, history=False, additional_props=None, video=None):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
@@ -1440,6 +1441,10 @@ class PCTHierarchy():
         # print(f'Seed={seed}')
         if early_termination is None:
             early_termination = eval(prp.db['early_termination'])
+
+        if video:
+            environment_properties['video'] = video
+    
 
         hierarchy, env = cls.load_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, hpct_verbose=hpct_verbose,  history=history,

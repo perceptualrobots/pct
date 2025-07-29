@@ -75,8 +75,13 @@ class ControlEnvironment(BaseFunction):
     def save_video(self, video_name=None, fps=30):
         if self.video:
             if video_name is None:
-                video_name = self.name.replace(" ", "_") + ".mp4"
-            imageio.mimsave(video_name, self.frames, fps=30)
+                if 'filename' in self.video:
+                    video_name = self.video['filename']
+                else:   
+                    video_name = self.name.replace(" ", "_") + ".mp4"
+            if 'fps' in self.video:
+                fps = self.video['fps']
+            imageio.mimsave(video_name, self.frames, fps=fps)
             print(f"Video saved as {video_name}")
 
     def is_fitness_close_to_zero(self):
@@ -109,6 +114,7 @@ class ControlEnvironment(BaseFunction):
 
         if hasattr(self, 'video') and self.video is not None:
             self.frames = []
+            
         
     def get_config(self, zero=1):
         "Return the JSON  configuration of the function."

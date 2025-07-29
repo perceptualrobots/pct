@@ -18,13 +18,16 @@ class PCTExamples:
         env (Environment): The environment associated with the PCT hierarchy.
     """
 
-    def __init__(self, config_file, min=True, early_termination=False, history=False, additional_props=None, render = False):
+    def __init__(self, config_file, min=True, early_termination=False, history=False, additional_props=None, 
+                 render=False, video_params=None):
         """
         Initializes the PCTExamples instance by loading the hierarchy from the given configuration file.
         """
         self.config_file = config_file
-        self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(config_file, min=min, early_termination=early_termination, 
-                                                                                            history=history, additional_props=additional_props, render=render)
+        self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(
+            config_file, min=min, early_termination=early_termination, history=history, 
+            additional_props=additional_props, render=render, video_params=video_params
+        )
         self.history_data = None
         self.history = history
 
@@ -144,7 +147,7 @@ class PCTExamples:
     def run_example(cls, config_file, 
                     run_hierarchy=True,
                     render=False, 
-                    early_termination=False,
+                    early_termination=True,
                     steps=None,
                     print_summary=False,
                     return_config=False,
@@ -206,12 +209,7 @@ class PCTExamples:
             if not any([run_hierarchy, image_params is not None, video_params is not None, plot_params is not None, print_summary, return_config]):
                 return {"usage_displayed": True}
         
-        # Set default params if None
-        if video_params is None and plot_params is None and image_params is None:
-            video_params = None
-            plot_params = None
-            image_params = None
-        
+         
         results = {}
         
         try:
@@ -223,12 +221,13 @@ class PCTExamples:
             elif plot_params is not None:
                 enable_history = True
             
-            # Create PCTExamples instance
+            # Create PCTExamples instance, pass video_params to constructor
             example = cls(
                 config_file=config_file,
                 early_termination=early_termination,
                 render=render,
                 history=enable_history,
+                video_params=video_params,
                 **kwargs
             )
             
