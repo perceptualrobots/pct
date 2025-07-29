@@ -1410,7 +1410,7 @@ class PCTHierarchy():
 
     @classmethod
     def load_from_file(cls, filename, min=None, env_props=None, seed=None, render=False, runs=None, early_termination = False, 
-                       experiment=None,  hpct_verbose= False, history=False, additional_props=None, video=None):
+                       experiment=None,  hpct_verbose= False, history=False, additional_props=None, video=None, suffixes=False):
         
         prp = PCTRunProperties()
         prp.load_db(filename)
@@ -1448,7 +1448,7 @@ class PCTHierarchy():
 
         hierarchy, env = cls.load_from_config(config, min=min, render=render,  error_collector_type=error_collector_type, error_response_type=error_response_type, 
                                                 error_properties=error_properties, error_limit=error_limit, hpct_verbose=hpct_verbose,  history=history,
-                                                environment_properties=environment_properties, seed=seed, early_termination=early_termination)
+                                                environment_properties=environment_properties, seed=seed, early_termination=early_termination, suffixes=suffixes)
         
         return hierarchy, env, environment_properties
 

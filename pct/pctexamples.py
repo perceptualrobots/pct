@@ -26,7 +26,7 @@ class PCTExamples:
         self.config_file = config_file
         self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(
             config_file, min=min, early_termination=early_termination, history=history, 
-            additional_props=additional_props, render=render, video_params=video_params
+            additional_props=additional_props, render=render, video=video_params, suffixes=True
         )
         self.history_data = None
         self.history = history
@@ -220,7 +220,18 @@ class PCTExamples:
                 enable_history = history
             elif plot_params is not None:
                 enable_history = True
-            
+
+            # Create video if video_params is not None
+            if video_params is not None:
+                if verbose:
+                    print("=== Creating Video ===")
+                
+                # Set default filename if not provided
+                if video_params.get('filename') is None:
+                    import os
+                    base_name = os.path.splitext(os.path.basename(config_file))[0]
+                    video_params['filename'] = f"/tmp/{base_name}_video.mp4"                
+
             # Create PCTExamples instance, pass video_params to constructor
             example = cls(
                 config_file=config_file,
@@ -278,30 +289,6 @@ class PCTExamples:
                 if verbose:
                     print(f"Hierarchy completed {run_steps} steps")
             
-            # Create video if video_params is not None
-            if video_params is not None:
-                if verbose:
-                    print("=== Creating Video ===")
-                
-                # Set default filename if not provided
-                if video_params.get('filename') is None:
-                    import os
-                    base_name = os.path.splitext(os.path.basename(config_file))[0]
-                    video_params['filename'] = f"/tmp/{base_name}_video.mp4"
-                
-                # Video creation is handled by hierarchy video property, not history
-                # This is a placeholder for actual video creation logic
-                try:
-                    # Video creation would be implemented here using hierarchy video capabilities
-                    results['video_created'] = True
-                    results['video_file'] = video_params['filename']
-                    
-                    if verbose:
-                        print(f"Video saved as: {video_params['filename']}")
-                except Exception as video_error:
-                    results['video_error'] = f"Video creation failed: {str(video_error)}"
-                    if verbose:
-                        print(f"Warning: Video creation failed: {video_error}")
             
             # Create plots if plot_params is not None
             if plot_params is not None:
