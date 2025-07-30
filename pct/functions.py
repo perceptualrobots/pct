@@ -1297,22 +1297,22 @@ class SigmoidSmoothWeightedSum(BaseFunction):
     def get_suffix(self):
         return 'sgsm'
 
-    # def get_weights_labels(self, labels):
-    #     for i in range(len(self.weights)):
-    #         link = self.get_link(i)
-    #         if isinstance(link, str):
-    #             name=link
-    #         else:
-    #             name = link.get_name()
-    #         value = self.weights[i]
-    #         if isinstance(value, float):
-    #             value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}'
-    #         if isinstance(value, int) and value != 0:
-    #             value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}-{self.smooth_factor:4.2f}'
-    #         labels[(self.get_name(), name)] = value
+    def get_weights_labels(self, labels):
+        for i in range(len(self.weights)):
+            link = self.get_link(i)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.weights[i]
+            if isinstance(value, float):
+                value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}'
+            if isinstance(value, int) and value != 0:
+                value = f'{value:4.2f}:{self.smooth_factor:4.2f}-{self.range:4.2f}-{self.slope:4.2f}-{self.smooth_factor:4.2f}'
+            labels[(self.get_name(), name)] = value
 
-    # def get_weights_labels_funcdata(self, labels):
-    #     self.get_weights_labels(labels)
+    def get_weights_labels_funcdata(self, labels):
+        self.get_weights_labels(labels)
 
         
     def get_graph_name(self):
@@ -1370,17 +1370,17 @@ class Derivative(BaseFunction):
     def get_suffix(self):
         return 'dv'
 
-    # def get_weights_labels(self, labels):
-    #     link = self.get_link(0)
-    #     if isinstance(link, str):
-    #         name=link
-    #     else:
-    #         name = link.get_name()
-    #     value = f'{self.history}'
-    #     labels[(self.get_name(), name)] = value
+    def get_weights_labels(self, labels):
+        link = self.get_link(0)
+        if isinstance(link, str):
+            name=link
+        else:
+            name = link.get_name()
+        value = f'{self.history}'
+        labels[(self.get_name(), name)] = value
 
-    # def get_weights_labels_funcdata(self, labels):
-    #     self.get_weights_labels(labels)
+    def get_weights_labels_funcdata(self, labels):
+        self.get_weights_labels(labels)
         
     def get_graph_name(self):
         return f'{self.name}\n{self.history_length:4.2f}' 
@@ -1471,33 +1471,33 @@ class DerivativeWeightedSum(BaseFunction):
     def get_suffix(self):
         return 'dvws'
 
-    # def get_weights_labels(self, labels):
-    #     for i in range(len(self.weights)):
-    #         link = self.get_link(i)
-    #         if isinstance(link, str):
-    #             name=link
-    #         else:
-    #             name = link.get_name()
-    #         value = self.weights[i]
-    #         if isinstance(value, float):
-    #             value = f'{value:4.2f}:{self.history_length}'
-    #         if isinstance(value, int) and value != 0:
-    #             value = f'{value:4.2f}:{self.history_length}'
-    #         labels[(self.get_name(), name)] = value
+    def get_weights_labels(self, labels):
+        for i in range(len(self.weights)):
+            link = self.get_link(i)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.weights[i]
+            if isinstance(value, float):
+                value = f'{value:4.2f}:{self.history_length}'
+            if isinstance(value, int) and value != 0:
+                value = f'{value:4.2f}:{self.history_length}'
+            labels[(self.get_name(), name)] = value
    
-    # def get_weights_labels_funcdata(self, labels):
-    #     for i in range(len(self.weights)):
-    #         link = self.get_link(i)
-    #         if isinstance(link, str):
-    #             name=link
-    #         else:
-    #             name = link.get_graph_name()
-    #         value = self.weights[i]
-    #         if isinstance(value, float):
-    #             value = f'{value:4.2f}:{self.history_length}'
-    #         if isinstance(value, int) and value != 0:
-    #             value = f'{value:4.2f}:{self.history_length}'
-    #         labels[(self.get_graph_name(), name)] = value
+    def get_weights_labels_funcdata(self, labels):
+        for i in range(len(self.weights)):
+            link = self.get_link(i)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_graph_name()
+            value = self.weights[i]
+            if isinstance(value, float):
+                value = f'{value:4.2f}:{self.history_length}'
+            if isinstance(value, int) and value != 0:
+                value = f'{value:4.2f}:{self.history_length}'
+            labels[(self.get_graph_name(), name)] = value
         
     def get_graph_name(self):
         return f'{self.name}\n{self.history_length}' 

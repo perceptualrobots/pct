@@ -505,6 +505,8 @@ class PCTNode():
 
 
     def consolidate(self, link_names):
+        changed = False
+        
         if self.outputCollection:    
             outputFunction = self.outputCollection[-1]
             name = outputFunction.get_name()
@@ -512,6 +514,7 @@ class PCTNode():
                 self.delete_output()
                 self.delete_comparator()
                 self.delete_reference()
+                changed = True
                 # print(self.outputCollection)
                 # print(self.comparatorCollection)
                 # print(self.referenceCollection)
@@ -520,8 +523,9 @@ class PCTNode():
         name = perceptionFunction.get_name()
         if name not in link_names:
             self.delete_perception()
+            changed = True
 
-
+        return changed
         
 
 
