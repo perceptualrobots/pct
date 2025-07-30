@@ -1035,19 +1035,19 @@ class SmoothWeightedSum(BaseFunction):
     def get_suffix(self):
         return 'sm'
 
-    # def get_weights_labels(self, labels):
-    #     for i in range(len(self.weights)):
-    #         link = self.get_link(i)
-    #         if isinstance(link, str):
-    #             name=link
-    #         else:
-    #             name = link.get_name()
-    #         value = self.weights[i]
-    #         if isinstance(value, float):
-    #             value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
-    #         if isinstance(value, int) and value != 0:
-    #             value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
-    #         labels[(self.get_name(), name)] = value
+    def get_weights_labels(self, labels):
+        for i in range(len(self.weights)):
+            link = self.get_link(i)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.weights[i]
+            if isinstance(value, float):
+                value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
+            if isinstance(value, int) and value != 0:
+                value = f'{value:4.2f}:{self.smooth_factor:4.2f}'
+            labels[(self.get_name(), name)] = value
 
     @deprecated(reason="Used by DynamicArchitecture")
     def set_node_function(self, function_type, thislevel, targetlevel, targetprefix, 
@@ -1191,22 +1191,22 @@ class SigmoidWeightedSum(BaseFunction):
     def get_suffix(self):
         return 'sg'
 
-    # def get_weights_labels(self, labels):
-    #     for i in range(len(self.weights)):
-    #         link = self.get_link(i)
-    #         if isinstance(link, str):
-    #             name=link
-    #         else:
-    #             name = link.get_name()
-    #         value = self.weights[i]
-    #         if isinstance(value, float):
-    #             value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
-    #         if isinstance(value, int) and value != 0:
-    #             value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
-    #         labels[(self.get_name(), name)] = value
+    def get_weights_labels(self, labels):
+        for i in range(len(self.weights)):
+            link = self.get_link(i)
+            if isinstance(link, str):
+                name=link
+            else:
+                name = link.get_name()
+            value = self.weights[i]
+            if isinstance(value, float):
+                value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
+            if isinstance(value, int) and value != 0:
+                value = f'{value:4.2f}:{self.range:4.2f}-{self.slope:4.2f}'
+            labels[(self.get_name(), name)] = value
    
-    # def get_weights_labels_funcdata(self, labels):
-    #     self.get_weights_labels(labels)
+    def get_weights_labels_funcdata(self, labels):
+        self.get_weights_labels(labels)
                
     def get_graph_name(self):
         return f'{self.name}\n{self.range:4.2f}-{self.slope:4.2f}' 
