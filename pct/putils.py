@@ -12,7 +12,7 @@ __all__ = ['SingletonObjects', 'UniqueNamer', 'FunctionsList', 'Memory', 'Number
 # %% ../nbs/01_putils.ipynb 3
 import numpy as np
 #import psutil
-import sys, importlib, json, math, os, time, math
+import sys, importlib, json, math, os, time
 from datetime import datetime
 
 # import warnings
@@ -22,6 +22,7 @@ from datetime import datetime
 class SingletonObjects:
     "A utility for refrencing objects that should only be declared once."
     __instance = None
+    
     @staticmethod 
     def getInstance():
         """ Static access method. """
@@ -47,13 +48,13 @@ class SingletonObjects:
         if key in self.objects:
             raise Exception(f'Object {key} already exists in SingletonObjects.')            
         else:
-            self.objects[key]=value
-
+            self.objects[key] = value
 
 # %% ../nbs/01_putils.ipynb 7
 class UniqueNamer:
     "A utility for ensuring the names of functions are unique."
     __instance = None
+    
     @staticmethod 
     def getInstance():
         """ Static access method. """
@@ -70,14 +71,13 @@ class UniqueNamer:
         self.names = {}
 
     def clear(self, namespace=None):
-        if namespace==None:
+        if namespace == None:
             self.names = {}
         else:
             self.names[namespace] = {}
 
-            
     def get_name(self, namespace=None, name=None):
-        # checks if name is unqiue, if a name is not unique a new one is created, name recored 
+        # checks if name is unique, if a name is not unique a new one is created, name recorded 
         if namespace in self.names:
             namespace_list = self.names[namespace]
         else:
@@ -85,20 +85,19 @@ class UniqueNamer:
             self.names[namespace] = namespace_list
 
         if name in namespace_list: 
-            num = namespace_list[name]+1
-            namespace_list[name]=num
+            num = namespace_list[name] + 1
+            namespace_list[name] = num
             name = f'{name}{num}'
         #else:
-        namespace_list[name]=0
+        namespace_list[name] = 0
         return name
     
-    def report(self,  namespace=None, name=None,):
-
+    def report(self, namespace=None, name=None):
         if namespace is None:
-            for namespace, namespace_list in self.names.items():
-                print(namespace, len(namespace_list))
-                for name in namespace_list:
-                    print("*** ", name)
+            for ns_key, namespace_list in self.names.items():
+                print(ns_key, len(namespace_list))
+                for name_key in namespace_list:
+                    print("*** ", name_key)
         else:
             if namespace in self.names:
                 namespace_list = self.names[namespace]
@@ -113,12 +112,14 @@ class UniqueNamer:
 class FunctionsList:
     "A utility for storing functions created, keyed on the function name."
     __instance = None
+    
     @staticmethod 
     def getInstance():
         """ Static access method. """
         if FunctionsList.__instance == None:
              FunctionsList()
         return FunctionsList.__instance
+    
     def __init__(self):
         """ Virtually private constructor. """
         if FunctionsList.__instance != None:
@@ -128,7 +129,7 @@ class FunctionsList:
         self.functions = {}
 
     def clear(self, namespace=None):
-        if namespace==None:
+        if namespace == None:
             self.functions = {}
         else:
             self.functions[namespace] = {}
@@ -139,12 +140,12 @@ class FunctionsList:
             namespace_list = self.functions[namespace]
         else:
             namespace_list = {}
-            self.functions[namespace]=namespace_list
+            self.functions[namespace] = namespace_list
 
         name = func.get_name()
         if name in namespace_list:
             raise Exception(f'Function {name} is already in namespace list {namespace}')
-        namespace_list[name]=func
+        namespace_list[name] = func
         
         return name
 
@@ -152,7 +153,7 @@ class FunctionsList:
         if name in self.functions[namespace]:
             func = self.functions[namespace].pop(name)     
             
-        if self.count(namespace)==0:
+        if self.count(namespace) == 0:
             self.functions.pop(namespace)
             
         return func
@@ -192,16 +193,14 @@ class FunctionsList:
         else:
             raise Exception(f"Namespace {namespace} not found in report")
                 
-                
-                
     def report(self, namespace=None, name=None):
         print("--- functions report")
         if namespace is None:
-            for namespace, namespace_list in self.functions.items():
-                print(len(namespace_list), 'NAMESPACE', namespace)
+            for ns_key, namespace_list in self.functions.items():
+                print(len(namespace_list), 'NAMESPACE', ns_key)
                 ctr = 1
-                for name, function in namespace_list.items():
-                    print("*** ", ctr, name, [function])
+                for name_key, function in namespace_list.items():
+                    print("*** ", ctr, name_key, [function])
                     print(function)
                     ctr = ctr + 1
                 print()
@@ -214,19 +213,19 @@ class FunctionsList:
             if name == None:
                 print(len(namespace_list), 'NAMESPACE', namespace)
                 ctr = 1
-                for name, function in namespace_list.items():
-                    print("*** ", ctr, name, [function])
+                for name_key, function in namespace_list.items():
+                    print("*** ", ctr, name_key, [function])
                     print(function)
                 print()
             else:
                 print("*** ", name, [namespace_list[name]])
-                print(namespace_list[name])          
-            
+                print(namespace_list[name])
 
 # %% ../nbs/01_putils.ipynb 11
 class Memory:
     "A utility for recording global values."
     __instance = None
+    
     @staticmethod 
     def getInstance():
         """ Static access method. """
@@ -244,7 +243,6 @@ class Memory:
 
     def clear(self):
         self.memory = {}
-
             
     def get_data(self, key=None):
         value = None
@@ -253,20 +251,20 @@ class Memory:
         return value
     
     def add_data(self, key=None, value=None):
-        self.memory[key]=value
-
-
+        self.memory[key] = value
 
 # %% ../nbs/01_putils.ipynb 13
 class NumberStats:
-    "A utility for calculating the statistice of a number."
+    "A utility for calculating the statistics of a number."
     __instance = None
+    
     @staticmethod 
     def getInstance():
         """ Static access method. """
         if NumberStats.__instance == None:
              NumberStats()
         return NumberStats.__instance
+    
     def __init__(self):
         """ Virtually private constructor. """
         if NumberStats.__instance != None:
@@ -276,7 +274,6 @@ class NumberStats:
         self.max = -math.inf
         self.min = math.inf
 
-    
     def add(self, number=None):
         if number > self.max:
             self.max = number
@@ -288,7 +285,6 @@ class NumberStats:
         print("--- stats report")
         print(f'Max: {self.max:4.3f}')
         print(f'Min: {self.min:4.3f}')
-            
 
 # %% ../nbs/01_putils.ipynb 15
 class FunctionsData():
