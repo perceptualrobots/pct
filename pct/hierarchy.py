@@ -393,19 +393,22 @@ class PCTHierarchy():
 
 
     def consolidate(self):
+        changed = False
         self.remove_links()
 
         # for outputs, comparators and references
         linklist = self.list_link_names()
         for level in self.hierarchy:
             for node in level:
-                node.consolidate(linklist)
+                if node.consolidate(linklist):
+                    changed = True
 
         # for perceptions
         linklist = self.list_link_names()
         for level in self.hierarchy:
             for node in level:
-                node.consolidate(linklist)
+                if node.consolidate(linklist):
+                    changed = True
         
         level_ctr = 0
         for level in self.hierarchy:
@@ -422,8 +425,11 @@ class PCTHierarchy():
                 ctr+=1
             for node_ctr in reversed(invalid_nodes):    
                 del level[node_ctr]
+                changed = True
 
             level_ctr+=1
+            
+        return changed
             
     
             
