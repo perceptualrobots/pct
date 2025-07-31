@@ -287,10 +287,11 @@ class PCTHierarchy():
 
         return [ self.hierarchy[levels-1] ]
             
+
     def draw(self, with_labels=True, with_edge_labels=False,  font_size=12, font_weight='bold', font_color='black', 
             color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
             node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, draw_fig=True,
-            node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None):
+            node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None, layout_seed=None):
         
         if not draw_fig :
             return None
@@ -299,12 +300,28 @@ class PCTHierarchy():
         import plotly.tools as tls
         if not interactive_mode:
             plt.switch_backend('agg')
+        
+        # Set random seed for consistent layout if provided
+        if layout_seed is not None:
+            import numpy as np
+            import random
+            np.random.seed(layout_seed)
+            random.seed(layout_seed)
+            
         self.graphv = self.graph(layout=layout, funcdata=funcdata)
         if node_color==None:
             node_color = self.get_colors(self.graphv, color_mapping)
 
-        pos = nx.multipartite_layout(self.graphv, subset_key="layer", align=align)
-        
+        # Use seed parameter directly in multipartite_layout if supported
+        if layout_seed is not None:
+            try:
+                pos = nx.multipartite_layout(self.graphv, subset_key="layer", align=align, seed=layout_seed)
+            except TypeError:
+                # Fallback if seed parameter not supported in this NetworkX version
+                pos = nx.multipartite_layout(self.graphv, subset_key="layer", align=align)
+        else:
+            pos = nx.multipartite_layout(self.graphv, subset_key="layer", align=align)     
+
         for key in move.keys():            
             pos[key][0]+=move[key][0]
             pos[key][1]+=move[key][1]
