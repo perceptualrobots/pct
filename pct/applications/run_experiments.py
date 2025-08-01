@@ -6,7 +6,9 @@ import os
 
 """
 
-python -m impl.run_experiments
+
+python -m pct.applications.run_experiments
+
 
 """
 
@@ -19,16 +21,13 @@ manager = CometExperimentManager(workspace=workspace)
 projects = manager.get_workspace_projects()
 print(f"Projects in workspace '{workspace}':", projects)
 
-# project_name = 'refinputs-currentrms'
-# score_threshold=0.05
-# project_name = 'reward-summed'
-# project_name = 'inputs-rms'
-# project_name = 'refinputs-smooth'
+# Get all artifacts once (outside loop for better performance)
+artifact_results = manager.get_all_artifacts_indexed()
 
 num_runs=100
 
 for project_name in projects:
-    if project_name == 'general' or project_name == 'test':
+    if 'test' in project_name.lower() or project_name.lower() == 'general':      
         continue
     
     # Set max and score_threshold based on project_name
@@ -40,18 +39,18 @@ for project_name in projects:
         score_threshold = 100
         max = True
     # RMS and smooth error projects typically use lower thresholds
-    elif 'rms' in project_name.lower():
-        score_threshold = 0.02
+    elif 'inputs-rms' in project_name.lower():
+        score_threshold = 1.0
         max = False
-    elif 'smooth' in project_name.lower():
-        score_threshold = 0.03
+    elif 'refinputs-smooth' in project_name.lower():
+        score_threshold = 0.05
         max = False
     # Referenced inputs projects
-    elif 'refinputs' in project_name.lower():
-        score_threshold = 0.01
+    elif 'refinputs-rms' in project_name.lower():
+        score_threshold = 1.5
         max = False
     # Current error projects
-    elif 'current' in project_name.lower():
+    elif 'refinputs-currentrms' in project_name.lower():
         score_threshold = 0.05
         max = False
     # Variance-based projects (new for Welford)
@@ -59,12 +58,8 @@ for project_name in projects:
         score_threshold = 0.1
         max = False
 
-    # Test get_all_artifacts_sorted
-    artifact_results = manager.get_all_artifacts_indexed()
-    # print("Artifacts sorted by source experiment key:", artifacts)
-
     # Test get_experiments_by_metrics
-    experiments = manager.get_experiments_by_metrics(project_name=project_name, score_threshold=score_threshold, reward_threshold=10.0, max=max)
+    experiments = manager.get_experiments_by_metrics(project_name=project_name, score_threshold=score_threshold, reward_threshold=99.0, max=max)
     # print("Filtered experiments:", experiments)
 
     output_csv = f'/tmp/artifacts/experiment_results_{project_name}.csv'
