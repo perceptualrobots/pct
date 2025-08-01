@@ -65,6 +65,25 @@ These classes define different ways to aggregate errors over time:
 # Configurable history parameter
 ```
 
+#### 8. WelfordVarianceError
+```python
+# Welford's online variance algorithm - numerically stable
+# Computes running variance without storing all values
+# Handles both scalar and array inputs (uses Euclidean norm)
+# Configurable population_variance parameter:
+#   - False (default): Sample variance using Bessel's correction (N-1)
+#   - True: Population variance (N)
+```
+
+**Variance Types:**
+- **Sample variance**: `M2 / (count - 1)` - Uses Bessel's correction for unbiased estimation when data represents a sample from a larger population
+- **Population variance**: `M2 / count` - Divides by N when data represents the complete population
+
+**Additional Methods:**
+- `get_mean()`: Returns running mean
+- `get_standard_deviation()`: Returns standard deviation (√variance)
+- `get_sample_size()`: Returns number of observations processed
+
 ## Error Collection Classes (What Errors to Collect)
 
 These classes define which errors to collect from the PCT hierarchy:
@@ -198,6 +217,31 @@ moving_collector = BaseErrorCollector.collector(
 )
 ```
 
+### Welford Variance Monitoring
+```python
+# Monitor variance for convergence detection
+welford_collector = BaseErrorCollector.collector(
+    'WelfordVarianceError',
+    'InputsError',
+    limit=2.0,
+    min=False,  # Terminate when variance drops below 2.0 (convergence)
+    properties={
+        'error_response': {'population_variance': False}  # Use sample variance
+    }
+)
+
+# For stability monitoring (detect when variance gets too high)
+stability_collector = BaseErrorCollector.collector(
+    'WelfordVarianceError',
+    'TotalError',
+    limit=10.0,
+    min=True,  # Terminate when variance exceeds 10.0 (instability)
+    properties={
+        'error_response': {'population_variance': True}  # Use population variance
+    }
+)
+```
+
 ## Error Response Examples from Notebook
 
 ### Root Mean Square Error
@@ -230,6 +274,40 @@ rms = ip_curr_rms.error()
 # Result: 5.066228051190222
 ```
 
+### Welford Variance Error
+```python
+# Basic Welford variance usage
+data = [2, 4, 4, 4, 5, 5, 7, 9]
+welford = WelfordVarianceError()
+
+for value in data:
+    welford(value)
+    print(f"Value: {value}, Variance: {welford.get_error_response():.4f}, "
+          f"Mean: {welford.get_mean():.4f}, StdDev: {welford.get_standard_deviation():.4f}")
+
+# Verify against NumPy
+np_var = np.var(data, ddof=1)  # Sample variance
+# Results match: Welford and NumPy both give 4.5714
+
+# Array data (uses Euclidean norm)
+time_series_data = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]])
+welford_array = WelfordVarianceError()
+
+for ts in time_series_data:
+    welford_array(ts)  # Automatically computes norm
+
+# Population vs Sample variance comparison
+welford_sample = WelfordVarianceError(population_variance=False)    # N-1
+welford_population = WelfordVarianceError(population_variance=True) # N
+
+for value in [1, 2, 3, 4, 5]:
+    welford_sample(value)
+    welford_population(value)
+
+print(f"Sample variance (N-1): {welford_sample.get_error_response():.4f}")      # 2.5000
+print(f"Population variance (N): {welford_population.get_error_response():.4f}") # 2.0000
+```
+
 ### Smooth Error
 ```python
 ins_sm = BaseErrorCollector.collector(
@@ -257,6 +335,8 @@ ins_sm = BaseErrorCollector.collector(
 5. **Scientific Reproducibility**: Consistent error calculation for experiments
 6. **Vector Support**: Handle both scalar and vector error values
 7. **Historical Analysis**: Support for moving windows and exponential smoothing
+8. **Numerical Stability**: Welford's algorithm provides stable variance computation
+9. **Convergence Detection**: Monitor variance to detect system stability and convergence
 
 ## Common Use Cases
 
@@ -269,7 +349,25 @@ total_rms = BaseErrorCollector.collector(
 )
 ```
 
-### 2. Input Tracking
+### 2. Convergence Detection
+```python
+# Use Welford variance to detect when system has converged
+convergence_monitor = BaseErrorCollector.collector(
+    'WelfordVarianceError', 'InputsError',
+    limit=0.1, min=False  # Stop when variance drops below 0.1
+)
+```
+
+### 3. Stability Monitoring
+```python
+# Monitor system stability using variance threshold
+stability_monitor = BaseErrorCollector.collector(
+    'WelfordVarianceError', 'TotalError',
+    limit=5.0, min=True  # Stop when variance exceeds 5.0 (instability)
+)
+```
+
+### 4. Input Tracking
 ```python
 # Track specific inputs with current RMS
 input_tracker = BaseErrorCollector.collector(
@@ -279,7 +377,7 @@ input_tracker = BaseErrorCollector.collector(
 )
 ```
 
-### 3. Reference Following
+### 5. Reference Following
 ```python
 # Monitor reference tracking with weighted errors
 ref_tracker = BaseErrorCollector.collector(
@@ -297,7 +395,7 @@ ref_tracker = BaseErrorCollector.collector(
 )
 ```
 
-### 4. Reinforcement Learning
+### 6. Reinforcement Learning
 ```python
 # Monitor reward/fitness for RL applications
 reward_monitor = BaseErrorCollector.collector(
@@ -306,5 +404,30 @@ reward_monitor = BaseErrorCollector.collector(
     properties={'error_response': {'smooth_factor': 0.95}}
 )
 ```
+
+## Error Response Type Recommendations
+
+### When to Use Each Error Response Type:
+
+- **CurrentError**: When you only care about the most recent error value
+- **CurrentRMSError**: For immediate RMS calculation of vector errors
+- **SummedError**: For simple accumulation without normalization
+- **RootSumSquaredError**: For accumulating error magnitude over time
+- **RootMeanSquareError**: For normalized RMS that accounts for time duration
+- **SmoothError**: For reducing noise with exponential smoothing
+- **MovingAverageError**: For reducing noise with fixed-window averaging
+- **WelfordVarianceError**: For monitoring variance, convergence detection, and stability analysis
+
+### Most Appropriate Error Collectors for Welford Variance:
+
+1. **InputsError** (Most Common): Monitor variance in system inputs to detect stability
+2. **ReferencedInputsError**: Monitor variance in control error signals  
+3. **TotalError**: Monitor variance across entire system hierarchy
+
+**Configuration Tips:**
+- Use `min=False` to terminate when variance drops below threshold (convergence detection)
+- Use `min=True` to terminate when variance exceeds threshold (instability detection)
+- Use `population_variance=False` for ongoing/streaming data analysis
+- Use `population_variance=True` for complete dataset analysis
 
 This comprehensive error system provides the foundation for robust PCT control system monitoring, optimization, and automated termination based on performance criteria.

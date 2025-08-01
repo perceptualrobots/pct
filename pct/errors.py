@@ -2,9 +2,9 @@
 
 # %% auto 0
 __all__ = ['BaseErrorType', 'RootSumSquaredError', 'RootMeanSquareError', 'SummedError', 'CurrentError', 'CurrentRMSError',
-           'SmoothError', 'MovingSumError', 'MovingAverageError', 'ErrorResponseFactory', 'ErrorCollectorFactory',
-           'BaseErrorCollector', 'TotalError', 'TopError', 'InputsError', 'ReferencedInputsError', 'RewardError',
-           'FitnessError']
+           'SmoothError', 'MovingSumError', 'MovingAverageError', 'WelfordVarianceError', 'ErrorResponseFactory',
+           'ErrorCollectorFactory', 'BaseErrorCollector', 'TotalError', 'TopError', 'InputsError',
+           'ReferencedInputsError', 'RewardError', 'FitnessError']
 
 # %% ../nbs/07_errors.ipynb 3
 import numpy as np
@@ -231,6 +231,84 @@ class MovingAverageError(BaseErrorType):
         def create(self, flip_error_response=False): return MovingAverageError(flip_error_response=flip_error_response)
 
 # %% ../nbs/07_errors.ipynb 27
+class WelfordVarianceError(BaseErrorType):
+    """
+    Welford's online algorithm for computing sample variance.
+    
+    This numerically stable algorithm computes the running variance without 
+    storing all previous values. It's particularly useful for streaming data
+    and avoids numerical precision issues that can occur with naive variance
+    calculations.
+    
+    The algorithm maintains:
+    - count: number of observations
+    - mean: running mean
+    - M2: sum of squared differences from the mean
+    
+    Variance Types:
+    - Sample variance: M2 / (count - 1) - Uses Bessel's correction (N-1) to provide
+      an unbiased estimate when the data represents a sample from a larger population.
+      This accounts for the loss of one degree of freedom from estimating the mean.
+    - Population variance: M2 / count - Divides by N when the data represents the
+      entire population of interest, not just a sample.
+    
+    The choice depends on whether your data is:
+    - A sample from a larger population → use sample variance (default)
+    - The complete population → use population variance
+    """
+    def __init__(self, flip_error_response=False, population_variance=False):
+        super().__init__(flip_error_response=flip_error_response)
+        self.population_variance = population_variance
+        self.reset()
+        
+    def __call__(self, error):
+        # Handle both scalar and array inputs
+        if hasattr(error, '__iter__') and not isinstance(error, str):
+            # For arrays, compute the Euclidean norm first
+            value = np.linalg.norm(error)
+        else:
+            value = error
+            
+        self.count += 1
+        delta = value - self.mean
+        self.mean += delta / self.count
+        delta2 = value - self.mean
+        self.M2 += delta * delta2
+        
+        # Compute variance
+        if self.count < 2:
+            self.error_response = 0.0
+        else:
+            if self.population_variance:
+                # Population variance: divide by N
+                self.error_response = self.M2 / self.count
+            else:
+                # Sample variance: divide by N-1 (Bessel's correction)
+                self.error_response = self.M2 / (self.count - 1)
+
+    def reset(self):
+        super().reset()
+        self.count = 0
+        self.mean = 0.0
+        self.M2 = 0.0
+        self.error_response = 0.0
+        
+    def get_mean(self):
+        """Return the current running mean."""
+        return self.mean
+    
+    def get_standard_deviation(self):
+        """Return the current standard deviation."""
+        return math.sqrt(self.error_response) if self.error_response >= 0 else 0.0
+    
+    def get_sample_size(self):
+        """Return the number of observations processed."""
+        return self.count
+        
+    class Factory:
+        def create(self, flip_error_response=False): return WelfordVarianceError(flip_error_response=flip_error_response)
+
+# %% ../nbs/07_errors.ipynb 29
 class ErrorResponseFactory:
     factories = {}
     def addResponseFactory(id, errorResponseFactory):
@@ -244,7 +322,7 @@ class ErrorResponseFactory:
         return ErrorResponseFactory.factories[id].create(flip_error_response=flip_error_response)
     createErrorResponse = staticmethod(createErrorResponse)
 
-# %% ../nbs/07_errors.ipynb 30
+# %% ../nbs/07_errors.ipynb 32
 class ErrorCollectorFactory:
     factories = {}
     def addCollectorFactory(id, errorCollectorFactory):
@@ -258,7 +336,7 @@ class ErrorCollectorFactory:
         return ErrorCollectorFactory.factories[id].create()
     createErrorCollector = staticmethod(createErrorCollector)
 
-# %% ../nbs/07_errors.ipynb 32
+# %% ../nbs/07_errors.ipynb 34
 class BaseErrorCollector(ABC):
     "Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all."
     'Parameters:'
@@ -363,7 +441,7 @@ class BaseErrorCollector(ABC):
         
         return self.limit_exceeded
 
-# %% ../nbs/07_errors.ipynb 34
+# %% ../nbs/07_errors.ipynb 36
 class TotalError(BaseErrorCollector):
     "A class to collect all the errors of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -381,7 +459,7 @@ class TotalError(BaseErrorCollector):
     class Factory:
         def create(self): return TotalError()
 
-# %% ../nbs/07_errors.ipynb 36
+# %% ../nbs/07_errors.ipynb 38
 class TopError(BaseErrorCollector):
     "A class to collect all the errors of the top-level nodes."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -401,7 +479,7 @@ class TopError(BaseErrorCollector):
     class Factory:
         def create(self): return TopError()
 
-# %% ../nbs/07_errors.ipynb 38
+# %% ../nbs/07_errors.ipynb 40
 class InputsError(BaseErrorCollector):
     "A class to collect the values of the input values."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -427,7 +505,7 @@ class InputsError(BaseErrorCollector):
     class Factory:
         def create(self): return InputsError()
 
-# %% ../nbs/07_errors.ipynb 40
+# %% ../nbs/07_errors.ipynb 42
 class ReferencedInputsError(BaseErrorCollector):
     "A class to collect the values of the input values subtracted from reference values."                        
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -460,7 +538,7 @@ class ReferencedInputsError(BaseErrorCollector):
     class Factory:
         def create(self): return ReferencedInputsError()
 
-# %% ../nbs/07_errors.ipynb 42
+# %% ../nbs/07_errors.ipynb 44
 class RewardError(BaseErrorCollector):
     "A class that collects the reward value of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
@@ -476,7 +554,7 @@ class RewardError(BaseErrorCollector):
     class Factory:
         def create(self): return RewardError()
 
-# %% ../nbs/07_errors.ipynb 44
+# %% ../nbs/07_errors.ipynb 46
 class FitnessError(BaseErrorCollector):
     "A class that collects the fitness value of the control system run."            
     def __init__(self, limit=None, error_response=None, min=None, **cargs):
