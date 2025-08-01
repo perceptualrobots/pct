@@ -16,32 +16,54 @@ class CometExperimentManager:
         self.workspace = workspace
 
     def get_all_artifacts_indexed(self):
-        """Retrieve all artifacts and sort them by source experiment key."""
+        """Retrieve all artifacts and sort them by source experiment key. Updates existing cache with new artifacts."""
         filename = '/tmp/artifacts/artifacts_results.json'
         
         # Create directory if it doesn't exist
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         
+        # Load existing results if file exists
+        existing_results = {}
         if os.path.exists(filename):
             with open(filename, 'r') as file:
-                return json.load(file)
-            
+                existing_results = json.load(file)
+        
+        # Get all current artifacts from API
         artifacts = self.api.get_artifact_list(workspace=self.workspace)
         experiment = start(workspace=self.workspace)
-        results = {}
+        
+        # Get current artifact names from API
+        current_artifact_names = {artifact_dict['name'] for artifact_dict in artifacts['artifacts']}
+        
+        # Get existing artifact names from our cache
+        existing_artifact_names = set(existing_results.values())
+        
+        # Find new artifacts that aren't in our cache
+        new_artifact_names = current_artifact_names - existing_artifact_names
+        
+        results = existing_results.copy()  # Start with existing results
+        
+        # Process only new artifacts
         for artifact_dict in artifacts['artifacts']:
-            id = artifact_dict['name']
-            try:
-                logged_artifact = experiment.get_artifact(id)
-                print(logged_artifact.source_experiment_key, id)
-                results[logged_artifact.source_experiment_key] = id
-            except Exception as e:
-                print(f"Error retrieving artifact {id}: {e}")
+            artifact_name = artifact_dict['name']
+            if artifact_name in new_artifact_names:
+                try:
+                    logged_artifact = experiment.get_artifact(artifact_name)
+                    print(f"Adding new artifact: {logged_artifact.source_experiment_key} -> {artifact_name}")
+                    results[logged_artifact.source_experiment_key] = artifact_name
+                except Exception as e:
+                    print(f"Error retrieving artifact {artifact_name}: {e}")
 
-        # Save results to a file
+        # Save updated results to file
         with open(filename, "w") as file:
             json.dump(results, file, indent=4)
         experiment.end()
+        
+        if new_artifact_names:
+            print(f"Added {len(new_artifact_names)} new artifacts to cache")
+        else:
+            print("No new artifacts found")
+            
         return results
 
     def get_experiments_by_metrics(self, project_name: str = None, score_threshold: float = None, reward_threshold: float = None, max : bool = False):
@@ -152,11 +174,16 @@ class CometExperimentManager:
             })
         # Sort results by 'reward_100' in descending order, then by 'reward_other' in descending order
         results.sort(key=lambda x: (-x['reward_100'], -x['reward_other']))
-        # Save results to CSV
-        with open(output_csv, mode='w', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=['name', 'score', 'mode', 'reward_100', 'reward_-100', 'reward_other', 'experiment_key', 'artifact_name'])
-            writer.writeheader()
-            writer.writerows(results)
+        
+        # Only save results to CSV if there are actually results
+        if results:
+            with open(output_csv, mode='w', newline='') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=['name', 'score', 'mode', 'reward_100', 'reward_-100', 'reward_other', 'experiment_key', 'artifact_name'])
+                writer.writeheader()
+                writer.writerows(results)
+            print(f"Saved {len(results)} results to {output_csv}")
+        else:
+            print("No results to save - CSV file not created")
 
     def get_workspace_projects(self):
         """
