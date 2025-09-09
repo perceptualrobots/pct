@@ -131,7 +131,21 @@ class PCTHierarchy():
         
         return output
         
-
+    def get_num_links(self):
+        num_links = 0
+        for func in self.preCollection:
+            num_links += len(getattr(func, 'links', []))
+        for func in self.postCollection:
+            num_links += len(getattr(func, 'links', []))
+        for level in self.hierarchy:
+            for node in level:
+                if hasattr(node, 'get_num_links'):
+                    num_links += node.get_num_links()
+        return num_links
+        
+    def get_num_nodes(self):
+            return sum(len(level) for level in self.hierarchy)
+        
     def is_fitness_close_to_zero(self):
         return self.get_environment().is_fitness_close_to_zero()
 

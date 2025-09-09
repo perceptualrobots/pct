@@ -233,6 +233,8 @@ class PCTExamples:
                     video_params['filename'] = f"/tmp/{base_name}_video.mp4"                
 
             # Create PCTExamples instance, pass video_params to constructor
+            if not config_file:
+                return results
             example = cls(
                 config_file=config_file,
                 early_termination=early_termination,
@@ -350,11 +352,11 @@ class PCTExamples:
         Usage Examples:
         
         # Basic run with MountainCar config
-        result = PCTExamples.run_example('testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties')
+        result = PCTExamples.run_example('testfiles/MountainCar/MountainCar-cdf7cc.properties')
         
         # Full featured run
         result = PCTExamples.run_example(
-            config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
+            config_file='testfiles/MountainCar/MountainCar-cdf7cc.properties',
             run_hierarchy=True,
             render=True,
             image_params={'figsize': (16, 10), 'with_labels': True},
@@ -369,7 +371,7 @@ class PCTExamples:
         
         # Just create image and get config
         result = PCTExamples.run_example(
-            config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
+            config_file='testfiles/MountainCar/MountainCar-cdf7cc.properties',
             run_hierarchy=False,
             image_params={'figsize': (16, 10), 'with_labels': True},
             plot_params={'single_plot': True, 'plots': {'title': 'position_plot', 'plot_items': ['position']}},
