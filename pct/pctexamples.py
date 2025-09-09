@@ -42,6 +42,53 @@ class PCTExamples:
         Returns the configuration of the hierarchy.
         """
         return self.hierarchy.get_config()
+        
+    def get_model_details(self):
+        """
+        Returns details about the model including total nodes and total parameters in JSON format.
+        
+        Returns:
+            dict: A dictionary containing model statistics
+                - total_nodes: Total number of nodes in the hierarchy
+                - total_parameters: Total number of links/parameters in the hierarchy
+                - node_types: Count of each type of node in the hierarchy (if available)
+        """
+        import json
+        
+        # Get total nodes directly using the hierarchy's get_num_nodes method
+        total_nodes = self.hierarchy.get_num_nodes()
+        
+        # Get total parameters (links) using the hierarchy's get_num_links method
+        total_parameters = self.hierarchy.get_num_links()
+        
+        # Get the config which contains all nodes
+        config = self.hierarchy.get_config()
+        
+        # For node types distribution, use the config to identify node types
+        node_types = {}
+        
+        # Try to get node types from the configuration
+        try:
+            # The configuration contains information about all nodes
+            for node_name, node_info in config.items():
+                if isinstance(node_info, dict) and "type" in node_info:
+                    node_type = node_info["type"]
+                    if node_type in node_types:
+                        node_types[node_type] += 1
+                    else:
+                        node_types[node_type] = 1
+        except:
+            # If we can't get node types from the config, provide a simplified result
+            node_types = {"UnknownTypes": total_nodes}
+        
+        # Create the result dictionary
+        model_details = {
+            "total_nodes": total_nodes,
+            "total_parameters": total_parameters,
+            "node_types": node_types
+        }
+        
+        return model_details
 
     def draw(self, with_labels=True, with_edge_labels=False, font_size=12, font_weight='bold', font_color='black', 
                        color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
@@ -142,7 +189,7 @@ class PCTExamples:
             plotfile = plots_dir + sep + title_prefix + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
         fig = self.hierarchy.hierarchy_plots(title=title_prefix + plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
         return fig
-
+        
     @classmethod
     def run_example(cls, config_file, 
                     run_hierarchy=True,
@@ -157,6 +204,7 @@ class PCTExamples:
                     video_params=None,
                     plot_params=None,
                     history=None,  # Allow explicit history control
+                    get_model_details=False,  # New parameter to get model details
                     **kwargs):
         """
         Class method to run a PCT hierarchy example with various options.
@@ -175,6 +223,7 @@ class PCTExamples:
             video_params (dict or None): If not None, parameters for video creation (triggers video creation)
             plot_params (dict or None): If not None, parameters for plot creation (triggers plot creation)
             history (bool): Explicit control over history tracking (default: None - auto-determined)
+            get_model_details (bool): Whether to include model statistics in results (default: False)
             **kwargs: Additional parameters passed to PCTExamples constructor
         
         Returns:
@@ -200,13 +249,14 @@ class PCTExamples:
                     steps=1000,              # Override step count
                     print_summary=True,      # Print hierarchy summary
                     return_config=True,      # Return configuration
-                    verbose=True             # Verbose output
+                    verbose=True,            # Verbose output
+                    get_model_details=True   # Include model statistics in results
                 )
             
             Returns dictionary with results and any requested outputs.
             """
             print(usage_text)
-            if not any([run_hierarchy, image_params is not None, video_params is not None, plot_params is not None, print_summary, return_config]):
+            if not any([run_hierarchy, image_params is not None, video_params is not None, plot_params is not None, print_summary, return_config, get_model_details]):
                 return {"usage_displayed": True}
         
          
@@ -256,6 +306,15 @@ class PCTExamples:
                 results['config'] = config
                 if verbose:
                     print("=== Configuration Retrieved ===")
+                    
+            # Get model details if requested
+            if get_model_details:
+                if verbose:
+                    print("=== Getting Model Details ===")
+                model_details = example.get_model_details()
+                results['model_details'] = model_details
+                if verbose:
+                    print(f"Model has {model_details['total_nodes']} nodes and {model_details['total_parameters']} parameters")
             
             # Create hierarchy image if image_params is not None
             if image_params is not None:
@@ -366,7 +425,8 @@ class PCTExamples:
             steps=5000,
             print_summary=True,
             return_config=True,
-            verbose=True
+            verbose=True,
+            get_model_details=True
         )
         
         # Just create image and get config
@@ -377,6 +437,13 @@ class PCTExamples:
             plot_params={'single_plot': True, 'plots': {'title': 'position_plot', 'plot_items': ['position']}},
             return_config=True,
             print_summary=True
+        )
+        
+        # Get model statistics only
+        result = PCTExamples.run_example(
+            config_file='testfiles/MountainCar/MountainCar-cdf7cc.properties',
+            run_hierarchy=False,
+            get_model_details=True
         )
         
         # Display usage help
