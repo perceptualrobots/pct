@@ -139,8 +139,7 @@ class PCTHierarchy():
             num_links += len(getattr(func, 'links', []))
         for level in self.hierarchy:
             for node in level:
-                if hasattr(node, 'get_num_links'):
-                    num_links += node.get_num_links()
+                num_links += node.get_num_links()
         return num_links
         
     def get_num_nodes(self):

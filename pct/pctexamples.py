@@ -19,14 +19,14 @@ class PCTExamples:
     """
 
     def __init__(self, config_file, min=True, early_termination=False, history=False, additional_props=None, 
-                 render=False, video_params=None):
+                 render=False, video_params=None, suffixes=False):
         """
         Initializes the PCTExamples instance by loading the hierarchy from the given configuration file.
         """
         self.config_file = config_file
         self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(
             config_file, min=min, early_termination=early_termination, history=history, 
-            additional_props=additional_props, render=render, video=video_params, suffixes=True
+            additional_props=additional_props, render=render, video=video_params, suffixes=suffixes
         )
         self.history_data = None
         self.history = history
@@ -58,7 +58,7 @@ class PCTExamples:
         total_nodes = self.hierarchy.get_num_nodes()
         
         # Get total parameters (links) using the hierarchy's get_num_links method
-        total_parameters = self.hierarchy.get_num_links()
+        total_parameters = self.hierarchy.get_num_links() - 2 * total_nodes
         
         # Create the result dictionary
         model_details = {

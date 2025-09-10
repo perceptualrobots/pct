@@ -140,6 +140,42 @@ class PCTNode():
         
         return " ".join((r, p, c, o))
     
+    def get_num_links(self):
+        """
+        Returns the total number of links in all functions of this node.
+        
+        Returns:
+            int: The total count of all links across reference, perception, 
+                 comparator, and output collections.
+        """
+        total_links = 0
+        
+        # Count links in reference collection
+        if self.referenceCollection:
+            for func in self.referenceCollection:
+                if hasattr(func, 'links'):
+                    total_links += len(func.links)
+        
+        # Count links in perception collection
+        if self.perceptionCollection:
+            for func in self.perceptionCollection:
+                if hasattr(func, 'links'):
+                    total_links += len(func.links)
+        
+        # Count links in comparator collection
+        if self.comparatorCollection:
+            for func in self.comparatorCollection:
+                if hasattr(func, 'links'):
+                    total_links += len(func.links)
+        
+        # Count links in output collection
+        if self.outputCollection:
+            for func in self.outputCollection:
+                if hasattr(func, 'links'):
+                    total_links += len(func.links)
+        
+        return total_links
+    
     def set_name(self, name):
         self.name=name
     
@@ -865,7 +901,7 @@ class PCTNode():
             elif mode == 5  or mode == 6 :
                 type = 'SmoothWeightedSum'
                 
-        return type    
+        return type
 
 # %% ../nbs/03_nodes.ipynb 8
 class PCTNodeData():
