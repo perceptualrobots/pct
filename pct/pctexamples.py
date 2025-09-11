@@ -19,14 +19,14 @@ class PCTExamples:
     """
 
     def __init__(self, config_file, min=True, early_termination=False, history=False, additional_props=None, 
-                 render=False, video_params=None):
+                 render=False, video_params=None, suffixes=False):
         """
         Initializes the PCTExamples instance by loading the hierarchy from the given configuration file.
         """
         self.config_file = config_file
         self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(
             config_file, min=min, early_termination=early_termination, history=history, 
-            additional_props=additional_props, render=render, video=video_params, suffixes=True
+            additional_props=additional_props, render=render, video=video_params, suffixes=suffixes
         )
         self.history_data = None
         self.history = history
@@ -51,7 +51,6 @@ class PCTExamples:
             dict: A dictionary containing model statistics
                 - total_nodes: Total number of nodes in the hierarchy
                 - total_parameters: Total number of links/parameters in the hierarchy
-                - node_types: Count of each type of node in the hierarchy (if available)
         """
         import json
         
@@ -59,33 +58,12 @@ class PCTExamples:
         total_nodes = self.hierarchy.get_num_nodes()
         
         # Get total parameters (links) using the hierarchy's get_num_links method
-        total_parameters = self.hierarchy.get_num_links()
-        
-        # Get the config which contains all nodes
-        config = self.hierarchy.get_config()
-        
-        # For node types distribution, use the config to identify node types
-        node_types = {}
-        
-        # Try to get node types from the configuration
-        try:
-            # The configuration contains information about all nodes
-            for node_name, node_info in config.items():
-                if isinstance(node_info, dict) and "type" in node_info:
-                    node_type = node_info["type"]
-                    if node_type in node_types:
-                        node_types[node_type] += 1
-                    else:
-                        node_types[node_type] = 1
-        except:
-            # If we can't get node types from the config, provide a simplified result
-            node_types = {"UnknownTypes": total_nodes}
+        total_parameters = self.hierarchy.get_num_links() - 2 * total_nodes
         
         # Create the result dictionary
         model_details = {
             "total_nodes": total_nodes,
-            "total_parameters": total_parameters,
-            "node_types": node_types
+            "total_parameters": total_parameters
         }
         
         return model_details
