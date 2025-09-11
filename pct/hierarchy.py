@@ -131,6 +131,7 @@ class PCTHierarchy():
         
         return output
         
+
     def get_num_links(self):
         num_links = 0
         for func in self.preCollection:

@@ -75,12 +75,14 @@ class ControlEnvironment(BaseFunction):
     def save_video(self, video_name=None, fps=30):
         if self.video:
             if video_name is None:
-                if 'filename' in self.video:
+                if isinstance(self.video, dict) and 'filename' in self.video:
                     video_name = self.video['filename']
-                else:   
+                else:
                     video_name = self.name.replace(" ", "_") + ".mp4"
-            if 'fps' in self.video:
+            if isinstance(self.video, dict) and 'fps' in self.video:
                 fps = self.video['fps']
+            else:
+                fps = 30
             imageio.mimsave(video_name, self.frames, fps=fps)
             print(f"Video saved as {video_name}")
 
