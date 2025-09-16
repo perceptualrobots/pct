@@ -4,10 +4,15 @@
 __all__ = ['PCTExamples']
 
 # %% ../nbs/19_pctexamples.ipynb 3
+import json, os
+import matplotlib.pyplot as plt
+from   matplotlib import colors
+
+# %% ../nbs/19_pctexamples.ipynb 4
 from .hierarchy import PCTHierarchy
 from .environment_processing import EnvironmentProcessingFactory
 
-# %% ../nbs/19_pctexamples.ipynb 5
+# %% ../nbs/19_pctexamples.ipynb 6
 class PCTExamples:
     """
     PCTExamples class provides methods to load a PCT hierarchy from a configuration file, 
@@ -52,7 +57,6 @@ class PCTExamples:
                 - total_nodes: Total number of nodes in the hierarchy
                 - total_parameters: Total number of links/parameters in the hierarchy
         """
-        import json
         
         # Get total nodes directly using the hierarchy's get_num_nodes method
         total_nodes = self.hierarchy.get_num_nodes()
@@ -144,12 +148,11 @@ class PCTExamples:
         plots = self.hierarchy.get_plots_config(plots, title_prefix)
         print(plots)
 
-        from os import sep
         for plot in plots:
             print(plot)
             plotfile=None
             if plots_dir:
-                plotfile = plots_dir + sep + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
+                plotfile = plots_dir + os.sep + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
             fig = self.hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
         return fig
 
@@ -158,13 +161,11 @@ class PCTExamples:
         Plot one item of the history of the hierarchy.
         """
 
-        from os import sep, path, makedirs
-
         plotfile=None
         if plots_dir:
-            if not path.exists(plots_dir):
-                makedirs(plots_dir)
-            plotfile = plots_dir + sep + title_prefix + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
+            if not os.path.exists(plots_dir):
+                os.makedirs(plots_dir)
+            plotfile = plots_dir + os.sep + title_prefix + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
         fig = self.hierarchy.hierarchy_plots(title=title_prefix + plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
         return fig
 
@@ -255,7 +256,6 @@ class PCTExamples:
                 
                 # Set default filename if not provided
                 if video_params.get('filename') is None:
-                    import os
                     base_name = os.path.splitext(os.path.basename(config_file))[0]
                     video_params['filename'] = f"/tmp/{base_name}_video.mp4"                
 
@@ -289,7 +289,6 @@ class PCTExamples:
                 
                 # Set default filename if not provided
                 if image_params.get('file') is None:
-                    import os
                     base_name = os.path.splitext(os.path.basename(config_file))[0]
                     image_params['file'] = f"/tmp/{base_name}_hierarchy.png"
                 
