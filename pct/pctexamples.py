@@ -75,12 +75,12 @@ class PCTExamples:
     def draw(self, with_labels=True, with_edge_labels=False, font_size=12, font_weight='bold', font_color='black', 
                        color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
                        node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, draw_fig=True,
-                       node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None):
+                       node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None, layout_seed=1):
         """
         Draws the hierarchy with the specified parameters and returns the figure.
         """
         fig = self.hierarchy.draw(with_labels, with_edge_labels, font_size, font_weight, font_color, color_mapping, node_size, 
-                            arrowsize, align, file, figsize, move, draw_fig, node_color, layout, funcdata, interactive_mode, experiment)
+                            arrowsize, align, file, figsize, move, draw_fig, node_color, layout, funcdata, interactive_mode, experiment, layout_seed)
         
         return fig
 
