@@ -323,7 +323,7 @@ class PCTExamples:
                 run_result = example.run(steps=run_steps, verbose=verbose)
                 results['run_result'] = run_result
                 results['steps_completed'] = run_steps
-                
+                example.close()
                 if verbose:
                     print(f"Hierarchy completed {run_steps} steps")
             
