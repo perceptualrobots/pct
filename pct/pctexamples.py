@@ -183,6 +183,7 @@ class PCTExamples:
                     video_params=None,
                     plot_params=None,
                     history=None,  # Allow explicit history control
+                    get_model_details=False,  # Add option to get model details
                     **kwargs):
         """
         Class method to run a PCT hierarchy example with various options.
@@ -201,6 +202,7 @@ class PCTExamples:
             video_params (dict or None): If not None, parameters for video creation (triggers video creation)
             plot_params (dict or None): If not None, parameters for plot creation (triggers plot creation)
             history (bool): Explicit control over history tracking (default: None - auto-determined)
+            get_model_details (bool): Whether to include model statistics in results (default: False)
             **kwargs: Additional parameters passed to PCTExamples constructor
         
         Returns:
@@ -222,6 +224,7 @@ class PCTExamples:
                     image_params={...},      # Create hierarchy diagram if not None
                     video_params={...},      # Create video if not None
                     plot_params={...},       # Create plots if not None
+                    get_model_details=True,  # Include model statistics in results
                     early_termination=True,  # Enable early termination
                     steps=1000,              # Override step count
                     print_summary=True,      # Print hierarchy summary
@@ -234,7 +237,7 @@ class PCTExamples:
             print(usage_text)
             if config_file is None or (isinstance(config_file, (str, bytes)) and not config_file) or (isinstance(config_file, (tuple, list)) and not config_file):
                 return {"usage_displayed": True}
-            if not any([run_hierarchy, image_params is not None, video_params is not None, plot_params is not None, print_summary, return_config]):
+            if not any([run_hierarchy, image_params is not None, video_params is not None, plot_params is not None, print_summary, return_config, get_model_details]):
                 return {"usage_displayed": True}
         
          
@@ -281,6 +284,15 @@ class PCTExamples:
                 results['config'] = config
                 if verbose:
                     print("=== Configuration Retrieved ===")
+            
+            # Get model details if requested
+            if get_model_details:
+                if verbose:
+                    print("=== Getting Model Details ===")
+                model_stats = example.get_model_details()
+                results['model_details'] = model_stats
+                if verbose:
+                    print(f"Model has {model_stats['total_nodes']} nodes and {model_stats['total_parameters']} parameters")
             
             # Create hierarchy image if image_params is not None
             if image_params is not None:
@@ -378,7 +390,7 @@ class PCTExamples:
         # Basic run with MountainCar config
         result = PCTExamples.run_example('testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties')
         
-        # Full featured run
+        # Full featured run with model details
         result = PCTExamples.run_example(
             config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
             run_hierarchy=True,
@@ -390,18 +402,17 @@ class PCTExamples:
             steps=5000,
             print_summary=True,
             return_config=True,
+            get_model_details=True,
             verbose=True
         )
         
-        # Just create image and get config
+        # Just get model details without running
         result = PCTExamples.run_example(
             config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
             run_hierarchy=False,
-            image_params={'figsize': (16, 10), 'with_labels': True},
-            plot_params={'single_plot': True, 'plots': {'title': 'position_plot', 'plot_items': ['position']}},
-            return_config=True,
-            print_summary=True
+            get_model_details=True
         )
+        print(f"Model has {result['model_details']['total_nodes']} nodes and {result['model_details']['total_parameters']} parameters")
         
         # Display usage help
         PCTExamples.run_example('', display_usage=True)
