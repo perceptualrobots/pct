@@ -4,10 +4,15 @@
 __all__ = ['PCTExamples']
 
 # %% ../nbs/19_pctexamples.ipynb 3
+import json, os
+import matplotlib.pyplot as plt
+from   matplotlib import colors
+
+# %% ../nbs/19_pctexamples.ipynb 4
 from .hierarchy import PCTHierarchy
 from .environment_processing import EnvironmentProcessingFactory
 
-# %% ../nbs/19_pctexamples.ipynb 5
+# %% ../nbs/19_pctexamples.ipynb 6
 class PCTExamples:
     """
     PCTExamples class provides methods to load a PCT hierarchy from a configuration file, 
@@ -52,7 +57,6 @@ class PCTExamples:
                 - total_nodes: Total number of nodes in the hierarchy
                 - total_parameters: Total number of links/parameters in the hierarchy
         """
-        import json
         
         # Get total nodes directly using the hierarchy's get_num_nodes method
         total_nodes = self.hierarchy.get_num_nodes()
@@ -71,12 +75,12 @@ class PCTExamples:
     def draw(self, with_labels=True, with_edge_labels=False, font_size=12, font_weight='bold', font_color='black', 
                        color_mapping={'PL':'aqua','OL':'limegreen','CL':'goldenrod', 'RL':'red', 'I':'silver', 'A':'yellow'},
                        node_size=500, arrowsize=25, align='horizontal', file=None, figsize=(8,8), move={}, draw_fig=True,
-                       node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None):
+                       node_color=None, layout={'r':2,'c':1,'p':2, 'o':0}, funcdata=False, interactive_mode=False, experiment=None, layout_seed=1):
         """
         Draws the hierarchy with the specified parameters and returns the figure.
         """
         fig = self.hierarchy.draw(with_labels, with_edge_labels, font_size, font_weight, font_color, color_mapping, node_size, 
-                            arrowsize, align, file, figsize, move, draw_fig, node_color, layout, funcdata, interactive_mode, experiment)
+                            arrowsize, align, file, figsize, move, draw_fig, node_color, layout, funcdata, interactive_mode, experiment, layout_seed)
         
         return fig
 
@@ -144,12 +148,11 @@ class PCTExamples:
         plots = self.hierarchy.get_plots_config(plots, title_prefix)
         print(plots)
 
-        from os import sep
         for plot in plots:
             print(plot)
             plotfile=None
             if plots_dir:
-                plotfile = plots_dir + sep + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
+                plotfile = plots_dir + os.sep + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
             fig = self.hierarchy.hierarchy_plots(title=plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
         return fig
 
@@ -158,18 +161,16 @@ class PCTExamples:
         Plot one item of the history of the hierarchy.
         """
 
-        from os import sep, path, makedirs
-
         plotfile=None
         if plots_dir:
-            if not path.exists(plots_dir):
-                makedirs(plots_dir)
-            plotfile = plots_dir + sep + title_prefix + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
+            if not os.path.exists(plots_dir):
+                os.makedirs(plots_dir)
+            plotfile = plots_dir + os.sep + title_prefix + plot['title'] + '-' + str(self.hierarchy.get_namespace()) + '.png'
         fig = self.hierarchy.hierarchy_plots(title=title_prefix + plot['title'], plot_items=plot['plot_items'], figsize=plots_figsize, file=plotfile, history=history_data)
         return fig
-        
+
     @classmethod
-    def run_example(cls, config_file, 
+    def run_example(cls, config_file=None, 
                     run_hierarchy=True,
                     render=False, 
                     early_termination=True,
@@ -182,7 +183,7 @@ class PCTExamples:
                     video_params=None,
                     plot_params=None,
                     history=None,  # Allow explicit history control
-                    get_model_details=False,  # New parameter to get model details
+                    get_model_details=False,  # Add option to get model details
                     **kwargs):
         """
         Class method to run a PCT hierarchy example with various options.
@@ -223,17 +224,19 @@ class PCTExamples:
                     image_params={...},      # Create hierarchy diagram if not None
                     video_params={...},      # Create video if not None
                     plot_params={...},       # Create plots if not None
+                    get_model_details=True,  # Include model statistics in results
                     early_termination=True,  # Enable early termination
                     steps=1000,              # Override step count
                     print_summary=True,      # Print hierarchy summary
                     return_config=True,      # Return configuration
-                    verbose=True,            # Verbose output
-                    get_model_details=True   # Include model statistics in results
+                    verbose=True             # Verbose output
                 )
             
             Returns dictionary with results and any requested outputs.
             """
             print(usage_text)
+            if config_file is None or (isinstance(config_file, (str, bytes)) and not config_file) or (isinstance(config_file, (tuple, list)) and not config_file):
+                return {"usage_displayed": True}
             if not any([run_hierarchy, image_params is not None, video_params is not None, plot_params is not None, print_summary, return_config, get_model_details]):
                 return {"usage_displayed": True}
         
@@ -256,13 +259,10 @@ class PCTExamples:
                 
                 # Set default filename if not provided
                 if video_params.get('filename') is None:
-                    import os
                     base_name = os.path.splitext(os.path.basename(config_file))[0]
                     video_params['filename'] = f"/tmp/{base_name}_video.mp4"                
 
             # Create PCTExamples instance, pass video_params to constructor
-            if not config_file:
-                return results
             example = cls(
                 config_file=config_file,
                 early_termination=early_termination,
@@ -284,15 +284,15 @@ class PCTExamples:
                 results['config'] = config
                 if verbose:
                     print("=== Configuration Retrieved ===")
-                    
+            
             # Get model details if requested
             if get_model_details:
                 if verbose:
                     print("=== Getting Model Details ===")
-                model_details = example.get_model_details()
-                results['model_details'] = model_details
+                model_stats = example.get_model_details()
+                results['model_details'] = model_stats
                 if verbose:
-                    print(f"Model has {model_details['total_nodes']} nodes and {model_details['total_parameters']} parameters")
+                    print(f"Model has {model_stats['total_nodes']} nodes and {model_stats['total_parameters']} parameters")
             
             # Create hierarchy image if image_params is not None
             if image_params is not None:
@@ -301,7 +301,6 @@ class PCTExamples:
                 
                 # Set default filename if not provided
                 if image_params.get('file') is None:
-                    import os
                     base_name = os.path.splitext(os.path.basename(config_file))[0]
                     image_params['file'] = f"/tmp/{base_name}_hierarchy.png"
                 
@@ -324,7 +323,7 @@ class PCTExamples:
                 run_result = example.run(steps=run_steps, verbose=verbose)
                 results['run_result'] = run_result
                 results['steps_completed'] = run_steps
-                
+                example.close()
                 if verbose:
                     print(f"Hierarchy completed {run_steps} steps")
             
@@ -389,11 +388,11 @@ class PCTExamples:
         Usage Examples:
         
         # Basic run with MountainCar config
-        result = PCTExamples.run_example('testfiles/MountainCar/MountainCar-cdf7cc.properties')
+        result = PCTExamples.run_example('testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties')
         
-        # Full featured run
+        # Full featured run with model details
         result = PCTExamples.run_example(
-            config_file='testfiles/MountainCar/MountainCar-cdf7cc.properties',
+            config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
             run_hierarchy=True,
             render=True,
             image_params={'figsize': (16, 10), 'with_labels': True},
@@ -403,26 +402,17 @@ class PCTExamples:
             steps=5000,
             print_summary=True,
             return_config=True,
-            verbose=True,
-            get_model_details=True
+            get_model_details=True,
+            verbose=True
         )
         
-        # Just create image and get config
+        # Just get model details without running
         result = PCTExamples.run_example(
-            config_file='testfiles/MountainCar/MountainCar-cdf7cc.properties',
-            run_hierarchy=False,
-            image_params={'figsize': (16, 10), 'with_labels': True},
-            plot_params={'single_plot': True, 'plots': {'title': 'position_plot', 'plot_items': ['position']}},
-            return_config=True,
-            print_summary=True
-        )
-        
-        # Get model statistics only
-        result = PCTExamples.run_example(
-            config_file='testfiles/MountainCar/MountainCar-cdf7cc.properties',
+            config_file='testfiles/MountainCar/MountainCar-cdf7cc1497ad143c0b04a3d9e72ab783.properties',
             run_hierarchy=False,
             get_model_details=True
         )
+        print(f"Model has {result['model_details']['total_nodes']} nodes and {result['model_details']['total_parameters']} parameters")
         
         # Display usage help
         PCTExamples.run_example('', display_usage=True)
