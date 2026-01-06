@@ -306,7 +306,7 @@ class PCTExamples:
                     print("=== Running Hierarchy ===")
                 
                 # Use provided steps or default from config
-                run_steps = steps if steps is not None else 1000
+                run_steps = steps if steps is not None else 500
                 
                 run_result = example.run(steps=run_steps, verbose=verbose)
                 results['run_result'] = run_result
