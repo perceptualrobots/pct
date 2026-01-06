@@ -23,16 +23,16 @@ def main():
         epilog="""
 Examples:
   # Basic run
-  python pct_example.py config.properties
+  python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties'
   
   # Run with rendering and verbose output
-  python pct_example.py config.properties --render --verbose
+  python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --render --verbose
   
   # Run with image output
-  python pct_example.py config.properties --image --image-size 16 10
+  python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --image --image-size 16 10
   
   # Full featured run with all options
-  python pct_example.py config.properties --run --render --steps 5000 --image --verbose
+  python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --run --render --steps 5000 --image --verbose
         """
     )
     
