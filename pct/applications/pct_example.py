@@ -28,9 +28,12 @@ Examples:
   # Run with rendering and verbose output
   python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --render --verbose
   python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-4905d2.properties' --render --verbose
-  
+
   # Run with image output
   python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --image --image-size 16 10
+  
+  # Run with video output
+  python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-4905d2.properties' --render --video --video-file output.mp4 --fps 60
   
   # Full featured run with all options
   python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --run --render --steps 5000 --image --verbose
