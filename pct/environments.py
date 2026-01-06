@@ -1219,12 +1219,9 @@ class WebotsWrestler(ControlEnvironment):
 class WebotsWrestlerSupervisor(ControlEnvironment):
     "A function that creates and runs a Webots Wrestler robot."
     
-    def __init__(self, render=False, value=0, name="WebotsWrestlerSupervisor", seed=None, links=None, new_name=True, 
-                 early_termination=True, namespace=None):    
+    def __init__(self, render=False, value=0, name="WebotsWrestlerSupervisor", seed=None, links=None, new_name=True, early_termination=True, namespace=None):    
         super().__init__(name=name, value=value, links=links, new_name=new_name, namespace=namespace)
         self.early_termination=early_termination
-#         from controllers.participant.participant import WrestlerSupervisor
-#         SingletonObjects.getInstance().get_object('wrestler').initSupervisor()
         self.performance=0
         self.env_name='WebotsWrestlerSupervisor'
         self.reward = 0
