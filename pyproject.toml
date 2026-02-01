@@ -12,7 +12,7 @@ license = {text = "Apache-2.0"}
 authors = [{name = "Rupert Young", email = "rupert@perceptualrobots.com"}]
 keywords = ['pct,', 'control', 'systems,', 'robotics,', 'psychology']
 classifiers = ["Natural Language :: English", "Intended Audience :: Developers", "Development Status :: 2 - Pre-Alpha", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only"]
-dependencies = ['numpy>=1.26.0', 'pandas>=1.5.3', 'ghapi', 'packaging', 'ipython', 'imageio', 'imageio-ffmpeg', 'drl_microgrid_ems', 'deprecated', 'pygame', 'plotly', 'matplotlib', 'scipy', 'gym==0.23.1', 'networkx==2.8.7', 'graphviz', 'jproperties', 'openpyxl', 'comet_ml']
+dependencies = ['numpy>=1.26.0', 'pandas>=1.5.3', 'ghapi', 'packaging', 'ipython', 'imageio', 'imageio-ffmpeg', 'drl_microgrid_ems', 'deprecated', 'pygame', 'plotly', 'matplotlib', 'scipy', 'gym==0.23.1', 'networkx>=2.8.7', 'graphviz', 'jproperties', 'openpyxl', 'comet_ml']
 
 [project.urls]
 Repository = "https://github.com/perceptualrobots/pct/tree/master/"
