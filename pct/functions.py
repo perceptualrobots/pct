@@ -28,8 +28,6 @@ class HPCTFUNCTION(IntEnum):
     COMPARATOR = auto()
     OUTPUT = auto()
     ACTION = auto()
-    
-
 
 # %% ../nbs/02_functions.ipynb 8
 class BaseFunction(ABC):
