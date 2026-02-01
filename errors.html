@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Types of error response of a percectual control hierarchy.">
+
+<title>Errors – pct</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Errors – pct">
+<meta property="og:description" content="Types of error response of a percectual control hierarchy.">
+<meta property="og:site_name" content="pct">
+<meta name="twitter:title" content="Errors – pct">
+<meta name="twitter:description" content="Types of error response of a percectual control hierarchy.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">pct</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./errors.html">Errors</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Perceptual Control Theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./putils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Utilities</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./nodes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Nodes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hierarchy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hierarchy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structure</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./errors.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Errors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./architectures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Architectures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./webots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webots</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./network.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Network</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./yaw_module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Yaw Module</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./microgrid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MicroGrid</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helpers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Helper classes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./arc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARC environment classes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environment_processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environment processing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">plotarrays classes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">application functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pctexamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PCTExamples class</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Experiments class</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pctresults.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PCT Results</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./unittests_run_hierarchies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">unittests_run_hierarchies</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pcthierarchy_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PCTHierarchy Usage</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pctexamples_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PCT Examples Usage</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./experimental_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Experimental Results</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#errorresponse---aggregation" id="toc-errorresponse---aggregation" class="nav-link active" data-scroll-target="#errorresponse---aggregation">ErrorResponse - aggregation</a>
+  <ul class="collapse">
+  <li><a href="#baseerrortype" id="toc-baseerrortype" class="nav-link" data-scroll-target="#baseerrortype">BaseErrorType</a>
+  <ul class="collapse">
+  <li><a href="#baseerrortype-1" id="toc-baseerrortype-1" class="nav-link" data-scroll-target="#baseerrortype-1">BaseErrorType</a></li>
+  </ul></li>
+  <li><a href="#rootsumsquarederror" id="toc-rootsumsquarederror" class="nav-link" data-scroll-target="#rootsumsquarederror">RootSumSquaredError</a>
+  <ul class="collapse">
+  <li><a href="#rootsumsquarederror-1" id="toc-rootsumsquarederror-1" class="nav-link" data-scroll-target="#rootsumsquarederror-1">RootSumSquaredError</a></li>
+  </ul></li>
+  <li><a href="#rootmeansquareerror" id="toc-rootmeansquareerror" class="nav-link" data-scroll-target="#rootmeansquareerror">RootMeanSquareError</a>
+  <ul class="collapse">
+  <li><a href="#rootmeansquareerror-1" id="toc-rootmeansquareerror-1" class="nav-link" data-scroll-target="#rootmeansquareerror-1">RootMeanSquareError</a></li>
+  </ul></li>
+  <li><a href="#summederror" id="toc-summederror" class="nav-link" data-scroll-target="#summederror">SummedError</a>
+  <ul class="collapse">
+  <li><a href="#summederror-1" id="toc-summederror-1" class="nav-link" data-scroll-target="#summederror-1">SummedError</a></li>
+  </ul></li>
+  <li><a href="#currenterror" id="toc-currenterror" class="nav-link" data-scroll-target="#currenterror">CurrentError</a>
+  <ul class="collapse">
+  <li><a href="#currenterror-1" id="toc-currenterror-1" class="nav-link" data-scroll-target="#currenterror-1">CurrentError</a></li>
+  </ul></li>
+  <li><a href="#currentrmserror" id="toc-currentrmserror" class="nav-link" data-scroll-target="#currentrmserror">CurrentRMSError</a>
+  <ul class="collapse">
+  <li><a href="#currentrmserror-1" id="toc-currentrmserror-1" class="nav-link" data-scroll-target="#currentrmserror-1">CurrentRMSError</a></li>
+  </ul></li>
+  <li><a href="#smootherror" id="toc-smootherror" class="nav-link" data-scroll-target="#smootherror">SmoothError</a>
+  <ul class="collapse">
+  <li><a href="#smootherror-1" id="toc-smootherror-1" class="nav-link" data-scroll-target="#smootherror-1">SmoothError</a></li>
+  </ul></li>
+  <li><a href="#movingsumerror" id="toc-movingsumerror" class="nav-link" data-scroll-target="#movingsumerror">MovingSumError</a>
+  <ul class="collapse">
+  <li><a href="#movingsumerror-1" id="toc-movingsumerror-1" class="nav-link" data-scroll-target="#movingsumerror-1">MovingSumError</a></li>
+  </ul></li>
+  <li><a href="#movingaverageerror" id="toc-movingaverageerror" class="nav-link" data-scroll-target="#movingaverageerror">MovingAverageError</a>
+  <ul class="collapse">
+  <li><a href="#movingaverageerror-1" id="toc-movingaverageerror-1" class="nav-link" data-scroll-target="#movingaverageerror-1">MovingAverageError</a></li>
+  </ul></li>
+  <li><a href="#welfordvarianceerror" id="toc-welfordvarianceerror" class="nav-link" data-scroll-target="#welfordvarianceerror">WelfordVarianceError</a>
+  <ul class="collapse">
+  <li><a href="#welfordvarianceerror-1" id="toc-welfordvarianceerror-1" class="nav-link" data-scroll-target="#welfordvarianceerror-1">WelfordVarianceError</a></li>
+  </ul></li>
+  <li><a href="#errorresponsefactory" id="toc-errorresponsefactory" class="nav-link" data-scroll-target="#errorresponsefactory">ErrorResponseFactory</a>
+  <ul class="collapse">
+  <li><a href="#errorresponsefactory-1" id="toc-errorresponsefactory-1" class="nav-link" data-scroll-target="#errorresponsefactory-1">ErrorResponseFactory</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#error-collection---from-each-iteration" id="toc-error-collection---from-each-iteration" class="nav-link" data-scroll-target="#error-collection---from-each-iteration">Error collection - from each iteration</a>
+  <ul class="collapse">
+  <li><a href="#errorcollectorfactory" id="toc-errorcollectorfactory" class="nav-link" data-scroll-target="#errorcollectorfactory">ErrorCollectorFactory</a>
+  <ul class="collapse">
+  <li><a href="#errorcollectorfactory-1" id="toc-errorcollectorfactory-1" class="nav-link" data-scroll-target="#errorcollectorfactory-1">ErrorCollectorFactory</a></li>
+  </ul></li>
+  <li><a href="#baseerrorcollector" id="toc-baseerrorcollector" class="nav-link" data-scroll-target="#baseerrorcollector">BaseErrorCollector</a>
+  <ul class="collapse">
+  <li><a href="#baseerrorcollector-1" id="toc-baseerrorcollector-1" class="nav-link" data-scroll-target="#baseerrorcollector-1">BaseErrorCollector</a></li>
+  </ul></li>
+  <li><a href="#totalerror" id="toc-totalerror" class="nav-link" data-scroll-target="#totalerror">TotalError</a>
+  <ul class="collapse">
+  <li><a href="#totalerror-1" id="toc-totalerror-1" class="nav-link" data-scroll-target="#totalerror-1">TotalError</a></li>
+  </ul></li>
+  <li><a href="#toperror" id="toc-toperror" class="nav-link" data-scroll-target="#toperror">TopError</a>
+  <ul class="collapse">
+  <li><a href="#toperror-1" id="toc-toperror-1" class="nav-link" data-scroll-target="#toperror-1">TopError</a></li>
+  </ul></li>
+  <li><a href="#inputserror" id="toc-inputserror" class="nav-link" data-scroll-target="#inputserror">InputsError</a>
+  <ul class="collapse">
+  <li><a href="#inputserror-1" id="toc-inputserror-1" class="nav-link" data-scroll-target="#inputserror-1">InputsError</a></li>
+  </ul></li>
+  <li><a href="#referencedinputserror" id="toc-referencedinputserror" class="nav-link" data-scroll-target="#referencedinputserror">ReferencedInputsError</a>
+  <ul class="collapse">
+  <li><a href="#referencedinputserror-1" id="toc-referencedinputserror-1" class="nav-link" data-scroll-target="#referencedinputserror-1">ReferencedInputsError</a></li>
+  </ul></li>
+  <li><a href="#rewarderror" id="toc-rewarderror" class="nav-link" data-scroll-target="#rewarderror">RewardError</a>
+  <ul class="collapse">
+  <li><a href="#rewarderror-1" id="toc-rewarderror-1" class="nav-link" data-scroll-target="#rewarderror-1">RewardError</a></li>
+  </ul></li>
+  <li><a href="#fitnesserror" id="toc-fitnesserror" class="nav-link" data-scroll-target="#fitnesserror">FitnessError</a>
+  <ul class="collapse">
+  <li><a href="#fitnesserror-1" id="toc-fitnesserror-1" class="nav-link" data-scroll-target="#fitnesserror-1">FitnessError</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/perceptualrobots/pct/tree/master/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Errors</h1>
+</div>
+
+<div>
+  <div class="description">
+    Types of error response of a percectual control hierarchy.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="c2e632f8" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> unittest <span class="im">import</span> TestCase</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="errorresponse---aggregation" class="level1">
+<h1>ErrorResponse - aggregation</h1>
+<section id="baseerrortype" class="level2">
+<h2 class="anchored" data-anchor-id="baseerrortype">BaseErrorType</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L22" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="baseerrortype-1" class="level3">
+<h3 class="anchored" data-anchor-id="baseerrortype-1">BaseErrorType</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> BaseErrorType(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base class of a type error response. This class is not used direclty by developers, but defines the interface common to all.</em></p>
+</section>
+</section>
+<section id="rootsumsquarederror" class="level2">
+<h2 class="anchored" data-anchor-id="rootsumsquarederror">RootSumSquaredError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L63" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="rootsumsquarederror-1" class="level3">
+<h3 class="anchored" data-anchor-id="rootsumsquarederror-1">RootSumSquaredError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> RootSumSquaredError(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The square root of the sum of the square of the errors.</em></p>
+</section>
+</section>
+<section id="rootmeansquareerror" class="level2">
+<h2 class="anchored" data-anchor-id="rootmeansquareerror">RootMeanSquareError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L81" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="rootmeansquareerror-1" class="level3">
+<h3 class="anchored" data-anchor-id="rootmeansquareerror-1">RootMeanSquareError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> RootMeanSquareError(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The square root of the mean of the sum of the square of the errors.</em></p>
+</section>
+</section>
+<section id="summederror" class="level2">
+<h2 class="anchored" data-anchor-id="summederror">SummedError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L106" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="summederror-1" class="level3">
+<h3 class="anchored" data-anchor-id="summederror-1">SummedError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> SummedError(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Sum of all errors.</em></p>
+</section>
+</section>
+<section id="currenterror" class="level2">
+<h2 class="anchored" data-anchor-id="currenterror">CurrentError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L124" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="currenterror-1" class="level3">
+<h3 class="anchored" data-anchor-id="currenterror-1">CurrentError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> CurrentError(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The current error, rather than a function of the historical values.</em></p>
+</section>
+</section>
+<section id="currentrmserror" class="level2">
+<h2 class="anchored" data-anchor-id="currentrmserror">CurrentRMSError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L139" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="currentrmserror-1" class="level3">
+<h3 class="anchored" data-anchor-id="currentrmserror-1">CurrentRMSError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> CurrentRMSError(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The current RMS error, rather than a function of the historical values.</em></p>
+</section>
+</section>
+<section id="smootherror" class="level2">
+<h2 class="anchored" data-anchor-id="smootherror">SmoothError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L155" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="smootherror-1" class="level3">
+<h3 class="anchored" data-anchor-id="smootherror-1">SmoothError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> SmoothError(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The exponential smoothed value of the error.</em></p>
+</section>
+</section>
+<section id="movingsumerror" class="level2">
+<h2 class="anchored" data-anchor-id="movingsumerror">MovingSumError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L179" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="movingsumerror-1" class="level3">
+<h3 class="anchored" data-anchor-id="movingsumerror-1">MovingSumError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> MovingSumError(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The moving sum of the error.</em></p>
+</section>
+</section>
+<section id="movingaverageerror" class="level2">
+<h2 class="anchored" data-anchor-id="movingaverageerror">MovingAverageError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L208" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="movingaverageerror-1" class="level3">
+<h3 class="anchored" data-anchor-id="movingaverageerror-1">MovingAverageError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> MovingAverageError(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The moving average of the error.</em></p>
+</section>
+</section>
+<section id="welfordvarianceerror" class="level2">
+<h2 class="anchored" data-anchor-id="welfordvarianceerror">WelfordVarianceError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L234" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="welfordvarianceerror-1" class="level3">
+<h3 class="anchored" data-anchor-id="welfordvarianceerror-1">WelfordVarianceError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> WelfordVarianceError(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    flip_error_response:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, population_variance:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Welford’s online algorithm for computing sample variance.</em></p>
+<p>This numerically stable algorithm computes the running variance without storing all previous values. It’s particularly useful for streaming data and avoids numerical precision issues that can occur with naive variance calculations.</p>
+<p>The algorithm maintains: - count: number of observations - mean: running mean - M2: sum of squared differences from the mean</p>
+<p>Variance Types: - Sample variance: M2 / (count - 1) - Uses Bessel’s correction (N-1) to provide an unbiased estimate when the data represents a sample from a larger population. This accounts for the loss of one degree of freedom from estimating the mean. - Population variance: M2 / count - Divides by N when the data represents the entire population of interest, not just a sample.</p>
+<p>The choice depends on whether your data is: - A sample from a larger population → use sample variance (default) - The complete population → use population variance</p>
+</section>
+</section>
+<section id="errorresponsefactory" class="level2">
+<h2 class="anchored" data-anchor-id="errorresponsefactory">ErrorResponseFactory</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L312" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="errorresponsefactory-1" class="level3">
+<h3 class="anchored" data-anchor-id="errorresponsefactory-1">ErrorResponseFactory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ErrorResponseFactory(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    args:VAR_POSITIONAL, kwargs:VAR_KEYWORD</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Initialize self. See help(type(self)) for accurate signature.</em></p>
+</section>
+</section>
+</section>
+<section id="error-collection---from-each-iteration" class="level1">
+<h1>Error collection - from each iteration</h1>
+<section id="errorcollectorfactory" class="level2">
+<h2 class="anchored" data-anchor-id="errorcollectorfactory">ErrorCollectorFactory</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L326" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="errorcollectorfactory-1" class="level3">
+<h3 class="anchored" data-anchor-id="errorcollectorfactory-1">ErrorCollectorFactory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ErrorCollectorFactory(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    args:VAR_POSITIONAL, kwargs:VAR_KEYWORD</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Initialize self. See help(type(self)) for accurate signature.</em></p>
+</section>
+</section>
+<section id="baseerrorcollector" class="level2">
+<h2 class="anchored" data-anchor-id="baseerrorcollector">BaseErrorCollector</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L340" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="baseerrorcollector-1" class="level3">
+<h3 class="anchored" data-anchor-id="baseerrorcollector-1">BaseErrorCollector</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> BaseErrorCollector(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    limit, error_response, <span class="bu">min</span>:<span class="bu">bool</span><span class="op">=</span><span class="va">True</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Base class of an error collector. This class is not used direclty by developers, but defines the interface common to all.</em></p>
+</section>
+</section>
+<section id="totalerror" class="level2">
+<h2 class="anchored" data-anchor-id="totalerror">TotalError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L445" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="totalerror-1" class="level3">
+<h3 class="anchored" data-anchor-id="totalerror-1">TotalError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> TotalError(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    limit:NoneType<span class="op">=</span><span class="va">None</span>, error_response:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">min</span>:NoneType<span class="op">=</span><span class="va">None</span>, cargs:VAR_KEYWORD</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A class to collect all the errors of the control system run.</em></p>
+</section>
+</section>
+<section id="toperror" class="level2">
+<h2 class="anchored" data-anchor-id="toperror">TopError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L463" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="toperror-1" class="level3">
+<h3 class="anchored" data-anchor-id="toperror-1">TopError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> TopError(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    limit:NoneType<span class="op">=</span><span class="va">None</span>, error_response:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">min</span>:NoneType<span class="op">=</span><span class="va">None</span>, cargs:VAR_KEYWORD</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A class to collect all the errors of the top-level nodes.</em></p>
+</section>
+</section>
+<section id="inputserror" class="level2">
+<h2 class="anchored" data-anchor-id="inputserror">InputsError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L483" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="inputserror-1" class="level3">
+<h3 class="anchored" data-anchor-id="inputserror-1">InputsError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> InputsError(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    limit:NoneType<span class="op">=</span><span class="va">None</span>, error_response:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">min</span>:NoneType<span class="op">=</span><span class="va">None</span>, cargs:VAR_KEYWORD</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A class to collect the values of the input values.</em></p>
+</section>
+</section>
+<section id="referencedinputserror" class="level2">
+<h2 class="anchored" data-anchor-id="referencedinputserror">ReferencedInputsError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L509" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="referencedinputserror-1" class="level3">
+<h3 class="anchored" data-anchor-id="referencedinputserror-1">ReferencedInputsError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ReferencedInputsError(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    limit:NoneType<span class="op">=</span><span class="va">None</span>, error_response:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">min</span>:NoneType<span class="op">=</span><span class="va">None</span>, cargs:VAR_KEYWORD</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A class to collect the values of the input values subtracted from reference values.</em></p>
+</section>
+</section>
+<section id="rewarderror" class="level2">
+<h2 class="anchored" data-anchor-id="rewarderror">RewardError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L542" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="rewarderror-1" class="level3">
+<h3 class="anchored" data-anchor-id="rewarderror-1">RewardError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> RewardError(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    limit:NoneType<span class="op">=</span><span class="va">None</span>, error_response:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">min</span>:NoneType<span class="op">=</span><span class="va">None</span>, cargs:VAR_KEYWORD</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A class that collects the reward value of the control system run.</em></p>
+</section>
+</section>
+<section id="fitnesserror" class="level2">
+<h2 class="anchored" data-anchor-id="fitnesserror">FitnessError</h2>
+<hr>
+<p><a href="https://github.com/perceptualrobots/pct/tree/master/blob/master/pct/errors.py#L558" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="fitnesserror-1" class="level3">
+<h3 class="anchored" data-anchor-id="fitnesserror-1">FitnessError</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> FitnessError(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    limit:NoneType<span class="op">=</span><span class="va">None</span>, error_response:NoneType<span class="op">=</span><span class="va">None</span>, <span class="bu">min</span>:NoneType<span class="op">=</span><span class="va">None</span>, cargs:VAR_KEYWORD</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A class that collects the fitness value of the control system run.</em></p>
+</section>
+</section>
+</section>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<div id="6635e821" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rms <span class="op">=</span> RootMeanSquareError()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    rms([i])</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>er <span class="op">=</span> rms.get_error_response()</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(er)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(er, <span class="fl">5.338539126015656</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5.338539126015656</code></pre>
+</div>
+</div>
+<div id="effc0f0a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>rsse <span class="op">=</span> RootSumSquaredError()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>te <span class="op">=</span> TotalError(error_response<span class="op">=</span>rsse, limit<span class="op">=</span><span class="dv">250</span>,<span class="bu">min</span><span class="op">=</span><span class="va">True</span>)   </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>te.add_error_data([<span class="dv">1</span>, <span class="dv">2</span>])</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(te)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>err<span class="op">=</span>te.error()</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(err)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(err, <span class="fl">2.23606797749979</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>TotalError limit:250, limit_exceeded:False, : RootSumSquaredError error_response:2.23606797749979
+2.23606797749979</code></pre>
+</div>
+</div>
+<div id="fb842b37" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>et <span class="op">=</span> ErrorResponseFactory.createErrorResponse(<span class="st">'RootSumSquaredError'</span>)   </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>et(<span class="dv">102</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(et.get_error_response())</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>iprms <span class="op">=</span> ErrorCollectorFactory.createErrorCollector(<span class="st">'TotalError'</span>)   </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>iprms.set_limit(<span class="dv">100</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>iprms.set_error_response(et)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(iprms.error())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102.0
+102.0</code></pre>
+</div>
+</div>
+<div id="280e156f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>iprms <span class="op">=</span> BaseErrorCollector.collector( <span class="st">'RootMeanSquareError'</span>,<span class="st">'InputsError'</span>, <span class="dv">10</span>, flip_error_response<span class="op">=</span><span class="va">False</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="36c0c7c3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>time_series_example <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>],</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>],</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>]])</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ts <span class="kw">in</span> time_series_example:</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    iprms.add_error_data(ts)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>erms <span class="op">=</span> iprms.error()</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(erms)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(iprms)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(erms, <span class="fl">9.092121131323903</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>9.092121131323903
+InputsError limit:10, limit_exceeded:False, : RootMeanSquareError error_response:9.092121131323903</code></pre>
+</div>
+</div>
+<div id="0b305df6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>iprms.reset()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(iprms)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>InputsError limit:10, limit_exceeded:False, : RootMeanSquareError error_response:None</code></pre>
+</div>
+</div>
+<div id="78d2dae5" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>iprms2 <span class="op">=</span> BaseErrorCollector.collector( <span class="st">'RootMeanSquareError'</span>,<span class="st">'InputsError'</span>, <span class="dv">10</span>, flip_error_response<span class="op">=</span><span class="va">False</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>time_series_example2 <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>],</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>],</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>]])</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ts <span class="kw">in</span> time_series_example2:</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    iprms2.add_error_data_array(ts)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>erms2 <span class="op">=</span> iprms2.error()</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(erms2)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(iprms2)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(erms2, <span class="fl">15.748015748023622</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>15.748015748023622
+InputsError limit:10, limit_exceeded:False, : RootMeanSquareError error_response:15.748015748023622
+
+InputsError limit:10, limit_exceeded:False, : RootMeanSquareError error_response:15.748015748023622</code></pre>
+</div>
+</div>
+<div id="f5a162e3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>iprms1 <span class="op">=</span> BaseErrorCollector.collector( <span class="st">'RootMeanSquareError'</span>,<span class="st">'InputsError'</span>, <span class="dv">10</span>, flip_error_response<span class="op">=</span><span class="va">False</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>iprms1.add_error_data([<span class="dv">3</span>])</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>iprms1.add_error_data([<span class="dv">5</span>])</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>erms1 <span class="op">=</span> iprms1.error()</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(erms1)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(iprms1)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(erms1, <span class="fl">4.123105625617661</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.123105625617661
+InputsError limit:10, limit_exceeded:False, : RootMeanSquareError error_response:4.123105625617661
+
+InputsError limit:10, limit_exceeded:False, : RootMeanSquareError error_response:4.123105625617661</code></pre>
+</div>
+</div>
+<div id="df930053" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ip_curr_rms <span class="op">=</span> BaseErrorCollector.collector( <span class="st">'CurrentRMSError'</span>,<span class="st">'InputsError'</span>, <span class="dv">10</span>, flip_error_response<span class="op">=</span><span class="va">False</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>ip_curr_rms.add_error_data_array(data)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>rms <span class="op">=</span> ip_curr_rms.error()</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rms)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ip_curr_rms)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(rms, <span class="fl">5.066228051190222</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5.066228051190222
+InputsError limit:10, limit_exceeded:False, : CurrentRMSError error_response:5.066228051190222</code></pre>
+</div>
+</div>
+<div id="28e649ec" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>refins_rms <span class="op">=</span> BaseErrorCollector.collector( <span class="st">'RootMeanSquareError'</span>,<span class="st">'ReferencedInputsError'</span>, <span class="dv">10</span>, flip_error_response<span class="op">=</span><span class="va">False</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>time_series1 <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>],</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>],</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>]])</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ts <span class="kw">in</span> time_series1:</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    refins_rms.add_error_data_array(ts)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>erms <span class="op">=</span> refins_rms.error()</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(erms)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(refins_rms)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(erms, <span class="fl">15.748015748023622</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>15.748015748023622
+ReferencedInputsError limit:10, limit_exceeded:False, : RootMeanSquareError error_response:15.748015748023622</code></pre>
+</div>
+</div>
+<div id="345e2231" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>ins_sm <span class="op">=</span> BaseErrorCollector.collector( <span class="st">'SmoothError'</span>,<span class="st">'InputsError'</span>, <span class="dv">10</span>, flip_error_response<span class="op">=</span><span class="va">False</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>, properties<span class="op">=</span>{<span class="st">'error_response'</span>: {<span class="st">'smooth_factor'</span>: <span class="fl">0.9</span>}})</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>time_series1 <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>],</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>],</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>]])</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ts <span class="kw">in</span> time_series1:</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    ins_sm.add_error_data(ts)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>ersm <span class="op">=</span> ins_sm.error()</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ersm)</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ins_sm)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(ersm, <span class="fl">7.853020188851838</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>7.853020188851838
+InputsError limit:10, limit_exceeded:False, : SmoothError error_response:7.853020188851838</code></pre>
+</div>
+</div>
+<div id="b51af261" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>ins_sm1 <span class="op">=</span> BaseErrorCollector.collector( <span class="st">'SmoothError'</span>,<span class="st">'InputsError'</span>, <span class="dv">10</span>, flip_error_response<span class="op">=</span><span class="va">False</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>, properties<span class="op">=</span>{<span class="st">'error_response'</span>: {<span class="st">'smooth_factor'</span>: <span class="fl">0.9</span>}})</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>time_series1 <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>],</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>],</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>]])</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ts <span class="kw">in</span> time_series1:</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    ins_sm1.add_error_data_array(ts)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>ersm1 <span class="op">=</span> ins_sm1.error()</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ersm1)</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ins_sm1)</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(ersm1, <span class="fl">6.161823641446112</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>6.161823641446112
+InputsError limit:10, limit_exceeded:False, : SmoothError error_response:6.161823641446112</code></pre>
+</div>
+</div>
+<div id="51626914" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>ins_sm2 <span class="op">=</span> BaseErrorCollector.collector( <span class="st">'SmoothError'</span>,<span class="st">'InputsError'</span>, <span class="dv">10</span>, flip_error_response<span class="op">=</span><span class="va">False</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>, properties<span class="op">=</span>{<span class="st">'error_response'</span>: {<span class="st">'smooth_factor'</span>: <span class="fl">0.5</span>}})</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>error_response <span class="op">=</span> ins_sm2.get_error_response()</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>initial <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>error_response.set_error_response(initial)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    ins_sm2.add_error_data_array([initial<span class="op">+</span>i])</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>ersm1 <span class="op">=</span> ins_sm2.error()</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ersm1)</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ins_sm2)</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(ersm1, <span class="fl">103.0625</span>, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>103.0625
+InputsError limit:10, limit_exceeded:False, : SmoothError error_response:103.0625
+
+InputsError limit:10, limit_exceeded:False, : SmoothError error_response:103.0625</code></pre>
+</div>
+</div>
+<div id="e24e0d7b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>time_series1 <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>],</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>],</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>],</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>                                [<span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>]])</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>norms <span class="op">=</span> np.linalg.norm(time_series1, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(norms)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[ 3.74165739  8.77496439 13.92838828 19.10497317 24.2899156 ]</code></pre>
+</div>
+</div>
+<div id="6991e3d4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Welford's Variance Algorithm</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== Welford's Variance Examples ==="</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with simple data set</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>]</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>welford <span class="op">=</span> WelfordVarianceError()</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Processing data: </span><span class="sc">{</span>data<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> data:</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    welford(value)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Value: </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">, Count: </span><span class="sc">{</span>welford<span class="sc">.</span>get_sample_size()<span class="sc">}</span><span class="ss">, Mean: </span><span class="sc">{</span>welford<span class="sc">.</span>get_mean()<span class="sc">:.4f}</span><span class="ss">, Variance: </span><span class="sc">{</span>welford<span class="sc">.</span>get_error_response()<span class="sc">:.4f}</span><span class="ss">, StdDev: </span><span class="sc">{</span>welford<span class="sc">.</span>get_standard_deviation()<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify against NumPy</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>np_var <span class="op">=</span> np.var(data, ddof<span class="op">=</span><span class="dv">1</span>)  <span class="co"># Sample variance (ddof=1)</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>np_mean <span class="op">=</span> np.mean(data)</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">NumPy verification:"</span>)</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy sample variance: </span><span class="sc">{</span>np_var<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Welford sample variance: </span><span class="sc">{</span>welford<span class="sc">.</span>get_error_response()<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy mean: </span><span class="sc">{</span>np_mean<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Welford mean: </span><span class="sc">{</span>welford<span class="sc">.</span>get_mean()<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(welford.get_error_response(), np_var, places<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(welford.get_mean(), np_mean, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== Welford's Variance Examples ===
+Processing data: [2, 4, 4, 4, 5, 5, 7, 9]
+Value: 2, Count: 1, Mean: 2.0000, Variance: 0.0000, StdDev: 0.0000
+Value: 4, Count: 2, Mean: 3.0000, Variance: 2.0000, StdDev: 1.4142
+Value: 4, Count: 3, Mean: 3.3333, Variance: 1.3333, StdDev: 1.1547
+Value: 4, Count: 4, Mean: 3.5000, Variance: 1.0000, StdDev: 1.0000
+Value: 5, Count: 5, Mean: 3.8000, Variance: 1.2000, StdDev: 1.0954
+Value: 5, Count: 6, Mean: 4.0000, Variance: 1.2000, StdDev: 1.0954
+Value: 7, Count: 7, Mean: 4.4286, Variance: 2.2857, StdDev: 1.5119
+Value: 9, Count: 8, Mean: 5.0000, Variance: 4.5714, StdDev: 2.1381
+
+NumPy verification:
+NumPy sample variance: 4.5714
+Welford sample variance: 4.5714
+NumPy mean: 5.0000
+Welford mean: 5.0000</code></pre>
+</div>
+</div>
+<div id="ded5c299" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Welford with array data (using Euclidean norm)</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Welford with Array Data ==="</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>welford_array <span class="op">=</span> WelfordVarianceError()</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>time_series_data <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>],</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>                            [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], </span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>                            [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>],</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>                            [<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>]])</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ts <span class="kw">in</span> <span class="bu">enumerate</span>(time_series_data):</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    norm <span class="op">=</span> np.linalg.norm(ts)</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    welford_array(ts)</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Array </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>ts<span class="sc">}</span><span class="ss">, Norm: </span><span class="sc">{</span>norm<span class="sc">:.4f}</span><span class="ss">, Variance: </span><span class="sc">{</span>welford_array<span class="sc">.</span>get_error_response()<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Final statistics: Mean=</span><span class="sc">{</span>welford_array<span class="sc">.</span>get_mean()<span class="sc">:.4f}</span><span class="ss">, Variance=</span><span class="sc">{</span>welford_array<span class="sc">.</span>get_error_response()<span class="sc">:.4f}</span><span class="ss">, N=</span><span class="sc">{</span>welford_array<span class="sc">.</span>get_sample_size()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify with NumPy on the norms</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>norms <span class="op">=</span> [np.linalg.norm(ts) <span class="cf">for</span> ts <span class="kw">in</span> time_series_data]</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>np_var_norms <span class="op">=</span> np.var(norms, ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy variance of norms: </span><span class="sc">{</span>np_var_norms<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(welford_array.get_error_response(), np_var_norms, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Welford with Array Data ===
+Array 1: [1 2 3], Norm: 3.7417, Variance: 0.0000
+Array 2: [4 5 6], Norm: 8.7750, Variance: 12.6671
+Array 3: [7 8 9], Norm: 13.9284, Variance: 25.9436
+Array 4: [10 11 12], Norm: 19.1050, Variance: 43.7666
+Final statistics: Mean=11.3875, Variance=43.7666, N=4
+NumPy variance of norms: 43.7666</code></pre>
+</div>
+</div>
+<div id="4ffe999f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using Welford Variance with Error Collector</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Welford Variance with Error Collector ==="</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an error collector using Welford variance for input monitoring</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>welford_collector <span class="op">=</span> BaseErrorCollector.collector(</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'WelfordVarianceError'</span>, <span class="st">'InputsError'</span>, </span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="fl">5.0</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>,  <span class="co"># Terminate when variance drops below 5.0</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    flip_error_response<span class="op">=</span><span class="va">False</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate some input data with decreasing variance</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">42</span>)  <span class="co"># For reproducible results</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Simulating input data with decreasing variance:"</span>)</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate data with decreasing variance over time</span></span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>    variance_scale <span class="op">=</span> <span class="fl">10.0</span> <span class="op">/</span> (epoch <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># Variance decreases each epoch</span></span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> [random.gauss(<span class="dv">0</span>, variance_scale) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>    welford_collector.add_error_data_array(data)</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>    current_variance <span class="op">=</span> welford_collector.error()</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>epoch<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">: Data=</span><span class="sc">{</span>[<span class="ss">f'</span><span class="sc">{</span>x<span class="sc">:.2f}</span><span class="ss">'</span> <span class="cf">for</span> x <span class="kw">in</span> data]<span class="sc">}</span><span class="ss">, Variance=</span><span class="sc">{</span>current_variance<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> welford_collector.is_terminated():</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Terminated at epoch </span><span class="sc">{</span>epoch<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> - variance dropped below limit"</span>)</span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Final collector state: </span><span class="sc">{</span>welford_collector<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrate population vs sample variance</span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Population vs Sample Variance ==="</span>)</span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>data_pop <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>welford_sample <span class="op">=</span> WelfordVarianceError(population_variance<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>welford_population <span class="op">=</span> WelfordVarianceError(population_variance<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> data_pop:</span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a>    welford_sample(value)</span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>    welford_population(value)</span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Data: </span><span class="sc">{</span>data_pop<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sample variance (N-1): </span><span class="sc">{</span>welford_sample<span class="sc">.</span>get_error_response()<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Population variance (N): </span><span class="sc">{</span>welford_population<span class="sc">.</span>get_error_response()<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy sample (ddof=1): </span><span class="sc">{</span>np<span class="sc">.</span>var(data_pop, ddof<span class="op">=</span><span class="dv">1</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy population (ddof=0): </span><span class="sc">{</span>np<span class="sc">.</span>var(data_pop, ddof<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(welford_sample.get_error_response(), np.var(data_pop, ddof<span class="op">=</span><span class="dv">1</span>), places<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(welford_population.get_error_response(), np.var(data_pop, ddof<span class="op">=</span><span class="dv">0</span>), places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Welford Variance with Error Collector ===
+Simulating input data with decreasing variance:
+Epoch 1: Data=['-1.44', '-1.73', '-1.11'], Variance=0.0000
+Epoch 2: Data=['3.51', '-0.64', '-7.49'], Variance=16.7175
+Epoch 3: Data=['1.11', '-0.89', '-0.72'], Variance=13.1900
+Epoch 4: Data=['0.29', '0.58', '2.91'], Variance=9.1255
+Epoch 5: Data=['1.31', '0.22', '-1.48'], Variance=7.5334
+
+Final collector state: InputsError limit:5.0, limit_exceeded:False, : WelfordVarianceError error_response:7.5334062673732385
+
+=== Population vs Sample Variance ===
+Data: [1, 2, 3, 4, 5]
+Sample variance (N-1): 2.5000
+Population variance (N): 2.0000
+NumPy sample (ddof=1): 2.5000
+NumPy population (ddof=0): 2.0000</code></pre>
+</div>
+</div>
+<div id="07424770" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using set_properties with WelfordVarianceError</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Welford Variance with set_properties ==="</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create error collector with population variance using properties</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>welford_pop_collector <span class="op">=</span> BaseErrorCollector.collector(</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'WelfordVarianceError'</span>, <span class="st">'InputsError'</span>, </span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="fl">2.0</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    properties<span class="op">=</span>{</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'error_response'</span>: {<span class="st">'population_variance'</span>: <span class="va">True</span>}</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create error collector with sample variance using properties (default)</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>welford_sample_collector <span class="op">=</span> BaseErrorCollector.collector(</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'WelfordVarianceError'</span>, <span class="st">'InputsError'</span>, </span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="fl">2.0</span>, <span class="bu">min</span><span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>    properties<span class="op">=</span>{</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">'error_response'</span>: {<span class="st">'population_variance'</span>: <span class="va">False</span>}</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Test data</span></span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>test_data <span class="op">=</span> [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>]</span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Processing the same data with both population and sample variance:"</span>)</span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Data: </span><span class="sc">{</span>test_data<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> test_data:</span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a>    welford_pop_collector.add_error_data_array([value])</span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a>    welford_sample_collector.add_error_data_array([value])</span>
+<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a>pop_variance <span class="op">=</span> welford_pop_collector.error()</span>
+<span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a>sample_variance <span class="op">=</span> welford_sample_collector.error()</span>
+<span id="cb54-34"><a href="#cb54-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-35"><a href="#cb54-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Population variance (via properties): </span><span class="sc">{</span>pop_variance<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sample variance (via properties): </span><span class="sc">{</span>sample_variance<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb54-37"><a href="#cb54-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Difference: </span><span class="sc">{</span><span class="bu">abs</span>(sample_variance <span class="op">-</span> pop_variance)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb54-38"><a href="#cb54-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-39"><a href="#cb54-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify with NumPy</span></span>
+<span id="cb54-40"><a href="#cb54-40" aria-hidden="true" tabindex="-1"></a>np_pop <span class="op">=</span> np.var(test_data, ddof<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb54-41"><a href="#cb54-41" aria-hidden="true" tabindex="-1"></a>np_sample <span class="op">=</span> np.var(test_data, ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb54-42"><a href="#cb54-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy population variance: </span><span class="sc">{</span>np_pop<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb54-43"><a href="#cb54-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NumPy sample variance: </span><span class="sc">{</span>np_sample<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb54-44"><a href="#cb54-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-45"><a href="#cb54-45" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(pop_variance, np_pop, places<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb54-46"><a href="#cb54-46" aria-hidden="true" tabindex="-1"></a>TestCase().assertAlmostEqual(sample_variance, np_sample, places<span class="op">=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Welford Variance with set_properties ===
+Processing the same data with both population and sample variance:
+Data: [1.0, 2.0, 3.0, 4.0, 5.0]
+Population variance (via properties): 2.0000
+Sample variance (via properties): 2.5000
+Difference: 0.5000
+NumPy population variance: 2.0000
+NumPy sample variance: 2.5000</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/perceptualrobots\.github\.io\/pct");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/perceptualrobots/pct/tree/master/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

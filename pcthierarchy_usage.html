@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PCTHierarchy Usage – pct</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="PCTHierarchy Usage – pct">
+<meta property="og:description" content="Perceptual Control Theory with Python">
+<meta property="og:image" content="https://perceptualrobots.github.io/pct/51_pcthierarchy_usage_files/figure-html/cell-28-output-1.png">
+<meta property="og:site_name" content="pct">
+<meta property="og:image:height" content="790">
+<meta property="og:image:width" content="790">
+<meta name="twitter:title" content="PCTHierarchy Usage – pct">
+<meta name="twitter:description" content="Perceptual Control Theory with Python">
+<meta name="twitter:image" content="https://perceptualrobots.github.io/pct/51_pcthierarchy_usage_files/figure-html/cell-28-output-1.png">
+<meta name="twitter:image-height" content="790">
+<meta name="twitter:image-width" content="790">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">pct</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pcthierarchy_usage.html">PCTHierarchy Usage</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Perceptual Control Theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./putils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Utilities</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./nodes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Nodes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./hierarchy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hierarchy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environments</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structure</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Errors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./architectures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Architectures</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./webots.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Webots</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./network.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Network</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./yaw_module.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Yaw Module</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./microgrid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MicroGrid</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./helpers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Helper classes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./arc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ARC environment classes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environment_processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environment processing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">plotarrays classes</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">application functions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pctexamples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PCTExamples class</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./experiments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Experiments class</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pctresults.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PCT Results</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./unittests_run_hierarchies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">unittests_run_hierarchies</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pcthierarchy_usage.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">PCTHierarchy Usage</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pctexamples_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PCT Examples Usage</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./experimental_results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Experimental Results</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#creating-a-hierarchy" id="toc-creating-a-hierarchy" class="nav-link active" data-scroll-target="#creating-a-hierarchy">Creating a Hierarchy</a></li>
+  <li><a href="#viewing-a-hierarchy" id="toc-viewing-a-hierarchy" class="nav-link" data-scroll-target="#viewing-a-hierarchy">Viewing a Hierarchy</a></li>
+  <li><a href="#running-a-hierarchy" id="toc-running-a-hierarchy" class="nav-link" data-scroll-target="#running-a-hierarchy">Running a hierarchy</a></li>
+  <li><a href="#viewing-data" id="toc-viewing-data" class="nav-link" data-scroll-target="#viewing-data">Viewing Data</a></li>
+  <li><a href="#save-and-load" id="toc-save-and-load" class="nav-link" data-scroll-target="#save-and-load">Save and Load</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/perceptualrobots/pct/tree/master/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">PCTHierarchy Usage</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="076ef48b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pct.nodes <span class="im">import</span> PCTNode</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pct.functions <span class="im">import</span> WeightedSum, Constant</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pct.hierarchy <span class="im">import</span> PCTHierarchy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[2]</span><span class="ansi-green-fg">, line 1</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">pct</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">nodes</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> PCTNode
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">pct</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">functions</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> WeightedSum, Constant
+<span class="ansi-green-fg">      3</span> <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">pct</span><span class="ansi-blue-fg ansi-bold">.</span><span class="ansi-blue-fg ansi-bold">hierarchy</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> PCTHierarchy
+
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'pct'</pre>
+</div>
+</div>
+</div>
+<section id="creating-a-hierarchy" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-hierarchy">Creating a Hierarchy</h2>
+<p>Create a hierarchy by defining the number of rows (levels) and columns.</p>
+<div id="d676470e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pre<span class="op">=</span>Constant(<span class="dv">5</span>, name<span class="op">=</span><span class="st">'precon'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>namespace<span class="op">=</span>pre.namespace</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>post<span class="op">=</span>Constant(<span class="dv">10</span>, name<span class="op">=</span><span class="st">'postcon'</span>, namespace<span class="op">=</span>namespace)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>hpct <span class="op">=</span> PCTHierarchy(<span class="dv">3</span>,<span class="dv">3</span>, pre<span class="op">=</span>[pre], post<span class="op">=</span>[post], history<span class="op">=</span><span class="va">True</span>, clear_names<span class="op">=</span><span class="va">False</span>, links<span class="op">=</span><span class="st">"dense"</span>, namespace<span class="op">=</span>namespace)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>hpct.hierarchy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>[[&lt;pct.nodes.PCTNode&gt;,
+  &lt;pct.nodes.PCTNode&gt;,
+  &lt;pct.nodes.PCTNode&gt;],
+ [&lt;pct.nodes.PCTNode&gt;,
+  &lt;pct.nodes.PCTNode&gt;,
+  &lt;pct.nodes.PCTNode&gt;],
+ [&lt;pct.nodes.PCTNode&gt;,
+  &lt;pct.nodes.PCTNode&gt;,
+  &lt;pct.nodes.PCTNode&gt;]]</code></pre>
+</div>
+</div>
+<div id="d338bad8" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hpct.get_summary())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************
+PRE: 5.000 
+L0C0 0.000 0.000 0.000 0.000 
+L0C1 0.000 0.000 0.000 0.000 
+L0C2 0.000 0.000 0.000 0.000 
+L1C0 0.000 0.000 0.000 0.000 
+L1C1 0.000 0.000 0.000 0.000 
+L1C2 0.000 0.000 0.000 0.000 
+L2C0 0.000 0.000 0.000 0.000 
+L2C1 0.000 0.000 0.000 0.000 
+L2C2 0.000 0.000 0.000 0.000 
+POST: 10.000 
+</code></pre>
+</div>
+</div>
+<div id="2a1fcc78" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hpct.get_parameters_list())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[[[5]], [[10]]], [[[[1, 1, 1]], [[0]], [[1]]], [[[1, 1, 1]], [[0]], [[1]]], [[[1, 1, 1]], [[0]], [[1]]]], [[[[1, 1, 1]], [[1, 1, 1]], [[1]]], [[[1, 1, 1]], [[1, 1, 1]], [[1]]], [[[1, 1, 1]], [[1, 1, 1]], [[1]]]], [[[[0]], [[1, 1, 1]], [[1]]], [[[0]], [[1, 1, 1]], [[1]]], [[[0]], [[1, 1, 1]], [[1]]]]]</code></pre>
+</div>
+</div>
+<div id="4f9e8952" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hpct.get_grid())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[3, 3, 3]</code></pre>
+</div>
+</div>
+<div id="cf5a982e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>hpct.change_namespace()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="54acd447" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>hpct.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************
+pcthierarchy PCTHierarchy [3, 3, 3] ccff3ef2-036f-11f0-9f08-04d9f58727ab
+--------------------------
+PRE: precon Constant | 5 
+Level 0 Cols 3
+level0col0 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum WeightedSum | weights [1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable Variable | 0 
+COM: subtract Subtract | 0 | links  weighted_sum variable 
+OUT: proportional Proportional | gain 1 | 0 | links  subtract 
+----------------------------
+level0col1 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum1 WeightedSum | weights [1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable1 Variable | 0 
+COM: subtract1 Subtract | 0 | links  weighted_sum1 variable1 
+OUT: proportional1 Proportional | gain 1 | 0 | links  subtract1 
+----------------------------
+level0col2 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum2 WeightedSum | weights [1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable2 Variable | 0 
+COM: subtract2 Subtract | 0 | links  weighted_sum2 variable2 
+OUT: proportional2 Proportional | gain 1 | 0 | links  subtract2 
+----------------------------
+Level 1 Cols 3
+level1col0 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum4 WeightedSum | weights [1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum3 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract3 Subtract | 0 | links  weighted_sum4 weighted_sum3 
+OUT: proportional3 Proportional | gain 1 | 0 | links  subtract3 
+----------------------------
+level1col1 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum6 WeightedSum | weights [1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum5 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract4 Subtract | 0 | links  weighted_sum6 weighted_sum5 
+OUT: proportional4 Proportional | gain 1 | 0 | links  subtract4 
+----------------------------
+level1col2 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum8 WeightedSum | weights [1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum7 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract5 Subtract | 0 | links  weighted_sum8 weighted_sum7 
+OUT: proportional5 Proportional | gain 1 | 0 | links  subtract5 
+----------------------------
+Level 2 Cols 3
+level2col0 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: constant Constant | 0 
+PER: weighted_sum9 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract6 Subtract | 0 | links  constant weighted_sum9 
+OUT: proportional6 Proportional | gain 1 | 0 | links  subtract6 
+----------------------------
+level2col1 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: constant1 Constant | 0 
+PER: weighted_sum10 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract7 Subtract | 0 | links  constant1 weighted_sum10 
+OUT: proportional7 Proportional | gain 1 | 0 | links  subtract7 
+----------------------------
+level2col2 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: constant2 Constant | 0 
+PER: weighted_sum11 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract8 Subtract | 0 | links  constant2 weighted_sum11 
+OUT: proportional8 Proportional | gain 1 | 0 | links  subtract8 
+----------------------------
+POST: postcon Constant | 10 
+**************************</code></pre>
+</div>
+</div>
+<div id="e7c14515" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#FunctionsList.getInstance().report()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Create a hierarchy from a configuration.</p>
+<div id="2c9f3366" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> hpct.get_config()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(config)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'type': 'PCTHierarchy', 'name': 'pcthierarchy', 'pre': {'pre0': {'type': 'Constant', 'name': 'precon', 'value': 5, 'links': {}}}, 'levels': {'level0': {'level': 0, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'level0col0', 'refcoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum', 'value': 0, 'links': {0: 'proportional3', 1: 'proportional4', 2: 'proportional5'}, 'weights': [1, 1, 1]}}, 'percoll': {'0': {'type': 'Variable', 'name': 'variable', 'value': 0, 'links': {}}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract', 'value': 0, 'links': {0: 'weighted_sum', 1: 'variable'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional', 'value': 0, 'links': {0: 'subtract'}, 'gain': 1}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'level0col1', 'refcoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum1', 'value': 0, 'links': {0: 'proportional3', 1: 'proportional4', 2: 'proportional5'}, 'weights': [1, 1, 1]}}, 'percoll': {'0': {'type': 'Variable', 'name': 'variable1', 'value': 0, 'links': {}}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract1', 'value': 0, 'links': {0: 'weighted_sum1', 1: 'variable1'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional1', 'value': 0, 'links': {0: 'subtract1'}, 'gain': 1}}}}, 'col2': {'col': 2, 'node': {'type': 'PCTNode', 'name': 'level0col2', 'refcoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum2', 'value': 0, 'links': {0: 'proportional3', 1: 'proportional4', 2: 'proportional5'}, 'weights': [1, 1, 1]}}, 'percoll': {'0': {'type': 'Variable', 'name': 'variable2', 'value': 0, 'links': {}}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract2', 'value': 0, 'links': {0: 'weighted_sum2', 1: 'variable2'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional2', 'value': 0, 'links': {0: 'subtract2'}, 'gain': 1}}}}}}, 'level1': {'level': 1, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'level1col0', 'refcoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum4', 'value': 0, 'links': {0: 'proportional6', 1: 'proportional7', 2: 'proportional8'}, 'weights': [1, 1, 1]}}, 'percoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum3', 'value': 0, 'links': {0: 'variable', 1: 'variable1', 2: 'variable2'}, 'weights': [1, 1, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract3', 'value': 0, 'links': {0: 'weighted_sum4', 1: 'weighted_sum3'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional3', 'value': 0, 'links': {0: 'subtract3'}, 'gain': 1}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'level1col1', 'refcoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum6', 'value': 0, 'links': {0: 'proportional6', 1: 'proportional7', 2: 'proportional8'}, 'weights': [1, 1, 1]}}, 'percoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum5', 'value': 0, 'links': {0: 'variable', 1: 'variable1', 2: 'variable2'}, 'weights': [1, 1, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract4', 'value': 0, 'links': {0: 'weighted_sum6', 1: 'weighted_sum5'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional4', 'value': 0, 'links': {0: 'subtract4'}, 'gain': 1}}}}, 'col2': {'col': 2, 'node': {'type': 'PCTNode', 'name': 'level1col2', 'refcoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum8', 'value': 0, 'links': {0: 'proportional6', 1: 'proportional7', 2: 'proportional8'}, 'weights': [1, 1, 1]}}, 'percoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum7', 'value': 0, 'links': {0: 'variable', 1: 'variable1', 2: 'variable2'}, 'weights': [1, 1, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract5', 'value': 0, 'links': {0: 'weighted_sum8', 1: 'weighted_sum7'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional5', 'value': 0, 'links': {0: 'subtract5'}, 'gain': 1}}}}}}, 'level2': {'level': 2, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'level2col0', 'refcoll': {'0': {'type': 'Constant', 'name': 'constant', 'value': 0, 'links': {}}}, 'percoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum9', 'value': 0, 'links': {0: 'weighted_sum3', 1: 'weighted_sum5', 2: 'weighted_sum7'}, 'weights': [1, 1, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract6', 'value': 0, 'links': {0: 'constant', 1: 'weighted_sum9'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional6', 'value': 0, 'links': {0: 'subtract6'}, 'gain': 1}}}}, 'col1': {'col': 1, 'node': {'type': 'PCTNode', 'name': 'level2col1', 'refcoll': {'0': {'type': 'Constant', 'name': 'constant1', 'value': 0, 'links': {}}}, 'percoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum10', 'value': 0, 'links': {0: 'weighted_sum3', 1: 'weighted_sum5', 2: 'weighted_sum7'}, 'weights': [1, 1, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract7', 'value': 0, 'links': {0: 'constant1', 1: 'weighted_sum10'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional7', 'value': 0, 'links': {0: 'subtract7'}, 'gain': 1}}}}, 'col2': {'col': 2, 'node': {'type': 'PCTNode', 'name': 'level2col2', 'refcoll': {'0': {'type': 'Constant', 'name': 'constant2', 'value': 0, 'links': {}}}, 'percoll': {'0': {'type': 'WeightedSum', 'name': 'weighted_sum11', 'value': 0, 'links': {0: 'weighted_sum3', 1: 'weighted_sum5', 2: 'weighted_sum7'}, 'weights': [1, 1, 1]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'subtract8', 'value': 0, 'links': {0: 'constant2', 1: 'weighted_sum11'}}}, 'outcoll': {'0': {'type': 'Proportional', 'name': 'proportional8', 'value': 0, 'links': {0: 'subtract8'}, 'gain': 1}}}}}}}, 'post': {'post0': {'type': 'Constant', 'name': 'postcon', 'value': 10, 'links': {}}}}</code></pre>
+</div>
+</div>
+<div id="a4d4cf13" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># h = PCTHierarchy.from_config(config, namespace=namespace)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> PCTHierarchy.from_config(config)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="bfee5ff4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> h.get_config() <span class="op">==</span> hpct.get_config()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="viewing-a-hierarchy" class="level2">
+<h2 class="anchored" data-anchor-id="viewing-a-hierarchy">Viewing a Hierarchy</h2>
+<p>The hierarchy details can be viewed as a summary.</p>
+<div id="f61e458c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>hpct.get_node(<span class="dv">2</span>,<span class="dv">0</span>).get_function(<span class="st">'reference'</span>).set_value(<span class="dv">1</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>hpct.get_node(<span class="dv">2</span>,<span class="dv">1</span>).get_function(<span class="st">'reference'</span>).set_value(<span class="dv">1</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>hpct.get_node(<span class="dv">2</span>,<span class="dv">2</span>).get_function(<span class="st">'reference'</span>).set_value(<span class="dv">1</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> level <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        hpct.get_node(level,col).get_function(<span class="st">'output'</span>).set_property(<span class="st">'gain'</span>, <span class="dv">10</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>hpct.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************
+pcthierarchy PCTHierarchy [3, 3, 3] ccff3ef2-036f-11f0-9f08-04d9f58727ab
+--------------------------
+PRE: precon Constant | 5 
+Level 0 Cols 3
+level0col0 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum WeightedSum | weights [1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable Variable | 0 
+COM: subtract Subtract | 0 | links  weighted_sum variable 
+OUT: proportional Proportional | gain 10 | 0 | links  subtract 
+----------------------------
+level0col1 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum1 WeightedSum | weights [1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable1 Variable | 0 
+COM: subtract1 Subtract | 0 | links  weighted_sum1 variable1 
+OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
+----------------------------
+level0col2 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum2 WeightedSum | weights [1, 1, 1] | 0 | links  proportional3 proportional4 proportional5 
+PER: variable2 Variable | 0 
+COM: subtract2 Subtract | 0 | links  weighted_sum2 variable2 
+OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
+----------------------------
+Level 1 Cols 3
+level1col0 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum4 WeightedSum | weights [1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum3 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract3 Subtract | 0 | links  weighted_sum4 weighted_sum3 
+OUT: proportional3 Proportional | gain 10 | 0 | links  subtract3 
+----------------------------
+level1col1 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum6 WeightedSum | weights [1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum5 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract4 Subtract | 0 | links  weighted_sum6 weighted_sum5 
+OUT: proportional4 Proportional | gain 10 | 0 | links  subtract4 
+----------------------------
+level1col2 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: weighted_sum8 WeightedSum | weights [1, 1, 1] | 0 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum7 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract5 Subtract | 0 | links  weighted_sum8 weighted_sum7 
+OUT: proportional5 Proportional | gain 10 | 0 | links  subtract5 
+----------------------------
+Level 2 Cols 3
+level2col0 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: constant Constant | 1 
+PER: weighted_sum9 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract6 Subtract | 0 | links  constant weighted_sum9 
+OUT: proportional6 Proportional | gain 10 | 0 | links  subtract6 
+----------------------------
+level2col1 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: constant1 Constant | 1 
+PER: weighted_sum10 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract7 Subtract | 0 | links  constant1 weighted_sum10 
+OUT: proportional7 Proportional | gain 10 | 0 | links  subtract7 
+----------------------------
+level2col2 PCTNode ccff3ef2-036f-11f0-9f08-04d9f58727ab
+----------------------------
+REF: constant2 Constant | 1 
+PER: weighted_sum11 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract8 Subtract | 0 | links  constant2 weighted_sum11 
+OUT: proportional8 Proportional | gain 10 | 0 | links  subtract8 
+----------------------------
+POST: postcon Constant | 10 
+**************************</code></pre>
+</div>
+</div>
+<p>The hierarchy details can be viewed as a configuration. That configuration can be used to create a hierarchy, as shown above.</p>
+<div id="7d1e75c0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>hpct.get_config()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'type': 'PCTHierarchy',
+ 'name': 'pcthierarchy',
+ 'pre': {'pre0': {'type': 'Constant',
+   'name': 'precon',
+   'value': 5,
+   'links': {}}},
+ 'levels': {'level0': {'level': 0,
+   'nodes': {'col0': {'col': 0,
+     'node': {'type': 'PCTNode',
+      'name': 'level0col0',
+      'refcoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum',
+        'value': 0,
+        'links': {0: 'proportional3', 1: 'proportional4', 2: 'proportional5'},
+        'weights': [1, 1, 1]}},
+      'percoll': {'0': {'type': 'Variable',
+        'name': 'variable',
+        'value': 0,
+        'links': {}}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract',
+        'value': 0,
+        'links': {0: 'weighted_sum', 1: 'variable'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional',
+        'value': 0,
+        'links': {0: 'subtract'},
+        'gain': 10}}}},
+    'col1': {'col': 1,
+     'node': {'type': 'PCTNode',
+      'name': 'level0col1',
+      'refcoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum1',
+        'value': 0,
+        'links': {0: 'proportional3', 1: 'proportional4', 2: 'proportional5'},
+        'weights': [1, 1, 1]}},
+      'percoll': {'0': {'type': 'Variable',
+        'name': 'variable1',
+        'value': 0,
+        'links': {}}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract1',
+        'value': 0,
+        'links': {0: 'weighted_sum1', 1: 'variable1'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional1',
+        'value': 0,
+        'links': {0: 'subtract1'},
+        'gain': 10}}}},
+    'col2': {'col': 2,
+     'node': {'type': 'PCTNode',
+      'name': 'level0col2',
+      'refcoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum2',
+        'value': 0,
+        'links': {0: 'proportional3', 1: 'proportional4', 2: 'proportional5'},
+        'weights': [1, 1, 1]}},
+      'percoll': {'0': {'type': 'Variable',
+        'name': 'variable2',
+        'value': 0,
+        'links': {}}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract2',
+        'value': 0,
+        'links': {0: 'weighted_sum2', 1: 'variable2'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional2',
+        'value': 0,
+        'links': {0: 'subtract2'},
+        'gain': 10}}}}}},
+  'level1': {'level': 1,
+   'nodes': {'col0': {'col': 0,
+     'node': {'type': 'PCTNode',
+      'name': 'level1col0',
+      'refcoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum4',
+        'value': 0,
+        'links': {0: 'proportional6', 1: 'proportional7', 2: 'proportional8'},
+        'weights': [1, 1, 1]}},
+      'percoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum3',
+        'value': 0,
+        'links': {0: 'variable', 1: 'variable1', 2: 'variable2'},
+        'weights': [1, 1, 1]}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract3',
+        'value': 0,
+        'links': {0: 'weighted_sum4', 1: 'weighted_sum3'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional3',
+        'value': 0,
+        'links': {0: 'subtract3'},
+        'gain': 10}}}},
+    'col1': {'col': 1,
+     'node': {'type': 'PCTNode',
+      'name': 'level1col1',
+      'refcoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum6',
+        'value': 0,
+        'links': {0: 'proportional6', 1: 'proportional7', 2: 'proportional8'},
+        'weights': [1, 1, 1]}},
+      'percoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum5',
+        'value': 0,
+        'links': {0: 'variable', 1: 'variable1', 2: 'variable2'},
+        'weights': [1, 1, 1]}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract4',
+        'value': 0,
+        'links': {0: 'weighted_sum6', 1: 'weighted_sum5'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional4',
+        'value': 0,
+        'links': {0: 'subtract4'},
+        'gain': 10}}}},
+    'col2': {'col': 2,
+     'node': {'type': 'PCTNode',
+      'name': 'level1col2',
+      'refcoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum8',
+        'value': 0,
+        'links': {0: 'proportional6', 1: 'proportional7', 2: 'proportional8'},
+        'weights': [1, 1, 1]}},
+      'percoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum7',
+        'value': 0,
+        'links': {0: 'variable', 1: 'variable1', 2: 'variable2'},
+        'weights': [1, 1, 1]}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract5',
+        'value': 0,
+        'links': {0: 'weighted_sum8', 1: 'weighted_sum7'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional5',
+        'value': 0,
+        'links': {0: 'subtract5'},
+        'gain': 10}}}}}},
+  'level2': {'level': 2,
+   'nodes': {'col0': {'col': 0,
+     'node': {'type': 'PCTNode',
+      'name': 'level2col0',
+      'refcoll': {'0': {'type': 'Constant',
+        'name': 'constant',
+        'value': 1,
+        'links': {}}},
+      'percoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum9',
+        'value': 0,
+        'links': {0: 'weighted_sum3', 1: 'weighted_sum5', 2: 'weighted_sum7'},
+        'weights': [1, 1, 1]}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract6',
+        'value': 0,
+        'links': {0: 'constant', 1: 'weighted_sum9'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional6',
+        'value': 0,
+        'links': {0: 'subtract6'},
+        'gain': 10}}}},
+    'col1': {'col': 1,
+     'node': {'type': 'PCTNode',
+      'name': 'level2col1',
+      'refcoll': {'0': {'type': 'Constant',
+        'name': 'constant1',
+        'value': 1,
+        'links': {}}},
+      'percoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum10',
+        'value': 0,
+        'links': {0: 'weighted_sum3', 1: 'weighted_sum5', 2: 'weighted_sum7'},
+        'weights': [1, 1, 1]}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract7',
+        'value': 0,
+        'links': {0: 'constant1', 1: 'weighted_sum10'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional7',
+        'value': 0,
+        'links': {0: 'subtract7'},
+        'gain': 10}}}},
+    'col2': {'col': 2,
+     'node': {'type': 'PCTNode',
+      'name': 'level2col2',
+      'refcoll': {'0': {'type': 'Constant',
+        'name': 'constant2',
+        'value': 1,
+        'links': {}}},
+      'percoll': {'0': {'type': 'WeightedSum',
+        'name': 'weighted_sum11',
+        'value': 0,
+        'links': {0: 'weighted_sum3', 1: 'weighted_sum5', 2: 'weighted_sum7'},
+        'weights': [1, 1, 1]}},
+      'comcoll': {'0': {'type': 'Subtract',
+        'name': 'subtract8',
+        'value': 0,
+        'links': {0: 'constant2', 1: 'weighted_sum11'}}},
+      'outcoll': {'0': {'type': 'Proportional',
+        'name': 'proportional8',
+        'value': 0,
+        'links': {0: 'subtract8'},
+        'gain': 10}}}}}}},
+ 'post': {'post0': {'type': 'Constant',
+   'name': 'postcon',
+   'value': 10,
+   'links': {}}}}</code></pre>
+</div>
+</div>
+<p>Get the output function, which will be the output function of the last node, or the last item of the post-processor functions, if present.</p>
+<div id="691dad25" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> hpct.get_output_function()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(link.get_config())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'type': 'Constant', 'name': 'postcon', 'value': 10, 'links': {}}</code></pre>
+</div>
+</div>
+<p>The hierarhcy can also be viewed graphically as a network of connected nodes.</p>
+<div id="0737d128" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="bd802b0b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ahpct <span class="op">=</span> PCTHierarchy(<span class="dv">2</span>,<span class="dv">2</span>, links<span class="op">=</span><span class="st">"dense"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> test<span class="op">==</span><span class="dv">1</span>:</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> ahpct.graph()</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    pos<span class="op">=</span>graphviz_layout(g, prog<span class="op">=</span><span class="st">'dot'</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    nx.draw(g, pos<span class="op">=</span>pos, with_labels<span class="op">=</span><span class="va">True</span>, font_size<span class="op">=</span><span class="dv">12</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>, node_color<span class="op">=</span><span class="st">'red'</span>,  node_size<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> test <span class="op">==</span><span class="dv">2</span>:</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> ahpct.graph()</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> nx.multipartite_layout(g, subset_key<span class="op">=</span><span class="st">"layer"</span>, align<span class="op">=</span><span class="st">'horizontal'</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    pos[<span class="st">'constant1'</span>][<span class="dv">0</span>]<span class="op">+=</span><span class="fl">0.2</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> pos[<span class="st">'constant1'</span>][<span class="dv">0</span>]</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(c)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    nx.draw(g, pos<span class="op">=</span>pos, with_labels<span class="op">=</span><span class="va">True</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>, node_color<span class="op">=</span><span class="st">'red'</span>,  node_size<span class="op">=</span><span class="dv">750</span>, arrowsize<span class="op">=</span><span class="dv">25</span>)</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> test <span class="op">==</span><span class="dv">3</span>:</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> os.name<span class="op">==</span><span class="st">'nt'</span>:        </span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>        ahpct.draw(<span class="bu">file</span><span class="op">=</span><span class="st">"ahpct.png"</span>,  node_size<span class="op">=</span><span class="dv">1500</span>, figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))<span class="co"># with_labels=True, font_weight='bold', node_color='red',  node_size=500, arrowsize=25, align='vertical'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.7454545454545454</code></pre>
+</div>
+</div>
+</section>
+<section id="running-a-hierarchy" class="level2">
+<h2 class="anchored" data-anchor-id="running-a-hierarchy">Running a hierarchy</h2>
+<p>The hierachy can be run once by calling itself. The verbose flag will print the computations to the screen.</p>
+<div id="86dc1b05" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>hpct(verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5.000 
+level0col0 0.000 0.000 0.000 0.000 
+level0col1 0.000 0.000 0.000 0.000 
+level0col2 0.000 0.000 0.000 0.000 
+level1col0 0.000 0.000 0.000 0.000 
+level1col1 0.000 0.000 0.000 0.000 
+level1col2 0.000 0.000 0.000 0.000 
+level2col0 1.000 0.000 1.000 10.000 
+level2col1 1.000 0.000 1.000 10.000 
+level2col2 1.000 0.000 1.000 10.000 
+10.000 </code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>10</code></pre>
+</div>
+</div>
+<p>A hierarchy can be executed with the “run()” method, providing the number of iterations to run.</p>
+<div id="dfbdd588" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>hpct1 <span class="op">=</span> PCTHierarchy(<span class="dv">3</span>,<span class="dv">3</span>, pre<span class="op">=</span>[pre], post<span class="op">=</span>[post], history<span class="op">=</span><span class="va">True</span>, links<span class="op">=</span><span class="st">"dense"</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>namespace<span class="op">=</span>hpct1.namespace</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>hpct1.get_node(<span class="dv">2</span>,<span class="dv">0</span>).get_function(<span class="st">'reference'</span>).set_value(<span class="dv">1</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>hpct1.get_node(<span class="dv">2</span>,<span class="dv">1</span>).get_function(<span class="st">'reference'</span>).set_value(<span class="dv">1</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>hpct1.get_node(<span class="dv">2</span>,<span class="dv">2</span>).get_function(<span class="st">'reference'</span>).set_value(<span class="dv">1</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> level <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        hpct1.get_node(level,col).get_function(<span class="st">'output'</span>).set_property(<span class="st">'gain'</span>, <span class="dv">10</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>hpct1.run(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>10</code></pre>
+</div>
+</div>
+</section>
+<section id="viewing-data" class="level2">
+<h2 class="anchored" data-anchor-id="viewing-data">Viewing Data</h2>
+<p>If the hierarchy is created with the “history” flag equal to True, the data can be retrieved for each node. The node is accessed by specifying the row and column within the hierarchy.</p>
+<div id="93514e11" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hpct1.get_node(<span class="dv">1</span>,<span class="dv">1</span>).history.data)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> hpct1.get_node(<span class="dv">1</span>,<span class="dv">1</span>).history.data <span class="op">==</span> {<span class="st">'refcoll'</span>: {<span class="st">'weighted_sum6'</span>: [<span class="fl">0.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>]}, <span class="st">'percoll'</span>: {<span class="st">'weighted_sum5'</span>: [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>]}, <span class="st">'comcoll'</span>: {<span class="st">'subtract4'</span>: [<span class="fl">0.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>, <span class="fl">30.0</span>]}, <span class="st">'outcoll'</span>: {<span class="st">'proportional4'</span>: [<span class="fl">0.0</span>, <span class="fl">300.0</span>, <span class="fl">300.0</span>, <span class="fl">300.0</span>, <span class="fl">300.0</span>, <span class="fl">300.0</span>, <span class="fl">300.0</span>, <span class="fl">300.0</span>, <span class="fl">300.0</span>, <span class="fl">300.0</span>]}}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'refcoll': {'weighted_sum6': [0, 30, 30, 30, 30, 30, 30, 30, 30, 30]}, 'percoll': {'weighted_sum5': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}, 'comcoll': {'subtract4': [0, 30, 30, 30, 30, 30, 30, 30, 30, 30]}, 'outcoll': {'proportional4': [0, 300, 300, 300, 300, 300, 300, 300, 300, 300]}}</code></pre>
+</div>
+</div>
+</section>
+<section id="save-and-load" class="level2">
+<h2 class="anchored" data-anchor-id="save-and-load">Save and Load</h2>
+<p>Save a hierarchy to file.</p>
+<div id="b07c4735" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="3b491773" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>hpct1.save(<span class="st">"hpct.json"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Create a hierarchy from file.</p>
+<div id="f7e239a3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#loaded = PCTHierarchy.load("hpct.json", clear=False, namespace=namespace)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>loaded <span class="op">=</span> PCTHierarchy.load(<span class="st">"hpct.json"</span>, clear<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>loaded.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************
+pcthierarchy PCTHierarchy [3, 3, 3] ceb3566b-036f-11f0-894f-04d9f58727ab
+--------------------------
+PRE: precon Constant | 5 
+Level 0 Cols 3
+level0col0 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: weighted_sum WeightedSum | weights [1, 1, 1] | 900 | links  proportional3 proportional4 proportional5 
+PER: variable Variable | 0 
+COM: subtract Subtract | 900 | links  weighted_sum variable 
+OUT: proportional Proportional | gain 10 | 9000 | links  subtract 
+----------------------------
+level0col1 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: weighted_sum1 WeightedSum | weights [1, 1, 1] | 900 | links  proportional3 proportional4 proportional5 
+PER: variable1 Variable | 0 
+COM: subtract1 Subtract | 900 | links  weighted_sum1 variable1 
+OUT: proportional1 Proportional | gain 10 | 9000 | links  subtract1 
+----------------------------
+level0col2 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: weighted_sum2 WeightedSum | weights [1, 1, 1] | 900 | links  proportional3 proportional4 proportional5 
+PER: variable2 Variable | 0 
+COM: subtract2 Subtract | 900 | links  weighted_sum2 variable2 
+OUT: proportional2 Proportional | gain 10 | 9000 | links  subtract2 
+----------------------------
+Level 1 Cols 3
+level1col0 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: weighted_sum4 WeightedSum | weights [1, 1, 1] | 30 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum3 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract3 Subtract | 30 | links  weighted_sum4 weighted_sum3 
+OUT: proportional3 Proportional | gain 10 | 300 | links  subtract3 
+----------------------------
+level1col1 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: weighted_sum6 WeightedSum | weights [1, 1, 1] | 30 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum5 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract4 Subtract | 30 | links  weighted_sum6 weighted_sum5 
+OUT: proportional4 Proportional | gain 10 | 300 | links  subtract4 
+----------------------------
+level1col2 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: weighted_sum8 WeightedSum | weights [1, 1, 1] | 30 | links  proportional6 proportional7 proportional8 
+PER: weighted_sum7 WeightedSum | weights [1, 1, 1] | 0 | links  variable variable1 variable2 
+COM: subtract5 Subtract | 30 | links  weighted_sum8 weighted_sum7 
+OUT: proportional5 Proportional | gain 10 | 300 | links  subtract5 
+----------------------------
+Level 2 Cols 3
+level2col0 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: constant Constant | 1 
+PER: weighted_sum9 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract6 Subtract | 1 | links  constant weighted_sum9 
+OUT: proportional6 Proportional | gain 10 | 10 | links  subtract6 
+----------------------------
+level2col1 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: constant1 Constant | 1 
+PER: weighted_sum10 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract7 Subtract | 1 | links  constant1 weighted_sum10 
+OUT: proportional7 Proportional | gain 10 | 10 | links  subtract7 
+----------------------------
+level2col2 PCTNode ceb3566b-036f-11f0-894f-04d9f58727ab
+----------------------------
+REF: constant2 Constant | 1 
+PER: weighted_sum11 WeightedSum | weights [1, 1, 1] | 0 | links  weighted_sum3 weighted_sum5 weighted_sum7 
+COM: subtract8 Subtract | 1 | links  constant2 weighted_sum11 
+OUT: proportional8 Proportional | gain 10 | 10 | links  subtract8 
+----------------------------
+POST: postcon Constant | 10 
+**************************</code></pre>
+</div>
+</div>
+<div id="ddf23b7d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="257ce700" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://matplotlib.org/3.1.0/gallery/color/named_colors.html</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>loaded.draw(with_edge_labels<span class="op">=</span><span class="va">True</span>, color_mapping<span class="op">=</span>{<span class="st">'w'</span>:<span class="st">'aqua'</span>,<span class="st">'c'</span>:<span class="st">'limegreen'</span>,<span class="st">'s'</span>:<span class="st">'goldenrod'</span>, <span class="st">'p'</span>:<span class="st">'red'</span>, <span class="st">'v'</span>:<span class="st">'silver'</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="51_pcthierarchy_usage_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="examples" class="level6">
+<h6 class="anchored" data-anchor-id="examples">Examples</h6>
+<p>Build a hierarchy by adding nodes and functions manually.</p>
+<p>Create an empty hierarchy.</p>
+<div id="3230ca1e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>myhpct <span class="op">=</span> PCTHierarchy()</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>namespace<span class="op">=</span>myhpct.namespace</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>myhpct.summary(build<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************
+pcthierarchy PCTHierarchy [] cf9927d0-036f-11f0-8e9c-04d9f58727ab
+--------------------------
+PRE: None
+POST: None
+**************************</code></pre>
+</div>
+</div>
+<p>Add a node. Then nodes at particular positions.</p>
+<div id="5046128f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>myhpct.add_node(PCTNode(namespace<span class="op">=</span>namespace))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>myhpct.add_node(PCTNode(namespace<span class="op">=</span>namespace), level<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>myhpct.add_node(PCTNode(namespace<span class="op">=</span>namespace), level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>myhpct.summary(build<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************
+pcthierarchy PCTHierarchy [2, 1] cf9927d0-036f-11f0-8e9c-04d9f58727ab
+--------------------------
+PRE: None
+Level 0 Cols 2
+pctnode2 PCTNode cf9927d0-036f-11f0-8e9c-04d9f58727ab
+----------------------------
+REF: constant2 Constant | 0 
+PER: variable2 Variable | 0 
+COM: subtract2 Subtract | 0 
+OUT: proportional2 Proportional | gain 1 | 0 
+----------------------------
+pctnode PCTNode cf9927d0-036f-11f0-8e9c-04d9f58727ab
+----------------------------
+REF: constant Constant | 0 
+PER: variable Variable | 0 
+COM: subtract Subtract | 0 
+OUT: proportional Proportional | gain 1 | 0 
+----------------------------
+Level 1 Cols 1
+pctnode1 PCTNode cf9927d0-036f-11f0-8e9c-04d9f58727ab
+----------------------------
+REF: constant1 Constant | 0 
+PER: variable1 Variable | 0 
+COM: subtract1 Subtract | 0 
+OUT: proportional1 Proportional | gain 1 | 0 
+----------------------------
+POST: None
+**************************</code></pre>
+</div>
+</div>
+<p>Replace functions at particular positions in the hierarchy.</p>
+<div id="0c3a9013" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>myhpct.insert_function(level<span class="op">=</span><span class="dv">0</span>, col<span class="op">=</span><span class="dv">0</span>, collection<span class="op">=</span><span class="st">"perception"</span>, function<span class="op">=</span>Proportional(<span class="dv">3</span>, name<span class="op">=</span><span class="st">"prop2"</span>, namespace<span class="op">=</span>namespace))</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>myhpct.insert_function(level<span class="op">=</span><span class="dv">1</span>, col<span class="op">=</span><span class="dv">0</span>, collection<span class="op">=</span><span class="st">"perception"</span>, function<span class="op">=</span>WeightedSum(weights<span class="op">=</span>[<span class="dv">1</span>,<span class="dv">1</span>], name<span class="op">=</span><span class="st">"wsum"</span>, namespace<span class="op">=</span>namespace))</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>myhpct.insert_function(level<span class="op">=</span><span class="dv">0</span>, col<span class="op">=</span><span class="dv">1</span>, collection<span class="op">=</span><span class="st">"reference"</span>, function<span class="op">=</span>Proportional(<span class="dv">1</span>, name<span class="op">=</span><span class="st">"passthru"</span>, namespace<span class="op">=</span>namespace))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Add pre and post processor functions.</p>
+<div id="97d50963" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>myhpct.add_preprocessor(Constant(<span class="dv">1</span>, name<span class="op">=</span><span class="st">"cons1"</span>, namespace<span class="op">=</span>namespace))</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>myhpct.add_preprocessor(Proportional(<span class="dv">5</span>, name<span class="op">=</span><span class="st">"prop1"</span>, namespace<span class="op">=</span>namespace))</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>myhpct.add_postprocessor(Proportional(<span class="dv">5</span>, name<span class="op">=</span><span class="st">"postprop1"</span>, namespace<span class="op">=</span>namespace))</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>myhpct.add_postprocessor(Proportional(<span class="dv">5</span>, name<span class="op">=</span><span class="st">"postprop2"</span>, namespace<span class="op">=</span>namespace))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Link the functions together.</p>
+<div id="8b65fc37" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>myhpct.set_links(<span class="st">"prop1"</span>, <span class="st">"cons1"</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>myhpct.set_links(<span class="st">"prop2"</span>, <span class="st">"prop1"</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>myhpct.add_links(<span class="st">"wsum"</span>, <span class="st">"prop2"</span>, <span class="st">"variable"</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>myhpct.set_links(<span class="st">"passthru"</span>, <span class="st">"proportional1"</span>)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>myhpct.set_links(<span class="st">"postprop1"</span>, <span class="st">"proportional"</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>myhpct.set_links(<span class="st">"postprop2"</span>, <span class="st">"postprop1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="8f8cdee0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>myhpct.get_node(<span class="dv">0</span>,<span class="dv">0</span>).get_function(<span class="st">'reference'</span>).set_value(<span class="dv">1</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>myhpct.get_node(<span class="dv">1</span>,<span class="dv">0</span>).get_function(<span class="st">'reference'</span>).set_value(<span class="dv">1</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>myhpct.get_node(<span class="dv">0</span>,<span class="dv">0</span>).get_function(<span class="st">'output'</span>).set_property(<span class="st">'gain'</span>, <span class="dv">10</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>myhpct.get_node(<span class="dv">0</span>,<span class="dv">1</span>).get_function(<span class="st">'output'</span>).set_property(<span class="st">'gain'</span>, <span class="dv">10</span>)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>myhpct.get_node(<span class="dv">1</span>,<span class="dv">0</span>).get_function(<span class="st">'output'</span>).set_property(<span class="st">'gain'</span>, <span class="dv">10</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>myhpct.summary(build<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>**************************
+pcthierarchy PCTHierarchy [2, 1] cf9927d0-036f-11f0-8e9c-04d9f58727ab
+--------------------------
+PRE: cons1 Constant | 1 
+prop1 Proportional | gain 5 | 0 | links  cons1 
+Level 0 Cols 2
+pctnode2 PCTNode cf9927d0-036f-11f0-8e9c-04d9f58727ab
+----------------------------
+REF: constant2 Constant | 1 
+PER: prop2 Proportional | gain 3 | 0 | links  prop1 
+COM: subtract2 Subtract | 0 | links  constant2 prop2 
+OUT: proportional2 Proportional | gain 10 | 0 | links  subtract2 
+----------------------------
+pctnode PCTNode cf9927d0-036f-11f0-8e9c-04d9f58727ab
+----------------------------
+REF: passthru Proportional | gain 1 | 0 | links  proportional1 
+PER: variable Variable | 0 
+COM: subtract Subtract | 0 | links  passthru variable 
+OUT: proportional Proportional | gain 10 | 0 | links  subtract 
+----------------------------
+Level 1 Cols 1
+pctnode1 PCTNode cf9927d0-036f-11f0-8e9c-04d9f58727ab
+----------------------------
+REF: constant1 Constant | 1 
+PER: wsum WeightedSum | weights [1, 1] | 0 | links  prop2 variable 
+COM: subtract1 Subtract | 0 | links  constant1 wsum 
+OUT: proportional1 Proportional | gain 10 | 0 | links  subtract1 
+----------------------------
+POST: postprop1 Proportional | gain 5 | 0 | links  proportional 
+postprop2 Proportional | gain 5 | 0 | links  postprop1 
+**************************</code></pre>
+</div>
+</div>
+<div id="7f3546b6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>myhpctconfig <span class="op">=</span> myhpct.get_config()</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co">#print(myhpctconfig)</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> myhpctconfig <span class="op">==</span> {<span class="st">'type'</span>: <span class="st">'PCTHierarchy'</span>, <span class="st">'name'</span>: <span class="st">'pcthierarchy'</span>, <span class="st">'pre'</span>: {<span class="st">'pre0'</span>: {<span class="st">'type'</span>: <span class="st">'Constant'</span>, <span class="st">'name'</span>: <span class="st">'cons1'</span>, <span class="st">'value'</span>: <span class="dv">1</span>, <span class="st">'links'</span>: {}}, <span class="st">'pre1'</span>: {<span class="st">'type'</span>: <span class="st">'Proportional'</span>, <span class="st">'name'</span>: <span class="st">'prop1'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'cons1'</span>}, <span class="st">'gain'</span>: <span class="dv">5</span>}}, <span class="st">'levels'</span>: {<span class="st">'level0'</span>: {<span class="st">'level'</span>: <span class="dv">0</span>, <span class="st">'nodes'</span>: {<span class="st">'col0'</span>: {<span class="st">'col'</span>: <span class="dv">0</span>, <span class="st">'node'</span>: {<span class="st">'type'</span>: <span class="st">'PCTNode'</span>, <span class="st">'name'</span>: <span class="st">'pctnode2'</span>, <span class="st">'refcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Constant'</span>, <span class="st">'name'</span>: <span class="st">'constant2'</span>, <span class="st">'value'</span>: <span class="dv">1</span>, <span class="st">'links'</span>: {}}}, <span class="st">'percoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Proportional'</span>, <span class="st">'name'</span>: <span class="st">'prop2'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'prop1'</span>}, <span class="st">'gain'</span>: <span class="dv">3</span>}}, <span class="st">'comcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Subtract'</span>, <span class="st">'name'</span>: <span class="st">'subtract2'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'constant2'</span>, <span class="dv">1</span>: <span class="st">'prop2'</span>}}}, <span class="st">'outcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Proportional'</span>, <span class="st">'name'</span>: <span class="st">'proportional2'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'subtract2'</span>}, <span class="st">'gain'</span>: <span class="dv">10</span>}}}}, <span class="st">'col1'</span>: {<span class="st">'col'</span>: <span class="dv">1</span>, <span class="st">'node'</span>: {<span class="st">'type'</span>: <span class="st">'PCTNode'</span>, <span class="st">'name'</span>: <span class="st">'pctnode'</span>, <span class="st">'refcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Proportional'</span>, <span class="st">'name'</span>: <span class="st">'passthru'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'proportional1'</span>}, <span class="st">'gain'</span>: <span class="dv">1</span>}}, <span class="st">'percoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Variable'</span>, <span class="st">'name'</span>: <span class="st">'variable'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {}}}, <span class="st">'comcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Subtract'</span>, <span class="st">'name'</span>: <span class="st">'subtract'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'passthru'</span>, <span class="dv">1</span>: <span class="st">'variable'</span>}}}, <span class="st">'outcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Proportional'</span>, <span class="st">'name'</span>: <span class="st">'proportional'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'subtract'</span>}, <span class="st">'gain'</span>: <span class="dv">10</span>}}}}}}, <span class="st">'level1'</span>: {<span class="st">'level'</span>: <span class="dv">1</span>, <span class="st">'nodes'</span>: {<span class="st">'col0'</span>: {<span class="st">'col'</span>: <span class="dv">0</span>, <span class="st">'node'</span>: {<span class="st">'type'</span>: <span class="st">'PCTNode'</span>, <span class="st">'name'</span>: <span class="st">'pctnode1'</span>, <span class="st">'refcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Constant'</span>, <span class="st">'name'</span>: <span class="st">'constant1'</span>, <span class="st">'value'</span>: <span class="dv">1</span>, <span class="st">'links'</span>: {}}}, <span class="st">'percoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'WeightedSum'</span>, <span class="st">'name'</span>: <span class="st">'wsum'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'prop2'</span>, <span class="dv">1</span>: <span class="st">'variable'</span>}, <span class="st">'weights'</span>: [<span class="fl">1.0</span>, <span class="fl">1.0</span>]}}, <span class="st">'comcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Subtract'</span>, <span class="st">'name'</span>: <span class="st">'subtract1'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'constant1'</span>, <span class="dv">1</span>: <span class="st">'wsum'</span>}}}, <span class="st">'outcoll'</span>: {<span class="st">'0'</span>: {<span class="st">'type'</span>: <span class="st">'Proportional'</span>, <span class="st">'name'</span>: <span class="st">'proportional1'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'subtract1'</span>}, <span class="st">'gain'</span>: <span class="dv">10</span>}}}}}}}, <span class="st">'post'</span>: {<span class="st">'post0'</span>: {<span class="st">'type'</span>: <span class="st">'Proportional'</span>, <span class="st">'name'</span>: <span class="st">'postprop1'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'proportional'</span>}, <span class="st">'gain'</span>: <span class="dv">5</span>}, <span class="st">'post1'</span>: {<span class="st">'type'</span>: <span class="st">'Proportional'</span>, <span class="st">'name'</span>: <span class="st">'postprop2'</span>, <span class="st">'value'</span>: <span class="dv">0</span>, <span class="st">'links'</span>: {<span class="dv">0</span>: <span class="st">'postprop1'</span>}, <span class="st">'gain'</span>: <span class="dv">5</span>}}}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Define the order in which the node will be processed.</p>
+<div id="db5b0c97" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>myhpct.set_order([<span class="st">"pctnode2"</span>, <span class="st">"pctnode1"</span>, <span class="st">"pctnode"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run the hierarchy once.</p>
+<div id="3cf131d4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> myhpct(verbose<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(out)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> out <span class="op">==</span> <span class="op">-</span><span class="dv">35000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.000 5.000 
+pctnode2 1.000 15.000 -14.000 -140.000 
+pctnode1 1.000 15.000 -14.000 -140.000 
+pctnode -140.000 0.000 -140.000 -1400.000 
+-7000.000 -35000.000 
+-35000</code></pre>
+</div>
+</div>
+<div id="5727e03c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># config =  {'type': 'Individual', 'name': 'pcthierarchy', 'pre': {'pre0': {'type': 'CartPoleV1', 'name': 'CartPoleV1', 'value': [0.03498833197860944, 0.20994561633454428, 0.012668159509212712, -0.2705237130920193, 0.047656152654718356], 'links': {0: 'Action1'}, 'env_name': 'CartPole-v1', 'reward': 1.0, 'done': False, 'info': {}}, 'pre1': {'type': 'IndexedParameter', 'name': 'ICV', 'value': 0.20994561633454428, 'links': {0: 'CartPoleV1'}, 'index': 1}, 'pre2': {'type': 'IndexedParameter', 'name': 'ICP', 'value': 0.03498833197860944, 'links': {0: 'CartPoleV1'}, 'index': 0}, 'pre3': {'type': 'IndexedParameter', 'name': 'IPV', 'value': -0.2705237130920193, 'links': {0: 'CartPoleV1'}, 'index': 3}, 'pre4': {'type': 'IndexedParameter', 'name': 'IPA', 'value': 0.012668159509212712, 'links': {0: 'CartPoleV1'}, 'index': 2}}, 'levels': {'level0': {'level': 0, 'nodes': {'col0': {'col': 0, 'node': {'type': 'PCTNode', 'name': 'L0C0', 'refcoll': {'0': {'type': 'EAConstant', 'name': 'RL0C0', 'value': 0, 'links': {</span><span class="re">}}}</span><span class="co">, 'percoll': {'0': {'type': 'EAWeightedSum', 'name': 'PL0C0', 'value': -0.2705237130920193, 'links': {0: 'ICV', 1: 'ICP', 2: 'IPV', 3: 'IPA'}, 'weights': [0, 0, 1, 0]}}, 'comcoll': {'0': {'type': 'Subtract', 'name': 'CL0C0', 'value': 0.2705237130920193, 'links': {0: 'RL0C0', 1: 'PL0C0'</span><span class="re">}}}</span><span class="co">, 'outcoll': {'0': {'type': 'EAProportional', 'name': 'OL0C0', 'value': -0.05046166000036782, 'links': {0: 'CL0C0'}, 'gain': -0.1865332226280776</span><span class="re">}}}}}}</span><span class="co">}, 'post': {'post0': {'type': 'EAWeightedSum', 'name': 'Action1', 'value': -0.005282911840894066, 'links': {0: 'OL0C0'}, 'weights': [0.10469159835121472]</span><span class="re">}}}</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ind = PCTHierarchy.from_config(config)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="1127c4c3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pct.errors <span class="im">import</span> RootSumSquaredError, TotalError</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>er <span class="op">=</span> RootSumSquaredError()</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>te <span class="op">=</span> TotalError(error_response<span class="op">=</span>er, limit<span class="op">=</span><span class="dv">250</span>,<span class="bu">min</span><span class="op">=</span><span class="va">True</span>)   </span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>te.add_error_data([<span class="dv">1</span>, <span class="dv">2</span>])</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(te)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>hpct <span class="op">=</span> PCTHierarchy(<span class="dv">1</span>,<span class="dv">1</span>,error_collector<span class="op">=</span>te)</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>hpct.run(steps<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>err<span class="op">=</span>te.error()</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(err)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>TotalError limit:250, limit_exceeded:False, : RootSumSquaredError error_response:2.23606797749979
+[0] 
+level0col0 0.000 0.000 0.000 0.000 
+
+Current score=2.23606797749979
+[1] 
+level0col0 0.000 0.000 0.000 0.000 
+
+Current score=2.23606797749979
+[2] 
+level0col0 0.000 0.000 0.000 0.000 
+
+Current score=2.23606797749979
+[3] 
+level0col0 0.000 0.000 0.000 0.000 
+
+Current score=2.23606797749979
+[4] 
+level0col0 0.000 0.000 0.000 0.000 
+
+Current score=2.23606797749979
+2.23606797749979</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/perceptualrobots\.github\.io\/pct");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/perceptualrobots/pct/tree/master/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
