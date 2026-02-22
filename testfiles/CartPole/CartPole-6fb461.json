@@ -1,0 +1,130 @@
+{
+  "type": "PCTHierarchy",
+  "name": "pcthierarchy",
+  "pre": {
+    "pre0": {
+      "type": "CartPoleV1",
+      "name": "CartPoleV1",
+      "value": 0,
+      "links": {
+        "0": "Action1"
+      },
+      "env_name": "CartPole-v1",
+      "reward": 0,
+      "done": false,
+      "info": {}
+    },
+    "pre1": {
+      "type": "IndexedParameter",
+      "name": "ICV",
+      "value": 0.0,
+      "links": {
+        "0": "CartPoleV1"
+      },
+      "index": 1
+    },
+    "pre2": {
+      "type": "IndexedParameter",
+      "name": "ICP",
+      "value": -0.0,
+      "links": {
+        "0": "CartPoleV1"
+      },
+      "index": 0
+    },
+    "pre3": {
+      "type": "IndexedParameter",
+      "name": "IPV",
+      "value": -0.0,
+      "links": {
+        "0": "CartPoleV1"
+      },
+      "index": 3
+    },
+    "pre4": {
+      "type": "IndexedParameter",
+      "name": "IPA",
+      "value": 0.0,
+      "links": {
+        "0": "CartPoleV1"
+      },
+      "index": 2
+    }
+  },
+  "levels": {
+    "level0": {
+      "level": 0,
+      "nodes": {
+        "col0": {
+          "col": 0,
+          "node": {
+            "type": "PCTNode",
+            "name": "L0C0",
+            "refcoll": {
+              "0": {
+                "type": "Constant",
+                "name": "RL0C0",
+                "value": 0,
+                "links": {}
+              }
+            },
+            "percoll": {
+              "0": {
+                "type": "WeightedSum",
+                "name": "PL0C0",
+                "value": 0.0,
+                "links": {
+                  "0": "ICV",
+                  "1": "ICP",
+                  "2": "IPV",
+                  "3": "IPA"
+                },
+                "weights": [
+                  0.27221088025427387,
+                  0.3897051971173655,
+                  0.18972633379168974,
+                  0.5042974908402587
+                ]
+              }
+            },
+            "comcoll": {
+              "0": {
+                "type": "Subtract",
+                "name": "CL0C0",
+                "value": -0.0,
+                "links": {
+                  "0": "RL0C0",
+                  "1": "PL0C0"
+                }
+              }
+            },
+            "outcoll": {
+              "0": {
+                "type": "Proportional",
+                "name": "OL0C0",
+                "value": -0.0,
+                "links": {
+                  "0": "CL0C0"
+                },
+                "gain": 1.0503848144727153
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "post": {
+    "post0": {
+      "type": "WeightedSum",
+      "name": "Action1",
+      "value": 0,
+      "links": {
+        "0": "OL0C0"
+      },
+      "weights": [
+        -0.3368764120665674
+      ]
+    }
+  }
+}
