@@ -31,6 +31,12 @@ Examples:
   python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-4905d2.properties' --render --verbose
   python pct/applications/pct_example.py 'testfiles/CartPole/CartPole-6fb461.properties' --render --verbose
 
+  python pct/applications/pct_example.py 'testfiles/CartPole/CartPole-6150fd-reward.properties' --render 
+
+
+
+
+
   # Run with image output
   python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --image --image-size 16 10
   
