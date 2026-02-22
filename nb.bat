@@ -1,5 +1,6 @@
 @echo off
 echo %time%
-nbdev_prepare
+nbdev-install-hooks
+nbdev-prepare
 echo %time%
 
