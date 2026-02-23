@@ -7,6 +7,7 @@ This script demonstrates how to use PCTExamples.run_example() to run PCT hierarc
 import argparse
 import sys
 import os
+import json
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
@@ -28,12 +29,23 @@ Examples:
   # Run with rendering and verbose output
   python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --render --verbose
   python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-4905d2.properties' --render --verbose
+  python pct/applications/pct_example.py 'testfiles/CartPole/CartPole-6fb461.properties' --render --verbose
+
+  python pct/applications/pct_example.py 'testfiles/CartPole/CartPole-6150fd-reward.properties' --render 
+
+
+
+
 
   # Run with image output
   python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --image --image-size 16 10
   
   # Run with video output
   python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-4905d2.properties' --render --video --video-file output.mp4 --fps 60
+  
+  # Save configuration to JSON
+  python pct/applications/pct_example.py 'testfiles/CartPole/CartPole-6fb461.properties' --save-json
+  python pct/applications/pct_example.py 'testfiles/CartPole/CartPole-6fb461.properties' --save-json --json-file my_config.json
   
   # Full featured run with all options
   python pct/applications/pct_example.py 'testfiles/MountainCar/MountainCar-cdf7cc.properties' --run --render --steps 5000 --image --verbose
@@ -112,6 +124,16 @@ Examples:
                         default=60,
                         help='Video frames per second (default: 60)')
     
+    # JSON output options
+    parser.add_argument('--save-json',
+                        action='store_true',
+                        help='Save the configuration as a JSON file')
+    
+    parser.add_argument('--json-file',
+                        type=str,
+                        default=None,
+                        help='Output file for JSON configuration (default: auto-generated from config file name)')
+    
     # Set default for run_hierarchy to True
     parser.set_defaults(run_hierarchy=True)
     
@@ -135,6 +157,7 @@ Examples:
         'early_termination': args.early_termination,
         'verbose': args.verbose,
         'print_summary': args.summary,
+        'return_config': args.save_json,  # Request config if saving to JSON
     }
     
     # Add steps if specified
@@ -187,6 +210,23 @@ Examples:
         if results.get('success', False):
             if args.verbose:
                 print("\nExecution completed successfully!")
+            
+            # Save JSON configuration if requested
+            if args.save_json and 'config' in results:
+                # Generate default filename if not specified
+                if args.json_file:
+                    json_output_file = args.json_file
+                else:
+                    # Auto-generate from config file name
+                    base_name = os.path.splitext(os.path.basename(args.config_file))[0]
+                    json_output_file = f"{base_name}.json"
+                
+                try:
+                    with open(json_output_file, 'w') as f:
+                        json.dump(results['config'], f, indent=2)
+                    print(f"JSON configuration saved: {json_output_file}")
+                except Exception as e:
+                    print(f"Warning: Failed to save JSON configuration: {e}")
             
             # Report output files
             if 'image_file' in results:
