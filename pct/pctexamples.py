@@ -358,6 +358,9 @@ class PCTExamples:
                     if verbose:
                         print("Warning: No history data available for plotting")
             
+            # Include the hierarchy in results
+            results['hierarchy'] = example.hierarchy
+
             # Clean up
             example.close()
             results['success'] = True
