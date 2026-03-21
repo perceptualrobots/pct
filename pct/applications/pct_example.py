@@ -34,7 +34,7 @@ Examples:
   python pct/applications/pct_example.py 'testfiles/CartPole/CartPole-6150fd-reward.properties' --render 
 
 
-
+ python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-c4d6de.properties' --render
 
 
   # Run with image output
