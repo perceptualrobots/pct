@@ -885,10 +885,6 @@ class PCTHierarchy():
                 print(f'error_response_type: {type(error_response).__name__}')
             else:
                 print('error_response_type: None')
-            print(f'limit: {self.error_collector.limit}')
-            print(f'limit_exceeded: {self.error_collector.limit_exceeded}')
-            print(f'min: {self.error_collector.min}')
-            print(f'error: {self.error_collector.error()}')
         else:
             print('error_collector: None')
         print("***************************")
