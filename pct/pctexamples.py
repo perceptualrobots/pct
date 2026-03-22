@@ -398,7 +398,8 @@ class PCTExamples:
             steps=5000,
             print_summary=True,
             return_config=True,
-            verbose=True
+            verbose=True,
+            seed=42
         )
         
         # Just create image and get config
