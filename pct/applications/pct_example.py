@@ -34,7 +34,8 @@ Examples:
   python pct/applications/pct_example.py 'testfiles/CartPole/CartPole-6150fd-reward.properties' --render 
 
 
- python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-c4d6de.properties' --render
+  python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-c4d6de.properties' --render
+  python pct/applications/pct_example.py 'C:/Users/ruper/Versioning/python/nbdev/dpct/samples/configs/legacy/LunarLander-a420c93.properties' --render
 
 
   # Run with image output
@@ -91,6 +92,11 @@ Examples:
     parser.add_argument('--usage',
                         action='store_true',
                         help='Display detailed usage information')
+    
+    parser.add_argument('--seed',
+                        type=int,
+                        default=None,
+                        help='Random seed for the environment (overrides config file value)')
     
     # Image output options
     parser.add_argument('--image',
@@ -163,6 +169,10 @@ Examples:
     # Add steps if specified
     if args.steps is not None:
         run_params['steps'] = args.steps
+    
+    # Add seed if specified
+    if args.seed is not None:
+        run_params['seed'] = args.seed
     
     # Add image parameters if requested
     if args.image:
