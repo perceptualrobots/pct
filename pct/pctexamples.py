@@ -24,14 +24,15 @@ class PCTExamples:
     """
 
     def __init__(self, config_file, min=True, early_termination=False, history=False, additional_props=None, 
-                 render=False, video_params=None, suffixes=False):
+                 render=False, video_params=None, suffixes=False, seed=None):
         """
         Initializes the PCTExamples instance by loading the hierarchy from the given configuration file.
         """
         self.config_file = config_file
         self.hierarchy, self.env, self.environment_properties = PCTHierarchy.load_from_file(
             config_file, min=min, early_termination=early_termination, history=history, 
-            additional_props=additional_props, render=render, video=video_params, suffixes=suffixes
+            additional_props=additional_props, render=render, video=video_params, suffixes=suffixes,
+            seed=seed
         )
         self.history_data = None
         self.history = history
@@ -183,6 +184,7 @@ class PCTExamples:
                     video_params=None,
                     plot_params=None,
                     history=None,  # Allow explicit history control
+                    seed=None,
                     **kwargs):
         """
         Class method to run a PCT hierarchy example with various options.
@@ -201,6 +203,7 @@ class PCTExamples:
             video_params (dict or None): If not None, parameters for video creation (triggers video creation)
             plot_params (dict or None): If not None, parameters for plot creation (triggers plot creation)
             history (bool): Explicit control over history tracking (default: None - auto-determined)
+            seed (int or None): Random seed for the environment (default: None - uses config file value)
             **kwargs: Additional parameters passed to PCTExamples constructor
         
         Returns:
@@ -226,7 +229,8 @@ class PCTExamples:
                     steps=1000,              # Override step count
                     print_summary=True,      # Print hierarchy summary
                     return_config=True,      # Return configuration
-                    verbose=True             # Verbose output
+                    verbose=True,            # Verbose output
+                    seed=42                  # Set random seed
                 )
             
             Returns dictionary with results and any requested outputs.
@@ -266,6 +270,7 @@ class PCTExamples:
                 render=render,
                 history=enable_history,
                 video_params=video_params,
+                seed=seed,
                 **kwargs
             )
             
@@ -310,10 +315,10 @@ class PCTExamples:
                 
                 run_result = example.run(steps=run_steps, verbose=verbose)
                 results['run_result'] = run_result
-                results['steps_completed'] = run_steps
+                results['steps_completed'] = example.hierarchy.last_step() + 1
                 
                 if verbose:
-                    print(f"Hierarchy completed {run_steps} steps")
+                    print(f"Hierarchy completed {results['steps_completed']} steps")
             
             
             # Create plots if plot_params is not None
@@ -393,7 +398,8 @@ class PCTExamples:
             steps=5000,
             print_summary=True,
             return_config=True,
-            verbose=True
+            verbose=True,
+            seed=42
         )
         
         # Just create image and get config

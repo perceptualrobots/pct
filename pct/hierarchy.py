@@ -873,6 +873,21 @@ class PCTHierarchy():
 
 
         print("**************************")
+
+    def extended_summary(self, build=False, extra=False, check_namespace=False):
+        "Summary including error_collector_type and error_response_type."
+        self.summary(build=build, extra=extra, check_namespace=check_namespace)
+        print("----- Error Collector -----")
+        if self.error_collector is not None:
+            print(f'error_collector_type: {type(self.error_collector).__name__}')
+            error_response = self.error_collector.get_error_response()
+            if error_response is not None:
+                print(f'error_response_type: {type(error_response).__name__}')
+            else:
+                print('error_response_type: None')
+        else:
+            print('error_collector: None')
+        print("***************************")
             
     def save(self, file=None, indent=4):
         import json
