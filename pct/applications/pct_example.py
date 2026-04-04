@@ -36,6 +36,8 @@ Examples:
 
   python pct/applications/pct_example.py 'testfiles/LunarLander/LunarLander-c4d6de.properties' --render
   python pct/applications/pct_example.py 'C:/Users/ruper/Versioning/python/nbdev/dpct/samples/configs/legacy/LunarLander-a420c93.properties' --render --steps 2000 --early-termination --seed 10
+  python pct/applications/pct_example.py 'C:/Users/ruper/Versioning/python/nbdev/dpct/samples/configs/legacy/LunarLander-f7d501.properties' --render --steps 2000 --early-termination --seed 10
+  python pct/applications/pct_example.py 'C:/Users/ruper/Versioning/python/nbdev/dpct/samples/configs/legacy/LunarLander-82e7b5.properties' --render --steps 2000 --early-termination --seed 10
 
 
   # Run with image output
